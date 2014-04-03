@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.1">
+  <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/02/27 08:02:34 323 -0300"/>
+  </eAnnotations>
+  <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Test" name="Test">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Test-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Test"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Test-base_Class" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-External" name="External">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-External-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="External"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-External-base_Class" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Debuggable" name="Debuggable">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Debuggable-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Debuggable"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Debuggable-lineNumber" name="lineNumber" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/4.0.0/Types#//Integer"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Debuggable-source" name="source" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/4.0.0/Types#//String"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Debuggable-base_Action" name="base_Action" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Action"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-EntryPoint" name="EntryPoint">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-EntryPoint-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="EntryPoint"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-EntryPoint-base_Operation" name="base_Operation" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Operation"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Name" name="Name">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Name-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Name"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Name-base_Property" name="base_Property" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Property"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Closure" name="Closure">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Closure-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Closure"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Closure-context" name="context" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//StructuredActivityNode"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Closure-base_Activity" name="base_Activity" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Activity"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AttributeInitialization" name="AttributeInitialization">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AttributeInitialization-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="AttributeInitialization"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AttributeInitialization-initialized" name="initialized" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Property"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AttributeInitialization-base_InputPin" name="base_InputPin" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//InputPin"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ObjectInitialization" name="ObjectInitialization">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ObjectInitialization-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="ObjectInitialization"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ObjectInitialization-slotValues" name="slotValues" ordered="false" upperBound="-1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//InputPin"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ObjectInitialization-base_CreateObjectAction" name="base_CreateObjectAction" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//CreateObjectAction"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ConstraintBehavior" name="ConstraintBehavior">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ConstraintBehavior-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="ConstraintBehavior"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ConstraintBehavior-constraint" name="constraint" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ConstraintBehavior-base_Activity" name="base_Activity" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Activity"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature" name="Signature">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Signature"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature-base_Interface" name="base_Interface" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Interface"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-MetaReference" name="MetaReference">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-MetaReference-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="MetaReference"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-MetaReference-target" name="target" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Element"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-MetaReference-base_LiteralNull" name="base_LiteralNull" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//LiteralNull"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-BasicValue" name="BasicValue">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-BasicValue-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="BasicValue"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-BasicValue-basicType" name="basicType" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Classifier"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-BasicValue-base_LiteralString" name="base_LiteralString" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//LiteralString"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-VertexLiteral" name="VertexLiteral">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-VertexLiteral-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="VertexLiteral"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-VertexLiteral-vertex" name="vertex" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Vertex"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-VertexLiteral-base_LiteralNull" name="base_LiteralNull" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//LiteralNull"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Rule" name="Rule">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Rule-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Rule"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Rule-violation" name="violation" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Classifier"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Rule-base_Constraint" name="base_Constraint" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Invariant" name="Invariant">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Invariant-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Invariant"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Invariant-base_Constraint" name="base_Constraint" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access" name="Access">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Access"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-base_Constraint" name="base_Constraint" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-PropertyDerivation" name="PropertyDerivation">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-PropertyDerivation-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="PropertyDerivation"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-PropertyDerivation-base_Constraint" name="base_Constraint" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <elementImport xmi:id="_elementImport.0" visibility="private">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
+  </elementImport>
+  <elementImport xmi:id="_elementImport.1" visibility="private">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+  </elementImport>
+  <elementImport xmi:id="_elementImport.2" visibility="private">
+    <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+  </elementImport>
+  <packageImport xmi:id="_packageImport.0" visibility="private">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_packageImport.1">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Test" name="Test">
+    <ownedAttribute xmi:id="Test-base_Class" name="base_Class" association="Class_Test">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="External" name="External">
+    <ownedComment xmi:id="External-_ownedComment.0" annotatedElement="External">
+      <body> External classes are implemented as Java classes </body>
+    </ownedComment>
+    <ownedAttribute xmi:id="External-base_Class" name="base_Class" association="Class_External">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Debuggable" name="Debuggable">
+    <ownedComment xmi:id="Debuggable-_ownedComment.0" annotatedElement="Debuggable">
+      <body> Debuggable elements can have line number info </body>
+    </ownedComment>
+    <ownedAttribute xmi:id="Debuggable-lineNumber" name="lineNumber">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Debuggable-lineNumber-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Debuggable-lineNumber-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="Debuggable-source" name="source">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Debuggable-source-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Debuggable-source-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="Debuggable-base_Action" name="base_Action" association="Action_Debuggable">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Action"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="EntryPoint" name="EntryPoint">
+    <ownedComment xmi:id="EntryPoint-_ownedComment.0" annotatedElement="EntryPoint">
+      <body> Operations marked as entryPoint can be used to run a model </body>
+    </ownedComment>
+    <ownedAttribute xmi:id="EntryPoint-base_Operation" name="base_Operation" association="Operation_EntryPoint">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Name" name="Name">
+    <ownedAttribute xmi:id="Name-base_Property" name="base_Property" association="Property_Name">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Closure" name="Closure">
+    <ownedAttribute xmi:id="Closure-context" name="context">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#StructuredActivityNode"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Closure-context-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Closure-context-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="Closure-base_Activity" name="base_Activity" association="Activity_Closure">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="AttributeInitialization" name="AttributeInitialization">
+    <ownedAttribute xmi:id="AttributeInitialization-initialized" name="initialized">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="AttributeInitialization-initialized-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="AttributeInitialization-initialized-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="AttributeInitialization-base_InputPin" name="base_InputPin" association="InputPin_AttributeInitialization">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#InputPin"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="ObjectInitialization" name="ObjectInitialization">
+    <ownedAttribute xmi:id="ObjectInitialization-slotValues" name="slotValues">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#InputPin"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ObjectInitialization-slotValues-_lowerValue"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ObjectInitialization-slotValues-_upperValue" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="ObjectInitialization-base_CreateObjectAction" name="base_CreateObjectAction" association="CreateObjectAction_ObjectInitialization">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#CreateObjectAction"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="ConstraintBehavior" name="ConstraintBehavior">
+    <ownedAttribute xmi:id="ConstraintBehavior-constraint" name="constraint">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ConstraintBehavior-constraint-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ConstraintBehavior-constraint-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="ConstraintBehavior-base_Activity" name="base_Activity" association="Activity_ConstraintBehavior">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Signature" name="Signature">
+    <ownedAttribute xmi:id="Signature-base_Interface" name="base_Interface" association="Interface_Signature">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Interface"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="MetaReference" name="MetaReference">
+    <ownedAttribute xmi:id="MetaReference-target" name="target">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="MetaReference-target-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="MetaReference-target-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="MetaReference-base_LiteralNull" name="base_LiteralNull" association="LiteralNull_MetaReference">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralNull"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="BasicValue" name="BasicValue">
+    <ownedAttribute xmi:id="BasicValue-basicType" name="basicType">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="BasicValue-basicType-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="BasicValue-basicType-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="BasicValue-base_LiteralString" name="base_LiteralString" association="LiteralString_BasicValue">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralString"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="VertexLiteral" name="VertexLiteral">
+    <ownedAttribute xmi:id="VertexLiteral-vertex" name="vertex">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Vertex"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="VertexLiteral-vertex-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="VertexLiteral-vertex-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="VertexLiteral-base_LiteralNull" name="base_LiteralNull" association="LiteralNull_VertexLiteral">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralNull"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Rule" name="Rule">
+    <ownedAttribute xmi:id="Rule-violation" name="violation">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Classifier"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Rule-violation-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Rule-violation-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="Rule-base_Constraint" name="base_Constraint" association="Constraint_Rule">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Invariant" name="Invariant">
+    <ownedAttribute xmi:id="Invariant-base_Constraint" name="base_Constraint" association="Constraint_Invariant">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Access" name="Access">
+    <ownedAttribute xmi:id="Access-base_Constraint" name="base_Constraint" association="Constraint_Access">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="PropertyDerivation" name="PropertyDerivation">
+    <ownedAttribute xmi:id="PropertyDerivation-base_Constraint" name="base_Constraint" association="Constraint_PropertyDerivation">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Class_Test" name="Class_Test" memberEnd="Class_Test-extension_Test Test-base_Class">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Class_Test-extension_Test" name="extension_Test" type="Test" aggregation="composite" association="Class_Test"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Class_External" name="Class_External" memberEnd="Class_External-extension_External External-base_Class">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Class_External-extension_External" name="extension_External" type="External" aggregation="composite" association="Class_External"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Action_Debuggable" name="Action_Debuggable" memberEnd="Action_Debuggable-extension_Debuggable Debuggable-base_Action">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Action_Debuggable-extension_Debuggable" name="extension_Debuggable" type="Debuggable" aggregation="composite" association="Action_Debuggable"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Operation_EntryPoint" name="Operation_EntryPoint" memberEnd="Operation_EntryPoint-extension_EntryPoint EntryPoint-base_Operation">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Operation_EntryPoint-extension_EntryPoint" name="extension_EntryPoint" type="EntryPoint" aggregation="composite" association="Operation_EntryPoint"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Property_Name" name="Property_Name" memberEnd="Property_Name-extension_Name Name-base_Property">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Property_Name-extension_Name" name="extension_Name" type="Name" aggregation="composite" association="Property_Name"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Activity_Closure" name="Activity_Closure" memberEnd="Activity_Closure-extension_Closure Closure-base_Activity">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Activity_Closure-extension_Closure" name="extension_Closure" type="Closure" aggregation="composite" association="Activity_Closure"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="InputPin_AttributeInitialization" name="InputPin_AttributeInitialization" memberEnd="InputPin_AttributeInitialization-extension_AttributeInitialization AttributeInitialization-base_InputPin">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="InputPin_AttributeInitialization-extension_AttributeInitialization" name="extension_AttributeInitialization" type="AttributeInitialization" aggregation="composite" association="InputPin_AttributeInitialization"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="CreateObjectAction_ObjectInitialization" name="CreateObjectAction_ObjectInitialization" memberEnd="CreateObjectAction_ObjectInitialization-extension_ObjectInitialization ObjectInitialization-base_CreateObjectAction">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="CreateObjectAction_ObjectInitialization-extension_ObjectInitialization" name="extension_ObjectInitialization" type="ObjectInitialization" aggregation="composite" association="CreateObjectAction_ObjectInitialization"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Activity_ConstraintBehavior" name="Activity_ConstraintBehavior" memberEnd="Activity_ConstraintBehavior-extension_ConstraintBehavior ConstraintBehavior-base_Activity">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Activity_ConstraintBehavior-extension_ConstraintBehavior" name="extension_ConstraintBehavior" type="ConstraintBehavior" aggregation="composite" association="Activity_ConstraintBehavior"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Interface_Signature" name="Interface_Signature" memberEnd="Interface_Signature-extension_Signature Signature-base_Interface">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Interface_Signature-extension_Signature" name="extension_Signature" type="Signature" aggregation="composite" association="Interface_Signature"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="LiteralNull_MetaReference" name="LiteralNull_MetaReference" memberEnd="LiteralNull_MetaReference-extension_MetaReference MetaReference-base_LiteralNull">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="LiteralNull_MetaReference-extension_MetaReference" name="extension_MetaReference" type="MetaReference" aggregation="composite" association="LiteralNull_MetaReference"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="LiteralString_BasicValue" name="LiteralString_BasicValue" memberEnd="LiteralString_BasicValue-extension_BasicValue BasicValue-base_LiteralString">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="LiteralString_BasicValue-extension_BasicValue" name="extension_BasicValue" type="BasicValue" aggregation="composite" association="LiteralString_BasicValue"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="LiteralNull_VertexLiteral" name="LiteralNull_VertexLiteral" memberEnd="LiteralNull_VertexLiteral-extension_VertexLiteral VertexLiteral-base_LiteralNull">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="LiteralNull_VertexLiteral-extension_VertexLiteral" name="extension_VertexLiteral" type="VertexLiteral" aggregation="composite" association="LiteralNull_VertexLiteral"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_Rule" name="Constraint_Rule" memberEnd="Constraint_Rule-extension_Rule Rule-base_Constraint">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_Rule-extension_Rule" name="extension_Rule" type="Rule" aggregation="composite" association="Constraint_Rule"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_Invariant" name="Constraint_Invariant" memberEnd="Constraint_Invariant-extension_Invariant Invariant-base_Constraint">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_Invariant-extension_Invariant" name="extension_Invariant" type="Invariant" aggregation="composite" association="Constraint_Invariant"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_Access" name="Constraint_Access" memberEnd="Constraint_Access-extension_Access Access-base_Constraint">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_Access-extension_Access" name="extension_Access" type="Access" aggregation="composite" association="Constraint_Access"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_PropertyDerivation" name="Constraint_PropertyDerivation" memberEnd="Constraint_PropertyDerivation-extension_PropertyDerivation PropertyDerivation-base_Constraint">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_PropertyDerivation-extension_PropertyDerivation" name="extension_PropertyDerivation" type="PropertyDerivation" aggregation="composite" association="Constraint_PropertyDerivation"/>
+  </packagedElement>
+</uml:Profile>

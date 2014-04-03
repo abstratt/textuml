@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MDD Front-End Core
+Bundle-SymbolicName: com.abstratt.mdd.frontend.core;singleton:=true
+Bundle-Version: 1.120.1.qualifier
+Bundle-Vendor: Abstratt Technologies
+Require-Bundle: com.abstratt.mdd.core;visibility:=reexport,
+ org.eclipse.core.runtime
+Export-Package: com.abstratt.mdd.frontend.core,
+ com.abstratt.mdd.frontend.core.builder,
+ com.abstratt.mdd.frontend.core.builder.actions,
+ com.abstratt.mdd.frontend.core.spi,
+ com.abstratt.mdd.frontend.internal.core

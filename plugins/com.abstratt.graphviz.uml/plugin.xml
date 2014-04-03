@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="com.abstratt.content.contentProvider">
+      <provider
+            class="com.abstratt.graphviz.uml.ui.UML2GraphicalContentProvider">
+         <association 
+               contentType="com.abstratt.uml.contentType"/>
+         <reader
+               class="com.abstratt.imageviewer.FileToURIReader"/>
+          <association contentType="org.eclipse.uml2"/>
+          <association contentType="org.eclipse.uml2.uml"/>
+	      <association contentType="org.eclipse.uml2.uml_2_0_0"/>
+	      <association contentType="org.eclipse.uml2.uml_2_1_0"/>
+	      <association contentType="org.omg.uml"/>
+	      <association contentType="org.omg.uml_2_1"/>
+	      <association contentType="org.omg.uml_2_1_1"/>
+	      <association contentType="org.omg.uml_2_1_2"/>
+	      <association contentType="org.omg.mof.cmof"/>
+      </provider>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="com.abstratt.graphviz.ui.GraphVizPreferencePage"
+            class="com.abstratt.graphviz.uml.ui.UMLPreferencePage"
+            id="com.abstratt.graphviz.uml.PreferencePage"
+            name="UML">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.abstratt.graphviz.uml.UMLPreferences$Initializer">
+      </initializer>
+   </extension>
+
+</plugin>

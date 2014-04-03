@@ -1,0 +1,28 @@
+profile kirra;
+
+stereotype User extends UML::Class end;
+
+stereotype Entity extends UML::Class end;
+
+(*
+    A service is a part of a component that is not an entity.
+*)
+stereotype Service extends UML::Class end;
+
+stereotype Action extends UML::Operation end;
+
+stereotype Finder extends UML::Operation end;
+
+stereotype Event extends UML::Operation end;
+
+stereotype Retriever extends UML::Operation end;
+
+stereotype Essential extends UML::Property end;
+
+stereotype Unique extends UML::Property end;
+
+stereotype Identifier extends UML::Property end;
+
+stereotype BusinessRuleViolation extends UML::Classifier end;
+
+end.

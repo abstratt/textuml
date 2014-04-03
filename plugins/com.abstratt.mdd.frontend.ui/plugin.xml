@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         id="com.abstratt.mdd.ui.builder"
+         name="MDD Front-end Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder hasNature="true">
+         <run class="com.abstratt.mdd.frontend.internal.ui.VerySimpleBuilder"/>
+      </builder>
+   </extension>
+   <extension
+         id="com.abstratt.mdd.ui.marker"
+         name="MDD Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.eclipse.core.resources.textmarker"/>
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+</plugin>

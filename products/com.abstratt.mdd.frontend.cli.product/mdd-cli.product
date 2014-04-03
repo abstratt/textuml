@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="MDD Frontend CLI  Product" uid="com.abstratt.mdd-cli" id="com.abstratt.mdd-cli" application="com.abstratt.mdd.frontend.cli.compiler" useFeatures="false" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-consolelog</programArgs>
+   </launcherArgs>
+
+   <launcher name="mdd-cli">
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+      <plugin id="com.abstratt.mdd.core"/>
+      <plugin id="com.abstratt.mdd.frontend.core"/>
+      <plugin id="com.abstratt.mdd.frontend.textuml.core"/>
+      <plugin id="com.abstratt.mdd.frontend.cli"/>
+      <plugin id="com.abstratt.kirra.mdd.core"/>
+   </plugins>
+
+   <features>
+   </features>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
+   </configurations>
+
+</product>

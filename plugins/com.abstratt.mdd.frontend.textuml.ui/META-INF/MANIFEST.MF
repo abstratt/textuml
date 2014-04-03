@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: TextUML Front-End UI
+Bundle-SymbolicName: com.abstratt.mdd.frontend.textuml.ui;singleton:=true
+Bundle-Version: 1.120.1.qualifier
+Bundle-Vendor: Abstratt Technologies
+Require-Bundle: com.abstratt.mdd.frontend.textuml.core,
+ com.abstratt.mdd.core,
+ com.abstratt.mdd.ui,
+ com.abstratt.mdd.frontend.core,
+ com.abstratt.mdd.frontend.ui,
+ org.eclipse.core.resources,
+ org.eclipse.jface.text,
+ org.eclipse.core.runtime,
+ org.eclipse.jface,
+ org.eclipse.ui.workbench,
+ org.eclipse.ui.views,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.editors,
+ com.abstratt.mdd.frontend.textuml.renderer,
+ org.eclipse.ui
+Bundle-Localization: plugin
+Bundle-Activator: com.abstratt.mdd.internal.ui.TextUMLUIPlugin
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

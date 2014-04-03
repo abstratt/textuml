@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Standalone Demo
+Bundle-SymbolicName: com.abstratt.standalone.demo
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Abstratt Technologies
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.eclipse.emf.ecore,
+ com.abstratt.standalone,
+ org.eclipse.equinox.supplement
+Export-Package: com.abstratt.standalone.demo

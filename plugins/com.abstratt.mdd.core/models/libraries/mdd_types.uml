@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:l2="http://www.eclipse.org/uml2/4.0.0/UML/Profile/L2" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML">
+  <uml:Model xmi:id="_0" name="mdd_types" URI="libraries/mdd_types">
+    <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/02/27 01:43:34 462 -0300"/>
+    </eAnnotations>
+    <packageImport xmi:id="_packageImport.0" visibility="private">
+      <importedPackage xmi:type="uml:Profile" href="pathmap://UML_PROFILES/StandardL2.profile.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Actor" xmi:id="Anyone" name="Anyone">
+      <eAnnotations xmi:id="Anyone-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Anyone-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="System" name="System">
+      <eAnnotations xmi:id="System-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="System-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <ownedOperation xmi:id="System-user" name="user" visibility="public" isStatic="true">
+        <eAnnotations xmi:id="System-user-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="System-user-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="9"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="System-user-_ownedParameter.0" type="AnyType" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="System-user-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="System-user-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Assert" name="Assert">
+      <eAnnotations xmi:id="Assert-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Assert-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <ownedOperation xmi:id="Assert-isTrue" name="isTrue" visibility="public" isStatic="true">
+        <eAnnotations xmi:id="Assert-isTrue-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Assert-isTrue-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="13"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Assert-isTrue-condition" name="condition" type="Boolean" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isTrue-condition-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isTrue-condition-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Assert-areEqual" name="areEqual" visibility="public" isStatic="true">
+        <eAnnotations xmi:id="Assert-areEqual-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Assert-areEqual-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="14"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Assert-areEqual-expected" name="expected" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-areEqual-expected-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-areEqual-expected-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Assert-areEqual-actual" name="actual" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-areEqual-actual-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-areEqual-actual-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Basic" name="Basic">
+      <eAnnotations xmi:id="Basic-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Basic-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <ownedOperation xmi:id="Basic-same" name="same" visibility="public">
+        <eAnnotations xmi:id="Basic-same-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Basic-same-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="18"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Basic-same-other" name="other" type="Object" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Basic-same-other-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Basic-same-other-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Basic-same-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Basic-same-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Basic-same-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Basic-toString" name="toString" visibility="public">
+        <eAnnotations xmi:id="Basic-toString-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Basic-toString-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="19"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Basic-toString-_ownedParameter.0" type="String" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Basic-toString-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Basic-toString-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="AnyType" name="AnyType">
+      <eAnnotations xmi:id="AnyType-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="AnyType-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <ownedComment xmi:id="AnyType-_ownedComment.0" annotatedElement="AnyType">
+        <body> The type of any. </body>
+      </ownedComment>
+      <generalization xmi:id="AnyType-_generalization.0" general="Basic"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="NullType" name="NullType">
+      <eAnnotations xmi:id="NullType-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="NullType-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <ownedComment xmi:id="NullType-_ownedComment.0" annotatedElement="NullType">
+        <body> The type of null. </body>
+      </ownedComment>
+      <generalization xmi:id="NullType-_generalization.0" general="Basic"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Object" name="Object">
+      <eAnnotations xmi:id="Object-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Object-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <ownedComment xmi:id="Object-_ownedComment.0" annotatedElement="Object">
+        <body> The implicit super class for all user classes </body>
+      </ownedComment>
+      <generalization xmi:id="Object-_generalization.0" general="Basic"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="Value" name="Value">
+      <eAnnotations xmi:id="Value-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Value-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <ownedComment xmi:id="Value-_ownedComment.0" annotatedElement="Value">
+        <body> The implicit super datatype for all datatypes </body>
+      </ownedComment>
+      <ownedOperation xmi:id="Value-equals" name="equals" visibility="public">
+        <eAnnotations xmi:id="Value-equals-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Value-equals-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="37"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Value-equals-other" name="other" type="Value" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-equals-other-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-equals-other-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Value-equals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-equals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-equals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Value-toString" name="toString" visibility="public">
+        <eAnnotations xmi:id="Value-toString-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Value-toString-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="38"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Value-toString-_ownedParameter.0" type="String" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-toString-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-toString-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Primitive" name="Primitive">
+      <eAnnotations xmi:id="Primitive-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Primitive-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <generalization xmi:id="Primitive-_generalization.0" general="Basic"/>
+      <ownedAttribute xmi:id="Primitive-value" name="value" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-value-_lowerValue" type="Integer" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-value-_upperValue" type="Integer" value="1"/>
+      </ownedAttribute>
+      <ownedOperation xmi:id="Primitive-notEquals" name="notEquals" visibility="public">
+        <eAnnotations xmi:id="Primitive-notEquals-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Primitive-notEquals-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="43"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Primitive-notEquals-other" name="other" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-notEquals-other-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-notEquals-other-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Primitive-notEquals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-notEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-notEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Primitive-greaterThan" name="greaterThan" visibility="public">
+        <eAnnotations xmi:id="Primitive-greaterThan-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Primitive-greaterThan-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="44"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Primitive-greaterThan-r" name="r" type="Primitive" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterThan-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterThan-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Primitive-greaterThan-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterThan-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Primitive-lowerThan" name="lowerThan" visibility="public">
+        <eAnnotations xmi:id="Primitive-lowerThan-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Primitive-lowerThan-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="45"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Primitive-lowerThan-r" name="r" type="Primitive" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerThan-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerThan-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Primitive-lowerThan-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerThan-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Primitive-greaterOrEquals" name="greaterOrEquals" visibility="public">
+        <eAnnotations xmi:id="Primitive-greaterOrEquals-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Primitive-greaterOrEquals-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="46"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Primitive-greaterOrEquals-r" name="r" type="Primitive" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterOrEquals-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterOrEquals-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Primitive-greaterOrEquals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterOrEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Primitive-lowerOrEquals" name="lowerOrEquals" visibility="public">
+        <eAnnotations xmi:id="Primitive-lowerOrEquals-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Primitive-lowerOrEquals-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="47"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Primitive-lowerOrEquals-r" name="r" type="Primitive" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerOrEquals-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerOrEquals-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Primitive-lowerOrEquals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerOrEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Primitive-equals" name="equals" visibility="public">
+        <eAnnotations xmi:id="Primitive-equals-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Primitive-equals-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="48"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Primitive-equals-other" name="other" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-equals-other-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-equals-other-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Primitive-equals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-equals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-equals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Boolean" name="Boolean">
+      <eAnnotations xmi:id="Boolean-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Boolean-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <generalization xmi:id="Boolean-_generalization.0" general="Primitive"/>
+      <ownedOperation xmi:id="Boolean-not" name="not" visibility="public">
+        <eAnnotations xmi:id="Boolean-not-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Boolean-not-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="52"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Boolean-not-_ownedParameter.0" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-not-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-not-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Boolean-and" name="and" visibility="public">
+        <eAnnotations xmi:id="Boolean-and-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Boolean-and-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="53"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Boolean-and-b" name="b" type="Boolean" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-and-b-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-and-b-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Boolean-and-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-and-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-and-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Boolean-or" name="or" visibility="public">
+        <eAnnotations xmi:id="Boolean-or-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Boolean-or-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="54"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Boolean-or-b" name="b" type="Boolean" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-or-b-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-or-b-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Boolean-or-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-or-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-or-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Boolean-xor" name="xor" visibility="public">
+        <eAnnotations xmi:id="Boolean-xor-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Boolean-xor-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="55"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Boolean-xor-b" name="b" type="Boolean" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-xor-b-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-xor-b-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Boolean-xor-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-xor-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-xor-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Boolean-implies" name="implies" visibility="public">
+        <eAnnotations xmi:id="Boolean-implies-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Boolean-implies-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="56"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Boolean-implies-b" name="b" type="Boolean" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-implies-b-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-implies-b-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Boolean-implies-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-implies-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-implies-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Number" name="Number">
+      <eAnnotations xmi:id="Number-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Number-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <generalization xmi:id="Number-_generalization.0" general="Primitive"/>
+      <ownedOperation xmi:id="Number-add" name="add" visibility="public">
+        <eAnnotations xmi:id="Number-add-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Number-add-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="60"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Number-add-r" name="r" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-add-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-add-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Number-add-_ownedParameter.1" type="Number" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-add-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-add-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Number-subtract" name="subtract" visibility="public">
+        <eAnnotations xmi:id="Number-subtract-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Number-subtract-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="61"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Number-subtract-r" name="r" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-subtract-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-subtract-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Number-subtract-_ownedParameter.1" type="Number" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-subtract-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-subtract-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Number-subtract.1" name="subtract" visibility="public">
+        <eAnnotations xmi:id="Number-subtract.1-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Number-subtract.1-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="62"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Number-subtract.1-_ownedParameter.0" type="Number" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-subtract.1-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-subtract.1-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Number-multiply" name="multiply" visibility="public">
+        <eAnnotations xmi:id="Number-multiply-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Number-multiply-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="63"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Number-multiply-r" name="r" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-multiply-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-multiply-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Number-multiply-_ownedParameter.1" type="Number" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-multiply-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-multiply-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Number-divide" name="divide" visibility="public">
+        <eAnnotations xmi:id="Number-divide-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Number-divide-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="64"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Number-divide-r" name="r" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-divide-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-divide-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Number-divide-_ownedParameter.1" type="Number" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-divide-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-divide-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Number-asInteger" name="asInteger" visibility="public">
+        <eAnnotations xmi:id="Number-asInteger-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Number-asInteger-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="65"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Number-asInteger-_ownedParameter.0" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-asInteger-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-asInteger-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Number-asDouble" name="asDouble" visibility="public">
+        <eAnnotations xmi:id="Number-asDouble-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Number-asDouble-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="66"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Number-asDouble-_ownedParameter.0" type="Double" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-asDouble-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-asDouble-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Integer" name="Integer">
+      <eAnnotations xmi:id="Integer-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Integer-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <generalization xmi:id="Integer-_generalization.0" general="Double"/>
+      <ownedOperation xmi:id="Integer-add" name="add" visibility="public">
+        <eAnnotations xmi:id="Integer-add-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Integer-add-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="70"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Integer-add-r" name="r" type="Integer" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-add-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-add-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Integer-add-_ownedParameter.1" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-add-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-add-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Integer-subtract" name="subtract" visibility="public">
+        <eAnnotations xmi:id="Integer-subtract-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Integer-subtract-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="71"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Integer-subtract-r" name="r" type="Integer" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-subtract-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-subtract-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Integer-subtract-_ownedParameter.1" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-subtract-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-subtract-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Integer-subtract.1" name="subtract" visibility="public">
+        <eAnnotations xmi:id="Integer-subtract.1-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Integer-subtract.1-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="72"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Integer-subtract.1-_ownedParameter.0" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-subtract.1-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-subtract.1-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Integer-multiply" name="multiply" visibility="public">
+        <eAnnotations xmi:id="Integer-multiply-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Integer-multiply-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="73"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Integer-multiply-r" name="r" type="Integer" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-multiply-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-multiply-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Integer-multiply-_ownedParameter.1" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-multiply-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-multiply-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Integer-divide" name="divide" visibility="public">
+        <eAnnotations xmi:id="Integer-divide-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Integer-divide-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="74"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Integer-divide-r" name="r" type="Integer" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-divide-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-divide-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Integer-divide-_ownedParameter.1" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-divide-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-divide-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Double" name="Double">
+      <eAnnotations xmi:id="Double-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Double-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <generalization xmi:id="Double-_generalization.0" general="Number"/>
+      <ownedOperation xmi:id="Double-add" name="add" visibility="public">
+        <eAnnotations xmi:id="Double-add-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Double-add-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="78"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Double-add-r" name="r" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-add-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-add-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Double-add-_ownedParameter.1" type="Double" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-add-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-add-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Double-subtract" name="subtract" visibility="public">
+        <eAnnotations xmi:id="Double-subtract-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Double-subtract-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="79"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Double-subtract-r" name="r" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-subtract-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-subtract-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Double-subtract-_ownedParameter.1" type="Double" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-subtract-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-subtract-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Double-multiply" name="multiply" visibility="public">
+        <eAnnotations xmi:id="Double-multiply-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Double-multiply-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="80"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Double-multiply-r" name="r" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-multiply-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-multiply-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Double-multiply-_ownedParameter.1" type="Double" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-multiply-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-multiply-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Double-divide" name="divide" visibility="public">
+        <eAnnotations xmi:id="Double-divide-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Double-divide-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="81"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Double-divide-r" name="r" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-divide-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-divide-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Double-divide-_ownedParameter.1" type="Double" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-divide-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-divide-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Double-subtract.1" name="subtract" visibility="public">
+        <eAnnotations xmi:id="Double-subtract.1-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Double-subtract.1-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="82"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Double-subtract.1-_ownedParameter.0" type="Double" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-subtract.1-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-subtract.1-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Date" name="Date">
+      <eAnnotations xmi:id="Date-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Date-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <generalization xmi:id="Date-_generalization.0" general="Primitive"/>
+      <ownedOperation xmi:id="Date-today" name="today" visibility="public" isStatic="true">
+        <eAnnotations xmi:id="Date-today-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Date-today-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="86"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Date-today-_ownedParameter.0" type="Date" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-today-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-today-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Date-make" name="make" visibility="public" isStatic="true">
+        <eAnnotations xmi:id="Date-make-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Date-make-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="87"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Date-make-day" name="day" type="Integer" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-day-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-day-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Date-make-month" name="month" type="Integer" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-month-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-month-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Date-make-year" name="year" type="Integer" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-year-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-year-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Date-make-_ownedParameter.3" type="Date" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-_ownedParameter.3-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-_ownedParameter.3-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Date-fromString" name="fromString" visibility="public" isStatic="true">
+        <eAnnotations xmi:id="Date-fromString-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Date-fromString-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="88"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Date-fromString-string" name="string" type="String" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-fromString-string-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-fromString-string-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Date-fromString-_ownedParameter.1" type="Date" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-fromString-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-fromString-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Date-differenceInDays" name="differenceInDays" visibility="public">
+        <eAnnotations xmi:id="Date-differenceInDays-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Date-differenceInDays-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="89"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Date-differenceInDays-another" name="another" type="Date" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInDays-another-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInDays-another-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Date-differenceInDays-_ownedParameter.1" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInDays-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInDays-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Date-differenceInYears" name="differenceInYears" visibility="public">
+        <eAnnotations xmi:id="Date-differenceInYears-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Date-differenceInYears-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="90"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Date-differenceInYears-another" name="another" type="Date" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInYears-another-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInYears-another-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Date-differenceInYears-_ownedParameter.1" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInYears-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInYears-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Date-differenceInMonths" name="differenceInMonths" visibility="public">
+        <eAnnotations xmi:id="Date-differenceInMonths-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Date-differenceInMonths-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="91"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Date-differenceInMonths-another" name="another" type="Date" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInMonths-another-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInMonths-another-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Date-differenceInMonths-_ownedParameter.1" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInMonths-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInMonths-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Date-day" name="day" visibility="public">
+        <eAnnotations xmi:id="Date-day-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Date-day-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="92"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Date-day-_ownedParameter.0" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-day-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-day-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Date-month" name="month" visibility="public">
+        <eAnnotations xmi:id="Date-month-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Date-month-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="93"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Date-month-_ownedParameter.0" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-month-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-month-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Date-year" name="year" visibility="public">
+        <eAnnotations xmi:id="Date-year-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Date-year-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="94"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Date-year-_ownedParameter.0" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-year-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-year-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Date-transpose" name="transpose" visibility="public">
+        <eAnnotations xmi:id="Date-transpose-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Date-transpose-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="95"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Date-transpose-delta" name="delta" type="Integer" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-delta-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-delta-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Date-transpose-_ownedParameter.1" type="Date" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="String" name="String">
+      <eAnnotations xmi:id="String-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="String-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <generalization xmi:id="String-_generalization.0" general="Primitive"/>
+      <ownedOperation xmi:id="String-size" name="size" visibility="public">
+        <eAnnotations xmi:id="String-size-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="String-size-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="99"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="String-size-_ownedParameter.0" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-size-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-size-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="String-add" name="add" visibility="public">
+        <eAnnotations xmi:id="String-add-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="String-add-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="100"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="String-add-s" name="s" type="String" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add-s-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add-s-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="String-add-_ownedParameter.1" type="String" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="String-add.1" name="add" visibility="public">
+        <eAnnotations xmi:id="String-add.1-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="String-add.1-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="101"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="String-add.1-s" name="s" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add.1-s-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add.1-s-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="String-add.1-_ownedParameter.1" type="String" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add.1-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add.1-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="String-substring" name="substring" visibility="public">
+        <eAnnotations xmi:id="String-substring-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="String-substring-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="102"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="String-substring-start" name="start" type="Integer" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-start-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-start-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="String-substring-stop" name="stop" type="Integer" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-stop-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-stop-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="String-substring-_ownedParameter.2" type="String" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-_ownedParameter.2-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-_ownedParameter.2-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="String-toLower" name="toLower" visibility="public">
+        <eAnnotations xmi:id="String-toLower-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="String-toLower-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="103"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="String-toLower-_ownedParameter.0" type="String" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-toLower-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-toLower-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="String-toUpper" name="toUpper" visibility="public">
+        <eAnnotations xmi:id="String-toUpper-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="String-toUpper-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="104"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="String-toUpper-_ownedParameter.0" type="String" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-toUpper-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-toUpper-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="String-contains" name="contains" visibility="public">
+        <eAnnotations xmi:id="String-contains-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="String-contains-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="105"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="String-contains-another" name="another" type="String" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-contains-another-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-contains-another-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="String-contains-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-contains-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-contains-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Memo" name="Memo">
+      <eAnnotations xmi:id="Memo-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Memo-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <generalization xmi:id="Memo-_generalization.0" general="String"/>
+      <ownedOperation xmi:id="Memo-lineCount" name="lineCount" visibility="public">
+        <eAnnotations xmi:id="Memo-lineCount-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Memo-lineCount-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="109"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Memo-lineCount-_ownedParameter.0" type="Integer" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Memo-lineCount-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Memo-lineCount-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Memo-fromString" name="fromString" visibility="public" isStatic="true">
+        <eAnnotations xmi:id="Memo-fromString-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
+          <details xmi:id="Memo-fromString-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="110"/>
+        </eAnnotations>
+        <ownedParameter xmi:id="Memo-fromString-string" name="string" type="String" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Memo-fromString-string-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Memo-fromString-string-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Memo-fromString-_ownedParameter.1" type="Memo" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Memo-fromString-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Memo-fromString-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Violation" name="Violation">
+      <eAnnotations xmi:id="Violation-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Violation-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+    </packagedElement>
+    <profileApplication xmi:id="_profileApplication.0">
+      <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://MDD_PROFILES/mdd_extensions.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_profileApplication.1">
+      <eAnnotations xmi:id="_profileApplication.1-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/4.0.0/UML/Profile/L2#/"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/StandardL2.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <l2:ModelLibrary xmi:id="_1" base_Package="_0"/>
+</xmi:XMI>

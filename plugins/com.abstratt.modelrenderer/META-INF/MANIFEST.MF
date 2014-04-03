@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model Renderer
+Bundle-SymbolicName: com.abstratt.modelrenderer
+Bundle-Version: 1.120.1.qualifier
+Bundle-Vendor: Abstratt Technologie and others
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.emf.ecore,
+ com.abstratt.pluginutils
+Export-Package: com.abstratt.modelrenderer
