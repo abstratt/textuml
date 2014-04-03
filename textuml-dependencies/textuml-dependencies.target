@@ -12,7 +12,7 @@
 			<unit id="org.eclipse.emf.query.sdk.feature.group" version="0.0.0" />
 			<unit id="org.eclipse.ocl.all.sdk.feature.group" version="0.0.0" />
 			<unit id="org.eclipse.uml2.sdk.feature.group" version="0.0.0" />
-			<repository location="http://download.eclipse.org/releases/juno/" />
+			<repository location="http://download.eclipse.org/releases/kepler/" />
 		</location>
 		
 		
@@ -23,7 +23,7 @@
 			<unit id="org.apache.commons.beanutils" version="0.0.0" />
 			<unit id="org.apache.commons.fileupload" version="0.0.0" />
             <unit id="org.apache.commons.collections" version="0.0.0" />			
-			<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20130118183705/repository/" />
+			<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140114142710/repository/" />
 		</location>
 
 		<location includeAllPlatforms="false" includeMode="planner"
