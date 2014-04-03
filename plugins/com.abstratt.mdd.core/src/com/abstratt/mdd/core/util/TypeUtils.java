@@ -262,9 +262,8 @@ public class TypeUtils {
 				// if both are templates, general conformance checking should be
 				// enough
 				return source.conformsTo(destination);
-			// if both are bound elements
-			if (!TemplateUtils.isCompatible(templateableSource, templateableDestination))
-				return false;
+			// if both are bound elements, use template-aware conformance checking
+			return TemplateUtils.isCompatible(templateableSource, templateableDestination);
 		}
 		// behavior comparison takes parameters into account
 		if (source instanceof Behavior) {
@@ -277,6 +276,7 @@ public class TypeUtils {
 			return isCompatible(repository, sourceParams.toArray(new Parameter[sourceParams.size()]), destinationParams
 							.toArray(new Parameter[destinationParams.size()]), substitutions);
 		}
+		// for data types, we perform shape-based compatibility check
 		if (destination instanceof DataType && source instanceof Classifier) {
 			List<Property> destinationAttributes = ((Classifier) destination).getAllAttributes();
 			List<Property> sourceAttributes = ((Classifier) source).getAllAttributes();
