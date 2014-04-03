@@ -107,7 +107,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		IProblem[] problems = parse(source);
 		assertEquals(1, problems.length);
 		UnknownOperation unknownOperation = assertExpectedProblem(UnknownOperation.class, problems);
-		assertEquals("Set<MyClass>", unknownOperation.getClassifier());
+		assertEquals("simple::Set<MyClass>", unknownOperation.getClassifier());
 	}
 
 	public void testCallOperationWithArguments() throws CoreException {
