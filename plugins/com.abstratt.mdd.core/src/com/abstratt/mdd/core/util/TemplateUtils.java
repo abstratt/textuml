@@ -176,7 +176,7 @@ public class TemplateUtils {
 	 *             if both templateable elements are templates
 	 */
 	static boolean isCompatible(TemplateableElement source, TemplateableElement destination) {
-		Assert.isLegal(!(source.isTemplate() && destination.isTemplate()));
+		Assert.isLegal(!source.isTemplate() && !destination.isTemplate());
 		// general case: both are bound elements
 		EList<TemplateBinding> sourceBindings = source.getTemplateBindings();
 		EList<TemplateBinding> destinationBindings = destination.getTemplateBindings();

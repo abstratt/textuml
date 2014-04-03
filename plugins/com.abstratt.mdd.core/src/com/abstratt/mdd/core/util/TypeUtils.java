@@ -240,6 +240,7 @@ public class TypeUtils {
 			return false;
 		if (source == destination)
 			return true;
+		Boolean templateCompatible = null;
 		// if destination is actually a template parameter, test compatibility with the resolved parameter
 		if (substitutions != null && destination.isTemplateParameter()) {
 			Type actualDestination = (Type) substitutions.resolveTemplateParameter(destination);
@@ -263,7 +264,8 @@ public class TypeUtils {
 				// enough
 				return source.conformsTo(destination);
 			// if both are bound elements, use template-aware conformance checking
-			return TemplateUtils.isCompatible(templateableSource, templateableDestination);
+			if (!templateableSource.getTemplateBindings().isEmpty() || !templateableDestination.getTemplateBindings().isEmpty())
+			    templateCompatible = TemplateUtils.isCompatible(templateableSource, templateableDestination);
 		}
 		// behavior comparison takes parameters into account
 		if (source instanceof Behavior) {
@@ -293,7 +295,10 @@ public class TypeUtils {
 			}
 			return true;
 		}
+		if (Boolean.TRUE.equals(templateCompatible))
+			// if they are deemed template compatible, go with that - conformance doesn't undrstand templates
+			return true;
 		// general type conformance
-		return source.conformsTo(destination);
+		return source.conformsTo(destination) ;
 	}
 }
