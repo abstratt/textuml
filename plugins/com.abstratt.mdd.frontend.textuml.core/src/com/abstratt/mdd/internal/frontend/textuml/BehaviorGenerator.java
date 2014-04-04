@@ -1538,7 +1538,11 @@ public class BehaviorGenerator extends AbstractGenerator {
 			return;
 		final ObjectNode target = ((ObjectNode) incompatible.getTarget());
 		final ObjectNode source = ((ObjectNode) incompatible.getSource());
-		problemBuilder.addProblem(
+		final Type anyType = findBuiltInType(TypeUtils.ANY_TYPE, node);
+		if (target.getType() != null && target.getType() != anyType && (source.getType() == null || source.getType() == anyType))
+			source.setType(target.getType());
+		else
+			problemBuilder.addProblem(
 						new TypeMismatch(MDDUtil.getDisplayName(target), MDDUtil.getDisplayName(source)), node);
 	}
 

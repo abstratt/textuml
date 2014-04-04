@@ -48,6 +48,8 @@ public class TypeUtils {
 	public final static String NULL_TYPE = makeTypeName("NullType");
 	
 	public static String makeTypeName(String simpleName) {
+		if (simpleName.startsWith(IRepository.TYPES_NAMESPACE + NamedElement.SEPARATOR))
+			return simpleName;
 		return IRepository.TYPES_NAMESPACE + NamedElement.SEPARATOR + simpleName;
 	}
 

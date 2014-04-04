@@ -39,7 +39,6 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		return source;
 	}
 
-	//TODO - re-enable when issue #2073177 is fixed  
 	public void testAccessLocalVar() throws CoreException {
 		String model = "";
 		model += "model tests;\n";
@@ -56,7 +55,6 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		model += "end.\n";
 		parseAndCheck(getSimpleModelSource(), model);
 	}
-
 	
 	public void testEmptyLiteral() throws CoreException {
 		String source = "";
@@ -160,9 +158,9 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "class TestDriver\n";
 		source += "  static operation selection() : Customer[*];\n";
 		source += "  begin\n";
-		source += "    return (Account extent.collect((account : Account) : Customer {\n";
+		source += "    return Account extent.collect((account : Account) : Customer {\n";
 		source += "        account<-AccountCustomer->owner\n";
-		source += "    }) as Customer) ;\n";
+		source += "    });\n";
 		source += "  end;\n";
 		source += "end;\n";
 		source += "end.";
@@ -192,9 +190,9 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "class TestDriver\n";
 		source += "  static operation selection() : {: String}[*];\n";
 		source += "  begin\n";
-		source += "    return (Account extent.collect((account : Account) : {:String} {\n";
+		source += "    return Account extent.collect((account : Account) : {:String} {\n";
 		source += "        {name := account<-AccountCustomer->owner.name}\n";
-		source += "    }) as {:String}) ;\n";
+		source += "    });\n";
 		source += "  end;\n";
 		source += "end;\n";
 		source += "end.";
