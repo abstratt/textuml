@@ -46,10 +46,7 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
 		behavior += "  self.attrib2 := self.attrib3;\n";
 		behavior += "end;\n";
 		behavior += "end.\n";
-		IProblem[] result = compile(structure, behavior);
-		FixtureHelper.assertTrue(result, result.length == 1);
-		assertTrue(result[0].toString(), result[0] instanceof TypeMismatch);
-		assertEquals(5, result[0].getAttribute(IProblem.LINE_NUMBER));
+		parseAndCheck(structure, behavior);
 	}
 
 	public void testAssignAnyToClass() throws CoreException {
@@ -61,10 +58,7 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
 		behavior += "  target := source;\n";
 		behavior += "end;\n";
 		behavior += "end.\n";
-		IProblem[] result = compile(structure, behavior);
-		FixtureHelper.assertTrue(result, result.length == 1);
-		assertTrue(result[0].toString(), result[0] instanceof TypeMismatch);
-		assertEquals(6, result[0].getAttribute(IProblem.LINE_NUMBER));
+		parseAndCheck(structure, behavior);
 	}
 
 	public void testAssignAnyToInteger() throws CoreException {
@@ -75,10 +69,7 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
 		behavior += "  self.attrib1 := self.attrib3;\n";
 		behavior += "end;\n";
 		behavior += "end.\n";
-		IProblem[] result = compile(structure, behavior);
-		FixtureHelper.assertTrue(result, result.length == 1);
-		assertTrue(result[0].toString(), result[0] instanceof TypeMismatch);
-		assertEquals(5, result[0].getAttribute(IProblem.LINE_NUMBER));
+		parseAndCheck(structure, behavior);
 	}
 
 	public void testAssignBooleanToAny() throws CoreException {
