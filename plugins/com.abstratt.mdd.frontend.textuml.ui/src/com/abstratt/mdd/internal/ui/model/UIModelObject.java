@@ -61,13 +61,11 @@ public abstract class UIModelObject {
 			if (classType instanceof AInterfaceClassType)
 				return new Interface(parent, node);
 			if (classType instanceof ADatatypeClassType) {
-				if(!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_DATATYPE)) {
+				if(!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_DATATYPE))
 					return null;
-				}
 				return new DataType(parent, node);
 			}
-				
-				
+			return new GenericClassifier(parent, node);
 		}
 		if (node.instanceOf(APrimitiveDef.class)) {
 			return new PrimitiveType(parent, node);
