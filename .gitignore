@@ -1,10 +1,7 @@
-*/*/.project
-*/*/.settings
-*/*/.classpath
+**/.project
+**/.settings
+**/.classpath
+**/bin
 */*/target
-*/*/bin
-*/.project
-*/.settings
-*/.classpath
 */target
-*/bin
+
