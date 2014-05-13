@@ -12,6 +12,11 @@ import com.abstratt.resman.Task;
 
 public class RepositoryService {
 	
+	static {
+		// attempts to enable thread-local cache adapters first thing
+		System.setProperty("org.eclipse.uml2.common.util.CacheAdapter.ThreadLocal", "true");
+	}
+	
 	public final static Boolean ENABLED = CacheAdapterManager.isEnabled();
 	public final static int CLONES;
 	static {
