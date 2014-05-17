@@ -604,7 +604,7 @@ public class KirraHelper {
 		return get(classifier, "isTupleType", new Callable<Boolean>() {
 			@Override
 			public Boolean call() throws Exception {
-				return classifier.getName() != null && !BasicTypeUtils.isBasicType(classifier) && classifier instanceof Classifier && !((Classifier)classifier).getAllAttributes().isEmpty();
+				return classifier.getName() != null && !BasicTypeUtils.isBasicType(classifier) && classifier instanceof Classifier;
 			}
 		});
 	}
