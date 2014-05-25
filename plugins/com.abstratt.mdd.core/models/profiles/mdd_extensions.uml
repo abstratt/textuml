@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.1">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/02/27 08:02:34 323 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/05/24 08:02:42 105 -0300"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -9,6 +9,18 @@
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Test-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Test"/>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Test-base_Class" name="base_Class" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Failure" name="Failure">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Failure-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Failure"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Failure-context" name="context" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/4.0.0/Types#//String"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Failure-constraint" name="constraint" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/4.0.0/Types#//String"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Failure-base_Operation" name="base_Operation" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Operation"/>
         </eStructuralFeatures>
       </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-External" name="External">
@@ -159,6 +171,21 @@
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
     </ownedAttribute>
   </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Failure" name="Failure">
+    <ownedAttribute xmi:id="Failure-context" name="context">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Failure-context-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Failure-context-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="Failure-constraint" name="constraint">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Failure-constraint-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Failure-constraint-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="Failure-base_Operation" name="base_Operation" association="Operation_Failure">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+    </ownedAttribute>
+  </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="External" name="External">
     <ownedComment xmi:id="External-_ownedComment.0" annotatedElement="External">
       <body> External classes are implemented as Java classes </body>
@@ -300,6 +327,9 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Class_Test" name="Class_Test" memberEnd="Class_Test-extension_Test Test-base_Class">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Class_Test-extension_Test" name="extension_Test" type="Test" aggregation="composite" association="Class_Test"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Operation_Failure" name="Operation_Failure" memberEnd="Operation_Failure-extension_Failure Failure-base_Operation">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Operation_Failure-extension_Failure" name="extension_Failure" type="Failure" aggregation="composite" association="Operation_Failure"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Class_External" name="Class_External" memberEnd="Class_External-extension_External External-base_Class">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Class_External-extension_External" name="extension_External" type="External" aggregation="composite" association="Class_External"/>

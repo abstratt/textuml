@@ -10,6 +10,11 @@ private import UML;
 stereotype Test extends Class
 end;
 
+stereotype Failure extends Operation
+    property context : String;
+    property constraint : String;
+end;
+
 (* External classes are implemented as Java classes *)
 stereotype External extends Class
 end;
