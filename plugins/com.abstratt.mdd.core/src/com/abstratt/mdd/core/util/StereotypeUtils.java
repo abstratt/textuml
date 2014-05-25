@@ -30,6 +30,19 @@ public class StereotypeUtils {
 		return false;
 	}
 	
+	public static Stereotype getStereotype(Element element, String stereotypeQName) {
+		for (Stereotype s : element.getAppliedStereotypes())
+			if (stereotypeQName.equals(s.getName()) || stereotypeQName.equals(s.getQualifiedName()))
+				return s;
+		if (element instanceof Classifier)
+			for (Classifier general : ((Classifier) element).getGenerals()) {
+				Stereotype found = getStereotype(general, stereotypeQName);
+				if (found != null)
+					return found;
+			}
+		return null;
+	}
+	
 	public static boolean hasProfile(org.eclipse.uml2.uml.Package element, String profileName) {
 		for (Profile p : element.getAppliedProfiles())
 			if (p.getName().equals(profileName))
