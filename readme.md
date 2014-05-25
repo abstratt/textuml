@@ -21,4 +21,4 @@ If you are using Eclipse, you can skip the use of Maven from the command line, b
 
 That is it - if you follow these instructions, you will end up with the code for EclipseGraphviz and TextUML Toolkit as sibling directories, and you now have the entire TextUML Toolkit and EclipseGraphviz projects compiled, including a ready-to-use Eclipse update site at:
 
-textuml/repositories/com.abstratt.mdd.oss.repository/target/repository
+    ./textuml/repositories/com.abstratt.mdd.oss.repository/target/repository
