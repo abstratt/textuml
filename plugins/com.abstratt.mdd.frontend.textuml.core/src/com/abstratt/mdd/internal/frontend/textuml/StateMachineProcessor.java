@@ -26,13 +26,16 @@ import org.eclipse.uml2.uml.Trigger;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.Vertex;
 
+import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.frontend.core.NonInitialStatesMustBeNamed;
 import com.abstratt.mdd.frontend.core.QueryOperationsMustBeSideEffectFree;
 import com.abstratt.mdd.frontend.core.StateMachineMustHaveOneInitialState;
 import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.DeferredReference;
+import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
+import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.internal.frontend.textuml.node.AAnyTransitionTrigger;
 import com.abstratt.mdd.internal.frontend.textuml.node.ABehaviorStateBehaviorDefinition;
@@ -63,30 +66,36 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
 			this.eventClass = eventClass;
 		}
 		@Override
-		public void process(T node) {
-			NamedElement source = null;
-			if (sourceClass != null) {
-				String sourceName = sourceMiner.getIdentifier(node);
-				source = repository.findNamedElement(sourceName, sourceClass, namespaceTracker.currentNamespace(null));
-				if (source == null) {
-					problemBuilder.addProblem(new UnresolvedSymbol(sourceName), node);
-					return;
-				}
-			}
+		public void process(final T node) {
 			Trigger trigger = transition.createTrigger(null);
-			Event event = (Event) namespaceTracker.currentPackage().createPackagedElement(null, eventClass);
+			final Event event = (Event) namespaceTracker.currentPackage().createPackagedElement(null, eventClass);
 			trigger.setEvent(event);
-			if (event instanceof CallEvent) {
-			    Operation sourceOperation = (Operation) source;
-			    QueryOperationsMustBeSideEffectFree.ensure(!sourceOperation.isQuery(), problemBuilder, node);
-				((CallEvent) event).setOperation(sourceOperation);
-			} else if (event instanceof SignalEvent)
-				((SignalEvent) event).setSignal((Signal) source);
-			else if (event instanceof AnyReceiveEvent)
-				;
-			else
-				Assert.isTrue(false);
 			
+			// process triggers asynchronously as references may not be resolvable yet
+			referenceTracker.add(new IDeferredReference() {
+				public void resolve(IBasicRepository repository) {
+					NamedElement source = null;
+					if (sourceClass != null) {
+						String sourceName = sourceMiner.getIdentifier(node);
+						source = repository.findNamedElement(sourceName, sourceClass, namespace);
+						if (source == null) {
+							problemBuilder.addProblem(new UnresolvedSymbol(sourceName), node);
+							return;
+						}
+					}
+					
+					if (event instanceof CallEvent) {
+					    Operation sourceOperation = (Operation) source;
+					    QueryOperationsMustBeSideEffectFree.ensure(!sourceOperation.isQuery(), problemBuilder, node);
+						((CallEvent) event).setOperation(sourceOperation);
+					} else if (event instanceof SignalEvent)
+						((SignalEvent) event).setSignal((Signal) source);
+					else if (event instanceof AnyReceiveEvent)
+						;
+					else
+						Assert.isTrue(false);
+				}
+			}, Step.GENERAL_RESOLUTION);
 		}
 	}
 
