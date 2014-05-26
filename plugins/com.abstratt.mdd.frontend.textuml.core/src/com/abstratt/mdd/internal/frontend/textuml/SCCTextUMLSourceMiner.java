@@ -23,7 +23,6 @@ import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.internal.frontend.textuml.node.AForcefullyQualifiedIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifierBase;
-import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifierTail;
 import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 import com.abstratt.mdd.internal.frontend.textuml.node.TIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.TNamespaceSeparator;

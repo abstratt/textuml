@@ -24,9 +24,8 @@ import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.TextUtilities;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.frontend.core.ASTVisitor;
 import com.abstratt.mdd.frontend.core.ASTNode.VisitorResult;
-import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
+import com.abstratt.mdd.frontend.core.ASTVisitor;
 import com.abstratt.mdd.internal.frontend.textuml.TextUMLCompiler;
 import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 import com.abstratt.mdd.internal.frontend.textuml.node.Start;

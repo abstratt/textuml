@@ -10,6 +10,9 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.frontend.textuml.renderer;
 
+import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
+import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.qualifiedName;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -24,7 +27,6 @@ import org.eclipse.uml2.uml.UMLPackage;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
-import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.*;
 /**
  * 
  */

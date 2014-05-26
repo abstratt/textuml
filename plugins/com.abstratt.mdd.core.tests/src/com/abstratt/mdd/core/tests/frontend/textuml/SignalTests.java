@@ -4,10 +4,6 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.uml2.uml.Class;
-import org.eclipse.uml2.uml.Reception;
-import org.eclipse.uml2.uml.Signal;
-import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.frontend.core.IProblem;

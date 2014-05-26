@@ -10,13 +10,15 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.internal.ui.editors;
 
-import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.internal.ui.model.ASTUtils;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.text.IDocument;
+
+import com.abstratt.mdd.frontend.core.ASTNode;
+import com.abstratt.mdd.internal.ui.model.ASTUtils;
 
 /**
  * Keeps track of all the current working copies. Working copies

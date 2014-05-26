@@ -10,10 +10,11 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.internal.ui.editors;
 
-import com.abstratt.mdd.internal.ui.model.UIModelObject;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.swt.graphics.Image;
+
+import com.abstratt.mdd.internal.ui.model.UIModelObject;
 
 public class TextUMLLabelProvider extends LabelProvider {
 

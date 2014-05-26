@@ -2,8 +2,6 @@ package com.abstratt.resman;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import org.eclipse.core.runtime.Assert;
 
@@ -22,7 +20,7 @@ public abstract class Resource<K extends ResourceKey> {
     	this.id = resourceId;
 	}
     public <F> F getFeature(Class<F> featureClass) {
-    	Assert.isLegal(hasFeature(featureClass));
+    	Assert.isLegal(hasFeature(featureClass), "No feature: " + featureClass.getName());
     	return (F) features.get(featureClass);
     }
     public <F> void setFeature(Class<F> featureClass, F feature) {

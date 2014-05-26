@@ -3,9 +3,9 @@
  */
 package com.abstratt.graphviz.uml.ui;
 
- import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
+ import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.PreferenceChangeEvent;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 
 import com.abstratt.graphviz.uml.UML;
 import com.abstratt.graphviz.uml.UMLPreferences;

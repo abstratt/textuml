@@ -10,10 +10,11 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.internal.ui.editors;
 
-import com.abstratt.mdd.internal.ui.model.ModelChildrenComparator;
 import org.eclipse.jface.viewers.TreeNode;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
+
+import com.abstratt.mdd.internal.ui.model.ModelChildrenComparator;
 
 public class UIModelObjectViewerComparator extends ViewerComparator {
 

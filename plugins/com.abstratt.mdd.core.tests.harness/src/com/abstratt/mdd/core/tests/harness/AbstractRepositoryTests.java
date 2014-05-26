@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+import junit.framework.TestCase;
+
 import org.apache.commons.io.FileUtils;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
@@ -22,11 +24,8 @@ import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.RepositoryService;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
-import com.abstratt.pluginutils.ISharedContextRunnable;
 import com.abstratt.resman.Resource;
 import com.abstratt.resman.Task;
-
-import junit.framework.TestCase;
 
 public class AbstractRepositoryTests extends TestCase {
 	protected static final String TEXTUML_EXTENSION = "tuml";

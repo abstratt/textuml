@@ -11,6 +11,8 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.frontend.textuml.renderer;
 
+import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
+
 import org.eclipse.uml2.uml.Extension;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
@@ -19,7 +21,6 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
-import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.*;
 
 
 public class PropertyRenderer implements IEObjectRenderer<Property> {

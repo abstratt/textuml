@@ -8,7 +8,6 @@ import com.abstratt.mdd.frontend.core.builder.ClassifierBuilder;
 import com.abstratt.mdd.frontend.core.builder.ConditionalBuilderSet;
 import com.abstratt.mdd.frontend.core.builder.NameReference;
 import com.abstratt.mdd.frontend.core.builder.NamedElementBuilder;
-import com.abstratt.mdd.frontend.core.builder.OperationBuilder;
 import com.abstratt.mdd.frontend.core.builder.PackageBuilder;
 import com.abstratt.mdd.frontend.core.builder.PropertyBuilder;
 import com.abstratt.mdd.frontend.core.builder.UML2BuilderFactory;

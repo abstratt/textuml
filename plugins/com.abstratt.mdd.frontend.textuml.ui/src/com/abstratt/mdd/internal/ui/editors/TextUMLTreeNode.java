@@ -10,9 +10,11 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.internal.ui.editors;
 
-import com.abstratt.mdd.internal.ui.model.UIModelObject;
 import java.util.List;
+
 import org.eclipse.jface.viewers.TreeNode;
+
+import com.abstratt.mdd.internal.ui.model.UIModelObject;
 
 public class TextUMLTreeNode extends TreeNode {
 

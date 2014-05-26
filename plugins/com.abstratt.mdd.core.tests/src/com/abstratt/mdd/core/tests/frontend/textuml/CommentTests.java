@@ -1,10 +1,10 @@
 package com.abstratt.mdd.core.tests.frontend.textuml;
 
-import org.eclipse.uml2.uml.UMLPackage.Literals;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.uml2.uml.UMLPackage.Literals;
 
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.util.MDDUtil;

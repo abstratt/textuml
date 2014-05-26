@@ -10,6 +10,8 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.frontend.textuml.renderer;
 
+import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
+
 import java.util.List;
 
 import org.eclipse.uml2.uml.Class;
@@ -19,7 +21,6 @@ import org.eclipse.uml2.uml.InterfaceRealization;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
-import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.*;
 public class ClassRenderer implements IEObjectRenderer<Class> {
 
 	public boolean renderObject(Class clazz, IndentedPrintWriter writer, IRenderingSession context) {

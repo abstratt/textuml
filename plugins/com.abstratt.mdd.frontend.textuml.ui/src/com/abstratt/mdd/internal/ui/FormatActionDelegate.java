@@ -10,11 +10,12 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.internal.ui;
 
-import com.abstratt.mdd.internal.ui.editors.TextUMLEditor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorPart;
+
+import com.abstratt.mdd.internal.ui.editors.TextUMLEditor;
 
 public class FormatActionDelegate implements IEditorActionDelegate {
 	private IEditorPart activeEditor;

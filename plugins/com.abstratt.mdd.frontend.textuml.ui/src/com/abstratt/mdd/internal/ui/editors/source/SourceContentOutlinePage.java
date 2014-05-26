@@ -29,7 +29,6 @@ import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 import com.abstratt.mdd.internal.frontend.textuml.node.Token;
 import com.abstratt.mdd.internal.ui.editors.TextUMLLabelProvider;
 import com.abstratt.mdd.internal.ui.editors.TextUMLTreeNode;
-import com.abstratt.mdd.internal.ui.editors.UIModelObjectViewerComparator;
 import com.abstratt.mdd.internal.ui.editors.WorkingCopy;
 import com.abstratt.mdd.internal.ui.model.UIModelObject;
 import com.abstratt.mdd.ui.UIUtils;

@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Set;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
+import com.abstratt.mdd.frontend.core.ASTNode.VisitorResult;
 import com.abstratt.mdd.frontend.core.ASTReverseVisitor;
 import com.abstratt.mdd.frontend.core.ASTVisitor;
-import com.abstratt.mdd.frontend.core.ASTNode.VisitorResult;
 import com.abstratt.mdd.internal.frontend.textuml.node.APackageHeading;
 import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifierBase;

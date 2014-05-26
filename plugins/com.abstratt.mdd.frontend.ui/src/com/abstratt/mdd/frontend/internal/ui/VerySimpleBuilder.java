@@ -18,9 +18,9 @@ import org.eclipse.core.runtime.Path;
 import com.abstratt.mdd.frontend.core.FrontEnd;
 import com.abstratt.mdd.frontend.core.ICompilationDirector;
 import com.abstratt.mdd.frontend.core.IProblem;
+import com.abstratt.mdd.frontend.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.InternalProblem;
 import com.abstratt.mdd.frontend.core.LocationContext;
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
 import com.abstratt.mdd.ui.UIConstants;
 
 /**

@@ -11,7 +11,6 @@
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.Classifier;
@@ -22,7 +21,6 @@ import org.eclipse.uml2.uml.UMLPackage;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
-import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
@@ -38,7 +36,6 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AStart;
 import com.abstratt.mdd.internal.frontend.textuml.node.ATypeIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 import com.abstratt.mdd.internal.frontend.textuml.node.PPackageType;
-import com.abstratt.mdd.internal.frontend.textuml.node.TIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.Token;
 
 public abstract class AbstractGenerator extends DepthFirstAdapter {

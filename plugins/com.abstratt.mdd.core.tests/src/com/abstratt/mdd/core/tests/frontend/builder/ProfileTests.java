@@ -1,7 +1,7 @@
 package com.abstratt.mdd.core.tests.frontend.builder;
 
-import org.eclipse.uml2.uml.Profile;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Profile;
 
 import com.abstratt.mdd.frontend.core.builder.PackageBuilder;
 import com.abstratt.mdd.frontend.core.builder.UML2BuilderFactory;

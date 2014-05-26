@@ -10,6 +10,8 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.frontend.textuml.renderer;
 
+import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Enumeration;
 import org.eclipse.uml2.uml.EnumerationLiteral;
@@ -17,7 +19,6 @@ import org.eclipse.uml2.uml.EnumerationLiteral;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
-import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.*;
 public class EnumerationRenderer implements IEObjectRenderer<Enumeration> {
 	public boolean renderObject(Enumeration enumeration, IndentedPrintWriter writer, IRenderingSession context) {
 		context.renderAll(enumeration.getOwnedComments());

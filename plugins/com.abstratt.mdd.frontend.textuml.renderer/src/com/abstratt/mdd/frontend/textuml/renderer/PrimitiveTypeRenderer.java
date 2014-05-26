@@ -10,9 +10,9 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.frontend.textuml.renderer;
 
-import org.eclipse.uml2.uml.PrimitiveType;
-import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.*;
+import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
 
+import org.eclipse.uml2.uml.PrimitiveType;
 
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;

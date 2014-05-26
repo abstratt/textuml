@@ -11,7 +11,6 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 
 import com.abstratt.mdd.core.IRepository;
-import com.abstratt.mdd.core.MDDCore;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.pluginutils.ISharedContextRunnable;
 
