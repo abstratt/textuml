@@ -188,7 +188,6 @@ import com.abstratt.mdd.internal.frontend.textuml.node.TMult;
 import com.abstratt.mdd.internal.frontend.textuml.node.TNot;
 import com.abstratt.mdd.internal.frontend.textuml.node.TOr;
 import com.abstratt.mdd.internal.frontend.textuml.node.TPlus;
-import com.abstratt.mdd.internal.frontend.textuml.node.Token;
 import com.abstratt.pluginutils.LogUtils;
 
 /**
@@ -404,6 +403,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 	public void caseABlockKernel(ABlockKernel node) {
 		builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
 		try {
+			fillDebugInfo(builder.getCurrentBlock(), node);
 			BehaviorGenerator.super.caseABlockKernel(node);
 			Activity currentActivity = builder.getCurrentActivity();
 			if (!MDDExtensionUtils.isClosure(currentActivity))
@@ -1626,14 +1626,6 @@ public class BehaviorGenerator extends AbstractGenerator {
 		deferredActivities.add(new DeferredActivity(activity, block));
 	}
 
-	private void fillDebugInfo(Action action, Node node) {
-		if (!context.isDebug())
-			return;
-		Token token = sourceMiner.findToken(node);
-		int lineNumber = token.getLine();
-        String sourceFile = context.getSourcePath() != null ? context.getSourcePath() : null;
-		MDDExtensionUtils.addDebugInfo(action, sourceFile, lineNumber);
-	}
 
 	private Operation findOperation(Node node, Classifier classifier, String operationName, List<TypedElement> arguments,
 			boolean isStatic, boolean required) {

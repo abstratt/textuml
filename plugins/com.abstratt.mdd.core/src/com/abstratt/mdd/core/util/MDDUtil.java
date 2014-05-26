@@ -88,7 +88,6 @@ public class MDDUtil {
 	 */
 	public static final String GENERATED = "com.abstratt/mdd/";
 	public static final String UNIT = "com.abstratt/mdd/unit";
-	public static final String LINE_NUMBER = "com.abstratt/mdd/lineNumber";
 
 	public static class EClassMatcher implements EObjectMatcher {
 		private EClass eClass;

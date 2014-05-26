@@ -180,7 +180,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 				found = (ValueSpecificationAction) next;
 		}
 		assertNotNull(found);
-		assertTrue(MDDExtensionUtils.isDebuggableAction(found));
+		assertTrue(MDDExtensionUtils.isDebuggable(found));
 		Integer lineNumber = MDDExtensionUtils.getLineNumber(found);
 		assertNotNull(lineNumber);
 		assertEquals(6, lineNumber.intValue());

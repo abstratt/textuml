@@ -20,7 +20,7 @@ stereotype External extends Class
 end;
 
 (* Debuggable elements can have line number info *)
-stereotype Debuggable extends Action
+stereotype Debuggable extends Element
   property lineNumber : Integer;
   property source : String;
 end;

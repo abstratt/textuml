@@ -11,6 +11,7 @@
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.Classifier;
@@ -20,6 +21,7 @@ import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
+import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
@@ -37,6 +39,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.ATypeIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 import com.abstratt.mdd.internal.frontend.textuml.node.PPackageType;
 import com.abstratt.mdd.internal.frontend.textuml.node.TIdentifier;
+import com.abstratt.mdd.internal.frontend.textuml.node.Token;
 
 public abstract class AbstractGenerator extends DepthFirstAdapter {
 
@@ -85,6 +88,16 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
 	protected IRepository getRepository() {
 		return context.getRepository();
 	}
+	
+
+	protected void fillDebugInfo(Element element, Node node) {
+		if (!context.isDebug())
+			return;
+		Token token = sourceMiner.findToken(node);
+		int lineNumber = token.getLine();
+        String sourceFile = context.getSourcePath() != null ? context.getSourcePath() : null;
+		MDDExtensionUtils.addDebugInfo(element, sourceFile, lineNumber);
+	}
 
 	protected SignatureProcessor newSignatureProcessor(Namespace target) {
 		if (target instanceof Behavior)
@@ -116,9 +129,5 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
 		if (node instanceof AProfilePackageType)
 			return UMLPackage.Literals.PROFILE;
 		return null;
-	}
-	
-    protected void recordLineNumber(Node node, Element element) {
-        element.createEAnnotation(MDDUtil.LINE_NUMBER).getDetails().put("lineNumber", "" + sourceMiner.getLineNumber(node));
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.1">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/05/25 09:57:32 414 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/05/26 12:44:03 617 -0300"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -37,8 +37,8 @@
         <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Debuggable-source" name="source" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/uml2/4.0.0/Types#//String"/>
         </eStructuralFeatures>
-        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Debuggable-base_Action" name="base_Action" ordered="false" lowerBound="1">
-          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Action"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Debuggable-base_Element" name="base_Element" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Element"/>
         </eStructuralFeatures>
       </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-EntryPoint" name="EntryPoint">
@@ -208,8 +208,8 @@
       <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Debuggable-source-_lowerValue" value="1"/>
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Debuggable-source-_upperValue" value="1"/>
     </ownedAttribute>
-    <ownedAttribute xmi:id="Debuggable-base_Action" name="base_Action" association="Action_Debuggable">
-      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Action"/>
+    <ownedAttribute xmi:id="Debuggable-base_Element" name="base_Element" association="Element_Debuggable">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Element"/>
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="EntryPoint" name="EntryPoint">
@@ -334,8 +334,8 @@
   <packagedElement xmi:type="uml:Extension" xmi:id="Class_External" name="Class_External" memberEnd="Class_External-extension_External External-base_Class">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Class_External-extension_External" name="extension_External" type="External" aggregation="composite" association="Class_External"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Extension" xmi:id="Action_Debuggable" name="Action_Debuggable" memberEnd="Action_Debuggable-extension_Debuggable Debuggable-base_Action">
-    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Action_Debuggable-extension_Debuggable" name="extension_Debuggable" type="Debuggable" aggregation="composite" association="Action_Debuggable"/>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Element_Debuggable" name="Element_Debuggable" memberEnd="Element_Debuggable-extension_Debuggable Debuggable-base_Element">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Element_Debuggable-extension_Debuggable" name="extension_Debuggable" type="Debuggable" aggregation="composite" association="Element_Debuggable"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Operation_EntryPoint" name="Operation_EntryPoint" memberEnd="Operation_EntryPoint-extension_EntryPoint EntryPoint-base_Operation">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Operation_EntryPoint-extension_EntryPoint" name="extension_EntryPoint" type="EntryPoint" aggregation="composite" association="Operation_EntryPoint"/>

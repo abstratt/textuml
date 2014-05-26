@@ -118,7 +118,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 		}
 		
         Constraint constraint = operation.createPrecondition(preconditionName);
-		recordLineNumber(node, constraint);
+		fillDebugInfo(constraint, node);
 		TModelComment commentNode = node.getModelComment();
 		CommentUtils.applyComment(commentNode, constraint);
 		
@@ -236,7 +236,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 		final String invariantName = TextUMLCore.getSourceMiner().getIdentifier(invariantNode.getIdentifier());
         String constraintStereotype = (invariantNode.getConstraintKeyword() instanceof AInvariantConstraintKeyword) ? MDDExtensionUtils.INVARIANT_STEREOTYPE : MDDExtensionUtils.ACCESS_STEREOTYPE;
 		Constraint constraint = MDDExtensionUtils.createConstraint(constrainedElement, invariantName, constraintStereotype);
-        recordLineNumber(invariantNode, constraint);
+        fillDebugInfo(constraint, invariantNode);
         if (invariantNode.getConstraintException() != null)
             assignConstraintException(constraint, (AConstraintException) invariantNode.getConstraintException());
         

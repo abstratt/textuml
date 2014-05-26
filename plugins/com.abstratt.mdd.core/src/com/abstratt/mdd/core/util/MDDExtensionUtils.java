@@ -49,7 +49,7 @@ public class MDDExtensionUtils {
 	public static final String ACCESS_STEREOTYPE = "mdd_extensions::Access";
 	private static final String META_REFERENCE_STEREOTYPE = "mdd_extensions::MetaReference";
 
-	public static void addDebugInfo(Action toEnhance, String source, int lineNumber) {
+	public static void addDebugInfo(Element toEnhance, String source, int lineNumber) {
 		Stereotype debuggableStereotype = StereotypeUtils.findStereotype(DEBUGGABLE_STEREOTYPE);
 		toEnhance.applyStereotype(debuggableStereotype);
 		toEnhance.setValue(debuggableStereotype, "lineNumber", lineNumber);
@@ -176,11 +176,11 @@ public class MDDExtensionUtils {
 		return (String) classifier.getValue(externalStereotype, "className");
 	}
 	
-	public static Integer getLineNumber(Action action) {
-		if (!isDebuggableAction(action))
+	public static Integer getLineNumber(Element element) {
+		if (!isDebuggable(element))
 			return null;
-		Stereotype debuggableStereotype = action.getAppliedStereotype(DEBUGGABLE_STEREOTYPE);
-		return (Integer) action.getValue(debuggableStereotype, "lineNumber");
+		Stereotype debuggableStereotype = element.getAppliedStereotype(DEBUGGABLE_STEREOTYPE);
+		return (Integer) element.getValue(debuggableStereotype, "lineNumber");
 	}
 
 	private static Operation getSignatureOperation(Interface signature) {
@@ -193,11 +193,11 @@ public class MDDExtensionUtils {
 		return getSignatureOperation((Interface) destination).getOwnedParameters();
 	}
 
-	public static String getSource(Action action) {
-		if (!isDebuggableAction(action))
+	public static String getSource(Element element) {
+		if (!isDebuggable(element))
 			return null;
-		Stereotype debuggableStereotype = action.getAppliedStereotype(DEBUGGABLE_STEREOTYPE);
-		return (String) action.getValue(debuggableStereotype, "source");
+		Stereotype debuggableStereotype = element.getAppliedStereotype(DEBUGGABLE_STEREOTYPE);
+		return (String) element.getValue(debuggableStereotype, "source");
 	}
 
 	public static boolean isBasicValue(ValueSpecification specification) {
@@ -212,8 +212,8 @@ public class MDDExtensionUtils {
 		return owner instanceof Activity && StereotypeUtils.hasStereotype(owner, CLOSURE_STEREOTYPE);
 	}
 
-	public static boolean isDebuggableAction(Action action) {
-		return StereotypeUtils.hasStereotype(action, DEBUGGABLE_STEREOTYPE);
+	public static boolean isDebuggable(Element element) {
+		return StereotypeUtils.hasStereotype(element, DEBUGGABLE_STEREOTYPE);
 	}
 
 	public static boolean isEntryPoint(Operation operation) {

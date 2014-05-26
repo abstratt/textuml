@@ -1044,7 +1044,7 @@ public class StructureGenerator extends AbstractGenerator {
 			problemBuilder.addError("Unexpected context for a reception", node.getReception());
 			throw new AbortedCompilationException();
 		}
-		recordLineNumber(node, reception);
+		fillDebugInfo(reception, node);
 		applyCurrentComment(reception);
 		namespaceTracker.enterNamespace(reception);
 		try {
@@ -1093,7 +1093,7 @@ public class StructureGenerator extends AbstractGenerator {
 			problemBuilder.addError("Unexpected context for an operation", node.getOperationHeader());
 			throw new AbortedCompilationException();
 		}
-		recordLineNumber(node, operation);
+		fillDebugInfo(operation, node.getOperationHeader());
 		applyCurrentComment(operation);
 		operation.setIsQuery(isQuery);
 		namespaceTracker.enterNamespace(operation);
