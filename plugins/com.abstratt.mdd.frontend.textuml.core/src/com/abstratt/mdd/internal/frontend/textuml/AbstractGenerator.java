@@ -93,7 +93,13 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
 	protected void fillDebugInfo(Element element, Node node) {
 		if (!context.isDebug())
 			return;
-		Token token = sourceMiner.findToken(node);
+		Token token = null;
+		while (token == null && node != null) {
+			token = sourceMiner.findToken(node);
+			node = node.parent();
+		}
+		if (token == null)
+			return;
 		int lineNumber = token.getLine();
         String sourceFile = context.getSourcePath() != null ? context.getSourcePath() : null;
 		MDDExtensionUtils.addDebugInfo(element, sourceFile, lineNumber);
