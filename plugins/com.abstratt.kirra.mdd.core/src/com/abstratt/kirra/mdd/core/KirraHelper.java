@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Association;
@@ -576,8 +577,8 @@ public class KirraHelper {
 	}
 	
 	public static String getLabel(org.eclipse.uml2.uml.NamedElement sourceElement) {
-		return sourceElement.getName();
-	}
+		return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(sourceElement.getName()), ' '));
+	} 
 	
 	public static String getName(org.eclipse.uml2.uml.NamedElement sourceElement) {
 		return sourceElement.getName();
