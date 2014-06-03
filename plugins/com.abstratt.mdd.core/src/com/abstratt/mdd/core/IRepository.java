@@ -81,7 +81,9 @@ public interface IRepository extends IBasicRepository {
     
     public String TESTS_ENABLED = "mdd.enableTests";
 
-	public final String LIBRARY_PROJECT = "mdd.isLibrary";
+	public String LIBRARY_PROJECT = "mdd.isLibrary";
+	
+	public String APPLICATION_NAME = "mdd.application.name";
 
 	/**
 	 * Accepts the given visitor.

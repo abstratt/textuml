@@ -577,7 +577,7 @@ public class KirraHelper {
 	}
 	
 	public static String getLabel(org.eclipse.uml2.uml.NamedElement sourceElement) {
-		return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(sourceElement.getName()), ' '));
+		return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(sourceElement.getName()), ' ')).replaceAll("[\\w\\d]^|_", " ").replaceAll("[\\s]+", " ");
 	} 
 	
 	public static String getName(org.eclipse.uml2.uml.NamedElement sourceElement) {
