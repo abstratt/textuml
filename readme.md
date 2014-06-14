@@ -3,10 +3,10 @@ This is the new repository for the TextUML tooling and replaces what is on Sourc
 To build this code, you need git, maven and an internet connection (you will be downloading half of it):
 
     # the TextUML Toolkit repository per se
-    git clone https://abstratt@bitbucket.org/abstratt/textuml.git
+    git clone https://github.com/abstratt/textuml.git
  
     # this repository has some dependencies used by the Toolkit
-    git clone https://abstratt@bitbucket.org/abstratt/eclipsegraphviz.git
+    git clone https://github.com/abstratt/eclipsegraphviz.git
  
     # install the master POM
     mvn clean install -f eclipsegraphviz/master/pom.xml
