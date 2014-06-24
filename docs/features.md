@@ -47,8 +47,6 @@ Now, the TextUML Toolkit can auto-reformat your source files as you save
 them. You can turn on this new feature on the new TextUML preference
 page.
 
-[![File:Preferences-1.7.png](./SourceForge.net%20%20TextUML%20Toolkit%20Features%20-%20textuml_files/Preferences-1.7.png)](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=File:Preferences-1.7.png "File:Preferences-1.7.png")
-
 ### Outline options
 
 Now you can control what the editor outline shows: operations,
@@ -75,9 +73,7 @@ Since 1.6
 =========
 
 -   Released: July 2010
--   Requirements: Eclipse 3.5 or later. 3.4 supported using an
-    [alternate update
-    site](http://abstratt.com/update/3.4/ "http://abstratt.com/update/3.4/").
+-   Requirements: Eclipse 3.5 or later.
 
 ### New textual notation features
 
@@ -117,10 +113,8 @@ Since 1.5
 
 ### Content assist
 
-There is now early support for content assist (contributed by Attila
+There is now (very) early support for content assist (contributed by Attila
 Bak), with initial support for stereotype applications.
-
-[![File:Content-assist.png](./SourceForge.net%20%20TextUML%20Toolkit%20Features%20-%20textuml_files/Content-assist.png)](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=File:Content-assist.png "File:Content-assist.png")
 
 ### Element aliasing
 
@@ -217,15 +211,11 @@ The UML layout preference page (Window \> Preferences... \> Graphviz \>
 UML) allows you to control whether structural feature compartments
 should be shown and whether to show related elements across packages.
 
-[![](./SourceForge.net%20%20TextUML%20Toolkit%20Features%20-%20textuml_files/NaN-1_1-UML-prefs.png)](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=File:NaN-1_1-UML-prefs.png "NaN-1 1-UML-prefs.png")
-
 ### Export diagram as images
 
 You can now save a rendered UML diagram as a JPG or PNG file. Look for
 the new action on the Image Viewer. This is an example of an image file
-exported:
-
-[![](./SourceForge.net%20%20TextUML%20Toolkit%20Features%20-%20textuml_files/NaN-1_1-export-image.png)](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=File:NaN-1_1-export-image.png "NaN-1 1-export-image.png")
+exported.
 
 ### New textual notation features
 
@@ -283,13 +273,3 @@ formatter.
     file and allows you to quickly jump to any element
 -   Textual comparison makes working in a team and comparing versions
     easier
-
-See also
-========
-
--   [Install
-    Instructions](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Install_Instructions "Install Instructions")
--   [TextUML
-    Tutorial](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Tutorial "TextUML Tutorial")
--   [TextUML
-    Guide](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Guide "TextUML Guide")
