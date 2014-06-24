@@ -1,4 +1,4 @@
-### 2014/06/26 - We are migrating this project from Sourceforge. Documentation is in the process of being imported/adapted, and is temporarily unavailable (should be back shortly).
+### 2014/06/26 - We are migrating this project from Sourceforge, which inadvertently dropped support for MediaWiki. Documentation is in the process of being imported/adapted (by salvaging it from the Google cache and translating to Markdown via pandoc), and is slowly becoming available in the docs dir (broken links abound though).
 
 
 This is the new repository for the TextUML tooling and replaces what is on SourceForge.
