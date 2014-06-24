@@ -5,7 +5,7 @@ This is the new repository for the TextUML tooling and replaces what is on Sourc
 
 [![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=textuml-toolkit)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
 
-To build this code, you need git, maven and an internet connection (you will be downloading half of it):
+To build this code, you need git, maven and a connection to the internet (you will be downloading half of it):
 
     # the TextUML Toolkit repository per se
     git clone https://github.com/abstratt/textuml.git
