@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<fragment>
+   <extension
+		point="org.eclipse.core.runtime.adapters">
+		<factory
+			adaptableType="com.abstratt.mdd.frontend.ui.IMDDEditor"
+			class="com.abstratt.mdd.frontend.visualizer.internal.eclipsegraphviz.MDDEditorToGraphicalFileProviderAdapterFactory">
+			<adapter
+				type="com.abstratt.imageviewer.IGraphicalFileProvider"/>
+		</factory>
+	</extension>
+</fragment>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.abstratt.mdd.frontend.toolkit.feature"
+      label="%featureName"
+      version="1.120.1.201406241508"
+      provider-name="%providerName">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://abstratt.com/update/"/>
+      <discovery label="%updateSiteName" url="http://abstratt.com/update/"/>
+   </url>
+
+   <includes
+         id="com.abstratt.eclipsegraphviz.feature"
+         version="1.120.1.201406241508"
+         optional="true"/>
+
+   <includes
+         id="com.abstratt.mdd.frontend.core.feature"
+         version="1.120.1.201406241508"/>
+
+   <includes
+         id="com.abstratt.mdd.frontend.ui.diagram.feature"
+         version="1.120.1.201406241508"
+         optional="true"/>
+
+   <includes
+         id="com.abstratt.mdd.frontend.ui.feature"
+         version="1.120.1.201406241508"/>
+
+   <requires>
+      <import feature="com.abstratt.mdd.frontend.core.feature" version="1.120.1.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.ui.feature" version="1.120.1.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.ui.diagram.feature" version="1.120.1.qualifier"/>
+   </requires>
+
+</feature>

@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MDD UI
+Bundle-SymbolicName: com.abstratt.mdd.ui;singleton:=true
+Bundle-Version: 1.120.1.qualifier
+Bundle-Activator: com.abstratt.mdd.ui.Activator
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.jface.text,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ com.abstratt.mdd.core
+Bundle-ActivationPolicy: lazy
+Export-Package: com.abstratt.mdd.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: Abstratt Technologies

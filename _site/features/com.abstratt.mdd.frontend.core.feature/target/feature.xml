@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.abstratt.mdd.frontend.core.feature"
+      label="%featureName"
+      version="1.120.1.201406241508"
+      provider-name="%providerName">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://abstratt.com/update/"/>
+      <discovery label="%updateSiteName" url="http://abstratt.com/update/"/>
+   </url>
+
+   <plugin
+         id="com.abstratt.resman"
+         download-size="25"
+         install-size="47"
+         version="1.120.1.201406241508"
+         unpack="false"/>
+         
+   <plugin
+         id="com.abstratt.mdd.core"
+         download-size="108"
+         install-size="394"
+         version="1.120.1.201406241508"
+         unpack="false"/>         
+
+   <plugin
+         id="com.abstratt.kirra.mdd.core"
+         download-size="47"
+         install-size="96"
+         version="1.120.1.201406241508"
+         unpack="false"/>
+
+   <plugin
+         id="com.abstratt.mdd.frontend.core"
+         download-size="147"
+         install-size="297"
+         version="1.120.1.201406241508"
+         unpack="false"/>
+
+   <plugin
+         id="com.abstratt.mdd.frontend.textuml.core"
+         download-size="1264"
+         install-size="3493"
+         version="1.120.1.201406241508"
+         unpack="false"/>
+
+   <plugin
+         id="com.abstratt.mdd.frontend.cli"
+         download-size="4"
+         install-size="6"
+         version="1.120.1.201406241508"
+         unpack="false"/>
+
+   <plugin
+         id="com.abstratt.modelrenderer"
+         download-size="13"
+         install-size="21"
+         version="1.120.1.201406241508"
+         unpack="false"/>
+
+   <plugin
+         id="com.abstratt.mdd.frontend.textuml.renderer"
+         download-size="34"
+         install-size="63"
+         version="1.120.1.201406241508"
+         unpack="false"/>
+
+</feature>

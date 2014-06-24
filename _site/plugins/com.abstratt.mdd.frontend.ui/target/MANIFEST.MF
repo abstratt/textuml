@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: com.abstratt.mdd.frontend.ui;singleton:=true
+Export-Package: com.abstratt.mdd.frontend.ui
+Bundle-Name: MDD Front-end UI Plug-in
+Bundle-Version: 1.120.1.201406241508
+Require-Bundle: com.abstratt.mdd.frontend.core,com.abstratt.mdd.ui,org
+ .eclipse.core.resources,org.eclipse.core.jobs,org.eclipse.equinox.reg
+ istry,org.eclipse.ui.workbench.texteditor,org.eclipse.ui.workbench
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Bundle-Vendor: Abstratt Technologies
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.abstratt.mdd.core.modelWeaver">
+      <weaver
+            class="com.abstratt.kirra.mdd.core.KirraModelWeaver"
+            name="kirraWeaver">
+      </weaver>
+   </extension>
+
+   <extension
+         point="com.abstratt.mdd.core.systemPackage">
+          <systemPackage
+		    name="kirra"
+    		uri="platform:/plugin/com.abstratt.kirra.mdd.core/models/kirra.uml"
+    		requires="mdd.enableKirra"/>
+	</extension>
+   <extension
+         point="com.abstratt.resman.features">
+         <feature provider="com.abstratt.kirra.mdd.core.KirraMetadataProvider">
+         </feature>
+   </extension>   
+</plugin>

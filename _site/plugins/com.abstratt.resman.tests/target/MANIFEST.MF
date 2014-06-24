@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: com.abstratt.resman.tests
+Export-Package: com.abstratt.resman.tests
+Bundle-Name: Resource Management Tests
+Bundle-Version: 1.120.1.201406241508
+Require-Bundle: com.abstratt.mdd.core.tests.harness,com.abstratt.resma
+ n
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: junit.framework
+

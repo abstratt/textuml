@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository version='1.1.0'?>
+<artifacts size='1'>
+  <artifact classifier='osgi.bundle' id='com.abstratt.resman' version='1.120.1.201406241508'>
+    <properties size='5'>
+      <property name='artifact.size' value='25736'/>
+      <property name='download.size' value='25736'/>
+      <property name='maven-groupId' value='com.abstratt.mdd'/>
+      <property name='maven-artifactId' value='com.abstratt.resman'/>
+      <property name='maven-version' value='1.120.1-SNAPSHOT'/>
+    </properties>
+  </artifact>
+</artifacts>

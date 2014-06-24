@@ -1,0 +1,119 @@
+[StandardProfileL2::ModelLibrary]
+model mdd_types;
+
+apply StandardProfileL2;
+
+actor Anyone end;
+
+class System
+    static operation user() : any;
+end;
+
+class Assert
+    static operation isTrue(condition : Boolean);
+    static operation areEqual(expected : any, actual : any);
+    static operation isNull(actual : any);
+    static operation isNotNull(actual : any);
+end;
+
+class Basic
+    operation same(other : Object) : Boolean;
+    operation toString() : String;
+end;
+
+(* The type of any. *)
+class AnyType specializes Basic
+end;
+
+(* The type of null. *) 
+class NullType specializes Basic
+end;
+
+
+(* The implicit super class for all user classes *)
+class Object specializes Basic
+end;
+
+(* The implicit super datatype for all datatypes *)
+datatype Value
+    operation equals(other : Value) : Boolean;
+    operation toString() : String;
+end;
+
+class Primitive specializes Basic
+  attribute value : PrimitiveTypes::String;
+  operation notEquals(other : any) : Boolean;
+  operation greaterThan(r : Primitive) : Boolean;
+  operation lowerThan(r : Primitive) : Boolean;
+  operation greaterOrEquals(r : Primitive) : Boolean;
+  operation lowerOrEquals(r : Primitive) : Boolean;
+  operation equals(other : any) : Boolean;
+end;
+
+class Boolean specializes Primitive 
+  operation \not() : Boolean;
+  operation \and(b : Boolean) : Boolean;
+  operation \or(b : Boolean) : Boolean;
+  operation \xor(b : Boolean) : Boolean;
+  operation implies(b : Boolean) : Boolean;
+end;
+
+class Number specializes Primitive
+  operation add(r : Number) : Number;
+  operation subtract(r : Number) : Number;
+  operation subtract() : Number;
+  operation multiply(r : Number) : Number;
+  operation divide(r : Number) : Number;
+  operation asInteger() : Integer;
+  operation asDouble() : Double;
+end;
+
+class Integer specializes Double
+  operation add(r : Integer) : Integer;
+  operation subtract(r : Integer) : Integer;
+  operation subtract() : Integer;
+  operation multiply(r : Integer) : Integer;
+  operation divide(r : Integer) : Integer;
+end;
+
+class Double specializes Number
+  operation add(r : Number) : Double;
+  operation subtract(r : Number) : Double;
+  operation multiply(r : Number) : Double;
+  operation divide(r : Number) : Double;
+  operation subtract() : Double;
+end;
+
+class Date specializes Primitive
+  static operation today() : Date;
+  static operation make(day : Integer, month : Integer, year : Integer) : Date;
+  static operation fromString(string : String) : Date;
+  operation differenceInDays(another : Date) : Integer;
+  operation differenceInYears(another : Date) : Integer;
+  operation differenceInMonths(another : Date) : Integer;
+  operation day() : Integer;
+  operation month() : Integer;
+  operation year() : Integer;
+  operation transpose(delta : Integer) : Date;
+end;
+
+class String specializes Primitive
+  operation size() : Integer;
+  operation add(s : String) : String;
+  operation add(s : any) : String;
+  operation substring(start : Integer,stop : Integer) : String;
+  operation toLower() : String;
+  operation toUpper() : String;
+  operation contains(another : String) : Boolean;
+end;
+
+class Memo specializes String
+  operation lineCount() : Integer;
+  static operation fromString(string : String) : Memo;
+end;
+
+class Violation
+end;
+
+end.
+

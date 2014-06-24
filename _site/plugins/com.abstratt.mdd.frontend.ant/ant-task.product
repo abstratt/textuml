@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="ant-task" id="org.eclipse.platform.ide" application="org.eclipse.ant.core.antRunner" version="1.0" useFeatures="false" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <plugins>
+      <plugin id="com.abstratt.mdd.core"/>
+      <plugin id="com.abstratt.mdd.frontend.ant"/>
+      <plugin id="com.abstratt.mdd.frontend.core"/>
+      <plugin id="com.abstratt.mdd.frontend.textuml.core"/>
+      <plugin id="com.abstratt.pluginutils"/>
+      <plugin id="com.ibm.icu"/>
+      <plugin id="javax.servlet"/>
+      <plugin id="org.apache.ant"/>
+      <plugin id="org.apache.commons.beanutils"/>
+      <plugin id="org.apache.commons.io"/>
+      <plugin id="org.apache.commons.logging"/>
+      <plugin id="org.eclipse.ant.core"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.filesystem"/>
+      <plugin id="org.eclipse.core.filesystem.linux.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.resources"/>
+      <plugin id="org.eclipse.core.resources.compatibility" fragment="true"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.auth"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.core.variables"/>
+      <plugin id="org.eclipse.emf.common"/>
+      <plugin id="org.eclipse.emf.ecore"/>
+      <plugin id="org.eclipse.emf.ecore.xmi"/>
+      <plugin id="org.eclipse.emf.mapping.ecore2xml"/>
+      <plugin id="org.eclipse.emf.query"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.eclipse.uml2.common"/>
+      <plugin id="org.eclipse.uml2.uml"/>
+      <plugin id="org.eclipse.uml2.uml.resources"/>
+   </plugins>
+
+
+</product>
