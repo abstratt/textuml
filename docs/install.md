@@ -28,8 +28,7 @@ Method 2: Installation via Update Manager
     JAR URL in the "Work with:" field (include jar: to the !/ at the
     end):
 
-
-    jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/mdd/com.abstratt.mdd.oss.repository/1.9/com.abstratt.mdd.oss.repository-1.9.zip!/
+jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/mdd/com.abstratt.mdd.oss.repository/1.9/com.abstratt.mdd.oss.repository-1.9.zip!/
 
 -   Select the TextUML Toolkit feature from the Modeling category.
 
