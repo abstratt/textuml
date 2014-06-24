@@ -11,14 +11,15 @@ Install Eclipse
     [http://eclipse.org/downloads/](http://eclipse.org/downloads/ "http://eclipse.org/downloads/")
 -   Start Eclipse
 
-### Have the Marketplace client?
+Method 1: Installation via Eclipse Marketplace (preferred)
+-------------------------------
 
 If you have the [Eclipse
 Marketplace](http://marketplace.eclipse.org/marketplace-client-intro "http://marketplace.eclipse.org/marketplace-client-intro")
 client installed, that is the easiest way to install the TextUML
 Toolkit. Just search for the Toolkit, and install it directly.
 
-Install TextUML Toolkit feature
+Method 2: Installation via Update Manager 
 -------------------------------
 
 -   Open the [Software
@@ -27,9 +28,8 @@ Install TextUML Toolkit feature
     JAR URL in the "Work with:" field (include jar: to the !/ at the
     end):
 
-<!-- -->
 
-    jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/mdd/com.abstratt.mdd.oss.repository/1.120.1/com.abstratt.mdd.oss.repository-1.120.1.zip!/
+    jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/mdd/com.abstratt.mdd.oss.repository/1.9/com.abstratt.mdd.oss.repository-1.9.zip!/
 
 -   Select the TextUML Toolkit feature from the Modeling category.
 
