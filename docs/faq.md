@@ -1,4 +1,5 @@
 TextUML Toolkit FAQ
+-------------------
 
 #### Can a tool that uses a textual notation be considered UML compliant?
 
