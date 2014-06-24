@@ -1,12 +1,3 @@
-TextUML Guide {#firstHeading .firstHeading}
-=============
-
-### From textuml {#siteSub}
-
-Jump to:
-[navigation](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Guide#column-one),
-[search](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Guide#searchInput)
-
 *This document provides a brief description of the **structural**
 elements of the TextUML notation and the UML concepts and elements they
 represent. See [TextUML Action
