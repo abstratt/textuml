@@ -1,3 +1,6 @@
+Repository properties
+---------------------
+
 Repository properties are stored in a properties file named
 mdd.properties under the repository base project (project root, in
 Eclipse).
