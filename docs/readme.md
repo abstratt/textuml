@@ -44,7 +44,7 @@
     [templates](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=UML_101#Templates "UML 101").
 
 -   **[Contributor's
-    Guide](contributor.md "Contributor Guide")**
+    Guide](contributing.md "Contributor Guide")**
     - instructions for contributors
 
 -   **[System
