@@ -21,10 +21,9 @@ installed, while Vista does not*.
 ### Configure EclipseGraphviz
 
 Once Graphviz is installed, you need to tell EclipseGraphviz where to
-find it. Open the Graphviz preference page (shown below) and enter the
+find it. Open the Graphviz preference page in Eclipse and enter the
 location for the dot executable.
 
-[![Image:Update-step3.png](./SourceForge.net%20%20Configuring%20Graphical%20Rendering%20-%20textuml_files/Update-step3.png)](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=File:Update-step3.png "Image:Update-step3.png")
 
 ### How are diagrams rendered?
 
