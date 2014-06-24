@@ -1,27 +1,17 @@
 # Contributor Guide
 
-## Contents
+Note this project is migrating to Github. Old issues are still on the Sourceforge repository.
 
-  * [1 Important links](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Contributor_Guide#Important_links)
-  * [2 Info for testers](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Contributor_Guide#Info_for_testers)
-  * [3 Info for developers](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Contributor_Guide#Info_for_developers)
-    * [3.1 Requirements](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Contributor_Guide#Requirements)
-    * [3.2 Checking out the source code](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Contributor_Guide#Checking_out_the_source_code)
-    * [3.3 Importing the source code into Eclipse](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Contributor_Guide#Importing_the_source_code_into_Eclipse)
-    * [3.4 Running the TextUML Toolkit as an Eclipse application](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Contributor_Guide#Running_the_TextUML_Toolkit_as_an_Eclipse_application)
-    * [3.5 Contributing code](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Contributor_Guide#Contributing_code)
-    * [3.6 Continuous builds](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Contributor_Guide#Continuous_builds)
+# Important links
 
-#  Important links
-
-  * **Documentation** - make sure you are familiar with the [TextUML Toolkit Documentation](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Documentation_Home). 
+  * **Documentation** - make sure you are familiar with the TextUML Toolkit Documentation. 
   * **Forum** - if you have problems doing any of what is described below, don't hesitate to ask for help on the [support forum](http://abstratt.com/forum/). 
-  * **Bug reports** - found a bug or looking for areas to contribute? The [issue tracker](http://abstratt.com/issues/) is the place to go. 
+  * **Bug reports** - found a bug or looking for areas to contribute? The [issue tracker](https://github.com/abstratt/textuml/issues) is the place to go. 
 
 #  Info for testers
 
   1. keep the Error Log view open so you can monitor any logged errors during operation. You can also set it to activate on log events by default - it is available on the drop down menu on the top right side of the view. 
-  2. please report any problems you might find using the [issue tracker](https://bitbucket.org/abstratt/textuml/issues/)
+  2. please report any problems you might find using the [issue tracker](https://github.com/abstratt/textuml/issues)
   3. please provide any exceptions you see (they will be in the log, and some might generate error dialogs too). 
   4. attach screenshots if necessary/helpful. 
   5. the documentation on the [ tool](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Toolkit_Features) and [ notation](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Guide) features provide a good basis for testing. 
