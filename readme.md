@@ -1,3 +1,6 @@
+### 2014/06/26 - We are migrating this project from Sourceforge. Documentation is in the process of being imported/adapted, and is temporarily unavailable (should be back shortly).
+
+
 This is the new repository for the TextUML tooling and replaces what is on SourceForge.
 
 [![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=textuml-toolkit)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
