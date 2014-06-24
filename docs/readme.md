@@ -30,15 +30,6 @@
     - customization properties that change the way the compiler works
     (to enable built-in types, aliases etc).
 
--   **[Success
-    Stories](success_stories.md "Success Stories")**
-    - a compilation of cases where TextUML Toolkit is being successfully
-    applied.
-
--   **[Pet Store
-    Example](pet_store_example.md "Pet Store Example")**
-    - your familiar Pet Store example application, the model-driven way.
-
 -   **[FAQ](faq.md "FAQ")**
     - frequently asked questions about TextUML and the Toolkit
 
