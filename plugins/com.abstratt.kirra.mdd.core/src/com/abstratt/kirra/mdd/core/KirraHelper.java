@@ -655,4 +655,8 @@ public class KirraHelper {
     	KirraHelper.addNonInstanceActions(umlClass, actions);
 		return actions;
 	}
+
+    public static boolean isInstantiable(Class umlClass) {
+        return isReadOnly(umlClass);
+    }
 }
