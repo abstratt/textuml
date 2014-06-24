@@ -41,7 +41,7 @@ Further steps for graphical diagram rendering
 Diagram rendering is optional. If you decided not to install
 EclipseGraphviz in the previous step, skip this section, you are done.
 But if you do, read [these
-instructions](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Configuring_Graphical_Rendering "Configuring Graphical Rendering").
+instructions](graphical.md "Configuring Graphical Rendering").
 
 Installation complete - now what?
 ---------------------------------
