@@ -656,7 +656,16 @@ public class KirraHelper {
 		return actions;
 	}
 
-    public static boolean isInstantiable(Class umlClass) {
-        return isReadOnly(umlClass);
+    public static boolean isInstantiable(final Class umlClass) {
+        return get(umlClass, "isInstantiable", new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                List<Property> all = getPropertiesAndRelationships(umlClass);
+                for (Property property : all)
+                    if (isReadOnly(property) && isBasicallyRequired(property) && property.getDefaultValue() == null)
+                        return false;
+                return true;
+            }
+        });
     }
 }
