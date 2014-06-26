@@ -668,10 +668,4 @@ public class KirraHelper {
             }
         });
     }
-    
-    public static boolean isUserVisible(Property property) {
-        if (isParentRelationship(property) && !isTopLevel((Classifier) property.getOwner()))
-            return false;
-        return isPublic(property);
-    }
 }
