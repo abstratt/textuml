@@ -662,7 +662,7 @@ public class KirraHelper {
             public Boolean call() throws Exception {
                 List<Property> all = getPropertiesAndRelationships(umlClass);
                 for (Property property : all)
-                    if (isReadOnly(property) && isBasicallyRequired(property) && property.getDefaultValue() == null)
+                    if (isRequired(property, true) && !isPublic(property))
                         return false;
                 return true;
             }
