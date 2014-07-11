@@ -98,6 +98,7 @@ class Date specializes Primitive
 end;
 
 class String specializes Primitive
+  operation isEmpty() : Boolean;
   operation size() : Integer;
   operation add(s : String) : String;
   operation add(s : any) : String;

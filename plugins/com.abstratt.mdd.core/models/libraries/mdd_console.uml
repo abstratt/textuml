@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:l2="http://www.eclipse.org/uml2/4.0.0/UML/Profile/L2" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_console" URI="libraries/mdd_console">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/05/26 12:43:34 144 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/07/03 04:21:19 703 -0300"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0">
       <importedPackage xmi:type="uml:Model" href="mdd_types.uml#_0"/>
@@ -15,9 +15,6 @@
         <details xmi:id="Console-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_console.tuml"/>
       </eAnnotations>
       <ownedOperation xmi:id="Console-writeln" name="writeln" visibility="public" isStatic="true">
-        <eAnnotations xmi:id="Console-writeln-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Console-writeln-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="10"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Console-writeln-text" name="text" effect="create">
           <type xmi:type="uml:Class" href="mdd_types.uml#String"/>
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Console-writeln-text-_lowerValue" value="1">
@@ -29,9 +26,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Console-write" name="write" visibility="public" isStatic="true">
-        <eAnnotations xmi:id="Console-write-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Console-write-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="11"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Console-write-text" name="text" effect="create">
           <type xmi:type="uml:Class" href="mdd_types.uml#String"/>
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Console-write-text-_lowerValue" value="1">
@@ -56,6 +50,8 @@
       <appliedProfile href="pathmap://UML_PROFILES/StandardL2.profile.uml#_0"/>
     </profileApplication>
   </uml:Model>
-  <l2:ModelLibrary xmi:id="_1" base_Package="_0"/>
-  <mdd_extensions:External xmi:id="_2" base_Class="Console"/>
+  <mdd_extensions:Debuggable xmi:id="_1" lineNumber="10" source="mdd_console.tuml" base_Element="Console-writeln"/>
+  <mdd_extensions:Debuggable xmi:id="_2" lineNumber="11" source="mdd_console.tuml" base_Element="Console-write"/>
+  <l2:ModelLibrary xmi:id="_3" base_Package="_0"/>
+  <mdd_extensions:External xmi:id="_4" base_Class="Console"/>
 </xmi:XMI>

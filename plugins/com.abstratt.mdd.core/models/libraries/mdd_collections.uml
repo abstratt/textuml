@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:l2="http://www.eclipse.org/uml2/4.0.0/UML/Profile/L2" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_collections" URI="libraries/mdd_collections">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/05/26 12:43:34 059 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/07/03 04:21:19 587 -0300"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0">
       <importedPackage xmi:type="uml:Model" href="mdd_types.uml#_0"/>
@@ -20,9 +20,6 @@
         </ownedParameter>
       </ownedTemplateSignature>
       <ownedOperation xmi:id="Collection-add" name="add" visibility="public">
-        <eAnnotations xmi:id="Collection-add-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-add-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="9"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-add-toAdd" name="toAdd" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-add-toAdd-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -37,9 +34,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-count" name="count" visibility="public">
-        <eAnnotations xmi:id="Collection-count-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-count-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="10"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-count-predicate" name="predicate" type="_7B20T2020mdd_typesBoolean7D" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-count-predicate-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -59,9 +53,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-includes" name="includes" visibility="public">
-        <eAnnotations xmi:id="Collection-includes-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-includes-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="11"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-includes-object" name="object" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-includes-object-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -81,9 +72,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-includesAll" name="includesAll" visibility="public">
-        <eAnnotations xmi:id="Collection-includesAll-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-includesAll-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="12"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-includesAll-c2" name="c2" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-includesAll-c2-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-includesAll-c2-_upperValue" value="*"/>
@@ -99,9 +87,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-includesAny" name="includesAny" visibility="public">
-        <eAnnotations xmi:id="Collection-includesAny-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-includesAny-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="13"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-includesAny-c2" name="c2" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-includesAny-c2-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-includesAny-c2-_upperValue" value="*"/>
@@ -117,9 +102,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-isEmpty" name="isEmpty" visibility="public">
-        <eAnnotations xmi:id="Collection-isEmpty-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-isEmpty-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="14"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-isEmpty-_ownedParameter.0" direction="return">
           <type xmi:type="uml:Class" href="mdd_types.uml#Boolean"/>
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-isEmpty-_ownedParameter.0-_lowerValue" value="1">
@@ -131,9 +113,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-size" name="size" visibility="public">
-        <eAnnotations xmi:id="Collection-size-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-size-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="15"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-size-_ownedParameter.0" direction="return">
           <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-size-_ownedParameter.0-_lowerValue" value="1">
@@ -145,9 +124,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-exists" name="exists" visibility="public">
-        <eAnnotations xmi:id="Collection-exists-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-exists-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="16"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-exists-predicate" name="predicate" type="_7B20T2020mdd_typesBoolean7D.1" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-exists-predicate-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -167,9 +143,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-one" name="one" visibility="public">
-        <eAnnotations xmi:id="Collection-one-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-one-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="17"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-one-predicate" name="predicate" type="_7B20T2020mdd_typesBoolean7D.2" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-one-predicate-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -189,9 +162,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-any" name="any" visibility="public">
-        <eAnnotations xmi:id="Collection-any-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-any-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="18"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-any-predicate" name="predicate" type="_7B20T2020mdd_typesBoolean7D.3" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-any-predicate-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-any-predicate-_upperValue" value="1"/>
@@ -206,9 +176,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-select" name="select" visibility="public">
-        <eAnnotations xmi:id="Collection-select-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-select-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="19"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-select-filter" name="filter" type="_7B20T2020mdd_typesBoolean7D.4" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-select-filter-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -223,9 +190,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-collect" name="collect" visibility="public">
-        <eAnnotations xmi:id="Collection-collect-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-collect-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="20"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-collect-mapping" name="mapping" type="_7B20T2020mdd_typesAnyType7D" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-collect-mapping-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -241,9 +205,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-forAll" name="forAll" visibility="public">
-        <eAnnotations xmi:id="Collection-forAll-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-forAll-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="21"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-forAll-predicate" name="predicate" type="_7B20T2020mdd_typesBoolean7D.5" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-forAll-predicate-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -263,9 +224,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-forEach" name="forEach" visibility="public">
-        <eAnnotations xmi:id="Collection-forEach-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-forEach-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="22"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-forEach-predicate" name="predicate" type="_7B20T7D" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-forEach-predicate-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -276,9 +234,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-sortedBy" name="sortedBy" visibility="public">
-        <eAnnotations xmi:id="Collection-sortedBy-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-sortedBy-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="23"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-sortedBy-c" name="c" type="_7B20T2020T2020mdd_typesInteger7D" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-sortedBy-c-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -293,45 +248,30 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-asOrderedSet" name="asOrderedSet" visibility="public">
-        <eAnnotations xmi:id="Collection-asOrderedSet-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-asOrderedSet-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="24"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-asOrderedSet-_ownedParameter.0" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" isOrdered="true" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-asOrderedSet-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-asOrderedSet-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-asSequence" name="asSequence" visibility="public">
-        <eAnnotations xmi:id="Collection-asSequence-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-asSequence-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="25"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-asSequence-_ownedParameter.0" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" isOrdered="true" isUnique="false" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-asSequence-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-asSequence-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-asSet" name="asSet" visibility="public">
-        <eAnnotations xmi:id="Collection-asSet-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-asSet-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="26"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-asSet-_ownedParameter.0" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-asSet-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-asSet-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-asBag" name="asBag" visibility="public">
-        <eAnnotations xmi:id="Collection-asBag-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-asBag-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="27"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-asBag-_ownedParameter.0" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" isUnique="false" direction="return">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-asBag-_ownedParameter.0-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-asBag-_ownedParameter.0-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-union" name="union" visibility="public">
-        <eAnnotations xmi:id="Collection-union-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-union-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="28"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-union-another" name="another" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-union-another-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-union-another-_upperValue" value="*"/>
@@ -342,9 +282,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-collectMany" name="collectMany" visibility="public">
-        <eAnnotations xmi:id="Collection-collectMany-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-collectMany-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="30"/>
-        </eAnnotations>
         <ownedComment xmi:id="Collection-collectMany-_ownedComment.0" annotatedElement="Collection-collectMany">
           <body> Collects and intersects all collections obtained from each of the elements in this collection. </body>
         </ownedComment>
@@ -362,9 +299,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-groupBy" name="groupBy" visibility="public">
-        <eAnnotations xmi:id="Collection-groupBy-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-groupBy-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="31"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-groupBy-grouper" name="grouper" type="_7B20T2020mdd_typesAnyType7D.1" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-groupBy-grouper-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -383,9 +317,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-reduce" name="reduce" visibility="public">
-        <eAnnotations xmi:id="Collection-reduce-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-reduce-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="32"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-reduce-reductor" name="reductor" type="_7B20T2020mdd_typesAnyType5B0205D2020mdd_typesAnyType7D" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reduce-reductor-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -410,9 +341,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-sum" name="sum" visibility="public">
-        <eAnnotations xmi:id="Collection-sum-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-sum-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="33"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-sum-transformer" name="transformer" type="_7B20T2020mdd_typesDouble7D" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-sum-transformer-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -432,9 +360,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-max" name="max" visibility="public">
-        <eAnnotations xmi:id="Collection-max-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-max-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="34"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-max-transformer" name="transformer" type="_7B20T2020mdd_typesDouble7D.1" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-max-transformer-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -454,9 +379,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-min" name="min" visibility="public">
-        <eAnnotations xmi:id="Collection-min-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-min-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="35"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-min-transformer" name="transformer" type="_7B20T2020mdd_typesDouble7D.2" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-min-transformer-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -476,9 +398,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-mode" name="mode" visibility="public">
-        <eAnnotations xmi:id="Collection-mode-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-mode-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="36"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-mode-_ownedParameter.0" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-mode-_ownedParameter.0-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -489,9 +408,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-median" name="median" visibility="public">
-        <eAnnotations xmi:id="Collection-median-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-median-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="37"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-median-_ownedParameter.0" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-median-_ownedParameter.0-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -502,9 +418,6 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-join" name="join" visibility="public">
-        <eAnnotations xmi:id="Collection-join-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Collection-join-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="38"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Collection-join-delimiter" name="delimiter" effect="create">
           <type xmi:type="uml:Class" href="mdd_types.uml#String"/>
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-join-delimiter-_lowerValue" value="1">
@@ -538,9 +451,6 @@
         </ownedParameter>
       </ownedTemplateSignature>
       <ownedOperation xmi:id="Grouping-collect" name="collect" visibility="public">
-        <eAnnotations xmi:id="Grouping-collect-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Grouping-collect-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="42"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Grouping-collect-group" name="group" type="_7B20T5B0205D2020mdd_typesAnyType7D" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Grouping-collect-group-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -570,9 +480,6 @@
       </templateBinding>
       <generalization xmi:id="Sequence-_generalization.0" general="Collection"/>
       <ownedOperation xmi:id="Sequence-at" name="at" visibility="public">
-        <eAnnotations xmi:id="Sequence-at-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Sequence-at-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="46"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Sequence-at-i" name="i" effect="create">
           <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-at-i-_lowerValue" value="1">
@@ -620,9 +527,6 @@
       </templateBinding>
       <generalization xmi:id="Bag-_generalization.0" general="Collection"/>
       <ownedOperation xmi:id="Bag-count" name="count" visibility="public">
-        <eAnnotations xmi:id="Bag-count-_com.abstratt2Fmdd2FlineNumber" source="com.abstratt/mdd/lineNumber">
-          <details xmi:id="Bag-count-_com.abstratt2Fmdd2FlineNumber-_details.0" key="lineNumber" value="53"/>
-        </eAnnotations>
         <ownedParameter xmi:id="Bag-count-element" name="element" type="Bag-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Bag-count-element-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -1034,24 +938,56 @@
       <appliedProfile href="pathmap://UML_PROFILES/StandardL2.profile.uml#_0"/>
     </profileApplication>
   </uml:Model>
-  <mdd_extensions:Signature xmi:id="_1" base_Interface="_7B20T2020mdd_typesBoolean7D"/>
-  <mdd_extensions:Signature xmi:id="_2" base_Interface="_7B20T2020mdd_typesBoolean7D.1"/>
-  <mdd_extensions:Signature xmi:id="_3" base_Interface="_7B20T2020mdd_typesBoolean7D.2"/>
-  <mdd_extensions:Signature xmi:id="_4" base_Interface="_7B20T2020mdd_typesBoolean7D.3"/>
-  <mdd_extensions:Signature xmi:id="_5" base_Interface="_7B20T2020mdd_typesBoolean7D.4"/>
-  <mdd_extensions:Signature xmi:id="_6" base_Interface="_7B20T2020mdd_typesAnyType7D"/>
-  <mdd_extensions:Signature xmi:id="_7" base_Interface="_7B20T2020mdd_typesBoolean7D.5"/>
-  <mdd_extensions:Signature xmi:id="_8" base_Interface="_7B20T7D"/>
-  <mdd_extensions:Signature xmi:id="_9" base_Interface="_7B20T2020T2020mdd_typesInteger7D"/>
-  <mdd_extensions:Signature xmi:id="_10" base_Interface="_7B20T2020T7D"/>
-  <mdd_extensions:Signature xmi:id="_11" base_Interface="_7B20T2020mdd_typesAnyType7D.1"/>
-  <mdd_extensions:Signature xmi:id="_12" base_Interface="_7B20T2020mdd_typesAnyType5B0205D2020mdd_typesAnyType7D"/>
-  <mdd_extensions:Signature xmi:id="_13" base_Interface="_7B20T2020mdd_typesDouble7D"/>
-  <mdd_extensions:Signature xmi:id="_14" base_Interface="_7B20T2020mdd_typesDouble7D.1"/>
-  <mdd_extensions:Signature xmi:id="_15" base_Interface="_7B20T2020mdd_typesDouble7D.2"/>
-  <mdd_extensions:Signature xmi:id="_16" base_Interface="_7B20T5B0205D2020mdd_typesAnyType7D"/>
-  <mdd_extensions:BasicValue xmi:id="_17" base_LiteralString="Collection-join-delimiter-_defaultValue">
+  <mdd_extensions:Debuggable xmi:id="_1" lineNumber="9" source="mdd_collections.tuml" base_Element="Collection-add"/>
+  <mdd_extensions:Debuggable xmi:id="_2" lineNumber="10" source="mdd_collections.tuml" base_Element="Collection-count"/>
+  <mdd_extensions:Debuggable xmi:id="_3" lineNumber="11" source="mdd_collections.tuml" base_Element="Collection-includes"/>
+  <mdd_extensions:Debuggable xmi:id="_4" lineNumber="12" source="mdd_collections.tuml" base_Element="Collection-includesAll"/>
+  <mdd_extensions:Debuggable xmi:id="_5" lineNumber="13" source="mdd_collections.tuml" base_Element="Collection-includesAny"/>
+  <mdd_extensions:Debuggable xmi:id="_6" lineNumber="14" source="mdd_collections.tuml" base_Element="Collection-isEmpty"/>
+  <mdd_extensions:Debuggable xmi:id="_7" lineNumber="15" source="mdd_collections.tuml" base_Element="Collection-size"/>
+  <mdd_extensions:Debuggable xmi:id="_8" lineNumber="16" source="mdd_collections.tuml" base_Element="Collection-exists"/>
+  <mdd_extensions:Debuggable xmi:id="_9" lineNumber="17" source="mdd_collections.tuml" base_Element="Collection-one"/>
+  <mdd_extensions:Debuggable xmi:id="_10" lineNumber="18" source="mdd_collections.tuml" base_Element="Collection-any"/>
+  <mdd_extensions:Debuggable xmi:id="_11" lineNumber="19" source="mdd_collections.tuml" base_Element="Collection-select"/>
+  <mdd_extensions:Debuggable xmi:id="_12" lineNumber="20" source="mdd_collections.tuml" base_Element="Collection-collect"/>
+  <mdd_extensions:Debuggable xmi:id="_13" lineNumber="21" source="mdd_collections.tuml" base_Element="Collection-forAll"/>
+  <mdd_extensions:Debuggable xmi:id="_14" lineNumber="22" source="mdd_collections.tuml" base_Element="Collection-forEach"/>
+  <mdd_extensions:Debuggable xmi:id="_15" lineNumber="23" source="mdd_collections.tuml" base_Element="Collection-sortedBy"/>
+  <mdd_extensions:Debuggable xmi:id="_16" lineNumber="24" source="mdd_collections.tuml" base_Element="Collection-asOrderedSet"/>
+  <mdd_extensions:Debuggable xmi:id="_17" lineNumber="25" source="mdd_collections.tuml" base_Element="Collection-asSequence"/>
+  <mdd_extensions:Debuggable xmi:id="_18" lineNumber="26" source="mdd_collections.tuml" base_Element="Collection-asSet"/>
+  <mdd_extensions:Debuggable xmi:id="_19" lineNumber="27" source="mdd_collections.tuml" base_Element="Collection-asBag"/>
+  <mdd_extensions:Debuggable xmi:id="_20" lineNumber="28" source="mdd_collections.tuml" base_Element="Collection-union"/>
+  <mdd_extensions:Debuggable xmi:id="_21" lineNumber="30" source="mdd_collections.tuml" base_Element="Collection-collectMany"/>
+  <mdd_extensions:Debuggable xmi:id="_22" lineNumber="31" source="mdd_collections.tuml" base_Element="Collection-groupBy"/>
+  <mdd_extensions:Debuggable xmi:id="_23" lineNumber="32" source="mdd_collections.tuml" base_Element="Collection-reduce"/>
+  <mdd_extensions:Debuggable xmi:id="_24" lineNumber="33" source="mdd_collections.tuml" base_Element="Collection-sum"/>
+  <mdd_extensions:Debuggable xmi:id="_25" lineNumber="34" source="mdd_collections.tuml" base_Element="Collection-max"/>
+  <mdd_extensions:Debuggable xmi:id="_26" lineNumber="35" source="mdd_collections.tuml" base_Element="Collection-min"/>
+  <mdd_extensions:Debuggable xmi:id="_27" lineNumber="36" source="mdd_collections.tuml" base_Element="Collection-mode"/>
+  <mdd_extensions:Debuggable xmi:id="_28" lineNumber="37" source="mdd_collections.tuml" base_Element="Collection-median"/>
+  <mdd_extensions:Debuggable xmi:id="_29" lineNumber="38" source="mdd_collections.tuml" base_Element="Collection-join"/>
+  <mdd_extensions:Debuggable xmi:id="_30" lineNumber="42" source="mdd_collections.tuml" base_Element="Grouping-collect"/>
+  <mdd_extensions:Debuggable xmi:id="_31" lineNumber="46" source="mdd_collections.tuml" base_Element="Sequence-at"/>
+  <mdd_extensions:Debuggable xmi:id="_32" lineNumber="53" source="mdd_collections.tuml" base_Element="Bag-count"/>
+  <mdd_extensions:Signature xmi:id="_33" base_Interface="_7B20T2020mdd_typesBoolean7D"/>
+  <mdd_extensions:Signature xmi:id="_34" base_Interface="_7B20T2020mdd_typesBoolean7D.1"/>
+  <mdd_extensions:Signature xmi:id="_35" base_Interface="_7B20T2020mdd_typesBoolean7D.2"/>
+  <mdd_extensions:Signature xmi:id="_36" base_Interface="_7B20T2020mdd_typesBoolean7D.3"/>
+  <mdd_extensions:Signature xmi:id="_37" base_Interface="_7B20T2020mdd_typesBoolean7D.4"/>
+  <mdd_extensions:Signature xmi:id="_38" base_Interface="_7B20T2020mdd_typesAnyType7D"/>
+  <mdd_extensions:Signature xmi:id="_39" base_Interface="_7B20T2020mdd_typesBoolean7D.5"/>
+  <mdd_extensions:Signature xmi:id="_40" base_Interface="_7B20T7D"/>
+  <mdd_extensions:Signature xmi:id="_41" base_Interface="_7B20T2020T2020mdd_typesInteger7D"/>
+  <mdd_extensions:Signature xmi:id="_42" base_Interface="_7B20T2020T7D"/>
+  <mdd_extensions:Signature xmi:id="_43" base_Interface="_7B20T2020mdd_typesAnyType7D.1"/>
+  <mdd_extensions:Signature xmi:id="_44" base_Interface="_7B20T2020mdd_typesAnyType5B0205D2020mdd_typesAnyType7D"/>
+  <mdd_extensions:Signature xmi:id="_45" base_Interface="_7B20T2020mdd_typesDouble7D"/>
+  <mdd_extensions:Signature xmi:id="_46" base_Interface="_7B20T2020mdd_typesDouble7D.1"/>
+  <mdd_extensions:Signature xmi:id="_47" base_Interface="_7B20T2020mdd_typesDouble7D.2"/>
+  <mdd_extensions:Signature xmi:id="_48" base_Interface="_7B20T5B0205D2020mdd_typesAnyType7D"/>
+  <mdd_extensions:BasicValue xmi:id="_49" base_LiteralString="Collection-join-delimiter-_defaultValue">
     <basicType xmi:type="uml:Class" href="mdd_types.uml#String"/>
   </mdd_extensions:BasicValue>
-  <l2:ModelLibrary xmi:id="_18" base_Package="_0"/>
+  <l2:ModelLibrary xmi:id="_50" base_Package="_0"/>
 </xmi:XMI>

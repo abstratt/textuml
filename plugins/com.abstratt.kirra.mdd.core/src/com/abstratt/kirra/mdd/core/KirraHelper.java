@@ -7,6 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -35,6 +36,7 @@ import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.VisibilityKind;
 
+import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.RepositoryService;
 import com.abstratt.mdd.core.util.AssociationUtils;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
@@ -348,9 +350,6 @@ public class KirraHelper {
     }
     
     public static boolean isReadOnly(final org.eclipse.uml2.uml.Property umlAttribute, final boolean creationTime) {
-        final Property attribute = umlAttribute;
-        final String attributeName = attribute.getName();
-        
         return get(umlAttribute, "isReadOnlyProperty_" + creationTime, new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
@@ -580,7 +579,12 @@ public class KirraHelper {
     }
     
     public static String getLabel(org.eclipse.uml2.uml.NamedElement sourceElement) {
-        return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(sourceElement.getName()), ' ')).replaceAll("[\\w\\d]^|_", " ").replaceAll("[\\s]+", " ");
+        String symbol = sourceElement.getName();
+        return getLabelFromSymbol(symbol);
+    }
+
+    public static String getLabelFromSymbol(String symbol) {
+        return StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(symbol), ' ')).replaceAll("[\\w\\d]^|_", " ").replaceAll("[\\s]+", " ");
     } 
     
     public static String getName(org.eclipse.uml2.uml.NamedElement sourceElement) {
@@ -673,8 +677,20 @@ public class KirraHelper {
     }
     
     public static boolean isUserVisible(Property property) {
+        if (isRelationship(property) && !property.isNavigable())
+            return false;
         if (isParentRelationship(property) && !isTopLevel((Classifier) property.getOwner()))
             return false;
         return isPublic(property);
+    }
+    
+    public static String getApplicationName(IRepository repository, Collection<org.eclipse.uml2.uml.Package> namespaces) {
+        Properties repositoryProperties = repository.getProperties();
+        String applicationName = repositoryProperties.getProperty(IRepository.APPLICATION_NAME);
+        if (applicationName == null)
+            for (Package package_ : namespaces)
+                if (isApplication(package_))
+                    return getLabel(package_);
+        return applicationName == null ? "App" : applicationName;
     }
 }
