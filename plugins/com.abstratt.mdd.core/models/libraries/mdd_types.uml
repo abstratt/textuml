@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:l2="http://www.eclipse.org/uml2/4.0.0/UML/Profile/L2" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_types" URI="libraries/mdd_types">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/07/03 04:21:19 759 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/07/15 11:52:35 493 -0300"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0" visibility="private">
       <importedPackage xmi:type="uml:Profile" href="pathmap://UML_PROFILES/StandardL2.profile.uml#_0"/>
@@ -488,6 +488,16 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-differenceInMonths-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
         </ownedParameter>
       </ownedOperation>
+      <ownedOperation xmi:id="Date-difference" name="difference" visibility="public">
+        <ownedParameter xmi:id="Date-difference-another" name="another" type="Date" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-difference-another-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-difference-another-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Date-difference-_ownedParameter.1" type="Duration" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-difference-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-difference-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
       <ownedOperation xmi:id="Date-day" name="day" visibility="public">
         <ownedParameter xmi:id="Date-day-_ownedParameter.0" type="Integer" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-day-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
@@ -507,13 +517,69 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Date-transpose" name="transpose" visibility="public">
-        <ownedParameter xmi:id="Date-transpose-delta" name="delta" type="Integer" effect="create">
+        <ownedParameter xmi:id="Date-transpose-delta" name="delta" type="Duration" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-delta-_lowerValue" type="Integer" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-delta-_upperValue" type="Integer" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Date-transpose-_ownedParameter.1" type="Date" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Duration" name="Duration">
+      <eAnnotations xmi:id="Duration-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Duration-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <generalization xmi:id="Duration-_generalization.0" general="Primitive"/>
+      <ownedOperation xmi:id="Duration-milliseconds" name="milliseconds" visibility="public" isStatic="true">
+        <ownedParameter xmi:id="Duration-milliseconds-value" name="value" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-milliseconds-value-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-milliseconds-value-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Duration-milliseconds-_ownedParameter.1" type="Duration" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-milliseconds-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-milliseconds-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Duration-seconds" name="seconds" visibility="public" isStatic="true">
+        <ownedParameter xmi:id="Duration-seconds-value" name="value" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-seconds-value-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-seconds-value-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Duration-seconds-_ownedParameter.1" type="Duration" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-seconds-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-seconds-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Duration-minutes" name="minutes" visibility="public" isStatic="true">
+        <ownedParameter xmi:id="Duration-minutes-value" name="value" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-minutes-value-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-minutes-value-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Duration-minutes-_ownedParameter.1" type="Duration" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-minutes-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-minutes-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Duration-hours" name="hours" visibility="public" isStatic="true">
+        <ownedParameter xmi:id="Duration-hours-value" name="value" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-hours-value-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-hours-value-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Duration-hours-_ownedParameter.1" type="Duration" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-hours-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-hours-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Duration-days" name="days" visibility="public" isStatic="true">
+        <ownedParameter xmi:id="Duration-days-value" name="value" type="Number" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-days-value-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-days-value-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Duration-days-_ownedParameter.1" type="Duration" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-days-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-days-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
@@ -674,19 +740,25 @@
   <mdd_extensions:Debuggable xmi:id="_41" lineNumber="91" source="mdd_types.tuml" base_Element="Date-differenceInDays"/>
   <mdd_extensions:Debuggable xmi:id="_42" lineNumber="92" source="mdd_types.tuml" base_Element="Date-differenceInYears"/>
   <mdd_extensions:Debuggable xmi:id="_43" lineNumber="93" source="mdd_types.tuml" base_Element="Date-differenceInMonths"/>
-  <mdd_extensions:Debuggable xmi:id="_44" lineNumber="94" source="mdd_types.tuml" base_Element="Date-day"/>
-  <mdd_extensions:Debuggable xmi:id="_45" lineNumber="95" source="mdd_types.tuml" base_Element="Date-month"/>
-  <mdd_extensions:Debuggable xmi:id="_46" lineNumber="96" source="mdd_types.tuml" base_Element="Date-year"/>
-  <mdd_extensions:Debuggable xmi:id="_47" lineNumber="97" source="mdd_types.tuml" base_Element="Date-transpose"/>
-  <mdd_extensions:Debuggable xmi:id="_48" lineNumber="101" source="mdd_types.tuml" base_Element="String-isEmpty"/>
-  <mdd_extensions:Debuggable xmi:id="_49" lineNumber="102" source="mdd_types.tuml" base_Element="String-size"/>
-  <mdd_extensions:Debuggable xmi:id="_50" lineNumber="103" source="mdd_types.tuml" base_Element="String-add"/>
-  <mdd_extensions:Debuggable xmi:id="_51" lineNumber="104" source="mdd_types.tuml" base_Element="String-add.1"/>
-  <mdd_extensions:Debuggable xmi:id="_52" lineNumber="105" source="mdd_types.tuml" base_Element="String-substring"/>
-  <mdd_extensions:Debuggable xmi:id="_53" lineNumber="106" source="mdd_types.tuml" base_Element="String-toLower"/>
-  <mdd_extensions:Debuggable xmi:id="_54" lineNumber="107" source="mdd_types.tuml" base_Element="String-toUpper"/>
-  <mdd_extensions:Debuggable xmi:id="_55" lineNumber="108" source="mdd_types.tuml" base_Element="String-contains"/>
-  <mdd_extensions:Debuggable xmi:id="_56" lineNumber="112" source="mdd_types.tuml" base_Element="Memo-lineCount"/>
-  <mdd_extensions:Debuggable xmi:id="_57" lineNumber="113" source="mdd_types.tuml" base_Element="Memo-fromString"/>
-  <l2:ModelLibrary xmi:id="_58" base_Package="_0"/>
+  <mdd_extensions:Debuggable xmi:id="_44" lineNumber="94" source="mdd_types.tuml" base_Element="Date-difference"/>
+  <mdd_extensions:Debuggable xmi:id="_45" lineNumber="95" source="mdd_types.tuml" base_Element="Date-day"/>
+  <mdd_extensions:Debuggable xmi:id="_46" lineNumber="96" source="mdd_types.tuml" base_Element="Date-month"/>
+  <mdd_extensions:Debuggable xmi:id="_47" lineNumber="97" source="mdd_types.tuml" base_Element="Date-year"/>
+  <mdd_extensions:Debuggable xmi:id="_48" lineNumber="98" source="mdd_types.tuml" base_Element="Date-transpose"/>
+  <mdd_extensions:Debuggable xmi:id="_49" lineNumber="102" source="mdd_types.tuml" base_Element="Duration-milliseconds"/>
+  <mdd_extensions:Debuggable xmi:id="_50" lineNumber="103" source="mdd_types.tuml" base_Element="Duration-seconds"/>
+  <mdd_extensions:Debuggable xmi:id="_51" lineNumber="104" source="mdd_types.tuml" base_Element="Duration-minutes"/>
+  <mdd_extensions:Debuggable xmi:id="_52" lineNumber="105" source="mdd_types.tuml" base_Element="Duration-hours"/>
+  <mdd_extensions:Debuggable xmi:id="_53" lineNumber="106" source="mdd_types.tuml" base_Element="Duration-days"/>
+  <mdd_extensions:Debuggable xmi:id="_54" lineNumber="110" source="mdd_types.tuml" base_Element="String-isEmpty"/>
+  <mdd_extensions:Debuggable xmi:id="_55" lineNumber="111" source="mdd_types.tuml" base_Element="String-size"/>
+  <mdd_extensions:Debuggable xmi:id="_56" lineNumber="112" source="mdd_types.tuml" base_Element="String-add"/>
+  <mdd_extensions:Debuggable xmi:id="_57" lineNumber="113" source="mdd_types.tuml" base_Element="String-add.1"/>
+  <mdd_extensions:Debuggable xmi:id="_58" lineNumber="114" source="mdd_types.tuml" base_Element="String-substring"/>
+  <mdd_extensions:Debuggable xmi:id="_59" lineNumber="115" source="mdd_types.tuml" base_Element="String-toLower"/>
+  <mdd_extensions:Debuggable xmi:id="_60" lineNumber="116" source="mdd_types.tuml" base_Element="String-toUpper"/>
+  <mdd_extensions:Debuggable xmi:id="_61" lineNumber="117" source="mdd_types.tuml" base_Element="String-contains"/>
+  <mdd_extensions:Debuggable xmi:id="_62" lineNumber="121" source="mdd_types.tuml" base_Element="Memo-lineCount"/>
+  <mdd_extensions:Debuggable xmi:id="_63" lineNumber="122" source="mdd_types.tuml" base_Element="Memo-fromString"/>
+  <l2:ModelLibrary xmi:id="_64" base_Package="_0"/>
 </xmi:XMI>

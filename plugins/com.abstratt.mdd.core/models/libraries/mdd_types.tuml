@@ -91,10 +91,19 @@ class Date specializes Primitive
   operation differenceInDays(another : Date) : Integer;
   operation differenceInYears(another : Date) : Integer;
   operation differenceInMonths(another : Date) : Integer;
+  operation difference(another : Date) : Duration;
   operation day() : Integer;
   operation month() : Integer;
   operation year() : Integer;
-  operation transpose(delta : Integer) : Date;
+  operation transpose(delta : Duration) : Date;
+end;
+
+class Duration specializes Primitive
+  static operation milliseconds(value : Number) : Duration;
+  static operation seconds(value : Number) : Duration;
+  static operation minutes(value : Number) : Duration;
+  static operation hours(value : Number) : Duration;
+  static operation days(value : Number) : Duration;
 end;
 
 class String specializes Primitive
