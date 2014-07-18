@@ -1354,6 +1354,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAOptionalType(AOptionalType node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAVarListTail(AVarListTail node)
     {
         defaultCase(node);

@@ -1370,7 +1370,9 @@ public class BehaviorGenerator extends AbstractGenerator {
 		super.caseAVarDecl(node);
 		String varIdentifier = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
 		final Variable var = builder.getCurrentBlock().createVariable(varIdentifier, null);
-		new TypeSetter(context, namespaceTracker.currentNamespace(null), var).process(node.getTypeIdentifier());
+		if (node.getOptionalType() != null)
+		    // type is optional for local vars
+		    new TypeSetter(context, namespaceTracker.currentNamespace(null), var).process(node.getOptionalType());
 	}
 
 	@Override
@@ -1524,6 +1526,9 @@ public class BehaviorGenerator extends AbstractGenerator {
 				throw new AbortedStatementCompilationException();
 			}
 			action.setVariable(variable);
+			if (variable.getType() == null)
+			    // infer variable type if omitted
+			    TypeUtils.copyType(ActivityUtils.getSource(value), variable, getBoundElement());
 			TypeUtils.copyType(variable, value, getBoundElement());
 			fillDebugInfo(action, node);
 		} finally {

@@ -6518,6 +6518,31 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAVarDecl(AVarDecl node)
     {
         inAVarDecl(node);
+        if(node.getOptionalType() != null)
+        {
+            node.getOptionalType().apply(this);
+        }
+        if(node.getIdentifier() != null)
+        {
+            node.getIdentifier().apply(this);
+        }
+        outAVarDecl(node);
+    }
+
+    public void inAOptionalType(AOptionalType node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOptionalType(AOptionalType node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOptionalType(AOptionalType node)
+    {
+        inAOptionalType(node);
         if(node.getTypeIdentifier() != null)
         {
             node.getTypeIdentifier().apply(this);
@@ -6526,11 +6551,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getColon().apply(this);
         }
-        if(node.getIdentifier() != null)
-        {
-            node.getIdentifier().apply(this);
-        }
-        outAVarDecl(node);
+        outAOptionalType(node);
     }
 
     public void inAVarListTail(AVarListTail node)

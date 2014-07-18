@@ -614,7 +614,9 @@ Productions
   
   var_decl_section = var var_decl var_list_tail* semicolon | {empty} ;
   
-  var_decl = identifier colon type_identifier ;
+  var_decl = identifier optional_type? ;
+  
+  optional_type = colon type_identifier ;
   
   var_list_tail = comma var_decl ;  
 

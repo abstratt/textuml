@@ -269,6 +269,7 @@ public interface Analysis extends Switch
     void caseAVarDeclSection(AVarDeclSection node);
     void caseAEmptyVarDeclSection(AEmptyVarDeclSection node);
     void caseAVarDecl(AVarDecl node);
+    void caseAOptionalType(AOptionalType node);
     void caseAVarListTail(AVarListTail node);
     void caseAStatementSequence(AStatementSequence node);
     void caseAStatement(AStatement node);

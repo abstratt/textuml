@@ -6501,6 +6501,27 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getIdentifier().apply(this);
         }
+        if(node.getOptionalType() != null)
+        {
+            node.getOptionalType().apply(this);
+        }
+        outAVarDecl(node);
+    }
+
+    public void inAOptionalType(AOptionalType node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOptionalType(AOptionalType node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOptionalType(AOptionalType node)
+    {
+        inAOptionalType(node);
         if(node.getColon() != null)
         {
             node.getColon().apply(this);
@@ -6509,7 +6530,7 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getTypeIdentifier().apply(this);
         }
-        outAVarDecl(node);
+        outAOptionalType(node);
     }
 
     public void inAVarListTail(AVarListTail node)
