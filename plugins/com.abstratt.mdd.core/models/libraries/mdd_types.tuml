@@ -86,6 +86,7 @@ end;
 
 class Date specializes Primitive
   static operation today() : Date;
+  static operation now() : Date;
   static operation make(day : Integer, month : Integer, year : Integer) : Date;
   static operation fromString(string : String) : Date;
   operation differenceInDays(another : Date) : Integer;
