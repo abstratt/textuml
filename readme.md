@@ -1,5 +1,3 @@
-###### 2014/06/24 - We are migrating this project from Sourceforge, which inadvertently dropped support for MediaWiki. Documentation is in the process of being imported/adapted (by salvaging it from the Google cache and translating to Markdown via pandoc), and is slowly becoming available in the [docs dir](docs) (please be aware there are many broken links and missing images). 
-
 TextUML Toolkit
 ===============
 
