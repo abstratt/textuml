@@ -47,18 +47,3 @@
     and
     [templates](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=UML_101#Templates "UML 101").
 
--   **[Contributor's
-    Guide](contributing.md "Contributor Guide")**
-    - instructions for contributors
-
--   **[System
-    Architecture](architecture.md "System Architecture")**
-    - developer-oriented description of the overall architecture of the
-    TextUML Toolkit.
-
--   **[TextUML Toolkit
-    Roadmap](roadmap.md "TextUML Toolkit Roadmap")**
-    - what we want (and don't want) the TextUML Toolkit to be and what
-    to do to get there.
--   **[Credits](credits.md "Credits")**
-    - teams and individuals that contributed to the TextUML Toolkit
