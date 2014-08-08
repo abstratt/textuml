@@ -179,7 +179,7 @@ Tokens
   l_guillemot = '«' ;
   r_guillemot = '»' ;
  // bar = '|';
-  question_mark = '?' ;
+  not_null = '?' ;
   
   // identifiers
   identifier = ((escape_character ascii_char) | any_letter) ((escape_character ascii_char) | any_letter | digit)* ;    
@@ -767,7 +767,7 @@ Productions
     {greater_or_equals} rab equals |
     {lower_or_equals} lab equals; 
       
-  unary_operator = {not} not | {minus} minus ;
+  unary_operator = {not} not | {minus} minus | {not_null} not_null;
   
   literal = {boolean} boolean | {number} number | {string} string | {null} null | {symbol} hash identifier ;
   

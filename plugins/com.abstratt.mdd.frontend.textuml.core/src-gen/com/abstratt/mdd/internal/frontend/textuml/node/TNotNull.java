@@ -5,14 +5,14 @@ package com.abstratt.mdd.internal.frontend.textuml.node;
 import com.abstratt.mdd.internal.frontend.textuml.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TQuestionMark extends Token
+public final class TNotNull extends Token
 {
-    public TQuestionMark()
+    public TNotNull()
     {
         super.setText("?");
     }
 
-    public TQuestionMark(int line, int pos)
+    public TNotNull(int line, int pos)
     {
         super.setText("?");
         setLine(line);
@@ -22,17 +22,17 @@ public final class TQuestionMark extends Token
     @Override
     public Object clone()
     {
-      return new TQuestionMark(getLine(), getPos());
+      return new TNotNull(getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTQuestionMark(this);
+        ((Analysis) sw).caseTNotNull(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TQuestionMark text.");
+        throw new RuntimeException("Cannot change TNotNull text.");
     }
 }

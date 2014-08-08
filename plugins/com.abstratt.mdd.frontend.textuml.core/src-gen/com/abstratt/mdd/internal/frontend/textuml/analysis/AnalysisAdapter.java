@@ -1819,6 +1819,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseANotNullUnaryOperator(ANotNullUnaryOperator node)
+    {
+        defaultCase(node);
+    }
+
     public void caseABooleanLiteral(ABooleanLiteral node)
     {
         defaultCase(node);
@@ -2574,7 +2579,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTQuestionMark(TQuestionMark node)
+    public void caseTNotNull(TNotNull node)
     {
         defaultCase(node);
     }

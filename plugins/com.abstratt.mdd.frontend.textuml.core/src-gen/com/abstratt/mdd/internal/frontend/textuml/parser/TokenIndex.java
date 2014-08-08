@@ -820,7 +820,7 @@ class TokenIndex extends AnalysisAdapter
     }
 
     @Override
-    public void caseTQuestionMark(@SuppressWarnings("unused") TQuestionMark node)
+    public void caseTNotNull(@SuppressWarnings("unused") TNotNull node)
     {
         this.index = 135;
     }

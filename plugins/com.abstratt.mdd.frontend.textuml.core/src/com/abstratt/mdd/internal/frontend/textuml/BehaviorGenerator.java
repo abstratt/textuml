@@ -186,6 +186,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.TDiv;
 import com.abstratt.mdd.internal.frontend.textuml.node.TMinus;
 import com.abstratt.mdd.internal.frontend.textuml.node.TMult;
 import com.abstratt.mdd.internal.frontend.textuml.node.TNot;
+import com.abstratt.mdd.internal.frontend.textuml.node.TNotNull;
 import com.abstratt.mdd.internal.frontend.textuml.node.TOr;
 import com.abstratt.mdd.internal.frontend.textuml.node.TPlus;
 import com.abstratt.pluginutils.LogUtils;
@@ -1765,7 +1766,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			public void caseANotEqualsComparisonBinaryOperator(ANotEqualsComparisonBinaryOperator node) {
 				info.operationName = "not";
 			}
-
+			
 			@Override
 			public void caseAGreaterOrEqualsComparisonBinaryOperator(AGreaterOrEqualsComparisonBinaryOperator node) {
 				info.operationName = "greaterOrEquals";
@@ -1846,6 +1847,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 			@Override
 			public void caseTNot(TNot node) {
 				info.operationName = "not";
+			}
+			
+			public void caseTNotNull(TNotNull node) {
+			    info.operationName = "notNull";
 			}
 
 			public void caseTOr(TOr node) {

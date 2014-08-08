@@ -8890,6 +8890,27 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAMinusUnaryOperator(node);
     }
 
+    public void inANotNullUnaryOperator(ANotNullUnaryOperator node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANotNullUnaryOperator(ANotNullUnaryOperator node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANotNullUnaryOperator(ANotNullUnaryOperator node)
+    {
+        inANotNullUnaryOperator(node);
+        if(node.getNotNull() != null)
+        {
+            node.getNotNull().apply(this);
+        }
+        outANotNullUnaryOperator(node);
+    }
+
     public void inABooleanLiteral(ABooleanLiteral node)
     {
         defaultIn(node);

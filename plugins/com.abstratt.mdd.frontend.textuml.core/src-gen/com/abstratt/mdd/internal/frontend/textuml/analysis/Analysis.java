@@ -362,6 +362,7 @@ public interface Analysis extends Switch
     void caseALowerOrEqualsComparisonBinaryOperator(ALowerOrEqualsComparisonBinaryOperator node);
     void caseANotUnaryOperator(ANotUnaryOperator node);
     void caseAMinusUnaryOperator(AMinusUnaryOperator node);
+    void caseANotNullUnaryOperator(ANotNullUnaryOperator node);
     void caseABooleanLiteral(ABooleanLiteral node);
     void caseANumberLiteral(ANumberLiteral node);
     void caseAStringLiteral(AStringLiteral node);
@@ -514,7 +515,7 @@ public interface Analysis extends Switch
     void caseTLeftArrow(TLeftArrow node);
     void caseTLGuillemot(TLGuillemot node);
     void caseTRGuillemot(TRGuillemot node);
-    void caseTQuestionMark(TQuestionMark node);
+    void caseTNotNull(TNotNull node);
     void caseTIdentifier(TIdentifier node);
     void caseTInteger(TInteger node);
     void caseTReal(TReal node);

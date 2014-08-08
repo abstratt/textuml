@@ -1762,7 +1762,7 @@ public class Lexer
     Token new132(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLeftArrow(text, line, pos); }
     Token new133(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLGuillemot(line, pos); }
     Token new134(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TRGuillemot(line, pos); }
-    Token new135(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TQuestionMark(line, pos); }
+    Token new135(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TNotNull(line, pos); }
     Token new136(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TIdentifier(text, line, pos); }
     Token new137(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TInteger(text, line, pos); }
     Token new138(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TReal(text, line, pos); }
