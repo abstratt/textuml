@@ -18,6 +18,7 @@ end;
 
 class Basic
     operation same(other : Object) : Boolean;
+    operation notNull() : Boolean;
     operation toString() : String;
 end;
 

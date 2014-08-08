@@ -210,7 +210,7 @@ public class KirraHelper {
         return get(property, "isBasicallyRequiredProperty", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return property.getLower() > 0;
+                return !(property.getType() instanceof StateMachine) && property.getLower() > 0;
             }
         });
 
