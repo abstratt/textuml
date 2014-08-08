@@ -40,25 +40,5 @@
 -   **[UML 101 with
     TextUML](uml_101.md "UML 101")**
     - a series of articles explaining UML concepts using the TextUML
-    notation:
-    [multiplicity](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=UML_101#Multiplicity "UML 101"),
-    [profiles and
-    stereotypes](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=UML_101#Profiles_and_Stereotypes "UML 101"),
-    and
-    [templates](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=UML_101#Templates "UML 101").
+    notation: multiplicity, profiles and stereotypes and templates.
 
--   **[Contributor's
-    Guide](contributing.md "Contributor Guide")**
-    - instructions for contributors
-
--   **[System
-    Architecture](architecture.md "System Architecture")**
-    - developer-oriented description of the overall architecture of the
-    TextUML Toolkit.
-
--   **[TextUML Toolkit
-    Roadmap](roadmap.md "TextUML Toolkit Roadmap")**
-    - what we want (and don't want) the TextUML Toolkit to be and what
-    to do to get there.
--   **[Credits](credits.md "Credits")**
-    - teams and individuals that contributed to the TextUML Toolkit
