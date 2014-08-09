@@ -199,11 +199,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAEnumerationTopLevelElementChoice(AEnumerationTopLevelElementChoice node)
-    {
-        defaultCase(node);
-    }
-
     public void caseAPrimitiveTopLevelElementChoice(APrimitiveTopLevelElementChoice node)
     {
         defaultCase(node);
@@ -489,6 +484,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAEnumerationClassType(AEnumerationClassType node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAClassImplementsSection(AClassImplementsSection node)
     {
         defaultCase(node);
@@ -630,6 +630,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseAAttributeFeatureType(AAttributeFeatureType node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseALiteralFeatureType(ALiteralFeatureType node)
     {
         defaultCase(node);
     }
@@ -855,6 +860,16 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseAAttributeInvariant(AAttributeInvariant node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAEnumerationLiteralDecl(AEnumerationLiteralDecl node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAEnumerationLiteralValues(AEnumerationLiteralValues node)
     {
         defaultCase(node);
     }
@@ -1250,36 +1265,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseAEmptyOptionalDefault(AEmptyOptionalDefault node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAEnumerationDef(AEnumerationDef node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAEnumerationDefHeader(AEnumerationDefHeader node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAEnumerationLiteralDeclList(AEnumerationLiteralDeclList node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAEnumerationLiteralDeclListTail(AEnumerationLiteralDeclListTail node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAEmptyEnumerationLiteralDeclListTail(AEmptyEnumerationLiteralDeclListTail node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAEnumerationLiteralDecl(AEnumerationLiteralDecl node)
     {
         defaultCase(node);
     }
@@ -2155,6 +2140,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTLink(TLink node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTEnumerationLiteral(TEnumerationLiteral node)
     {
         defaultCase(node);
     }

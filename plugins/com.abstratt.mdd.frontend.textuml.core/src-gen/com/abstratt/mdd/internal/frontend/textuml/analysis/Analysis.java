@@ -38,7 +38,6 @@ public interface Analysis extends Switch
     void caseAStereotypeTopLevelElementChoice(AStereotypeTopLevelElementChoice node);
     void caseAOperationTopLevelElementChoice(AOperationTopLevelElementChoice node);
     void caseAFunctionTopLevelElementChoice(AFunctionTopLevelElementChoice node);
-    void caseAEnumerationTopLevelElementChoice(AEnumerationTopLevelElementChoice node);
     void caseAPrimitiveTopLevelElementChoice(APrimitiveTopLevelElementChoice node);
     void caseASubnamespaceTopLevelElementChoice(ASubnamespaceTopLevelElementChoice node);
     void caseAMinimalTypeIdentifier(AMinimalTypeIdentifier node);
@@ -96,6 +95,7 @@ public interface Analysis extends Switch
     void caseAActorClassType(AActorClassType node);
     void caseASignalClassType(ASignalClassType node);
     void caseAComponentClassType(AComponentClassType node);
+    void caseAEnumerationClassType(AEnumerationClassType node);
     void caseAClassImplementsSection(AClassImplementsSection node);
     void caseAEmptyClassImplementsSection(AEmptyClassImplementsSection node);
     void caseAClassImplementsList(AClassImplementsList node);
@@ -125,6 +125,7 @@ public interface Analysis extends Switch
     void caseAStateMachineFeatureType(AStateMachineFeatureType node);
     void caseAOperationFeatureType(AOperationFeatureType node);
     void caseAAttributeFeatureType(AAttributeFeatureType node);
+    void caseALiteralFeatureType(ALiteralFeatureType node);
     void caseAReferenceFeatureType(AReferenceFeatureType node);
     void caseAReceptionFeatureType(AReceptionFeatureType node);
     void caseAPortFeatureType(APortFeatureType node);
@@ -170,6 +171,8 @@ public interface Analysis extends Switch
     void caseASimpleInitialization(ASimpleInitialization node);
     void caseAAttributeDecl(AAttributeDecl node);
     void caseAAttributeInvariant(AAttributeInvariant node);
+    void caseAEnumerationLiteralDecl(AEnumerationLiteralDecl node);
+    void caseAEnumerationLiteralValues(AEnumerationLiteralValues node);
     void caseAPortDecl(APortDecl node);
     void caseAProvidedPortModifier(AProvidedPortModifier node);
     void caseARequiredPortModifier(ARequiredPortModifier node);
@@ -249,12 +252,6 @@ public interface Analysis extends Switch
     void caseAStereotypePropertyDecl(AStereotypePropertyDecl node);
     void caseAOptionalDefault(AOptionalDefault node);
     void caseAEmptyOptionalDefault(AEmptyOptionalDefault node);
-    void caseAEnumerationDef(AEnumerationDef node);
-    void caseAEnumerationDefHeader(AEnumerationDefHeader node);
-    void caseAEnumerationLiteralDeclList(AEnumerationLiteralDeclList node);
-    void caseAEnumerationLiteralDeclListTail(AEnumerationLiteralDeclListTail node);
-    void caseAEmptyEnumerationLiteralDeclListTail(AEmptyEnumerationLiteralDeclListTail node);
-    void caseAEnumerationLiteralDecl(AEnumerationLiteralDecl node);
     void caseAPrimitiveDef(APrimitiveDef node);
     void caseADetachedOperationDef(ADetachedOperationDef node);
     void caseADetachedOperationHeader(ADetachedOperationHeader node);
@@ -431,6 +428,7 @@ public interface Analysis extends Switch
     void caseTInvariant(TInvariant node);
     void caseTIs(TIs node);
     void caseTLink(TLink node);
+    void caseTEnumerationLiteral(TEnumerationLiteral node);
     void caseTLoad(TLoad node);
     void caseTModel(TModel node);
     void caseTNavigable(TNavigable node);

@@ -2,7 +2,7 @@
 
 package com.abstratt.mdd.internal.frontend.textuml.node;
 
-public abstract class PEnumerationLiteralDeclListTail extends Node
+public abstract class PEnumerationLiteralValues extends Node
 {
     // Empty body
 }

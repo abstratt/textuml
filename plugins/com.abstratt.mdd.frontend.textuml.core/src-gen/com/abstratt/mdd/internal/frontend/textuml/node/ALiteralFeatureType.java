@@ -5,45 +5,45 @@ package com.abstratt.mdd.internal.frontend.textuml.node;
 import com.abstratt.mdd.internal.frontend.textuml.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AEnumerationTopLevelElementChoice extends PTopLevelElementChoice
+public final class ALiteralFeatureType extends PFeatureType
 {
-    private PEnumerationDef _enumerationDef_;
+    private PEnumerationLiteralDecl _enumerationLiteralDecl_;
 
-    public AEnumerationTopLevelElementChoice()
+    public ALiteralFeatureType()
     {
         // Constructor
     }
 
-    public AEnumerationTopLevelElementChoice(
-        @SuppressWarnings("hiding") PEnumerationDef _enumerationDef_)
+    public ALiteralFeatureType(
+        @SuppressWarnings("hiding") PEnumerationLiteralDecl _enumerationLiteralDecl_)
     {
         // Constructor
-        setEnumerationDef(_enumerationDef_);
+        setEnumerationLiteralDecl(_enumerationLiteralDecl_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AEnumerationTopLevelElementChoice(
-            cloneNode(this._enumerationDef_));
+        return new ALiteralFeatureType(
+            cloneNode(this._enumerationLiteralDecl_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAEnumerationTopLevelElementChoice(this);
+        ((Analysis) sw).caseALiteralFeatureType(this);
     }
 
-    public PEnumerationDef getEnumerationDef()
+    public PEnumerationLiteralDecl getEnumerationLiteralDecl()
     {
-        return this._enumerationDef_;
+        return this._enumerationLiteralDecl_;
     }
 
-    public void setEnumerationDef(PEnumerationDef node)
+    public void setEnumerationLiteralDecl(PEnumerationLiteralDecl node)
     {
-        if(this._enumerationDef_ != null)
+        if(this._enumerationLiteralDecl_ != null)
         {
-            this._enumerationDef_.parent(null);
+            this._enumerationLiteralDecl_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AEnumerationTopLevelElementChoice extends PTopLevelElementCho
             node.parent(this);
         }
 
-        this._enumerationDef_ = node;
+        this._enumerationLiteralDecl_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._enumerationDef_);
+            + toString(this._enumerationLiteralDecl_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._enumerationDef_ == child)
+        if(this._enumerationLiteralDecl_ == child)
         {
-            this._enumerationDef_ = null;
+            this._enumerationLiteralDecl_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AEnumerationTopLevelElementChoice extends PTopLevelElementCho
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._enumerationDef_ == oldChild)
+        if(this._enumerationLiteralDecl_ == oldChild)
         {
-            setEnumerationDef((PEnumerationDef) newChild);
+            setEnumerationLiteralDecl((PEnumerationLiteralDecl) newChild);
             return;
         }
 

@@ -680,27 +680,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAFunctionTopLevelElementChoice(node);
     }
 
-    public void inAEnumerationTopLevelElementChoice(AEnumerationTopLevelElementChoice node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAEnumerationTopLevelElementChoice(AEnumerationTopLevelElementChoice node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAEnumerationTopLevelElementChoice(AEnumerationTopLevelElementChoice node)
-    {
-        inAEnumerationTopLevelElementChoice(node);
-        if(node.getEnumerationDef() != null)
-        {
-            node.getEnumerationDef().apply(this);
-        }
-        outAEnumerationTopLevelElementChoice(node);
-    }
-
     public void inAPrimitiveTopLevelElementChoice(APrimitiveTopLevelElementChoice node)
     {
         defaultIn(node);
@@ -2094,6 +2073,27 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAComponentClassType(node);
     }
 
+    public void inAEnumerationClassType(AEnumerationClassType node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEnumerationClassType(AEnumerationClassType node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEnumerationClassType(AEnumerationClassType node)
+    {
+        inAEnumerationClassType(node);
+        if(node.getEnumeration() != null)
+        {
+            node.getEnumeration().apply(this);
+        }
+        outAEnumerationClassType(node);
+    }
+
     public void inAClassImplementsSection(AClassImplementsSection node)
     {
         defaultIn(node);
@@ -2743,6 +2743,27 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getAttributeDecl().apply(this);
         }
         outAAttributeFeatureType(node);
+    }
+
+    public void inALiteralFeatureType(ALiteralFeatureType node)
+    {
+        defaultIn(node);
+    }
+
+    public void outALiteralFeatureType(ALiteralFeatureType node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseALiteralFeatureType(ALiteralFeatureType node)
+    {
+        inALiteralFeatureType(node);
+        if(node.getEnumerationLiteralDecl() != null)
+        {
+            node.getEnumerationLiteralDecl().apply(this);
+        }
+        outALiteralFeatureType(node);
     }
 
     public void inAReferenceFeatureType(AReferenceFeatureType node)
@@ -3961,6 +3982,68 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getInvariantKernel().apply(this);
         }
         outAAttributeInvariant(node);
+    }
+
+    public void inAEnumerationLiteralDecl(AEnumerationLiteralDecl node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEnumerationLiteralDecl(AEnumerationLiteralDecl node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEnumerationLiteralDecl(AEnumerationLiteralDecl node)
+    {
+        inAEnumerationLiteralDecl(node);
+        if(node.getEnumerationLiteral() != null)
+        {
+            node.getEnumerationLiteral().apply(this);
+        }
+        if(node.getIdentifier() != null)
+        {
+            node.getIdentifier().apply(this);
+        }
+        if(node.getEnumerationLiteralValues() != null)
+        {
+            node.getEnumerationLiteralValues().apply(this);
+        }
+        if(node.getSemicolon() != null)
+        {
+            node.getSemicolon().apply(this);
+        }
+        outAEnumerationLiteralDecl(node);
+    }
+
+    public void inAEnumerationLiteralValues(AEnumerationLiteralValues node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEnumerationLiteralValues(AEnumerationLiteralValues node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEnumerationLiteralValues(AEnumerationLiteralValues node)
+    {
+        inAEnumerationLiteralValues(node);
+        if(node.getLParen() != null)
+        {
+            node.getLParen().apply(this);
+        }
+        if(node.getNamedArgumentList() != null)
+        {
+            node.getNamedArgumentList().apply(this);
+        }
+        if(node.getRParen() != null)
+        {
+            node.getRParen().apply(this);
+        }
+        outAEnumerationLiteralValues(node);
     }
 
     public void inAPortDecl(APortDecl node)
@@ -5983,160 +6066,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
     {
         inAEmptyOptionalDefault(node);
         outAEmptyOptionalDefault(node);
-    }
-
-    public void inAEnumerationDef(AEnumerationDef node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAEnumerationDef(AEnumerationDef node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAEnumerationDef(AEnumerationDef node)
-    {
-        inAEnumerationDef(node);
-        if(node.getAnnotations() != null)
-        {
-            node.getAnnotations().apply(this);
-        }
-        if(node.getEnumerationDefHeader() != null)
-        {
-            node.getEnumerationDefHeader().apply(this);
-        }
-        if(node.getEnumerationLiteralDeclList() != null)
-        {
-            node.getEnumerationLiteralDeclList().apply(this);
-        }
-        if(node.getEnd() != null)
-        {
-            node.getEnd().apply(this);
-        }
-        if(node.getSemicolon() != null)
-        {
-            node.getSemicolon().apply(this);
-        }
-        outAEnumerationDef(node);
-    }
-
-    public void inAEnumerationDefHeader(AEnumerationDefHeader node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAEnumerationDefHeader(AEnumerationDefHeader node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAEnumerationDefHeader(AEnumerationDefHeader node)
-    {
-        inAEnumerationDefHeader(node);
-        if(node.getEnumeration() != null)
-        {
-            node.getEnumeration().apply(this);
-        }
-        if(node.getIdentifier() != null)
-        {
-            node.getIdentifier().apply(this);
-        }
-        outAEnumerationDefHeader(node);
-    }
-
-    public void inAEnumerationLiteralDeclList(AEnumerationLiteralDeclList node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAEnumerationLiteralDeclList(AEnumerationLiteralDeclList node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAEnumerationLiteralDeclList(AEnumerationLiteralDeclList node)
-    {
-        inAEnumerationLiteralDeclList(node);
-        if(node.getEnumerationLiteralDecl() != null)
-        {
-            node.getEnumerationLiteralDecl().apply(this);
-        }
-        if(node.getEnumerationLiteralDeclListTail() != null)
-        {
-            node.getEnumerationLiteralDeclListTail().apply(this);
-        }
-        outAEnumerationLiteralDeclList(node);
-    }
-
-    public void inAEnumerationLiteralDeclListTail(AEnumerationLiteralDeclListTail node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAEnumerationLiteralDeclListTail(AEnumerationLiteralDeclListTail node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAEnumerationLiteralDeclListTail(AEnumerationLiteralDeclListTail node)
-    {
-        inAEnumerationLiteralDeclListTail(node);
-        if(node.getComma() != null)
-        {
-            node.getComma().apply(this);
-        }
-        if(node.getEnumerationLiteralDeclList() != null)
-        {
-            node.getEnumerationLiteralDeclList().apply(this);
-        }
-        outAEnumerationLiteralDeclListTail(node);
-    }
-
-    public void inAEmptyEnumerationLiteralDeclListTail(AEmptyEnumerationLiteralDeclListTail node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAEmptyEnumerationLiteralDeclListTail(AEmptyEnumerationLiteralDeclListTail node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAEmptyEnumerationLiteralDeclListTail(AEmptyEnumerationLiteralDeclListTail node)
-    {
-        inAEmptyEnumerationLiteralDeclListTail(node);
-        outAEmptyEnumerationLiteralDeclListTail(node);
-    }
-
-    public void inAEnumerationLiteralDecl(AEnumerationLiteralDecl node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAEnumerationLiteralDecl(AEnumerationLiteralDecl node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAEnumerationLiteralDecl(AEnumerationLiteralDecl node)
-    {
-        inAEnumerationLiteralDecl(node);
-        if(node.getModelComment() != null)
-        {
-            node.getModelComment().apply(this);
-        }
-        if(node.getIdentifier() != null)
-        {
-            node.getIdentifier().apply(this);
-        }
-        outAEnumerationLiteralDecl(node);
     }
 
     public void inAPrimitiveDef(APrimitiveDef node)

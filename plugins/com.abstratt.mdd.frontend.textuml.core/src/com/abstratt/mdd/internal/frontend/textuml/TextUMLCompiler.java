@@ -57,7 +57,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AClassDef;
 import com.abstratt.mdd.internal.frontend.textuml.node.AClassHeader;
 import com.abstratt.mdd.internal.frontend.textuml.node.AComponentClassType;
 import com.abstratt.mdd.internal.frontend.textuml.node.ACompositionReferenceType;
-import com.abstratt.mdd.internal.frontend.textuml.node.AEnumerationDef;
+import com.abstratt.mdd.internal.frontend.textuml.node.AEnumerationClassType;
 import com.abstratt.mdd.internal.frontend.textuml.node.AFeatureDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.AInterfaceClassType;
 import com.abstratt.mdd.internal.frontend.textuml.node.AOperationDecl;
@@ -381,12 +381,6 @@ public class TextUMLCompiler implements ICompiler, ISourceAnalyzer {
 		final List<SourceElement> parent = new LinkedList<ISourceAnalyzer.SourceElement>();
 		parsed.apply(new DepthFirstAdapter() {
 			@Override
-			public void caseAEnumerationDef(AEnumerationDef node) {
-				String enumerationName = sourceMiner.getIdentifier(node.getEnumerationDefHeader());
-				SourceElement element = new SourceElement("enumeration " + enumerationName, sourceMiner.getLineNumber(node.getEnumerationDefHeader()), ElementKind.Enumerations);
-				elements.add(element);				
-			}
-			@Override
 			public void caseAClassDef(AClassDef node) {
 				PClassType classType = sourceMiner.findChild(node.getClassHeader(), PClassType.class, true);
 				String classTypeName = sourceMiner.getText(classType);
@@ -400,6 +394,8 @@ public class TextUMLCompiler implements ICompiler, ISourceAnalyzer {
 					kind = ElementKind.Components;
 				else if (classType instanceof AInterfaceClassType)
 					kind = ElementKind.Interfaces;
+				else if (classType instanceof AEnumerationClassType)
+                    kind = ElementKind.Enumerations;
 				else
 					kind = ElementKind.Classes;
 				SourceElement element = new SourceElement(classTypeName + " " + className, sourceMiner.getLineNumber(node.getClassHeader()), kind);

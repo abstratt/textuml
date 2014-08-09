@@ -68,6 +68,10 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
 	public void testInterfaceAttributes() throws CoreException {
 		testAttributes("interface", IRepository.PACKAGE.getInterface());
 	}
+	
+	public void testEnumerationAttributes() throws CoreException {
+        testAttributes("enumeration", IRepository.PACKAGE.getEnumeration());
+    }
 
 	private void testAttributes(String classifierKeyword, EClass metaClass) throws CoreException {
 		String source = "";
@@ -94,7 +98,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
 		String source = "";
 		source += "model someModel;\n";
 		source += "import base;\n";
-		source += "enumeration MyEnum VALUE1, VALUE2, VALUE3 end;\n";
+		source += "enumeration MyEnum literal VALUE1; literal VALUE2; literal VALUE3; end;\n";
 		source += "class SomeClassifier\n";
 		source += "attribute attrib1 : Integer := 10;\n";
 		source += "attribute attrib2 : Boolean := true;\n";
@@ -594,7 +598,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
 		String source = "";
 		source += "model someModel;\n";
 		source += "import base;\n";
-		source += "enumeration MyEnum VALUE1, VALUE2, VALUE3 end;\n";
+		source += "enumeration MyEnum literal VALUE1; literal VALUE2; literal VALUE3; end;\n";
 		source += "class SomeClassifier\n";
 		source += "operation op1(param1 : Boolean := true, param2 : Integer := 2, param3 : MyEnum := VALUE2);\n";
 		source += "end;\n";

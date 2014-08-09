@@ -5,38 +5,33 @@ package com.abstratt.mdd.internal.frontend.textuml.node;
 import com.abstratt.mdd.internal.frontend.textuml.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AEnumerationDefHeader extends PEnumerationDefHeader
+public final class AEnumerationClassType extends PClassType
 {
     private TEnumeration _enumeration_;
-    private TIdentifier _identifier_;
 
-    public AEnumerationDefHeader()
+    public AEnumerationClassType()
     {
         // Constructor
     }
 
-    public AEnumerationDefHeader(
-        @SuppressWarnings("hiding") TEnumeration _enumeration_,
-        @SuppressWarnings("hiding") TIdentifier _identifier_)
+    public AEnumerationClassType(
+        @SuppressWarnings("hiding") TEnumeration _enumeration_)
     {
         // Constructor
         setEnumeration(_enumeration_);
-
-        setIdentifier(_identifier_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AEnumerationDefHeader(
-            cloneNode(this._enumeration_),
-            cloneNode(this._identifier_));
+        return new AEnumerationClassType(
+            cloneNode(this._enumeration_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAEnumerationDefHeader(this);
+        ((Analysis) sw).caseAEnumerationClassType(this);
     }
 
     public TEnumeration getEnumeration()
@@ -64,37 +59,11 @@ public final class AEnumerationDefHeader extends PEnumerationDefHeader
         this._enumeration_ = node;
     }
 
-    public TIdentifier getIdentifier()
-    {
-        return this._identifier_;
-    }
-
-    public void setIdentifier(TIdentifier node)
-    {
-        if(this._identifier_ != null)
-        {
-            this._identifier_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._identifier_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
-            + toString(this._enumeration_)
-            + toString(this._identifier_);
+            + toString(this._enumeration_);
     }
 
     @Override
@@ -104,12 +73,6 @@ public final class AEnumerationDefHeader extends PEnumerationDefHeader
         if(this._enumeration_ == child)
         {
             this._enumeration_ = null;
-            return;
-        }
-
-        if(this._identifier_ == child)
-        {
-            this._identifier_ = null;
             return;
         }
 
@@ -123,12 +86,6 @@ public final class AEnumerationDefHeader extends PEnumerationDefHeader
         if(this._enumeration_ == oldChild)
         {
             setEnumeration((TEnumeration) newChild);
-            return;
-        }
-
-        if(this._identifier_ == oldChild)
-        {
-            setIdentifier((TIdentifier) newChild);
             return;
         }
 

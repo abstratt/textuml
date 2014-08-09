@@ -88,6 +88,7 @@ Tokens
   invariant = 'invariant' ;
   is = 'is' ;
   link = 'link' ;
+  enumeration_literal = 'literal' ;
   load = 'load' ;
   model = 'model' ;
   navigable = 'navigable' ;
@@ -263,7 +264,6 @@ Productions
     {stereotype} stereotype_def | 
     {operation} detached_operation_def |
     {function} function_decl |
-    {enumeration} enumeration_def |
     {primitive} primitive_def |
     {subnamespace} sub_namespace;
     
@@ -346,7 +346,7 @@ Productions
   
   class_modifier = {abstract} abstract | {external} external ;
   
-  class_type = {class} clazz | {interface} interface | {datatype} datatype | {actor} actor | {signal} signal | {component} component;
+  class_type = {class} clazz | {interface} interface | {datatype} datatype | {actor} actor | {signal} signal | {component} component | {enumeration} enumeration;
   
   class_implements_section = implements class_implements_list | {empty} ;
   
@@ -381,7 +381,8 @@ Productions
   feature_type = 
       {state_machine} state_machine_decl | 
       {operation} operation_decl | 
-      {attribute} attribute_decl | 
+      {attribute} attribute_decl |
+      {literal} enumeration_literal_decl | 
       {reference} reference_decl |
       {reception} reception_decl |
       {port} port_decl | 
@@ -443,6 +444,10 @@ Productions
   attribute_decl = attribute identifier colon type_identifier optional_subsetting initialization_expression? attribute_invariant* semicolon ;
   
   attribute_invariant = model_comment? annotations? invariant_kernel ;
+  
+  enumeration_literal_decl = enumeration_literal? identifier enumeration_literal_values? semicolon ;
+  
+  enumeration_literal_values = l_paren named_argument_list r_paren;
   
   port_decl = port_modifier? port identifier? colon minimal_type_identifier port_connector? semicolon ;
   
@@ -572,15 +577,15 @@ Productions
   
 // enumeration definition
 
-  enumeration_def = annotations? enumeration_def_header enumeration_literal_decl_list end semicolon ;
+//  enumeration_def = annotations? enumeration_def_header enumeration_literal_decl_list end semicolon ;
 
-  enumeration_def_header = enumeration identifier ;
+//  enumeration_def_header = enumeration identifier ;
 
-  enumeration_literal_decl_list = enumeration_literal_decl enumeration_literal_decl_list_tail ;
+//  enumeration_literal_decl_list = enumeration_literal_decl enumeration_literal_decl_list_tail ;
   
-  enumeration_literal_decl_list_tail = comma enumeration_literal_decl_list | {empty} ;
+//  enumeration_literal_decl_list_tail = comma enumeration_literal_decl_list | {empty} ;
   
-  enumeration_literal_decl = model_comment? identifier;
+//  enumeration_literal_decl = model_comment? identifier;
   
   primitive_def = annotations? primitive identifier semicolon ;
   
