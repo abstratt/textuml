@@ -106,11 +106,12 @@ public class KirraHelper {
         });
     }
     
-    private static void addApplications(org.eclipse.uml2.uml.Package target, Collection<Package> collected) {
+    private static void addApplications(org.eclipse.uml2.uml.Package target, Set<Package> collected) {
         if (isApplication(target)) {
             collected.add(target);
             for (Package it : target.getImportedPackages())
-                addApplications(it, collected);
+                if (!collected.contains(it))
+                    addApplications(it, collected);
         }
     }
     
