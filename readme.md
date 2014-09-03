@@ -29,3 +29,4 @@ forum](https://groups.google.com/forum/#!forum/textuml-toolkit)**
 and **[issue
 tracker](https://github.com/abstratt/textuml/issues)**.
 
+![](http://cloudbees.prod.acquia-sites.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)
