@@ -154,6 +154,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AMinusUnaryOperator;
 import com.abstratt.mdd.internal.frontend.textuml.node.ANamedArgument;
 import com.abstratt.mdd.internal.frontend.textuml.node.ANewIdentifierExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.ANotEqualsComparisonBinaryOperator;
+import com.abstratt.mdd.internal.frontend.textuml.node.ANotNullUnaryOperator;
 import com.abstratt.mdd.internal.frontend.textuml.node.ANotUnaryOperator;
 import com.abstratt.mdd.internal.frontend.textuml.node.AOperationIdentifierExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.AParenthesisOperand;
@@ -1826,6 +1827,15 @@ public class BehaviorGenerator extends AbstractGenerator {
 								info.types[1] =
 												(Classifier) getRepository().findNamedElement("base::Boolean",
 																IRepository.PACKAGE.getType(), null);
+			}
+			
+			@Override
+			public void caseANotNullUnaryOperator(ANotNullUnaryOperator node) {
+			    super.caseANotNullUnaryOperator(node);
+	             info.types[0] =
+                         info.types[1] =
+                                         (Classifier) getRepository().findNamedElement("base::Basic",
+                                                         IRepository.PACKAGE.getType(), null);
 			}
 
 			public void caseTAnd(TAnd node) {
