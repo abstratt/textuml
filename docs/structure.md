@@ -1,7 +1,7 @@
 *This document provides a brief description of the **structural**
 elements of the TextUML notation and the UML concepts and elements they
 represent. See [TextUML Action
-Language](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Action_Language "TextUML Action Language")
+Language](behavior.md "TextUML Action Language")
 for the behavioral elements.*
 
 This is a guide to the TextUML *notation*, not to the UML Language. It
