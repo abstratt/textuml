@@ -8,10 +8,10 @@ category](http://abstratt.com/blog/category/uml/action-language/ "http://abstrat
 
 You can find the EBNF grammar for the TextUML notation, which includes
 both the structural and behavioural aspects of the
-notation, [here](https://github.com/abstratt/textuml/blob/master/plugins/com.abstratt.mdd.frontend.textuml.core/textuml.scc).
+notation, [here](../plugins/com.abstratt.mdd.frontend.textuml.core/textuml.scc).
 
 This complements the documentation for [structural
-aspects](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Guide "TextUML Guide")
+aspects](structure.md)
 of the TextUML notation.
 
 
@@ -224,7 +224,7 @@ Example:
 ### Collection operations
 
 See:
-[mdd\_collections.tuml](http://textuml.svn.sourceforge.net/viewvc/textuml/trunk/plugins/com.abstratt.mdd.core/models/libraries/mdd_collections.tuml?view=markup "http://textuml.svn.sourceforge.net/viewvc/textuml/trunk/plugins/com.abstratt.mdd.core/models/libraries/mdd_collections.tuml?view=markup")
+[mdd\_collections.tuml](../plugins/com.abstratt.mdd.core/models/libraries/mdd_collections.tuml)
 
 Literals
 --------
