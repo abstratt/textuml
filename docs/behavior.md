@@ -121,7 +121,10 @@ Example:
 
 ### Linking two objects
 
-    link <association-identifier> (<role-identifier-1> := <object-expression-1>, <role-identifier-2> := <object-expression-2>);
+    link <association-identifier> (
+        <role-identifier-1> := <object-expression-1>, 
+        <role-identifier-2> := <object-expression-2>
+    );
 
 Example:
 
@@ -129,7 +132,10 @@ Example:
 
 ### Unlinking two objects
 
-    unlink <association-identifier> (<role-identifier-1> := <object-expression-1>, <role-identifier-2> := <object-expression-2>);
+    unlink <association-identifier> (
+        <role-identifier-1> := <object-expression-1>, 
+        <role-identifier-2> := <object-expression-2>
+    );
 
 Example:
 
@@ -178,11 +184,18 @@ Example:
 
 ### Sending a signal
 
-    send <signal-name>([<attribute-1> := <value-expression-1> [, ... <attribute-n> := <value-expression-n>]]) to <object-expression>;
+    send <signal-name>(
+        [<attribute-1> := <value-expression-1> 
+        [, ... <attribute-n> := <value-expression-n>]]
+    ) to <object-expression>;
 
 Example:
 
-    send ExpenseApproved(employeeName := "John Nader", amount := 205.05, description := "Trip to LA") to paymentApprover;
+    send ExpenseApproved(
+        employeeName := "John Nader",
+        amount := 205.05,
+        description := "Trip to LA"
+    ) to paymentApprover;
 
 Built-in operators
 ------------------
@@ -224,7 +237,7 @@ Example:
 ### Collection operations
 
 See:
-[mdd\_collections.tuml](../plugins/com.abstratt.mdd.core/models/libraries/mdd_collections.tuml)
+[mdd_collections.tuml](../plugins/com.abstratt.mdd.core/models/libraries/mdd_collections.tuml)
 
 Literals
 --------
