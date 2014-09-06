@@ -1,4 +1,4 @@
-*This document provides a brief description of the **structural**
+*This document provides a brief description of the structural
 elements of the TextUML notation and the UML concepts and elements they
 represent. See [TextUML Action
 Language](behavior.md "TextUML Action Language")
