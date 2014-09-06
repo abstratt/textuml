@@ -8,7 +8,7 @@ category](http://abstratt.com/blog/category/uml/action-language/ "http://abstrat
 
 You can find the EBNF grammar for the TextUML notation, which includes
 both the structural and behavioural aspects of the
-notation,[here](http://textuml.svn.sourceforge.net/viewvc/textuml/trunk/plugins/com.abstratt.mdd.frontend.textuml.core/textuml.scc?view=markup "http://textuml.svn.sourceforge.net/viewvc/textuml/trunk/plugins/com.abstratt.mdd.frontend.textuml.core/textuml.scc?view=markup").
+notation, [here](https://github.com/abstratt/textuml/blob/master/plugins/com.abstratt.mdd.frontend.textuml.core/textuml.scc).
 
 This complements the documentation for [structural
 aspects](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Guide "TextUML Guide")
@@ -20,7 +20,7 @@ Requirements
 
 In order to use the TextUML Action Language, the following properties
 **must** be enabled in the
-[mdd.properties](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Repository_Properties "Repository Properties")
+[mdd.properties](repository_properties.md)
 file:
 
 -   mdd.enableExtensions=true
