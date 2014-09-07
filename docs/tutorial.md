@@ -32,12 +32,6 @@ After the last step, since the file will be empty, there will be a
 problem marker telling you that a package declaration is expected. That
 takes us to the first step in this tutorial...
 
-**Tip**: alternatively, you can download a [pre-built
-project](http://textuml.sourceforge.net/tutorial/tutorial.zip "http://textuml.sourceforge.net/tutorial/tutorial.zip")
-containing the tutorial files, extract it to a location of choice,
-[import](http://help.eclipse.org/stable/index.jsp?topic=/org.eclipse.platform.doc.user/tasks/tasks-importproject.htm "http://help.eclipse.org/stable/index.jsp?topic=/org.eclipse.platform.doc.user/tasks/tasks-importproject.htm")
-it into the workspace and you are ready to roll.
-
 Creating an empty package
 =========================
 
@@ -68,11 +62,6 @@ Let's now edit the inventory.tuml file and declare a 'Product' class:
     end;
 
     end.
-
-The resulting class diagram looks like this in the graphical notation
-for UML:
-
-[![](./SourceForge.net%20%20TextUML%20Tutorial%20-%20textuml_files/Tutorial-classes.png)](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=File:Tutorial-classes.png "Diagram showing a class")
 
 Diagram showing a class
 
@@ -145,11 +134,6 @@ we don't need to qualify the type names:
 
     end.
 
-The resulting class diagram looks like this in the graphical notation
-for UML:
-
-[![](./SourceForge.net%20%20TextUML%20Tutorial%20-%20textuml_files/Tutorial-attributes.png)](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=File:Tutorial-attributes.png "Diagram showing attributes")
-
 Diagram showing attributes
 
 Note that if you don't mind using qualified names, there is no need to
@@ -217,11 +201,6 @@ For all types of associations, the syntax is basically the same - you
 specify the kind of association by specifying the corresponding keyword
 (among association, composition and aggregation).
 
-The resulting class diagram in the graphical notation (omiting
-attributes and operations) looks like this:
-
-[![](./SourceForge.net%20%20TextUML%20Tutorial%20-%20textuml_files/Tutorial-associations.png)](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=File:Tutorial-associations.png "Diagram showing associations")
-
 Diagram showing associations
 
 Adding operations
@@ -242,10 +221,6 @@ example, how we'd go about adding operations to the classes in
     /* other elements here */
 
     end.
-
-This is how it looks like in the graphical notation:
-
-[![](./SourceForge.net%20%20TextUML%20Tutorial%20-%20textuml_files/Tutorial-operations.png)](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=File:Tutorial-operations.png "Diagram showing operations")
 
 Diagram showing operations
 
@@ -285,9 +260,6 @@ example:
     end.
 
 \
- This is how it looks like in the graphical notation:
-
-[![](./SourceForge.net%20%20TextUML%20Tutorial%20-%20textuml_files/Tutorial-generalization.png)](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=File:Tutorial-generalization.png "Diagram showing generalization")
 
 Diagram showing generalization
 

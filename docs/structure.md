@@ -726,10 +726,10 @@ See also
 ========
 
 -   [Install
-    Instructions](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Install_Instructions "Install Instructions")
+    Instructions](install.html)
 -   [TextUML Toolkit
-    Features](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Toolkit_Features "TextUML Toolkit Features")
+    Features](features.html)
 -   [TextUML
-    Tutorial](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Tutorial "TextUML Tutorial")
+    Tutorial](tutorial.html)
 -   [TextUML Action
-    Language](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Action_Language "TextUML Action Language")
+    Language](behavior.html)
