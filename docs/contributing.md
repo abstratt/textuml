@@ -16,7 +16,7 @@ Note this project is migrating to Github. Old issues are still on the Sourceforg
   2. please report any problems you might find using the [issue tracker](https://github.com/abstratt/textuml/issues)
   3. please provide any exceptions you see (they will be in the log, and some might generate error dialogs too). 
   4. attach screenshots if necessary/helpful. 
-  5. the documentation on the [ tool](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Toolkit_Features) and [ notation](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Guide) features provide a good basis for testing. 
+  5. the documentation on the [tool](features.html) and [notation](structure.html) features provide a good basis for testing. 
   6. we are not only looking for error reports, but general feedback too. Feel free to share your opinion on what you think sucks, or missing features (given the tool goal, which is to support creating models that are suitable as input for code generation). Feedback on the [web site](http://abstratt.com/) and [documentation](http://abstratt.com/docs) is very welcome too. 
 
 #  Info for developers
