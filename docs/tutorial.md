@@ -13,7 +13,7 @@ TextUML Toolkit, are possible. All the concepts and mechanisms exposed
 in TextUML are defined by the UML specification. This is **not** an
 introduction to UML (if that is what you are looking for, you might be
 interested in the [UML
-101](uml_101.md "UML 101")
+101](uml_101.html "UML 101")
 article).
 
 
@@ -21,7 +21,7 @@ Preparation
 ===========
 
 1.  if you haven't yet, [install the TextUML
-    Toolkit](install.md "Install Instructions")
+    Toolkit](install.html "Install Instructions")
 2.  start Eclipse
 3.  create a new MDD project named "tutorial" by using the project
     creation wizard (File \> New \> Project... \> MDD \> MDD Project)
