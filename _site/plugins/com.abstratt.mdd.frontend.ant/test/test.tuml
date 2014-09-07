@@ -1,0 +1,8 @@
+package test;
+import uml;
+
+class SomeEntity
+	attribute test: String;
+end;
+
+end.

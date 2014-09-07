@@ -1,0 +1,16 @@
+<plugin>
+   <extension
+         id="compiler"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run class="com.abstratt.mdd.frontend.cli.CompilationDirectorCLI"/>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="com.abstratt.mdd.frontend.cli.compiler"
+            name="MDD Front-end command-line interface">
+      </product>
+   </extension>
+</plugin>

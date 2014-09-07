@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: com.abstratt.kirra.mdd.core;singleton:=true
+Export-Package: com.abstratt.kirra.mdd.core
+Bundle-Name: Kirra MDD Core
+Bundle-Version: 1.120.1.201406241508
+Require-Bundle: com.abstratt.mdd.core,com.abstratt.resman
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: Abstratt Technologies
+Import-Package: com.abstratt.resman,org.apache.commons.lang3
+

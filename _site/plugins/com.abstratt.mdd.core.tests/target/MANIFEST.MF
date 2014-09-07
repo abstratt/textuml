@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: com.abstratt.mdd.core.tests
+Export-Package: com.abstratt.mdd.core.tests
+Bundle-Name: Tests Plug-in
+Bundle-Version: 1.120.1.201406241508
+Require-Bundle: com.abstratt.mdd.core,org.junit,org.eclipse.equinox.co
+ mmon,com.abstratt.mdd.frontend.core,com.abstratt.mdd.frontend.textuml
+ .core,com.abstratt.mdd.core.tests.harness,org.eclipse.emf.query.ocl,o
+ rg.eclipse.ocl.ecore,org.apache.commons.io,org.apache.commons.lang,or
+ g.apache.commons.collections
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+

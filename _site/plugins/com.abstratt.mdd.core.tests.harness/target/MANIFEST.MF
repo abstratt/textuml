@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: com.abstratt.mdd.core.tests.harness
+Export-Package: com.abstratt.mdd.core.tests.harness
+Bundle-Name: Test Harness Plug-in
+Bundle-Version: 1.120.1.201406241508
+Require-Bundle: com.abstratt.mdd.core;visibility:=reexport,org.junit;v
+ isibility:=reexport,org.eclipse.equinox.common;visibility:=reexport,c
+ om.abstratt.mdd.frontend.core;visibility:=reexport
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.apache.commons.io,org.apache.commons.lang,org.apac
+ he.commons.collections
+

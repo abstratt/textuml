@@ -116,8 +116,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AConnectorEndList;
 import com.abstratt.mdd.internal.frontend.textuml.node.ADatatypeClassType;
 import com.abstratt.mdd.internal.frontend.textuml.node.ADependencyDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.AEmptyClassSpecializesSection;
-import com.abstratt.mdd.internal.frontend.textuml.node.AEnumerationDef;
-import com.abstratt.mdd.internal.frontend.textuml.node.AEnumerationDefHeader;
+import com.abstratt.mdd.internal.frontend.textuml.node.AEnumerationClassType;
 import com.abstratt.mdd.internal.frontend.textuml.node.AEnumerationLiteralDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.AFeatureDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.AFunctionDecl;
@@ -815,19 +814,6 @@ public class StructureGenerator extends AbstractGenerator {
 			return;
 		createGeneralization(TypeUtils.makeTypeName("Object"), currentClassSnapshot, Literals.CLASS, node.parent());
 	}
-
-	@Override
-	public void caseAEnumerationDef(AEnumerationDef node) {
-		final String enumIdentifier = TextUMLCore.getSourceMiner().getIdentifier(node.getEnumerationDefHeader());
-		if (!ensureNameAvailable(enumIdentifier, node.getEnumerationDefHeader(), Literals.TYPE))
-			return;
-		try {
-			annotationProcessor.process(node.getAnnotations());
-			super.caseAEnumerationDef(node);
-		} finally {
-			namespaceTracker.leaveNamespace();
-		}
-	}
 	
 	@Override
 	public void caseAPrimitiveDef(APrimitiveDef node) {
@@ -869,20 +855,6 @@ public class StructureGenerator extends AbstractGenerator {
 	    // ignore - handled by behavior generator
 		// but discard annotations so they don't leak to another element	
 		annotationProcessor.discardAnnotations();	
-	}
-
-	@Override
-	public void caseAEnumerationDefHeader(final AEnumerationDefHeader node) {
-		final Package currentPackage = namespaceTracker.currentPackage();
-		final String enumIdentifier = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
-		Enumeration newEnumeration =
-						(Enumeration) currentPackage.createPackagedElement(enumIdentifier, IRepository.PACKAGE
-										.getEnumeration());
-		annotationProcessor.applyAnnotations(newEnumeration, node);
-		applyCurrentComment(newEnumeration);
-		createGeneralization(TypeUtils.makeTypeName("Value"), newEnumeration, Literals.DATA_TYPE, node);
-		namespaceTracker.enterNamespace(newEnumeration);
-		super.caseAEnumerationDefHeader(node);
 	}
 
 	@Override
@@ -1004,6 +976,13 @@ public class StructureGenerator extends AbstractGenerator {
 		createClassifier(UMLPackage.Literals.COMPONENT);
 	}
 
+	@Override
+	public void caseAEnumerationClassType(AEnumerationClassType node) {
+	    super.caseAEnumerationClassType(node);
+	    Classifier newEnumeration = createClassifier(UMLPackage.Literals.ENUMERATION);
+        createGeneralization(TypeUtils.makeTypeName("Value"), newEnumeration, Literals.DATA_TYPE, node);
+	}
+	 
 	@Override
 	public final void caseAActorClassType(AActorClassType node) {
 		super.caseAActorClassType(node);

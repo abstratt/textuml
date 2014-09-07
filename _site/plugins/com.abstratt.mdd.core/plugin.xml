@@ -1,0 +1,43 @@
+<plugin>
+
+   <extension-point id="systemPackage" name="System Package" schema="schema/systemPackage.exsd"/>
+   <extension-point id="modelWeaver" name="Model Weavers" schema="schema/modelWeavers.exsd"/>
+   
+   <extension
+         point="com.abstratt.mdd.core.systemPackage">
+       <systemPackage
+		    name="UML"
+    		uri="pathmap://UML_METAMODELS/UML.metamodel.uml"/>
+       <systemPackage
+		    name="PrimitiveTypes"
+    		uri="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml"/>
+       <systemPackage
+		    name="StandardProfileL2"
+    		uri="pathmap://UML_PROFILES/StandardL2.profile.uml"/>
+       <systemPackage
+		    name="mdd_extensions"
+    		uri="pathmap://MDD_PROFILES/mdd_extensions.uml"
+    		requires="mdd.enableExtensions"/>
+		<systemPackage
+		    name="mdd_collections"
+    		uri="pathmap://MDD_LIBRARIES/mdd_collections.uml"
+    		requires="mdd.enableCollections,mdd.enableLibraries"/>
+		<systemPackage
+		    name="mdd_types"
+    		uri="pathmap://MDD_LIBRARIES/mdd_types.uml"
+    		requires="mdd.enableTypes,mdd.enableLibraries"/>
+		<systemPackage
+		    name="base"
+    		uri="pathmap://MDD_LIBRARIES/base.uml"
+    		requires="mdd.enableLibraries"/>    		
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.uri_mapping">
+      <mapping
+            source="pathmap://MDD_LIBRARIES/"
+            target="platform:/plugin/com.abstratt.mdd.core/models/libraries/"/>
+      <mapping
+            source="pathmap://MDD_PROFILES/"
+            target="platform:/plugin/com.abstratt.mdd.core/models/profiles/"/>            
+   </extension>
+</plugin>

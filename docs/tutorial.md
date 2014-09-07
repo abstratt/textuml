@@ -298,7 +298,7 @@ Conclusion
 This ends our tour on using TextUML for creating a simple class model.
 If you have any questions or suggestions about the article or the tool,
 or found any bugs when trying it, just post a question to the [users
-forum](http://abstratt.com/forums/ "http://abstratt.com/forums/") or
+forum](https://groups.google.com/forum/#!forum/textuml-toolkit "https://groups.google.com/forum/#!forum/textuml-toolkit") or
 [open an
-issue](http://abstratt.com/issues/ "http://abstratt.com/issues/") and it
+issue](https://github.com/abstratt/textuml/issues "https://github.com/abstratt/textuml/issues") and it
 will be addressed asap.

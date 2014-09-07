@@ -8,8 +8,7 @@ import com.abstratt.mdd.internal.frontend.textuml.analysis.*;
 public final class AVarDecl extends PVarDecl
 {
     private TIdentifier _identifier_;
-    private TColon _colon_;
-    private PTypeIdentifier _typeIdentifier_;
+    private POptionalType _optionalType_;
 
     public AVarDecl()
     {
@@ -18,15 +17,12 @@ public final class AVarDecl extends PVarDecl
 
     public AVarDecl(
         @SuppressWarnings("hiding") TIdentifier _identifier_,
-        @SuppressWarnings("hiding") TColon _colon_,
-        @SuppressWarnings("hiding") PTypeIdentifier _typeIdentifier_)
+        @SuppressWarnings("hiding") POptionalType _optionalType_)
     {
         // Constructor
         setIdentifier(_identifier_);
 
-        setColon(_colon_);
-
-        setTypeIdentifier(_typeIdentifier_);
+        setOptionalType(_optionalType_);
 
     }
 
@@ -35,8 +31,7 @@ public final class AVarDecl extends PVarDecl
     {
         return new AVarDecl(
             cloneNode(this._identifier_),
-            cloneNode(this._colon_),
-            cloneNode(this._typeIdentifier_));
+            cloneNode(this._optionalType_));
     }
 
     public void apply(Switch sw)
@@ -69,16 +64,16 @@ public final class AVarDecl extends PVarDecl
         this._identifier_ = node;
     }
 
-    public TColon getColon()
+    public POptionalType getOptionalType()
     {
-        return this._colon_;
+        return this._optionalType_;
     }
 
-    public void setColon(TColon node)
+    public void setOptionalType(POptionalType node)
     {
-        if(this._colon_ != null)
+        if(this._optionalType_ != null)
         {
-            this._colon_.parent(null);
+            this._optionalType_.parent(null);
         }
 
         if(node != null)
@@ -91,32 +86,7 @@ public final class AVarDecl extends PVarDecl
             node.parent(this);
         }
 
-        this._colon_ = node;
-    }
-
-    public PTypeIdentifier getTypeIdentifier()
-    {
-        return this._typeIdentifier_;
-    }
-
-    public void setTypeIdentifier(PTypeIdentifier node)
-    {
-        if(this._typeIdentifier_ != null)
-        {
-            this._typeIdentifier_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._typeIdentifier_ = node;
+        this._optionalType_ = node;
     }
 
     @Override
@@ -124,8 +94,7 @@ public final class AVarDecl extends PVarDecl
     {
         return ""
             + toString(this._identifier_)
-            + toString(this._colon_)
-            + toString(this._typeIdentifier_);
+            + toString(this._optionalType_);
     }
 
     @Override
@@ -138,15 +107,9 @@ public final class AVarDecl extends PVarDecl
             return;
         }
 
-        if(this._colon_ == child)
+        if(this._optionalType_ == child)
         {
-            this._colon_ = null;
-            return;
-        }
-
-        if(this._typeIdentifier_ == child)
-        {
-            this._typeIdentifier_ = null;
+            this._optionalType_ = null;
             return;
         }
 
@@ -163,15 +126,9 @@ public final class AVarDecl extends PVarDecl
             return;
         }
 
-        if(this._colon_ == oldChild)
+        if(this._optionalType_ == oldChild)
         {
-            setColon((TColon) newChild);
-            return;
-        }
-
-        if(this._typeIdentifier_ == oldChild)
-        {
-            setTypeIdentifier((PTypeIdentifier) newChild);
+            setOptionalType((POptionalType) newChild);
             return;
         }
 

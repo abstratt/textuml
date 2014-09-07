@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Standalone plug-in support
+Bundle-SymbolicName: com.abstratt.standalone
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Abstratt Technologies
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.eclipse.equinox.registry;visibility:=reexport
+Export-Package: com.abstratt.standalone

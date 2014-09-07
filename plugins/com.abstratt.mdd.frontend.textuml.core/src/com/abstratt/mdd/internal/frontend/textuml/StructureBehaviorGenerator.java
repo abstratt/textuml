@@ -282,6 +282,10 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 			// could not find the operation, don't go further deep
 			return;
 		}
+		if (!currentOperation.getMethods().isEmpty()) {
+	          problemBuilder.addError("Operation overloading is not supported", node.getOperationHeader());
+            return;
+        }
 		namespaceTracker.enterNamespace(currentOperation);
 		try {
 			for (POperationPrecondition current : node.getOperationPrecondition())

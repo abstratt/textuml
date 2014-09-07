@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="com.abstratt.mdd.ui.wizard.category.mdd"
+            name="MDD"/>
+      <wizard
+            category="com.abstratt.mdd.ui.wizard.category.mdd"
+            class="com.abstratt.mdd.internal.ui.NewProjectWizard"
+            icon="icons/full/wizban/new_mdd_prj_wiz.png"
+            id="com.abstratt.mdd.ui.wizard.project"
+            name="MDD Project"
+            project="true"/>
+   </extension>
+   <extension
+         id="com.abstratt.mdd.ui.nature"
+         name="MDD Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run class="com.abstratt.mdd.internal.ui.MDDProjectNature"/>
+      </runtime>
+      <builder id="com.abstratt.mdd.ui.builder"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="icons/full/ovr16/mdd_ovr.gif"
+            id="com.abstratt.mdd.ui.natures.mdd.image"
+            natureId="com.abstratt.mdd.ui.nature"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.ui.resourcePerspective">
+         <view
+               id="org.eclipse.ui.views.ProblemView"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.views.TaskList"
+               visible="true">
+         </view>
+      </perspectiveExtension>
+   </extension>
+</plugin>

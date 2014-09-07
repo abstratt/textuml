@@ -7,8 +7,10 @@ import com.abstratt.mdd.internal.frontend.textuml.analysis.*;
 @SuppressWarnings("nls")
 public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
 {
-    private TModelComment _modelComment_;
+    private TEnumerationLiteral _enumerationLiteral_;
     private TIdentifier _identifier_;
+    private PEnumerationLiteralValues _enumerationLiteralValues_;
+    private TSemicolon _semicolon_;
 
     public AEnumerationLiteralDecl()
     {
@@ -16,13 +18,19 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
     }
 
     public AEnumerationLiteralDecl(
-        @SuppressWarnings("hiding") TModelComment _modelComment_,
-        @SuppressWarnings("hiding") TIdentifier _identifier_)
+        @SuppressWarnings("hiding") TEnumerationLiteral _enumerationLiteral_,
+        @SuppressWarnings("hiding") TIdentifier _identifier_,
+        @SuppressWarnings("hiding") PEnumerationLiteralValues _enumerationLiteralValues_,
+        @SuppressWarnings("hiding") TSemicolon _semicolon_)
     {
         // Constructor
-        setModelComment(_modelComment_);
+        setEnumerationLiteral(_enumerationLiteral_);
 
         setIdentifier(_identifier_);
+
+        setEnumerationLiteralValues(_enumerationLiteralValues_);
+
+        setSemicolon(_semicolon_);
 
     }
 
@@ -30,8 +38,10 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
     public Object clone()
     {
         return new AEnumerationLiteralDecl(
-            cloneNode(this._modelComment_),
-            cloneNode(this._identifier_));
+            cloneNode(this._enumerationLiteral_),
+            cloneNode(this._identifier_),
+            cloneNode(this._enumerationLiteralValues_),
+            cloneNode(this._semicolon_));
     }
 
     public void apply(Switch sw)
@@ -39,16 +49,16 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
         ((Analysis) sw).caseAEnumerationLiteralDecl(this);
     }
 
-    public TModelComment getModelComment()
+    public TEnumerationLiteral getEnumerationLiteral()
     {
-        return this._modelComment_;
+        return this._enumerationLiteral_;
     }
 
-    public void setModelComment(TModelComment node)
+    public void setEnumerationLiteral(TEnumerationLiteral node)
     {
-        if(this._modelComment_ != null)
+        if(this._enumerationLiteral_ != null)
         {
-            this._modelComment_.parent(null);
+            this._enumerationLiteral_.parent(null);
         }
 
         if(node != null)
@@ -61,7 +71,7 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
             node.parent(this);
         }
 
-        this._modelComment_ = node;
+        this._enumerationLiteral_ = node;
     }
 
     public TIdentifier getIdentifier()
@@ -89,27 +99,91 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
         this._identifier_ = node;
     }
 
+    public PEnumerationLiteralValues getEnumerationLiteralValues()
+    {
+        return this._enumerationLiteralValues_;
+    }
+
+    public void setEnumerationLiteralValues(PEnumerationLiteralValues node)
+    {
+        if(this._enumerationLiteralValues_ != null)
+        {
+            this._enumerationLiteralValues_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._enumerationLiteralValues_ = node;
+    }
+
+    public TSemicolon getSemicolon()
+    {
+        return this._semicolon_;
+    }
+
+    public void setSemicolon(TSemicolon node)
+    {
+        if(this._semicolon_ != null)
+        {
+            this._semicolon_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._semicolon_ = node;
+    }
+
     @Override
     public String toString()
     {
         return ""
-            + toString(this._modelComment_)
-            + toString(this._identifier_);
+            + toString(this._enumerationLiteral_)
+            + toString(this._identifier_)
+            + toString(this._enumerationLiteralValues_)
+            + toString(this._semicolon_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._modelComment_ == child)
+        if(this._enumerationLiteral_ == child)
         {
-            this._modelComment_ = null;
+            this._enumerationLiteral_ = null;
             return;
         }
 
         if(this._identifier_ == child)
         {
             this._identifier_ = null;
+            return;
+        }
+
+        if(this._enumerationLiteralValues_ == child)
+        {
+            this._enumerationLiteralValues_ = null;
+            return;
+        }
+
+        if(this._semicolon_ == child)
+        {
+            this._semicolon_ = null;
             return;
         }
 
@@ -120,15 +194,27 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._modelComment_ == oldChild)
+        if(this._enumerationLiteral_ == oldChild)
         {
-            setModelComment((TModelComment) newChild);
+            setEnumerationLiteral((TEnumerationLiteral) newChild);
             return;
         }
 
         if(this._identifier_ == oldChild)
         {
             setIdentifier((TIdentifier) newChild);
+            return;
+        }
+
+        if(this._enumerationLiteralValues_ == oldChild)
+        {
+            setEnumerationLiteralValues((PEnumerationLiteralValues) newChild);
+            return;
+        }
+
+        if(this._semicolon_ == oldChild)
+        {
+            setSemicolon((TSemicolon) newChild);
             return;
         }
 

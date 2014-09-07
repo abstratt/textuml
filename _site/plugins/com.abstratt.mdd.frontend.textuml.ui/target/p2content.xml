@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<units size='1'>
+  <unit id='com.abstratt.mdd.frontend.textuml.ui' version='1.120.1.201406241508'>
+    <update id='com.abstratt.mdd.frontend.textuml.ui' range='[0.0.0,1.120.1.201406241508)' severity='0'/>
+    <properties size='6'>
+      <property name='org.eclipse.equinox.p2.name' value='TextUML Front-End UI'/>
+      <property name='org.eclipse.equinox.p2.provider' value='Abstratt Technologies'/>
+      <property name='org.eclipse.equinox.p2.bundle.localization' value='plugin'/>
+      <property name='maven-groupId' value='com.abstratt.mdd'/>
+      <property name='maven-artifactId' value='com.abstratt.mdd.frontend.textuml.ui'/>
+      <property name='maven-version' value='1.120.1-SNAPSHOT'/>
+    </properties>
+    <provides size='3'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='com.abstratt.mdd.frontend.textuml.ui' version='1.120.1.201406241508'/>
+      <provided namespace='osgi.bundle' name='com.abstratt.mdd.frontend.textuml.ui' version='1.120.1.201406241508'/>
+      <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+    </provides>
+    <requires size='15'>
+      <required namespace='osgi.bundle' name='com.abstratt.mdd.frontend.textuml.core' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='com.abstratt.mdd.core' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='com.abstratt.mdd.ui' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='com.abstratt.mdd.frontend.core' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='com.abstratt.mdd.frontend.ui' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.jface.text' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.jface' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.ui.workbench' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.ui.views' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.ui.ide' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.ui.editors' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='com.abstratt.mdd.frontend.textuml.renderer' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+    </requires>
+    <artifacts size='1'>
+      <artifact classifier='osgi.bundle' id='com.abstratt.mdd.frontend.textuml.ui' version='1.120.1.201406241508'/>
+    </artifacts>
+    <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    <touchpointData size='1'>
+      <instructions size='1'>
+        <instruction key='manifest'>
+          Bundle-SymbolicName: com.abstratt.mdd.frontend.textuml.ui;singleton:=true&#xA;Bundle-Version: 1.120.1.201406241508&#xA;
+        </instruction>
+      </instructions>
+    </touchpointData>
+  </unit>
+</units>

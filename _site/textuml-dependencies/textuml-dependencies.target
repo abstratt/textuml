@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.6"?>
+
+<target name="TextUML Toolkit dependencies" sequenceNumber="4">
+<locations>
+		<location includeAllPlatforms="false" includeMode="planner"
+			includeSource="true" type="InstallableUnit">
+			<unit id="org.eclipse.platform.feature.group" version="0.0.0" />
+			<unit id="org.junit" version="0.0.0" />
+                        <unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0" />
+
+			<unit id="org.eclipse.emf.query.sdk.feature.group" version="0.0.0" />
+			<unit id="org.eclipse.ocl.all.sdk.feature.group" version="0.0.0" />
+			<unit id="org.eclipse.uml2.sdk.feature.group" version="0.0.0" />
+            <!-- Specific release to avoid Eclipse bug 430375 -->
+			<repository location="http://download.eclipse.org/releases/kepler/201402280900" />
+		</location>
+		
+		
+		<location includeAllPlatforms="false" includeMode="planner"
+			includeSource="true" type="InstallableUnit">
+			<unit id="org.apache.commons.lang" version="0.0.0" />
+			<unit id="org.apache.commons.lang3" version="0.0.0" />			
+			<unit id="org.apache.commons.io" version="0.0.0" />
+			<unit id="org.apache.commons.beanutils" version="0.0.0" />
+			<unit id="org.apache.commons.fileupload" version="0.0.0" />
+            <unit id="org.apache.commons.collections" version="0.0.0" />			
+			<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/" />
+		</location>
+
+		<location includeAllPlatforms="false" includeMode="planner"
+			includeSource="true" type="InstallableUnit">
+			<unit id="com.abstratt.eclipsegraphviz.feature.feature.group" version="0.0.0" />		
+			<repository location="jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/eclipsegraphviz/com.abstratt.eclipsegraphviz.repository/1.120.1/com.abstratt.eclipsegraphviz.repository-1.120.1.zip!/" />
+		</location>
+</locations>	
+</target>

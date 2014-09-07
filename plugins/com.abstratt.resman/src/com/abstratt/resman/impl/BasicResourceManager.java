@@ -99,8 +99,12 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
 	}
 
 	private void releaseResource(BasicResource<K> toRelease, boolean operationSucceeded) throws ResourceException {
-		deactivateContext(toRelease, operationSucceeded);
-		pool.release(toRelease.getId(), toRelease);
+	    try {
+		    deactivateContext(toRelease, operationSucceeded);
+	    } finally {
+	        // deactivation may fail - gotta release the resource regardless
+		    pool.release(toRelease.getId(), toRelease);
+	    }
 	}
 
 	private void deactivateContext(BasicResource<K> deactivating, boolean operationSucceeded) throws ResourceException {

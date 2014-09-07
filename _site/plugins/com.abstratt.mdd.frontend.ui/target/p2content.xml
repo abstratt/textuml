@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<units size='1'>
+  <unit id='com.abstratt.mdd.frontend.ui' version='1.120.1.201406241508'>
+    <update id='com.abstratt.mdd.frontend.ui' range='[0.0.0,1.120.1.201406241508)' severity='0'/>
+    <properties size='5'>
+      <property name='org.eclipse.equinox.p2.name' value='MDD Front-end UI Plug-in'/>
+      <property name='org.eclipse.equinox.p2.provider' value='Abstratt Technologies'/>
+      <property name='maven-groupId' value='com.abstratt.mdd'/>
+      <property name='maven-artifactId' value='com.abstratt.mdd.frontend.ui'/>
+      <property name='maven-version' value='1.120.1-SNAPSHOT'/>
+    </properties>
+    <provides size='4'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='com.abstratt.mdd.frontend.ui' version='1.120.1.201406241508'/>
+      <provided namespace='osgi.bundle' name='com.abstratt.mdd.frontend.ui' version='1.120.1.201406241508'/>
+      <provided namespace='java.package' name='com.abstratt.mdd.frontend.ui' version='0.0.0'/>
+      <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+    </provides>
+    <requires size='7'>
+      <required namespace='osgi.bundle' name='com.abstratt.mdd.frontend.core' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='com.abstratt.mdd.ui' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.core.resources' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.core.jobs' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.equinox.registry' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.ui.workbench.texteditor' range='0.0.0'/>
+      <required namespace='osgi.bundle' name='org.eclipse.ui.workbench' range='0.0.0'/>
+    </requires>
+    <artifacts size='1'>
+      <artifact classifier='osgi.bundle' id='com.abstratt.mdd.frontend.ui' version='1.120.1.201406241508'/>
+    </artifacts>
+    <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    <touchpointData size='1'>
+      <instructions size='1'>
+        <instruction key='manifest'>
+          Bundle-SymbolicName: com.abstratt.mdd.frontend.ui;singleton:=true&#xA;Bundle-Version: 1.120.1.201406241508&#xA;
+        </instruction>
+      </instructions>
+    </touchpointData>
+  </unit>
+</units>

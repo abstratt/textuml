@@ -8,10 +8,10 @@ category](http://abstratt.com/blog/category/uml/action-language/ "http://abstrat
 
 You can find the EBNF grammar for the TextUML notation, which includes
 both the structural and behavioural aspects of the
-notation,[here](http://textuml.svn.sourceforge.net/viewvc/textuml/trunk/plugins/com.abstratt.mdd.frontend.textuml.core/textuml.scc?view=markup "http://textuml.svn.sourceforge.net/viewvc/textuml/trunk/plugins/com.abstratt.mdd.frontend.textuml.core/textuml.scc?view=markup").
+notation, [here](../plugins/com.abstratt.mdd.frontend.textuml.core/textuml.scc).
 
 This complements the documentation for [structural
-aspects](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=TextUML_Guide "TextUML Guide")
+aspects](structure.md)
 of the TextUML notation.
 
 
@@ -20,7 +20,7 @@ Requirements
 
 In order to use the TextUML Action Language, the following properties
 **must** be enabled in the
-[mdd.properties](http://sourceforge.net/apps/mediawiki/textuml/index.php?title=Repository_Properties "Repository Properties")
+[mdd.properties](repository_properties.md)
 file:
 
 -   mdd.enableExtensions=true
@@ -121,7 +121,10 @@ Example:
 
 ### Linking two objects
 
-    link <association-identifier> (<role-identifier-1> := <object-expression-1>, <role-identifier-2> := <object-expression-2>);
+    link <association-identifier> (
+        <role-identifier-1> := <object-expression-1>, 
+        <role-identifier-2> := <object-expression-2>
+    );
 
 Example:
 
@@ -129,7 +132,10 @@ Example:
 
 ### Unlinking two objects
 
-    unlink <association-identifier> (<role-identifier-1> := <object-expression-1>, <role-identifier-2> := <object-expression-2>);
+    unlink <association-identifier> (
+        <role-identifier-1> := <object-expression-1>, 
+        <role-identifier-2> := <object-expression-2>
+    );
 
 Example:
 
@@ -178,11 +184,18 @@ Example:
 
 ### Sending a signal
 
-    send <signal-name>([<attribute-1> := <value-expression-1> [, ... <attribute-n> := <value-expression-n>]]) to <object-expression>;
+    send <signal-name>(
+        [<attribute-1> := <value-expression-1> 
+        [, ... <attribute-n> := <value-expression-n>]]
+    ) to <object-expression>;
 
 Example:
 
-    send ExpenseApproved(employeeName := "John Nader", amount := 205.05, description := "Trip to LA") to paymentApprover;
+    send ExpenseApproved(
+        employeeName := "John Nader",
+        amount := 205.05,
+        description := "Trip to LA"
+    ) to paymentApprover;
 
 Built-in operators
 ------------------
@@ -224,7 +237,7 @@ Example:
 ### Collection operations
 
 See:
-[mdd\_collections.tuml](http://textuml.svn.sourceforge.net/viewvc/textuml/trunk/plugins/com.abstratt.mdd.core/models/libraries/mdd_collections.tuml?view=markup "http://textuml.svn.sourceforge.net/viewvc/textuml/trunk/plugins/com.abstratt.mdd.core/models/libraries/mdd_collections.tuml?view=markup")
+[mdd_collections.tuml](../plugins/com.abstratt.mdd.core/models/libraries/mdd_collections.tuml)
 
 Literals
 --------

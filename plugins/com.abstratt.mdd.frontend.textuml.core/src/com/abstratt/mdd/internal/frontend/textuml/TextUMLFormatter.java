@@ -40,8 +40,6 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AClauseBody;
 import com.abstratt.mdd.internal.frontend.textuml.node.AClosure;
 import com.abstratt.mdd.internal.frontend.textuml.node.AElseRestIf;
 import com.abstratt.mdd.internal.frontend.textuml.node.AElseifRestIf;
-import com.abstratt.mdd.internal.frontend.textuml.node.AEnumerationDef;
-import com.abstratt.mdd.internal.frontend.textuml.node.AEnumerationLiteralDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.AFeatureDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.AGlobalDirectiveSection;
 import com.abstratt.mdd.internal.frontend.textuml.node.AIfClause;
@@ -217,15 +215,6 @@ public class TextUMLFormatter {
 		format(node.getSemicolon(), output, indentation);
 	}
 
-	public void format(AEnumerationDef node, StringBuilder output, int indentation) {
-		format(node.getAnnotations(), output, indentation);
-		format(node.getEnumerationDefHeader(), output, indentation);
-		format(node.getEnumerationLiteralDeclList(), output, indentation + 1);
-		newLine(output);
-		format(node.getEnd(), output, indentation);
-		format(node.getSemicolon(), output, indentation);
-	}
-
 	public void format(AStereotypeDef node, StringBuilder output, int indentation) {
 		format(node.getAnnotations(), output, indentation);
 		format(node.getStereotypeDefHeader(), output, indentation);
@@ -233,13 +222,6 @@ public class TextUMLFormatter {
 		newLine(output);
 		format(node.getEnd(), output, indentation);
 		format(node.getSemicolon(), output, indentation);
-	}
-
-	public void format(AEnumerationLiteralDecl node, StringBuilder output, int indentation) {
-		newLine(output);
-		if (node.getModelComment() != null)
-			format(node.getModelComment(), output, indentation);
-		format(node.getIdentifier(), output, indentation);
 	}
 
 	public void format(AFeatureDecl node, StringBuilder output, int indentation) {

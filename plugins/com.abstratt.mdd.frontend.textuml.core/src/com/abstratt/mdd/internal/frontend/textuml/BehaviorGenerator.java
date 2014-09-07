@@ -154,6 +154,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AMinusUnaryOperator;
 import com.abstratt.mdd.internal.frontend.textuml.node.ANamedArgument;
 import com.abstratt.mdd.internal.frontend.textuml.node.ANewIdentifierExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.ANotEqualsComparisonBinaryOperator;
+import com.abstratt.mdd.internal.frontend.textuml.node.ANotNullUnaryOperator;
 import com.abstratt.mdd.internal.frontend.textuml.node.ANotUnaryOperator;
 import com.abstratt.mdd.internal.frontend.textuml.node.AOperationIdentifierExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.AParenthesisOperand;
@@ -186,6 +187,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.TDiv;
 import com.abstratt.mdd.internal.frontend.textuml.node.TMinus;
 import com.abstratt.mdd.internal.frontend.textuml.node.TMult;
 import com.abstratt.mdd.internal.frontend.textuml.node.TNot;
+import com.abstratt.mdd.internal.frontend.textuml.node.TNotNull;
 import com.abstratt.mdd.internal.frontend.textuml.node.TOr;
 import com.abstratt.mdd.internal.frontend.textuml.node.TPlus;
 import com.abstratt.pluginutils.LogUtils;
@@ -1370,7 +1372,9 @@ public class BehaviorGenerator extends AbstractGenerator {
 		super.caseAVarDecl(node);
 		String varIdentifier = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
 		final Variable var = builder.getCurrentBlock().createVariable(varIdentifier, null);
-		new TypeSetter(context, namespaceTracker.currentNamespace(null), var).process(node.getTypeIdentifier());
+		if (node.getOptionalType() != null)
+		    // type is optional for local vars
+		    new TypeSetter(context, namespaceTracker.currentNamespace(null), var).process(node.getOptionalType());
 	}
 
 	@Override
@@ -1524,6 +1528,9 @@ public class BehaviorGenerator extends AbstractGenerator {
 				throw new AbortedStatementCompilationException();
 			}
 			action.setVariable(variable);
+			if (variable.getType() == null)
+			    // infer variable type if omitted
+			    TypeUtils.copyType(ActivityUtils.getSource(value), variable, getBoundElement());
 			TypeUtils.copyType(variable, value, getBoundElement());
 			fillDebugInfo(action, node);
 		} finally {
@@ -1760,7 +1767,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			public void caseANotEqualsComparisonBinaryOperator(ANotEqualsComparisonBinaryOperator node) {
 				info.operationName = "not";
 			}
-
+			
 			@Override
 			public void caseAGreaterOrEqualsComparisonBinaryOperator(AGreaterOrEqualsComparisonBinaryOperator node) {
 				info.operationName = "greaterOrEquals";
@@ -1821,6 +1828,15 @@ public class BehaviorGenerator extends AbstractGenerator {
 												(Classifier) getRepository().findNamedElement("base::Boolean",
 																IRepository.PACKAGE.getType(), null);
 			}
+			
+			@Override
+			public void caseANotNullUnaryOperator(ANotNullUnaryOperator node) {
+			    super.caseANotNullUnaryOperator(node);
+	             info.types[0] =
+                         info.types[1] =
+                                         (Classifier) getRepository().findNamedElement("base::Basic",
+                                                         IRepository.PACKAGE.getType(), null);
+			}
 
 			public void caseTAnd(TAnd node) {
 				info.operationName = "and";
@@ -1841,6 +1857,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 			@Override
 			public void caseTNot(TNot node) {
 				info.operationName = "not";
+			}
+			
+			public void caseTNotNull(TNotNull node) {
+			    info.operationName = "notNull";
 			}
 
 			public void caseTOr(TOr node) {

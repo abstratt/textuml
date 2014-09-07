@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: com.abstratt.mdd.modelrenderer.uml2dot
+Export-Package: com.abstratt.mdd.modelrenderer.uml2dot
+Bundle-Name: UML class diagram
+Bundle-Version: 1.120.1.201406241508
+Require-Bundle: org.eclipse.uml2.uml,com.abstratt.modelrenderer,org.ec
+ lipse.core.contenttype,org.eclipse.core.runtime 
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-Vendor: Abstratt Technologies (Eclipse Integration)
+Import-Package: com.abstratt.mdd.modelrenderer.dot
+

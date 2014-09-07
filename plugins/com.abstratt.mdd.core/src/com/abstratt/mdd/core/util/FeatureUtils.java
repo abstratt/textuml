@@ -96,7 +96,7 @@ public class FeatureUtils {
 			boolean recurse) {
 		for (Operation operation : classifier.getOperations()) {
 			if (isNameMatch(operation, operationName, ignoreCase)
-					&& (arguments == null || isMatch(repository, operation, arguments, substitutions)))
+					&& (isMatch(repository, operation, arguments, substitutions)))
 				return operation;
 		}
 		if (!recurse)

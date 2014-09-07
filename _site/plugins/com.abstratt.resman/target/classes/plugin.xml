@@ -1,0 +1,3 @@
+<plugin>
+	<extension-point id="features" name="Features" schema="schema/features.exsd"/>
+</plugin>

@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Fragment-Host: com.abstratt.mdd.frontend.ui
+Bundle-Name: Editor Extension for Graphviz-based UML Model Visualization
+Bundle-SymbolicName: com.abstratt.mdd.frontend.visualizer.eclipsegraphviz;singleton:=true
+Bundle-Version: 1.120.1.qualifier
+Bundle-Vendor: Abstratt Technologies
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: 
+ com.abstratt.imageviewer,
+ com.abstratt.graphviz.uml
+Bundle-ActivationPolicy: lazy

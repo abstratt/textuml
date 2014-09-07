@@ -1,0 +1,3 @@
+<plugin>
+	<extension-point id="features" name="Resource Feature provider" schema="schema/features.exsd"/>
+</plugin>

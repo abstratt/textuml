@@ -168,7 +168,7 @@ public class CompilationDirector implements ICompilationDirector {
 	public synchronized IProblem[] compile(IFileStore[] toCompile,
 			IRepository repository, final LocationContext context, final int mode,
 			IProgressMonitor initialMonitor) throws CoreException {
-		Assert.isTrue(RepositoryService.isValidContext());
+		//Assert.isTrue(RepositoryService.isValidContext());
 		boolean created = false;
 		final IProgressMonitor monitor = initialMonitor == null ? new NullProgressMonitor() : initialMonitor;
 		if (toCompile == null)

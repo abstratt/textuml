@@ -491,7 +491,7 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		String profileSource = "";
 		profileSource += "profile someProfile;\n";
 		profileSource += "import UML;\n";
-		profileSource += "enumeration Values VALUE1, VALUE2, VALUE3 end;\n";
+		profileSource += "enumeration Values VALUE1; VALUE2; VALUE3; end;\n";
 		profileSource += "stereotype my_stereotype extends Class\n";
 		profileSource += "property prop1 : PrimitiveTypes::String;\n";
 		profileSource += "property prop2 : PrimitiveTypes::Boolean;\n";
