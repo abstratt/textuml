@@ -1,7 +1,0 @@
-package base;
-
-public import mdd_types;
-public import mdd_collections;
-public import mdd_console;
-
-end.

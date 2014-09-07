@@ -1,3 +1,0 @@
-<plugin>
-	<extension-point id="frontEndLanguage" name="Front-End Language" schema="schema/frontEndLanguage.exsd"/>
-</plugin>
