@@ -20,15 +20,11 @@ elsewhere:
 -   **live graphical visualization** of your model as class diagrams
 
 
-Will you only believe it if you see it? **[Download and
-install](docs/install.html)**
-the TextUML Toolkit (it is free!) and run through the **easy-to-follow
-[tutorial](docs/tutorial.html "TextUML Tutorial")**.
-After the initial tour, you will want to become familiar with the
-**[documentation](docs "Documentation Home")**.**Questions
-and problem reports** can be posted on the **[user
-forum](https://groups.google.com/forum/#!forum/textuml-toolkit)**
-and **[issue
-tracker](https://github.com/abstratt/textuml/issues)**.
+Links:
+- [download and install](http://abstratt.github.io/textuml/docs/install.html)
+- [tutorial](http://abstratt.github.io/textuml/docs/tutorial.html "TextUML Tutorial")
+- [documentation](http://abstratt.github.io/textuml/docs "Documentation Home")
+- [user forum](https://groups.google.com/forum/#!forum/textuml-toolkit)
+- [issue tracker](https://github.com/abstratt/textuml/issues)
 
 ![](http://cloudbees.prod.acquia-sites.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)
