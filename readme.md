@@ -21,6 +21,7 @@ elsewhere:
 
 
 Links:
+
 - [download and install](http://abstratt.github.io/textuml/docs/install.html)
 - [tutorial](http://abstratt.github.io/textuml/docs/tutorial.html "TextUML Tutorial")
 - [documentation](http://abstratt.github.io/textuml/docs "Documentation Home")
