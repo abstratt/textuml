@@ -3,7 +3,7 @@
 *This document provides a brief description of the structural
 elements of the TextUML notation and the UML concepts and elements they
 represent. See [TextUML Action
-Language](behavior.md "TextUML Action Language")
+Language](behavior.html "TextUML Action Language")
 for the behavioral elements.*
 
 This is a guide to the TextUML *notation*, not to the UML Language. It
@@ -86,7 +86,7 @@ model using the following syntax:
 
 After loading the external model, the conventional rules for making
 [cross-package
-references](structure.md#Cross-package_references)
+references](structure.html#Cross-package_references)
 still apply.
 
 Classifiers
@@ -193,9 +193,9 @@ For example:
 ### Special classifiers
 
 See also sections on the following classifiers:
-[stereotypes](structure.md#Stereotypes)
+[stereotypes](structure.html#Stereotypes)
 and
-[associations](structure.md#Associations).
+[associations](structure.html#Associations).
 
 Features
 --------
@@ -207,20 +207,20 @@ These can appear nested under any classifiers.
       [<modifiers>] operation <operation-name>([ [<param-direction>] <param-name> : <param-type-name> [, ...] ]) [: <return-type>];
 
 See also:
-[modifiers](structure.md#Modifiers)
+[modifiers](structure.html#Modifiers)
 and
-[multiplicity](structure.md#Multiplicity).
+[multiplicity](structure.html#Multiplicity).
 
 ### Properties or Attributes
 
       [<modifiers>] attribute <attribute-name> : <attribute-type-name> [:= <initial-value>];
 
 See also:
-[references](structure.md#References),
-[constants](structure.md#Constants),
-[modifiers](structure.md#Modifiers)
+[references](structure.html#References),
+[constants](structure.html#Constants),
+[modifiers](structure.html#Modifiers)
 and
-[multiplicity](structure.md#Multiplicity).
+[multiplicity](structure.html#Multiplicity).
 
 #### Constants
 
@@ -243,7 +243,7 @@ For example:
     end;
 
 See also:
-[modifiers](structure.md#Modifiers).
+[modifiers](structure.html#Modifiers).
 
 ### Ports
 
@@ -252,7 +252,7 @@ See also:
 Port types must be interfaces. A port is required by default.
 
 See examples in
-[components](structure.md#Components).
+[components](structure.html#Components).
 
 ### Receptions (1.10+)
 
@@ -302,7 +302,7 @@ Attributes (a.k.a properties) can be declared as 'readonly'.
 Attributes (a.k.a properties) can be declared as 'derived'. In that
 case, you need to provide the behavior that defines the property's value
 via a [closure
-literal](behavior.md#Closures "TextUML Action Language")
+literal](behavior.html#Closures "TextUML Action Language")
 (except if the attribute is an id, see below).
 
 #### Id (1.10+)
@@ -441,10 +441,10 @@ Profiles
 ========
 
 Profiles are declared much like
-[packages](structure.md#Packages),
+[packages](structure.html#Packages),
 just using the keyword 'profile' instead of 'package'. Profiles cannot
 be nested. You use profiles for declaring
-[stereotypes](structure.md#Stereotypes).
+[stereotypes](structure.html#Stereotypes).
 Profiles and stereotypes provide a lightweight mechanism for extending
 UML.
 
@@ -482,7 +482,7 @@ Note that the UML metamodel package is "uml". **Warning**: in TextUML
 instead of "uml".
 
 Also, see the section on
-[annotations](structure.md#Annotations)
+[annotations](structure.html#Annotations)
 to learn how to use stereotypes in your models.
 
 ### Required extensions (1.2+)
@@ -535,7 +535,7 @@ For example:
 
 Since version 1.3: besides numbers, booleans and strings, you can also
 use
-[enumeration](structure.md#Enumerations)
+[enumeration](structure.html#Enumerations)
 literals when applying a stereotype.
 
 Since 1.4, you can also annotate generalizations and interface

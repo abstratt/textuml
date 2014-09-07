@@ -13,7 +13,7 @@ both the structural and behavioural aspects of the
 notation, [here](../plugins/com.abstratt.mdd.frontend.textuml.core/textuml.scc).
 
 This complements the documentation for [structural
-aspects](structure.md)
+aspects](structure.html)
 of the TextUML notation.
 
 
@@ -22,7 +22,7 @@ Requirements
 
 In order to use the TextUML Action Language, the following properties
 **must** be enabled in the
-[mdd.properties](repository_properties.md)
+[mdd.properties](repository_properties.html)
 file:
 
 -   mdd.enableExtensions=true

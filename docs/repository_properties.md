@@ -42,7 +42,7 @@ mdd.enableCollections
 If defined and set to *true*, the built-in
 [mdd\_collections](https://github.com/abstratt/textuml/blob/master/plugins/com.abstratt.mdd.core/models/libraries/mdd_collections.tuml)
 library package becomes available. In order to use the [TextUML Action
-Language](behavior.md),
+Language](behavior.html),
 you need to enable this property.
 
 mdd.enableLibraries
@@ -57,7 +57,7 @@ If defined and set to *true*, the built-in
 [mdd\_extensions](https://github.com/abstratt/textuml/blob/master/plugins/com.abstratt.mdd.core/models/profiles/mdd_extensions.tuml)
 profile becomes available (you don't need to apply it). In order to use
 the [TextUML Action
-Language](behavior.md),
+Language](behavior.html),
 you need to enable this property.
 
 mdd.extendBaseObject
