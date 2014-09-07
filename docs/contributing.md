@@ -1,3 +1,5 @@
+---
+---
 # Contributor Guide
 
 Note this project is migrating to Github. Old issues are still on the Sourceforge repository.
