@@ -21,9 +21,9 @@ elsewhere:
 
 
 Will you only believe it if you see it? **[Download and
-install](docs/install.md "Install Instructions")**
+install](docs/install.html)**
 the TextUML Toolkit (it is free!) and run through the **easy-to-follow
-[tutorial](docs/tutorial.md "TextUML Tutorial")**.
+[tutorial](docs/tutorial.html "TextUML Tutorial")**.
 After the initial tour, you will want to become familiar with the
 **[documentation](docs "Documentation Home")**.**Questions
 and problem reports** can be posted on the **[user
