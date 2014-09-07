@@ -54,7 +54,7 @@ Example:
 Note that *object-expression* is not optional, so for accessing an
 object's own attributes, always use *self*.
 
-\
+
 
 ### Instance operation invocation
 
