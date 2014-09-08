@@ -54,3 +54,5 @@ TextUML source files and can be edited with the TextUML editor and will
 be compiled by the TextUML compiler. You are ready now to try the
 TextUML
 Tutorial.
+
+{% include footer.md %}

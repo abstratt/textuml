@@ -1,8 +1,14 @@
-Links:
+See also
+========
 
--  [download and install](http://abstratt.github.io/textuml/docs/install.html)
--  [tutorial](http://abstratt.github.io/textuml/docs/tutorial.html "TextUML Tutorial")
--  [documentation](http://abstratt.github.io/textuml/docs "Documentation Home")
+-   [Install
+    Instructions](install.html)
+-   [TextUML Toolkit
+    Features](features.html)
+-   [TextUML
+    Tutorial](tutorial.html)
+-   [TextUML Action
+    Language](behavior.html)    
 -  [user forum](https://groups.google.com/forum/#!forum/textuml-toolkit)
 -  [issue tracker](https://github.com/abstratt/textuml/issues)
-
+    

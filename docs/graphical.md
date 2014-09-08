@@ -33,3 +33,5 @@ EclipseGraphviz provides an "Image Viewer" view that will show a
 rendered class diagram whenever a .uml file is selected or a TextUML
 Viewer editor is currently selected. To open the Image Viewer, go Window
 \> Show view \> Other... \> EclipseGraphviz \> Image viewer.
+
+{% include footer.md %}

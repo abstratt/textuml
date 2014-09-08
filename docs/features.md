@@ -274,3 +274,5 @@ formatter.
     file and allows you to quickly jump to any element
 -   Textual comparison makes working in a team and comparing versions
     easier
+    
+{% include footer.md %}

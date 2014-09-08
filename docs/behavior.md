@@ -262,3 +262,6 @@ Example:
       comparator := (p1 :  Integer, p2 : Integer) : Boolean { return p1 > p2 };
       ...
     end;
+    
+    
+{% include footer.md %}

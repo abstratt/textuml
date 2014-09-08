@@ -81,3 +81,5 @@ Continuous builds run on [Jenkins at
 CloudBees](http://textuml.ci.cloudbees.com/). Artifact repository is also
 available at [CloudBees Forge](http://repository-
 textuml.forge.cloudbees.com/snapshot/).
+
+{% include footer.md %}
