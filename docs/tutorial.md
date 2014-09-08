@@ -259,7 +259,7 @@ example:
 
     end.
 
-\
+
 
 Diagram showing generalization
 
@@ -276,3 +276,5 @@ forum](https://groups.google.com/forum/#!forum/textuml-toolkit "https://groups.g
 [open an
 issue](https://github.com/abstratt/textuml/issues "https://github.com/abstratt/textuml/issues") and it
 will be addressed asap.
+
+{% include footer.md %}

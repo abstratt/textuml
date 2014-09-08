@@ -104,3 +104,5 @@ Head to the
 [forum](http://abstratt.com/forum/ "http://abstratt.com/forum/"), or add
 a comment to a recent [blog
 post](http://abstratt.com/blog/ "http://abstratt.com/blog/").
+
+{% include footer.md %}

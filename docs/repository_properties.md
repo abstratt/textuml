@@ -77,3 +77,5 @@ mdd.defaultLanguage
 If defined, sets an implicit extension for extension-less files. Set to
 'tuml' so you don't need to explicitly use .tuml in your TextUML source
 files.
+
+{% include footer.md %}

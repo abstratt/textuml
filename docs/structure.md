@@ -722,14 +722,4 @@ clashing with keywords. For example:
 "\\foo" will be translated into "foo" after parsing, no traces of the
 escaped string will exist anywhere other than the source.
 
-See also
-========
-
--   [Install
-    Instructions](install.html)
--   [TextUML Toolkit
-    Features](features.html)
--   [TextUML
-    Tutorial](tutorial.html)
--   [TextUML Action
-    Language](behavior.html)
+{% include footer.md %}    
