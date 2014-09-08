@@ -23,4 +23,4 @@ That is it - if you follow these instructions, you will end up with the code for
 
     ./textuml/repositories/com.abstratt.mdd.oss.repository/target/repository
     
-{% include footer.md %}
+{% include footer.md %} 
