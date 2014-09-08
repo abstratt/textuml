@@ -1,5 +1,4 @@
-See also
-========
+##### See also
 
 -   [Install
     Instructions](install.html)
@@ -9,6 +8,6 @@ See also
     Tutorial](tutorial.html)
 -   [TextUML Action
     Language](behavior.html)    
--  [user forum](https://groups.google.com/forum/#!forum/textuml-toolkit)
--  [issue tracker](https://github.com/abstratt/textuml/issues)
+-  [Discussion group](https://groups.google.com/forum/#!forum/textuml-toolkit)
+-  [Issue tracker](https://github.com/abstratt/textuml/issues)
     
