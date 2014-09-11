@@ -104,6 +104,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
 		source += "attribute attrib2 : Boolean := true;\n";
 		source += "attribute attrib3 : String := \"foo\";\n";
 		source += "attribute attrib4 : MyEnum := VALUE2;\n";
+		source += "attribute attrib5 : Date := { Date#today() };\n";
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
@@ -137,6 +138,11 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
 		assertTrue(attr4DefaultValue instanceof InstanceValue);
 		assertTrue(((InstanceValue) attr4DefaultValue).getInstance() instanceof EnumerationLiteral);
 		assertEquals("VALUE2", ((EnumerationLiteral) ((InstanceValue) attr4DefaultValue).getInstance()).getName());
+
+        Property attr5 = classifier.getAttribute("attrib5", null);
+        ValueSpecification attr5DefaultValue = attr5.getDefaultValue();
+        assertNotNull(attr5DefaultValue);
+        assertTrue(ActivityUtils.isBehaviorReference(attr5DefaultValue));
 	}
 
 	public void testDerivedAttribute() throws CoreException {
