@@ -1,5 +1,8 @@
 ---
 ---
+
+#Installing the TextUML Toolkit
+
 Requirements
 ------------
 
@@ -15,6 +18,7 @@ Install Eclipse
 
 Method 1: Installation via Eclipse Marketplace (preferred)
 -------------------------------
+
 
 If you have the [Eclipse
 Marketplace](http://marketplace.eclipse.org/marketplace-client-intro "http://marketplace.eclipse.org/marketplace-client-intro")

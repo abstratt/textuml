@@ -1,5 +1,8 @@
 ---
 ---
+
+## Building
+
 To build this code, you need git, maven and a connection to the internet (you will be downloading half of it):
 
     # the TextUML Toolkit repository per se

@@ -1,7 +1,6 @@
 ---
 ---
-TextUML Toolkit FAQ
--------------------
+## TextUML Toolkit FAQ
 
 #### Can a tool that uses a textual notation be considered UML compliant?
 
@@ -105,4 +104,4 @@ Head to the
 a comment to a recent [blog
 post](http://abstratt.com/blog/ "http://abstratt.com/blog/").
 
-{% include footer.md %}
+{% include footer.md %} 

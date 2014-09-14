@@ -1,8 +1,10 @@
 ---
 ---
 
+#Features
+
 Since 1.9
-=========
+----------------
 
 -   Released: in progress
 -   Requirements: Eclipse 3.8 or later, Java 6 or later.
@@ -28,7 +30,7 @@ non-derived attribute:
     attribute employeeStartDate : Date := { Date#today() };
 
 Since 1.8
-=========
+----------------
 
 -   Released: June 2012
 -   Requirements: Eclipse 3.6 or later, Java 6 or later.
@@ -38,7 +40,7 @@ Since 1.8
 -   try/catch (ExceptionHandler)
 
 Since 1.7
-=========
+----------------
 
 -   Released: February 2011
 -   Requirements: Eclipse 3.5 or later, Java 6 or later.
@@ -72,7 +74,7 @@ Bak - see
 -   attributes are now public by default (they used to be private)
 
 Since 1.6
-=========
+----------------
 
 -   Released: July 2010
 -   Requirements: Eclipse 3.5 or later.
@@ -109,7 +111,7 @@ Since 1.6
     attribute available : Boolean := true;
 
 Since 1.5
-=========
+----------------
 
 -   Released: December 2009
 
@@ -138,7 +140,7 @@ There is now textual notation support for decimal
 literals.
 
 Since 1.4
-=========
+----------------
 
 -   Released: November 2009
 
@@ -148,7 +150,7 @@ Notation support for applying stereotypes to generalizations and
 realizations.
 
 Since 1.3
-=========
+----------------
 
 -   Released: June 2009
 
@@ -177,7 +179,7 @@ Instructions](install.html)
 for instructions on what update site to use for your Eclipse version.
 
 Since 1.2
-=========
+----------------
 
 -   Released: February 2009
 
@@ -203,7 +205,7 @@ Share models across projects using the "Project References" tab in the
 Project Properties dialog.
 
 Since 1.1
-=========
+----------------
 
 -   Released: September 2008
 
@@ -227,7 +229,7 @@ There is now textual notation support for:
 -   parameter direction kind modifiers (in, out, inout)
 
 Since 1.0
-=========
+----------------
 
 -   Released: July 2008
 

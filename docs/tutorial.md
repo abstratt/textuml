@@ -1,5 +1,9 @@
 ---
 ---
+
+Modeling structure
+===================
+
 *This tutorial shows how to use the TextUML Toolkit for creating UML
 models. It starts from a minimal model and then increasingly adds more
 and more features to it.*

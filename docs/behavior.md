@@ -1,5 +1,8 @@
 ---
 ---
+
+## Modeling behavior
+
 It is a little known fact that TextUML also comprises a full-blown
 action language for UML. The TextUML Toolkit supports the TextUML action
 language since release 1.2.
