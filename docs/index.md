@@ -39,3 +39,5 @@
     TextUML](uml_101.html "UML 101")**
     - a series of articles explaining UML concepts using the TextUML
     notation: multiplicity, profiles and stereotypes and templates.
+    
+    **[Contributing](contributing) - everything you need to know to contribute as a developer or tester.
