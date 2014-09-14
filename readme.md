@@ -20,6 +20,6 @@ elsewhere:
 -   **live graphical visualization** of your model as class diagrams
 
 
-![](http://cloudbees.prod.acquia-sites.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)
+See [the documentation](docs/) for more information.
 
-{% include footer.md %}
+![](http://cloudbees.prod.acquia-sites.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)
