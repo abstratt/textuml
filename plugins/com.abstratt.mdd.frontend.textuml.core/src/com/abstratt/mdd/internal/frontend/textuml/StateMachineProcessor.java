@@ -27,10 +27,10 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.Vertex;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.NonInitialStatesMustBeNamed;
 import com.abstratt.mdd.frontend.core.QueryOperationsMustBeSideEffectFree;
 import com.abstratt.mdd.frontend.core.StateMachineMustHaveOneInitialState;
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.DeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;

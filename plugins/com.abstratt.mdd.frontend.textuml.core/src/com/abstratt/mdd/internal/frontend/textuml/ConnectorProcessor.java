@@ -25,9 +25,9 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.util.UMLValidator;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.util.StructuralFeatureUtils;
 import com.abstratt.mdd.frontend.core.InvalidConnector;
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;

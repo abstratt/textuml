@@ -9,9 +9,9 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Stereotype;
 
-import com.abstratt.mdd.frontend.core.IProblem;
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.InternalProblem;
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;

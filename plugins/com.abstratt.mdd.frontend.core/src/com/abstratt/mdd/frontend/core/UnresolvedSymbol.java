@@ -12,6 +12,9 @@ package com.abstratt.mdd.frontend.core;
 
 import org.eclipse.emf.ecore.EClass;
 
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.Problem;
+
 public class UnresolvedSymbol extends Problem {
 
 	private String symbol;

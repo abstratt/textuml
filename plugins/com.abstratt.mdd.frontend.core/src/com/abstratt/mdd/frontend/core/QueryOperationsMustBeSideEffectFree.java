@@ -1,5 +1,7 @@
 package com.abstratt.mdd.frontend.core;
 
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.Problem;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 
 public class QueryOperationsMustBeSideEffectFree extends Problem {

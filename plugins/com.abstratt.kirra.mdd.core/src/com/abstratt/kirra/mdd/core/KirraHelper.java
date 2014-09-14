@@ -266,7 +266,7 @@ public class KirraHelper {
     }
 
     private static boolean isRegularProperty(Property attribute) {
-        return attribute.eClass() == UMLPackage.Literals.PROPERTY;
+        return attribute.eClass() == UMLPackage.Literals.PROPERTY && attribute.getType().eClass() == UMLPackage.Literals.CLASS;
     }
 
     public static boolean isInstance(Property attribute) {

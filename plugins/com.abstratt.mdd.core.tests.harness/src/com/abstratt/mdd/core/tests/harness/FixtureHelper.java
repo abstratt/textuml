@@ -16,9 +16,9 @@ import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.uml2.uml.Package;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.frontend.core.ICompilationDirector;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.LocationContext;
 import com.abstratt.mdd.frontend.internal.core.CompilationDirector;
 

@@ -10,8 +10,8 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.internal.ui.editors;
 
-import com.abstratt.mdd.frontend.core.IProblem;
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
 
 /**

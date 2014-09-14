@@ -21,13 +21,13 @@ import org.eclipse.uml2.uml.TemplateableElement;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.Variable;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.StructuralFeatureUtils;
 import com.abstratt.mdd.core.util.TemplateUtils;
 import com.abstratt.mdd.core.util.UML2Compatibility;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.UnboundTemplate;
 
 public class TemplateTests extends AbstractRepositoryBuildingTests {

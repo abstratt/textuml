@@ -23,12 +23,12 @@ import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecificationAction;
 import org.eclipse.uml2.uml.Vertex;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.StateMachineUtils;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.NonInitialStatesMustBeNamed;
 import com.abstratt.mdd.frontend.core.StateMachineMustHaveOneInitialState;
 

@@ -4,7 +4,7 @@ import java.io.Reader;
 
 import org.eclipse.core.runtime.CoreException;
 
-import com.abstratt.mdd.frontend.core.Problem;
+import com.abstratt.mdd.core.Problem;
 
 public interface ICompiler {
 	/**

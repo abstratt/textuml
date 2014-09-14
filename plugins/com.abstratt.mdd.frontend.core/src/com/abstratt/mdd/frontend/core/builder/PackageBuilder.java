@@ -10,8 +10,8 @@ import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.InternalProblem;
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 

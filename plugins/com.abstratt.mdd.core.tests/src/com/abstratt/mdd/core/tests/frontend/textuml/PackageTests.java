@@ -16,11 +16,11 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.resource.UMLResource;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.frontend.core.CannotLoadFromLocation;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.InvalidPackageNesting;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 

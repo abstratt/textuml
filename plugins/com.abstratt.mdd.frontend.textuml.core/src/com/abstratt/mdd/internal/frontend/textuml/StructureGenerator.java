@@ -59,6 +59,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.ConnectorUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
@@ -79,7 +80,6 @@ import com.abstratt.mdd.frontend.core.NonQualifiedIdentifierExpected;
 import com.abstratt.mdd.frontend.core.NotAMetaclass;
 import com.abstratt.mdd.frontend.core.RequiredPortHasNoMatchingProviderPort;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.UnknownParentPackage;
 import com.abstratt.mdd.frontend.core.UnknownType;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
@@ -592,6 +592,7 @@ public class StructureGenerator extends AbstractGenerator {
 			problemBuilder.addProblem( new UnclassifiedProblem("Cannot declare attribute under namespace: " + currentNamespace.getName()), node);
 			return;
 		}
+		fillDebugInfo(newProperty, node);
 		applyCurrentComment(newProperty);
 		new DeferredTypeSetter(context, namespaceTracker.currentNamespace(null), newProperty) {
 			public void doProcess(Node node) {

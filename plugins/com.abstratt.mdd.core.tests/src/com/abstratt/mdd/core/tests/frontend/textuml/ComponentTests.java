@@ -16,12 +16,12 @@ import org.eclipse.uml2.uml.Port;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.UMLPackage;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.core.util.ConnectorUtils;
 import com.abstratt.mdd.frontend.core.AnonymousDisconnectedPort;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.InvalidConnector;
 
 public class ComponentTests extends AbstractRepositoryBuildingTests {

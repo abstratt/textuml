@@ -31,7 +31,9 @@ import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.VisibilityKind;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.core.util.ActivityUtils;
@@ -40,8 +42,6 @@ import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.CannotModifyADerivedAttribute;
 import com.abstratt.mdd.frontend.core.CannotSpecializeClassifier;
-import com.abstratt.mdd.frontend.core.IProblem;
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.IdsShouldBeRequiredSingle;
 import com.abstratt.mdd.frontend.core.MissingDefaultValue;
 import com.abstratt.mdd.frontend.core.ReadSelfFromStaticContext;

@@ -22,10 +22,10 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.frontend.core.FrontEnd;
 import com.abstratt.mdd.frontend.core.ICompilationDirector;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.LocationContext;
 import com.abstratt.mdd.frontend.internal.core.CompilationDirector;
 import com.abstratt.pluginutils.LogUtils;

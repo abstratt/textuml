@@ -10,6 +10,8 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.frontend.core;
 
+import com.abstratt.mdd.core.Problem;
+
 public class InternalProblem extends Problem {
 	private Throwable throwable;
 	private String message;

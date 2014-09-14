@@ -3,7 +3,7 @@ package com.abstratt.mdd.frontend.core.builder;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 
-import com.abstratt.mdd.frontend.core.IProblem;
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.DeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;

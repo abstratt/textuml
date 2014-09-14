@@ -3,6 +3,7 @@ package com.abstratt.kirra.mdd.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.query.conditions.eobjects.EObjectCondition;
@@ -20,10 +21,14 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.VisibilityKind;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.ModelException;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.isv.IModelWeaver;
 import com.abstratt.mdd.core.util.ConnectorUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
+import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.StereotypeUtils;
 
 /**
@@ -121,6 +126,12 @@ public class KirraModelWeaver implements IModelWeaver {
 		// ensure properties that refer to entities are part of associations (just like references)
 		for (Class entity : entities)
 			for (Property property : entity.getAttributes()) {
+			    if (!KirraHelper.isProperty(property)) {
+			        UnclassifiedProblem problem = new UnclassifiedProblem("Not a valid property: " + property.getQualifiedName());
+			        problem.setAttribute(IProblem.FILE_NAME, MDDExtensionUtils.getSource(property));
+			        problem.setAttribute(IProblem.LINE_NUMBER, MDDExtensionUtils.getLineNumber(property));
+                    throw new ModelException(problem);
+			    }
 				Type propertyType = property.getType();
 				if (propertyType != null && propertyType.isStereotypeApplied(entityStereotype) && property.getAssociation() == null) {
 					final Association newAssociation =

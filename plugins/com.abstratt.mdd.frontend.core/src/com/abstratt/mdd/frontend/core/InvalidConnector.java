@@ -12,6 +12,8 @@ package com.abstratt.mdd.frontend.core;
 
 import org.eclipse.uml2.uml.util.UMLValidator;
 
+import com.abstratt.mdd.core.Problem;
+
 
 public class InvalidConnector extends Problem {
 
