@@ -1,7 +1,7 @@
 ---
 ---
 
-Modeling structure
+TextUML Toolkit Tutorial
 ===================
 
 *This tutorial shows how to use the TextUML Toolkit for creating UML
