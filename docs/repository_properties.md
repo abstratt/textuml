@@ -1,6 +1,6 @@
 ---
 ---
-
+{% include header.md %}
 #Repository properties
 
 Repository properties are stored in a properties file named
