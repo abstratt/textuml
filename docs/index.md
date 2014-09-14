@@ -1,6 +1,6 @@
 ---
 ---
-## Documentation
+## TextUML Toolkit Documentation
 
 -   **[Instructions](install.html)** for installing the TextUML Toolkit. Note you can also
     use TextUML in
