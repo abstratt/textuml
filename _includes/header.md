@@ -1,1 +1,1 @@
-[Back to the main page](.)    
+TextUML Toolkit Documentation - [Back to main page](.)    
