@@ -1,5 +1,6 @@
 ---
 ---
+{% include header.md %}
 #Configuring Graphical Rendering
 
 Note that diagram rendering is optional. If you don't require the

@@ -1,5 +1,6 @@
 ---
 ---
+{% include header.md %}
 
 #Installing the TextUML Toolkit
 
