@@ -21,6 +21,7 @@ import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.internal.frontend.textuml.node.AComplexInitializationExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.AOptionalReturnType;
 import com.abstratt.mdd.internal.frontend.textuml.node.AParamDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.ARaisedExceptionItem;
@@ -73,12 +74,16 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
 		// set a default direction, may be overruled if parameter supports direction
 		final Parameter createdParameter = createParameter(parameterName, node.getTypeIdentifier(), ParameterDirectionKind.IN_LITERAL);
 		
-		//TODO-RC support for expression based initialization
 		node.apply(new DepthFirstAdapter() {
 			@Override
 			public void caseASimpleInitialization(ASimpleInitialization simpleInitNode) {
 				ExpressionProcessor expressionProcessor = new ExpressionProcessor(context.getReferenceTracker(), problemBuilder, parent);
 				expressionProcessor.process(node.getTypeIdentifier(), createdParameter, simpleInitNode.getLiteralOrIdentifier());
+			}
+			@Override
+			public void caseAComplexInitializationExpression(AComplexInitializationExpression node) {
+ 	            problemBuilder.addError("Complex expressions not supported yet for declaring a parameter default value", node);
+	            throw new AbortedScopeCompilationException();
 			}
 		});
 		return createdParameter;
