@@ -1,1 +1,2 @@
-TextUML Toolkit Documentation - [Back to main page](.)    
+TextUML Toolkit Documentation - [Back to main page](.)
+{% include github.html %}

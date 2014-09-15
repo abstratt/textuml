@@ -22,4 +22,6 @@ elsewhere:
 
 See [the documentation](docs/) for more information.
 
-![](http://cloudbees.prod.acquia-sites.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)
+[![](http://cloudbees.prod.acquia-sites.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
+
+{% include github.html %}
