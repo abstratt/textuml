@@ -1,5 +1,6 @@
 ---
 ---
+{% include github.html %}
 ## TextUML Toolkit Documentation
 
 -   **[Instructions](install.html)** for installing the TextUML Toolkit. Note you can also
