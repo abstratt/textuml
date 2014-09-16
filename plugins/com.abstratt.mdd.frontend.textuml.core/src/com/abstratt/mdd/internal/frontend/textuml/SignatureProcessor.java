@@ -12,13 +12,19 @@ package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.Set;
 
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.ParameterEffectKind;
+import org.eclipse.uml2.uml.UMLPackage;
 
+import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
+import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
+import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.internal.frontend.textuml.node.AComplexInitializationExpression;
@@ -26,6 +32,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AOptionalReturnType;
 import com.abstratt.mdd.internal.frontend.textuml.node.AParamDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.ARaisedExceptionItem;
 import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleInitialization;
+import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleInitializationExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleOptionalReturnType;
 import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleParamDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.Node;
@@ -77,13 +84,22 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
 		
 		node.apply(new DepthFirstAdapter() {
 			@Override
-			public void caseASimpleInitialization(ASimpleInitialization simpleInitNode) {
-				InitializationExpressionProcessor expressionProcessor = new InitializationExpressionProcessor(context.getReferenceTracker(), problemBuilder, parent);
-				expressionProcessor.process(node.getTypeIdentifier(), createdParameter, simpleInitNode.getLiteralOrIdentifier());
+			public void caseASimpleInitializationExpression(ASimpleInitializationExpression expressionNode) {
+			    ASimpleInitialization simpleInitialization = (ASimpleInitialization) ((ASimpleInitializationExpression) expressionNode).getSimpleInitialization();
+				SimpleInitializationExpressionProcessor expressionProcessor = new SimpleInitializationExpressionProcessor(sourceContext, parent);
+				expressionProcessor.process(node.getTypeIdentifier(), createdParameter, simpleInitialization.getLiteralOrIdentifier());
 			}
 			@Override
-			public void caseAComplexInitializationExpression(AComplexInitializationExpression node) {
-			    // we deal with complex expressions elsewhere
+			public void caseAComplexInitializationExpression(final AComplexInitializationExpression node) {
+	            sourceContext.getReferenceTracker().add(new IDeferredReference() {
+	                @Override
+	                public void resolve(IBasicRepository repository) {
+	                    // required for resolving behavior
+	                    Class nearestClass = (Class) MDDUtil.getNearest(createdParameter, UMLPackage.Literals.CLASS);
+                        ComplexInitializationExpressionProcessor expressionProcessor = new ComplexInitializationExpressionProcessor(sourceContext, nearestClass);
+	                    expressionProcessor.process(createdParameter, node);
+	                }
+	            }, IReferenceTracker.Step.GENERAL_RESOLUTION);
 			}
 		});
 		return createdParameter;

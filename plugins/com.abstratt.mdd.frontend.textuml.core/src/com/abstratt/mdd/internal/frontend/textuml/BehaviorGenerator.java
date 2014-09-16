@@ -1566,6 +1566,9 @@ public class BehaviorGenerator extends AbstractGenerator {
 		return counter[0];
 	}
 	
+	/**
+	 * Fills in the given activity with behavior parsed from the given node.
+	 */
 	public void createBody(Node bodyNode, Activity activity) {
 		namespaceTracker.enterNamespace(activity);
 		try {

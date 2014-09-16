@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Actor;
+import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
@@ -606,7 +607,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
 		source += "import base;\n";
 		source += "enumeration MyEnum literal VALUE1; literal VALUE2; literal VALUE3; end;\n";
 		source += "class SomeClassifier\n";
-		source += "operation op1(param1 : Boolean := true, param2 : Integer := 2, param3 : MyEnum := VALUE2);\n";
+		source += "operation op1(param1 : Boolean := true, param2 : Integer := 2, param3 : MyEnum := VALUE2, param4 : Date := { Date#today() });\n";
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
@@ -639,6 +640,16 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
 		assertTrue(param3DefaultValue instanceof InstanceValue);
 		assertTrue(((InstanceValue) param3DefaultValue).getInstance() instanceof EnumerationLiteral);
 		assertEquals("VALUE2", ((EnumerationLiteral) ((InstanceValue) param3DefaultValue).getInstance()).getName());
+
+        Parameter param4 = operation.getOwnedParameter("param4", null);
+        ValueSpecification param4DefaultValue = param4.getDefaultValue();
+        assertNotNull(param4DefaultValue);
+        assertTrue(ActivityUtils.isBehaviorReference(param4DefaultValue));
+        Activity param4Expression = (Activity) ActivityUtils.resolveBehaviorReference(param4DefaultValue);
+        assertTrue(param4Expression.isReadOnly());
+        Parameter returnParameter = FeatureUtils.findReturnParameter(param4Expression.getOwnedParameters());
+        assertNotNull(returnParameter);
+        assertEquals("Date", returnParameter.getType().getName());
 	}
 
 	public void testRaisedExceptions() throws CoreException {

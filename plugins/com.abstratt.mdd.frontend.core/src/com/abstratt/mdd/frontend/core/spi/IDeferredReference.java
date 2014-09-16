@@ -11,8 +11,7 @@ import com.abstratt.mdd.core.IBasicRepository;
 public interface IDeferredReference {
 
 	/**
-	 * Resolves this deferred reference against the given repository. Problems should be reported 
-	 * against the given problem list.
+	 * Resolves this deferred reference against the given repository. 
 	 * 
 	 * @param repository
 	 */

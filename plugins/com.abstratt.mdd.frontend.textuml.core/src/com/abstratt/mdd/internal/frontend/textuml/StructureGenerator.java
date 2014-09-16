@@ -108,6 +108,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AClassDef;
 import com.abstratt.mdd.internal.frontend.textuml.node.AClassHeader;
 import com.abstratt.mdd.internal.frontend.textuml.node.AClassImplementsItem;
 import com.abstratt.mdd.internal.frontend.textuml.node.AClassSpecializesItem;
+import com.abstratt.mdd.internal.frontend.textuml.node.AComplexInitializationExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.AComponentClassType;
 import com.abstratt.mdd.internal.frontend.textuml.node.ACompositionAssociationKind;
 import com.abstratt.mdd.internal.frontend.textuml.node.ACompositionReferenceType;
@@ -607,7 +608,7 @@ public class StructureGenerator extends AbstractGenerator {
 		}.process(node.getTypeIdentifier());
 		
 		applyModifiers(newProperty, VisibilityKind.PUBLIC_LITERAL, node);
-		PInitializationExpression initializationExpression = node.getInitializationExpression();
+		final PInitializationExpression initializationExpression = node.getInitializationExpression();
 		if (newProperty.isDerived()) {
 			if (!newProperty.isID() && initializationExpression == null) {
 				problemBuilder.addProblem(new MissingDefaultValue(), node);
@@ -616,10 +617,20 @@ public class StructureGenerator extends AbstractGenerator {
 		}
 		// for non-constant attributes, initialization expression is optional 
 		if (initializationExpression instanceof ASimpleInitializationExpression) {
-			InitializationExpressionProcessor expressionProcessor = new InitializationExpressionProcessor(context.getReferenceTracker(), problemBuilder, currentNamespace);
+			SimpleInitializationExpressionProcessor expressionProcessor = new SimpleInitializationExpressionProcessor(sourceContext, currentNamespace);
 			ASimpleInitialization simpleInitialization = (ASimpleInitialization) ((ASimpleInitializationExpression) initializationExpression).getSimpleInitialization();
 			expressionProcessor.process(node.getTypeIdentifier(), newProperty, simpleInitialization.getLiteralOrIdentifier());
-		}
+		} else if (initializationExpression instanceof AComplexInitializationExpression) {
+		    getRefTracker().add(new IDeferredReference() {
+		        @Override
+		        public void resolve(IBasicRepository repository) {
+                    // required for resolving behavior
+                    Class nearestClass = (Class) MDDUtil.getNearest(newProperty, UMLPackage.Literals.CLASS);
+		            ComplexInitializationExpressionProcessor expressionProcessor = new ComplexInitializationExpressionProcessor(sourceContext, nearestClass);
+		            expressionProcessor.process(newProperty, (AComplexInitializationExpression) initializationExpression);
+		        }
+		    }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        } 
 		annotationProcessor.applyAnnotations(newProperty, node.getIdentifier());
 		applyOptionalSubsetting(newProperty, node);
 	}
