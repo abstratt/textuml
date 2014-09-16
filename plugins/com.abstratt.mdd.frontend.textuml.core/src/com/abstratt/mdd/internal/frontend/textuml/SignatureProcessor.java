@@ -78,7 +78,7 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
 		node.apply(new DepthFirstAdapter() {
 			@Override
 			public void caseASimpleInitialization(ASimpleInitialization simpleInitNode) {
-				ExpressionProcessor expressionProcessor = new ExpressionProcessor(context.getReferenceTracker(), problemBuilder, parent);
+				InitializationExpressionProcessor expressionProcessor = new InitializationExpressionProcessor(context.getReferenceTracker(), problemBuilder, parent);
 				expressionProcessor.process(node.getTypeIdentifier(), createdParameter, simpleInitNode.getLiteralOrIdentifier());
 			}
 			@Override

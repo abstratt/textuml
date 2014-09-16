@@ -616,7 +616,7 @@ public class StructureGenerator extends AbstractGenerator {
 		}
 		// for non-constant attributes, initialization expression is optional 
 		if (initializationExpression instanceof ASimpleInitializationExpression) {
-			ExpressionProcessor expressionProcessor = new ExpressionProcessor(context.getReferenceTracker(), problemBuilder, currentNamespace);
+			InitializationExpressionProcessor expressionProcessor = new InitializationExpressionProcessor(context.getReferenceTracker(), problemBuilder, currentNamespace);
 			ASimpleInitialization simpleInitialization = (ASimpleInitialization) ((ASimpleInitializationExpression) initializationExpression).getSimpleInitialization();
 			expressionProcessor.process(node.getTypeIdentifier(), newProperty, simpleInitialization.getLiteralOrIdentifier());
 		}
