@@ -104,9 +104,9 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
 
 	protected SignatureProcessor newSignatureProcessor(Namespace target) {
 		if (target instanceof Behavior)
-			return new BehaviorSignatureProcessor(context, (Behavior) target);
+			return new BehaviorSignatureProcessor(sourceContext, (Behavior) target);
 		if (target instanceof BehavioralFeature)
-			return new BehavioralFeatureSignatureProcessor(context,
+			return new BehavioralFeatureSignatureProcessor(sourceContext,
 					(BehavioralFeature) target);
 		throw new IllegalArgumentException("" + target);
 	}

@@ -1281,7 +1281,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			// register the result output pin
 			OutputPin destinationPin = (OutputPin) action.createNode(null, Literals.OUTPUT_PIN);
 			
-			new TypeSetter(context, namespaceTracker.currentNamespace(null), destinationPin).process(node.getCast());
+			new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), destinationPin).process(node.getCast());
 			builder.registerOutput(destinationPin);
 			// copy whatever multiplicity coming into the source to the destination
 			TypeUtils.copyMultiplicity(sourcePin, destinationPin);
@@ -1374,7 +1374,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 		final Variable var = builder.getCurrentBlock().createVariable(varIdentifier, null);
 		if (node.getOptionalType() != null)
 		    // type is optional for local vars
-		    new TypeSetter(context, namespaceTracker.currentNamespace(null), var).process(node.getOptionalType());
+		    new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), var).process(node.getOptionalType());
 	}
 
 	@Override

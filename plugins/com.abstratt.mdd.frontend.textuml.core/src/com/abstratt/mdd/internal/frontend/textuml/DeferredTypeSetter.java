@@ -23,8 +23,8 @@ import com.abstratt.mdd.internal.frontend.textuml.node.Node;
  * A type setter that defers resolution of type references to a later step. 
  */
 public class DeferredTypeSetter extends TypeSetter {
-	public DeferredTypeSetter(CompilationContext context, Namespace currentPackage, TypedElement target) {
-		super(context, currentPackage, target);
+	public DeferredTypeSetter(SourceCompilationContext<Node> sourceContext, Namespace currentPackage, TypedElement target) {
+		super(sourceContext, currentPackage, target);
 	}
 
 	@Override

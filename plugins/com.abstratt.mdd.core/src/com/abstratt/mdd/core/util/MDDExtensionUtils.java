@@ -48,6 +48,10 @@ public class MDDExtensionUtils {
 		toEnhance.setValue(debuggableStereotype, "source", source);
 	}
 	
+	/**
+	 * The meta reference facility is not currently in use.
+	 */
+	@Deprecated
     public static ValueSpecification buildMetaReference(Package parent, Element referred, Type type) {	 
         LiteralNull nullLiteral = MDDUtil.createLiteralNull(parent);	 
         Stereotype referenceStereotype = StereotypeUtils.findStereotype(META_REFERENCE_STEREOTYPE);	 
@@ -57,10 +61,12 @@ public class MDDExtensionUtils {
         return nullLiteral;	 
     }	
     
+    @Deprecated
     public static boolean isMetaReference(ValueSpecification specification) {	 
         return specification instanceof LiteralNull && StereotypeUtils.hasStereotype(specification, META_REFERENCE_STEREOTYPE);	 
     }
     
+    @Deprecated
 	public static Type resolveMetaReference(ValueSpecification value) {
 		Assert.isLegal(isMetaReference(value));
 		LiteralNull nullLiteral = (LiteralNull) value;

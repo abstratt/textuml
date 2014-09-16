@@ -16,14 +16,15 @@ import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Parameter;
 
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
+import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 	
 public class BehavioralFeatureSignatureProcessor extends SignatureProcessor {
-		public BehavioralFeatureSignatureProcessor(CompilationContext context, BehavioralFeature parent) {
-			super(context, parent, true);
+		public BehavioralFeatureSignatureProcessor(SourceCompilationContext<Node> sourceContext, BehavioralFeature parent) {
+			super(sourceContext, parent, true);
 		}
 		
-		public BehavioralFeatureSignatureProcessor(CompilationContext context, BehavioralFeature parent, boolean supportExceptions, boolean unnamedParameters) {
-			super(context, parent, supportExceptions, unnamedParameters);
+		public BehavioralFeatureSignatureProcessor(SourceCompilationContext<Node> sourceContext, BehavioralFeature parent, boolean supportExceptions, boolean unnamedParameters) {
+			super(sourceContext, parent, supportExceptions, unnamedParameters);
 		}
 
 

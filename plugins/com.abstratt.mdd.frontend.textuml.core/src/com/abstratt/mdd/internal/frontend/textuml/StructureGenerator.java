@@ -430,7 +430,7 @@ public class StructureGenerator extends AbstractGenerator {
 		// anonymous end
 		newAssociation.createOwnedEnd(null, referringClassifier);
 		applyModifiers(referrent[0], VisibilityKind.PUBLIC_LITERAL, node);
-		new DeferredTypeSetter(context, referringClassifier, referrent[0]).process(node.getTypeIdentifier());
+		new DeferredTypeSetter(sourceContext, referringClassifier, referrent[0]).process(node.getTypeIdentifier());
 	}
 
 	@Override
@@ -441,7 +441,7 @@ public class StructureGenerator extends AbstractGenerator {
 						UMLPackage.Literals.DEPENDENCY);
 		newDependency.getClients().add(referringClassifier);
 		annotationProcessor.applyAnnotations(newDependency, node.getDependency());
-		new DeferredCollectionFiller(context, referringClassifier, newDependency.getSuppliers()).process(node.getTypeIdentifier());
+		new DeferredCollectionFiller(sourceContext, referringClassifier, newDependency.getSuppliers()).process(node.getTypeIdentifier());
 	}
 
 	@Override
@@ -499,7 +499,7 @@ public class StructureGenerator extends AbstractGenerator {
 							ownedEnd = association.createNavigableOwnedEnd(endIdentifier, null);
 						else
 							ownedEnd = association.createOwnedEnd(endIdentifier, null);
-						new TypeSetter(context, association, ownedEnd).process(ownedEndNode.getTypeIdentifier());
+						new TypeSetter(sourceContext, association, ownedEnd).process(ownedEndNode.getTypeIdentifier());
 						AAssociationRoleDecl roleDeclaration = sourceMiner.findParent(ownedEndNode, AAssociationRoleDecl.class);
 						processAnnotations(roleDeclaration.getAnnotations(), ownedEnd);
 						CommentUtils.applyComment(roleDeclaration.getModelComment(), ownedEnd);
@@ -521,6 +521,7 @@ public class StructureGenerator extends AbstractGenerator {
 		final Class owningClass = (Class) namespaceTracker.currentNamespace(UMLPackage.Literals.CLASS);
 		final Port newPort = owningClass.createOwnedPort(portIdentifier, null);
 		newPort.setIsService(false);
+		fillDebugInfo(newPort, node);
 		applyCurrentComment(newPort);
 		String interfaceName = sourceMiner.getIdentifier(node.getMinimalTypeIdentifier());
 		getRefTracker().add(new DeferredReference<Interface>(interfaceName, UMLPackage.Literals.INTERFACE, owningClass) {
@@ -594,7 +595,7 @@ public class StructureGenerator extends AbstractGenerator {
 		}
 		fillDebugInfo(newProperty, node);
 		applyCurrentComment(newProperty);
-		new DeferredTypeSetter(context, namespaceTracker.currentNamespace(null), newProperty) {
+		new DeferredTypeSetter(sourceContext, namespaceTracker.currentNamespace(null), newProperty) {
 			public void doProcess(Node node) {
 				super.doProcess(node); 
 				if ((currentNamespace instanceof DataType || currentNamespace instanceof Signal || currentNamespace instanceof StateMachine) && newProperty.getType() != null) {
@@ -1030,7 +1031,7 @@ public class StructureGenerator extends AbstractGenerator {
 		try {
 			getRefTracker().add(new IDeferredReference() {
 				public void resolve(IBasicRepository repository) {
-					node.apply(new BehavioralFeatureSignatureProcessor(context, reception, false, true));
+					node.apply(new BehavioralFeatureSignatureProcessor(sourceContext, reception, false, true));
 					Type signal = reception.getOwnedParameters().get(0).getType();
 					if (!(signal instanceof Signal)) {
 						problemBuilder.addError("Reception parameter must be a signal", node.getReception());
@@ -1254,7 +1255,7 @@ public class StructureGenerator extends AbstractGenerator {
 		final Stereotype currentStereotype = (Stereotype) namespaceTracker.currentNamespace(null);
 		final Property attribute = currentStereotype.createOwnedAttribute(propertyIdentifier, null);
 		applyCurrentComment(attribute);
-		new DeferredTypeSetter(context, namespaceTracker.currentNamespace(null), attribute).process(node.getTypeIdentifier());
+		new DeferredTypeSetter(sourceContext, namespaceTracker.currentNamespace(null), attribute).process(node.getTypeIdentifier());
 	}
 
 	@Override

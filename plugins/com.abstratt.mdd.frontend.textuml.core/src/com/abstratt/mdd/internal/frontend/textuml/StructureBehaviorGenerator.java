@@ -72,7 +72,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 	public StructureBehaviorGenerator(CompilationContext context) {
 		super(context);
 	}
-
+	
 	@Override
 	public void caseADetachedOperationDef(ADetachedOperationDef node) {
 		// find behavioral feature
@@ -338,6 +338,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 		TypeUtils.copyType(currentAttribute, activityReturn);
 		createBody(initializationExpression.getExpressionBlock(), activity);
 		ValueSpecification reference = ActivityUtils.buildBehaviorReference(namespaceTracker.currentPackage(), activity, null);
+
 		currentAttribute.setDefaultValue(reference);
 	}
 

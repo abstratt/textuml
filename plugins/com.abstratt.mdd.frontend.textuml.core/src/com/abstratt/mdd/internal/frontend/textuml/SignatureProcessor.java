@@ -28,6 +28,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.ARaisedExceptionItem;
 import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleInitialization;
 import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleOptionalReturnType;
 import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleParamDecl;
+import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 import com.abstratt.mdd.internal.frontend.textuml.node.POptionalParameterName;
 import com.abstratt.mdd.internal.frontend.textuml.node.PTypeIdentifier;
 
@@ -35,12 +36,12 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
 	
 	private ModifierProcessor modifierProcessor = new ModifierProcessor(new SCCTextUMLSourceMiner()); 
 
-	public SignatureProcessor(CompilationContext context, Namespace parent, boolean supportExceptions) {
-		super(context, parent, supportExceptions);
+	public SignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent, boolean supportExceptions) {
+		super(sourceContext, parent, supportExceptions);
 	}
 
-	public SignatureProcessor(CompilationContext context, Namespace parent, boolean supportExceptions, boolean unnamedParameters) {
-		super(context, parent, supportExceptions, unnamedParameters);
+	public SignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent, boolean supportExceptions, boolean unnamedParameters) {
+		super(sourceContext, parent, supportExceptions, unnamedParameters);
 	}
 
 	@Override
@@ -82,8 +83,7 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
 			}
 			@Override
 			public void caseAComplexInitializationExpression(AComplexInitializationExpression node) {
- 	            problemBuilder.addError("Complex expressions not supported yet for declaring a parameter default value", node);
-	            throw new AbortedScopeCompilationException();
+			    // we deal with complex expressions elsewhere
 			}
 		});
 		return createdParameter;
