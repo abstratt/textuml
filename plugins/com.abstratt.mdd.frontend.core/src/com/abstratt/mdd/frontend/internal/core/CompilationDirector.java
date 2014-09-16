@@ -326,7 +326,7 @@ public class CompilationDirector implements ICompilationDirector {
 	         Throwable root = e;  
 		    while (root.getCause() != null)
 		        root = root.getCause();
-		    String message = root.getMessage() != null ? root.getMessage() : root.toString();
+		    String message = root.toString();
 			UnclassifiedProblem toReport = new UnclassifiedProblem("Unexpected error: " + message);
 			localProblemTracker.add(toReport);
 		} finally {

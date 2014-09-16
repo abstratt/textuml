@@ -629,7 +629,7 @@ public class StructureGenerator extends AbstractGenerator {
 		            ComplexInitializationExpressionProcessor expressionProcessor = new ComplexInitializationExpressionProcessor(sourceContext, nearestClass);
 		            expressionProcessor.process(newProperty, (AComplexInitializationExpression) initializationExpression);
 		        }
-		    }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+		    }, IReferenceTracker.Step.LAST);
         } 
 		annotationProcessor.applyAnnotations(newProperty, node.getIdentifier());
 		applyOptionalSubsetting(newProperty, node);
