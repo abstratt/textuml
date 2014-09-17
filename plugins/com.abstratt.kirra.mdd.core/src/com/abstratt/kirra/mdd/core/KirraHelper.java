@@ -19,6 +19,7 @@ import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.Interface;
@@ -433,7 +434,7 @@ public class KirraHelper {
         for (Classifier general : dataType.getGenerals())
             addTupleProperties(general, tupleProperties);
         for (Property attribute : dataType.getAttributes())
-            if (isPublic(attribute))
+            if (isPublic(attribute) && attribute.eClass() == UMLPackage.Literals.PROPERTY)
                 tupleProperties.add(attribute);
     }
 
@@ -631,7 +632,7 @@ public class KirraHelper {
         return get(classifier, "isTupleType", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return classifier.getName() != null && !BasicTypeUtils.isBasicType(classifier) && classifier instanceof Classifier;
+                return classifier.getName() != null && classifier instanceof DataType;
             }
         });
     }
