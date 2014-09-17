@@ -265,8 +265,9 @@ public class KirraHelper {
         });
     }
 
-    private static boolean isRegularProperty(Property attribute) {
-        return attribute.eClass() == UMLPackage.Literals.PROPERTY && attribute.getType().eClass() == UMLPackage.Literals.CLASS;
+    /** Avoids things such as stereotypes */
+    public static boolean isRegularProperty(Property attribute) {
+        return attribute.eClass() == UMLPackage.Literals.PROPERTY && attribute.getType() != null && (attribute.getType().eClass() == UMLPackage.Literals.CLASS || attribute.getType().eClass() == UMLPackage.Literals.STATE_MACHINE || attribute.getType().eClass() == UMLPackage.Literals.ENUMERATION);
     }
 
     public static boolean isInstance(Property attribute) {
@@ -415,6 +416,25 @@ public class KirraHelper {
                 return entityProperties;
             }
         });
+    }
+    
+    public static List<Property> getTupleProperties(final Classifier dataType) {
+        return get(dataType, "getTupleProperties", new Callable<List<Property>>() {
+            @Override
+            public List<Property> call() throws Exception {
+                List<Property> tupleProperties = new ArrayList<Property>();
+                addTupleProperties(dataType, tupleProperties);
+                return tupleProperties;
+            }
+        });
+    }
+    
+    private static void addTupleProperties(Classifier dataType, List<Property> tupleProperties) {
+        for (Classifier general : dataType.getGenerals())
+            addTupleProperties(general, tupleProperties);
+        for (Property attribute : dataType.getAttributes())
+            if (isPublic(attribute))
+                tupleProperties.add(attribute);
     }
 
     public static List<Property> getPropertiesAndRelationships(final Classifier umlClass) {
