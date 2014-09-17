@@ -13,6 +13,7 @@ Since 2.0
 
 ### New textual notation features
 -   Type inference for local vars
+-   Complex expressions for [parameter default values](https://github.com/abstratt/textuml/issues/36)
 
 
 Since 1.9
