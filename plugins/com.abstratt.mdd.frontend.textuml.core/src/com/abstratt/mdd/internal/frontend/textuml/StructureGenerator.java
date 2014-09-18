@@ -698,6 +698,7 @@ public class StructureGenerator extends AbstractGenerator {
 		node.getClassType().apply(this);
 		final Classifier currentClassifier = (Classifier) namespaceTracker.currentNamespace(null);
 		applyCurrentComment(currentClassifier);
+		fillDebugInfo(currentClassifier, node);
 		currentClassifier.setName(classifierIdentifier);
 		node.getClassModifiers().apply(new DepthFirstAdapter() {
 			@Override

@@ -3,7 +3,6 @@ package com.abstratt.kirra.mdd.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.query.conditions.eobjects.EObjectCondition;
@@ -27,7 +26,6 @@ import com.abstratt.mdd.core.ModelException;
 import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.isv.IModelWeaver;
 import com.abstratt.mdd.core.util.ConnectorUtils;
-import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.StereotypeUtils;
 
@@ -39,9 +37,11 @@ public class KirraModelWeaver implements IModelWeaver {
 	public void packageCreated(IRepository repository, Package created) {
 		Profile kirraProfile = (Profile) repository.loadPackage(URI.createURI(KirraMDDCore.KIRRA_URI));
 		Package types = repository.findPackage(IRepository.TYPES_NAMESPACE, null);
+		Package kirraTypes = repository.findPackage("kirra_types", null);
 		Package extensions = repository.findPackage(IRepository.EXTENSIONS_NAMESPACE, null);
 		created.applyProfile(kirraProfile);
 		created.createPackageImport(types);
+		created.createPackageImport(kirraTypes);
 		created.createPackageImport(extensions);
 		created.createPackageImport(kirraProfile);
 	}
@@ -101,14 +101,8 @@ public class KirraModelWeaver implements IModelWeaver {
 			}
 		}, true);
 		// apply entity stereotype
-		for (Class entity : entities) {
+		for (Class entity : entities)
 			StereotypeUtils.safeApplyStereotype(entity, entityStereotype);
-			// create username property
-			if (entity.isStereotypeApplied(userStereotype) && FeatureUtils.findAttribute(entity, "username", false, true) == null) {
-				Property username = entity.createOwnedAttribute("username", stringType);
-				username.setIsReadOnly(true);
-			}
-		}
 		for (Class entity : entities) {
 			// apply operation stereotypes
 			for (Operation operation : entity.getOperations()) {
@@ -126,21 +120,27 @@ public class KirraModelWeaver implements IModelWeaver {
 		// ensure properties that refer to entities are part of associations (just like references)
 		for (Class entity : entities)
 			for (Property property : entity.getAttributes()) {
-			    if (!KirraHelper.isProperty(property)) {
-			        UnclassifiedProblem problem = new UnclassifiedProblem("Not a valid property: " + property.getQualifiedName());
-			        problem.setAttribute(IProblem.FILE_NAME, MDDExtensionUtils.getSource(property));
-			        problem.setAttribute(IProblem.LINE_NUMBER, MDDExtensionUtils.getLineNumber(property));
-                    throw new ModelException(problem);
+			    if (KirraHelper.isRegularProperty(property)) {
+    				Type propertyType = property.getType();
+    				if (propertyType != null && propertyType.isStereotypeApplied(entityStereotype) && property.getAssociation() == null) {
+    					final Association newAssociation =
+    						(Association) entity.getNearestPackage().createPackagedElement(null,
+    										UMLPackage.Literals.ASSOCIATION);
+    					newAssociation.getMemberEnds().add(property);
+    					// automatically created owned end
+    					newAssociation.createOwnedEnd(null, entity);
+    				}
 			    }
-				Type propertyType = property.getType();
-				if (propertyType != null && propertyType.isStereotypeApplied(entityStereotype) && property.getAssociation() == null) {
-					final Association newAssociation =
-						(Association) entity.getNearestPackage().createPackagedElement(null,
-										UMLPackage.Literals.ASSOCIATION);
-					newAssociation.getMemberEnds().add(property);
-					// automatically created owned end
-					newAssociation.createOwnedEnd(null, entity);
-				}
 			}
+		// esnure user entities have a unique read-only user identifier property
+		for (Class entity : entities)
+		    if (entity.isStereotypeApplied(userStereotype)) {
+		        if (KirraHelper.getUsernameProperty(entity) == null) {
+		            UnclassifiedProblem problem = new UnclassifiedProblem("No user name property in user entity: '" + entity.getQualifiedName() + "'. A user name property is declared as: 'readonly id attribute <name> : String;'");
+		            problem.setAttribute(IProblem.FILE_NAME, MDDExtensionUtils.getSource(entity));
+		            problem.setAttribute(IProblem.LINE_NUMBER, MDDExtensionUtils.getLineNumber(entity));
+		            throw new ModelException(problem);
+		        }
+		    }
 	}
 }

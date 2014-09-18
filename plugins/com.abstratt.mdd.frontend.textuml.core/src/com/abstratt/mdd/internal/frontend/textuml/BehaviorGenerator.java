@@ -216,7 +216,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 
 	class OperationInfo {
 		String operationName;
-		// operand (target), operand (argument), result (return)
+		// operand (target)[, operand (argument)], result (return)
 		Classifier[] types;
 
 		public OperationInfo(int numberOfTypes) {
@@ -1835,10 +1835,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 			@Override
 			public void caseANotNullUnaryOperator(ANotNullUnaryOperator node) {
 			    super.caseANotNullUnaryOperator(node);
-	             info.types[0] =
-                         info.types[1] =
-                                         (Classifier) getRepository().findNamedElement("base::Basic",
-                                                         IRepository.PACKAGE.getType(), null);
+	             info.types[0] = (Classifier) getRepository().findNamedElement("base::Basic",
+                         IRepository.PACKAGE.getType(), null);
+	             info.types[1] = (Classifier) getRepository().findNamedElement("base::Boolean",
+                         IRepository.PACKAGE.getType(), null);
 			}
 
 			public void caseTAnd(TAnd node) {

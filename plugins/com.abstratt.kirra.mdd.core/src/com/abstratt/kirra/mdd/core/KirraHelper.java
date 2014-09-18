@@ -190,7 +190,19 @@ public class KirraHelper {
         return get(classifier, "isUser", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return !classifier.isAbstract() && hasStereotype(classifier, "User") && FeatureUtils.findAttribute(classifier, "username", false, true) != null;
+                return !classifier.isAbstract() && hasStereotype(classifier, "User") && getUsernameProperty(classifier) != null;
+            }
+        });
+    }
+    
+    public static Property getUsernameProperty(final Classifier userClass) {
+        return get(userClass, "getUsernameProperty", new Callable<Property>() {
+            @Override
+            public Property call() throws Exception {
+                for (Property property : getProperties(userClass))
+                    if (isUnique(property) && !isEditable(property) && property.getType()!= null && "String".equals(property.getType().getName()))
+                        return property;
+                return null;
             }
         });
     }
