@@ -175,7 +175,7 @@ public class MDDExtensionUtils {
 	}
 	
 	public static Integer getLineNumber(Element element) {
-		if (!isDebuggable(element))
+		if (!hasDebugInfo(element))
 			return null;
 		Stereotype debuggableStereotype = element.getAppliedStereotype(DEBUGGABLE_STEREOTYPE);
 		return (Integer) element.getValue(debuggableStereotype, "lineNumber");
@@ -192,7 +192,7 @@ public class MDDExtensionUtils {
 	}
 
 	public static String getSource(Element element) {
-		if (!isDebuggable(element))
+		if (!hasDebugInfo(element))
 			return null;
 		Stereotype debuggableStereotype = element.getAppliedStereotype(DEBUGGABLE_STEREOTYPE);
 		return (String) element.getValue(debuggableStereotype, "source");
@@ -211,8 +211,12 @@ public class MDDExtensionUtils {
 	}
 
 	public static boolean isDebuggable(Element element) {
-		return StereotypeUtils.hasStereotype(element, DEBUGGABLE_STEREOTYPE);
+		return StereotypeUtils.isApplicable(element, DEBUGGABLE_STEREOTYPE);
 	}
+	
+	public static boolean hasDebugInfo(Element element) {
+        return StereotypeUtils.hasStereotype(element, DEBUGGABLE_STEREOTYPE);
+    }
 
 	public static boolean isEntryPoint(Operation operation) {
 		return StereotypeUtils.hasStereotype(operation, ENTRY_POINT_STEREOTYPE);

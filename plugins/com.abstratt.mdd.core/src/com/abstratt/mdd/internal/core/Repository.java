@@ -114,7 +114,12 @@ public class Repository implements IRepository {
 	}
 
 	public static IRepository getInProgress() {
-		return inProgressRepository.get();
+		IRepository inProgress = inProgressRepository.get();
+        if (inProgress != null)
+            return inProgress;
+        if (RepositoryService.ENABLED)
+            return RepositoryService.DEFAULT.getCurrentRepository();
+        return null;
 	}
 
 	private URI baseURI;
