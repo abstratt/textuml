@@ -105,7 +105,8 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
         sourceContext.getReferenceTracker().add(new IDeferredReference() {
             @Override
             public void resolve(IBasicRepository repository) {
-                MDDExtensionUtils.addDebugInfo(element, sourceFile, lineNumber);
+                if (MDDExtensionUtils.isDebuggable(element)) 
+                    MDDExtensionUtils.addDebugInfo(element, sourceFile, lineNumber);
             }
         }, Step.STEREOTYPE_APPLICATIONS);
 	}
