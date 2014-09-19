@@ -1,6 +1,7 @@
 package com.abstratt.kirra.mdd.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
@@ -54,6 +55,7 @@ public class KirraModelWeaver implements IModelWeaver {
 	@Override
 	public void repositoryComplete(IRepository repository) {
 		final Stereotype userStereotype = repository.findNamedElement("kirra::User", Literals.STEREOTYPE, null);
+		final Stereotype debuggableStereotype = repository.findNamedElement(MDDExtensionUtils.DEBUGGABLE_STEREOTYPE, Literals.STEREOTYPE, null);		
 		final Stereotype entityStereotype = repository.findNamedElement("kirra::Entity", Literals.STEREOTYPE, null);
 		final Stereotype serviceStereotype = repository.findNamedElement("kirra::Service", Literals.STEREOTYPE, null);
 		final Stereotype actionStereotype = repository.findNamedElement("kirra::Action", Literals.STEREOTYPE, null);
@@ -61,7 +63,6 @@ public class KirraModelWeaver implements IModelWeaver {
 		final Stereotype essentialStereotype = repository.findNamedElement("kirra::Essential", Literals.STEREOTYPE, null);
 		
 		final Class baseObject = repository.findNamedElement("mdd_types::Object", Literals.CLASS, null);
-		final Class stringType = repository.findNamedElement("mdd_types::String", Literals.CLASS, null);
 		
 		if (baseObject == null || userStereotype == null || entityStereotype == null || actionStereotype == null || finderStereotype == null || essentialStereotype == null)
 			return;
@@ -82,7 +83,7 @@ public class KirraModelWeaver implements IModelWeaver {
 			}
 		}, true);
 		
-		// collect all entities
+		// collect all entity-candidate classes
 		final List<Class> entities = repository.findAll(new EObjectCondition() {
 			@Override
 			public boolean isSatisfied(EObject eObject) {
@@ -95,9 +96,11 @@ public class KirraModelWeaver implements IModelWeaver {
 					return false;
 				if (services.contains(asClass))
 					return false;
-				if (!asClass.getAppliedStereotypes().isEmpty() && asClass.getStereotypeApplication(userStereotype) == null)
-				    return false;
-				return true;
+				// we accept two stereotypes - anything else will exclude them from 
+				// automatic entity stereotype application
+				List<Stereotype> appliedStereotypes = new ArrayList<Stereotype>(asClass.getAppliedStereotypes());
+				appliedStereotypes.removeAll(Arrays.asList(userStereotype, debuggableStereotype));
+                return appliedStereotypes.isEmpty();
 			}
 		}, true);
 		// apply entity stereotype
@@ -119,7 +122,7 @@ public class KirraModelWeaver implements IModelWeaver {
 		}
 		// ensure properties that refer to entities are part of associations (just like references)
 		for (Class entity : entities)
-			for (Property property : entity.getAttributes()) {
+			for (Property property : entity.getAttributes())
 			    if (KirraHelper.isRegularProperty(property)) {
     				Type propertyType = property.getType();
     				if (propertyType != null && propertyType.isStereotypeApplied(entityStereotype) && property.getAssociation() == null) {
@@ -131,8 +134,7 @@ public class KirraModelWeaver implements IModelWeaver {
     					newAssociation.createOwnedEnd(null, entity);
     				}
 			    }
-			}
-		// esnure user entities have a unique read-only user identifier property
+		// ensure user entities have a username property
 		for (Class entity : entities)
 		    if (entity.isStereotypeApplied(userStereotype)) {
 		        if (KirraHelper.getUsernameProperty(entity) == null) {

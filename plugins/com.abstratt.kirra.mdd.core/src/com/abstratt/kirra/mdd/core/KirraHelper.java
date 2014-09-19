@@ -36,6 +36,7 @@ import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.VisibilityKind;
+import org.eclipse.uml2.uml.UMLPackage.Literals;
 
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.RepositoryService;
@@ -446,7 +447,7 @@ public class KirraHelper {
         for (Classifier general : dataType.getGenerals())
             addTupleProperties(general, tupleProperties);
         for (Property attribute : dataType.getAttributes())
-            if (isPublic(attribute) && attribute.eClass() == UMLPackage.Literals.PROPERTY)
+            if (attribute.getName() != null && isPublic(attribute) && attribute.eClass() == UMLPackage.Literals.PROPERTY)
                 tupleProperties.add(attribute);
     }
 
@@ -644,7 +645,8 @@ public class KirraHelper {
         return get(classifier, "isTupleType", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return classifier.getName() != null && classifier instanceof DataType;
+                // excludes other DataTypes, such as primitives
+                return classifier.getName() != null && (classifier.eClass() == Literals.DATA_TYPE || classifier.eClass() == Literals.SIGNAL);
             }
         });
     }

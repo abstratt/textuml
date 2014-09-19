@@ -29,7 +29,7 @@ public class MDDExtensionUtils {
 	private static final String VERTEX_LITERAL_STEREOTYPE = "mdd_extensions::VertexLiteral";
 	private static final String CLOSURE_STEREOTYPE = "mdd_extensions::Closure";
 	private static final String CONSTRAINT_BEHAVIOR_STEREOTYPE = "mdd_extensions::ConstraintBehavior";
-	private static final String DEBUGGABLE_STEREOTYPE = "mdd_extensions::Debuggable";
+	public static final String DEBUGGABLE_STEREOTYPE = "mdd_extensions::Debuggable";
 	private static final String ENTRY_POINT_STEREOTYPE = "mdd_extensions::EntryPoint";
 	private static final String EXTERNAL_CLASS_STEREOTYPE = "mdd_extensions::External";
 	private static final String OBJECT_INITIALIZATION_STEREOTYPE = "mdd_extensions::ObjectInitialization";
