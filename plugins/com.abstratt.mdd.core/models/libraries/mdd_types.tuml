@@ -124,6 +124,10 @@ class Memo specializes String
   static operation fromString(string : String) : Memo;
 end;
 
+class Email specializes String
+end;
+
+
 class Violation
 end;
 
