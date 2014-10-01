@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -36,6 +37,7 @@ import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.FunctionBehavior;
 import org.eclipse.uml2.uml.Generalization;
+import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.NamedElement;
@@ -50,11 +52,13 @@ import org.eclipse.uml2.uml.Profile;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Reception;
 import org.eclipse.uml2.uml.Signal;
+import org.eclipse.uml2.uml.Slot;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
+import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IBasicRepository;
@@ -80,12 +84,14 @@ import com.abstratt.mdd.frontend.core.NonQualifiedIdentifierExpected;
 import com.abstratt.mdd.frontend.core.NotAMetaclass;
 import com.abstratt.mdd.frontend.core.RequiredPortHasNoMatchingProviderPort;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
+import com.abstratt.mdd.frontend.core.UnknownAttribute;
 import com.abstratt.mdd.frontend.core.UnknownParentPackage;
 import com.abstratt.mdd.frontend.core.UnknownType;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.WrongNumberOfRoles;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
+import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.DeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
@@ -126,6 +132,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AInterfaceClassType;
 import com.abstratt.mdd.internal.frontend.textuml.node.AInvariantDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.ALoadDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.AModifiers;
+import com.abstratt.mdd.internal.frontend.textuml.node.ANamedSimpleValue;
 import com.abstratt.mdd.internal.frontend.textuml.node.AOperationDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.AOperationHeader;
 import com.abstratt.mdd.internal.frontend.textuml.node.AOptionalAlias;
@@ -872,12 +879,47 @@ public class StructureGenerator extends AbstractGenerator {
 	}
 
 	@Override
-	public void caseAEnumerationLiteralDecl(AEnumerationLiteralDecl node) {
+	public void caseAEnumerationLiteralDecl(final AEnumerationLiteralDecl node) {
 		String literalName = TextUMLCore.getSourceMiner().getIdentifier(node);
 		if (!ensureNameAvailable(literalName, node.getIdentifier(), Literals.ENUMERATION_LITERAL))
 			return;
-		EnumerationLiteral literal = ((Enumeration) namespaceTracker.currentNamespace(null)).createOwnedLiteral(literalName);
+		final Enumeration enumeration = (Enumeration) namespaceTracker.currentNamespace(null);
+        final EnumerationLiteral literal = enumeration.createOwnedLiteral(literalName);
 		applyCurrentComment(literal);
+		if (node.getEnumerationLiteralSlotValues() != null) {
+		    getRefTracker().add(new IDeferredReference() {
+                @Override
+                public void resolve(IBasicRepository repository) {
+                    node.getEnumerationLiteralSlotValues().apply(new DepthFirstAdapter() {
+                        @Override
+                        public void caseANamedSimpleValue(ANamedSimpleValue node) {
+                            String attributeIdentifier = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
+                            Property attribute = FeatureUtils.findAttribute(enumeration, attributeIdentifier, false, true);
+                            if (attribute == null) {
+                                problemBuilder.addProblem(new UnknownAttribute(enumeration.getName(), attributeIdentifier, false),
+                                        node.getIdentifier());
+                                return;
+                            }
+                            for (Slot slot : literal.getSlots())
+                                if (slot.getDefiningFeature() == attribute) {
+                                    problemBuilder.addProblem(new UnclassifiedProblem("A value has already been assigned for property '"
+                                            + attribute.getName() + "'"), node.getIdentifier());
+                                    return;
+                                }
+                            ValueSpecification value = LiteralValueParser.parseLiteralValue(node.getLiteralOrIdentifier(),
+                                    enumeration.getNearestPackage(), problemBuilder);
+                            if (attribute.getType() != value.getType())
+                                problemBuilder.addProblem(new TypeMismatch(attribute.getType().getQualifiedName(), value.getType()
+                                        .getQualifiedName()), node);
+
+                            Slot slot = literal.createSlot();
+                            slot.getValues().add(value);
+                            slot.setDefiningFeature(attribute);
+                        }
+                    });
+                }
+            }, Step.GENERAL_RESOLUTION);
+		}
 	}
 
 	@Override

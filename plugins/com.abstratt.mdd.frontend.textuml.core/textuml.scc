@@ -445,9 +445,9 @@ Productions
   
   attribute_invariant = model_comment? annotations? invariant_kernel ;
   
-  enumeration_literal_decl = enumeration_literal? identifier enumeration_literal_values? semicolon ;
+  enumeration_literal_decl = enumeration_literal? identifier enumeration_literal_slot_values? semicolon ;
   
-  enumeration_literal_values = l_paren named_argument_list r_paren;
+  enumeration_literal_slot_values = l_paren named_simple_value_list r_paren;
   
   port_decl = port_modifier? port identifier? colon minimal_type_identifier port_connector? semicolon ;
   
@@ -718,7 +718,13 @@ Productions
   
   named_argument = identifier assignop expression ;
   
-  named_argument_additional = comma named_argument ;      
+  named_argument_additional = comma named_argument ;
+  
+  named_simple_value_list = named_simple_value  named_simple_value_additional * | {empty} ;
+  
+  named_simple_value = identifier assignop literal_or_identifier ;
+  
+  named_simple_value_additional = comma named_simple_value ;    
   
   // expressions      
   expression_list = 
