@@ -4006,9 +4006,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getIdentifier().apply(this);
         }
-        if(node.getEnumerationLiteralValues() != null)
+        if(node.getEnumerationLiteralSlotValues() != null)
         {
-            node.getEnumerationLiteralValues().apply(this);
+            node.getEnumerationLiteralSlotValues().apply(this);
         }
         if(node.getSemicolon() != null)
         {
@@ -4017,33 +4017,33 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAEnumerationLiteralDecl(node);
     }
 
-    public void inAEnumerationLiteralValues(AEnumerationLiteralValues node)
+    public void inAEnumerationLiteralSlotValues(AEnumerationLiteralSlotValues node)
     {
         defaultIn(node);
     }
 
-    public void outAEnumerationLiteralValues(AEnumerationLiteralValues node)
+    public void outAEnumerationLiteralSlotValues(AEnumerationLiteralSlotValues node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAEnumerationLiteralValues(AEnumerationLiteralValues node)
+    public void caseAEnumerationLiteralSlotValues(AEnumerationLiteralSlotValues node)
     {
-        inAEnumerationLiteralValues(node);
+        inAEnumerationLiteralSlotValues(node);
         if(node.getLParen() != null)
         {
             node.getLParen().apply(this);
         }
-        if(node.getNamedArgumentList() != null)
+        if(node.getNamedSimpleValueList() != null)
         {
-            node.getNamedArgumentList().apply(this);
+            node.getNamedSimpleValueList().apply(this);
         }
         if(node.getRParen() != null)
         {
             node.getRParen().apply(this);
         }
-        outAEnumerationLiteralValues(node);
+        outAEnumerationLiteralSlotValues(node);
     }
 
     public void inAPortDecl(APortDecl node)
@@ -7995,6 +7995,105 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getNamedArgument().apply(this);
         }
         outANamedArgumentAdditional(node);
+    }
+
+    public void inANamedSimpleValueList(ANamedSimpleValueList node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANamedSimpleValueList(ANamedSimpleValueList node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANamedSimpleValueList(ANamedSimpleValueList node)
+    {
+        inANamedSimpleValueList(node);
+        if(node.getNamedSimpleValue() != null)
+        {
+            node.getNamedSimpleValue().apply(this);
+        }
+        {
+            List<PNamedSimpleValueAdditional> copy = new ArrayList<PNamedSimpleValueAdditional>(node.getNamedSimpleValueAdditional());
+            for(PNamedSimpleValueAdditional e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outANamedSimpleValueList(node);
+    }
+
+    public void inAEmptyNamedSimpleValueList(AEmptyNamedSimpleValueList node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEmptyNamedSimpleValueList(AEmptyNamedSimpleValueList node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEmptyNamedSimpleValueList(AEmptyNamedSimpleValueList node)
+    {
+        inAEmptyNamedSimpleValueList(node);
+        outAEmptyNamedSimpleValueList(node);
+    }
+
+    public void inANamedSimpleValue(ANamedSimpleValue node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANamedSimpleValue(ANamedSimpleValue node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANamedSimpleValue(ANamedSimpleValue node)
+    {
+        inANamedSimpleValue(node);
+        if(node.getIdentifier() != null)
+        {
+            node.getIdentifier().apply(this);
+        }
+        if(node.getAssignop() != null)
+        {
+            node.getAssignop().apply(this);
+        }
+        if(node.getLiteralOrIdentifier() != null)
+        {
+            node.getLiteralOrIdentifier().apply(this);
+        }
+        outANamedSimpleValue(node);
+    }
+
+    public void inANamedSimpleValueAdditional(ANamedSimpleValueAdditional node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANamedSimpleValueAdditional(ANamedSimpleValueAdditional node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANamedSimpleValueAdditional(ANamedSimpleValueAdditional node)
+    {
+        inANamedSimpleValueAdditional(node);
+        if(node.getComma() != null)
+        {
+            node.getComma().apply(this);
+        }
+        if(node.getNamedSimpleValue() != null)
+        {
+            node.getNamedSimpleValue().apply(this);
+        }
+        outANamedSimpleValueAdditional(node);
     }
 
     public void inAExpressionList(AExpressionList node)

@@ -869,7 +869,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAEnumerationLiteralValues(AEnumerationLiteralValues node)
+    public void caseAEnumerationLiteralSlotValues(AEnumerationLiteralSlotValues node)
     {
         defaultCase(node);
     }
@@ -1625,6 +1625,26 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseANamedArgumentAdditional(ANamedArgumentAdditional node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseANamedSimpleValueList(ANamedSimpleValueList node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAEmptyNamedSimpleValueList(AEmptyNamedSimpleValueList node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseANamedSimpleValue(ANamedSimpleValue node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseANamedSimpleValueAdditional(ANamedSimpleValueAdditional node)
     {
         defaultCase(node);
     }

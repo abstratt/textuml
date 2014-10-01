@@ -5,26 +5,26 @@ package com.abstratt.mdd.internal.frontend.textuml.node;
 import com.abstratt.mdd.internal.frontend.textuml.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AEnumerationLiteralValues extends PEnumerationLiteralValues
+public final class AEnumerationLiteralSlotValues extends PEnumerationLiteralSlotValues
 {
     private TLParen _lParen_;
-    private PNamedArgumentList _namedArgumentList_;
+    private PNamedSimpleValueList _namedSimpleValueList_;
     private TRParen _rParen_;
 
-    public AEnumerationLiteralValues()
+    public AEnumerationLiteralSlotValues()
     {
         // Constructor
     }
 
-    public AEnumerationLiteralValues(
+    public AEnumerationLiteralSlotValues(
         @SuppressWarnings("hiding") TLParen _lParen_,
-        @SuppressWarnings("hiding") PNamedArgumentList _namedArgumentList_,
+        @SuppressWarnings("hiding") PNamedSimpleValueList _namedSimpleValueList_,
         @SuppressWarnings("hiding") TRParen _rParen_)
     {
         // Constructor
         setLParen(_lParen_);
 
-        setNamedArgumentList(_namedArgumentList_);
+        setNamedSimpleValueList(_namedSimpleValueList_);
 
         setRParen(_rParen_);
 
@@ -33,15 +33,15 @@ public final class AEnumerationLiteralValues extends PEnumerationLiteralValues
     @Override
     public Object clone()
     {
-        return new AEnumerationLiteralValues(
+        return new AEnumerationLiteralSlotValues(
             cloneNode(this._lParen_),
-            cloneNode(this._namedArgumentList_),
+            cloneNode(this._namedSimpleValueList_),
             cloneNode(this._rParen_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAEnumerationLiteralValues(this);
+        ((Analysis) sw).caseAEnumerationLiteralSlotValues(this);
     }
 
     public TLParen getLParen()
@@ -69,16 +69,16 @@ public final class AEnumerationLiteralValues extends PEnumerationLiteralValues
         this._lParen_ = node;
     }
 
-    public PNamedArgumentList getNamedArgumentList()
+    public PNamedSimpleValueList getNamedSimpleValueList()
     {
-        return this._namedArgumentList_;
+        return this._namedSimpleValueList_;
     }
 
-    public void setNamedArgumentList(PNamedArgumentList node)
+    public void setNamedSimpleValueList(PNamedSimpleValueList node)
     {
-        if(this._namedArgumentList_ != null)
+        if(this._namedSimpleValueList_ != null)
         {
-            this._namedArgumentList_.parent(null);
+            this._namedSimpleValueList_.parent(null);
         }
 
         if(node != null)
@@ -91,7 +91,7 @@ public final class AEnumerationLiteralValues extends PEnumerationLiteralValues
             node.parent(this);
         }
 
-        this._namedArgumentList_ = node;
+        this._namedSimpleValueList_ = node;
     }
 
     public TRParen getRParen()
@@ -124,7 +124,7 @@ public final class AEnumerationLiteralValues extends PEnumerationLiteralValues
     {
         return ""
             + toString(this._lParen_)
-            + toString(this._namedArgumentList_)
+            + toString(this._namedSimpleValueList_)
             + toString(this._rParen_);
     }
 
@@ -138,9 +138,9 @@ public final class AEnumerationLiteralValues extends PEnumerationLiteralValues
             return;
         }
 
-        if(this._namedArgumentList_ == child)
+        if(this._namedSimpleValueList_ == child)
         {
-            this._namedArgumentList_ = null;
+            this._namedSimpleValueList_ = null;
             return;
         }
 
@@ -163,9 +163,9 @@ public final class AEnumerationLiteralValues extends PEnumerationLiteralValues
             return;
         }
 
-        if(this._namedArgumentList_ == oldChild)
+        if(this._namedSimpleValueList_ == oldChild)
         {
-            setNamedArgumentList((PNamedArgumentList) newChild);
+            setNamedSimpleValueList((PNamedSimpleValueList) newChild);
             return;
         }
 

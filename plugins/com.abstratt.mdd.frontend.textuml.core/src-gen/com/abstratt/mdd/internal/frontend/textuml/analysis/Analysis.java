@@ -172,7 +172,7 @@ public interface Analysis extends Switch
     void caseAAttributeDecl(AAttributeDecl node);
     void caseAAttributeInvariant(AAttributeInvariant node);
     void caseAEnumerationLiteralDecl(AEnumerationLiteralDecl node);
-    void caseAEnumerationLiteralValues(AEnumerationLiteralValues node);
+    void caseAEnumerationLiteralSlotValues(AEnumerationLiteralSlotValues node);
     void caseAPortDecl(APortDecl node);
     void caseAProvidedPortModifier(AProvidedPortModifier node);
     void caseARequiredPortModifier(ARequiredPortModifier node);
@@ -324,6 +324,10 @@ public interface Analysis extends Switch
     void caseAEmptyNamedArgumentList(AEmptyNamedArgumentList node);
     void caseANamedArgument(ANamedArgument node);
     void caseANamedArgumentAdditional(ANamedArgumentAdditional node);
+    void caseANamedSimpleValueList(ANamedSimpleValueList node);
+    void caseAEmptyNamedSimpleValueList(AEmptyNamedSimpleValueList node);
+    void caseANamedSimpleValue(ANamedSimpleValue node);
+    void caseANamedSimpleValueAdditional(ANamedSimpleValueAdditional node);
     void caseAExpressionList(AExpressionList node);
     void caseAEmptyExpressionList(AEmptyExpressionList node);
     void caseAExpressionListTail(AExpressionListTail node);
