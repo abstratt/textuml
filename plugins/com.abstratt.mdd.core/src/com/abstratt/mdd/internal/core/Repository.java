@@ -675,7 +675,7 @@ public class Repository implements IRepository {
 			return builtIn;
 		for (Package topPackage: getTopLevelPackages(null))
 			for (Package imported : topPackage.getImportedPackages())
-				if (imported.getName().equals(packageName))
+				if (imported.getName() != null && imported.getName().equals(packageName))
 					return loadPackage(URI.createURI(imported.getURI()));
 		return loadPackage(computePackageURI(packageName));
 	}

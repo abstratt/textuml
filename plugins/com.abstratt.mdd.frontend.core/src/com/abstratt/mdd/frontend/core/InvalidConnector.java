@@ -20,10 +20,10 @@ public class InvalidConnector extends Problem {
 	public enum Reason {
 		// UML2 derived reasons
 	    Roles("Roles must be owned by connector parent or by the classifiers of the parts of the connector parent", UMLValidator.CONNECTOR__ROLES),
-	    BetweenInterfacesPorts("Port interfaces are not compatible", UMLValidator.CONNECTOR__BETWEEN_INTERFACES_PORTS),
 	    Types("Connectable elements must conform to the types of the association ends of the association that types the connector", UMLValidator.CONNECTOR__TYPES),
-	    // not implemented in UML2 yet
-	    Compatible("The connectable elements attached to the ends of a connector must be compatible", UMLValidator.CONNECTOR__COMPATIBLE)
+	    // not implemented in UML2
+	    BetweenInterfacesPorts("Port interfaces are not compatible", -1 /*UMLValidator.CONNECTOR_END_BETWEEN_INTERFACES_PORTS*/),
+	    Compatible("The connectable elements attached to the ends of a connector must be compatible", -1 /*UMLValidator.CONNECTOR__COMPATIBLE */)
 	    
 	    // custom rules
 	    

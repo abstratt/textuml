@@ -46,7 +46,7 @@ public class StereotypeUtils {
 	
 	public static boolean hasProfile(org.eclipse.uml2.uml.Package element, String profileName) {
 		for (Profile p : element.getAppliedProfiles())
-			if (p.getName().equals(profileName))
+			if (p.getName() != null && p.getName().equals(profileName))
 				return true;
 		return false;
 	}
