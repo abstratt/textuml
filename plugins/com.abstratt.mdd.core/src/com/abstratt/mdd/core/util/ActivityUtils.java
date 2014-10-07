@@ -129,7 +129,7 @@ public class ActivityUtils {
 	}
 
 	public static Activity getActionActivity(Action action) {
-		return MDDUtil.getNearest(action, UMLPackage.Literals.ACTIVITY);
+		return action.containingActivity();
 	}
 
 	public static StructuredActivityNode getRootAction(Activity method) {
@@ -359,11 +359,8 @@ public class ActivityUtils {
 	}
 
 	public static Activity getOwningActivity(StructuredActivityNode context) {
-		if (context.getActivity() != null)
-			return context.getActivity();
-		if (context.getOwner() instanceof StructuredActivityNode)
-			return getOwningActivity((StructuredActivityNode) context.getOwner());
-		return null;
+	    // added in UML2 5.0
+	    return context.containingActivity();
 	}
 
 	public static boolean shouldIsolate(StructuredActivityNode currentBlock) {

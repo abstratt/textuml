@@ -23,7 +23,10 @@ public class InvalidConnector extends Problem {
 	    Types("Connectable elements must conform to the types of the association ends of the association that types the connector", UMLValidator.CONNECTOR__TYPES),
 	    // not implemented in UML2
 	    BetweenInterfacesPorts("Port interfaces are not compatible", -1 /*UMLValidator.CONNECTOR_END_BETWEEN_INTERFACES_PORTS*/),
-	    Compatible("The connectable elements attached to the ends of a connector must be compatible", -1 /*UMLValidator.CONNECTOR__COMPATIBLE */)
+	    Compatible("The connectable elements attached to the ends of a connector must be compatible", -1 /*UMLValidator.CONNECTOR__COMPATIBLE */),
+	    
+	    // TextUML's own
+	    OnlyOneProviderPort("There must be one (and only one) provider port", -1)
 	    
 	    // custom rules
 	    
@@ -52,6 +55,11 @@ public class InvalidConnector extends Problem {
 		this.reason = Reason.get(reasonCode);
 		this.reasonMessage = reason == null ? ("Unexpected reason: " + reasonCode) : reason.getReasonMessage();
 	}
+	public InvalidConnector(Reason reason) {
+        super(Severity.ERROR);
+        this.reason = reason;
+        this.reasonMessage = reason.getReasonMessage();
+    }
 	public String getMessage() {
 		return reasonMessage;
 	}

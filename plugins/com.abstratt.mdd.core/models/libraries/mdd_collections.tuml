@@ -1,56 +1,56 @@
-[StandardProfileL2::ModelLibrary]
+[ModelLibrary]
 model mdd_collections;
 
-apply StandardProfileL2;
+apply StandardProfile;
 
 import mdd_types;
 
 class Collection<T>
-  operation add(toAdd : T) : T[*];
-  operation count(predicate : {(:T) : Boolean}) : Integer;
-  operation includes(object : T) : Boolean;
-  operation includesAll(c2 : T[*]) : Boolean;
-  operation includesAny(c2 : T[*]) : Boolean;
-  operation isEmpty() : Boolean;
-  operation size() : Integer;
-  operation exists(predicate : {(:T) : Boolean}) : Boolean;
-  operation one(predicate : {(:T) : Boolean}) : Boolean;
-  operation \any(predicate : {(:T) : Boolean}[0,1]) : T;
-  operation select(filter : {(:T) : Boolean}) : T[*];
-  operation collect(mapping : {(:T) : any}) : any[*];  
-  operation forAll(predicate : {(:T) : Boolean}) : Boolean;
+  query add(toAdd : T) : T[*];
+  query count(predicate : {(:T) : Boolean}) : Integer;
+  query includes(object : T) : Boolean;
+  query includesAll(c2 : T[*]) : Boolean;
+  query includesAny(c2 : T[*]) : Boolean;
+  query isEmpty() : Boolean;
+  query size() : Integer;
+  query exists(predicate : {(:T) : Boolean}) : Boolean;
+  query one(predicate : {(:T) : Boolean}) : Boolean;
+  query \any(predicate : {(:T) : Boolean}[0,1]) : T;
+  query select(filter : {(:T) : Boolean}) : T[*];
+  query collect(mapping : {(:T) : any}) : any[*];  
+  query forAll(predicate : {(:T) : Boolean}) : Boolean;
   operation forEach(predicate : {(:T)});
-  operation sortedBy(c : {(:T,:T) : Integer}) : T[*];
-  operation asOrderedSet() : T[*] {ordered,unique};
-  operation asSequence() : T[*] {ordered,nonunique};
-  operation asSet() : T[*] {unique,unordered};
-  operation asBag() : T[*] {nonunique,unordered};
-  operation union(another : T[*]) : T[*];
+  query sortedBy(c : {(:T,:T) : Integer}) : T[*];
+  query asOrderedSet() : T[*] {ordered,unique};
+  query asSequence() : T[*] {ordered,nonunique};
+  query asSet() : T[*] {unique,unordered};
+  query asBag() : T[*] {nonunique,unordered};
+  query union(another : T[*]) : T[*];
   (* Collects and intersects all collections obtained from each of the elements in this collection. *)
-  operation collectMany(p : {(:T) : T[*]}) : T[*];
-  operation groupBy(grouper : {(:T) : any}) : Grouping<T>;
-  operation reduce(reductor : {(:T, :any[*]) : any[*]}, \initial : any[*]) : any;
-  operation sum(transformer : {(:T):Double}) : Double;
-  operation max(transformer : {(:T):Double}) : Double;
-  operation min(transformer : {(:T):Double}) : Double;
-  operation mode() : T;
-  operation median() : T;
-  operation join(delimiter : String := ", ") : String;
+  query collectMany(p : {(:T) : T[*]}) : T[*];
+  query groupBy(grouper : {(:T) : any}) : Grouping<T>;
+  query reduce(reductor : {(:T, :any[*]) : any[*]}, \initial : any[*]) : any;
+  query sum(transformer : {(:T):Double}) : Double;
+  query max(transformer : {(:T):Double}) : Double;
+  query min(transformer : {(:T):Double}) : Double;
+  query mode() : T;
+  query median() : T;
+  query join(delimiter : String := ", ") : String;
 end;
 
 class Grouping<T>
-  operation collect(group : {(:T[*]) : any}) : any[*];  
+  query collect(group : {(:T[*]) : any}) : any[*];  
 end;
 
 class Sequence<T> specializes Collection<T>
-  operation at(i : Integer) : T;
+  query at(i : Integer) : T;
 end;
 
 class Set<T> specializes Collection<T>
 end;
 
 class Bag<T> specializes Collection<T>
-  operation count(element : T) : Integer; 
+  query count(element : T) : Integer; 
 end;
 
 class OrderedSet<T> specializes Set<T>

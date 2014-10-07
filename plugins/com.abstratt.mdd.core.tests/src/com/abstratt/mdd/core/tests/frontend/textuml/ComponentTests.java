@@ -197,25 +197,26 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		Property attributeC = get("simple::SimpleClass2::c", UMLPackage.Literals.PROPERTY);
 		validatePort(port, attributeA, attributeC);
 	}
-	
-	public void testConnector_PortCompatibility() throws CoreException {
-		String source = "";
-		source += "model simple;\n";
-		source += "interface SimpleInterface1\n";
-		source += "end;\n";
-		source += "interface SimpleInterface2\n";
-		source += "end;\n";
-		source += "component SimpleComponent\n";
-		source += "    required port a : SimpleInterface1;\n";
-		source += "    provided port b : SimpleInterface2;\n";
-		source += "    connector a,b;\n";
-		source += "end;\n";	
-		source += "end.";
-		IProblem[] errors = parse(source);
-		FixtureHelper.assertTrue(errors, 1 == errors.length);
-		FixtureHelper.assertTrue(errors, errors[0] instanceof InvalidConnector);
-		assertEquals(InvalidConnector.Reason.BetweenInterfacesPorts, ((InvalidConnector) errors[0]).getReason());
-	}
+
+	//removed in UML2 5.0 - https://wiki.eclipse.org/MDT/UML2/UML2_5.0_Migration_Guide#Constraints
+//	public void testConnector_PortCompatibility() throws CoreException {
+//		String source = "";
+//		source += "model simple;\n";
+//		source += "interface SimpleInterface1\n";
+//		source += "end;\n";
+//		source += "interface SimpleInterface2\n";
+//		source += "end;\n";
+//		source += "component SimpleComponent\n";
+//		source += "    required port a : SimpleInterface1;\n";
+//		source += "    provided port b : SimpleInterface2;\n";
+//		source += "    connector a,b;\n";
+//		source += "end;\n";	
+//		source += "end.";
+//		IProblem[] errors = parse(source);
+//		FixtureHelper.assertTrue(errors, 1 == errors.length);
+//		FixtureHelper.assertTrue(errors, errors[0] instanceof InvalidConnector);
+//		assertEquals(InvalidConnector.Reason.BetweenInterfacesPorts, ((InvalidConnector) errors[0]).getReason());
+//	}
 	
 	public void testConnector_ConnectorMustOwnPortOrPartWithPort() throws CoreException {
 		String source = "";
