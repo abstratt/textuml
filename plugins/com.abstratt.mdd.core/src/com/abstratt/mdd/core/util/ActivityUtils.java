@@ -43,7 +43,6 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.ValueSpecificationAction;
 import org.eclipse.uml2.uml.Variable;
 
-import com.abstratt.mdd.core.IRepository;
 
 public class ActivityUtils {
 
@@ -129,7 +128,9 @@ public class ActivityUtils {
 	}
 
 	public static Activity getActionActivity(Action action) {
-		return action.containingActivity();
+	    // UML2 5
+		//return action.containingActivity();
+		return MDDUtil.getNearest(action, UMLPackage.Literals.ACTIVITY);
 	}
 
 	public static StructuredActivityNode getRootAction(Activity method) {
@@ -139,7 +140,7 @@ public class ActivityUtils {
 	}
 
 	public static ObjectFlow connect(StructuredActivityNode parent, ObjectNode source, ObjectNode target) {
-		ObjectFlow flow = (ObjectFlow) parent.createEdge(null, IRepository.PACKAGE.getObjectFlow());
+		ObjectFlow flow = (ObjectFlow) parent.createEdge(null, UMLPackage.eINSTANCE.getObjectFlow());
 		flow.setSource(source);
 		flow.setTarget(target);
 		flow.setWeight(MDDUtil.createLiteralInteger(parent.getNearestPackage(), 1));
@@ -210,7 +211,7 @@ public class ActivityUtils {
 
 	public static ValueSpecification buildBehaviorReference(Package parent, Activity activity, Type type) {
 		OpaqueExpression expression = (OpaqueExpression) parent.createPackagedElement(null,
-				IRepository.PACKAGE.getOpaqueExpression());
+				UMLPackage.Literals.OPAQUE_EXPRESSION);
 		expression.setBehavior(activity);
 		expression.setType(type == null ? activity : type);
 		return expression;
@@ -359,8 +360,13 @@ public class ActivityUtils {
 	}
 
 	public static Activity getOwningActivity(StructuredActivityNode context) {
+ 		if (context.getActivity() != null)
+ 			return context.getActivity();
+ 		if (context.getOwner() instanceof StructuredActivityNode)
+ 			return getOwningActivity((StructuredActivityNode) context.getOwner());
+ 		return null;	
 	    // added in UML2 5.0
-	    return context.containingActivity();
+	    // return context.containingActivity();
 	}
 
 	public static boolean shouldIsolate(StructuredActivityNode currentBlock) {
