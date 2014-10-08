@@ -1,7 +1,7 @@
 [ModelLibrary]
 model mdd_collections;
 
-apply StandardProfile;
+apply StandardProfileL2;
 
 import mdd_types;
 
