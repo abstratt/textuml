@@ -110,7 +110,7 @@ public class KirraModelWeaver implements IModelWeaver {
 			// apply operation stereotypes
 			for (Operation operation : entity.getOperations()) {
 				Type returnType = operation.getType();
-				if (returnType != null && operation.isStatic() && operation.getReturnResult().isMultivalued() && returnType.isStereotypeApplied(entityStereotype))
+				if (returnType != null && operation.isStatic() && operation.isQuery())
 					StereotypeUtils.safeApplyStereotype(operation, finderStereotype);
 				else if (!operation.isQuery() && VisibilityKind.PUBLIC_LITERAL == operation.getVisibility())
 					StereotypeUtils.safeApplyStereotype(operation, actionStereotype);

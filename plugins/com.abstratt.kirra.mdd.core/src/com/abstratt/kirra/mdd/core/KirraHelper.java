@@ -3,6 +3,7 @@ package com.abstratt.kirra.mdd.core;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.Callable;
+
+import javax.lang.model.type.TypeKind;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.runtime.Assert;
@@ -114,7 +117,7 @@ public class KirraHelper {
                     addApplications(it, collected);
         }
     }
-    
+
     public static Collection<Package> getApplicationPackages(Package... packages) {
         Set<Package> applicationPackages = new LinkedHashSet<Package>();
         for (Package it : packages)
@@ -250,7 +253,7 @@ public class KirraHelper {
     public static boolean isAction(Operation operation) {
         return isPublic(operation) && hasStereotype(operation, "Action");
     }
-
+    
     public static boolean isEntityOperation(Operation operation) {
         return isAction(operation) || isFinder(operation);
     }
@@ -662,9 +665,16 @@ public class KirraHelper {
         return get(current, "isApplication", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return StereotypeUtils.hasProfile(current, "kirra");
+                return StereotypeUtils.hasProfile(current, "kirra") && hasEntityOrService(current);
             }
         });
+    }
+    
+    public static boolean hasEntityOrService(final org.eclipse.uml2.uml.Package current) {
+        for (Type type : current.getOwnedTypes())
+            if (isEntity(type) || isService(type))
+                return true;
+        return false;
     }
 
     public static boolean isUnique(final org.eclipse.uml2.uml.Property umlAttribute) {
@@ -726,5 +736,32 @@ public class KirraHelper {
                 if (isApplication(package_))
                     return getLabel(package_);
         return applicationName == null ? "App" : applicationName;
+    }
+    
+    public static List<Class> getEntities(Collection<Package> applicationPackages) {
+        List<Class> result = new ArrayList<Class>();
+        for (Package current : applicationPackages)
+            for (Type type : current.getOwnedTypes())
+                if (KirraHelper.isEntity(type))
+                    result.add((Class) type);
+        return result;
+    }
+    
+    public static List<Class> getServices(Collection<Package> applicationPackages) {
+        List<Class> result = new ArrayList<Class>();
+        for (Package current : applicationPackages)
+            for (Type type : current.getOwnedTypes())
+                if (KirraHelper.isService(type))
+                    result.add((Class) type);
+        return result;
+    }
+    
+    public static List<Classifier> getTupleTypes(Collection<Package> applicationPackages) {
+        List<Classifier> result = new ArrayList<Classifier>();
+        for (Package current : applicationPackages)
+            for (Type type : current.getOwnedTypes())
+                if (KirraHelper.isTupleType(type))
+                    result.add((Classifier) type);
+        return result;
     }
 }

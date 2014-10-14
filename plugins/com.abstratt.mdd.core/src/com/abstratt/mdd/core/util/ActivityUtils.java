@@ -310,9 +310,9 @@ public class ActivityUtils {
 	public static List<Action> findStatements(StructuredActivityNode target) {
 		List<Action> terminalActions = new ArrayList<Action>();
 		for (ActivityNode node : target.getNodes()) {
-			if (node instanceof StructuredActivityNode) {
+			if (node.eClass() == UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE) {
 				terminalActions.addAll(findStatements((StructuredActivityNode) node));
-			} else if (node instanceof Action && ActivityUtils.isTerminal((Action) node))
+			} else if (node instanceof Action && isTerminal((Action) node))
 				terminalActions.add((Action) node);
 		}
 		return terminalActions;
