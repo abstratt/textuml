@@ -1,9 +1,9 @@
 package com.abstratt.kirra.mdd.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,10 +12,9 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import javax.lang.model.type.TypeKind;
-
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.BehavioralFeature;
@@ -23,6 +22,8 @@ import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.Enumeration;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
@@ -37,14 +38,17 @@ import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
-import org.eclipse.uml2.uml.VisibilityKind;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
+import org.eclipse.uml2.uml.Vertex;
+import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.RepositoryService;
 import com.abstratt.mdd.core.util.AssociationUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
+import com.abstratt.mdd.core.util.NamedElementUtils;
+import com.abstratt.mdd.core.util.StateMachineUtils;
 import com.abstratt.mdd.core.util.StereotypeUtils;
 
 public class KirraHelper {
@@ -763,5 +767,27 @@ public class KirraHelper {
                 if (KirraHelper.isTupleType(type))
                     result.add((Classifier) type);
         return result;
+    }
+
+    public static boolean isEnumeration(final Type umlType) {
+        return get(umlType, "isEnumeration", new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return umlType instanceof Enumeration || umlType instanceof StateMachine;
+            }
+        });
+    }
+    
+    public static List<String> getEnumerationLiterals(final Type enumOrStateMachine) {
+        return get(enumOrStateMachine, "getEnumerationLiterals", new Callable<List<String>>() {
+            @Override
+            public List<String> call() throws Exception {
+                if (enumOrStateMachine instanceof Enumeration)
+                    return NamedElementUtils.getNames(((Enumeration) enumOrStateMachine).getOwnedLiterals());
+                if (enumOrStateMachine instanceof Enumeration)
+                    return NamedElementUtils.getNames(StateMachineUtils.getVertices(((StateMachine) enumOrStateMachine)));
+                return Arrays.<String>asList();
+            }
+        });
     }
 }
