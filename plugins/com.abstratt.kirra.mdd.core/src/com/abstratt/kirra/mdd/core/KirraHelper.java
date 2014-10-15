@@ -3,7 +3,10 @@ package com.abstratt.kirra.mdd.core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,6 +53,7 @@ import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.NamedElementUtils;
 import com.abstratt.mdd.core.util.StateMachineUtils;
 import com.abstratt.mdd.core.util.StereotypeUtils;
+import com.abstratt.pluginutils.NodeSorter;
 
 public class KirraHelper {
     public static class Metadata {
@@ -59,6 +63,22 @@ public class KirraHelper {
     private static boolean inSession() {
         Assert.isTrue(RepositoryService.DEFAULT.isInSession());
         return RepositoryService.DEFAULT.getCurrentResource().hasFeature(Metadata.class);
+    }
+    
+    public static List<Class> getPrerequisites(Class entity) {
+        return addPrerequisites(entity, new ArrayList<Class>());
+    }
+    
+    public static List<Class> addPrerequisites(Class entity, List<Class> collected) {
+        if (!collected.contains(entity)) {
+            collected.add(entity);
+            for (Property relationship : getRelationships(entity)) {
+                if (isPrimary(relationship) && isRequired(relationship)) {
+                    addPrerequisites((Class) relationship.getType(), collected);
+                }
+            }
+        }
+        return collected;
     }
 
     protected static <T> T get(NamedElement target, String property, Callable<T> retriever) {
@@ -129,6 +149,10 @@ public class KirraHelper {
         return applicationPackages;
     }
 
+    public static List<Property> getEntityRelationships(Classifier modelClass) {
+        return getRelationships(modelClass, false);
+    }
+    
     public static List<Property> getRelationships(Classifier modelClass) {
         return getRelationships(modelClass, false);
     }
@@ -784,10 +808,46 @@ public class KirraHelper {
             public List<String> call() throws Exception {
                 if (enumOrStateMachine instanceof Enumeration)
                     return NamedElementUtils.getNames(((Enumeration) enumOrStateMachine).getOwnedLiterals());
-                if (enumOrStateMachine instanceof Enumeration)
+                if (enumOrStateMachine instanceof StateMachine)
                     return NamedElementUtils.getNames(StateMachineUtils.getVertices(((StateMachine) enumOrStateMachine)));
                 return Arrays.<String>asList();
             }
         });
+    }
+    
+    public static List<Class> topologicalSort(List<Class> toSort) {
+        toSort = new ArrayList<Class>(toSort);
+        Collections.sort(toSort, new Comparator<Class>() {
+            @Override
+            public int compare(Class o1, Class o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        final Map<String, Class> nameToEntity = new HashMap<String, Class>();
+        List<String> sortedRefs = new ArrayList<String>();
+        for (Class entity : toSort) {
+            sortedRefs.add(entity.getQualifiedName());
+            nameToEntity.put(entity.getQualifiedName(), entity);
+        }
+        NodeSorter.NodeHandler<String> walker = new NodeSorter.NodeHandler<String>() {
+            @Override
+            public Collection<String> next(String vertex) {
+                Collection<String> result = new HashSet<String>();
+                Class entity = nameToEntity.get(vertex);
+                for (Property rel : getRelationships(entity))
+                    if (!isDerived(rel) && isPrimary(rel))
+                        result.add(rel.getType().getQualifiedName());
+                return result;
+            }
+        };
+        try {
+            sortedRefs = NodeSorter.sort(sortedRefs, walker);
+        } catch (IllegalArgumentException e) {
+            // too bad
+        }
+        toSort.clear();
+        for (String typeRef : sortedRefs)
+            toSort.add(0, nameToEntity.get(typeRef));
+        return toSort;
     }
 }
