@@ -386,6 +386,11 @@ public class KirraHelper {
             }
         });
     }
+    
+    public static boolean isDerivedRelationship(final org.eclipse.uml2.uml.Property umlAttribute) {
+        return isRelationship(umlAttribute) && isDerived(umlAttribute);
+    }
+    
 
     /**
      * A read-only property is not ever editable. 
