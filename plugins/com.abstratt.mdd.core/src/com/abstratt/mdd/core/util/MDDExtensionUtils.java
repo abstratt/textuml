@@ -156,7 +156,7 @@ public class MDDExtensionUtils {
 		return BasicTypeUtils.buildBasicValue(basicType, stringValue);
 	}
 	
-	public static Vertex getVertexLiteral(ValueSpecification specification) {
+	public static Vertex resolveVertexLiteral(ValueSpecification specification) {
 		Assert.isLegal(isVertexLiteral(specification));
 		Stereotype vertexLiteralStereotype = specification.getAppliedStereotype(VERTEX_LITERAL_STEREOTYPE);
 		return (Vertex) specification.getValue(vertexLiteralStereotype, "vertex");

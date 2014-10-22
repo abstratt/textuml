@@ -317,6 +317,15 @@ public class ActivityUtils {
 		}
 		return terminalActions;
 	}
+	
+    public static List<Action> findTerminals(StructuredActivityNode target) {
+        List<Action> terminalActions = new ArrayList<Action>();
+        for (ActivityNode node : target.getNodes()) {
+            if (node instanceof Action && isTerminal((Action) node))
+                terminalActions.add((Action) node);
+        }
+        return terminalActions;
+    }
 
 	/**
 	 * Is the action a final action (i.e. followed by an ActivityFinalNode)?

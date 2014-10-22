@@ -66,7 +66,7 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 		StructuredActivityNode rootAction = ActivityUtils.getRootAction(statusCheckingOperation);
 		ValueSpecificationAction expressionAction = (ValueSpecificationAction) ActivityUtils.findNode(rootAction, new MDDUtil.EClassMatcher(Literals.VALUE_SPECIFICATION_ACTION));
 		assertTrue(MDDExtensionUtils.isVertexLiteral(expressionAction.getValue()));
-		assertEquals(state2.getName(), MDDExtensionUtils.getVertexLiteral(expressionAction.getValue()).getName());
+		assertEquals(state2.getName(), MDDExtensionUtils.resolveVertexLiteral(expressionAction.getValue()).getName());
 		assertEquals(statusSM, expressionAction.getValue().getType());
 	}
 

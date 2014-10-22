@@ -14,7 +14,6 @@ class Collection<T>
   query isEmpty() : Boolean;
   query size() : Integer;
   query exists(predicate : {(:T) : Boolean}) : Boolean;
-  query one(predicate : {(:T) : Boolean}) : Boolean;
   query \any(predicate : {(:T) : Boolean}[0,1]) : T;
   query select(filter : {(:T) : Boolean}) : T[*];
   query collect(mapping : {(:T) : any}) : any[*];  
@@ -44,6 +43,8 @@ end;
 
 class Sequence<T> specializes Collection<T>
   query at(i : Integer) : T;
+  query head() : T[0,1];
+  query tail() : T[*];
 end;
 
 class Set<T> specializes Collection<T>
