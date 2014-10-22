@@ -1,8 +1,8 @@
 package com.abstratt.mdd.core.tests.frontend.builder;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.frontend.core.BasicProblemTracker;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.builder.ClassifierBuilder;
 import com.abstratt.mdd.frontend.core.builder.ConditionalBuilderSet;

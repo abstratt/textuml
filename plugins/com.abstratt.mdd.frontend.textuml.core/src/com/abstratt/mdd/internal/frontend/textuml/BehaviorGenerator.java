@@ -80,6 +80,8 @@ import org.eclipse.uml2.uml.WriteVariableAction;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.DataTypeUtils;
@@ -91,7 +93,6 @@ import com.abstratt.mdd.core.util.StateMachineUtils;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.CannotModifyADerivedAttribute;
 import com.abstratt.mdd.frontend.core.FrontEnd;
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.InternalProblem;
 import com.abstratt.mdd.frontend.core.MissingRequiredArgument;
 import com.abstratt.mdd.frontend.core.NotAConcreteClassifier;
@@ -102,7 +103,6 @@ import com.abstratt.mdd.frontend.core.ReturnStatementRequired;
 import com.abstratt.mdd.frontend.core.ReturnValueNotExpected;
 import com.abstratt.mdd.frontend.core.ReturnValueRequired;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.UnknownAttribute;
 import com.abstratt.mdd.frontend.core.UnknownOperation;
 import com.abstratt.mdd.frontend.core.UnknownRole;
@@ -216,7 +216,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 
 	class OperationInfo {
 		String operationName;
-		// operand (target), operand (argument), result (return)
+		// operand (target)[, operand (argument)], result (return)
 		Classifier[] types;
 
 		public OperationInfo(int numberOfTypes) {
@@ -1281,7 +1281,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			// register the result output pin
 			OutputPin destinationPin = (OutputPin) action.createNode(null, Literals.OUTPUT_PIN);
 			
-			new TypeSetter(context, namespaceTracker.currentNamespace(null), destinationPin).process(node.getCast());
+			new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), destinationPin).process(node.getCast());
 			builder.registerOutput(destinationPin);
 			// copy whatever multiplicity coming into the source to the destination
 			TypeUtils.copyMultiplicity(sourcePin, destinationPin);
@@ -1374,7 +1374,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 		final Variable var = builder.getCurrentBlock().createVariable(varIdentifier, null);
 		if (node.getOptionalType() != null)
 		    // type is optional for local vars
-		    new TypeSetter(context, namespaceTracker.currentNamespace(null), var).process(node.getOptionalType());
+		    new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), var).process(node.getOptionalType());
 	}
 
 	@Override
@@ -1566,6 +1566,9 @@ public class BehaviorGenerator extends AbstractGenerator {
 		return counter[0];
 	}
 	
+	/**
+	 * Fills in the given activity with behavior parsed from the given node.
+	 */
 	public void createBody(Node bodyNode, Activity activity) {
 		namespaceTracker.enterNamespace(activity);
 		try {
@@ -1832,10 +1835,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 			@Override
 			public void caseANotNullUnaryOperator(ANotNullUnaryOperator node) {
 			    super.caseANotNullUnaryOperator(node);
-	             info.types[0] =
-                         info.types[1] =
-                                         (Classifier) getRepository().findNamedElement("base::Basic",
-                                                         IRepository.PACKAGE.getType(), null);
+	             info.types[0] = (Classifier) getRepository().findNamedElement("base::Basic",
+                         IRepository.PACKAGE.getType(), null);
+	             info.types[1] = (Classifier) getRepository().findNamedElement("base::Boolean",
+                         IRepository.PACKAGE.getType(), null);
 			}
 
 			public void caseTAnd(TAnd node) {

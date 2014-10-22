@@ -10,9 +10,9 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.frontend.core.spi;
 
-import com.abstratt.mdd.frontend.core.IProblem;
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 
 /** A problem builder builds problems based on node information. */ 
 public class ProblemBuilder<N> {

@@ -1,5 +1,7 @@
 package com.abstratt.mdd.frontend.core;
 
+import com.abstratt.mdd.core.Problem;
+
 public class MissingDefaultValue extends Problem {
 
 	public MissingDefaultValue() {

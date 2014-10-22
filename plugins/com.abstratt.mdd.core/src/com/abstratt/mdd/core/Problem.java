@@ -8,7 +8,7 @@
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
  *******************************************************************************/ 
-package com.abstratt.mdd.frontend.core;
+package com.abstratt.mdd.core;
 
 import java.util.Collections;
 import java.util.Iterator;

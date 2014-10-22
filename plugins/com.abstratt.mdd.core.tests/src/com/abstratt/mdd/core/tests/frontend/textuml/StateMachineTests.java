@@ -23,12 +23,12 @@ import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecificationAction;
 import org.eclipse.uml2.uml.Vertex;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.StateMachineUtils;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.NonInitialStatesMustBeNamed;
 import com.abstratt.mdd.frontend.core.StateMachineMustHaveOneInitialState;
 
@@ -66,7 +66,7 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 		StructuredActivityNode rootAction = ActivityUtils.getRootAction(statusCheckingOperation);
 		ValueSpecificationAction expressionAction = (ValueSpecificationAction) ActivityUtils.findNode(rootAction, new MDDUtil.EClassMatcher(Literals.VALUE_SPECIFICATION_ACTION));
 		assertTrue(MDDExtensionUtils.isVertexLiteral(expressionAction.getValue()));
-		assertEquals(state2.getName(), MDDExtensionUtils.getVertexLiteral(expressionAction.getValue()).getName());
+		assertEquals(state2.getName(), MDDExtensionUtils.resolveVertexLiteral(expressionAction.getValue()).getName());
 		assertEquals(statusSM, expressionAction.getValue().getType());
 	}
 

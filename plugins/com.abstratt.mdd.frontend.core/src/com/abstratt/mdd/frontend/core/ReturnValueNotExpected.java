@@ -10,6 +10,8 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.frontend.core;
 
+import com.abstratt.mdd.core.Problem;
+
 public class ReturnValueNotExpected extends Problem {
 	public String getMessage() {
 		return "This signature does not allow a return value";

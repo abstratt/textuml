@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.uml2.uml.NamedElement;
 
 import com.abstratt.mdd.core.IBasicRepository;
-import com.abstratt.mdd.frontend.core.IProblem;
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.SyntaxProblem;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;

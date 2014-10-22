@@ -5,8 +5,8 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.CoreException;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.MissingRequiredArgument;
 
 public class SignalTests extends AbstractRepositoryBuildingTests {

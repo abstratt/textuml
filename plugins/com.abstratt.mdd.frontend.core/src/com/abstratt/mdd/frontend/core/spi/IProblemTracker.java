@@ -1,7 +1,7 @@
 package com.abstratt.mdd.frontend.core.spi;
 
-import com.abstratt.mdd.frontend.core.IProblem;
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 
 public interface IProblemTracker {
 	public void add(IProblem toReport);

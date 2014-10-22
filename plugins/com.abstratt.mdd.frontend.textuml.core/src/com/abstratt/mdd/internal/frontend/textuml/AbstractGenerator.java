@@ -18,6 +18,7 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.UMLPackage;
 
+import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
@@ -25,9 +26,11 @@ import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
+import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
 import com.abstratt.mdd.frontend.core.spi.NamespaceTracker;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
+import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.internal.frontend.textuml.node.AModelPackageType;
 import com.abstratt.mdd.internal.frontend.textuml.node.APackagePackageType;
@@ -87,7 +90,7 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
 	}
 	
 
-	protected void fillDebugInfo(Element element, Node node) {
+	protected void fillDebugInfo(final Element element, Node node) {
 		if (!context.isDebug())
 			return;
 		Token token = null;
@@ -97,16 +100,22 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
 		}
 		if (token == null)
 			return;
-		int lineNumber = token.getLine();
-        String sourceFile = context.getSourcePath() != null ? context.getSourcePath() : null;
-		MDDExtensionUtils.addDebugInfo(element, sourceFile, lineNumber);
+		final int lineNumber = token.getLine();
+        final String sourceFile = context.getSourcePath() != null ? context.getSourcePath() : null;
+        sourceContext.getReferenceTracker().add(new IDeferredReference() {
+            @Override
+            public void resolve(IBasicRepository repository) {
+                if (MDDExtensionUtils.isDebuggable(element)) 
+                    MDDExtensionUtils.addDebugInfo(element, sourceFile, lineNumber);
+            }
+        }, Step.STEREOTYPE_APPLICATIONS);
 	}
 
 	protected SignatureProcessor newSignatureProcessor(Namespace target) {
 		if (target instanceof Behavior)
-			return new BehaviorSignatureProcessor(context, (Behavior) target);
+			return new BehaviorSignatureProcessor(sourceContext, (Behavior) target);
 		if (target instanceof BehavioralFeature)
-			return new BehavioralFeatureSignatureProcessor(context,
+			return new BehavioralFeatureSignatureProcessor(sourceContext,
 					(BehavioralFeature) target);
 		throw new IllegalArgumentException("" + target);
 	}

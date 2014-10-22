@@ -1,5 +1,7 @@
 package com.abstratt.mdd.core.tests.harness;
 
+import org.junit.Assert;
+
 public class AssertHelper {
 	public static String trim(String toTrim) {
 		if (toTrim.length() == 0)
@@ -25,4 +27,8 @@ public class AssertHelper {
 	public static boolean areEqual(String seq1, String seq2) {
 		return trim(seq1).equals(trim(seq2));
 	}
+	
+	public static void assertStringsEqual(String seq1, String seq2) {
+        Assert.assertEquals(trim(seq1), trim(seq2));
+    }
 }

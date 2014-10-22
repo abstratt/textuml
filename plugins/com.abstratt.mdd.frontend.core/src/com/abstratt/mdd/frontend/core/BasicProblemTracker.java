@@ -3,7 +3,8 @@ package com.abstratt.mdd.frontend.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
 
 public class BasicProblemTracker implements IProblemTracker {

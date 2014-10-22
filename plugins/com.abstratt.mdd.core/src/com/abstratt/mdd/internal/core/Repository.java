@@ -114,7 +114,12 @@ public class Repository implements IRepository {
 	}
 
 	public static IRepository getInProgress() {
-		return inProgressRepository.get();
+		IRepository inProgress = inProgressRepository.get();
+        if (inProgress != null)
+            return inProgress;
+        if (RepositoryService.ENABLED)
+            return RepositoryService.DEFAULT.getCurrentRepository();
+        return null;
 	}
 
 	private URI baseURI;
@@ -670,7 +675,7 @@ public class Repository implements IRepository {
 			return builtIn;
 		for (Package topPackage: getTopLevelPackages(null))
 			for (Package imported : topPackage.getImportedPackages())
-				if (imported.getName().equals(packageName))
+				if (imported.getName() != null && imported.getName().equals(packageName))
 					return loadPackage(URI.createURI(imported.getURI()));
 		return loadPackage(computePackageURI(packageName));
 	}

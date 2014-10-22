@@ -1,8 +1,12 @@
 package com.abstratt.kirra.mdd.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +17,7 @@ import java.util.concurrent.Callable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.BehavioralFeature;
@@ -20,6 +25,8 @@ import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.Enumeration;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
@@ -34,15 +41,19 @@ import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
+import org.eclipse.uml2.uml.UMLPackage.Literals;
+import org.eclipse.uml2.uml.Vertex;
 import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.RepositoryService;
 import com.abstratt.mdd.core.util.AssociationUtils;
-import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
+import com.abstratt.mdd.core.util.NamedElementUtils;
+import com.abstratt.mdd.core.util.StateMachineUtils;
 import com.abstratt.mdd.core.util.StereotypeUtils;
+import com.abstratt.pluginutils.NodeSorter;
 
 public class KirraHelper {
     public static class Metadata {
@@ -52,6 +63,22 @@ public class KirraHelper {
     private static boolean inSession() {
         Assert.isTrue(RepositoryService.DEFAULT.isInSession());
         return RepositoryService.DEFAULT.getCurrentResource().hasFeature(Metadata.class);
+    }
+    
+    public static List<Class> getPrerequisites(Class entity) {
+        return addPrerequisites(entity, new ArrayList<Class>());
+    }
+    
+    public static List<Class> addPrerequisites(Class entity, List<Class> collected) {
+        if (!collected.contains(entity)) {
+            collected.add(entity);
+            for (Property relationship : getRelationships(entity)) {
+                if (isPrimary(relationship) && isRequired(relationship)) {
+                    addPrerequisites((Class) relationship.getType(), collected);
+                }
+            }
+        }
+        return collected;
     }
 
     protected static <T> T get(NamedElement target, String property, Callable<T> retriever) {
@@ -114,7 +141,7 @@ public class KirraHelper {
                     addApplications(it, collected);
         }
     }
-    
+
     public static Collection<Package> getApplicationPackages(Package... packages) {
         Set<Package> applicationPackages = new LinkedHashSet<Package>();
         for (Package it : packages)
@@ -122,6 +149,10 @@ public class KirraHelper {
         return applicationPackages;
     }
 
+    public static List<Property> getEntityRelationships(Classifier modelClass) {
+        return getRelationships(modelClass, false);
+    }
+    
     public static List<Property> getRelationships(Classifier modelClass) {
         return getRelationships(modelClass, false);
     }
@@ -189,7 +220,19 @@ public class KirraHelper {
         return get(classifier, "isUser", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return !classifier.isAbstract() && hasStereotype(classifier, "User") && FeatureUtils.findAttribute(classifier, "username", false, true) != null;
+                return !classifier.isAbstract() && hasStereotype(classifier, "User") && getUsernameProperty(classifier) != null;
+            }
+        });
+    }
+    
+    public static Property getUsernameProperty(final Classifier userClass) {
+        return get(userClass, "getUsernameProperty", new Callable<Property>() {
+            @Override
+            public Property call() throws Exception {
+                for (Property property : getProperties(userClass))
+                    if (isUnique(property) && !isEditable(property) && property.getType()!= null && "String".equals(property.getType().getName()))
+                        return property;
+                return null;
             }
         });
     }
@@ -238,7 +281,7 @@ public class KirraHelper {
     public static boolean isAction(Operation operation) {
         return isPublic(operation) && hasStereotype(operation, "Action");
     }
-
+    
     public static boolean isEntityOperation(Operation operation) {
         return isAction(operation) || isFinder(operation);
     }
@@ -265,8 +308,9 @@ public class KirraHelper {
         });
     }
 
-    private static boolean isRegularProperty(Property attribute) {
-        return attribute.eClass() == UMLPackage.Literals.PROPERTY;
+    /** Avoids things such as stereotypes */
+    public static boolean isRegularProperty(Property attribute) {
+        return attribute.eClass() == UMLPackage.Literals.PROPERTY && attribute.getType() != null && (attribute.getType().eClass() == UMLPackage.Literals.CLASS || attribute.getType().eClass() == UMLPackage.Literals.STATE_MACHINE || attribute.getType().eClass() == UMLPackage.Literals.ENUMERATION);
     }
 
     public static boolean isInstance(Property attribute) {
@@ -342,6 +386,11 @@ public class KirraHelper {
             }
         });
     }
+    
+    public static boolean isDerivedRelationship(final org.eclipse.uml2.uml.Property umlAttribute) {
+        return isRelationship(umlAttribute) && isDerived(umlAttribute);
+    }
+    
 
     /**
      * A read-only property is not ever editable. 
@@ -415,6 +464,25 @@ public class KirraHelper {
                 return entityProperties;
             }
         });
+    }
+    
+    public static List<Property> getTupleProperties(final Classifier dataType) {
+        return get(dataType, "getTupleProperties", new Callable<List<Property>>() {
+            @Override
+            public List<Property> call() throws Exception {
+                List<Property> tupleProperties = new ArrayList<Property>();
+                addTupleProperties(dataType, tupleProperties);
+                return tupleProperties;
+            }
+        });
+    }
+    
+    private static void addTupleProperties(Classifier dataType, List<Property> tupleProperties) {
+        for (Classifier general : dataType.getGenerals())
+            addTupleProperties(general, tupleProperties);
+        for (Property attribute : dataType.getAttributes())
+            if (attribute.getName() != null && isPublic(attribute) && attribute.eClass() == UMLPackage.Literals.PROPERTY)
+                tupleProperties.add(attribute);
     }
 
     public static List<Property> getPropertiesAndRelationships(final Classifier umlClass) {
@@ -611,7 +679,8 @@ public class KirraHelper {
         return get(classifier, "isTupleType", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return classifier.getName() != null && !BasicTypeUtils.isBasicType(classifier) && classifier instanceof Classifier;
+                // excludes other DataTypes, such as primitives
+                return classifier.getName() != null && (classifier.eClass() == Literals.DATA_TYPE || classifier.eClass() == Literals.SIGNAL);
             }
         });
     }
@@ -629,9 +698,16 @@ public class KirraHelper {
         return get(current, "isApplication", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return StereotypeUtils.hasProfile(current, "kirra");
+                return StereotypeUtils.hasProfile(current, "kirra") && hasEntityOrService(current);
             }
         });
+    }
+    
+    public static boolean hasEntityOrService(final org.eclipse.uml2.uml.Package current) {
+        for (Type type : current.getOwnedTypes())
+            if (isEntity(type) || isService(type))
+                return true;
+        return false;
     }
 
     public static boolean isUnique(final org.eclipse.uml2.uml.Property umlAttribute) {
@@ -693,5 +769,90 @@ public class KirraHelper {
                 if (isApplication(package_))
                     return getLabel(package_);
         return applicationName == null ? "App" : applicationName;
+    }
+    
+    public static List<Class> getEntities(Collection<Package> applicationPackages) {
+        List<Class> result = new ArrayList<Class>();
+        for (Package current : applicationPackages)
+            for (Type type : current.getOwnedTypes())
+                if (KirraHelper.isEntity(type))
+                    result.add((Class) type);
+        return result;
+    }
+    
+    public static List<Class> getServices(Collection<Package> applicationPackages) {
+        List<Class> result = new ArrayList<Class>();
+        for (Package current : applicationPackages)
+            for (Type type : current.getOwnedTypes())
+                if (KirraHelper.isService(type))
+                    result.add((Class) type);
+        return result;
+    }
+    
+    public static List<Classifier> getTupleTypes(Collection<Package> applicationPackages) {
+        List<Classifier> result = new ArrayList<Classifier>();
+        for (Package current : applicationPackages)
+            for (Type type : current.getOwnedTypes())
+                if (KirraHelper.isTupleType(type))
+                    result.add((Classifier) type);
+        return result;
+    }
+
+    public static boolean isEnumeration(final Type umlType) {
+        return get(umlType, "isEnumeration", new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return umlType instanceof Enumeration || umlType instanceof StateMachine;
+            }
+        });
+    }
+    
+    public static List<String> getEnumerationLiterals(final Type enumOrStateMachine) {
+        return get(enumOrStateMachine, "getEnumerationLiterals", new Callable<List<String>>() {
+            @Override
+            public List<String> call() throws Exception {
+                if (enumOrStateMachine instanceof Enumeration)
+                    return NamedElementUtils.getNames(((Enumeration) enumOrStateMachine).getOwnedLiterals());
+                if (enumOrStateMachine instanceof StateMachine)
+                    return NamedElementUtils.getNames(StateMachineUtils.getVertices(((StateMachine) enumOrStateMachine)));
+                return Arrays.<String>asList();
+            }
+        });
+    }
+    
+    public static List<Class> topologicalSort(List<Class> toSort) {
+        toSort = new ArrayList<Class>(toSort);
+        Collections.sort(toSort, new Comparator<Class>() {
+            @Override
+            public int compare(Class o1, Class o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        final Map<String, Class> nameToEntity = new HashMap<String, Class>();
+        List<String> sortedRefs = new ArrayList<String>();
+        for (Class entity : toSort) {
+            sortedRefs.add(entity.getQualifiedName());
+            nameToEntity.put(entity.getQualifiedName(), entity);
+        }
+        NodeSorter.NodeHandler<String> walker = new NodeSorter.NodeHandler<String>() {
+            @Override
+            public Collection<String> next(String vertex) {
+                Collection<String> result = new HashSet<String>();
+                Class entity = nameToEntity.get(vertex);
+                for (Property rel : getRelationships(entity))
+                    if (!isDerived(rel) && isPrimary(rel))
+                        result.add(rel.getType().getQualifiedName());
+                return result;
+            }
+        };
+        try {
+            sortedRefs = NodeSorter.sort(sortedRefs, walker);
+        } catch (IllegalArgumentException e) {
+            // too bad
+        }
+        toSort.clear();
+        for (String typeRef : sortedRefs)
+            toSort.add(0, nameToEntity.get(typeRef));
+        return toSort;
     }
 }

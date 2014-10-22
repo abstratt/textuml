@@ -7,7 +7,12 @@ import com.abstratt.mdd.frontend.core.spi.NamespaceTracker;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 
 public class SourceCompilationContext<N> {
-	public CompilationContext getContext() {
+    private CompilationContext context;
+    private NamespaceTracker namespaceTracker;
+    private ISourceMiner<N> sourceMiner;
+    private ProblemBuilder<N> problemBuilder;
+
+    public CompilationContext getContext() {
 		return context;
 	}
 	public NamespaceTracker getNamespaceTracker() {
@@ -28,10 +33,6 @@ public class SourceCompilationContext<N> {
 		this.sourceMiner = sourceMiner;
 		this.problemBuilder = problemBuilder;
 	}
-	private CompilationContext context;
-	private NamespaceTracker namespaceTracker;
-	private ISourceMiner<N> sourceMiner;
-	private ProblemBuilder<N> problemBuilder;
 	public IReferenceTracker getReferenceTracker() {
 		return context.getReferenceTracker();
 	}

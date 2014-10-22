@@ -5,8 +5,8 @@ package com.abstratt.mdd.core.tests.harness;
 
 import junit.framework.Assert;
 
-import com.abstratt.mdd.frontend.core.IProblem;
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
 
 public class StrictProblemTracker implements IProblemTracker {

@@ -29,7 +29,7 @@ public class MDDExtensionUtils {
 	private static final String VERTEX_LITERAL_STEREOTYPE = "mdd_extensions::VertexLiteral";
 	private static final String CLOSURE_STEREOTYPE = "mdd_extensions::Closure";
 	private static final String CONSTRAINT_BEHAVIOR_STEREOTYPE = "mdd_extensions::ConstraintBehavior";
-	private static final String DEBUGGABLE_STEREOTYPE = "mdd_extensions::Debuggable";
+	public static final String DEBUGGABLE_STEREOTYPE = "mdd_extensions::Debuggable";
 	private static final String ENTRY_POINT_STEREOTYPE = "mdd_extensions::EntryPoint";
 	private static final String EXTERNAL_CLASS_STEREOTYPE = "mdd_extensions::External";
 	private static final String OBJECT_INITIALIZATION_STEREOTYPE = "mdd_extensions::ObjectInitialization";
@@ -48,6 +48,10 @@ public class MDDExtensionUtils {
 		toEnhance.setValue(debuggableStereotype, "source", source);
 	}
 	
+	/**
+	 * The meta reference facility is not currently in use.
+	 */
+	@Deprecated
     public static ValueSpecification buildMetaReference(Package parent, Element referred, Type type) {	 
         LiteralNull nullLiteral = MDDUtil.createLiteralNull(parent);	 
         Stereotype referenceStereotype = StereotypeUtils.findStereotype(META_REFERENCE_STEREOTYPE);	 
@@ -57,10 +61,12 @@ public class MDDExtensionUtils {
         return nullLiteral;	 
     }	
     
+    @Deprecated
     public static boolean isMetaReference(ValueSpecification specification) {	 
         return specification instanceof LiteralNull && StereotypeUtils.hasStereotype(specification, META_REFERENCE_STEREOTYPE);	 
     }
     
+    @Deprecated
 	public static Type resolveMetaReference(ValueSpecification value) {
 		Assert.isLegal(isMetaReference(value));
 		LiteralNull nullLiteral = (LiteralNull) value;
@@ -150,7 +156,7 @@ public class MDDExtensionUtils {
 		return BasicTypeUtils.buildBasicValue(basicType, stringValue);
 	}
 	
-	public static Vertex getVertexLiteral(ValueSpecification specification) {
+	public static Vertex resolveVertexLiteral(ValueSpecification specification) {
 		Assert.isLegal(isVertexLiteral(specification));
 		Stereotype vertexLiteralStereotype = specification.getAppliedStereotype(VERTEX_LITERAL_STEREOTYPE);
 		return (Vertex) specification.getValue(vertexLiteralStereotype, "vertex");
@@ -169,7 +175,7 @@ public class MDDExtensionUtils {
 	}
 	
 	public static Integer getLineNumber(Element element) {
-		if (!isDebuggable(element))
+		if (!hasDebugInfo(element))
 			return null;
 		Stereotype debuggableStereotype = element.getAppliedStereotype(DEBUGGABLE_STEREOTYPE);
 		return (Integer) element.getValue(debuggableStereotype, "lineNumber");
@@ -186,7 +192,7 @@ public class MDDExtensionUtils {
 	}
 
 	public static String getSource(Element element) {
-		if (!isDebuggable(element))
+		if (!hasDebugInfo(element))
 			return null;
 		Stereotype debuggableStereotype = element.getAppliedStereotype(DEBUGGABLE_STEREOTYPE);
 		return (String) element.getValue(debuggableStereotype, "source");
@@ -205,8 +211,12 @@ public class MDDExtensionUtils {
 	}
 
 	public static boolean isDebuggable(Element element) {
-		return StereotypeUtils.hasStereotype(element, DEBUGGABLE_STEREOTYPE);
+		return StereotypeUtils.isApplicable(element, DEBUGGABLE_STEREOTYPE);
 	}
+	
+	public static boolean hasDebugInfo(Element element) {
+        return StereotypeUtils.hasStereotype(element, DEBUGGABLE_STEREOTYPE);
+    }
 
 	public static boolean isEntryPoint(Operation operation) {
 		return StereotypeUtils.hasStereotype(operation, ENTRY_POINT_STEREOTYPE);

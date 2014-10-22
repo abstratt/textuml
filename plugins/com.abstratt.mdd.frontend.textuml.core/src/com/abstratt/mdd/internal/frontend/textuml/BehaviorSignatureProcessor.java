@@ -14,10 +14,11 @@ import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.Parameter;
 
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
+import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 
 class BehaviorSignatureProcessor extends SignatureProcessor {
-	public BehaviorSignatureProcessor(CompilationContext context, Behavior parent) {
-		super(context, parent, false);
+	public BehaviorSignatureProcessor(SourceCompilationContext<Node> sourceContext, Behavior parent) {
+		super(sourceContext, parent, false);
 	}
 
 	protected Parameter createParameter(String name) {

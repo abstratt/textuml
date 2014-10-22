@@ -28,15 +28,17 @@ public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
 	protected final Namespace parent;
 	protected final boolean supportExceptions;
 	protected final boolean unnamedParameters;
+    protected SourceCompilationContext<Node> sourceContext;
 
-	public AbstractSignatureProcessor(CompilationContext context, Namespace parent, boolean supportExceptions) {
-		this(context, parent, supportExceptions, false);
+	public AbstractSignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent, boolean supportExceptions) {
+		this(sourceContext, parent, supportExceptions, false);
 	}
 
-	public AbstractSignatureProcessor(CompilationContext context, Namespace parent, boolean supportExceptions, boolean unnamedParameters) {
+	public AbstractSignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent, boolean supportExceptions, boolean unnamedParameters) {
 		this.parent = parent;
 		this.supportExceptions = supportExceptions;
-		this.context = context;
+		this.sourceContext = sourceContext;
+		this.context = sourceContext.getContext();
 		this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), new SCCTextUMLSourceMiner());
 		this.unnamedParameters = unnamedParameters;
 	}
@@ -64,7 +66,7 @@ public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
 		}
 		Parameter parameter = createParameter(name);
 		parameter.setDirection(direction);
-		new TypeSetter(context, getBaseLookupNamespace(), parameter).process(typeNode);
+		new TypeSetter(sourceContext, getBaseLookupNamespace(), parameter).process(typeNode);
 		return parameter;
 	}
 

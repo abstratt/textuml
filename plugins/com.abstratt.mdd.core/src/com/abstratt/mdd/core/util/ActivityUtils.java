@@ -43,7 +43,6 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.ValueSpecificationAction;
 import org.eclipse.uml2.uml.Variable;
 
-import com.abstratt.mdd.core.IRepository;
 
 public class ActivityUtils {
 
@@ -129,6 +128,8 @@ public class ActivityUtils {
 	}
 
 	public static Activity getActionActivity(Action action) {
+	    // UML2 5
+		//return action.containingActivity();
 		return MDDUtil.getNearest(action, UMLPackage.Literals.ACTIVITY);
 	}
 
@@ -139,7 +140,7 @@ public class ActivityUtils {
 	}
 
 	public static ObjectFlow connect(StructuredActivityNode parent, ObjectNode source, ObjectNode target) {
-		ObjectFlow flow = (ObjectFlow) parent.createEdge(null, IRepository.PACKAGE.getObjectFlow());
+		ObjectFlow flow = (ObjectFlow) parent.createEdge(null, UMLPackage.eINSTANCE.getObjectFlow());
 		flow.setSource(source);
 		flow.setTarget(target);
 		flow.setWeight(MDDUtil.createLiteralInteger(parent.getNearestPackage(), 1));
@@ -210,7 +211,7 @@ public class ActivityUtils {
 
 	public static ValueSpecification buildBehaviorReference(Package parent, Activity activity, Type type) {
 		OpaqueExpression expression = (OpaqueExpression) parent.createPackagedElement(null,
-				IRepository.PACKAGE.getOpaqueExpression());
+				UMLPackage.Literals.OPAQUE_EXPRESSION);
 		expression.setBehavior(activity);
 		expression.setType(type == null ? activity : type);
 		return expression;
@@ -309,13 +310,22 @@ public class ActivityUtils {
 	public static List<Action> findStatements(StructuredActivityNode target) {
 		List<Action> terminalActions = new ArrayList<Action>();
 		for (ActivityNode node : target.getNodes()) {
-			if (node instanceof StructuredActivityNode) {
+			if (node.eClass() == UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE) {
 				terminalActions.addAll(findStatements((StructuredActivityNode) node));
-			} else if (node instanceof Action && ActivityUtils.isTerminal((Action) node))
+			} else if (node instanceof Action && isTerminal((Action) node))
 				terminalActions.add((Action) node);
 		}
 		return terminalActions;
 	}
+	
+    public static List<Action> findTerminals(StructuredActivityNode target) {
+        List<Action> terminalActions = new ArrayList<Action>();
+        for (ActivityNode node : target.getNodes()) {
+            if (node instanceof Action && isTerminal((Action) node))
+                terminalActions.add((Action) node);
+        }
+        return terminalActions;
+    }
 
 	/**
 	 * Is the action a final action (i.e. followed by an ActivityFinalNode)?
@@ -359,11 +369,13 @@ public class ActivityUtils {
 	}
 
 	public static Activity getOwningActivity(StructuredActivityNode context) {
-		if (context.getActivity() != null)
-			return context.getActivity();
-		if (context.getOwner() instanceof StructuredActivityNode)
-			return getOwningActivity((StructuredActivityNode) context.getOwner());
-		return null;
+ 		if (context.getActivity() != null)
+ 			return context.getActivity();
+ 		if (context.getOwner() instanceof StructuredActivityNode)
+ 			return getOwningActivity((StructuredActivityNode) context.getOwner());
+ 		return null;	
+	    // added in UML2 5.0
+	    // return context.containingActivity();
 	}
 
 	public static boolean shouldIsolate(StructuredActivityNode currentBlock) {

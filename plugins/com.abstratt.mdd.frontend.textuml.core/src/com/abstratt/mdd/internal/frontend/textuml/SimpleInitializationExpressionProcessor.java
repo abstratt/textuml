@@ -27,16 +27,16 @@ import com.abstratt.mdd.internal.frontend.textuml.node.PLiteralOrIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.PTypeIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.TIdentifier;
 
-public class ExpressionProcessor {
+public class SimpleInitializationExpressionProcessor {
 
 	private IReferenceTracker referenceTracker;
 	private ProblemBuilder<Node> problemBuilder;
 	private Namespace currentNamespace;
 
 	
-	ExpressionProcessor(IReferenceTracker referenceTracker, ProblemBuilder<Node> problemBuilder, Namespace currentNamespace) {
-		this.referenceTracker = referenceTracker;
-		this.problemBuilder = problemBuilder;
+	SimpleInitializationExpressionProcessor(SourceCompilationContext<Node> sourceContext, Namespace currentNamespace) {
+		this.referenceTracker = sourceContext.getReferenceTracker();
+		this.problemBuilder = sourceContext.getProblemBuilder();
 		this.currentNamespace = currentNamespace;
 	}
 

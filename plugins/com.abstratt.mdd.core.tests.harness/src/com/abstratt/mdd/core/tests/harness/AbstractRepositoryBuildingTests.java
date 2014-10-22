@@ -9,8 +9,8 @@ import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.CoreException;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.RepositoryService;
-import com.abstratt.mdd.frontend.core.IProblem;
 
 public class AbstractRepositoryBuildingTests extends AbstractRepositoryTests {
 	protected boolean dump;

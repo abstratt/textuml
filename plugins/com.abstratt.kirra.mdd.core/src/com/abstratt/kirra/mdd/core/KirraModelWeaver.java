@@ -1,6 +1,7 @@
 package com.abstratt.kirra.mdd.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
@@ -20,10 +21,13 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.VisibilityKind;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.ModelException;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.isv.IModelWeaver;
 import com.abstratt.mdd.core.util.ConnectorUtils;
-import com.abstratt.mdd.core.util.FeatureUtils;
+import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.StereotypeUtils;
 
 /**
@@ -34,9 +38,11 @@ public class KirraModelWeaver implements IModelWeaver {
 	public void packageCreated(IRepository repository, Package created) {
 		Profile kirraProfile = (Profile) repository.loadPackage(URI.createURI(KirraMDDCore.KIRRA_URI));
 		Package types = repository.findPackage(IRepository.TYPES_NAMESPACE, null);
+		Package kirraTypes = repository.findPackage("kirra_types", null);
 		Package extensions = repository.findPackage(IRepository.EXTENSIONS_NAMESPACE, null);
 		created.applyProfile(kirraProfile);
 		created.createPackageImport(types);
+		created.createPackageImport(kirraTypes);
 		created.createPackageImport(extensions);
 		created.createPackageImport(kirraProfile);
 	}
@@ -49,6 +55,7 @@ public class KirraModelWeaver implements IModelWeaver {
 	@Override
 	public void repositoryComplete(IRepository repository) {
 		final Stereotype userStereotype = repository.findNamedElement("kirra::User", Literals.STEREOTYPE, null);
+		final Stereotype debuggableStereotype = repository.findNamedElement(MDDExtensionUtils.DEBUGGABLE_STEREOTYPE, Literals.STEREOTYPE, null);		
 		final Stereotype entityStereotype = repository.findNamedElement("kirra::Entity", Literals.STEREOTYPE, null);
 		final Stereotype serviceStereotype = repository.findNamedElement("kirra::Service", Literals.STEREOTYPE, null);
 		final Stereotype actionStereotype = repository.findNamedElement("kirra::Action", Literals.STEREOTYPE, null);
@@ -56,7 +63,6 @@ public class KirraModelWeaver implements IModelWeaver {
 		final Stereotype essentialStereotype = repository.findNamedElement("kirra::Essential", Literals.STEREOTYPE, null);
 		
 		final Class baseObject = repository.findNamedElement("mdd_types::Object", Literals.CLASS, null);
-		final Class stringType = repository.findNamedElement("mdd_types::String", Literals.CLASS, null);
 		
 		if (baseObject == null || userStereotype == null || entityStereotype == null || actionStereotype == null || finderStereotype == null || essentialStereotype == null)
 			return;
@@ -77,7 +83,7 @@ public class KirraModelWeaver implements IModelWeaver {
 			}
 		}, true);
 		
-		// collect all entities
+		// collect all entity-candidate classes
 		final List<Class> entities = repository.findAll(new EObjectCondition() {
 			@Override
 			public boolean isSatisfied(EObject eObject) {
@@ -90,25 +96,21 @@ public class KirraModelWeaver implements IModelWeaver {
 					return false;
 				if (services.contains(asClass))
 					return false;
-				if (!asClass.getAppliedStereotypes().isEmpty() && asClass.getStereotypeApplication(userStereotype) == null)
-				    return false;
-				return true;
+				// we accept two stereotypes - anything else will exclude them from 
+				// automatic entity stereotype application
+				List<Stereotype> appliedStereotypes = new ArrayList<Stereotype>(asClass.getAppliedStereotypes());
+				appliedStereotypes.removeAll(Arrays.asList(userStereotype, debuggableStereotype));
+                return appliedStereotypes.isEmpty();
 			}
 		}, true);
 		// apply entity stereotype
-		for (Class entity : entities) {
+		for (Class entity : entities)
 			StereotypeUtils.safeApplyStereotype(entity, entityStereotype);
-			// create username property
-			if (entity.isStereotypeApplied(userStereotype) && FeatureUtils.findAttribute(entity, "username", false, true) == null) {
-				Property username = entity.createOwnedAttribute("username", stringType);
-				username.setIsReadOnly(true);
-			}
-		}
 		for (Class entity : entities) {
 			// apply operation stereotypes
 			for (Operation operation : entity.getOperations()) {
 				Type returnType = operation.getType();
-				if (returnType != null && operation.isStatic() && operation.getReturnResult().isMultivalued() && returnType.isStereotypeApplied(entityStereotype))
+				if (returnType != null && operation.isStatic() && operation.isQuery())
 					StereotypeUtils.safeApplyStereotype(operation, finderStereotype);
 				else if (!operation.isQuery() && VisibilityKind.PUBLIC_LITERAL == operation.getVisibility())
 					StereotypeUtils.safeApplyStereotype(operation, actionStereotype);
@@ -120,16 +122,27 @@ public class KirraModelWeaver implements IModelWeaver {
 		}
 		// ensure properties that refer to entities are part of associations (just like references)
 		for (Class entity : entities)
-			for (Property property : entity.getAttributes()) {
-				Type propertyType = property.getType();
-				if (propertyType != null && propertyType.isStereotypeApplied(entityStereotype) && property.getAssociation() == null) {
-					final Association newAssociation =
-						(Association) entity.getNearestPackage().createPackagedElement(null,
-										UMLPackage.Literals.ASSOCIATION);
-					newAssociation.getMemberEnds().add(property);
-					// automatically created owned end
-					newAssociation.createOwnedEnd(null, entity);
-				}
-			}
+			for (Property property : entity.getAttributes())
+			    if (KirraHelper.isRegularProperty(property)) {
+    				Type propertyType = property.getType();
+    				if (propertyType != null && propertyType.isStereotypeApplied(entityStereotype) && property.getAssociation() == null) {
+    					final Association newAssociation =
+    						(Association) entity.getNearestPackage().createPackagedElement(null,
+    										UMLPackage.Literals.ASSOCIATION);
+    					newAssociation.getMemberEnds().add(property);
+    					// automatically created owned end
+    					newAssociation.createOwnedEnd(null, entity);
+    				}
+			    }
+		// ensure user entities have a username property
+		for (Class entity : entities)
+		    if (entity.isStereotypeApplied(userStereotype)) {
+		        if (KirraHelper.getUsernameProperty(entity) == null) {
+		            UnclassifiedProblem problem = new UnclassifiedProblem("No user name property in user entity: '" + entity.getQualifiedName() + "'. A user name property is declared as: 'readonly id attribute <name> : String;'");
+		            problem.setAttribute(IProblem.FILE_NAME, MDDExtensionUtils.getSource(entity));
+		            problem.setAttribute(IProblem.LINE_NUMBER, MDDExtensionUtils.getLineNumber(entity));
+		            throw new ModelException(problem);
+		        }
+		    }
 	}
 }

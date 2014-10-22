@@ -1,15 +1,20 @@
 package com.abstratt.mdd.core.util;
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.CallEvent;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Event;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Pseudostate;
@@ -43,9 +48,30 @@ public class StateMachineUtils {
 				stateProperties.add(property);
 		return stateProperties;
 	}
+	
+	public static Map<Event, List<Trigger>> findTriggersPerEvent(StateMachine stateMachine) {
+	    Map<Event, List<Trigger>> triggersPerEvent = new LinkedHashMap<Event, List<Trigger>>();
+        for (Vertex state : stateMachine.getRegions().get(0).getSubvertices())
+            for (Transition transition : state.getOutgoings())
+                for (Trigger trigger : transition.getTriggers()) {
+                    Event keyEvent = null;
+                    for (Event existingEvent : triggersPerEvent.keySet()) 
+                        if (EcoreUtil.equals(existingEvent, trigger.getEvent())) {
+                            keyEvent = existingEvent;
+                            break;
+                        }
+                    if (keyEvent == null)
+                        keyEvent = trigger.getEvent();
+                    List<Trigger> triggers = triggersPerEvent.get(keyEvent);
+                    if (triggers == null)
+                        triggersPerEvent.put(keyEvent, triggers = new ArrayList<Trigger>());
+                    triggers.add(trigger);
+                }
+        return triggersPerEvent;
+    }
 
 	public static Map<Operation, List<Vertex>> findStateSpecificOperations(BehavioredClassifier classifier) {
-		Map<Operation, List<Vertex>> result = new HashMap<Operation, List<Vertex>>();
+		Map<Operation, List<Vertex>> result = new LinkedHashMap<Operation, List<Vertex>>();
 		EList<Behavior> behaviors = classifier.getOwnedBehaviors();
 		for (Behavior behavior : behaviors)
 			if (behavior instanceof StateMachine)

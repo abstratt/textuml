@@ -4,7 +4,7 @@ import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Stereotype;
 
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.builder.ClassifierBuilder;
 import com.abstratt.mdd.frontend.core.builder.PackageBuilder;
 import com.abstratt.mdd.frontend.core.builder.UML2BuilderFactory;

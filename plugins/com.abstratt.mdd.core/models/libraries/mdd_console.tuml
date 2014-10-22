@@ -1,4 +1,4 @@
-[StandardProfileL2::ModelLibrary]
+[ModelLibrary]
 model mdd_console;
 
 apply StandardProfileL2;

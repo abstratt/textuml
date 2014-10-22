@@ -82,7 +82,7 @@ public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<No
 		public void caseAFunctionTypeIdentifier(AFunctionTypeIdentifier node) {
 			processMultiplicity(node.getOptionalMultiplicity());
 			final Type signature = MDDExtensionUtils.createSignature(getCurrentNamespace().getNearestPackage());
-			node.getFunctionSignature().apply(new SignatureProcessor(getContext(), getCurrentNamespace(), true, true) {
+			node.getFunctionSignature().apply(new SignatureProcessor(getSourceContext(), getCurrentNamespace(), true, true) {
 				@Override
 				protected Parameter createParameter(String name) {
 					final Parameter created = MDDExtensionUtils.createSignatureParameter(signature, name, null);
@@ -219,8 +219,8 @@ public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<No
 
 	protected List<Integer> multiplicities;
 	protected TypedElement target;
-	public TypeSetter(CompilationContext context, Namespace currentNamespace, TypedElement target) {
-		super(context, currentNamespace);
+	public TypeSetter(SourceCompilationContext<Node> sourceContext, Namespace currentNamespace, TypedElement target) {
+		super(sourceContext, currentNamespace);
 		this.target = target;
 	}
 

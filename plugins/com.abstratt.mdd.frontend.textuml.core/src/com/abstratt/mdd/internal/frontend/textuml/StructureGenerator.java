@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -36,6 +37,7 @@ import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.FunctionBehavior;
 import org.eclipse.uml2.uml.Generalization;
+import org.eclipse.uml2.uml.InstanceSpecification;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.NamedElement;
@@ -50,15 +52,18 @@ import org.eclipse.uml2.uml.Profile;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Reception;
 import org.eclipse.uml2.uml.Signal;
+import org.eclipse.uml2.uml.Slot;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
+import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.ConnectorUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
@@ -79,13 +84,14 @@ import com.abstratt.mdd.frontend.core.NonQualifiedIdentifierExpected;
 import com.abstratt.mdd.frontend.core.NotAMetaclass;
 import com.abstratt.mdd.frontend.core.RequiredPortHasNoMatchingProviderPort;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
+import com.abstratt.mdd.frontend.core.UnknownAttribute;
 import com.abstratt.mdd.frontend.core.UnknownParentPackage;
 import com.abstratt.mdd.frontend.core.UnknownType;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.WrongNumberOfRoles;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
+import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.DeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
@@ -108,6 +114,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AClassDef;
 import com.abstratt.mdd.internal.frontend.textuml.node.AClassHeader;
 import com.abstratt.mdd.internal.frontend.textuml.node.AClassImplementsItem;
 import com.abstratt.mdd.internal.frontend.textuml.node.AClassSpecializesItem;
+import com.abstratt.mdd.internal.frontend.textuml.node.AComplexInitializationExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.AComponentClassType;
 import com.abstratt.mdd.internal.frontend.textuml.node.ACompositionAssociationKind;
 import com.abstratt.mdd.internal.frontend.textuml.node.ACompositionReferenceType;
@@ -125,6 +132,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AInterfaceClassType;
 import com.abstratt.mdd.internal.frontend.textuml.node.AInvariantDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.ALoadDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.AModifiers;
+import com.abstratt.mdd.internal.frontend.textuml.node.ANamedSimpleValue;
 import com.abstratt.mdd.internal.frontend.textuml.node.AOperationDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.AOperationHeader;
 import com.abstratt.mdd.internal.frontend.textuml.node.AOptionalAlias;
@@ -430,7 +438,7 @@ public class StructureGenerator extends AbstractGenerator {
 		// anonymous end
 		newAssociation.createOwnedEnd(null, referringClassifier);
 		applyModifiers(referrent[0], VisibilityKind.PUBLIC_LITERAL, node);
-		new DeferredTypeSetter(context, referringClassifier, referrent[0]).process(node.getTypeIdentifier());
+		new DeferredTypeSetter(sourceContext, referringClassifier, referrent[0]).process(node.getTypeIdentifier());
 	}
 
 	@Override
@@ -441,7 +449,7 @@ public class StructureGenerator extends AbstractGenerator {
 						UMLPackage.Literals.DEPENDENCY);
 		newDependency.getClients().add(referringClassifier);
 		annotationProcessor.applyAnnotations(newDependency, node.getDependency());
-		new DeferredCollectionFiller(context, referringClassifier, newDependency.getSuppliers()).process(node.getTypeIdentifier());
+		new DeferredCollectionFiller(sourceContext, referringClassifier, newDependency.getSuppliers()).process(node.getTypeIdentifier());
 	}
 
 	@Override
@@ -499,7 +507,7 @@ public class StructureGenerator extends AbstractGenerator {
 							ownedEnd = association.createNavigableOwnedEnd(endIdentifier, null);
 						else
 							ownedEnd = association.createOwnedEnd(endIdentifier, null);
-						new TypeSetter(context, association, ownedEnd).process(ownedEndNode.getTypeIdentifier());
+						new TypeSetter(sourceContext, association, ownedEnd).process(ownedEndNode.getTypeIdentifier());
 						AAssociationRoleDecl roleDeclaration = sourceMiner.findParent(ownedEndNode, AAssociationRoleDecl.class);
 						processAnnotations(roleDeclaration.getAnnotations(), ownedEnd);
 						CommentUtils.applyComment(roleDeclaration.getModelComment(), ownedEnd);
@@ -521,6 +529,7 @@ public class StructureGenerator extends AbstractGenerator {
 		final Class owningClass = (Class) namespaceTracker.currentNamespace(UMLPackage.Literals.CLASS);
 		final Port newPort = owningClass.createOwnedPort(portIdentifier, null);
 		newPort.setIsService(false);
+		fillDebugInfo(newPort, node);
 		applyCurrentComment(newPort);
 		String interfaceName = sourceMiner.getIdentifier(node.getMinimalTypeIdentifier());
 		getRefTracker().add(new DeferredReference<Interface>(interfaceName, UMLPackage.Literals.INTERFACE, owningClass) {
@@ -592,8 +601,9 @@ public class StructureGenerator extends AbstractGenerator {
 			problemBuilder.addProblem( new UnclassifiedProblem("Cannot declare attribute under namespace: " + currentNamespace.getName()), node);
 			return;
 		}
+		fillDebugInfo(newProperty, node);
 		applyCurrentComment(newProperty);
-		new DeferredTypeSetter(context, namespaceTracker.currentNamespace(null), newProperty) {
+		new DeferredTypeSetter(sourceContext, namespaceTracker.currentNamespace(null), newProperty) {
 			public void doProcess(Node node) {
 				super.doProcess(node); 
 				if ((currentNamespace instanceof DataType || currentNamespace instanceof Signal || currentNamespace instanceof StateMachine) && newProperty.getType() != null) {
@@ -605,7 +615,7 @@ public class StructureGenerator extends AbstractGenerator {
 		}.process(node.getTypeIdentifier());
 		
 		applyModifiers(newProperty, VisibilityKind.PUBLIC_LITERAL, node);
-		PInitializationExpression initializationExpression = node.getInitializationExpression();
+		final PInitializationExpression initializationExpression = node.getInitializationExpression();
 		if (newProperty.isDerived()) {
 			if (!newProperty.isID() && initializationExpression == null) {
 				problemBuilder.addProblem(new MissingDefaultValue(), node);
@@ -614,10 +624,20 @@ public class StructureGenerator extends AbstractGenerator {
 		}
 		// for non-constant attributes, initialization expression is optional 
 		if (initializationExpression instanceof ASimpleInitializationExpression) {
-			ExpressionProcessor expressionProcessor = new ExpressionProcessor(context.getReferenceTracker(), problemBuilder, currentNamespace);
+			SimpleInitializationExpressionProcessor expressionProcessor = new SimpleInitializationExpressionProcessor(sourceContext, currentNamespace);
 			ASimpleInitialization simpleInitialization = (ASimpleInitialization) ((ASimpleInitializationExpression) initializationExpression).getSimpleInitialization();
 			expressionProcessor.process(node.getTypeIdentifier(), newProperty, simpleInitialization.getLiteralOrIdentifier());
-		}
+		} else if (initializationExpression instanceof AComplexInitializationExpression) {
+		    getRefTracker().add(new IDeferredReference() {
+		        @Override
+		        public void resolve(IBasicRepository repository) {
+                    // required for resolving behavior
+                    Class nearestClass = (Class) MDDUtil.getNearest(newProperty, UMLPackage.Literals.CLASS);
+		            ComplexInitializationExpressionProcessor expressionProcessor = new ComplexInitializationExpressionProcessor(sourceContext, nearestClass);
+		            expressionProcessor.process(newProperty, (AComplexInitializationExpression) initializationExpression);
+		        }
+		    }, IReferenceTracker.Step.LAST);
+        } 
 		annotationProcessor.applyAnnotations(newProperty, node.getIdentifier());
 		applyOptionalSubsetting(newProperty, node);
 	}
@@ -685,6 +705,7 @@ public class StructureGenerator extends AbstractGenerator {
 		node.getClassType().apply(this);
 		final Classifier currentClassifier = (Classifier) namespaceTracker.currentNamespace(null);
 		applyCurrentComment(currentClassifier);
+		fillDebugInfo(currentClassifier, node);
 		currentClassifier.setName(classifierIdentifier);
 		node.getClassModifiers().apply(new DepthFirstAdapter() {
 			@Override
@@ -858,12 +879,47 @@ public class StructureGenerator extends AbstractGenerator {
 	}
 
 	@Override
-	public void caseAEnumerationLiteralDecl(AEnumerationLiteralDecl node) {
+	public void caseAEnumerationLiteralDecl(final AEnumerationLiteralDecl node) {
 		String literalName = TextUMLCore.getSourceMiner().getIdentifier(node);
 		if (!ensureNameAvailable(literalName, node.getIdentifier(), Literals.ENUMERATION_LITERAL))
 			return;
-		EnumerationLiteral literal = ((Enumeration) namespaceTracker.currentNamespace(null)).createOwnedLiteral(literalName);
+		final Enumeration enumeration = (Enumeration) namespaceTracker.currentNamespace(null);
+        final EnumerationLiteral literal = enumeration.createOwnedLiteral(literalName);
 		applyCurrentComment(literal);
+		if (node.getEnumerationLiteralSlotValues() != null) {
+		    getRefTracker().add(new IDeferredReference() {
+                @Override
+                public void resolve(IBasicRepository repository) {
+                    node.getEnumerationLiteralSlotValues().apply(new DepthFirstAdapter() {
+                        @Override
+                        public void caseANamedSimpleValue(ANamedSimpleValue node) {
+                            String attributeIdentifier = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
+                            Property attribute = FeatureUtils.findAttribute(enumeration, attributeIdentifier, false, true);
+                            if (attribute == null) {
+                                problemBuilder.addProblem(new UnknownAttribute(enumeration.getName(), attributeIdentifier, false),
+                                        node.getIdentifier());
+                                return;
+                            }
+                            for (Slot slot : literal.getSlots())
+                                if (slot.getDefiningFeature() == attribute) {
+                                    problemBuilder.addProblem(new UnclassifiedProblem("A value has already been assigned for property '"
+                                            + attribute.getName() + "'"), node.getIdentifier());
+                                    return;
+                                }
+                            ValueSpecification value = LiteralValueParser.parseLiteralValue(node.getLiteralOrIdentifier(),
+                                    enumeration.getNearestPackage(), problemBuilder);
+                            if (attribute.getType() != value.getType())
+                                problemBuilder.addProblem(new TypeMismatch(attribute.getType().getQualifiedName(), value.getType()
+                                        .getQualifiedName()), node);
+
+                            Slot slot = literal.createSlot();
+                            slot.getValues().add(value);
+                            slot.setDefiningFeature(attribute);
+                        }
+                    });
+                }
+            }, Step.GENERAL_RESOLUTION);
+		}
 	}
 
 	@Override
@@ -1029,7 +1085,7 @@ public class StructureGenerator extends AbstractGenerator {
 		try {
 			getRefTracker().add(new IDeferredReference() {
 				public void resolve(IBasicRepository repository) {
-					node.apply(new BehavioralFeatureSignatureProcessor(context, reception, false, true));
+					node.apply(new BehavioralFeatureSignatureProcessor(sourceContext, reception, false, true));
 					Type signal = reception.getOwnedParameters().get(0).getType();
 					if (!(signal instanceof Signal)) {
 						problemBuilder.addError("Reception parameter must be a signal", node.getReception());
@@ -1253,7 +1309,7 @@ public class StructureGenerator extends AbstractGenerator {
 		final Stereotype currentStereotype = (Stereotype) namespaceTracker.currentNamespace(null);
 		final Property attribute = currentStereotype.createOwnedAttribute(propertyIdentifier, null);
 		applyCurrentComment(attribute);
-		new DeferredTypeSetter(context, namespaceTracker.currentNamespace(null), attribute).process(node.getTypeIdentifier());
+		new DeferredTypeSetter(sourceContext, namespaceTracker.currentNamespace(null), attribute).process(node.getTypeIdentifier());
 	}
 
 	@Override

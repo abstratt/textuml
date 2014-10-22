@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
 
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 
 public class ProblemUtils {
 	public static <T extends IProblem> List<T> filterProblems(

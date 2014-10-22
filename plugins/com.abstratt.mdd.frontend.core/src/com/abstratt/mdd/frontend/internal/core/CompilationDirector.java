@@ -28,18 +28,19 @@ import org.eclipse.core.runtime.RegistryFactory;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.uml2.uml.resource.UMLResource;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.MDDCore;
+import com.abstratt.mdd.core.ModelException;
 import com.abstratt.mdd.core.RepositoryService;
+import com.abstratt.mdd.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.BasicProblemTracker;
 import com.abstratt.mdd.frontend.core.FrontEnd;
 import com.abstratt.mdd.frontend.core.ICompilationDirector;
-import com.abstratt.mdd.frontend.core.IProblem;
-import com.abstratt.mdd.frontend.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.InternalProblem;
 import com.abstratt.mdd.frontend.core.LocationContext;
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
@@ -220,6 +221,8 @@ public class CompilationDirector implements ICompilationDirector {
                                         IProgressMonitor.UNKNOWN));
                             }
 						}
+					} catch (ModelException e) {
+					    problemTracker.add(e.getProblem());
 					} catch (CoreException e) {
 						throw new RuntimeException(e);
 					}
@@ -323,7 +326,7 @@ public class CompilationDirector implements ICompilationDirector {
 	         Throwable root = e;  
 		    while (root.getCause() != null)
 		        root = root.getCause();
-		    String message = root.getMessage() != null ? root.getMessage() : root.toString();
+		    String message = root.toString();
 			UnclassifiedProblem toReport = new UnclassifiedProblem("Unexpected error: " + message);
 			localProblemTracker.add(toReport);
 		} finally {

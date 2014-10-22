@@ -9,7 +9,7 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
 {
     private TEnumerationLiteral _enumerationLiteral_;
     private TIdentifier _identifier_;
-    private PEnumerationLiteralValues _enumerationLiteralValues_;
+    private PEnumerationLiteralSlotValues _enumerationLiteralSlotValues_;
     private TSemicolon _semicolon_;
 
     public AEnumerationLiteralDecl()
@@ -20,7 +20,7 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
     public AEnumerationLiteralDecl(
         @SuppressWarnings("hiding") TEnumerationLiteral _enumerationLiteral_,
         @SuppressWarnings("hiding") TIdentifier _identifier_,
-        @SuppressWarnings("hiding") PEnumerationLiteralValues _enumerationLiteralValues_,
+        @SuppressWarnings("hiding") PEnumerationLiteralSlotValues _enumerationLiteralSlotValues_,
         @SuppressWarnings("hiding") TSemicolon _semicolon_)
     {
         // Constructor
@@ -28,7 +28,7 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
 
         setIdentifier(_identifier_);
 
-        setEnumerationLiteralValues(_enumerationLiteralValues_);
+        setEnumerationLiteralSlotValues(_enumerationLiteralSlotValues_);
 
         setSemicolon(_semicolon_);
 
@@ -40,7 +40,7 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
         return new AEnumerationLiteralDecl(
             cloneNode(this._enumerationLiteral_),
             cloneNode(this._identifier_),
-            cloneNode(this._enumerationLiteralValues_),
+            cloneNode(this._enumerationLiteralSlotValues_),
             cloneNode(this._semicolon_));
     }
 
@@ -99,16 +99,16 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
         this._identifier_ = node;
     }
 
-    public PEnumerationLiteralValues getEnumerationLiteralValues()
+    public PEnumerationLiteralSlotValues getEnumerationLiteralSlotValues()
     {
-        return this._enumerationLiteralValues_;
+        return this._enumerationLiteralSlotValues_;
     }
 
-    public void setEnumerationLiteralValues(PEnumerationLiteralValues node)
+    public void setEnumerationLiteralSlotValues(PEnumerationLiteralSlotValues node)
     {
-        if(this._enumerationLiteralValues_ != null)
+        if(this._enumerationLiteralSlotValues_ != null)
         {
-            this._enumerationLiteralValues_.parent(null);
+            this._enumerationLiteralSlotValues_.parent(null);
         }
 
         if(node != null)
@@ -121,7 +121,7 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
             node.parent(this);
         }
 
-        this._enumerationLiteralValues_ = node;
+        this._enumerationLiteralSlotValues_ = node;
     }
 
     public TSemicolon getSemicolon()
@@ -155,7 +155,7 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
         return ""
             + toString(this._enumerationLiteral_)
             + toString(this._identifier_)
-            + toString(this._enumerationLiteralValues_)
+            + toString(this._enumerationLiteralSlotValues_)
             + toString(this._semicolon_);
     }
 
@@ -175,9 +175,9 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
             return;
         }
 
-        if(this._enumerationLiteralValues_ == child)
+        if(this._enumerationLiteralSlotValues_ == child)
         {
-            this._enumerationLiteralValues_ = null;
+            this._enumerationLiteralSlotValues_ = null;
             return;
         }
 
@@ -206,9 +206,9 @@ public final class AEnumerationLiteralDecl extends PEnumerationLiteralDecl
             return;
         }
 
-        if(this._enumerationLiteralValues_ == oldChild)
+        if(this._enumerationLiteralSlotValues_ == oldChild)
         {
-            setEnumerationLiteralValues((PEnumerationLiteralValues) newChild);
+            setEnumerationLiteralSlotValues((PEnumerationLiteralSlotValues) newChild);
             return;
         }
 

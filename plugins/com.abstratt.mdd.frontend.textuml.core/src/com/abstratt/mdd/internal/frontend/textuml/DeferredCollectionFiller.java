@@ -31,6 +31,7 @@ import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.internal.frontend.textuml.node.AAnySingleTypeIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedSingleTypeIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.ATypeIdentifier;
+import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 import com.abstratt.mdd.internal.frontend.textuml.node.PTypeIdentifier;
 
 /**
@@ -77,8 +78,8 @@ public class DeferredCollectionFiller extends AbstractTypeResolver implements No
 	}
 	private List<NamedElement> target;
 
-	public DeferredCollectionFiller(CompilationContext context, Namespace currentPackage, List<NamedElement> target ) {
-		super(context, currentPackage);
+	public DeferredCollectionFiller(SourceCompilationContext<Node> sourceContext, Namespace currentPackage, List<NamedElement> target ) {
+		super(sourceContext, currentPackage);
 		this.target = target;
 	}
 

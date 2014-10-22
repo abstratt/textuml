@@ -4,7 +4,7 @@ import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.StructuredClassifier;
 
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 
 public class PropertyBuilder extends TypedElementBuilder<Property> {
 

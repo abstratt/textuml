@@ -16,9 +16,9 @@ import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.uml2.uml.Package;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.frontend.core.ICompilationDirector;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.LocationContext;
 import com.abstratt.mdd.frontend.internal.core.CompilationDirector;
 
@@ -88,7 +88,11 @@ public class FixtureHelper {
 		List<IFileStore> sourceFiles = createProject(sourceRoot, sourcesByPaths);
 		ICompilationDirector director = CompilationDirector.getInstance();
 		LocationContext context = new LocationContext(defaultOutputDir);
-		return director.compile(sourceFiles.toArray(new IFileStore[0]), repository, context, ICompilationDirector.FULL_BUILD | ICompilationDirector.DEBUG, null);
+		long start = System.currentTimeMillis();
+		IProblem[] result = director.compile(sourceFiles.toArray(new IFileStore[0]), repository, context, ICompilationDirector.FULL_BUILD | ICompilationDirector.DEBUG, null);
+		long end = System.currentTimeMillis();
+		System.out.println((end - start) + "ms - " + baseDir);
+		return result;
 	}
 
 	public List<IFileStore> createProject(IFileStore sourceRoot, Map<String, String> sourcesByPaths)

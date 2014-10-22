@@ -5,10 +5,21 @@
 
 #Features
 
-Since 1.9
+Since 2.0
 ----------------
 
 -   Released: in progress
+-   Requirements: Eclipse 4.4 or later, Java 6 or later.
+
+### New textual notation features
+-   Type inference for local vars
+-   Complex expressions for [parameter default values](https://github.com/abstratt/textuml/issues/36)
+
+
+Since 1.9
+----------------
+
+-   Released: 2013
 -   Requirements: Eclipse 3.8 or later, Java 6 or later.
 
 ### New textual notation features

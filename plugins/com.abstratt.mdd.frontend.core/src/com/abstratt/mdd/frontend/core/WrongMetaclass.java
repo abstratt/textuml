@@ -3,6 +3,8 @@ package com.abstratt.mdd.frontend.core;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
 
+import com.abstratt.mdd.core.Problem;
+
 
 public class WrongMetaclass extends Problem {
 

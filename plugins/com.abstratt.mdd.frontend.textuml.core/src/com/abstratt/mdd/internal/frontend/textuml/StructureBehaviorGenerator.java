@@ -22,15 +22,12 @@ import org.eclipse.uml2.uml.Reception;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
-import org.eclipse.uml2.uml.ValueSpecification;
 
 import com.abstratt.mdd.core.IRepository;
-import com.abstratt.mdd.core.util.ActivityUtils;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.ReceptionUtils;
-import com.abstratt.mdd.core.util.TypeUtils;
-import com.abstratt.mdd.frontend.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
@@ -43,7 +40,6 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AAttributeInvariant;
 import com.abstratt.mdd.internal.frontend.textuml.node.ABehavioralFeatureBody;
 import com.abstratt.mdd.internal.frontend.textuml.node.AClassDef;
 import com.abstratt.mdd.internal.frontend.textuml.node.AClassHeader;
-import com.abstratt.mdd.internal.frontend.textuml.node.AComplexInitializationExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.AConstraintException;
 import com.abstratt.mdd.internal.frontend.textuml.node.ADetachedOperationDef;
 import com.abstratt.mdd.internal.frontend.textuml.node.ADetachedOperationHeader;
@@ -72,7 +68,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 	public StructureBehaviorGenerator(CompilationContext context) {
 		super(context);
 	}
-
+	
 	@Override
 	public void caseADetachedOperationDef(ADetachedOperationDef node) {
 		// find behavioral feature
@@ -197,10 +193,6 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 				
 				@Override
 				public void caseAAttributeDecl(AAttributeDecl node) {
-				    // init or derivation expression
-					if (node.getInitializationExpression() instanceof AComplexInitializationExpression)
-   						buildAttributeInitialization(node, (AComplexInitializationExpression) node.getInitializationExpression());
-					
 					// invariants
 					if (node.getAttributeInvariant() != null)
 					    for (PAttributeInvariant invariant : node.getAttributeInvariant())
@@ -316,32 +308,6 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 		}
 	}
 
-	private void buildAttributeInitialization(AAttributeDecl node, AComplexInitializationExpression initializationExpression) {
-		final String attributeName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
-		Namespace currentNamespace = namespaceTracker.currentNamespace(null);
-		if (!(currentNamespace instanceof Class)) {
-			problemBuilder.addWarning(currentNamespace.eClass().getName() + " cannot have complex initialization expressions, initialization ignored", initializationExpression);
-			return;
-		}
-		final Class currentClass = (Class) currentNamespace;
-		Property currentAttribute =
-						(Property) currentClass.getAttribute(attributeName, null);
-		if (currentAttribute == null)
-			// could not find the attribute, probably due to a structure compilation failure
-			return;
-		// FIXME - why are we creating activity ad-hoc (instead of using ActivityBuilder)?
-		Activity activity = (Activity) currentClass.createNestedClassifier(null, IRepository.PACKAGE.getActivity());
-		activity.setIsReadOnly(true);
-		activity.setName("defaultValue_" + currentAttribute.getName());
-		Parameter activityReturn = activity.createOwnedParameter(null, null);
-		activityReturn.setDirection(ParameterDirectionKind.RETURN_LITERAL);
-		TypeUtils.copyType(currentAttribute, activityReturn);
-		createBody(initializationExpression.getExpressionBlock(), activity);
-		ValueSpecification reference = ActivityUtils.buildBehaviorReference(namespaceTracker.currentPackage(), activity, null);
-		currentAttribute.setDefaultValue(reference);
-	}
-
-	
 	/**
 	 * {@link AOperationBody} is the first node we visit.
 	 */

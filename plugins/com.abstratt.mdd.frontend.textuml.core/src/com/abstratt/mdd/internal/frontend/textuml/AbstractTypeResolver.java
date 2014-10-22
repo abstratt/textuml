@@ -35,9 +35,12 @@ import com.abstratt.mdd.internal.frontend.textuml.node.PQualifiedIdentifier;
 
 public abstract class AbstractTypeResolver {
 
-	public AbstractTypeResolver(CompilationContext context,
+	private SourceCompilationContext<Node> sourceContext;
+
+    public AbstractTypeResolver(SourceCompilationContext<Node> sourceContext,
 			Namespace currentNamespace) {
-		this.context = context;
+		this.context = sourceContext.getContext();
+		this.sourceContext = sourceContext;
 		this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), new SCCTextUMLSourceMiner());
 		this.currentNamespace = currentNamespace;
 	}
@@ -51,6 +54,10 @@ public abstract class AbstractTypeResolver {
 		return context;
 	}
 
+	protected SourceCompilationContext<Node> getSourceContext() {
+        return sourceContext;
+    }
+	
 	protected Namespace getCurrentNamespace() {
 		return currentNamespace;
 	}

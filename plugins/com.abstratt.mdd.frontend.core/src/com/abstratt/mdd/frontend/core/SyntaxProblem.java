@@ -13,6 +13,8 @@ package com.abstratt.mdd.frontend.core;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.abstratt.mdd.core.Problem;
+
 
 public class SyntaxProblem extends Problem {
 	// the format of lexer/parser exceptions is:

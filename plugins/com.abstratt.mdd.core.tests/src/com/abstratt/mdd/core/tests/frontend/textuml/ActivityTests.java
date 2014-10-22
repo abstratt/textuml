@@ -7,7 +7,9 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.AddStructuralFeatureValueAction;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
 import org.eclipse.uml2.uml.Operation;
@@ -16,12 +18,12 @@ import org.eclipse.uml2.uml.ValueSpecificationAction;
 import org.eclipse.uml2.uml.Variable;
 import org.eclipse.uml2.uml.util.UMLUtil;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
-import com.abstratt.mdd.frontend.core.IProblem;
 import com.abstratt.mdd.frontend.core.NotInAssociation;
 import com.abstratt.mdd.frontend.core.ReturnStatementRequired;
 import com.abstratt.mdd.frontend.core.ReturnValueNotExpected;
@@ -629,15 +631,14 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		String source = "";
 		source += "model simple;\n";
 		source += "import base;\n";
-		source += "  class A attribute b : B; end;\n";
+		source += "  class A attribute bs : B[*]; end;\n";
 		source += "  class B attribute a : A; end;\n";
-		source += "  association AB role A.b; role B.a; end;\n";
+		source += "  association AB role A.bs; role B.a; end;\n";
 		source += "  class SimpleClass\n";
-		source += "    operation linkOp(a : A, b : B); begin link AB (a := a, b := b); end;\n";
-		source += "    operation unlinkOp(a : A, b : B); begin unlink AB (a := a, b := b); end;\n";
+		source += "    operation linkOp(a : A, b : B); begin link AB (a := a, bs := b); end;\n";
+		source += "    operation unlinkOp(a : A, b : B); begin unlink AB (a := a, bs := b); end;\n";
 		source += "  end;\n";
 		source += "end.";
 		parseAndCheck(source);
 	}
-
 }

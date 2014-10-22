@@ -10,6 +10,8 @@
  *******************************************************************************/ 
 package com.abstratt.mdd.frontend.core;
 
+import com.abstratt.mdd.core.Problem;
+
 public class UnboundTemplate extends Problem {
 
 	private String typeName;
