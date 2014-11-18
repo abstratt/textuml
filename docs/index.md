@@ -3,7 +3,7 @@
 {% include github.html %}
 ## TextUML Toolkit Documentation
 
--   **[Instructions](install.md)** for installing the TextUML Toolkit. Note you can also
+-   **[Instructions](install.html)** for installing the TextUML Toolkit. Note you can also
     use TextUML in
     [Cloudfier](http://cloudfier.com/ "http://cloudfier.com"), an online
     IDE and deployment platform for TextUML-based applications.

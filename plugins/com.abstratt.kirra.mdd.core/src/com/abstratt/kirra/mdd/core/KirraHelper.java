@@ -698,16 +698,20 @@ public class KirraHelper {
         return get(current, "isApplication", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return StereotypeUtils.hasProfile(current, "kirra") && hasEntityOrService(current);
+                return StereotypeUtils.hasProfile(current, "kirra") && hasKirraType(current);
             }
         });
     }
     
-    public static boolean hasEntityOrService(final org.eclipse.uml2.uml.Package current) {
+    public static boolean hasKirraType(final org.eclipse.uml2.uml.Package current) {
         for (Type type : current.getOwnedTypes())
-            if (isEntity(type) || isService(type))
+            if (isKirraType(type))
                 return true;
         return false;
+    }
+
+    private static boolean isKirraType(Type type) {
+        return isEntity(type) || isService(type) || isTupleType(type);
     }
 
     public static boolean isUnique(final org.eclipse.uml2.uml.Property umlAttribute) {
