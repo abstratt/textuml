@@ -298,8 +298,7 @@ public class MDDUtil {
 	}
 
 	public static String getDescription(Element element) {
-		List<Comment> comments = element.getOwnedComments();
-		return comments.isEmpty() ? "" : comments.get(0).getBody().trim();
+		return ElementUtils.getComments(element);
 	}
 	
 	public static String getTypeName(Type type) {

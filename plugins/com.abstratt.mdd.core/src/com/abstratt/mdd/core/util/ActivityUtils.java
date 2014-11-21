@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.common.util.UML2Util.EObjectMatcher;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
@@ -180,6 +181,8 @@ public class ActivityUtils {
 	}
 
 	public static Action getSourceAction(ObjectNode target) {
+	    if (target == null)
+	        return null;
 		ObjectNode sourcePin = getSource(target);
 		if (sourcePin == null)
 			return null;
@@ -384,4 +387,14 @@ public class ActivityUtils {
 				&& currentBlock.getOwner().getOwner().getOwner() == getBodyNode(getOwningActivity(currentBlock));
 		return shouldIsolate;
 	}
+	
+    /**
+     * Is this action a data-sink (no outputs or no outputs being consumed)?
+     */
+    public static boolean isDataSink(Action action) {
+        for (OutputPin outputPin : action.getOutputs())
+            for (ActivityEdge activityEdge : outputPin.getOutgoings()) 
+                return false;   
+        return true;
+    }
 }
