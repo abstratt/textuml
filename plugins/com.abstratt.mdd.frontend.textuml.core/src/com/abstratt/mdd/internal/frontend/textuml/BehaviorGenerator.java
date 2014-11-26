@@ -407,10 +407,12 @@ public class BehaviorGenerator extends AbstractGenerator {
 		try {
 			fillDebugInfo(builder.getCurrentBlock(), node);
 			BehaviorGenerator.super.caseABlockKernel(node);
+			// isolation determines whether the block should be treated as a transaction 
 			Activity currentActivity = builder.getCurrentActivity();
 			if (!MDDExtensionUtils.isClosure(currentActivity))
 				if (ActivityUtils.shouldIsolate(builder.getCurrentBlock())) {
 					builder.getCurrentBlock().setMustIsolate(true);
+					// if blocks themselves are isolated, the main body does not need isolation 
 					ActivityUtils.getBodyNode(currentActivity).setMustIsolate(false);
 				}
 		} catch (AbortedScopeCompilationException e) {
