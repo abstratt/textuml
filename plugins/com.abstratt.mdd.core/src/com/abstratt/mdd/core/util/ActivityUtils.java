@@ -15,13 +15,16 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.uml2.common.util.UML2Util.EObjectMatcher;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityEdge;
 import org.eclipse.uml2.uml.ActivityFinalNode;
 import org.eclipse.uml2.uml.ActivityNode;
+import org.eclipse.uml2.uml.AddVariableValueAction;
 import org.eclipse.uml2.uml.Behavior;
+import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.ControlFlow;
@@ -49,6 +52,11 @@ public class ActivityUtils {
 
 	private static final String BODY_NODE = "body";
 
+	public static Operation getOperation(Activity activity) {
+	    BehavioralFeature specification = activity.getSpecification();
+        return specification instanceof Operation ? (Operation) specification : null;
+	}
+	
 	public static StructuredActivityNode createBodyNode(Activity currentActivity) {
 		return currentActivity.createStructuredNode(BODY_NODE);
 	}
@@ -321,6 +329,18 @@ public class ActivityUtils {
 		return terminalActions;
 	}
 	
+	public static List<Action> findMatchingActions(StructuredActivityNode target, EClass actionClass) {
+        List<Action> matchingActions = new ArrayList<Action>();
+        for (ActivityNode node : target.getNodes()) 
+            if (node.eClass() == UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE)
+                /*matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, actionClass));*/;
+            else if (node.eClass() == actionClass)
+                matchingActions.add((Action) node);
+            else
+                System.out.println(node.eClass().getName());
+        return matchingActions;
+    }
+	
     public static List<Action> findTerminals(StructuredActivityNode target) {
         List<Action> terminalActions = new ArrayList<Action>();
         for (ActivityNode node : target.getNodes()) {
@@ -339,8 +359,16 @@ public class ActivityUtils {
 				return true;
 		return false;
 	}
+	
+	public static boolean isReturnAction(Action toCheck) {
+        return toCheck instanceof AddVariableValueAction && isReturnVariable(((AddVariableValueAction) toCheck).getVariable());
+    }
 
-	/** Makes an action a final action (i.e. followed by an ActivityFinalNode). */
+	private static boolean isReturnVariable(Variable variable) {
+        return variable.getName().equals("");
+    }
+
+    /** Makes an action a final action (i.e. followed by an ActivityFinalNode). */
 	public static void makeFinal(StructuredActivityNode block, Action lastAction) {
 		ActivityFinalNode finalNode = (ActivityFinalNode) block.createNode(null,
 				UMLPackage.Literals.ACTIVITY_FINAL_NODE);
@@ -393,7 +421,7 @@ public class ActivityUtils {
      */
     public static boolean isDataSink(Action action) {
         for (OutputPin outputPin : action.getOutputs())
-            for (ActivityEdge activityEdge : outputPin.getOutgoings()) 
+            if (!outputPin.getOutgoings().isEmpty()) 
                 return false;   
         return true;
     }
