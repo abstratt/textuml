@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.common.util.UML2Util.EObjectMatcher;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
@@ -46,6 +46,7 @@ import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.ValueSpecificationAction;
 import org.eclipse.uml2.uml.Variable;
+import org.eclipse.uml2.uml.VariableAction;
 
 
 public class ActivityUtils {
@@ -55,6 +56,14 @@ public class ActivityUtils {
 	public static Operation getOperation(Activity activity) {
 	    BehavioralFeature specification = activity.getSpecification();
         return specification instanceof Operation ? (Operation) specification : null;
+	}
+	
+	public static boolean isActivityStatic(Activity activity) {
+	    if (activity.getSpecification() != null)
+	        activity.getSpecification().isStatic();
+	    if (MDDExtensionUtils.isClosure(activity))
+	        return isActivityStatic(MDDExtensionUtils.getClosureContext(activity).getActivity());
+	    return false;
 	}
 	
 	public static StructuredActivityNode createBodyNode(Activity currentActivity) {
@@ -408,6 +417,23 @@ public class ActivityUtils {
 	    // added in UML2 5.0
 	    // return context.containingActivity();
 	}
+	
+    public static StructuredActivityNode getOwningBlock(Action action) {
+        if (action.getOwner() instanceof StructuredActivityNode)
+            return (StructuredActivityNode) action.getOwner();
+        if (action.getOwner() instanceof Action)
+            return getOwningBlock((StructuredActivityNode) action.getOwner());
+        return null;
+    }
+   
+    public static VariableAction findFirstAccess(StructuredActivityNode context, final Variable variable) {
+        return (VariableAction) findNode(context, new EObjectMatcher() {
+            @Override
+            public boolean matches(EObject eObject) {
+                return eObject instanceof VariableAction && ((VariableAction) eObject).getVariable() == variable;
+            }
+        });
+    }
 
 	public static boolean shouldIsolate(StructuredActivityNode currentBlock) {
 		boolean shouldIsolate = currentBlock.getOwner() instanceof StructuredActivityNode

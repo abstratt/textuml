@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
@@ -104,7 +105,7 @@ public class MDDExtensionUtils {
 		return newClosure;
 	}
 	
-   public static Activity createConstraintBehavior(BehavioredClassifier parent, Constraint constraint) {
+    public static Activity createConstraintBehavior(BehavioredClassifier parent, Constraint constraint) {
         final Activity newConstraintBehavior =
             (Activity) parent.createOwnedBehavior(null,
                             Literals.ACTIVITY);
@@ -114,6 +115,10 @@ public class MDDExtensionUtils {
         newConstraintBehavior.applyStereotype(constraintStereotype);
         newConstraintBehavior.setValue(constraintStereotype, "constraint", constraint);
         return newConstraintBehavior;
+    }
+   
+    public static boolean isConstraintBehavior(Behavior toCheck) {
+        return StereotypeUtils.hasStereotype(toCheck, CONSTRAINT_BEHAVIOR_STEREOTYPE);
     }
    
 	public static Type createSignature(Package nearestPackage) {
