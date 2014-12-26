@@ -353,6 +353,18 @@ public class KirraHelper {
             }
         });
     }
+    
+    public static boolean isLikeLinkRelationship(final Property attribute) {
+        return get(attribute, "isLikeLinkRelationship", new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return isLinkRelationship(attribute) ||
+                        (isChildRelationship(attribute) && isTopLevel((Classifier) attribute.getType())) || 
+                        (isParentRelationship(attribute) && isTopLevel(attribute.getClass_()));
+            }
+        });
+    }
+
 
     public static boolean isRelationship(Property attribute) {
         return isRelationship(attribute, false);
@@ -582,10 +594,16 @@ public class KirraHelper {
                 for (Operation operation : umlClass.getAllOperations())
                     if (isFinder(operation))
                         return true;
+                int parentCount = 0;
+                int otherRefs = 0;
                 for (Property attribute : getRelationships(umlClass))
-                    if (attribute.getOtherEnd() != null && attribute.getOtherEnd().isComposite())
-                        return false;
-                return true;
+                    if (attribute.getOtherEnd() != null)
+                        if (attribute.getOtherEnd().isComposite())
+                            parentCount++;
+                        else if (attribute.getOtherEnd().isNavigable())
+                            otherRefs++;
+                // if has exactly one parent and no incoming references, it is not top-level
+                return parentCount != 1 || otherRefs > 0;
             }
         });
     }
