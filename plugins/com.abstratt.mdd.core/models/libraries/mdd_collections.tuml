@@ -14,7 +14,8 @@ class Collection<T>
   query isEmpty() : Boolean;
   query size() : Integer;
   query exists(predicate : {(:T) : Boolean}) : Boolean;
-  query \any(predicate : {(:T) : Boolean}[0,1]) : T;
+  query \any(predicate : {(:T) : Boolean}) : T[0,1];
+  query one() : T;
   query select(filter : {(:T) : Boolean}) : T[*];
   query collect(mapping : {(:T) : any}) : any[*];  
   query forAll(predicate : {(:T) : Boolean}) : Boolean;
