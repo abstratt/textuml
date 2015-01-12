@@ -72,11 +72,9 @@ public class KirraHelper {
     public static List<Class> addPrerequisites(Class entity, List<Class> collected) {
         if (!collected.contains(entity)) {
             collected.add(entity);
-            for (Property relationship : getRelationships(entity)) {
-                if (isPrimary(relationship) && isRequired(relationship)) {
+            for (Property relationship : getRelationships(entity))
+                if (isPrimary(relationship) && isRequired(relationship))
                     addPrerequisites((Class) relationship.getType(), collected);
-                }
-            }
         }
         return collected;
     }
