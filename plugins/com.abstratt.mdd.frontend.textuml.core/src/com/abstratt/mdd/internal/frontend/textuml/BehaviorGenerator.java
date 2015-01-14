@@ -1034,6 +1034,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 	@Override
 	public void caseAOperationIdentifierExpression(AOperationIdentifierExpression node) {
 		Classifier targetClassifier = null;
+		String operationName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
 		CallOperationAction action =
 						(CallOperationAction) builder.createAction(IRepository.PACKAGE.getCallOperationAction());
 		try {
@@ -1060,7 +1061,6 @@ public class BehaviorGenerator extends AbstractGenerator {
 				}
 				sources.add(argumentSource);
 			}
-			String operationName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
 			Operation operation = findOperation(node.getIdentifier(), targetClassifier, operationName, sources, false, true);
 			if (!operation.isQuery() && !PackageUtils.isModelLibrary(operation.getNearestPackage()))
 				ensureNotQuery(node);

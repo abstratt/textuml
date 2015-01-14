@@ -213,7 +213,7 @@ public class ActivityUtils {
 		Assert.isTrue(inputs.size() == 1);
 		return getSourceAction(inputs.get(0));
 	}
-
+	
 	public static Action getTargetAction(ObjectNode target) {
 		ObjectNode targetPin = getTarget(target);
 		if (targetPin == null)
