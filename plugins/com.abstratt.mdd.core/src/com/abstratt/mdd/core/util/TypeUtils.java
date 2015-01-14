@@ -143,13 +143,14 @@ public class TypeUtils {
 	 * element is multivalued, otherwise it will be the original type itself.
 	 */
 	public static Type getTargetType(IBasicRepository repository, TypedElement typed, boolean resolveCollectionTypes) {
-		if (!resolveCollectionTypes)
-			return typed.getType();
+		Type type = typed.getType();
+        if (!resolveCollectionTypes)
+			return type;
 		if (!(typed instanceof MultiplicityElement))
-			return typed.getType();
+			return type;
 		MultiplicityElement multiple = (MultiplicityElement) typed;
 		if (!multiple.isMultivalued())
-			return typed.getType();
+			return type;
 		final boolean ordered = multiple.isOrdered();
 		final boolean unique = multiple.isUnique();
 		String collectionTypeName =
@@ -158,7 +159,7 @@ public class TypeUtils {
 						(Classifier) repository.findNamedElement(collectionTypeName, IRepository.PACKAGE.getClass_(),
 										null);
 		Assert.isNotNull(collectionType, "Could not find collection type: " + collectionTypeName);
-		return TemplateUtils.createBinding(typed.getNearestPackage(), collectionType, Collections.singletonList(typed.getType()));
+		return TemplateUtils.createBinding(typed.getNearestPackage(), collectionType, Collections.singletonList(type));
 	}
 
 	public static boolean isCompatible(IBasicRepository repository, List<? extends TypedElement> source,
