@@ -12,28 +12,37 @@ package com.abstratt.mdd.core.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.uml2.uml.Action;
+import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.BehavioredClassifier;
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
+import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.Port;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.TemplateBinding;
 import org.eclipse.uml2.uml.TemplateSignature;
+import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.TypedElement;
 import org.eclipse.uml2.uml.UMLPackage;
 
@@ -43,6 +52,19 @@ public class FeatureUtils {
 	public static boolean isParametrizedConstraint(Constraint constraint) {
 		Behavior toExecute = ActivityUtils.resolveBehaviorReference(constraint.getSpecification());
 		return toExecute.getOwnedParameters().size() > 1;
+	}
+	
+	public static Operation createOperation(Classifier parent, String operationName) {
+        Operation operation;
+        if (parent instanceof Class)
+            operation = ((Class) parent).createOwnedOperation(operationName, null, null, null);
+        else if (parent instanceof Interface)
+            operation = ((Interface) parent).createOwnedOperation(operationName, null, null, null);
+        else if (parent instanceof DataType)
+            operation = ((DataType) parent).createOwnedOperation(operationName, null, null, null);
+        else
+            throw new IllegalArgumentException("Cannot create operation for "+ parent.eClass().getName());
+        return operation;
 	}
 	
 	public static List<Parameter> filterParameters(List<Parameter> original,
@@ -135,6 +157,38 @@ public class FeatureUtils {
 
 		return null;
 	}
+	
+	public static Map<Type, Type> buildWildcardSubstitutions(Map<Type, Type> wildcardSubstitutions, List<? extends TypedElement> parameters, List<? extends TypedElement> arguments) {
+        for (Iterator<?> argIter = arguments.iterator(), parIter = parameters
+                .iterator(); argIter.hasNext();) {
+            TypedElement parameter = (Parameter) parIter.next();
+            TypedElement argument = (TypedElement) argIter.next();
+            if (MDDExtensionUtils.isWildcardType(parameter.getType())) {
+                Type existingWildcardSub = wildcardSubstitutions.put(parameter.getType(), argument.getType());
+                if (existingWildcardSub != null && existingWildcardSub != argument.getType())
+                    return Collections.emptyMap();
+            } else if (MDDExtensionUtils.isSignature(parameter.getType())) {
+                Type signature = parameter.getType();
+                // in the case of a signature-typed parameter, we need to figure out the signature of the closure
+                // and perform substitutions based on that
+                Activity closure = (Activity) ActivityUtils.resolveBehaviorReference((Action) ((OutputPin) argument).getOwner());
+                // closure actual parameters
+                List<Parameter> closureParameters = new ArrayList<Parameter>(ActivityUtils.getClosureInputParameters(closure));
+                Parameter closureReturnParameter = ActivityUtils.getClosureReturnParameter(closure);
+                if (closureReturnParameter != null)
+                    closureParameters.add(closureReturnParameter);
+                // signature canonical parameters
+                List<Parameter> allSignatureParameters = MDDExtensionUtils.getSignatureParameters(signature);
+                List<Parameter> signatureParameters = new ArrayList<Parameter>(FeatureUtils.getInputParameters(allSignatureParameters));
+                Parameter signatureReturnParameter = FeatureUtils.getReturnParameter(allSignatureParameters);
+                if (signatureReturnParameter != null)
+                    signatureParameters.add(signatureReturnParameter);
+                
+                buildWildcardSubstitutions(wildcardSubstitutions, signatureParameters, closureParameters);
+            }
+        }
+        return wildcardSubstitutions;
+	}
 
 	public static boolean isMatch(IRepository repository, Operation operation,
 			List<TypedElement> arguments, ParameterSubstitutionMap substitutions) {
@@ -144,13 +198,19 @@ public class FeatureUtils {
 				.getOwnedParameters(), ParameterDirectionKind.IN_LITERAL);
 		if (arguments.size() != operationParameters.size())
 			return false;
+		Map<Type, Type> wildcardSubstitutions = new HashMap<Type, Type>();
 		for (Iterator<?> argIter = arguments.iterator(), parIter = operationParameters
 				.iterator(); argIter.hasNext();) {
 			Parameter parameter = (Parameter) parIter.next();
 			TypedElement argument = (TypedElement) argIter.next();
-			if (!TypeUtils.isCompatible(repository, argument, parameter,
-					substitutions))
-				return false;
+            if (MDDExtensionUtils.isWildcardType(parameter.getType())) {
+                Type existingWildcardSub = wildcardSubstitutions.put(parameter.getType(), argument.getType());
+                if (existingWildcardSub != null && existingWildcardSub != argument.getType())
+                    return false;
+            } else
+                if (!TypeUtils.isCompatible(repository, argument, parameter,
+                        substitutions))
+                    return false;
 		}
 		return true;
 	}
@@ -216,7 +276,7 @@ public class FeatureUtils {
 		return filterParameters(ownedParameters, ParameterDirectionKind.IN_LITERAL, ParameterDirectionKind.INOUT_LITERAL);
 	}
 
-	public static Parameter getReturnParameter(EList<Parameter> ownedParameters) {
+	public static Parameter getReturnParameter(List<Parameter> ownedParameters) {
 		List<Parameter> found = filterParameters(ownedParameters, ParameterDirectionKind.RETURN_LITERAL);
 		return found.isEmpty() ? null : found.get(0);
 	}

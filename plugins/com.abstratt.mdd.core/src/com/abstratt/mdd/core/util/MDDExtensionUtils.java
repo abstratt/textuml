@@ -7,9 +7,11 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioredClassifier;
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.ElementImport;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.LiteralNull;
 import org.eclipse.uml2.uml.LiteralString;
@@ -21,6 +23,7 @@ import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Type;
+import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.Vertex;
@@ -30,6 +33,10 @@ public class MDDExtensionUtils {
 	private static final String VERTEX_LITERAL_STEREOTYPE = "mdd_extensions::VertexLiteral";
 	private static final String CLOSURE_STEREOTYPE = "mdd_extensions::Closure";
 	private static final String CONSTRAINT_BEHAVIOR_STEREOTYPE = "mdd_extensions::ConstraintBehavior";
+	private static final String WILDCARD_TYPE_STEREOTYPE = "mdd_extensions::WildcardType";
+	private static final String WILDCARD_TYPE_CONTEXT = "context";
+	public static final String WILDCARD_TYPE_CONTEXT_STEREOTYPE = "mdd_extensions::WildcardTypeContext";
+	public static final String WILDCARD_TYPE_CONTEXT_TYPES = "wildcardTypes";
 	public static final String DEBUGGABLE_STEREOTYPE = "mdd_extensions::Debuggable";
 	private static final String ENTRY_POINT_STEREOTYPE = "mdd_extensions::EntryPoint";
 	private static final String EXTERNAL_CLASS_STEREOTYPE = "mdd_extensions::External";
@@ -37,6 +44,7 @@ public class MDDExtensionUtils {
 	private static final String ATTRIBUTE_INITIALIZATION_STEREOTYPE = "mdd_extensions::AttributeInitialization";
 	private static final String PERSISTENT_STEREOTYPE = "mdd_extensions::Persistent";
 	private static final String SIGNATURE_STEREOTYPE = "mdd_extensions::Signature";
+	private static final String SIGNATURE_CONTEXT = "context";	
 	private static final String RULE_STEREOTYPE = "mdd_extensions::Rule";
 	public static final String INVARIANT_STEREOTYPE = "mdd_extensions::Invariant";
 	public static final String ACCESS_STEREOTYPE = "mdd_extensions::Access";
@@ -116,16 +124,62 @@ public class MDDExtensionUtils {
         newConstraintBehavior.setValue(constraintStereotype, "constraint", constraint);
         return newConstraintBehavior;
     }
+    
+    public static boolean isWildcardType(Type toCheck) {
+        return StereotypeUtils.hasStereotype(toCheck, WILDCARD_TYPE_STEREOTYPE);
+    }
+    
+    public static Namespace getWildcardTypeContext(Type wildcardType) {
+        Stereotype wildcardTypeStereotype = wildcardType.getAppliedStereotype(WILDCARD_TYPE_STEREOTYPE);
+        return (Namespace) wildcardType.getValue(wildcardTypeStereotype, WILDCARD_TYPE_CONTEXT);
+    }
+    
+    public static boolean isWildcardTypeContext(NamedElement toCheck) {
+        return StereotypeUtils.hasStereotype(toCheck, WILDCARD_TYPE_CONTEXT_STEREOTYPE);
+    }
+    
+    public static List<Type> getWildcardTypes(Namespace context) {
+        Stereotype contextStereotype = context.getAppliedStereotype(WILDCARD_TYPE_CONTEXT_STEREOTYPE);
+        return (List<Type>) context.getValue(contextStereotype, WILDCARD_TYPE_CONTEXT_TYPES);
+    }
+    
+    public static String computeWildcardTypeName(String simpleName, Namespace context) {
+        return "__wildcard_" + context.getName() + simpleName;
+    }
+    
+    public static Class createWildcardType(Namespace context, String name) {
+        Class wildcardType = ClassifierUtils.createClassifier(context, null, Literals.CLASS);
+        if (context.getNearestPackage() != context) {
+            ElementImport elementImport = context.createElementImport(wildcardType);
+            elementImport.setAlias(name);
+        }
+        Stereotype constraintStereotype = StereotypeUtils.findStereotype(WILDCARD_TYPE_STEREOTYPE);
+        wildcardType.applyStereotype(constraintStereotype);
+        wildcardType.setValue(constraintStereotype, WILDCARD_TYPE_CONTEXT, context);
+        
+        Stereotype contextStereotype = StereotypeUtils.findStereotype(WILDCARD_TYPE_CONTEXT_STEREOTYPE);
+        List<Type> newTypes;
+        if (!context.isStereotypeApplied(contextStereotype)) {
+            context.applyStereotype(contextStereotype);
+            newTypes = new ArrayList<Type>();
+        } else
+            newTypes = new ArrayList<Type>((List<Type>) context.getValue(contextStereotype, WILDCARD_TYPE_CONTEXT_TYPES));
+        newTypes.add(wildcardType);
+        context.setValue(contextStereotype, WILDCARD_TYPE_CONTEXT_TYPES, newTypes);
+        return wildcardType;
+    }
    
     public static boolean isConstraintBehavior(Behavior toCheck) {
         return StereotypeUtils.hasStereotype(toCheck, CONSTRAINT_BEHAVIOR_STEREOTYPE);
     }
    
-	public static Type createSignature(Package nearestPackage) {
-		Interface signature = (Interface) nearestPackage.createOwnedType(null, Literals.INTERFACE);
+	public static Type createSignature(Namespace namespace) {
+	    namespace = NamedElementUtils.findNearestNamespace(namespace, UMLPackage.Literals.PACKAGE, UMLPackage.Literals.CLASS);
+		Interface signature = ClassifierUtils.createClassifier(namespace, null, Literals.INTERFACE);
 		signature.createOwnedOperation("signatureOperation", null, null);
 		Stereotype signatureStereotype = StereotypeUtils.findStereotype(SIGNATURE_STEREOTYPE);
 		signature.applyStereotype(signatureStereotype);
+		signature.setValue(signatureStereotype, SIGNATURE_CONTEXT, namespace);
 		return signature;
 	}
 	

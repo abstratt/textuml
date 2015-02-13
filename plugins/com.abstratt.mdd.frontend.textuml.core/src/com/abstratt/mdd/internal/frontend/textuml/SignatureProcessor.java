@@ -17,12 +17,14 @@ import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.ParameterEffectKind;
+import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
+import com.abstratt.mdd.core.util.NamedElementUtils;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
-import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
@@ -145,5 +147,4 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
 		}
 		addRaisedException(qualifiedIdentifier, node.getMinimalTypeIdentifier());
 	}
-
 }

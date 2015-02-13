@@ -85,9 +85,7 @@ public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<No
 			node.getFunctionSignature().apply(new SignatureProcessor(getSourceContext(), getCurrentNamespace(), true, true) {
 				@Override
 				protected Parameter createParameter(String name) {
-					final Parameter created = MDDExtensionUtils.createSignatureParameter(signature, name, null);
-					created.setName(name);
-					return created;
+					return MDDExtensionUtils.createSignatureParameter(signature, name, null);
 				}
 			});
 			setType(signature);

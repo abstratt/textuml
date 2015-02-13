@@ -29,15 +29,16 @@ public class ParameterSubstitutionMap {
 		this(startingPoint.getBoundElement());
 	}
 	
-	public ParameterSubstitutionMap(TemplateableElement startingPoint) {
-		addSubstitutions(startingPoint);
+	public ParameterSubstitutionMap(TemplateableElement... startingPoints) {
+	    for (TemplateableElement current : startingPoints)
+	        addSubstitutions(current);
 	}
 
-	private void addSubstitution(TemplateParameterSubstitution substitution) {
+	public void addSubstitution(TemplateParameterSubstitution substitution) {
 		substitutions.put(substitution.getFormal().getParameteredElement(), UML2Compatibility.getActualParameter(substitution));
 	}
 
-	private void addSubstitutions(TemplateableElement bound) {
+	public void addSubstitutions(TemplateableElement bound) {
 		EList<TemplateBinding> allBindings = bound.getTemplateBindings();
 		for (TemplateBinding templateBinding : allBindings) {
 			for (TemplateParameterSubstitution substitution : templateBinding.getParameterSubstitutions())
@@ -59,11 +60,11 @@ public class ParameterSubstitutionMap {
 	 * @param parameterable
 	 * @return the resolved parameter, or <code>null</code>
 	 */
-	public ParameterableElement resolveTemplateParameter(ParameterableElement parameterable) {
+	public <PE extends ParameterableElement> PE resolveTemplateParameter(PE parameterable) {
 		if (!parameterable.isTemplateParameter())
 			return parameterable;
-		ParameterableElement substituted = substitutions.get(parameterable);
-		if (substituted == null || !substituted.isTemplateParameter())
+		PE substituted = (PE) substitutions.get(parameterable);
+		if (substituted == null || !substituted.isTemplateParameter() || substituted == parameterable)
 			return substituted;
 		return resolveTemplateParameter(substituted);
 	}

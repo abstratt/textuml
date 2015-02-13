@@ -167,15 +167,33 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		parseAndCheck(getSimpleModelSource(), source);
 	}
 	
+	public void testReduce() throws CoreException {
+        String source = "";
+        source += "model simple;\n";
+        source += "class TestDriver\n";
+        source += "  static operation reduction() : Integer;\n";
+        source += "  begin\n";
+        source += "    return Account extent.reduce(\n";
+        source += "        (account : Account, total : Integer) : Integer {\n";
+        source += "            account.balance + total\n";
+        source += "        },\n";
+        source += "        0\n";
+        source += "    );\n";
+        source += "  end;\n";
+        source += "end;\n";
+        source += "end.";
+        parseAndCheck(getSimpleModelSource(), source);
+    }
+	
 	public void testGroupBy() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
 		source += "class TestDriver\n";
-		source += "  static operation grouping() : Grouping<Customer>;\n";
+		source += "  static operation grouping() : Grouping<Account>;\n";
 		source += "  begin\n";
-		source += "    return (Account extent.groupBy((account : Account) : Customer {\n";
+		source += "    return Account extent.groupBy((account : Account) : Customer {\n";
 		source += "        account<-AccountCustomer->owner\n";
-		source += "    }) as Grouping<Customer>) ;\n";
+		source += "    });\n";
 		source += "  end;\n";
 		source += "end;\n";
 		source += "end.";

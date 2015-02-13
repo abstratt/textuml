@@ -12,8 +12,10 @@ package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.EList;
@@ -529,14 +531,16 @@ public class BehaviorGenerator extends AbstractGenerator {
 			super.caseAClassOperationIdentifierExpression(node);
 			// collect sources so we can match the right operation (in
 			// case of overloading)
-			List<TypedElement> sources = new ArrayList<TypedElement>();
+			List<ObjectNode> sources = new ArrayList<ObjectNode>();
 			for (InputPin argument : action.getArguments())
 				sources.add(ActivityUtils.getSource(argument));
 			String operationName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
-			Operation operation = findOperation(node.getIdentifier(), targetClassifier, operationName, sources, true, true);
+			Operation operation = findOperation(node.getIdentifier(), targetClassifier, operationName, new ArrayList<TypedElement>(sources), true, true);
 			if (!operation.isQuery() && !PackageUtils.isModelLibrary(operation.getNearestPackage()))
 				ensureNotQuery(node);
 			action.setOperation(operation);
+			List<Parameter> inputParameters = FeatureUtils.getInputParameters(operation.getOwnedParameters());
+            Map<Type, Type> wildcardSubstitutions = FeatureUtils.buildWildcardSubstitutions(new HashMap<Type, Type>(), inputParameters, sources);
 			int argumentPos = 0;
 			for (Parameter current : operation.getOwnedParameters()) {
 				OutputPin result;
@@ -553,8 +557,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 					break;
 				case ParameterDirectionKind.RETURN:
 					// there should be only one of these
+				    Assert.isTrue(action.getResults().isEmpty());
 					result = builder.registerOutput(action.createResult(null, null));
 					TypeUtils.copyType(current, result, targetClassifier);
+					resolveWildcardTypes(wildcardSubstitutions, current, result);
 					break;
 				case ParameterDirectionKind.OUT:
 				case ParameterDirectionKind.INOUT:
@@ -571,6 +577,43 @@ public class BehaviorGenerator extends AbstractGenerator {
 		}
 		checkIncomings(action, node.getIdentifier(), getBoundElement());
 	}
+
+	/**
+	 * In the context of an operation call, copies types from source to target for every target that still has a wildcard type.
+	 * 
+	 * In the case of a target that is a signature, 
+	 * @param wildcardSubstitutions
+	 * @param source
+	 * @param target
+	 */
+    private void resolveWildcardTypes(Map<Type, Type> wildcardSubstitutions, TypedElement source, TypedElement target) {
+        if (wildcardSubstitutions.isEmpty())
+            return;
+        if (MDDExtensionUtils.isWildcardType(target.getType())) {
+            Type subbedType = wildcardSubstitutions.get(source.getType());
+            if (subbedType != null)
+                target.setType(subbedType);
+        } else if (MDDExtensionUtils.isSignature(target.getType())) {
+            List<Parameter> originalSignatureParameters = MDDExtensionUtils.getSignatureParameters(target.getType());
+            boolean signatureUsesWildcardTypes = false;
+            for (Parameter parameter : originalSignatureParameters) {
+                if (MDDExtensionUtils.isWildcardType(parameter.getType())) {
+                    signatureUsesWildcardTypes = true;
+                    break;
+                }
+            }
+            if (signatureUsesWildcardTypes) {
+                Activity closure = (Activity) ActivityUtils.resolveBehaviorReference((Action) ((OutputPin) source).getOwner());
+                Type resolvedSignature = MDDExtensionUtils.createSignature(namespaceTracker.currentNamespace(null));
+                for (Parameter closureParameter : closure.getOwnedParameters()) {
+                    Parameter resolvedParameter = MDDExtensionUtils.createSignatureParameter(resolvedSignature, closureParameter.getName(), closureParameter.getType());
+                    resolvedParameter.setDirection(closureParameter.getDirection());
+                    resolvedParameter.setUpper(closureParameter.getUpper());
+                }
+                target.setType(resolvedSignature);
+            }
+        }
+    }
 
 	@Override
 	public void caseAClosureExpression(AClosureExpression node) {
@@ -1030,7 +1073,8 @@ public class BehaviorGenerator extends AbstractGenerator {
 		}
 		checkIncomings(action, node.getSignal(), getBoundElement());
 	}
-
+	
+	//FIXME a lot of duplication between this and caseAClassOperationIdentifierExpression
 	@Override
 	public void caseAOperationIdentifierExpression(AOperationIdentifierExpression node) {
 		Classifier targetClassifier = null;
@@ -1065,6 +1109,8 @@ public class BehaviorGenerator extends AbstractGenerator {
 			if (!operation.isQuery() && !PackageUtils.isModelLibrary(operation.getNearestPackage()))
 				ensureNotQuery(node);
 			action.setOperation(operation);
+			List<Parameter> inputParameters = FeatureUtils.getInputParameters(operation.getOwnedParameters());
+			Map<Type, Type> wildcardSubstitutions = FeatureUtils.buildWildcardSubstitutions(new HashMap<Type, Type>(), inputParameters, sources);
 			int argumentPos = 0;
 			for (Parameter current : operation.getOwnedParameters()) {
 				OutputPin result;
@@ -1081,8 +1127,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 					break;
 				case ParameterDirectionKind.RETURN:
 					// there should be only one of these
+				    Assert.isTrue(action.getResults().isEmpty());
 					result = builder.registerOutput(action.createResult(null, null));
 					TypeUtils.copyType(current, result, targetClassifier);
+					resolveWildcardTypes(wildcardSubstitutions, current, result);
 					break;
 				case ParameterDirectionKind.OUT:
 				case ParameterDirectionKind.INOUT:
@@ -1641,8 +1689,8 @@ public class BehaviorGenerator extends AbstractGenerator {
 
 	private Operation findOperation(Node node, Classifier classifier, String operationName, List<TypedElement> arguments,
 			boolean isStatic, boolean required) {
-		Operation found = FeatureUtils.findOperation(getRepository(), classifier, operationName, arguments, 
-							false, true);
+        Operation found = FeatureUtils.findOperation(getRepository(), classifier, operationName, arguments, 
+                false, true);
 		if (found != null) {
 			if (found.isStatic() != isStatic) {
 				problemBuilder.addError((isStatic ? "Static" : "Non-static")+ " operation expected: '" + operationName + "' in '"

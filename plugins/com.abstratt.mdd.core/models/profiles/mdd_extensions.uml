@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.1">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/10/08 08:37:15 276 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2015/02/11 07:28:44 541 -0200"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -91,6 +91,9 @@
       </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature" name="Signature">
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Signature"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature-context" name="context" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Namespace"/>
+        </eStructuralFeatures>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature-base_Interface" name="base_Interface" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Interface"/>
         </eStructuralFeatures>
@@ -147,6 +150,24 @@
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-PropertyDerivation-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="PropertyDerivation"/>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-PropertyDerivation-base_Constraint" name="base_Constraint" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardType" name="WildcardType">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardType-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="WildcardType"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardType-context" name="context" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Namespace"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardType-base_Type" name="base_Type" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Type"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardTypeContext" name="WildcardTypeContext">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardTypeContext-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="WildcardTypeContext"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardTypeContext-wildcardTypes" name="wildcardTypes" ordered="false" upperBound="-1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Type"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardTypeContext-base_Namespace" name="base_Namespace" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Namespace"/>
         </eStructuralFeatures>
       </eClassifiers>
     </contents>
@@ -266,6 +287,11 @@
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="Signature" name="Signature">
+    <ownedAttribute xmi:id="Signature-context" name="context">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Namespace"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Signature-context-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Signature-context-_upperValue" value="1"/>
+    </ownedAttribute>
     <ownedAttribute xmi:id="Signature-base_Interface" name="base_Interface" association="Interface_Signature">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Interface"/>
     </ownedAttribute>
@@ -325,6 +351,26 @@
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
     </ownedAttribute>
   </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="WildcardType" name="WildcardType">
+    <ownedAttribute xmi:id="WildcardType-context" name="context">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Namespace"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="WildcardType-context-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="WildcardType-context-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="WildcardType-base_Type" name="base_Type" association="Type_WildcardType">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Type"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="WildcardTypeContext" name="WildcardTypeContext">
+    <ownedAttribute xmi:id="WildcardTypeContext-wildcardTypes" name="wildcardTypes">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Type"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="WildcardTypeContext-wildcardTypes-_lowerValue"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="WildcardTypeContext-wildcardTypes-_upperValue" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="WildcardTypeContext-base_Namespace" name="base_Namespace" association="Namespace_WildcardTypeContext">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Namespace"/>
+    </ownedAttribute>
+  </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Class_Test" name="Class_Test" memberEnd="Class_Test-extension_Test Test-base_Class">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Class_Test-extension_Test" name="extension_Test" type="Test" aggregation="composite" association="Class_Test"/>
   </packagedElement>
@@ -378,5 +424,11 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_PropertyDerivation" name="Constraint_PropertyDerivation" memberEnd="Constraint_PropertyDerivation-extension_PropertyDerivation PropertyDerivation-base_Constraint">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_PropertyDerivation-extension_PropertyDerivation" name="extension_PropertyDerivation" type="PropertyDerivation" aggregation="composite" association="Constraint_PropertyDerivation"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Type_WildcardType" name="Type_WildcardType" memberEnd="Type_WildcardType-extension_WildcardType WildcardType-base_Type">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Type_WildcardType-extension_WildcardType" name="extension_WildcardType" type="WildcardType" aggregation="composite" association="Type_WildcardType"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Namespace_WildcardTypeContext" name="Namespace_WildcardTypeContext" memberEnd="Namespace_WildcardTypeContext-extension_WildcardTypeContext WildcardTypeContext-base_Namespace">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Namespace_WildcardTypeContext-extension_WildcardTypeContext" name="extension_WildcardTypeContext" type="WildcardTypeContext" aggregation="composite" association="Namespace_WildcardTypeContext"/>
   </packagedElement>
 </uml:Profile>

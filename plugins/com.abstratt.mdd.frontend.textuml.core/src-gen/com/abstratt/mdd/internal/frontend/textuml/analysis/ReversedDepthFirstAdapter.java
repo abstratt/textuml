@@ -3734,6 +3734,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getIdentifier().apply(this);
         }
+        if(node.getWildcardTypes() != null)
+        {
+            node.getWildcardTypes().apply(this);
+        }
         if(node.getOperationKeyword() != null)
         {
             node.getOperationKeyword().apply(this);
@@ -3781,6 +3785,106 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getQuery().apply(this);
         }
         outAQueryOperationKeyword(node);
+    }
+
+    public void inAWildcardTypes(AWildcardTypes node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAWildcardTypes(AWildcardTypes node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAWildcardTypes(AWildcardTypes node)
+    {
+        inAWildcardTypes(node);
+        if(node.getRab() != null)
+        {
+            node.getRab().apply(this);
+        }
+        if(node.getWildcardTypeTail() != null)
+        {
+            node.getWildcardTypeTail().apply(this);
+        }
+        if(node.getWildcardType() != null)
+        {
+            node.getWildcardType().apply(this);
+        }
+        if(node.getLab() != null)
+        {
+            node.getLab().apply(this);
+        }
+        outAWildcardTypes(node);
+    }
+
+    public void inAEmptyWildcardTypeTail(AEmptyWildcardTypeTail node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEmptyWildcardTypeTail(AEmptyWildcardTypeTail node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEmptyWildcardTypeTail(AEmptyWildcardTypeTail node)
+    {
+        inAEmptyWildcardTypeTail(node);
+        outAEmptyWildcardTypeTail(node);
+    }
+
+    public void inAWildcardTypeTail(AWildcardTypeTail node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAWildcardTypeTail(AWildcardTypeTail node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAWildcardTypeTail(AWildcardTypeTail node)
+    {
+        inAWildcardTypeTail(node);
+        if(node.getWildcardTypeTail() != null)
+        {
+            node.getWildcardTypeTail().apply(this);
+        }
+        if(node.getWildcardType() != null)
+        {
+            node.getWildcardType().apply(this);
+        }
+        if(node.getComma() != null)
+        {
+            node.getComma().apply(this);
+        }
+        outAWildcardTypeTail(node);
+    }
+
+    public void inAWildcardType(AWildcardType node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAWildcardType(AWildcardType node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAWildcardType(AWildcardType node)
+    {
+        inAWildcardType(node);
+        if(node.getIdentifier() != null)
+        {
+            node.getIdentifier().apply(this);
+        }
+        outAWildcardType(node);
     }
 
     public void inAOptionalBehavioralFeatureBody(AOptionalBehavioralFeatureBody node)

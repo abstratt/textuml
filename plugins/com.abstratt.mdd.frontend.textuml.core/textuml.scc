@@ -430,9 +430,15 @@ Productions
   
   identifier_list_tail = comma identifier ;
   
-  operation_header = operation_keyword identifier signature ;
+  operation_header = operation_keyword wildcard_types? identifier signature ;
   
   operation_keyword = {operation} operation | {query} query ;
+  
+  wildcard_types = lab wildcard_type wildcard_type_tail rab ;
+  
+  wildcard_type_tail = {empty} | comma wildcard_type wildcard_type_tail;
+  
+  wildcard_type = identifier;   
   
   optional_behavioral_feature_body = behavioral_feature_body | {empty} ;
   

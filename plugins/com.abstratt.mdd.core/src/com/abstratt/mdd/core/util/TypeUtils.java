@@ -61,7 +61,7 @@ public class TypeUtils {
 	 * @param action
 	 *            the action to check
 	 * @param substitutions
-	 *            a list of template parameter subsitutions, or
+	 *            a list of template parameter substitutions, or
 	 *            <code>null</code>
 	 * @return the offending flow, or <code>null</code>
 	 */
@@ -116,9 +116,8 @@ public class TypeUtils {
 		}
 		// if source is a template parameter, resolve it if possible  
 		Assert.isTrue(!sourceType.isTemplateParameter() || boundElement != null);
-		while (sourceType != null && sourceType.isTemplateParameter())
-			sourceType = TemplateUtils.applySubstitution(boundElement, sourceType);
-		target.setType(sourceType);
+		Type resolvedType = TemplateUtils.resolveTemplateParameters(boundElement, (Classifier) sourceType);
+		target.setType(resolvedType);
 		Assert.isLegal(source instanceof MultiplicityElement == target instanceof MultiplicityElement);
 		if (!(source instanceof MultiplicityElement))
 			return;
@@ -242,6 +241,9 @@ public class TypeUtils {
 			return false;
 		if (source == destination)
 			return true;
+		// do not check if wildcard
+		if (MDDExtensionUtils.isWildcardType(destination))
+		    return true;
 		Boolean templateCompatible = null;
 		// if destination is actually a template parameter, test compatibility with the resolved parameter
 		if (substitutions != null && destination.isTemplateParameter()) {
@@ -298,7 +300,7 @@ public class TypeUtils {
 			return true;
 		}
 		if (Boolean.TRUE.equals(templateCompatible))
-			// if they are deemed template compatible, go with that - conformance doesn't undrstand templates
+			// if they are deemed template compatible, go with that - conformance doesn't understand templates
 			return true;
 		// general type conformance
 		return source.conformsTo(destination) ;
