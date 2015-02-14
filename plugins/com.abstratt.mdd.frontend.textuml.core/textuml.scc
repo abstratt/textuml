@@ -718,7 +718,7 @@ Productions
   target = operand dot ;
   
   // closures
-  closure = simple_signature [block]: simple_block ;
+  closure = simple_signature? [block]: simple_block ;
   
   named_argument_list = named_argument named_argument_additional * | {empty} ;
   

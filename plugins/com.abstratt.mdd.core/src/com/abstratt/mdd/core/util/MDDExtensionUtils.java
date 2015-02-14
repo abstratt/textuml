@@ -26,6 +26,7 @@ import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecification;
+import org.eclipse.uml2.uml.ValueSpecificationAction;
 import org.eclipse.uml2.uml.Vertex;
 
 public class MDDExtensionUtils {
@@ -102,16 +103,26 @@ public class MDDExtensionUtils {
 		return valueSpec;
 	}
 
-	public static Activity createClosure(BehavioredClassifier parent, StructuredActivityNode context) {
+	public static Activity createClosure(Activity context) {
 		final Activity newClosure =
-			(Activity) parent.createOwnedBehavior(null,
+			(Activity) context.createOwnedBehavior(null,
 							Literals.ACTIVITY);
 		Stereotype closureStereotype = StereotypeUtils.findStereotype(CLOSURE_STEREOTYPE);
 		newClosure.applyStereotype(closureStereotype);
-		newClosure.setValue(closureStereotype, "context", context);
-		newClosure.setIsReadOnly(ActivityUtils.getOwningActivity(context).isReadOnly());
+		newClosure.setIsReadOnly(context.isReadOnly());
 		return newClosure;
 	}
+	
+    public static void setClosureProducer(Activity closure, ValueSpecificationAction producer) {
+        Stereotype closureStereotype = StereotypeUtils.findStereotype(CLOSURE_STEREOTYPE);
+        closure.setValue(closureStereotype, "producer", producer);
+    }
+    
+    public static ValueSpecificationAction getClosureProducer(Activity closure) {
+        Stereotype closureStereotype = StereotypeUtils.findStereotype(CLOSURE_STEREOTYPE);
+        return (ValueSpecificationAction) closure.getValue(closureStereotype, "producer");
+    }
+
 	
     public static Activity createConstraintBehavior(BehavioredClassifier parent, Constraint constraint) {
         final Activity newConstraintBehavior =
@@ -265,8 +276,8 @@ public class MDDExtensionUtils {
 		return specification instanceof LiteralNull && StereotypeUtils.hasStereotype(specification, VERTEX_LITERAL_STEREOTYPE);
 	}
 
-	public static boolean isClosure(Element owner) {
-		return owner instanceof Activity && StereotypeUtils.hasStereotype(owner, CLOSURE_STEREOTYPE);
+	public static boolean isClosure(Element element) {
+		return element instanceof Activity && StereotypeUtils.hasStereotype(element, CLOSURE_STEREOTYPE);
 	}
 
 	public static boolean isDebuggable(Element element) {
@@ -298,6 +309,13 @@ public class MDDExtensionUtils {
 		return element instanceof Interface && StereotypeUtils.hasStereotype(element, SIGNATURE_STEREOTYPE);
 	}
 
+    public static boolean isCanonicalSignature(Element element) {
+        if (!isSignature(element))
+            return false;
+        List<Parameter> parameters = getSignatureParameters((Type) element);
+        return parameters.size() == 2 && FeatureUtils.getReturnParameter(parameters) != null && FeatureUtils.getInputParameters(parameters).size() == 1;  
+    }
+	
 	public static Constraint createConstraint(NamedElement element, String constraintName, String stereotype) {
 		Namespace namespace = element instanceof Namespace ? ((Namespace) element) : element.getNamespace();
 		Constraint invariant = namespace.createOwnedRule(constraintName);
@@ -353,4 +371,5 @@ public class MDDExtensionUtils {
 			return (NamedElement) violated.getConstrainedElements().get(0);
 		return null;
 	}
+
 }

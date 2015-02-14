@@ -6,7 +6,7 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 
 import com.abstratt.mdd.core.util.ActivityUtils;
-import com.abstratt.mdd.core.util.StructuralFeatureUtils;
+import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.CannotModifyADerivedAttribute;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
@@ -37,7 +37,7 @@ public class AddStructuralFeatureValueActionBuilder extends
 		getProduct().getObject().setType(targetClassifier);
 
 		Property attribute =
-			StructuralFeatureUtils.findAttribute(targetClassifier,
+			FeatureUtils.findAttribute(targetClassifier,
 							featureName, false, true);
 		if (attribute == null)
 			abortStatement(new UnresolvedSymbol(featureName, Literals.STRUCTURAL_FEATURE));

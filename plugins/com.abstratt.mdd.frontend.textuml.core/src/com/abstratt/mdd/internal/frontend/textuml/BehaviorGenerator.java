@@ -239,10 +239,16 @@ public class BehaviorGenerator extends AbstractGenerator {
 	/**
 	 * Creates an anonymous activity and returns a reference.
 	 */
-	private Activity buildClosure(BehavioredClassifier parent, StructuredActivityNode context, AClosure node) {
-		Activity newClosure = MDDExtensionUtils.createClosure(parent, context);
+	private Activity buildClosure(Activity context, AClosure node) {
+        Activity newClosure = MDDExtensionUtils.createClosure(context);
 		// create activity parameters
-		node.getSimpleSignature().apply(newSignatureProcessor(newClosure));
+		if (node.getSimpleSignature() != null)
+		    node.getSimpleSignature().apply(newSignatureProcessor(newClosure));
+		else {
+		    // no explicit signature - assume an input parameter named 'it' and a return parameter
+	        newClosure.createOwnedParameter("it", null).setDirection(ParameterDirectionKind.IN_LITERAL);
+	        newClosure.createOwnedParameter("", null).setDirection(ParameterDirectionKind.RETURN_LITERAL);
+		}
 		deferBlockCreation(node.getBlock(), newClosure);
 		return newClosure;
 	}
@@ -617,10 +623,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 
 	@Override
 	public void caseAClosureExpression(AClosureExpression node) {
-		BehavioredClassifier parent = builder.getCurrentActivity();
-		StructuredActivityNode closureContext = builder.getCurrentBlock();
-		Activity closure = buildClosure(parent , closureContext, (AClosure) node.getClosure());
-		buildValueSpecificationAction(ActivityUtils.buildBehaviorReference(namespaceTracker.currentPackage(), closure, null), node);
+		Activity parent = builder.getCurrentActivity();
+		Activity closure = buildClosure(parent , (AClosure) node.getClosure());
+		ValueSpecificationAction producer = buildValueSpecificationAction(ActivityUtils.buildBehaviorReference(namespaceTracker.currentPackage(), closure, null), node);
+		MDDExtensionUtils.setClosureProducer(closure, producer);
 	}
 
 	@Override

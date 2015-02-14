@@ -118,7 +118,7 @@ public class FeatureUtils {
 			boolean recurse) {
 		for (Operation operation : classifier.getOperations()) {
 			if (isNameMatch(operation, operationName, ignoreCase)
-					&& (isMatch(repository, operation, arguments, substitutions)))
+					&& (isMatch(repository, classifier, operation, arguments, substitutions)))
 				return operation;
 		}
 		if (!recurse)
@@ -154,7 +154,10 @@ public class FeatureUtils {
 						operationName, arguments, substitutions, ignoreCase, true)) != null)
 					return found;
 		}
-
+//		if (arguments != null && !classifier.isTemplate()) {
+//		    Operation looseMatch = findOperation(repository, classifier, operationName, null);
+//		    return null;
+//		} 
 		return null;
 	}
 	
@@ -190,7 +193,7 @@ public class FeatureUtils {
         return wildcardSubstitutions;
 	}
 
-	public static boolean isMatch(IRepository repository, Operation operation,
+	public static boolean isMatch(IRepository repository, Classifier classifier, Operation operation,
 			List<TypedElement> arguments, ParameterSubstitutionMap substitutions) {
 		if (arguments == null)
 			return true;
@@ -210,8 +213,31 @@ public class FeatureUtils {
             } else
                 if (!TypeUtils.isCompatible(repository, argument, parameter,
                         substitutions))
-                    return false;
+                    if (parameter.getType() == null || (
+                            argument.getType() != null && 
+                            !(
+                                ActivityUtils.isUntypedClosure(argument.getType()) && 
+                                MDDExtensionUtils.isCanonicalSignature(parameter.getType())
+                            )
+                        )
+                    )
+                        return false;
 		}
+		// argument type inference
+        for (Iterator<?> argIter = arguments.iterator(), parIter = operationParameters
+                .iterator(); argIter.hasNext();) {
+            Parameter parameter = (Parameter) parIter.next();
+            TypedElement argument = (TypedElement) argIter.next();
+            if (argument.getType() == null)
+                // infer argument type based on parameter if type missing
+                TypeUtils.copyType(parameter, argument, classifier);
+            else if (ActivityUtils.isUntypedClosure(argument.getType())) {
+                Activity closureArgument = (Activity) argument.getType();
+                List<Parameter> signatureParameters = MDDExtensionUtils.getSignatureParameters(parameter.getType());
+                ActivityUtils.getClosureReturnParameter(closureArgument).setType(FeatureUtils.getReturnParameter(signatureParameters).getType());
+                ActivityUtils.getClosureInputParameters(closureArgument).get(0).setType(FeatureUtils.getInputParameters(signatureParameters).get(0).getType());
+            }
+        }
 		return true;
 	}
 

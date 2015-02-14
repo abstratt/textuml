@@ -32,7 +32,7 @@ end;
 stereotype Name extends Property end;
 
 stereotype Closure extends Activity 
-    property context : StructuredActivityNode;
+    property producer : ValueSpecificationAction;
 end;
 
 stereotype AttributeInitialization extends InputPin

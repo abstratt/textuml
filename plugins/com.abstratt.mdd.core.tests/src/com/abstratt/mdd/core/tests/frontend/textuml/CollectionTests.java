@@ -118,7 +118,7 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "class TestDriver\n";
 		source += "  static operation iteration(accounts : Account[*]);\n";
 		source += "  begin\n";
-		source += "    accounts.forEach({a | a.deposit(10)});\n";
+		source += "    accounts.forEach({ it.deposit(10) });\n";
 		source += "  end;\n";
 		source += "end;\n";
 		source += "end.";
@@ -140,13 +140,14 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		parseAndCheck(getSimpleModelSource(), source);
 	}
 	
-	public void _testSelectShorthand() throws CoreException {
+	public void testSelectShorthand() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
 		source += "class TestDriver\n";
-		source += "  static operation selection() : Account[*]; {\n";
-		source += "    ^ Account extent .select({a | ^ a.balance > 10}).asSet();\n";
-		source += "  };\n";
+		source += "  static operation selection() : Account[*];\n";
+		source += "  begin\n";		
+		source += "    return Account extent.select({ it.balance > 10 }).asSet();\n";
+		source += "  end;\n";
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(getSimpleModelSource(), source);

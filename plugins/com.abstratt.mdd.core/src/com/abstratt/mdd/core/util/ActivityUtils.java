@@ -26,8 +26,10 @@ import org.eclipse.uml2.uml.AddVariableValueAction;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.BehavioredClassifier;
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.ControlFlow;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExceptionHandler;
 import org.eclipse.uml2.uml.ExecutableNode;
 import org.eclipse.uml2.uml.InputPin;
@@ -47,6 +49,8 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.ValueSpecificationAction;
 import org.eclipse.uml2.uml.Variable;
 import org.eclipse.uml2.uml.VariableAction;
+
+import com.abstratt.mdd.core.IRepository;
 
 
 public class ActivityUtils {
@@ -69,6 +73,19 @@ public class ActivityUtils {
 	public static StructuredActivityNode createBodyNode(Activity currentActivity) {
 		return currentActivity.createStructuredNode(BODY_NODE);
 	}
+	
+    public static boolean isUntypedClosure(Type type) {
+        if (!MDDExtensionUtils.isClosure(type))
+            return false;
+        Activity closure = (Activity) type;
+        List<Parameter> input = ActivityUtils.getClosureInputParameters(closure);
+        if (input.size() != 1 || input.get(0).getType() != null)
+            return false;
+        Parameter closureResult = ActivityUtils.getClosureReturnParameter(closure);
+        if (closureResult == null || closureResult.getType() != null)
+            return false;
+        return true;
+    }
 
 	/**
 	 * Finds an exception handler for the given exception type.
@@ -311,7 +328,11 @@ public class ActivityUtils {
 			String varName = parameter.getDirection() == ParameterDirectionKind.RETURN_LITERAL ? "" : parameter
 					.getName();
 			Variable newVariable = bodyNode.createVariable(varName, null);
-			TypeUtils.copyType(parameter, newVariable);
+			if (parameter.getType() != null) {
+			    Element startingPoint = activity.getOwner();
+                Class boundElement = MDDExtensionUtils.getClosureProducer(activity);
+			    TypeUtils.copyType(parameter, newVariable, boundElement);
+			}
 		}
 	}
 
