@@ -116,9 +116,9 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         Property bozProperty = fooClass.getAttribute("boz", null);
         Classifier bozType = (Classifier) bozProperty.getType();
         assertNotNull(bozType);
-        Operation boundOp1 = StructuralFeatureUtils.findOperation(getRepository(), bozType, "op1", null);
+        Operation boundOp1 = FeatureUtils.findOperation(getRepository(), bozType, "op1", null);
         assertNotNull(boundOp1);
-        assertEquals("T", boundOp1.getOwnedParameter("a", null).getType().getName());
+        assertEquals(zooClass, boundOp1.getOwnedParameter("a", null).getType());
     }
 
     public void testCallOperationOnSuperTemplateType() throws CoreException {

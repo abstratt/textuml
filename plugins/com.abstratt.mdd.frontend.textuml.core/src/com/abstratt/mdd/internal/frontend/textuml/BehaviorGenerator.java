@@ -1414,6 +1414,9 @@ public class BehaviorGenerator extends AbstractGenerator {
 			final InputPin value = builder.registerInput(action.createValue(null, null));
 			node.apply(this);
 			action.setVariable(variable);
+			Parameter activityReturnParameter = FeatureUtils.getReturnParameter(ActivityUtils.getActionActivity(action).getOwnedParameters());
+			if (activityReturnParameter.getType() == null)
+			    TypeUtils.copyType(variable, activityReturnParameter, bound);    
 			TypeUtils.copyType(variable, value, bound);
 			fillDebugInfo(action, node);
 		} finally {
@@ -1638,12 +1641,16 @@ public class BehaviorGenerator extends AbstractGenerator {
 			namespaceTracker.leaveNamespace();
 		}
 		validateReturnStatement(bodyNode, activity);
-		// process any deferred activities
+		processDeferredActivities();
+	}
+
+    private void processDeferredActivities() {
+        // process any deferred activities
 		while (!deferredActivities.isEmpty()) {
 			DeferredActivity next = deferredActivities.remove(0);
 			createBody(next.getBlock(), next.getActivity());
 		}
-	}
+    }
 
 	public void validateReturnStatement(Node bodyNode, Activity activity) {
 		if (!problemBuilder.hasErrors() && ActivityUtils.getFinalAction(ActivityUtils.getBodyNode(activity)) == null) {

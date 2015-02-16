@@ -112,7 +112,7 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		parseAndCheck(getSimpleModelSource(), source);
 	}
 	
-	public void _testIterateShorthand() throws CoreException {
+	public void testIterateShorthand() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
 		source += "class TestDriver\n";
@@ -152,7 +152,7 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(getSimpleModelSource(), source);
 	}
-
+	
 	public void testCollect() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
@@ -167,6 +167,21 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(getSimpleModelSource(), source);
 	}
+	
+	public void testCollectShorthand() throws CoreException {
+        String source = "";
+        source += "model simple;\n";
+        source += "class TestDriver\n";
+        source += "  static operation selection() : Customer[*];\n";
+        source += "  begin\n";
+        source += "    return Account extent.collect({\n";
+        source += "        it<-AccountCustomer->owner\n";
+        source += "    });\n";
+        source += "  end;\n";
+        source += "end;\n";
+        source += "end.";
+        parseAndCheck(getSimpleModelSource(), source);
+    }
 	
 	public void testReduce() throws CoreException {
         String source = "";
@@ -200,6 +215,21 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(getSimpleModelSource(), source);
 	}
+	
+	public void testGroupByShorthand() throws CoreException {
+        String source = "";
+        source += "model simple;\n";
+        source += "class TestDriver\n";
+        source += "  static operation grouping() : Grouping<Account>;\n";
+        source += "  begin\n";
+        source += "    return Account extent.groupBy({\n";
+        source += "        it<-AccountCustomer->owner\n";
+        source += "    });\n";
+        source += "  end;\n";
+        source += "end;\n";
+        source += "end.";
+        parseAndCheck(getSimpleModelSource(), source);
+    }
 
 	
 	public void testCollectDataType() throws CoreException {

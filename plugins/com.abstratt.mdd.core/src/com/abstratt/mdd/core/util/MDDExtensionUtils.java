@@ -35,6 +35,7 @@ public class MDDExtensionUtils {
 	private static final String CLOSURE_STEREOTYPE = "mdd_extensions::Closure";
 	private static final String CONSTRAINT_BEHAVIOR_STEREOTYPE = "mdd_extensions::ConstraintBehavior";
 	private static final String WILDCARD_TYPE_STEREOTYPE = "mdd_extensions::WildcardType";
+	@Deprecated // drop it, a wild card can have multiple contexts
 	private static final String WILDCARD_TYPE_CONTEXT = "context";
 	public static final String WILDCARD_TYPE_CONTEXT_STEREOTYPE = "mdd_extensions::WildcardTypeContext";
 	public static final String WILDCARD_TYPE_CONTEXT_TYPES = "wildcardTypes";
@@ -140,6 +141,8 @@ public class MDDExtensionUtils {
         return StereotypeUtils.hasStereotype(toCheck, WILDCARD_TYPE_STEREOTYPE);
     }
     
+    @Deprecated 
+    // remove, a wildcard type can be used wherever it is imported
     public static Namespace getWildcardTypeContext(Type wildcardType) {
         Stereotype wildcardTypeStereotype = wildcardType.getAppliedStereotype(WILDCARD_TYPE_STEREOTYPE);
         return (Namespace) wildcardType.getValue(wildcardTypeStereotype, WILDCARD_TYPE_CONTEXT);
@@ -159,7 +162,7 @@ public class MDDExtensionUtils {
     }
     
     public static Class createWildcardType(Namespace context, String name) {
-        Class wildcardType = ClassifierUtils.createClassifier(context, null, Literals.CLASS);
+        Class wildcardType = ClassifierUtils.createClassifier(context, computeWildcardTypeName(name, context), Literals.CLASS);
         if (context.getNearestPackage() != context) {
             ElementImport elementImport = context.createElementImport(wildcardType);
             elementImport.setAlias(name);
@@ -234,8 +237,7 @@ public class MDDExtensionUtils {
 
 	public static StructuredActivityNode getClosureContext(Activity closure) {
 		Assert.isTrue(isClosure(closure));
-		Stereotype closureStereotype = closure.getAppliedStereotype(CLOSURE_STEREOTYPE);
-		return (StructuredActivityNode) closure.getValue(closureStereotype, "context");
+		return ActivityUtils.getOwningBlock(getClosureProducer(closure));
 	}
 	
 	public static String getExternalClassName(Classifier classifier) {

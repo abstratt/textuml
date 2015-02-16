@@ -16,11 +16,14 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.ElementImport;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterableElement;
 import org.eclipse.uml2.uml.TemplateBinding;
 import org.eclipse.uml2.uml.TemplateParameter;
@@ -28,6 +31,7 @@ import org.eclipse.uml2.uml.TemplateParameterSubstitution;
 import org.eclipse.uml2.uml.TemplateSignature;
 import org.eclipse.uml2.uml.TemplateableElement;
 import org.eclipse.uml2.uml.Type;
+import org.eclipse.uml2.uml.TypedElement;
 
 public class TemplateUtils {
 
@@ -79,7 +83,35 @@ public class TemplateUtils {
             substitution.setFormal(signature.getOwnedParameters().get(i));
             UML2Compatibility.setActualParameter(substitution, actualParams.get(i));
         }
+        if (template instanceof Class) {
+            Class asClass = (Class) template;
+            for (Operation operation : asClass.getAllOperations()) {
+                EList<Parameter> originalParameters = operation.getOwnedParameters();
+                if (hasTemplateParameterTypedElements(originalParameters)) {
+                    Class resultAsClassifier = (Class) result;
+                    Operation override = resultAsClassifier.createOwnedOperation(operation.getName(), null, null);
+                    override.setIsQuery(operation.isQuery());
+                    override.setIsStatic(operation.isStatic());
+                    override.setIsAbstract(operation.isAbstract());
+                    for (ElementImport elementImport : override.getElementImports())
+                        if (elementImport.getImportedElement() instanceof Type && MDDExtensionUtils.isWildcardType((Type) elementImport.getImportedElement()))
+                            override.createElementImport(elementImport.getImportedElement());
+                    for (Parameter parameter : originalParameters) {
+                        Parameter overrideParameter = override.createOwnedParameter(parameter.getName(), parameter.getType());
+                        overrideParameter.setDirection(parameter.getDirection());
+                        TypeUtils.copyType(parameter, overrideParameter, result);
+                    }
+                }
+            }
+        }
         return result;
+    }
+
+    private static <TE extends TypedElement> boolean hasTemplateParameterTypedElements(List<TE> toFilter) {
+        for (TE typedElement : toFilter)
+            if (typedElement.getType().isTemplateParameter() || !(MDDExtensionUtils.isSignature(typedElement.getType()) && hasTemplateParameterTypedElements(MDDExtensionUtils.getSignatureParameters(typedElement.getType()))))
+                return true;
+        return false;
     }
 
     private static <TE, PE> String generateTemplateInstanceName(TE template, List<PE> actualParams) {

@@ -24,6 +24,7 @@ import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.MultiplicityElement;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.ObjectFlow;
 import org.eclipse.uml2.uml.ObjectNode;
 import org.eclipse.uml2.uml.Parameter;
@@ -113,6 +114,17 @@ public class TypeUtils {
 		if (sourceType == null) {
 			target.setType(null);
 			return;
+		}
+		if (MDDExtensionUtils.isSignature(sourceType) && boundElement != null) {
+		    Type resolvedSignature = MDDExtensionUtils.createSignature((Namespace) boundElement);
+		    List<Parameter> signatureParameters = MDDExtensionUtils.getSignatureParameters(sourceType);
+		    for (Parameter originalSignatureParameter : signatureParameters) {
+                Parameter resolvedParameter = MDDExtensionUtils.createSignatureParameter(resolvedSignature, originalSignatureParameter.getName(), originalSignatureParameter.getType());
+                TypeUtils.copyType(originalSignatureParameter, resolvedParameter, boundElement);
+                resolvedParameter.setDirection(originalSignatureParameter.getDirection());
+            }
+		    target.setType(resolvedSignature);
+		    return;
 		}
 		// if source is a template parameter, resolve it if possible  
 		Assert.isTrue(!sourceType.isTemplateParameter() || boundElement != null);

@@ -26,6 +26,7 @@ import org.eclipse.uml2.uml.AddVariableValueAction;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.BehavioredClassifier;
+import org.eclipse.uml2.uml.CallOperationAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.ControlFlow;
@@ -328,9 +329,19 @@ public class ActivityUtils {
 			String varName = parameter.getDirection() == ParameterDirectionKind.RETURN_LITERAL ? "" : parameter
 					.getName();
 			Variable newVariable = bodyNode.createVariable(varName, null);
-			if (parameter.getType() != null) {
-			    Element startingPoint = activity.getOwner();
-                Class boundElement = MDDExtensionUtils.getClosureProducer(activity);
+			Type parameterType = parameter.getType();
+            if (parameterType != null) {
+			    Classifier boundElement = null;
+			    if (MDDExtensionUtils.isClosure(activity)) {
+			        // a closure being passed in as a parameter to an operation call may need types to be inferred
+			        ValueSpecificationAction closureProducer = MDDExtensionUtils.getClosureProducer(activity);
+			        InputPin consumerPin = (InputPin) ActivityUtils.getTarget(closureProducer.getResult());
+			        Action consumingAction = (Action) consumerPin.getOwner();
+			        if (consumingAction instanceof CallOperationAction) {
+    			        Operation operation = ((CallOperationAction) consumingAction).getOperation();
+                        boundElement = operation.getClass_();
+			        }
+			    } 
 			    TypeUtils.copyType(parameter, newVariable, boundElement);
 			}
 		}
