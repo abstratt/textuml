@@ -66,14 +66,19 @@ public class ActivityUtils {
 	public static boolean isActivityStatic(Activity activity) {
 	    if (activity.getSpecification() != null)
 	        activity.getSpecification().isStatic();
-	    if (MDDExtensionUtils.isClosure(activity))
-	        return isActivityStatic(MDDExtensionUtils.getClosureContext(activity).getActivity());
+	    if (MDDExtensionUtils.isClosure(activity)) {
+            StructuredActivityNode closureContext = MDDExtensionUtils.getClosureContext(activity);
+            Activity contextActivity = getActionActivity(closureContext);
+            return isActivityStatic(contextActivity);
+        }
 	    return false;
 	}
 	
 	public static StructuredActivityNode createBodyNode(Activity currentActivity) {
 		return currentActivity.createStructuredNode(BODY_NODE);
 	}
+	
+	
 	
     public static boolean isUntypedClosure(Type type) {
         if (!MDDExtensionUtils.isClosure(type))
@@ -125,6 +130,8 @@ public class ActivityUtils {
 			return findVariable(MDDExtensionUtils.getClosureContext((Activity) node.getOwner()), variableName);
 		return null;
 	}
+	
+	
 
 	public static List<Parameter> getClosureInputParameters(Activity closure) {
 		return FeatureUtils.filterParameters(closure.getOwnedParameters(), ParameterDirectionKind.IN_LITERAL);
@@ -165,7 +172,9 @@ public class ActivityUtils {
 
 	public static Activity getActionActivity(Action action) {
 	    // UML2 5
-		//return action.containingActivity();
+		//return action.containingActivity()
+       if (action.getActivity() != null)
+            return action.getActivity();
 		return MDDUtil.getNearest(action, UMLPackage.Literals.ACTIVITY);
 	}
 
@@ -440,17 +449,7 @@ public class ActivityUtils {
 		return getControlSource(finalNode);
 	}
 
-	public static Activity getOwningActivity(StructuredActivityNode context) {
- 		if (context.getActivity() != null)
- 			return context.getActivity();
- 		if (context.getOwner() instanceof StructuredActivityNode)
- 			return getOwningActivity((StructuredActivityNode) context.getOwner());
- 		return null;	
-	    // added in UML2 5.0
-	    // return context.containingActivity();
-	}
-	
-    public static StructuredActivityNode getOwningBlock(Action action) {
+	public static StructuredActivityNode getOwningBlock(Action action) {
         if (action.getOwner() instanceof StructuredActivityNode)
             return (StructuredActivityNode) action.getOwner();
         if (action.getOwner() instanceof Action)
@@ -470,7 +469,7 @@ public class ActivityUtils {
 	public static boolean shouldIsolate(StructuredActivityNode currentBlock) {
 		boolean shouldIsolate = currentBlock.getOwner() instanceof StructuredActivityNode
 				&& currentBlock.getOwner().getOwner() instanceof StructuredActivityNode
-				&& currentBlock.getOwner().getOwner().getOwner() == getBodyNode(getOwningActivity(currentBlock));
+				&& currentBlock.getOwner().getOwner().getOwner() == getBodyNode(getActionActivity(currentBlock));
 		return shouldIsolate;
 	}
 	

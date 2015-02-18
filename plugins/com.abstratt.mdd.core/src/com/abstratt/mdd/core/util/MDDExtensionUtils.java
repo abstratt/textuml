@@ -237,7 +237,8 @@ public class MDDExtensionUtils {
 
 	public static StructuredActivityNode getClosureContext(Activity closure) {
 		Assert.isTrue(isClosure(closure));
-		return ActivityUtils.getOwningBlock(getClosureProducer(closure));
+		StructuredActivityNode owningBlock = ActivityUtils.getOwningBlock(getClosureProducer(closure));
+        return owningBlock;
 	}
 	
 	public static String getExternalClassName(Classifier classifier) {

@@ -1236,13 +1236,8 @@ public class BehaviorGenerator extends AbstractGenerator {
 		try {
 			super.caseASelfIdentifierExpression(node);
 			Activity currentActivity = builder.getCurrentActivity();
-			while (MDDExtensionUtils.isClosure(currentActivity)) {
-				//TODO refactor to use ActivityUtils
-				ActivityNode rootNode = MDDExtensionUtils.getClosureContext(currentActivity);
-				while (rootNode.getOwner() instanceof ActivityNode)
-					rootNode = (ActivityNode) rootNode.getOwner();
-				currentActivity = rootNode.getActivity();
-			}
+			while (MDDExtensionUtils.isClosure(currentActivity))
+				currentActivity = ActivityUtils.getActionActivity(MDDExtensionUtils.getClosureContext(currentActivity));
 			final BehavioralFeature operation = currentActivity.getSpecification();
 			if (operation != null && operation.isStatic()) {
 				problemBuilder.addProblem( new ReadSelfFromStaticContext(), node);
