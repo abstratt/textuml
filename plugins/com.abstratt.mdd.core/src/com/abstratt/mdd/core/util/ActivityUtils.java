@@ -414,6 +414,10 @@ public class ActivityUtils {
  		return getActionActivity(context);	
 	}
 	
+	public static Activity getParentAsActivity(ActivityNode node) {
+	    return node.getActivity();
+	}
+	
     public static StructuredActivityNode getOwningBlock(Action action) {
         if (action.getOwner() instanceof StructuredActivityNode)
             return (StructuredActivityNode) action.getOwner();
