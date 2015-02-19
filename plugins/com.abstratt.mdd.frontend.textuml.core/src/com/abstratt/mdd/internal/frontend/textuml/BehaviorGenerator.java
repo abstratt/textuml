@@ -1233,9 +1233,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			while (MDDExtensionUtils.isClosure(currentActivity)) {
 				//TODO refactor to use ActivityUtils
 				ActivityNode rootNode = MDDExtensionUtils.getClosureContext(currentActivity);
-				while (rootNode.getOwner() instanceof ActivityNode)
-					rootNode = (ActivityNode) rootNode.getOwner();
-				currentActivity = rootNode.getActivity();
+				currentActivity = ActivityUtils.getActionActivity(rootNode);
 			}
 			final BehavioralFeature operation = currentActivity.getSpecification();
 			if (operation != null && operation.isStatic()) {

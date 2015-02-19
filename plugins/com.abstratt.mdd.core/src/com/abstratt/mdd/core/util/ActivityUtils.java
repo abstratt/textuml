@@ -62,7 +62,7 @@ public class ActivityUtils {
 	    if (activity.getSpecification() != null)
 	        activity.getSpecification().isStatic();
 	    if (MDDExtensionUtils.isClosure(activity))
-	        return isActivityStatic(MDDExtensionUtils.getClosureContext(activity).getActivity());
+	        return isActivityStatic(getActionActivity(MDDExtensionUtils.getClosureContext(activity)));
 	    return false;
 	}
 	
@@ -145,10 +145,12 @@ public class ActivityUtils {
 		return (Activity) method;
 	}
 
-	public static Activity getActionActivity(Action action) {
+	public static Activity getActionActivity(ActivityNode action) {
 	    // UML2 5
-		//return action.containingActivity();
-		return MDDUtil.getNearest(action, UMLPackage.Literals.ACTIVITY);
+		//return action.containingActivity()
+        if (action.getActivity() != null)
+            return action.getActivity();
+        return MDDUtil.getNearest(action, UMLPackage.Literals.ACTIVITY);
 	}
 
 	public static StructuredActivityNode getRootAction(Activity method) {
@@ -409,13 +411,7 @@ public class ActivityUtils {
 	}
 
 	public static Activity getOwningActivity(StructuredActivityNode context) {
- 		if (context.getActivity() != null)
- 			return context.getActivity();
- 		if (context.getOwner() instanceof StructuredActivityNode)
- 			return getOwningActivity((StructuredActivityNode) context.getOwner());
- 		return null;	
-	    // added in UML2 5.0
-	    // return context.containingActivity();
+ 		return getActionActivity(context);	
 	}
 	
     public static StructuredActivityNode getOwningBlock(Action action) {

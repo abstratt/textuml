@@ -265,8 +265,8 @@ public class MDDExtensionUtils {
 		return specification instanceof LiteralNull && StereotypeUtils.hasStereotype(specification, VERTEX_LITERAL_STEREOTYPE);
 	}
 
-	public static boolean isClosure(Element owner) {
-		return owner instanceof Activity && StereotypeUtils.hasStereotype(owner, CLOSURE_STEREOTYPE);
+	public static boolean isClosure(Element element) {
+		return element instanceof Activity && StereotypeUtils.hasStereotype(element, CLOSURE_STEREOTYPE);
 	}
 
 	public static boolean isDebuggable(Element element) {
