@@ -248,11 +248,12 @@ public class ActivityUtils {
 		return ((OpaqueExpression) spec).getBehavior();
 	}
 
-	public static Behavior resolveBehaviorReference(Action action) {
-	    // before you try to make this more flexible, remember we only support inlined closures
-	    // as opposed to references obtained via data flows (see issue #50)
-		return (Activity) resolveBehaviorReference(((ValueSpecificationAction) action).getValue());
-	}
+    public static Behavior resolveBehaviorReference(Action action) {
+        // before you try to make this more flexible, remember we only support inlined closures
+        // as opposed to references obtained via data flows (see issue #50)
+        Assert.isLegal(action instanceof ValueSpecificationAction, "Not a behavior reference action: " + action.eClass().getName());
+        return (Activity) resolveBehaviorReference(((ValueSpecificationAction) action).getValue());
+    }
 
 	/**
 	 * Returns the closure fed to the given input pin.
