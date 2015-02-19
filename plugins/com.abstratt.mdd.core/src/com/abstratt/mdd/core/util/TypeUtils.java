@@ -272,12 +272,17 @@ public class TypeUtils {
 			    templateCompatible = TemplateUtils.isCompatible(templateableSource, templateableDestination);
 		}
 		// behavior comparison takes parameters into account
-		if (source instanceof Behavior) {
+		if (source instanceof Behavior || MDDExtensionUtils.isSignature(source)) {
+		    if (!MDDExtensionUtils.isSignature(destination))
+		        return false;
 			final List<Parameter> destinationParams;
-			Behavior sourceBehavior = (Behavior) source;
-			final List<Parameter> sourceParams = sourceBehavior.getOwnedParameters();
-			if (!MDDExtensionUtils.isSignature(destination))
-				return false;
+			final List<Parameter> sourceParams;
+			if (source instanceof Behavior)
+			    sourceParams = ((Behavior) source).getOwnedParameters();
+			else
+			    // source is not an inlined closure
+			    // (note this is currently not supported, see issue #50)
+			    sourceParams = MDDExtensionUtils.getSignatureParameters(source);
 			destinationParams = MDDExtensionUtils.getSignatureParameters(destination);
 			return isCompatible(repository, sourceParams.toArray(new Parameter[sourceParams.size()]), destinationParams
 							.toArray(new Parameter[destinationParams.size()]), substitutions);

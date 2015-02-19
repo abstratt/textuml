@@ -249,8 +249,8 @@ public class ActivityUtils {
 	}
 
 	public static Behavior resolveBehaviorReference(Action action) {
-		Assert.isLegal(action instanceof ValueSpecificationAction, "Not a behavior reference action: "
-				+ action.eClass().getName());
+	    // before you try to make this more flexible, remember we only support inlined closures
+	    // as opposed to references obtained via data flows (see issue #50)
 		return (Activity) resolveBehaviorReference(((ValueSpecificationAction) action).getValue());
 	}
 

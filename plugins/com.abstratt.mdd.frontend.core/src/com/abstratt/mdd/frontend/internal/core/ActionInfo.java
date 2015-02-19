@@ -46,7 +46,8 @@ class ActionInfo {
 			final ObjectNode currentOutput = allOutputs.get(currentOutputIndex++);
 			ActivityUtils.connect(((StructuredActivityNode) action.getOwner()), currentOutput, currentInput);
 		}
-		Assert.isTrue(currentOutputIndex == allOutputs.size(), "Not enough inputs in " + destination.action.eClass().getInstanceClassName() + " for " + this.action.eClass().getInstanceClassName() + ": inputs = " + currentOutputIndex + ", outputs = " + allOutputs.size());
+		boolean allPinsMatched = currentOutputIndex == allOutputs.size();
+        Assert.isTrue(allPinsMatched, "Not enough inputs in " + destination.action.eClass().getInstanceClassName() + " for " + this.action.eClass().getInstanceClassName() + ": inputs = " + currentOutputIndex + ", outputs = " + allOutputs.size());
 	}
 
 	public Action getAction() {
