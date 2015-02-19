@@ -45,6 +45,7 @@ import org.eclipse.uml2.uml.TemplateSignature;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.TypedElement;
 import org.eclipse.uml2.uml.UMLPackage;
+import org.eclipse.uml2.uml.ValueSpecificationAction;
 
 import com.abstratt.mdd.core.IRepository;
 
@@ -171,20 +172,27 @@ public class FeatureUtils {
                 Type signature = parameter.getType();
                 // in the case of a signature-typed parameter, we need to figure out the signature of the closure
                 // and perform substitutions based on that
-                Activity closure = (Activity) ActivityUtils.resolveBehaviorReference((Action) ((OutputPin) argument).getOwner());
-                // closure actual parameters
-                List<Parameter> closureParameters = new ArrayList<Parameter>(ActivityUtils.getClosureInputParameters(closure));
-                Parameter closureReturnParameter = ActivityUtils.getClosureReturnParameter(closure);
-                if (closureReturnParameter != null)
-                    closureParameters.add(closureReturnParameter);
-                // signature canonical parameters
-                List<Parameter> allSignatureParameters = MDDExtensionUtils.getSignatureParameters(signature);
-                List<Parameter> signatureParameters = new ArrayList<Parameter>(FeatureUtils.getInputParameters(allSignatureParameters));
-                Parameter signatureReturnParameter = FeatureUtils.getReturnParameter(allSignatureParameters);
-                if (signatureReturnParameter != null)
-                    signatureParameters.add(signatureReturnParameter);
+                List<Parameter> rawActualParameters = new ArrayList<Parameter>();
+                Action action = ActivityUtils.getOwningAction((OutputPin) argument);
+                if (action instanceof ValueSpecificationAction && ActivityUtils.isBehaviorReference(((ValueSpecificationAction) action).getValue())) {
+                    Activity closure = (Activity) ActivityUtils.resolveBehaviorReference(action);
+                    rawActualParameters = closure.getOwnedParameters();
+                } else if (MDDExtensionUtils.isSignature(argument.getType()))
+                    rawActualParameters = MDDExtensionUtils.getSignatureParameters(argument.getType());
+                // closure (or signature) actual parameters
+                List<Parameter> actualParameters = new ArrayList<Parameter>(FeatureUtils.getInputParameters(rawActualParameters));
+                Parameter actualReturnParameter = FeatureUtils.getReturnParameter(rawActualParameters);
+                if (actualReturnParameter != null)
+                    actualParameters.add(actualReturnParameter);
                 
-                buildWildcardSubstitutions(wildcardSubstitutions, signatureParameters, closureParameters);
+                // signature canonical parameters
+                List<Parameter> allExpectedParameters = MDDExtensionUtils.getSignatureParameters(signature);
+                List<Parameter> expectedParameters = new ArrayList<Parameter>(FeatureUtils.getInputParameters(allExpectedParameters));
+                Parameter expectedReturnParameter = FeatureUtils.getReturnParameter(allExpectedParameters);
+                if (expectedReturnParameter != null)
+                    expectedParameters.add(expectedReturnParameter);
+                
+                buildWildcardSubstitutions(wildcardSubstitutions, expectedParameters, actualParameters);
             }
         }
         return wildcardSubstitutions;

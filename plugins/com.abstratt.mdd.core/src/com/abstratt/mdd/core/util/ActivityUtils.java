@@ -39,6 +39,7 @@ import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
+import org.eclipse.uml2.uml.Pin;
 import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -249,8 +250,6 @@ public class ActivityUtils {
 	}
 
     public static Behavior resolveBehaviorReference(Action action) {
-        // before you try to make this more flexible, remember we only support inlined closures
-        // as opposed to references obtained via data flows (see issue #50)
         Assert.isLegal(action instanceof ValueSpecificationAction, "Not a behavior reference action: " + action.eClass().getName());
         return (Activity) resolveBehaviorReference(((ValueSpecificationAction) action).getValue());
     }
@@ -451,5 +450,9 @@ public class ActivityUtils {
             if (!outputPin.getOutgoings().isEmpty()) 
                 return false;   
         return true;
+    }
+
+    public static Action getOwningAction(Pin pin) {
+        return (Action) pin.getOwner();
     }
 }
