@@ -137,6 +137,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AEqualsComparisonBinaryOp
 import com.abstratt.mdd.internal.frontend.textuml.node.AExpressionListElement;
 import com.abstratt.mdd.internal.frontend.textuml.node.AExpressionSimpleBlockResolved;
 import com.abstratt.mdd.internal.frontend.textuml.node.AExtentIdentifierExpression;
+import com.abstratt.mdd.internal.frontend.textuml.node.AFunctionIdentifierExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.AGreaterOrEqualsComparisonBinaryOperator;
 import com.abstratt.mdd.internal.frontend.textuml.node.AGreaterThanComparisonBinaryOperator;
 import com.abstratt.mdd.internal.frontend.textuml.node.AIdentityBinaryOperator;
@@ -914,6 +915,14 @@ public class BehaviorGenerator extends AbstractGenerator {
 		checkIncomings(action, linkStatementNode, getBoundElement());
 	}
 
+	@Override
+	public void caseAFunctionIdentifierExpression(AFunctionIdentifierExpression node) {
+        String functionName = sourceMiner.getIdentifier(node.getVariableAccess());
+        problemBuilder.addProblem(new UnclassifiedProblem("Function call not supported yet: " + functionName ), node
+                .getVariableAccess());
+        throw new AbortedStatementCompilationException();
+	}
+	
 	@Override
 	public void caseALiteralOperand(ALiteralOperand node) {
 		ValueSpecification value = LiteralValueParser.parseLiteralValue(node.getLiteral(), namespaceTracker.currentPackage(), problemBuilder);
