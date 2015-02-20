@@ -62,8 +62,10 @@ public class ActivityUtils {
 	public static boolean isActivityStatic(Activity activity) {
 	    if (activity.getSpecification() != null)
 	        activity.getSpecification().isStatic();
-	    if (MDDExtensionUtils.isClosure(activity))
-	        return isActivityStatic(getActionActivity(MDDExtensionUtils.getClosureContext(activity)));
+	    if (MDDExtensionUtils.isClosure(activity)) {
+            StructuredActivityNode closureContext = MDDExtensionUtils.getClosureContext(activity);
+            return isActivityStatic(getActionActivity(closureContext));
+        }
 	    return false;
 	}
 	
