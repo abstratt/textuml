@@ -178,7 +178,7 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
         source += "            account.balance + total\n";
         source += "        },\n";
         source += "        0\n";
-        source += "    ).one();\n";
+        source += "    ).;\n";
         source += "  end;\n";
         source += "end;\n";
         source += "end.";
