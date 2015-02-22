@@ -29,7 +29,7 @@ class Collection<T>
   (* Collects and intersects all collections obtained from each of the elements in this collection. *)
   query collectMany(p : {(:T) : T[*]}) : T[*];
   query groupBy(grouper : {(:T) : any}) : Grouping<T>;
-  query <R> reduce(reductor : {(:T[*], :R[*]) : R[*]}, \initial : R[*]) : R[*];
+  query <R> reduce(reductor : {(:T, :R[1,*]) : R}, \initial : R) : R;
   query <N> sum(transformer : {(:T):N}) : N;
   query <N> max(transformer : {(:T):N}) : N;
   query <N> min(transformer : {(:T):N}) : N;

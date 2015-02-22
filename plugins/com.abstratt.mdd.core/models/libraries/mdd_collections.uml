@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:l2="http://www.eclipse.org/uml2/4.0.0/UML/Profile/L2" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_collections" URI="libraries/mdd_collections">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2015/02/19 05:18:32 487 -0200"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2015/02/20 05:43:12 141 -0200"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0">
       <importedPackage xmi:type="uml:Model" href="mdd_types.uml#_0"/>
@@ -309,7 +309,7 @@
       </ownedOperation>
       <ownedOperation xmi:id="Collection-reduce" name="reduce" visibility="public" isQuery="true">
         <elementImport xmi:id="Collection-reduce-_elementImport.0" alias="R" importedElement="Collection-_nestedClassifier.1"/>
-        <ownedParameter xmi:id="Collection-reduce-reductor" name="reductor" type="_7B20T5B0205D2020null5B0205D2020null7D" effect="create">
+        <ownedParameter xmi:id="Collection-reduce-reductor" name="reductor" type="_7B20T2020null2020null7D" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reduce-reductor-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -318,12 +318,20 @@
           </upperValue>
         </ownedParameter>
         <ownedParameter xmi:id="Collection-reduce-initial" name="initial" type="Collection-_nestedClassifier.1" effect="create">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-reduce-initial-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reduce-initial-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reduce-initial-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reduce-initial-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
         </ownedParameter>
         <ownedParameter xmi:id="Collection-reduce-_ownedParameter.2" type="Collection-_nestedClassifier.1" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-reduce-_ownedParameter.2-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reduce-_ownedParameter.2-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reduce-_ownedParameter.2-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reduce-_ownedParameter.2-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-sum" name="sum" visibility="public" isQuery="true">
@@ -802,19 +810,31 @@
         <parameterSubstitution xmi:id="Grouping_of_T-_templateBinding.0-_parameterSubstitution.0" actual="Collection-_ownedElement.34-_ownedParameter.0-_ownedParameteredElement" formal="Grouping-_ownedElement.5-_ownedParameter.0"/>
       </templateBinding>
     </packagedElement>
-    <packagedElement xmi:type="uml:Interface" xmi:id="_7B20T5B0205D2020null5B0205D2020null7D" name="{(: T[0, *], : null[0, *]) : null}">
-      <ownedOperation xmi:id="_7B20T5B0205D2020null5B0205D2020null7D-signatureOperation" name="signatureOperation">
-        <ownedParameter xmi:id="_7B20T5B0205D2020null5B0205D2020null7D-signatureOperation-_ownedParameter.0" type="Collection-_ownedElement.34-_ownedParameter.0-_ownedParameteredElement">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7B20T5B0205D2020null5B0205D2020null7D-signatureOperation-_ownedParameter.0-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20T5B0205D2020null5B0205D2020null7D-signatureOperation-_ownedParameter.0-_upperValue" value="*"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_7B20T2020null2020null7D" name="{(: T, : null) : null}">
+      <ownedOperation xmi:id="_7B20T2020null2020null7D-signatureOperation" name="signatureOperation">
+        <ownedParameter xmi:id="_7B20T2020null2020null7D-signatureOperation-_ownedParameter.0" type="Collection-_ownedElement.34-_ownedParameter.0-_ownedParameteredElement">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20T2020null2020null7D-signatureOperation-_ownedParameter.0-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20T2020null2020null7D-signatureOperation-_ownedParameter.0-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
         </ownedParameter>
-        <ownedParameter xmi:id="_7B20T5B0205D2020null5B0205D2020null7D-signatureOperation-_ownedParameter.1" type="Collection-_nestedClassifier.1">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7B20T5B0205D2020null5B0205D2020null7D-signatureOperation-_ownedParameter.1-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20T5B0205D2020null5B0205D2020null7D-signatureOperation-_ownedParameter.1-_upperValue" value="*"/>
+        <ownedParameter xmi:id="_7B20T2020null2020null7D-signatureOperation-_ownedParameter.1" type="Collection-_nestedClassifier.1">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20T2020null2020null7D-signatureOperation-_ownedParameter.1-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20T2020null2020null7D-signatureOperation-_ownedParameter.1-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
         </ownedParameter>
-        <ownedParameter xmi:id="_7B20T5B0205D2020null5B0205D2020null7D-signatureOperation-_ownedParameter.2" type="Collection-_nestedClassifier.1" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7B20T5B0205D2020null5B0205D2020null7D-signatureOperation-_ownedParameter.2-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20T5B0205D2020null5B0205D2020null7D-signatureOperation-_ownedParameter.2-_upperValue" value="*"/>
+        <ownedParameter xmi:id="_7B20T2020null2020null7D-signatureOperation-_ownedParameter.2" type="Collection-_nestedClassifier.1" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20T2020null2020null7D-signatureOperation-_ownedParameter.2-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20T2020null2020null7D-signatureOperation-_ownedParameter.2-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
@@ -964,7 +984,7 @@
   <mdd_extensions:Signature xmi:id="_22" context="_0" base_Interface="_7B20T2020T2020mdd_typesInteger7D"/>
   <mdd_extensions:Signature xmi:id="_23" context="_0" base_Interface="_7B20T2020T7D"/>
   <mdd_extensions:Signature xmi:id="_24" context="_0" base_Interface="_7B20T2020mdd_typesAnyType7D"/>
-  <mdd_extensions:Signature xmi:id="_25" context="_0" base_Interface="_7B20T5B0205D2020null5B0205D2020null7D"/>
+  <mdd_extensions:Signature xmi:id="_25" context="_0" base_Interface="_7B20T2020null2020null7D"/>
   <mdd_extensions:Signature xmi:id="_26" context="_0" base_Interface="_7B20T2020null7D.1"/>
   <mdd_extensions:Signature xmi:id="_27" context="_0" base_Interface="_7B20T2020null7D.2"/>
   <mdd_extensions:Signature xmi:id="_28" context="_0" base_Interface="_7B20T2020null7D.3"/>
