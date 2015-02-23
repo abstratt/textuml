@@ -1,8 +1,7 @@
 package com.abstratt.mdd.core.util;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,6 +54,18 @@ public class StateMachineUtils {
             collectTriggersPerEvent(state, triggersPerEvent);
         return triggersPerEvent;
     }
+	
+	public static Collection<Trigger> findTriggersForCalling(StateMachine stateMachine, Operation operation) {
+	    Collection<Trigger> result = new ArrayList<Trigger>();
+        for (Vertex state : stateMachine.getRegions().get(0).getSubvertices())
+            for (Transition transition : state.getOutgoings())
+                for (Trigger trigger : transition.getTriggers()) {
+                    Event event = trigger.getEvent();
+                    if (event instanceof CallEvent && ((CallEvent) event).getOperation() == operation)
+                        result.add(trigger);
+                }
+        return result;
+	}
 	
 	public static Map<Event, List<Trigger>> findTriggersPerEvent(Vertex state) {
         Map<Event, List<Trigger>> triggersPerEvent = new LinkedHashMap<Event, List<Trigger>>();
