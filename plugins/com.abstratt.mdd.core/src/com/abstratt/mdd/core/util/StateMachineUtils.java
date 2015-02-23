@@ -52,22 +52,32 @@ public class StateMachineUtils {
 	public static Map<Event, List<Trigger>> findTriggersPerEvent(StateMachine stateMachine) {
 	    Map<Event, List<Trigger>> triggersPerEvent = new LinkedHashMap<Event, List<Trigger>>();
         for (Vertex state : stateMachine.getRegions().get(0).getSubvertices())
-            for (Transition transition : state.getOutgoings())
-                for (Trigger trigger : transition.getTriggers()) {
-                    Event keyEvent = null;
-                    for (Event existingEvent : triggersPerEvent.keySet()) 
-                        if (EcoreUtil.equals(existingEvent, trigger.getEvent())) {
-                            keyEvent = existingEvent;
-                            break;
-                        }
-                    if (keyEvent == null)
-                        keyEvent = trigger.getEvent();
-                    List<Trigger> triggers = triggersPerEvent.get(keyEvent);
-                    if (triggers == null)
-                        triggersPerEvent.put(keyEvent, triggers = new ArrayList<Trigger>());
-                    triggers.add(trigger);
-                }
+            collectTriggersPerEvent(state, triggersPerEvent);
         return triggersPerEvent;
+    }
+	
+	public static Map<Event, List<Trigger>> findTriggersPerEvent(Vertex state) {
+        Map<Event, List<Trigger>> triggersPerEvent = new LinkedHashMap<Event, List<Trigger>>();
+        collectTriggersPerEvent(state, triggersPerEvent);
+        return triggersPerEvent;
+    }
+
+    private static void collectTriggersPerEvent(Vertex state, Map<Event, List<Trigger>> triggersPerEvent) {
+        for (Transition transition : state.getOutgoings())
+            for (Trigger trigger : transition.getTriggers()) {
+                Event keyEvent = null;
+                for (Event existingEvent : triggersPerEvent.keySet()) 
+                    if (EcoreUtil.equals(existingEvent, trigger.getEvent())) {
+                        keyEvent = existingEvent;
+                        break;
+                    }
+                if (keyEvent == null)
+                    keyEvent = trigger.getEvent();
+                List<Trigger> triggers = triggersPerEvent.get(keyEvent);
+                if (triggers == null)
+                    triggersPerEvent.put(keyEvent, triggers = new ArrayList<Trigger>());
+                triggers.add(trigger);
+            }
     }
 
 	public static Map<Operation, List<Vertex>> findStateSpecificOperations(BehavioredClassifier classifier) {

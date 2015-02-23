@@ -346,7 +346,7 @@ public class ActivityUtils {
         List<Action> matchingActions = new ArrayList<Action>();
         for (ActivityNode node : target.getNodes()) 
             if (node.eClass() == UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE)
-                /*matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, actionClass));*/;
+                matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, actionClass));
             else if (node.eClass() == actionClass)
                 matchingActions.add((Action) node);
             else
@@ -377,7 +377,7 @@ public class ActivityUtils {
         return toCheck instanceof AddVariableValueAction && isReturnVariable(((AddVariableValueAction) toCheck).getVariable());
     }
 
-	private static boolean isReturnVariable(Variable variable) {
+	public static boolean isReturnVariable(Variable variable) {
         return variable.getName().equals("");
     }
 
