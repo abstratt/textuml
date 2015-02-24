@@ -15,11 +15,6 @@
 		    name="kirra"
     		uri="platform:/plugin/com.abstratt.kirra.mdd.core/models/kirra.uml"
     		requires="mdd.enableKirra"/>
-          <systemPackage
-            name="kirra_types"
-            uri="platform:/plugin/com.abstratt.kirra.mdd.core/models/kirra_types.uml"
-            requires="mdd.enableKirra"/>
-    		
 	</extension>
    <extension
          point="com.abstratt.resman.features">
