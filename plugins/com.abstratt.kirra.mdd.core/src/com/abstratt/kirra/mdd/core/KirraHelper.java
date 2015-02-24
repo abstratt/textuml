@@ -48,6 +48,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.RepositoryService;
 import com.abstratt.mdd.core.util.AssociationUtils;
+import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.NamedElementUtils;
@@ -696,7 +697,7 @@ public class KirraHelper {
             @Override
             public Boolean call() throws Exception {
                 // excludes other DataTypes, such as primitives
-                return classifier.getName() != null && (classifier.eClass() == Literals.DATA_TYPE || classifier.eClass() == Literals.SIGNAL);
+                return classifier.getName() != null && (classifier.eClass() == Literals.DATA_TYPE || classifier.eClass() == Literals.SIGNAL) && classifier.getVisibility() != VisibilityKind.PRIVATE_LITERAL;
             }
         });
     }
@@ -714,7 +715,16 @@ public class KirraHelper {
         return get(current, "isApplication", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return StereotypeUtils.hasProfile(current, "kirra") && hasKirraType(current);
+                return isKirraPackage(current) && hasKirraType(current);
+            }
+        });
+    }
+    
+    public static boolean isKirraPackage(final org.eclipse.uml2.uml.Package current) {
+        return get(current, "isKirraPackage", new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return StereotypeUtils.hasProfile(current, "kirra");
             }
         });
     }
@@ -874,5 +884,9 @@ public class KirraHelper {
         for (String typeRef : sortedRefs)
             toSort.add(0, nameToEntity.get(typeRef));
         return toSort;
+    }
+
+    public static boolean isPrimitive(Type umlType) {
+        return BasicTypeUtils.isBasicType(umlType);
     }
 }

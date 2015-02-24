@@ -9,6 +9,7 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
+import org.eclipse.uml2.uml.VisibilityKind;
 
 public class DataTypeUtils {
 
@@ -41,6 +42,7 @@ public class DataTypeUtils {
 			for (int i = 0; i < slotNames.size(); i++)
 				dataType.createOwnedAttribute(slotNames.get(i), slotTypes.get(i));
 			dataType.setName(computeTupleTypeName(dataType));
+			dataType.setVisibility(VisibilityKind.PRIVATE_LITERAL);
 		}
 		return dataType;
 	}
