@@ -1102,7 +1102,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 			super.caseAOperationIdentifierExpression(node);
 			final ObjectNode targetSource = ActivityUtils.getSource(action.getTarget());
 			targetClassifier = (Classifier) TypeUtils.getTargetType(getRepository(), targetSource, true);
-			Assert.isNotNull(targetClassifier, "Incoming type not determined");
+            if (targetClassifier == null) {
+                problemBuilder.addProblem(new UnclassifiedProblem(Severity.ERROR, "Could not determine the type of the target"), node.getExpressionList());
+                throw new AbortedStatementCompilationException();
+            }
 			// collect sources so we can match the right operation (in
 			// case of overloading)
 			List<TypedElement> sources = new ArrayList<TypedElement>();
