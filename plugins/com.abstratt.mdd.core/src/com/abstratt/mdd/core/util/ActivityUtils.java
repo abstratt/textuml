@@ -203,9 +203,7 @@ public class ActivityUtils {
 
 	public static ObjectNode getSource(ObjectNode target) {
 		final List<ActivityEdge> incomings = target.getIncomings();
-		if (incomings.isEmpty())
-			return null;
-		Assert.isLegal(incomings.size() == 1);
+		Assert.isLegal(incomings.size() == 1, "Object node has no incoming flows");
 		return (ObjectNode) ((ObjectFlow) incomings.get(0)).getSource();
 	}
 

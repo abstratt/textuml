@@ -540,6 +540,8 @@ public class BehaviorGenerator extends AbstractGenerator {
 			Operation operation = findOperation(node.getIdentifier(), targetClassifier, operationName, new ArrayList<TypedElement>(sources), true, true);
 			if (!operation.isQuery() && !PackageUtils.isModelLibrary(operation.getNearestPackage()))
 				ensureNotQuery(node);
+			if (operation.getReturnResult() == null)
+                ensureTerminal(node.getIdentifier());
 			action.setOperation(operation);
 			List<Parameter> inputParameters = FeatureUtils.getInputParameters(operation.getOwnedParameters());
             Map<Type, Type> wildcardSubstitutions = FeatureUtils.buildWildcardSubstitutions(new HashMap<Type, Type>(), inputParameters, sources);
@@ -1104,7 +1106,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			final ObjectNode targetSource = ActivityUtils.getSource(action.getTarget());
 			targetClassifier = (Classifier) TypeUtils.getTargetType(getRepository(), targetSource, true);
             if (targetClassifier == null) {
-                problemBuilder.addProblem(new UnclassifiedProblem(Severity.ERROR, "Could not determine the type of the target"), node.getExpressionList());
+                problemBuilder.addProblem(new UnclassifiedProblem(Severity.ERROR, "Could not determine the type of the target"), node.getIdentifier());
                 throw new AbortedStatementCompilationException();
             }
 			// collect sources so we can match the right operation (in
@@ -1121,6 +1123,8 @@ public class BehaviorGenerator extends AbstractGenerator {
 			Operation operation = findOperation(node.getIdentifier(), targetClassifier, operationName, sources, false, true);
 			if (!operation.isQuery() && !PackageUtils.isModelLibrary(operation.getNearestPackage()))
 				ensureNotQuery(node);
+			if (operation.getReturnResult() == null)
+                ensureTerminal(node.getIdentifier());
 			action.setOperation(operation);
 			List<Parameter> inputParameters = FeatureUtils.getInputParameters(operation.getOwnedParameters());
 			Map<Type, Type> wildcardSubstitutions = FeatureUtils.buildWildcardSubstitutions(new HashMap<Type, Type>(), inputParameters, sources);
@@ -1163,6 +1167,14 @@ public class BehaviorGenerator extends AbstractGenerator {
 		}
 		checkIncomings(action, node.getIdentifier(), targetClassifier);
 	}
+
+    private void ensureTerminal(Node identifierNode) {
+        if (!builder.isCurrentActionTerminal()) {
+            String operationName = TextUMLCore.getSourceMiner().getIdentifier(identifierNode);
+            problemBuilder.addProblem(new UnclassifiedProblem("Operation " + operationName + " does not have a result"), identifierNode);
+            throw new AbortedStatementCompilationException();
+        }
+    }
 
 	@Override
 	public void caseARaiseSpecificStatement(ARaiseSpecificStatement node) {
@@ -1551,20 +1563,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 								+ targetClassifier.getName() + "'", node.getIdentifier());
 				throw new AbortedStatementCompilationException();
 			}
-			// // according to UML 2.1 §11.1, "(...) The semantics for static
-			// features is undefined. (...)"
-			// builder.registerInput(action.createObject(null, null));
-			// // our intepretation is that they are allowed and the input
-			// object is a null value spec
-			// LiteralNull literalNull = (LiteralNull)
-			// currentPackage().createPackagedElement(null,
-			// IRepository.PACKAGE.getLiteralNull());
-			// buildValueSpecificationAction(literalNull, node);
 			builder.registerInput(action.createValue(null, null));
 			// builds expression
 			node.getRootExpression().apply(this);
 			action.setStructuralFeature(attribute);
-			// action.getObject().setType(targetClassifier);
 			TypeUtils.copyType(attribute, action.getValue(), targetClassifier);
 			fillDebugInfo(action, node);
 		} finally {
