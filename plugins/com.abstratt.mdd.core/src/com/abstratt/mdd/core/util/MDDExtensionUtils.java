@@ -366,7 +366,8 @@ public class MDDExtensionUtils {
     }
     
     public static boolean isCast(Action toCheck) {
-        return StereotypeUtils.hasStereotype(toCheck, CAST_STEREOTYPE);
+        boolean isCast = StereotypeUtils.hasStereotype(toCheck, CAST_STEREOTYPE);
+        return isCast;
     }
     
     public static boolean isObjectInitialization(Action toCheck) {

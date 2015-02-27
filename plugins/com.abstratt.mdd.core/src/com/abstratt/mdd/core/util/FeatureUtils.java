@@ -55,6 +55,10 @@ public class FeatureUtils {
 		return toExecute.getOwnedParameters().size() > 1;
 	}
 	
+	public static Classifier getOwningClassifier(Operation operation) {
+	    return (Classifier) operation.eContainer();
+	}
+	
 	public static Operation createOperation(Classifier parent, String operationName) {
         Operation operation;
         if (parent instanceof Class)

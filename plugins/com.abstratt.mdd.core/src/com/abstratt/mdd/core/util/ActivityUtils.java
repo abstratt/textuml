@@ -31,6 +31,7 @@ import org.eclipse.uml2.uml.ControlFlow;
 import org.eclipse.uml2.uml.ExceptionHandler;
 import org.eclipse.uml2.uml.ExecutableNode;
 import org.eclipse.uml2.uml.InputPin;
+import org.eclipse.uml2.uml.LiteralNull;
 import org.eclipse.uml2.uml.ObjectFlow;
 import org.eclipse.uml2.uml.ObjectNode;
 import org.eclipse.uml2.uml.OpaqueExpression;
@@ -72,7 +73,19 @@ public class ActivityUtils {
 	public static StructuredActivityNode createBodyNode(Activity currentActivity) {
 		return currentActivity.createStructuredNode(BODY_NODE);
 	}
+	
+	public static boolean isNullValue(Action action) {
+	    if (!(action instanceof ValueSpecificationAction))
+	        return false;
+	    ValueSpecification value = ((ValueSpecificationAction) action).getValue();
+	    return value instanceof LiteralNull && value.getAppliedStereotypes().isEmpty();
+	}
 
+    public static boolean isNullValue(InputPin pin) {
+        Action sourceAction = getSourceAction(pin);
+        return sourceAction != null && isNullValue(sourceAction);
+    }
+	
 	/**
 	 * Finds an exception handler for the given exception type.
 	 * 
@@ -319,6 +332,7 @@ public class ActivityUtils {
 	 * A cast is a {@link StructuredActivityNode} with only two nodes: an input
 	 * and an output. TODO an ObjectFlow would be more appropriate
 	 */
+	@Deprecated // use MDDExtensionUtils instead
 	public static boolean isCast(Action toCheck) {
 	    return MDDExtensionUtils.isCast(toCheck);
 	}
