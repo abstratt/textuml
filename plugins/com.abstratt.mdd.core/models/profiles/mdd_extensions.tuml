@@ -35,12 +35,10 @@ stereotype Closure extends Activity
     property context : StructuredActivityNode;
 end;
 
-stereotype AttributeInitialization extends InputPin
-    property initialized : Property;
+stereotype ObjectInitialization extends StructuredActivityNode
 end;
 
-stereotype ObjectInitialization extends CreateObjectAction
-    property slotValues : InputPin[*];
+stereotype Cast extends StructuredActivityNode
 end;
 
 stereotype ConstraintBehavior extends Activity 

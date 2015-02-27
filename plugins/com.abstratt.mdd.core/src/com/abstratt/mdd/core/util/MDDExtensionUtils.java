@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioredClassifier;
@@ -41,7 +42,7 @@ public class MDDExtensionUtils {
 	private static final String ENTRY_POINT_STEREOTYPE = "mdd_extensions::EntryPoint";
 	private static final String EXTERNAL_CLASS_STEREOTYPE = "mdd_extensions::External";
 	private static final String OBJECT_INITIALIZATION_STEREOTYPE = "mdd_extensions::ObjectInitialization";
-	private static final String ATTRIBUTE_INITIALIZATION_STEREOTYPE = "mdd_extensions::AttributeInitialization";
+	private static final String CAST_STEREOTYPE = "mdd_extensions::Cast";
 	private static final String PERSISTENT_STEREOTYPE = "mdd_extensions::Persistent";
 	private static final String SIGNATURE_STEREOTYPE = "mdd_extensions::Signature";
 	private static final String SIGNATURE_CONTEXT = "context";	
@@ -353,4 +354,23 @@ public class MDDExtensionUtils {
 			return (NamedElement) violated.getConstrainedElements().get(0);
 		return null;
 	}
+
+    public static void makeObjectInitialization(StructuredActivityNode action) {
+        Stereotype objectInitStereotype = StereotypeUtils.findStereotype(OBJECT_INITIALIZATION_STEREOTYPE);
+        StereotypeUtils.safeApplyStereotype(action, objectInitStereotype);
+    }
+    
+    public static void makeCast(StructuredActivityNode action) {
+        Stereotype castStereotype = StereotypeUtils.findStereotype(CAST_STEREOTYPE);
+        StereotypeUtils.safeApplyStereotype(action, castStereotype);
+    }
+    
+    public static boolean isCast(Action toCheck) {
+        return StereotypeUtils.hasStereotype(toCheck, CAST_STEREOTYPE);
+    }
+    
+    public static boolean isObjectInitialization(Action toCheck) {
+        return StereotypeUtils.hasStereotype(toCheck, OBJECT_INITIALIZATION_STEREOTYPE);
+    }
+
 }

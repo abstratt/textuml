@@ -143,7 +143,7 @@ public class ActivityBuilder implements IActivityBuilder {
 	public Action getCurrentAction() {
 		return currentAction == null ? null : currentAction.getAction();
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 

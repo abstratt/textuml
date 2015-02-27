@@ -63,7 +63,7 @@ class ActionInfo {
 	}
 
 	/**
-	 * Connects this action input pins with its child actions output pins.
+	 * Connects this action output pins with its parent actions input pins.
 	 */
 	public void makeConnections() {
 		if (parent != null && parent.hasDataFlows())

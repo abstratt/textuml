@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.EList;
@@ -1327,11 +1328,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 			return;
 		}
 		StructuredActivityNode action = (StructuredActivityNode) builder.createAction(Literals.STRUCTURED_ACTIVITY_NODE);
+		MDDExtensionUtils.makeCast(action);
 		try {
-			
-			String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(node.getCast());
 			// register the target input pin (type is null)
-			InputPin sourcePin = (InputPin) action.createNode(null, Literals.INPUT_PIN);
+			InputPin sourcePin = (InputPin) action.createStructuredNodeInput(null, null);
 			builder.registerInput(sourcePin);
 			// process the target expression - this will connect its output pin
 			// to the input pin we just created
@@ -1339,7 +1339,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			// copy whatever multiplicity coming into the source to the source
 			TypeUtils.copyMultiplicity((MultiplicityElement) sourcePin.getIncomings().get(0).getSource(), sourcePin);
 			// register the result output pin
-			OutputPin destinationPin = (OutputPin) action.createNode(null, Literals.OUTPUT_PIN);
+			OutputPin destinationPin = (OutputPin) action.createStructuredNodeOutput(null, null);
 			
 			new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), destinationPin).process(node.getCast());
 			builder.registerOutput(destinationPin);
@@ -1937,150 +1937,38 @@ public class BehaviorGenerator extends AbstractGenerator {
 		return info;
 	}
 	
-	@Override
-	public void caseATupleConstructor(ATupleConstructor node) {
-		final Package currentPackage = namespaceTracker.currentPackage();
-		final List<Node> componentNodes = new ArrayList<Node>();
-		final List<String> slotNames = new ArrayList<String>();
-		List<Type> slotTypes = new ArrayList<Type>();
-		DataType dataType;
-		List<Variable> argumentVariables = new ArrayList<Variable>();
-		node.apply(new DepthFirstAdapter() {
-			@Override
-			public void caseATupleComponentValue(ATupleComponentValue node) {
-				slotNames.add(sourceMiner.getIdentifier(node.getIdentifier()));
-				componentNodes.add(node.getExpression());
-			}
-		});
-
-		// create the var to hold the created/returned object so it is accessible to the init code and the final read var
-		Variable objectVar = ((StructuredActivityNode) builder.getCurrentBlock().getOwner()).createVariable(null, null);
-		objectVar.setVisibility(VisibilityKind.PRIVATE_LITERAL);
-
-		StructuredActivityNode structureBlock = builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-		try {
-			int values = componentNodes.size();
-			for (int i = 0; i < values; i++) {
-				Variable argumentVar = builder.getCurrentBlock().createVariable(null, null);
-				argumentVar.setVisibility(VisibilityKind.PRIVATE_LITERAL);
-				argumentVar.setName("__" + slotNames.get(i));
-				argumentVariables.add(argumentVar);
-			}
-			builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-			try {
-				for (int i = 0; i < values; i++) {
-				    Node componentNode = componentNodes.get(i);
-				    Variable argumentVar = argumentVariables.get(i);
-					WriteVariableAction storeArgumentAction;
-					try {
-						storeArgumentAction =
-								(WriteVariableAction) builder.createAction(UMLPackage.Literals.ADD_VARIABLE_VALUE_ACTION);
-						storeArgumentAction.setVariable(argumentVar);
-						builder.registerInput(storeArgumentAction.createValue(null, null));
-						componentNode.apply(this);
-					} finally {
-						builder.closeAction();
-					}
-					slotTypes.add(storeArgumentAction.getValue().getType());
-					checkIncomings(storeArgumentAction, node.getTupleComponentValue(), getBoundElement());
-				}
-			} finally {
-				builder.closeBlock();
-			}
-			
-			builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-			try {
-				WriteVariableAction storeObjectAction;
-				try {
-					storeObjectAction =
-							(WriteVariableAction) builder.createAction(UMLPackage.Literals.ADD_VARIABLE_VALUE_ACTION);
-					storeObjectAction.setVariable(objectVar);
-					builder.registerInput(storeObjectAction.createValue(null, null));
-					dataType = DataTypeUtils.findOrCreateDataType(currentPackage, slotNames, slotTypes);
-					objectVar.setType(dataType);
-					CreateObjectAction createObjectAction;
-					try {
-						createObjectAction =
-								(CreateObjectAction) builder.createAction(UMLPackage.Literals.CREATE_OBJECT_ACTION);
-						createObjectAction.setClassifier(dataType);
-						builder.registerOutput(createObjectAction.createResult(null, dataType));
-					} finally {
-						builder.closeAction();
-					}
-					checkIncomings(createObjectAction, node.getTupleComponentValue(), getBoundElement());
-				} finally {
-					builder.closeAction();
-				}
-				checkIncomings(storeObjectAction, node.getTupleComponentValue(), getBoundElement());
-			} finally {
-				builder.closeBlock();
-			}
+    @Override
+    public void caseATupleConstructor(ATupleConstructor node) {
+        final StructuredActivityNode action =
+                        (StructuredActivityNode) builder.createAction(IRepository.PACKAGE.getStructuredActivityNode());
+        MDDExtensionUtils.makeObjectInitialization(action);
+        try {
+            node.apply(new DepthFirstAdapter() {
+                @Override
+                public void caseATupleComponentValue(ATupleComponentValue node) {
+                    String slotName = sourceMiner.getIdentifier(node.getIdentifier());
+                    builder.registerInput(action.createStructuredNodeInput(slotName, null));
+                    node.getExpression().apply(BehaviorGenerator.this);
+                }
+            });
+            builder.registerOutput(action.createStructuredNodeOutput(null, null));
+        
+            // now we determine the types of the incoming flows and build a corresponding data type on the fly
+            List<String> slotNames = new ArrayList<>();
+            List<Type> slotTypes = new ArrayList<>();
+            action.getStructuredNodeInputs().forEach((input) -> {
+                slotNames.add(input.getName());
+                slotTypes.add(input.getType());
+            });
+        
+            DataType dataType = DataTypeUtils.findOrCreateDataType(namespaceTracker.currentPackage(), slotNames, slotTypes);
+            action.getStructuredNodeOutputs().get(0).setType(dataType);
+        } finally {
+            builder.closeAction();
+        }
+        checkIncomings(action, node, getBoundElement());
+    }
 	
-			builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-			try {
-				for (int i = 0; i < componentNodes.size(); i++) {
-				    Variable argumentVar = argumentVariables.get(i);
-				    Property slot = dataType.getAttribute(slotNames.get(i), null);
-					AddStructuralFeatureValueAction copyArgumentIntoSlot;
-					try {
-						copyArgumentIntoSlot =
-								(AddStructuralFeatureValueAction) builder.createAction(UMLPackage.Literals.ADD_STRUCTURAL_FEATURE_VALUE_ACTION);
-						copyArgumentIntoSlot.setStructuralFeature(slot);
-						builder.registerInput(copyArgumentIntoSlot.createObject(null, null));
-
-						// read target object 
-						ReadVariableAction readObjectFromVar;
-						try {
-							readObjectFromVar =
-									(ReadVariableAction) builder.createAction(UMLPackage.Literals.READ_VARIABLE_ACTION);
-							readObjectFromVar.setVariable(objectVar);
-							builder.registerOutput(readObjectFromVar.createResult(null, dataType));
-						} finally {
-							builder.closeAction();
-						}
-						checkIncomings(readObjectFromVar, node.getTupleComponentValue(), getBoundElement());
-
-						builder.registerInput(copyArgumentIntoSlot.createValue(null, slotTypes.get(i)));
-						ReadVariableAction readComponentValueFromVar;
-						try {
-							readComponentValueFromVar =
-									(ReadVariableAction) builder.createAction(UMLPackage.Literals.READ_VARIABLE_ACTION);
-							readComponentValueFromVar.setVariable(argumentVar);
-							builder.registerOutput(readComponentValueFromVar.createResult(null, slotTypes.get(i)));
-						} finally {
-							builder.closeAction();
-						}
-						checkIncomings(readComponentValueFromVar, node.getTupleComponentValue(), getBoundElement());
-					} finally {
-						builder.closeAction();
-					}
-					checkIncomings(copyArgumentIntoSlot, node.getTupleComponentValue(), getBoundElement());
-				}
-			} finally {
-				builder.closeBlock();
-			}
-		} finally {
-			// structure block
-			builder.closeBlock();
-		}
-		// moves the block just created into the grand parent block
-		StructuredActivityNode parentBlock = (StructuredActivityNode) builder.getCurrentBlock().getOwner();
-		int toInsertAt = parentBlock.getNodes().indexOf(builder.getCurrentBlock());
-		parentBlock.getNodes().add(toInsertAt, structureBlock);
-		
-		// finally we read the initialized object to be consumed by a downstream pin
-		ReadVariableAction retrieveObjectAction;
-		try {
-			retrieveObjectAction =
-					(ReadVariableAction) builder.createAction(UMLPackage.Literals.READ_VARIABLE_ACTION);
-			retrieveObjectAction.setVariable(objectVar);
-			builder.registerOutput(retrieveObjectAction.createResult(null, dataType)); 
-		} finally {
-			builder.closeAction();
-		}
-		checkIncomings(retrieveObjectAction, node.getTupleComponentValue(), getBoundElement());
-	}
-
 	public void createBodyLater(final Node bodyNode, final Activity body) {
 		sourceContext.getContext().getReferenceTracker().add(new IDeferredReference() {
 			@Override

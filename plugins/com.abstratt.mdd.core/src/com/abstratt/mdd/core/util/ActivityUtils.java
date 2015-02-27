@@ -164,10 +164,12 @@ public class ActivityUtils {
 
 	public static ObjectFlow connect(StructuredActivityNode parent, ObjectNode source, ObjectNode target) {
 		ObjectFlow flow = (ObjectFlow) parent.createEdge(null, UMLPackage.eINSTANCE.getObjectFlow());
+		// this is valid in UML but not in TextUML (text format doesn't allow that)
+		Assert.isLegal(source.getOutgoings().isEmpty());
+		// this is invalid according to UML
+		Assert.isLegal(target.getIncomings().isEmpty());
 		flow.setSource(source);
 		flow.setTarget(target);
-		flow.setWeight(MDDUtil.createLiteralInteger(parent.getNearestPackage(), 1));
-		flow.setGuard(MDDUtil.createLiteralBoolean(parent.getNearestPackage(), true));
 		if (target.getType() == null && source.getType() != null)
 			TypeUtils.copyType(source, target);
 		return flow;
@@ -209,8 +211,7 @@ public class ActivityUtils {
 		if (sourcePin == null)
 			return null;
 		Action sourceAction = (Action) sourcePin.getOwner();
-		// skip casts as they provide no value
-		return isCast(sourceAction) ? getSourceAction(sourceAction) : sourceAction;
+		return sourceAction;
 	}
 
 	public static Action getSourceAction(Action target) {
@@ -224,8 +225,7 @@ public class ActivityUtils {
 		if (targetPin == null)
 			return null;
 		Action targetAction = (Action) targetPin.getOwner();
-		// skip casts as they provide no value
-		return isCast(targetAction) ? getTargetAction(targetAction) : targetAction;
+		return targetAction;
 	}
 
 	public static Action getTargetAction(Action source) {
@@ -282,8 +282,6 @@ public class ActivityUtils {
 	 * StructuredActivityNodes.
 	 */
 	public static List<InputPin> getActionInputs(Action action) {
-		if (action instanceof StructuredActivityNode)
-			return MDDUtil.filterByClass(((StructuredActivityNode) action).getNodes(), Literals.INPUT_PIN);
 		return action.getInputs();
 	}
 
@@ -292,8 +290,6 @@ public class ActivityUtils {
 	 * StructuredActivityNodes.
 	 */
 	public static List<OutputPin> getActionOutputs(Action action) {
-		if (action instanceof StructuredActivityNode)
-			return MDDUtil.filterByClass(((StructuredActivityNode) action).getNodes(), Literals.OUTPUT_PIN);
 		return action.getOutputs();
 	}
 
@@ -323,12 +319,8 @@ public class ActivityUtils {
 	 * A cast is a {@link StructuredActivityNode} with only two nodes: an input
 	 * and an output. TODO an ObjectFlow would be more appropriate
 	 */
-	public static boolean isCast(Action nextAction) {
-		if (!(nextAction instanceof StructuredActivityNode))
-			return false;
-		StructuredActivityNode san = (StructuredActivityNode) nextAction;
-		List<ActivityNode> nodes = san.getNodes();
-		return nodes.size() == 2 && nodes.get(0) instanceof InputPin && nodes.get(1) instanceof OutputPin;
+	public static boolean isCast(Action toCheck) {
+	    return MDDExtensionUtils.isCast(toCheck);
 	}
 
 	public static List<Action> findStatements(StructuredActivityNode target) {
@@ -344,13 +336,12 @@ public class ActivityUtils {
 	
 	public static List<Action> findMatchingActions(StructuredActivityNode target, EClass actionClass) {
         List<Action> matchingActions = new ArrayList<Action>();
-        for (ActivityNode node : target.getNodes()) 
-            if (node.eClass() == UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE)
-                matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, actionClass));
-            else if (node.eClass() == actionClass)
+        for (ActivityNode node : target.getNodes()) {
+            if (actionClass.isInstance(node))
                 matchingActions.add((Action) node);
-            else
-                System.out.println(node.eClass().getName());
+            if (UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE.isInstance(node))
+                matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, actionClass));
+        }
         return matchingActions;
     }
 	
