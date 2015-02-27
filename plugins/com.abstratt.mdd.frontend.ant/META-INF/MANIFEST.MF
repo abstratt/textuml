@@ -4,7 +4,7 @@ Bundle-Name: Ant Tasks
 Bundle-SymbolicName: com.abstratt.mdd.frontend.ant;singleton:=true
 Bundle-Version: 1.120.1.qualifier
 Bundle-Vendor: TextUML Toolkit contributors
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.ant.core;bundle-version="3.2.0",
  org.apache.ant;bundle-version="1.7.0",
  com.abstratt.mdd.core;bundle-version="1.4.0",

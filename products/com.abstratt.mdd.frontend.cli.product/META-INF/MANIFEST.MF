@@ -4,5 +4,5 @@ Bundle-Name: MDD Front-end Product
 Bundle-SymbolicName: com.abstratt.mdd.frontend.cli.product;singleton:=true
 Bundle-Version: 1.120.1.qualifier
 Bundle-Vendor: ABSTRATT
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

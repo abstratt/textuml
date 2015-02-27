@@ -13,5 +13,5 @@ Require-Bundle: org.eclipse.ui,
  com.abstratt.mdd.core
 Bundle-ActivationPolicy: lazy
 Export-Package: com.abstratt.mdd.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: Abstratt Technologies

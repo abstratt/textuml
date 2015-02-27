@@ -4,7 +4,7 @@ Bundle-Name: DOT-based model rendering
 Bundle-SymbolicName: com.abstratt.mdd.modelrenderer.dot
 Bundle-Version: 1.120.1.qualifier
 Bundle-Vendor: ABSTRATT
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.abstratt.modelrenderer,
  com.abstratt.pluginutils
 Require-Bundle: org.eclipse.equinox.common,
