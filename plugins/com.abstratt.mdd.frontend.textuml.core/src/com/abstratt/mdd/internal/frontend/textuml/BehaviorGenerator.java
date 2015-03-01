@@ -1447,6 +1447,16 @@ public class BehaviorGenerator extends AbstractGenerator {
 		if (node.getOptionalType() != null)
 		    // type is optional for local vars
 		    new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), var).process(node.getOptionalType());
+		else {
+		    // ensure a type is eventually inferred
+            sourceContext.getContext().getReferenceTracker().add(new IDeferredReference() {
+                @Override
+                public void resolve(IBasicRepository repository) {
+                    if (var.getType() == null)
+                        problemBuilder.addError("Could not infer a type for variable '" + var.getName() + "'", node.getIdentifier());
+                }
+            }, Step.LAST);
+        }
 	}
 
 	@Override
