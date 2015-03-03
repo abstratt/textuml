@@ -32,13 +32,22 @@ public class StateMachineUtils {
 	public static Vertex getInitialVertex(StateMachine stateMachine) {
 		EList<Vertex> subvertices = stateMachine.getRegions().get(0).getSubvertices();
 		for (Vertex vertex : subvertices)
-			if (vertex instanceof Pseudostate && ((Pseudostate) vertex).getKind() == PseudostateKind.INITIAL_LITERAL)
+			if (isMarkedInitial(vertex))
 				return vertex;
+		// fall back to first orphan vertex 
 		for (Vertex vertex : subvertices)
 			if (vertex.getIncomings().isEmpty())
 				return vertex;
 		return null;
 	}
+	
+	public static boolean isMarkedInitial(Vertex vertex) {
+	    return vertex instanceof Pseudostate && ((Pseudostate) vertex).getKind() == PseudostateKind.INITIAL_LITERAL;
+	}
+	
+	public static boolean isInitial(Vertex vertex) {
+        return isMarkedInitial(vertex) || getInitialVertex(vertex.containingStateMachine()) == vertex;
+    }
 
 	public static List<Property> findStateProperties(Classifier classifier) {
 		List<Property> stateProperties = new LinkedList<Property>();
