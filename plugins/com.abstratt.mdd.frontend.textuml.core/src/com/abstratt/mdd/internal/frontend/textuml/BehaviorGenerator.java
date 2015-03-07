@@ -798,11 +798,6 @@ public class BehaviorGenerator extends AbstractGenerator {
 			ObjectNode source = ActivityUtils.getSource(linkEndValue);
 			Classifier targetClassifier = (Classifier) TypeUtils.getTargetType(getRepository(), source, true);
 			Property openEnd = parseRole(targetClassifier, node.getAssociationTraversal());  
-			if (!openEnd.isNavigable()) {
-				problemBuilder.addProblem( new UnclassifiedProblem("Role '" + openEnd.getQualifiedName() + "' is not navigable"), node
-								.getIdentifierExpression());
-				throw new AbortedStatementCompilationException();
-			}
 			Association association = openEnd.getAssociation();
 			linkEndValue.setType(targetClassifier);
 			int openEndIndex = association.getMemberEnds().indexOf(openEnd);

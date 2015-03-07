@@ -240,6 +240,12 @@ public class KirraHelper {
         return isRequired(property, false);
     }
     
+    /**
+     * 
+     * @param property
+     * @param creation 
+     * @return
+     */
     public static boolean isRequired(final Property property, final boolean creation) {
         return get(property, "isRequiredProperty_" + creation, new Callable<Boolean>() {
             @Override
@@ -410,6 +416,12 @@ public class KirraHelper {
         return isReadOnly(umlAttribute, false);
     }
     
+    /**
+     * 
+     * @param umlAttribute
+     * @param creationTime is this for creation time or in general? A property may be read-only after the object is created but writable at creation time (because it is a required property).
+     * @return
+     */
     public static boolean isReadOnly(final org.eclipse.uml2.uml.Property umlAttribute, final boolean creationTime) {
         return get(umlAttribute, "isReadOnlyProperty_" + creationTime, new Callable<Boolean>() {
             @Override

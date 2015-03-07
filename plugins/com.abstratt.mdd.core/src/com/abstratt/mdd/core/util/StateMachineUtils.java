@@ -25,6 +25,10 @@ import org.eclipse.uml2.uml.Vertex;
 
 public class StateMachineUtils {
 	
+    public static BehavioredClassifier getStateMachineContext(StateMachine stateMachine) {
+        return stateMachine.getContext();
+    }
+    
 	public static Vertex getVertex(StateMachine stateMachine, String name) {
 		return stateMachine.getRegions().get(0).getSubvertex(name);
 	}

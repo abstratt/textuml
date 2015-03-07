@@ -373,5 +373,10 @@ public class MDDExtensionUtils {
     public static boolean isObjectInitialization(Action toCheck) {
         return StereotypeUtils.hasStereotype(toCheck, OBJECT_INITIALIZATION_STEREOTYPE);
     }
+    
+
+    public static boolean isTestClass(Type toCheck) {
+        return StereotypeUtils.hasStereotype(toCheck, "Test");
+    }
 
 }

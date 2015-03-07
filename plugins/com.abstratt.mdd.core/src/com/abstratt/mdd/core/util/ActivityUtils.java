@@ -74,6 +74,10 @@ public class ActivityUtils {
 		return currentActivity.createStructuredNode(BODY_NODE);
 	}
 	
+	public static boolean isBodyNode(StructuredActivityNode node) {
+        return node == getBodyNode(getActionActivity(node));
+    }
+	
 	public static boolean isNullValue(Action action) {
 	    if (!(action instanceof ValueSpecificationAction))
 	        return false;
@@ -325,6 +329,15 @@ public class ActivityUtils {
 			TypeUtils.copyType(parameter, newVariable);
 		}
 	}
+	
+	public static Parameter getParameter(Variable variable) {
+	    if (!(variable.getOwner() instanceof StructuredActivityNode))
+	        return null;
+	    StructuredActivityNode parent = (StructuredActivityNode) variable.getOwner();
+	    if (!isBodyNode(parent))
+	        return null;
+	    return getActionActivity(parent).getOwnedParameter(variable.getName(), variable.getType());
+	}
 
 	/**
 	 * A cast is a {@link StructuredActivityNode} with only two nodes: an input
@@ -393,7 +406,12 @@ public class ActivityUtils {
 		controlFlow.setTarget(finalNode);
 	}
 
+	@Deprecated
 	public static BehavioredClassifier getContext(Behavior behavior) {
+	    return getBehaviorContext(behavior);
+	}
+	
+	public static BehavioredClassifier getBehaviorContext(Behavior behavior) {
 		BehavioredClassifier standardContext = behavior.getContext();
 		if (standardContext instanceof Behavior) {
 			BehavioredClassifier contextsContext = getContext((Behavior) standardContext);
@@ -415,7 +433,7 @@ public class ActivityUtils {
 		return getControlSource(finalNode);
 	}
 
-	public static Activity getOwningActivity(StructuredActivityNode context) {
+	public static Activity getOwningActivity(ActivityNode context) {
  		return getActionActivity(context);	
 	}
 	

@@ -30,6 +30,7 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.DataType;
+import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
@@ -55,8 +56,8 @@ public class FeatureUtils {
 		return toExecute.getOwnedParameters().size() > 1;
 	}
 	
-	public static Classifier getOwningClassifier(Operation operation) {
-	    return (Classifier) operation.eContainer();
+	public static Classifier getOwningClassifier(Feature operation) {
+	    return (Classifier) operation.eContainer(); 
 	}
 	
 	public static Operation createOperation(Classifier parent, String operationName) {
