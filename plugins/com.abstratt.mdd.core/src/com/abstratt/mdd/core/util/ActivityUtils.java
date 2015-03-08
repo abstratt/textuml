@@ -359,13 +359,17 @@ public class ActivityUtils {
 		return terminalActions;
 	}
 	
-	public static List<Action> findMatchingActions(StructuredActivityNode target, EClass actionClass) {
+	public static List<Action> findMatchingActions(StructuredActivityNode target, EClass... actionClasses) {
         List<Action> matchingActions = new ArrayList<Action>();
         for (ActivityNode node : target.getNodes()) {
-            if (actionClass.isInstance(node))
-                matchingActions.add((Action) node);
+            for (EClass actionClass : actionClasses) {
+                if (actionClass.isInstance(node)) {
+                    matchingActions.add((Action) node);
+                    break;
+                }
+            }
             if (UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE.isInstance(node))
-                matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, actionClass));
+                matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, actionClasses));
         }
         return matchingActions;
     }
