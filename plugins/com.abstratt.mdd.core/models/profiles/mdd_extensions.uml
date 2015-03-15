@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.1">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/10/08 08:37:15 276 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2015/02/25 12:09:59 215 -0300"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -62,22 +62,16 @@
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Activity"/>
         </eStructuralFeatures>
       </eClassifiers>
-      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AttributeInitialization" name="AttributeInitialization">
-        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AttributeInitialization-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="AttributeInitialization"/>
-        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AttributeInitialization-initialized" name="initialized" ordered="false" lowerBound="1">
-          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Property"/>
-        </eStructuralFeatures>
-        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AttributeInitialization-base_InputPin" name="base_InputPin" ordered="false" lowerBound="1">
-          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//InputPin"/>
-        </eStructuralFeatures>
-      </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ObjectInitialization" name="ObjectInitialization">
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ObjectInitialization-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="ObjectInitialization"/>
-        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ObjectInitialization-slotValues" name="slotValues" ordered="false" upperBound="-1">
-          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//InputPin"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ObjectInitialization-base_StructuredActivityNode" name="base_StructuredActivityNode" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//StructuredActivityNode"/>
         </eStructuralFeatures>
-        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ObjectInitialization-base_CreateObjectAction" name="base_CreateObjectAction" ordered="false" lowerBound="1">
-          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//CreateObjectAction"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Cast" name="Cast">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Cast-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Cast"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Cast-base_StructuredActivityNode" name="base_StructuredActivityNode" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//StructuredActivityNode"/>
         </eStructuralFeatures>
       </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ConstraintBehavior" name="ConstraintBehavior">
@@ -91,6 +85,9 @@
       </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature" name="Signature">
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Signature"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature-context" name="context" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Namespace"/>
+        </eStructuralFeatures>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Signature-base_Interface" name="base_Interface" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Interface"/>
         </eStructuralFeatures>
@@ -147,6 +144,24 @@
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-PropertyDerivation-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="PropertyDerivation"/>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-PropertyDerivation-base_Constraint" name="base_Constraint" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Constraint"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardType" name="WildcardType">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardType-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="WildcardType"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardType-context" name="context" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Namespace"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardType-base_Type" name="base_Type" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Type"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardTypeContext" name="WildcardTypeContext">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardTypeContext-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="WildcardTypeContext"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardTypeContext-wildcardTypes" name="wildcardTypes" ordered="false" upperBound="-1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Type"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardTypeContext-base_Namespace" name="base_Namespace" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Namespace"/>
         </eStructuralFeatures>
       </eClassifiers>
     </contents>
@@ -235,24 +250,14 @@
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
     </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Stereotype" xmi:id="AttributeInitialization" name="AttributeInitialization">
-    <ownedAttribute xmi:id="AttributeInitialization-initialized" name="initialized">
-      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Property"/>
-      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="AttributeInitialization-initialized-_lowerValue" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="AttributeInitialization-initialized-_upperValue" value="1"/>
-    </ownedAttribute>
-    <ownedAttribute xmi:id="AttributeInitialization-base_InputPin" name="base_InputPin" association="InputPin_AttributeInitialization">
-      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#InputPin"/>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="ObjectInitialization" name="ObjectInitialization">
+    <ownedAttribute xmi:id="ObjectInitialization-base_StructuredActivityNode" name="base_StructuredActivityNode" association="StructuredActivityNode_ObjectInitialization">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#StructuredActivityNode"/>
     </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Stereotype" xmi:id="ObjectInitialization" name="ObjectInitialization">
-    <ownedAttribute xmi:id="ObjectInitialization-slotValues" name="slotValues">
-      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#InputPin"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ObjectInitialization-slotValues-_lowerValue"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ObjectInitialization-slotValues-_upperValue" value="*"/>
-    </ownedAttribute>
-    <ownedAttribute xmi:id="ObjectInitialization-base_CreateObjectAction" name="base_CreateObjectAction" association="CreateObjectAction_ObjectInitialization">
-      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#CreateObjectAction"/>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Cast" name="Cast">
+    <ownedAttribute xmi:id="Cast-base_StructuredActivityNode" name="base_StructuredActivityNode" association="StructuredActivityNode_Cast">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#StructuredActivityNode"/>
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="ConstraintBehavior" name="ConstraintBehavior">
@@ -266,6 +271,11 @@
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="Signature" name="Signature">
+    <ownedAttribute xmi:id="Signature-context" name="context">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Namespace"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Signature-context-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Signature-context-_upperValue" value="1"/>
+    </ownedAttribute>
     <ownedAttribute xmi:id="Signature-base_Interface" name="base_Interface" association="Interface_Signature">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Interface"/>
     </ownedAttribute>
@@ -325,6 +335,26 @@
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
     </ownedAttribute>
   </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="WildcardType" name="WildcardType">
+    <ownedAttribute xmi:id="WildcardType-context" name="context">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Namespace"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="WildcardType-context-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="WildcardType-context-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="WildcardType-base_Type" name="base_Type" association="Type_WildcardType">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Type"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="WildcardTypeContext" name="WildcardTypeContext">
+    <ownedAttribute xmi:id="WildcardTypeContext-wildcardTypes" name="wildcardTypes">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Type"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="WildcardTypeContext-wildcardTypes-_lowerValue"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="WildcardTypeContext-wildcardTypes-_upperValue" value="*"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="WildcardTypeContext-base_Namespace" name="base_Namespace" association="Namespace_WildcardTypeContext">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Namespace"/>
+    </ownedAttribute>
+  </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Class_Test" name="Class_Test" memberEnd="Class_Test-extension_Test Test-base_Class">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Class_Test-extension_Test" name="extension_Test" type="Test" aggregation="composite" association="Class_Test"/>
   </packagedElement>
@@ -346,11 +376,11 @@
   <packagedElement xmi:type="uml:Extension" xmi:id="Activity_Closure" name="Activity_Closure" memberEnd="Activity_Closure-extension_Closure Closure-base_Activity">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Activity_Closure-extension_Closure" name="extension_Closure" type="Closure" aggregation="composite" association="Activity_Closure"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Extension" xmi:id="InputPin_AttributeInitialization" name="InputPin_AttributeInitialization" memberEnd="InputPin_AttributeInitialization-extension_AttributeInitialization AttributeInitialization-base_InputPin">
-    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="InputPin_AttributeInitialization-extension_AttributeInitialization" name="extension_AttributeInitialization" type="AttributeInitialization" aggregation="composite" association="InputPin_AttributeInitialization"/>
+  <packagedElement xmi:type="uml:Extension" xmi:id="StructuredActivityNode_ObjectInitialization" name="StructuredActivityNode_ObjectInitialization" memberEnd="StructuredActivityNode_ObjectInitialization-extension_ObjectInitialization ObjectInitialization-base_StructuredActivityNode">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="StructuredActivityNode_ObjectInitialization-extension_ObjectInitialization" name="extension_ObjectInitialization" type="ObjectInitialization" aggregation="composite" association="StructuredActivityNode_ObjectInitialization"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Extension" xmi:id="CreateObjectAction_ObjectInitialization" name="CreateObjectAction_ObjectInitialization" memberEnd="CreateObjectAction_ObjectInitialization-extension_ObjectInitialization ObjectInitialization-base_CreateObjectAction">
-    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="CreateObjectAction_ObjectInitialization-extension_ObjectInitialization" name="extension_ObjectInitialization" type="ObjectInitialization" aggregation="composite" association="CreateObjectAction_ObjectInitialization"/>
+  <packagedElement xmi:type="uml:Extension" xmi:id="StructuredActivityNode_Cast" name="StructuredActivityNode_Cast" memberEnd="StructuredActivityNode_Cast-extension_Cast Cast-base_StructuredActivityNode">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="StructuredActivityNode_Cast-extension_Cast" name="extension_Cast" type="Cast" aggregation="composite" association="StructuredActivityNode_Cast"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Activity_ConstraintBehavior" name="Activity_ConstraintBehavior" memberEnd="Activity_ConstraintBehavior-extension_ConstraintBehavior ConstraintBehavior-base_Activity">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Activity_ConstraintBehavior-extension_ConstraintBehavior" name="extension_ConstraintBehavior" type="ConstraintBehavior" aggregation="composite" association="Activity_ConstraintBehavior"/>
@@ -378,5 +408,11 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_PropertyDerivation" name="Constraint_PropertyDerivation" memberEnd="Constraint_PropertyDerivation-extension_PropertyDerivation PropertyDerivation-base_Constraint">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_PropertyDerivation-extension_PropertyDerivation" name="extension_PropertyDerivation" type="PropertyDerivation" aggregation="composite" association="Constraint_PropertyDerivation"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Type_WildcardType" name="Type_WildcardType" memberEnd="Type_WildcardType-extension_WildcardType WildcardType-base_Type">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Type_WildcardType-extension_WildcardType" name="extension_WildcardType" type="WildcardType" aggregation="composite" association="Type_WildcardType"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Namespace_WildcardTypeContext" name="Namespace_WildcardTypeContext" memberEnd="Namespace_WildcardTypeContext-extension_WildcardTypeContext WildcardTypeContext-base_Namespace">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Namespace_WildcardTypeContext-extension_WildcardTypeContext" name="extension_WildcardTypeContext" type="WildcardTypeContext" aggregation="composite" association="Namespace_WildcardTypeContext"/>
   </packagedElement>
 </uml:Profile>

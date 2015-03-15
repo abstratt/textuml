@@ -824,6 +824,26 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAWildcardTypes(AWildcardTypes node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAEmptyWildcardTypeTail(AEmptyWildcardTypeTail node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAWildcardTypeTail(AWildcardTypeTail node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAWildcardType(AWildcardType node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAOptionalBehavioralFeatureBody(AOptionalBehavioralFeatureBody node)
     {
         defaultCase(node);

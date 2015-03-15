@@ -48,6 +48,7 @@ import org.eclipse.uml2.uml.VisibilityKind;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.RepositoryService;
 import com.abstratt.mdd.core.util.AssociationUtils;
+import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.NamedElementUtils;
@@ -72,11 +73,9 @@ public class KirraHelper {
     public static List<Class> addPrerequisites(Class entity, List<Class> collected) {
         if (!collected.contains(entity)) {
             collected.add(entity);
-            for (Property relationship : getRelationships(entity)) {
-                if (isPrimary(relationship) && isRequired(relationship)) {
+            for (Property relationship : getRelationships(entity))
+                if (isPrimary(relationship) && isRequired(relationship))
                     addPrerequisites((Class) relationship.getType(), collected);
-                }
-            }
         }
         return collected;
     }
@@ -241,6 +240,12 @@ public class KirraHelper {
         return isRequired(property, false);
     }
     
+    /**
+     * 
+     * @param property
+     * @param creation 
+     * @return
+     */
     public static boolean isRequired(final Property property, final boolean creation) {
         return get(property, "isRequiredProperty_" + creation, new Callable<Boolean>() {
             @Override
@@ -353,6 +358,18 @@ public class KirraHelper {
             }
         });
     }
+    
+    public static boolean isLikeLinkRelationship(final Property attribute) {
+        return get(attribute, "isLikeLinkRelationship", new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return isLinkRelationship(attribute) ||
+                        (isChildRelationship(attribute) && isTopLevel((Classifier) attribute.getType())) || 
+                        (isParentRelationship(attribute) && isTopLevel(attribute.getClass_()));
+            }
+        });
+    }
+
 
     public static boolean isRelationship(Property attribute) {
         return isRelationship(attribute, false);
@@ -399,6 +416,12 @@ public class KirraHelper {
         return isReadOnly(umlAttribute, false);
     }
     
+    /**
+     * 
+     * @param umlAttribute
+     * @param creationTime is this for creation time or in general? A property may be read-only after the object is created but writable at creation time (because it is a required property).
+     * @return
+     */
     public static boolean isReadOnly(final org.eclipse.uml2.uml.Property umlAttribute, final boolean creationTime) {
         return get(umlAttribute, "isReadOnlyProperty_" + creationTime, new Callable<Boolean>() {
             @Override
@@ -582,10 +605,16 @@ public class KirraHelper {
                 for (Operation operation : umlClass.getAllOperations())
                     if (isFinder(operation))
                         return true;
+                int parentCount = 0;
+                int otherRefs = 0;
                 for (Property attribute : getRelationships(umlClass))
-                    if (attribute.getOtherEnd() != null && attribute.getOtherEnd().isComposite())
-                        return false;
-                return true;
+                    if (attribute.getOtherEnd() != null)
+                        if (attribute.getOtherEnd().isComposite())
+                            parentCount++;
+                        else if (attribute.getOtherEnd().isNavigable())
+                            otherRefs++;
+                // if has exactly one parent and no incoming references, it is not top-level
+                return parentCount != 1 || otherRefs > 0;
             }
         });
     }
@@ -680,7 +709,7 @@ public class KirraHelper {
             @Override
             public Boolean call() throws Exception {
                 // excludes other DataTypes, such as primitives
-                return classifier.getName() != null && (classifier.eClass() == Literals.DATA_TYPE || classifier.eClass() == Literals.SIGNAL);
+                return classifier.getName() != null && (classifier.eClass() == Literals.DATA_TYPE || classifier.eClass() == Literals.SIGNAL) && classifier.getVisibility() != VisibilityKind.PRIVATE_LITERAL;
             }
         });
     }
@@ -698,7 +727,16 @@ public class KirraHelper {
         return get(current, "isApplication", new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return StereotypeUtils.hasProfile(current, "kirra") && hasKirraType(current);
+                return isKirraPackage(current) && hasKirraType(current);
+            }
+        });
+    }
+    
+    public static boolean isKirraPackage(final org.eclipse.uml2.uml.Package current) {
+        return get(current, "isKirraPackage", new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+                return StereotypeUtils.hasProfile(current, "kirra");
             }
         });
     }
@@ -858,5 +896,9 @@ public class KirraHelper {
         for (String typeRef : sortedRefs)
             toSort.add(0, nameToEntity.get(typeRef));
         return toSort;
+    }
+
+    public static boolean isPrimitive(Type umlType) {
+        return BasicTypeUtils.isBasicType(umlType);
     }
 }

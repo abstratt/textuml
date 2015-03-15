@@ -399,7 +399,7 @@ public class Repository implements IRepository {
 		// tries to resolve the name regardless the contextual namespace
 		NamedElement element = internalFindNamedElement(name, class_);
 		if (element != null
-						&& (namespace == null || isVisible(namespace.getNearestPackage(), element, MDDUtil
+						&& (namespace == null || isVisible(namespace, element, MDDUtil
 										.isQualifiedName(name))))
 			// element found or is fully qualified, no need to look further
 			return (T) element;
@@ -432,33 +432,32 @@ public class Repository implements IRepository {
 		if (namespace.getQualifiedName() != null) {
 			final String fullyQualifiedName = MDDUtil.appendSegment(namespace.getQualifiedName(), name);
 			element = internalFindNamedElement(fullyQualifiedName, class_);
-			if (element != null && isVisible(namespace.getNearestPackage(), element, MDDUtil.isQualifiedName(name)))
+			if (element != null && isVisible(namespace, element, MDDUtil.isQualifiedName(name)))
 				// element found, no need to look further
 				return (T) element;
-			if (namespace instanceof Package) {
-				Package package_ = (Package) namespace;
-				for (ElementImport elementImport : package_.getElementImports())
-					if (elementImport.getName().equals(name)
-									&& isVisible(package_, elementImport.getImportedElement(), elementImport
-													.getVisibility() != VisibilityKind.PRIVATE_LITERAL))
-						return (T) elementImport.getImportedElement();
-				if (deep) {
-					// check imported packages now
-					List<PackageImport> imports = package_.getPackageImports();
-					for (PackageImport packageImport : imports) {
-						final Package importedPackage = packageImport.getImportedPackage();
-						element =
-										internalFindNamedElement(name, class_, importedPackage,
-														packageImport.getVisibility() != VisibilityKind.PRIVATE_LITERAL, visited);
-						if ((element != null && isVisible(package_, element, false)))
-							return (T) element;
-					}
+            for (ElementImport elementImport : namespace.getElementImports())
+                if (elementImport.getName().equals(name)
+                                && isVisible(namespace, elementImport.getImportedElement(), elementImport
+                                                .getVisibility() != VisibilityKind.PRIVATE_LITERAL))
+                    return (T) elementImport.getImportedElement();
+
+			if (deep) {
+				// check imported packages now
+				List<PackageImport> imports = namespace.getPackageImports();
+				for (PackageImport packageImport : imports) {
+					final Package importedPackage = packageImport.getImportedPackage();
+					element =
+									internalFindNamedElement(name, class_, importedPackage,
+													packageImport.getVisibility() != VisibilityKind.PRIVATE_LITERAL, visited);
+					if ((element != null && isVisible(namespace, element, false)))
+						return (T) element;
 				}
 			}
 		}
 		// search the parent now
-		return (T) ((namespace.getOwner() != null) ? internalFindNamedElement(name, class_, (Namespace) namespace.getOwner(), deep, visited)
-						: null);
+		if (namespace.getOwner() == null)
+		    return null;
+		return (T) internalFindNamedElement(name, class_, (Namespace) namespace.getOwner(), deep, visited);
 	}
 
 	/*
@@ -632,19 +631,19 @@ public class Repository implements IRepository {
 		return systemResources.contains(resource);
 	}
 
-	private <T extends NamedElement> boolean isVisible(Package current, T element, boolean fullyQualified) {
+	private <T extends NamedElement> boolean isVisible(Namespace current, T element, boolean fullyQualified) {
 		// TODO support protected and package visibility
 		if (PACKAGE.getPackage().isInstance(element))
 			return true;
 		Package elementPackage = element.getNearestPackage();
-		if (elementPackage == current)
+		if (elementPackage == current.getNearestPackage())
 			return true;
 		if (fullyQualified)
 			return element.getVisibility() == VisibilityKind.PUBLIC_LITERAL;
 		List<Package> importedPackages = current.getImportedPackages();
 		if (importedPackages.contains(elementPackage))
 			return true;
-		return current.visibleMembers().contains(element);
+		return current instanceof Package && ((Package) current).visibleMembers().contains(element);
 	}
 
 	private void load() throws CoreException {

@@ -61,7 +61,7 @@ public class TypeUtils {
 	 * @param action
 	 *            the action to check
 	 * @param substitutions
-	 *            a list of template parameter subsitutions, or
+	 *            a list of template parameter substitutions, or
 	 *            <code>null</code>
 	 * @return the offending flow, or <code>null</code>
 	 */
@@ -116,9 +116,8 @@ public class TypeUtils {
 		}
 		// if source is a template parameter, resolve it if possible  
 		Assert.isTrue(!sourceType.isTemplateParameter() || boundElement != null);
-		while (sourceType != null && sourceType.isTemplateParameter())
-			sourceType = TemplateUtils.applySubstitution(boundElement, sourceType);
-		target.setType(sourceType);
+		Type resolvedType = TemplateUtils.resolveTemplateParameters(boundElement, (Classifier) sourceType);
+		target.setType(resolvedType);
 		Assert.isLegal(source instanceof MultiplicityElement == target instanceof MultiplicityElement);
 		if (!(source instanceof MultiplicityElement))
 			return;
@@ -143,13 +142,14 @@ public class TypeUtils {
 	 * element is multivalued, otherwise it will be the original type itself.
 	 */
 	public static Type getTargetType(IBasicRepository repository, TypedElement typed, boolean resolveCollectionTypes) {
-		if (!resolveCollectionTypes)
-			return typed.getType();
+		Type type = typed.getType();
+        if (!resolveCollectionTypes)
+			return type;
 		if (!(typed instanceof MultiplicityElement))
-			return typed.getType();
+			return type;
 		MultiplicityElement multiple = (MultiplicityElement) typed;
 		if (!multiple.isMultivalued())
-			return typed.getType();
+			return type;
 		final boolean ordered = multiple.isOrdered();
 		final boolean unique = multiple.isUnique();
 		String collectionTypeName =
@@ -158,7 +158,7 @@ public class TypeUtils {
 						(Classifier) repository.findNamedElement(collectionTypeName, IRepository.PACKAGE.getClass_(),
 										null);
 		Assert.isNotNull(collectionType, "Could not find collection type: " + collectionTypeName);
-		return TemplateUtils.createBinding(typed.getNearestPackage(), collectionType, Collections.singletonList(typed.getType()));
+		return TemplateUtils.createBinding(typed.getNearestPackage(), collectionType, Collections.singletonList(type));
 	}
 
 	public static boolean isCompatible(IBasicRepository repository, List<? extends TypedElement> source,
@@ -241,6 +241,9 @@ public class TypeUtils {
 			return false;
 		if (source == destination)
 			return true;
+		// do not check if wildcard
+		if (MDDExtensionUtils.isWildcardType(destination))
+		    return true;
 		Boolean templateCompatible = null;
 		// if destination is actually a template parameter, test compatibility with the resolved parameter
 		if (substitutions != null && destination.isTemplateParameter()) {
@@ -269,12 +272,17 @@ public class TypeUtils {
 			    templateCompatible = TemplateUtils.isCompatible(templateableSource, templateableDestination);
 		}
 		// behavior comparison takes parameters into account
-		if (source instanceof Behavior) {
+		if (source instanceof Behavior || MDDExtensionUtils.isSignature(source)) {
+		    if (!MDDExtensionUtils.isSignature(destination))
+		        return false;
 			final List<Parameter> destinationParams;
-			Behavior sourceBehavior = (Behavior) source;
-			final List<Parameter> sourceParams = sourceBehavior.getOwnedParameters();
-			if (!MDDExtensionUtils.isSignature(destination))
-				return false;
+			final List<Parameter> sourceParams;
+			if (source instanceof Behavior)
+			    sourceParams = ((Behavior) source).getOwnedParameters();
+			else
+			    // source is not an inlined closure
+			    // (note this is currently not supported, see issue #50)
+			    sourceParams = MDDExtensionUtils.getSignatureParameters(source);
 			destinationParams = MDDExtensionUtils.getSignatureParameters(destination);
 			return isCompatible(repository, sourceParams.toArray(new Parameter[sourceParams.size()]), destinationParams
 							.toArray(new Parameter[destinationParams.size()]), substitutions);
@@ -297,7 +305,7 @@ public class TypeUtils {
 			return true;
 		}
 		if (Boolean.TRUE.equals(templateCompatible))
-			// if they are deemed template compatible, go with that - conformance doesn't undrstand templates
+			// if they are deemed template compatible, go with that - conformance doesn't understand templates
 			return true;
 		// general type conformance
 		return source.conformsTo(destination) ;

@@ -35,12 +35,10 @@ stereotype Closure extends Activity
     property context : StructuredActivityNode;
 end;
 
-stereotype AttributeInitialization extends InputPin
-    property initialized : Property;
+stereotype ObjectInitialization extends StructuredActivityNode
 end;
 
-stereotype ObjectInitialization extends CreateObjectAction
-    property slotValues : InputPin[*];
+stereotype Cast extends StructuredActivityNode
 end;
 
 stereotype ConstraintBehavior extends Activity 
@@ -48,6 +46,7 @@ stereotype ConstraintBehavior extends Activity
 end;
 
 stereotype Signature extends Interface
+    property context : Namespace;
 end;
 
 stereotype MetaReference extends LiteralNull
@@ -74,5 +73,16 @@ end;
 
 stereotype PropertyDerivation extends Constraint
 end;
+
+stereotype WildcardType extends Type
+    property context : Namespace;
+end;
+
+stereotype WildcardTypeContext extends Namespace
+    property wildcardTypes : Type[*];
+end;
+
+
+
 
 end.

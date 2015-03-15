@@ -12,8 +12,11 @@ package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Supplier;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.EList;
@@ -135,6 +138,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AEqualsComparisonBinaryOp
 import com.abstratt.mdd.internal.frontend.textuml.node.AExpressionListElement;
 import com.abstratt.mdd.internal.frontend.textuml.node.AExpressionSimpleBlockResolved;
 import com.abstratt.mdd.internal.frontend.textuml.node.AExtentIdentifierExpression;
+import com.abstratt.mdd.internal.frontend.textuml.node.AFunctionIdentifierExpression;
 import com.abstratt.mdd.internal.frontend.textuml.node.AGreaterOrEqualsComparisonBinaryOperator;
 import com.abstratt.mdd.internal.frontend.textuml.node.AGreaterThanComparisonBinaryOperator;
 import com.abstratt.mdd.internal.frontend.textuml.node.AIdentityBinaryOperator;
@@ -407,10 +411,12 @@ public class BehaviorGenerator extends AbstractGenerator {
 		try {
 			fillDebugInfo(builder.getCurrentBlock(), node);
 			BehaviorGenerator.super.caseABlockKernel(node);
+			// isolation determines whether the block should be treated as a transaction 
 			Activity currentActivity = builder.getCurrentActivity();
 			if (!MDDExtensionUtils.isClosure(currentActivity))
 				if (ActivityUtils.shouldIsolate(builder.getCurrentBlock())) {
 					builder.getCurrentBlock().setMustIsolate(true);
+					// if blocks themselves are isolated, the main body does not need isolation 
 					ActivityUtils.getBodyNode(currentActivity).setMustIsolate(false);
 				}
 		} catch (AbortedScopeCompilationException e) {
@@ -527,14 +533,18 @@ public class BehaviorGenerator extends AbstractGenerator {
 			super.caseAClassOperationIdentifierExpression(node);
 			// collect sources so we can match the right operation (in
 			// case of overloading)
-			List<TypedElement> sources = new ArrayList<TypedElement>();
+			List<ObjectNode> sources = new ArrayList<ObjectNode>();
 			for (InputPin argument : action.getArguments())
 				sources.add(ActivityUtils.getSource(argument));
 			String operationName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
-			Operation operation = findOperation(node.getIdentifier(), targetClassifier, operationName, sources, true, true);
+			Operation operation = findOperation(node.getIdentifier(), targetClassifier, operationName, new ArrayList<TypedElement>(sources), true, true);
 			if (!operation.isQuery() && !PackageUtils.isModelLibrary(operation.getNearestPackage()))
 				ensureNotQuery(node);
+			if (operation.getReturnResult() == null)
+                ensureTerminal(node.getIdentifier());
 			action.setOperation(operation);
+			List<Parameter> inputParameters = FeatureUtils.getInputParameters(operation.getOwnedParameters());
+            Map<Type, Type> wildcardSubstitutions = FeatureUtils.buildWildcardSubstitutions(new HashMap<Type, Type>(), inputParameters, sources);
 			int argumentPos = 0;
 			for (Parameter current : operation.getOwnedParameters()) {
 				OutputPin result;
@@ -551,8 +561,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 					break;
 				case ParameterDirectionKind.RETURN:
 					// there should be only one of these
+				    Assert.isTrue(action.getResults().isEmpty());
 					result = builder.registerOutput(action.createResult(null, null));
 					TypeUtils.copyType(current, result, targetClassifier);
+					resolveWildcardTypes(wildcardSubstitutions, current, result);
 					break;
 				case ParameterDirectionKind.OUT:
 				case ParameterDirectionKind.INOUT:
@@ -569,6 +581,43 @@ public class BehaviorGenerator extends AbstractGenerator {
 		}
 		checkIncomings(action, node.getIdentifier(), getBoundElement());
 	}
+
+	/**
+	 * In the context of an operation call, copies types from source to target for every target that still has a wildcard type.
+	 * 
+	 * In the case of a target that is a signature, 
+	 * @param wildcardSubstitutions
+	 * @param source
+	 * @param target
+	 */
+    private void resolveWildcardTypes(Map<Type, Type> wildcardSubstitutions, TypedElement source, TypedElement target) {
+        if (wildcardSubstitutions.isEmpty())
+            return;
+        if (MDDExtensionUtils.isWildcardType(target.getType())) {
+            Type subbedType = wildcardSubstitutions.get(source.getType());
+            if (subbedType != null)
+                target.setType(subbedType);
+        } else if (MDDExtensionUtils.isSignature(target.getType())) {
+            List<Parameter> originalSignatureParameters = MDDExtensionUtils.getSignatureParameters(target.getType());
+            boolean signatureUsesWildcardTypes = false;
+            for (Parameter parameter : originalSignatureParameters) {
+                if (MDDExtensionUtils.isWildcardType(parameter.getType())) {
+                    signatureUsesWildcardTypes = true;
+                    break;
+                }
+            }
+            if (signatureUsesWildcardTypes) {
+                Activity closure = (Activity) ActivityUtils.resolveBehaviorReference((Action) ((OutputPin) source).getOwner());
+                Type resolvedSignature = MDDExtensionUtils.createSignature(namespaceTracker.currentNamespace(null));
+                for (Parameter closureParameter : closure.getOwnedParameters()) {
+                    Parameter resolvedParameter = MDDExtensionUtils.createSignatureParameter(resolvedSignature, closureParameter.getName(), closureParameter.getType());
+                    resolvedParameter.setDirection(closureParameter.getDirection());
+                    resolvedParameter.setUpper(closureParameter.getUpper());
+                }
+                target.setType(resolvedSignature);
+            }
+        }
+    }
 
 	@Override
 	public void caseAClosureExpression(AClosureExpression node) {
@@ -749,11 +798,6 @@ public class BehaviorGenerator extends AbstractGenerator {
 			ObjectNode source = ActivityUtils.getSource(linkEndValue);
 			Classifier targetClassifier = (Classifier) TypeUtils.getTargetType(getRepository(), source, true);
 			Property openEnd = parseRole(targetClassifier, node.getAssociationTraversal());  
-			if (!openEnd.isNavigable()) {
-				problemBuilder.addProblem( new UnclassifiedProblem("Role '" + openEnd.getQualifiedName() + "' is not navigable"), node
-								.getIdentifierExpression());
-				throw new AbortedStatementCompilationException();
-			}
 			Association association = openEnd.getAssociation();
 			linkEndValue.setType(targetClassifier);
 			int openEndIndex = association.getMemberEnds().indexOf(openEnd);
@@ -869,6 +913,14 @@ public class BehaviorGenerator extends AbstractGenerator {
 		checkIncomings(action, linkStatementNode, getBoundElement());
 	}
 
+	@Override
+	public void caseAFunctionIdentifierExpression(AFunctionIdentifierExpression node) {
+        String functionName = sourceMiner.getIdentifier(node.getVariableAccess());
+        problemBuilder.addProblem(new UnclassifiedProblem("Function call not supported yet: " + functionName ), node
+                .getVariableAccess());
+        throw new AbortedStatementCompilationException();
+	}
+	
 	@Override
 	public void caseALiteralOperand(ALiteralOperand node) {
 		ValueSpecification value = LiteralValueParser.parseLiteralValue(node.getLiteral(), namespaceTracker.currentPackage(), problemBuilder);
@@ -1028,10 +1080,12 @@ public class BehaviorGenerator extends AbstractGenerator {
 		}
 		checkIncomings(action, node.getSignal(), getBoundElement());
 	}
-
+	
+	//FIXME a lot of duplication between this and caseAClassOperationIdentifierExpression
 	@Override
 	public void caseAOperationIdentifierExpression(AOperationIdentifierExpression node) {
 		Classifier targetClassifier = null;
+		String operationName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
 		CallOperationAction action =
 						(CallOperationAction) builder.createAction(IRepository.PACKAGE.getCallOperationAction());
 		try {
@@ -1046,7 +1100,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 			super.caseAOperationIdentifierExpression(node);
 			final ObjectNode targetSource = ActivityUtils.getSource(action.getTarget());
 			targetClassifier = (Classifier) TypeUtils.getTargetType(getRepository(), targetSource, true);
-			Assert.isNotNull(targetClassifier, "Incoming type not determined");
+            if (targetClassifier == null) {
+                problemBuilder.addProblem(new UnclassifiedProblem(Severity.ERROR, "Could not determine the type of the target"), node.getIdentifier());
+                throw new AbortedStatementCompilationException();
+            }
 			// collect sources so we can match the right operation (in
 			// case of overloading)
 			List<TypedElement> sources = new ArrayList<TypedElement>();
@@ -1058,11 +1115,14 @@ public class BehaviorGenerator extends AbstractGenerator {
 				}
 				sources.add(argumentSource);
 			}
-			String operationName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
 			Operation operation = findOperation(node.getIdentifier(), targetClassifier, operationName, sources, false, true);
 			if (!operation.isQuery() && !PackageUtils.isModelLibrary(operation.getNearestPackage()))
 				ensureNotQuery(node);
+			if (operation.getReturnResult() == null)
+                ensureTerminal(node.getIdentifier());
 			action.setOperation(operation);
+			List<Parameter> inputParameters = FeatureUtils.getInputParameters(operation.getOwnedParameters());
+			Map<Type, Type> wildcardSubstitutions = FeatureUtils.buildWildcardSubstitutions(new HashMap<Type, Type>(), inputParameters, sources);
 			int argumentPos = 0;
 			for (Parameter current : operation.getOwnedParameters()) {
 				OutputPin result;
@@ -1079,8 +1139,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 					break;
 				case ParameterDirectionKind.RETURN:
 					// there should be only one of these
+				    Assert.isTrue(action.getResults().isEmpty());
 					result = builder.registerOutput(action.createResult(null, null));
 					TypeUtils.copyType(current, result, targetClassifier);
+					resolveWildcardTypes(wildcardSubstitutions, current, result);
 					break;
 				case ParameterDirectionKind.OUT:
 				case ParameterDirectionKind.INOUT:
@@ -1100,6 +1162,14 @@ public class BehaviorGenerator extends AbstractGenerator {
 		}
 		checkIncomings(action, node.getIdentifier(), targetClassifier);
 	}
+
+    private void ensureTerminal(Node identifierNode) {
+        if (!builder.isCurrentActionTerminal()) {
+            String operationName = TextUMLCore.getSourceMiner().getIdentifier(identifierNode);
+            problemBuilder.addProblem(new UnclassifiedProblem("Operation " + operationName + " does not have a result"), identifierNode);
+            throw new AbortedStatementCompilationException();
+        }
+    }
 
 	@Override
 	public void caseARaiseSpecificStatement(ARaiseSpecificStatement node) {
@@ -1183,9 +1253,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			while (MDDExtensionUtils.isClosure(currentActivity)) {
 				//TODO refactor to use ActivityUtils
 				ActivityNode rootNode = MDDExtensionUtils.getClosureContext(currentActivity);
-				while (rootNode.getOwner() instanceof ActivityNode)
-					rootNode = (ActivityNode) rootNode.getOwner();
-				currentActivity = rootNode.getActivity();
+				currentActivity = ActivityUtils.getActionActivity(rootNode);
 			}
 			final BehavioralFeature operation = currentActivity.getSpecification();
 			if (operation != null && operation.isStatic()) {
@@ -1267,11 +1335,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 			return;
 		}
 		StructuredActivityNode action = (StructuredActivityNode) builder.createAction(Literals.STRUCTURED_ACTIVITY_NODE);
+		MDDExtensionUtils.makeCast(action);
 		try {
-			
-			String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(node.getCast());
 			// register the target input pin (type is null)
-			InputPin sourcePin = (InputPin) action.createNode(null, Literals.INPUT_PIN);
+			InputPin sourcePin = (InputPin) action.createStructuredNodeInput(null, null);
 			builder.registerInput(sourcePin);
 			// process the target expression - this will connect its output pin
 			// to the input pin we just created
@@ -1279,7 +1346,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			// copy whatever multiplicity coming into the source to the source
 			TypeUtils.copyMultiplicity((MultiplicityElement) sourcePin.getIncomings().get(0).getSource(), sourcePin);
 			// register the result output pin
-			OutputPin destinationPin = (OutputPin) action.createNode(null, Literals.OUTPUT_PIN);
+			OutputPin destinationPin = (OutputPin) action.createStructuredNodeOutput(null, null);
 			
 			new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), destinationPin).process(node.getCast());
 			builder.registerOutput(destinationPin);
@@ -1375,6 +1442,16 @@ public class BehaviorGenerator extends AbstractGenerator {
 		if (node.getOptionalType() != null)
 		    // type is optional for local vars
 		    new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), var).process(node.getOptionalType());
+		else {
+		    // ensure a type is eventually inferred
+            sourceContext.getContext().getReferenceTracker().add(new IDeferredReference() {
+                @Override
+                public void resolve(IBasicRepository repository) {
+                    if (var.getType() == null)
+                        problemBuilder.addError("Could not infer a type for variable '" + var.getName() + "'", node.getIdentifier());
+                }
+            }, Step.LAST);
+        }
 	}
 
 	@Override
@@ -1491,20 +1568,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 								+ targetClassifier.getName() + "'", node.getIdentifier());
 				throw new AbortedStatementCompilationException();
 			}
-			// // according to UML 2.1 §11.1, "(...) The semantics for static
-			// features is undefined. (...)"
-			// builder.registerInput(action.createObject(null, null));
-			// // our intepretation is that they are allowed and the input
-			// object is a null value spec
-			// LiteralNull literalNull = (LiteralNull)
-			// currentPackage().createPackagedElement(null,
-			// IRepository.PACKAGE.getLiteralNull());
-			// buildValueSpecificationAction(literalNull, node);
 			builder.registerInput(action.createValue(null, null));
 			// builds expression
 			node.getRootExpression().apply(this);
 			action.setStructuralFeature(attribute);
-			// action.getObject().setType(targetClassifier);
 			TypeUtils.copyType(attribute, action.getValue(), targetClassifier);
 			fillDebugInfo(action, node);
 		} finally {
@@ -1639,8 +1706,8 @@ public class BehaviorGenerator extends AbstractGenerator {
 
 	private Operation findOperation(Node node, Classifier classifier, String operationName, List<TypedElement> arguments,
 			boolean isStatic, boolean required) {
-		Operation found = FeatureUtils.findOperation(getRepository(), classifier, operationName, arguments, 
-							false, true);
+        Operation found = FeatureUtils.findOperation(getRepository(), classifier, operationName, arguments, 
+                false, true);
 		if (found != null) {
 			if (found.isStatic() != isStatic) {
 				problemBuilder.addError((isStatic ? "Static" : "Non-static")+ " operation expected: '" + operationName + "' in '"
@@ -1877,150 +1944,38 @@ public class BehaviorGenerator extends AbstractGenerator {
 		return info;
 	}
 	
-	@Override
-	public void caseATupleConstructor(ATupleConstructor node) {
-		final Package currentPackage = namespaceTracker.currentPackage();
-		final List<Node> componentNodes = new ArrayList<Node>();
-		final List<String> slotNames = new ArrayList<String>();
-		List<Type> slotTypes = new ArrayList<Type>();
-		DataType dataType;
-		List<Variable> argumentVariables = new ArrayList<Variable>();
-		node.apply(new DepthFirstAdapter() {
-			@Override
-			public void caseATupleComponentValue(ATupleComponentValue node) {
-				slotNames.add(sourceMiner.getIdentifier(node.getIdentifier()));
-				componentNodes.add(node.getExpression());
-			}
-		});
-
-		// create the var to hold the created/returned object so it is accessible to the init code and the final read var
-		Variable objectVar = ((StructuredActivityNode) builder.getCurrentBlock().getOwner()).createVariable(null, null);
-		objectVar.setVisibility(VisibilityKind.PRIVATE_LITERAL);
-
-		StructuredActivityNode structureBlock = builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-		try {
-			int values = componentNodes.size();
-			for (int i = 0; i < values; i++) {
-				Variable argumentVar = builder.getCurrentBlock().createVariable(null, null);
-				argumentVar.setVisibility(VisibilityKind.PRIVATE_LITERAL);
-				argumentVar.setName("__" + slotNames.get(i));
-				argumentVariables.add(argumentVar);
-			}
-			builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-			try {
-				for (int i = 0; i < values; i++) {
-				    Node componentNode = componentNodes.get(i);
-				    Variable argumentVar = argumentVariables.get(i);
-					WriteVariableAction storeArgumentAction;
-					try {
-						storeArgumentAction =
-								(WriteVariableAction) builder.createAction(UMLPackage.Literals.ADD_VARIABLE_VALUE_ACTION);
-						storeArgumentAction.setVariable(argumentVar);
-						builder.registerInput(storeArgumentAction.createValue(null, null));
-						componentNode.apply(this);
-					} finally {
-						builder.closeAction();
-					}
-					slotTypes.add(storeArgumentAction.getValue().getType());
-					checkIncomings(storeArgumentAction, node.getTupleComponentValue(), getBoundElement());
-				}
-			} finally {
-				builder.closeBlock();
-			}
-			
-			builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-			try {
-				WriteVariableAction storeObjectAction;
-				try {
-					storeObjectAction =
-							(WriteVariableAction) builder.createAction(UMLPackage.Literals.ADD_VARIABLE_VALUE_ACTION);
-					storeObjectAction.setVariable(objectVar);
-					builder.registerInput(storeObjectAction.createValue(null, null));
-					dataType = DataTypeUtils.findOrCreateDataType(currentPackage, slotNames, slotTypes);
-					objectVar.setType(dataType);
-					CreateObjectAction createObjectAction;
-					try {
-						createObjectAction =
-								(CreateObjectAction) builder.createAction(UMLPackage.Literals.CREATE_OBJECT_ACTION);
-						createObjectAction.setClassifier(dataType);
-						builder.registerOutput(createObjectAction.createResult(null, dataType));
-					} finally {
-						builder.closeAction();
-					}
-					checkIncomings(createObjectAction, node.getTupleComponentValue(), getBoundElement());
-				} finally {
-					builder.closeAction();
-				}
-				checkIncomings(storeObjectAction, node.getTupleComponentValue(), getBoundElement());
-			} finally {
-				builder.closeBlock();
-			}
+    @Override
+    public void caseATupleConstructor(ATupleConstructor node) {
+        final StructuredActivityNode action =
+                        (StructuredActivityNode) builder.createAction(IRepository.PACKAGE.getStructuredActivityNode());
+        MDDExtensionUtils.makeObjectInitialization(action);
+        try {
+            node.apply(new DepthFirstAdapter() {
+                @Override
+                public void caseATupleComponentValue(ATupleComponentValue node) {
+                    String slotName = sourceMiner.getIdentifier(node.getIdentifier());
+                    builder.registerInput(action.createStructuredNodeInput(slotName, null));
+                    node.getExpression().apply(BehaviorGenerator.this);
+                }
+            });
+            builder.registerOutput(action.createStructuredNodeOutput(null, null));
+        
+            // now we determine the types of the incoming flows and build a corresponding data type on the fly
+            List<String> slotNames = new ArrayList<>();
+            List<Type> slotTypes = new ArrayList<>();
+            action.getStructuredNodeInputs().forEach((input) -> {
+                slotNames.add(input.getName());
+                slotTypes.add(input.getType());
+            });
+        
+            DataType dataType = DataTypeUtils.findOrCreateDataType(namespaceTracker.currentPackage(), slotNames, slotTypes);
+            action.getStructuredNodeOutputs().get(0).setType(dataType);
+        } finally {
+            builder.closeAction();
+        }
+        checkIncomings(action, node, getBoundElement());
+    }
 	
-			builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-			try {
-				for (int i = 0; i < componentNodes.size(); i++) {
-				    Variable argumentVar = argumentVariables.get(i);
-				    Property slot = dataType.getAttribute(slotNames.get(i), null);
-					AddStructuralFeatureValueAction copyArgumentIntoSlot;
-					try {
-						copyArgumentIntoSlot =
-								(AddStructuralFeatureValueAction) builder.createAction(UMLPackage.Literals.ADD_STRUCTURAL_FEATURE_VALUE_ACTION);
-						copyArgumentIntoSlot.setStructuralFeature(slot);
-						builder.registerInput(copyArgumentIntoSlot.createObject(null, null));
-
-						// read target object 
-						ReadVariableAction readObjectFromVar;
-						try {
-							readObjectFromVar =
-									(ReadVariableAction) builder.createAction(UMLPackage.Literals.READ_VARIABLE_ACTION);
-							readObjectFromVar.setVariable(objectVar);
-							builder.registerOutput(readObjectFromVar.createResult(null, dataType));
-						} finally {
-							builder.closeAction();
-						}
-						checkIncomings(readObjectFromVar, node.getTupleComponentValue(), getBoundElement());
-
-						builder.registerInput(copyArgumentIntoSlot.createValue(null, slotTypes.get(i)));
-						ReadVariableAction readComponentValueFromVar;
-						try {
-							readComponentValueFromVar =
-									(ReadVariableAction) builder.createAction(UMLPackage.Literals.READ_VARIABLE_ACTION);
-							readComponentValueFromVar.setVariable(argumentVar);
-							builder.registerOutput(readComponentValueFromVar.createResult(null, slotTypes.get(i)));
-						} finally {
-							builder.closeAction();
-						}
-						checkIncomings(readComponentValueFromVar, node.getTupleComponentValue(), getBoundElement());
-					} finally {
-						builder.closeAction();
-					}
-					checkIncomings(copyArgumentIntoSlot, node.getTupleComponentValue(), getBoundElement());
-				}
-			} finally {
-				builder.closeBlock();
-			}
-		} finally {
-			// structure block
-			builder.closeBlock();
-		}
-		// moves the block just created into the grand parent block
-		StructuredActivityNode parentBlock = (StructuredActivityNode) builder.getCurrentBlock().getOwner();
-		int toInsertAt = parentBlock.getNodes().indexOf(builder.getCurrentBlock());
-		parentBlock.getNodes().add(toInsertAt, structureBlock);
-		
-		// finally we read the initialized object to be consumed by a downstream pin
-		ReadVariableAction retrieveObjectAction;
-		try {
-			retrieveObjectAction =
-					(ReadVariableAction) builder.createAction(UMLPackage.Literals.READ_VARIABLE_ACTION);
-			retrieveObjectAction.setVariable(objectVar);
-			builder.registerOutput(retrieveObjectAction.createResult(null, dataType)); 
-		} finally {
-			builder.closeAction();
-		}
-		checkIncomings(retrieveObjectAction, node.getTupleComponentValue(), getBoundElement());
-	}
-
 	public void createBodyLater(final Node bodyNode, final Activity body) {
 		sourceContext.getContext().getReferenceTracker().add(new IDeferredReference() {
 			@Override

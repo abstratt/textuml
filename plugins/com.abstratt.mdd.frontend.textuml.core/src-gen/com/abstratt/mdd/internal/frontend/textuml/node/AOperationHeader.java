@@ -8,6 +8,7 @@ import com.abstratt.mdd.internal.frontend.textuml.analysis.*;
 public final class AOperationHeader extends POperationHeader
 {
     private POperationKeyword _operationKeyword_;
+    private PWildcardTypes _wildcardTypes_;
     private TIdentifier _identifier_;
     private PSignature _signature_;
 
@@ -18,11 +19,14 @@ public final class AOperationHeader extends POperationHeader
 
     public AOperationHeader(
         @SuppressWarnings("hiding") POperationKeyword _operationKeyword_,
+        @SuppressWarnings("hiding") PWildcardTypes _wildcardTypes_,
         @SuppressWarnings("hiding") TIdentifier _identifier_,
         @SuppressWarnings("hiding") PSignature _signature_)
     {
         // Constructor
         setOperationKeyword(_operationKeyword_);
+
+        setWildcardTypes(_wildcardTypes_);
 
         setIdentifier(_identifier_);
 
@@ -35,6 +39,7 @@ public final class AOperationHeader extends POperationHeader
     {
         return new AOperationHeader(
             cloneNode(this._operationKeyword_),
+            cloneNode(this._wildcardTypes_),
             cloneNode(this._identifier_),
             cloneNode(this._signature_));
     }
@@ -67,6 +72,31 @@ public final class AOperationHeader extends POperationHeader
         }
 
         this._operationKeyword_ = node;
+    }
+
+    public PWildcardTypes getWildcardTypes()
+    {
+        return this._wildcardTypes_;
+    }
+
+    public void setWildcardTypes(PWildcardTypes node)
+    {
+        if(this._wildcardTypes_ != null)
+        {
+            this._wildcardTypes_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._wildcardTypes_ = node;
     }
 
     public TIdentifier getIdentifier()
@@ -124,6 +154,7 @@ public final class AOperationHeader extends POperationHeader
     {
         return ""
             + toString(this._operationKeyword_)
+            + toString(this._wildcardTypes_)
             + toString(this._identifier_)
             + toString(this._signature_);
     }
@@ -135,6 +166,12 @@ public final class AOperationHeader extends POperationHeader
         if(this._operationKeyword_ == child)
         {
             this._operationKeyword_ = null;
+            return;
+        }
+
+        if(this._wildcardTypes_ == child)
+        {
+            this._wildcardTypes_ = null;
             return;
         }
 
@@ -160,6 +197,12 @@ public final class AOperationHeader extends POperationHeader
         if(this._operationKeyword_ == oldChild)
         {
             setOperationKeyword((POperationKeyword) newChild);
+            return;
+        }
+
+        if(this._wildcardTypes_ == oldChild)
+        {
+            setWildcardTypes((PWildcardTypes) newChild);
             return;
         }
 

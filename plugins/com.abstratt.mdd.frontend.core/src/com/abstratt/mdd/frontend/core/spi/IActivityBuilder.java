@@ -23,6 +23,8 @@ public interface IActivityBuilder {
 	 * action's output pins to the input pins of its parent (caller) action.
 	 */
 	public void closeAction();
+	
+	public boolean isCurrentActionTerminal();
 
 	/**
 	 * Closes the current action. After the current action is closed, its parent

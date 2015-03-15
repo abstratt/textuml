@@ -14,9 +14,10 @@ class Collection<T>
   query isEmpty() : Boolean;
   query size() : Integer;
   query exists(predicate : {(:T) : Boolean}) : Boolean;
-  query \any(predicate : {(:T) : Boolean}[0,1]) : T;
+  query \any(predicate : {(:T) : Boolean}) : T[0,1];
+  query one() : T;
   query select(filter : {(:T) : Boolean}) : T[*];
-  query collect(mapping : {(:T) : any}) : any[*];  
+  query <R> collect(mapping : {(:T) : R}) : R[*];  
   query forAll(predicate : {(:T) : Boolean}) : Boolean;
   operation forEach(predicate : {(:T)});
   query sortedBy(c : {(:T,:T) : Integer}) : T[*];
@@ -28,17 +29,20 @@ class Collection<T>
   (* Collects and intersects all collections obtained from each of the elements in this collection. *)
   query collectMany(p : {(:T) : T[*]}) : T[*];
   query groupBy(grouper : {(:T) : any}) : Grouping<T>;
-  query reduce(reductor : {(:T, :any[*]) : any[*]}, \initial : any[*]) : any;
-  query sum(transformer : {(:T):Double}) : Double;
-  query max(transformer : {(:T):Double}) : Double;
-  query min(transformer : {(:T):Double}) : Double;
+  query <R> reduce(reductor : {(:T, :R[1,*]) : R}, \initial : R) : R;
+  query <N> sum(transformer : {(:T):N}) : N;
+  query <N> max(transformer : {(:T):N}) : N;
+  query <N> min(transformer : {(:T):N}) : N;
   query mode() : T;
   query median() : T;
   query join(delimiter : String := ", ") : String;
 end;
 
+
 class Grouping<T>
-  query collect(group : {(:T[*]) : any}) : any[*];  
+  query <R> groupCollect(group : {(:T[*]) : R}) : R[*];
+  query <R> groupReduce(group : {(:T[*]) : R}) : R[*];
+  query groupSelect(group : {(:T[*]) : Boolean}) : T[*];  
 end;
 
 class Sequence<T> specializes Collection<T>

@@ -38,6 +38,11 @@ public class ActivityBuilder implements IActivityBuilder {
 	public void closeAction() {
 		closeAction(true);
 	}
+	
+	@Override
+	public boolean isCurrentActionTerminal() {
+	    return currentAction.getParent() == null || currentAction.getParent().getAction().getInputs().isEmpty();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -143,7 +148,7 @@ public class ActivityBuilder implements IActivityBuilder {
 	public Action getCurrentAction() {
 		return currentAction == null ? null : currentAction.getAction();
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 

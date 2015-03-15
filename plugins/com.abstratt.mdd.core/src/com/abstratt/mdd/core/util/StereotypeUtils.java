@@ -12,7 +12,6 @@ package com.abstratt.mdd.core.util;
 
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
-import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Profile;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
@@ -43,6 +42,13 @@ public class StereotypeUtils {
 			}
 		return null;
 	}
+	
+	public static Object getValue(Element element, String stereotypeQName, String property) {
+	    Stereotype stereotype = getStereotype(element, stereotypeQName);
+	    if (stereotype == null)
+	        return null;
+        return element.getValue(stereotype, property);
+    }
 	
 	public static boolean hasProfile(org.eclipse.uml2.uml.Package element, String profileName) {
 		for (Profile p : element.getAppliedProfiles())

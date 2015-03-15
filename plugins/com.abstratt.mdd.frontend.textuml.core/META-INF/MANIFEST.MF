@@ -14,5 +14,5 @@ Export-Package: com.abstratt.mdd.frontend.textuml.core,
  com.abstratt.mdd.internal.frontend.textuml.node;x-friends:="com.abstratt.mdd.core.tests,com.abstratt.mdd.frontend.textuml.ui,com.abstratt.mdd.frontend.tests.textuml",
  com.abstratt.mdd.internal.frontend.textuml.parser;x-friends:="com.abstratt.mdd.core.tests,com.abstratt.mdd.frontend.textuml.ui,com.abstratt.mdd.frontend.tests.textuml"
 Import-Package: org.apache.commons.lang
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: Abstratt Technologies

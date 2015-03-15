@@ -31,27 +31,7 @@ public class UML2Compatibility {
 	 */
 	public static ParameterableElement getActualParameter(
 			TemplateParameterSubstitution substitution) {
-		Class<? extends TemplateParameterSubstitution> substitutionClass = substitution
-				.getClass();
-		Method getActual = getMethod(substitutionClass, "getActual");
-		try {
-			if (getActual != null)
-				// it is UML2 3.0+
-				return (ParameterableElement) getActual.invoke(substitution);
-			// it is UML2 2.2
-
-			// From UML2 doc for templates: "UML has multiple actual parameters
-			// per formal parameter.
-			// It is unclear how multiple parameters could be substituted for
-			// one formal parameter. We consider only one."
-			Method getActuals = getMethod(substitutionClass, "getActuals");
-			return ((List<ParameterableElement>) getActuals
-					.invoke(substitution)).get(0);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException(e);
-		}
+	    return substitution.getActual();
 	}
 
 	/**
@@ -64,26 +44,7 @@ public class UML2Compatibility {
 	public static void setActualParameter(
 			TemplateParameterSubstitution substitution,
 			ParameterableElement actual) {
-		Class<? extends TemplateParameterSubstitution> substitutionClass = substitution
-				.getClass();
-		Method setActual = getMethod(substitutionClass, "setActual", ParameterableElement.class);
-		try {
-			if (setActual != null) {
-				// it is UML2 3.0+
-				setActual.invoke(substitution, actual);
-				return;
-			}
-			// it is UML2 2.2
-			Method getActuals = getMethod(substitutionClass, "getActuals");
-			final List<ParameterableElement> actuals = (List<ParameterableElement>) getActuals
-					.invoke(substitution);
-			actuals.clear();
-			actuals.add(actual);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
-		} catch (InvocationTargetException e) {
-			throw new RuntimeException(e);
-		}
+		substitution.setActual(actual);
 	}
 
 	/*

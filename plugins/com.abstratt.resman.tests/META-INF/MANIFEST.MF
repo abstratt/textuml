@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Resource Management Tests
 Bundle-SymbolicName: com.abstratt.resman.tests
 Bundle-Version: 1.120.1.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: 
  junit.framework
 Require-Bundle: com.abstratt.mdd.core.tests.harness,

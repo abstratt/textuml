@@ -56,6 +56,7 @@ import org.eclipse.uml2.uml.Slot;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
+import org.eclipse.uml2.uml.UMLFactory;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecification;
@@ -159,10 +160,12 @@ import com.abstratt.mdd.internal.frontend.textuml.node.AStereotypeDefHeader;
 import com.abstratt.mdd.internal.frontend.textuml.node.AStereotypeExtension;
 import com.abstratt.mdd.internal.frontend.textuml.node.AStereotypePropertyDecl;
 import com.abstratt.mdd.internal.frontend.textuml.node.ASubNamespace;
+import com.abstratt.mdd.internal.frontend.textuml.node.AWildcardType;
 import com.abstratt.mdd.internal.frontend.textuml.node.AWordyBlock;
 import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 import com.abstratt.mdd.internal.frontend.textuml.node.PAnnotations;
 import com.abstratt.mdd.internal.frontend.textuml.node.PInitializationExpression;
+import com.abstratt.mdd.internal.frontend.textuml.node.POperationHeader;
 import com.abstratt.mdd.internal.frontend.textuml.node.PQualifiedIdentifier;
 import com.abstratt.mdd.internal.frontend.textuml.node.TAbstract;
 import com.abstratt.mdd.internal.frontend.textuml.node.TExternal;
@@ -1107,38 +1110,36 @@ public class StructureGenerator extends AbstractGenerator {
 
 	@Override
 	public final void caseAOperationDecl(AOperationDecl node) {
-		final String operationName = TextUMLCore.getSourceMiner().getIdentifier(node.getOperationHeader());
 		AOperationHeader operationHeader = (AOperationHeader) node.getOperationHeader();
+        final String operationName = TextUMLCore.getSourceMiner().getIdentifier(operationHeader.getIdentifier());
 		boolean isQuery = operationHeader.getOperationKeyword() instanceof AQueryOperationKeyword;
 		boolean hasReturn = sourceMiner.findChild(operationHeader, AOptionalReturnType.class, true) != null;
 	    if (isQuery && !hasReturn) {
-			problemBuilder.addError("A query operation must have a return type", node.getOperationHeader());
+			problemBuilder.addError("A query operation must have a return type", operationHeader);
 			throw new AbortedScopeCompilationException();
 	    }
 	    
 		Classifier parent = (Classifier) this.namespaceTracker.currentNamespace(null);
-		Operation operation;
-		if (namespaceTracker.currentNamespace(null) instanceof Class)
-			operation = ((Class) parent).createOwnedOperation(operationName, null, null, null);
-		else if (namespaceTracker.currentNamespace(null) instanceof Interface)
-			operation = ((Interface) parent).createOwnedOperation(operationName, null, null, null);
-		else if (namespaceTracker.currentNamespace(null) instanceof DataType)
-			operation = ((DataType) parent).createOwnedOperation(operationName, null, null, null);
-		else {
-			problemBuilder.addError("Unexpected context for an operation", node.getOperationHeader());
-			throw new AbortedCompilationException();
-		}
-		fillDebugInfo(operation, node.getOperationHeader());
+		Operation operation = FeatureUtils.createOperation(parent, operationName);
+		fillDebugInfo(operation, operationHeader);
 		applyCurrentComment(operation);
 		operation.setIsQuery(isQuery);
 		namespaceTracker.enterNamespace(operation);
 		try {
 			super.caseAOperationDecl(node);
 			applyModifiers(operation, VisibilityKind.PUBLIC_LITERAL, node);
-			annotationProcessor.applyAnnotations(operation, node.getOperationHeader());
+			annotationProcessor.applyAnnotations(operation, operationHeader);
 		} finally {
 			namespaceTracker.leaveNamespace();
 		}
+	}
+	
+	@Override
+	public void caseAWildcardType(AWildcardType node) {
+	    super.caseAWildcardType(node);
+	    String typeName = TextUMLCore.getSourceMiner().getIdentifier(node);
+	    Operation currentOperation = (Operation) namespaceTracker.currentNamespace(UMLPackage.Literals.OPERATION);
+	    MDDExtensionUtils.createWildcardType(currentOperation, typeName);
 	}
 
 	@Override

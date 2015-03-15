@@ -4,7 +4,7 @@ Bundle-Name: MDD Front-end UI Plug-in
 Bundle-SymbolicName: com.abstratt.mdd.frontend.ui;singleton:=true
 Bundle-Version: 1.120.1.qualifier
 Bundle-Vendor: Abstratt Technologies
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: com.abstratt.mdd.frontend.core,
  com.abstratt.mdd.ui,
  org.eclipse.core.resources,

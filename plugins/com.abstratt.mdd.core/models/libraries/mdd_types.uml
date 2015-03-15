@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:l2="http://www.eclipse.org/uml2/4.0.0/UML/Profile/L2" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_types" URI="libraries/mdd_types">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/10/08 08:43:32 320 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2015/02/20 05:43:12 265 -0200"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0" visibility="private">
       <importedPackage xmi:type="uml:Profile" href="pathmap://UML_PROFILES/StandardL2.profile.uml#_0"/>

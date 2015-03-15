@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Package xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_0" name="base" URI="libraries/base">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2014/10/08 08:43:32 086 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2015/02/20 05:43:12 066 -0200"/>
   </eAnnotations>
   <packageImport xmi:id="_packageImport.0">
     <importedPackage xmi:type="uml:Model" href="mdd_types.uml#_0"/>

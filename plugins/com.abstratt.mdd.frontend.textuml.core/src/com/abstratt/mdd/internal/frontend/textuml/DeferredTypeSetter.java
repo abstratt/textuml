@@ -14,7 +14,6 @@ import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.TypedElement;
 
 import com.abstratt.mdd.core.IBasicRepository;
-import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.internal.frontend.textuml.node.Node;

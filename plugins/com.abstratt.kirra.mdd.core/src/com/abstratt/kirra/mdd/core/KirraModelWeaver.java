@@ -38,11 +38,9 @@ public class KirraModelWeaver implements IModelWeaver {
 	public void packageCreated(IRepository repository, Package created) {
 		Profile kirraProfile = (Profile) repository.loadPackage(URI.createURI(KirraMDDCore.KIRRA_URI));
 		Package types = repository.findPackage(IRepository.TYPES_NAMESPACE, null);
-		Package kirraTypes = repository.findPackage("kirra_types", null);
 		Package extensions = repository.findPackage(IRepository.EXTENSIONS_NAMESPACE, null);
 		created.applyProfile(kirraProfile);
 		created.createPackageImport(types);
-		created.createPackageImport(kirraTypes);
 		created.createPackageImport(extensions);
 		created.createPackageImport(kirraProfile);
 	}

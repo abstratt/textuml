@@ -18,6 +18,7 @@ public class RepositoryService {
 	}
 	
 	public final static Boolean ENABLED = CacheAdapterManager.isEnabled();
+	/* Maximum number of repository instances to create for an application (# of requests served simultaneously). */ 
 	public final static int CLONES;
 	static {
 		int value = 10;
@@ -28,7 +29,16 @@ public class RepositoryService {
 		}
 		CLONES = value;
 	}
-	public final static RepositoryService DEFAULT = ENABLED ? new RepositoryService(new RepositoryProvider()) : null;
+	public final static RepositoryService DEFAULT = ENABLED ? build() : null;
+
+    private static RepositoryService build() {
+        try {
+            return new RepositoryService(new RepositoryProvider());
+        } catch (RuntimeException e) {
+            LogUtils.logError(MDDCore.PLUGIN_ID, "Could not build repository service", e);
+            return null;
+        }
+    }
 
 	private ResourceManager<RepositoryKey> resourceManager;
 

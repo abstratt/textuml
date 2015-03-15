@@ -66,9 +66,13 @@ public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
 		}
 		Parameter parameter = createParameter(name);
 		parameter.setDirection(direction);
-		new TypeSetter(sourceContext, getBaseLookupNamespace(), parameter).process(typeNode);
+		createParameterTypeSetter(parameter).process(typeNode);
 		return parameter;
 	}
+
+    protected TypeSetter createParameterTypeSetter(Parameter parameter) {
+        return new TypeSetter(sourceContext, getBaseLookupNamespace(), parameter);
+    }
 
 	protected Namespace getBaseLookupNamespace() {
 		return this.parent;

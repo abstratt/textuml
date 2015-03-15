@@ -19,5 +19,5 @@ Require-Bundle: org.eclipse.uml2.uml,
  org.eclipse.core.runtime
 Export-Package: com.abstratt.graphviz.uml,
  com.abstratt.graphviz.uml.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
