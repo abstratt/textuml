@@ -9,7 +9,7 @@ Since 2.0
 ----------------
 
 -   Released: in progress
--   Requirements: Eclipse 4.4 or later, Java 6 or later.
+-   Requirements: Eclipse 4.4 or later, Java 8 or later.
 
 ### New textual notation features
 -   Type inference for local vars
