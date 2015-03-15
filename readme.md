@@ -19,6 +19,8 @@ elsewhere:
     syntax highlighting, outline view, textual comparison**
 -   **live graphical visualization** of your model as class diagrams
 
+Using the Toolkit
+------------------------
 
 -   **[Instructions](install.html)** for installing the TextUML Toolkit. Note you can also
     use TextUML in
