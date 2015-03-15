@@ -54,7 +54,7 @@ Using the Toolkit
     - customization properties that change the way the compiler works
     (to enable built-in types, aliases etc).
 
--   **[FAQ](faq.html "FAQ")**
+-   **[FAQ](docs/faq.html "FAQ")**
     - frequently asked questions about TextUML and the Toolkit
 
 -   **[UML 101 with
