@@ -41,6 +41,7 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.Pin;
+import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -58,6 +59,10 @@ public class ActivityUtils {
 	public static Operation getOperation(Activity activity) {
 	    BehavioralFeature specification = activity.getSpecification();
         return specification instanceof Operation ? (Operation) specification : null;
+	}
+	
+	public static Activity getDerivation(Property derived) {
+	    return (Activity) resolveBehaviorReference(derived.getDefaultValue());
 	}
 	
 	public static boolean isActivityStatic(Activity activity) {
@@ -139,8 +144,12 @@ public class ActivityUtils {
 	}
 
 	public static Parameter getClosureReturnParameter(Activity closure) {
-		return FeatureUtils.getReturnParameter(closure.getOwnedParameters());
+		return getActivityReturnParameter(closure);
 	}
+	
+	public static Parameter getActivityReturnParameter(Activity closure) {
+        return FeatureUtils.getReturnParameter(closure.getOwnedParameters());
+    }
 
 	/**
 	 * Returns the structured activity node that corresponds to the body of an
@@ -373,6 +382,23 @@ public class ActivityUtils {
         }
         return matchingActions;
     }
+	
+	public static Action findUpstreamAction(InputPin startingPoint, EClass... actionClasses) {
+	    return findUpstreamAction(getSourceAction(startingPoint), actionClasses);
+	}
+	
+    public static Action findUpstreamAction(Action startingPoint, EClass... actionClasses) {
+        for (EClass actionClass : actionClasses)
+            if (actionClass.isInstance(startingPoint))
+                return startingPoint;
+        for (InputPin pin : startingPoint.getInputs()) {
+            Action foundUpstream = findUpstreamAction(pin, actionClasses);
+            if (foundUpstream != null)
+                return foundUpstream;
+        }
+        return null;
+    }
+
 	
     public static List<Action> findTerminals(StructuredActivityNode target) {
         List<Action> terminalActions = new ArrayList<Action>();
