@@ -11,6 +11,7 @@
 package com.abstratt.mdd.core.util;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
@@ -134,6 +135,10 @@ public class ActivityUtils {
     }
 
     public static List<Parameter> getClosureInputParameters(Activity closure) {
+        return getActivityInputParameters(closure);
+    }
+    
+    public static List<Parameter> getActivityInputParameters(Activity closure) {
         return FeatureUtils.filterParameters(closure.getOwnedParameters(), ParameterDirectionKind.IN_LITERAL);
     }
 
@@ -398,7 +403,24 @@ public class ActivityUtils {
         }
         return null;
     }
-
+    
+    public static List<Action> findUpstreamActions(InputPin startingPoint, EClass... actionClasses) {
+        return findUpstreamActions(getSourceAction(startingPoint), actionClasses);
+    }
+    
+    public static List<Action> findUpstreamActions(Action startingPoint, EClass... actionClasses) {
+        List<Action> found = new LinkedList<>();
+        collectUpstreamActions(found, startingPoint, actionClasses);
+        return found;
+    }
+    
+    private static void collectUpstreamActions(List<Action> collected, Action current, EClass... actionClasses) {
+        for (EClass actionClass : actionClasses)
+            if (actionClass.isInstance(current))
+                collected.add(current);
+        for (InputPin pin : current.getInputs())
+            collectUpstreamActions(collected, getSourceAction(pin), actionClasses);
+    }
     
     public static List<Action> findTerminals(StructuredActivityNode target) {
         List<Action> terminalActions = new ArrayList<Action>();
