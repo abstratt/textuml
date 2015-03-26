@@ -90,9 +90,6 @@ class Date specializes Primitive
   static query now() : Date;
   static query make(day : Integer, month : Integer, year : Integer) : Date;
   static query fromString(string : String) : Date;
-  query differenceInDays(another : Date) : Integer;
-  query differenceInYears(another : Date) : Integer;
-  query differenceInMonths(another : Date) : Integer;
   query difference(another : Date) : Duration;
   query day() : Integer;
   query month() : Integer;
@@ -101,6 +98,11 @@ class Date specializes Primitive
 end;
 
 class Duration specializes Primitive
+  query toDays() : Integer;
+  query toHour() : Integer;
+  query toMinutes() : Integer;
+  query toSeconds() : Integer;  
+
   static query milliseconds(value : Number) : Duration;
   static query seconds(value : Number) : Duration;
   static query minutes(value : Number) : Duration;
