@@ -98,6 +98,8 @@ class Date specializes Primitive
 end;
 
 class Duration specializes Primitive
+  query toYears() : Integer;
+  query toMonths() : Integer;
   query toDays() : Integer;
   query toHour() : Integer;
   query toMinutes() : Integer;
