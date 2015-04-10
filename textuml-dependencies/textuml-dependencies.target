@@ -11,15 +11,9 @@
 
 			<unit id="org.eclipse.emf.query.sdk.feature.group" version="0.0.0" />
 			<unit id="org.eclipse.ocl.all.sdk.feature.group" version="0.0.0" />
+            <unit id="org.eclipse.uml2.sdk.feature.group" version="5.0.2.v20150202-0947" />			
             <!-- Specific release to avoid Eclipse bug 430375 -->
-			<repository location="http://download.eclipse.org/releases/luna/201406250900" />
-		</location>
-		
-		<location includeAllPlatforms="false" includeMode="planner"
-			includeSource="true" type="InstallableUnit">
-			<unit id="org.eclipse.uml2.sdk.feature.group" version="0.0.0" />
-		<repository location="http://download.eclipse.org/modeling/mdt/uml2/updates/4.0/R201206040919/" />
-		<!--	<repository location="http://download.eclipse.org/modeling/mdt/uml2/updates/5.0/R201409101354" /> -->
+			<repository location="http://download.eclipse.org/releases/luna/201502271000" />
 		</location>
 		
 		<location includeAllPlatforms="false" includeMode="planner"

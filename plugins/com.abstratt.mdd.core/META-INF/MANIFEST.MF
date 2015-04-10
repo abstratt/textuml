@@ -6,8 +6,8 @@ Bundle-Version: 1.120.1.qualifier
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.equinox.common;visibility:=reexport,
  com.abstratt.resman;visibility:=reexport,
- org.eclipse.uml2.uml;visibility:=reexport;bundle-version="[4.0.0,4.1.0)",
- org.eclipse.uml2.uml.resources;bundle-version="[4.0.0,4.1.0)",
+ org.eclipse.uml2.uml;visibility:=reexport;bundle-version="[5.0.1,6)",
+ org.eclipse.uml2.uml.resources;bundle-version="[5.0.1,6)",
  org.eclipse.osgi;bundle-version="3.8.1",
  org.eclipse.equinox.registry;bundle-version="3.5.200",
  org.eclipse.core.filesystem;visibility:=reexport,
