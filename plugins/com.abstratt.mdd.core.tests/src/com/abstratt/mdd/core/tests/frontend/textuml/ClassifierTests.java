@@ -43,6 +43,7 @@ import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.CannotModifyADerivedAttribute;
 import com.abstratt.mdd.frontend.core.CannotSpecializeClassifier;
+import com.abstratt.mdd.frontend.core.DuplicateSymbol;
 import com.abstratt.mdd.frontend.core.IdsShouldBeRequiredSingle;
 import com.abstratt.mdd.frontend.core.MissingDefaultValue;
 import com.abstratt.mdd.frontend.core.ReadSelfFromStaticContext;
@@ -263,6 +264,22 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
 		final Class class_ = (Class) getRepository().findNamedElement("someModel::SomeClass", IRepository.PACKAGE.getClass_(), null);
 		assertNotNull(class_);
 	}
+
+    public void testDuplicateClass() throws CoreException {
+        String source = "";
+        source += "model someModel;\n";
+        source += "class MyDuplicateClass\n";
+        source += "end;\n";
+        source += "class MyDuplicateClass\n";
+        source += "end;\n";
+        source += "end.";
+        IProblem[] problems = compile(source);
+        FixtureHelper.assertTrue(problems, problems.length == 1);
+        FixtureHelper.assertTrue(problems, problems[0] instanceof DuplicateSymbol);
+        assertEquals(4, problems[0].getAttribute(IProblem.LINE_NUMBER));
+        assertEquals("MyDuplicateClass", ((DuplicateSymbol) problems[0]).getSymbol());
+        assertEquals("Class", ((DuplicateSymbol) problems[0]).getMetaClass());
+    }
 	
 	public void testAbstractClass() throws CoreException {
 		String source = "";

@@ -17,15 +17,24 @@ import com.abstratt.mdd.core.Problem;
 
 public class DuplicateSymbol extends Problem {
 
-	private String message;
+	private String symbol;
+	private String metaClass;
 
 	public DuplicateSymbol(String name, EClass class1) {
 		super(Severity.ERROR);
-		this.message = class1.getName() + " already exists with name " + name;
+		this.symbol = name;
+		this.metaClass = class1.getName();
 	}
 
 	public String getMessage() {
-		return message;
+		return metaClass + " already exists with name " + symbol;
 	}
 
+	public String getSymbol() {
+        return symbol;
+    }
+	
+	public String getMetaClass() {
+        return metaClass;
+    }
 }

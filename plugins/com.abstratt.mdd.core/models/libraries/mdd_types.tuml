@@ -1,7 +1,7 @@
-[ModelLibrary]
+[StandardProfile::ModelLibrary]
 model mdd_types;
 
-apply StandardProfileL2;
+apply StandardProfile;
 
 actor Anyone end;
 

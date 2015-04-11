@@ -309,9 +309,9 @@ public class StructureGenerator extends AbstractGenerator {
 		if (name == null || namespace == null)
 			return true;
 		for (EClass expected : eClasses) {
-			final NamedElement found = namespace.getMember(name, false, expected);
+			final NamedElement found = namespace.getOwnedMember(name, false, expected);
 			if (found != null && EcoreUtil.equals(found.getNamespace(), namespace)) {
-				problemBuilder.addProblem( new DuplicateSymbol(name, found.eClass()), node);
+				problemBuilder.addProblem(new DuplicateSymbol(name, found.eClass()), node);
 				return false;
 			}
 		}
