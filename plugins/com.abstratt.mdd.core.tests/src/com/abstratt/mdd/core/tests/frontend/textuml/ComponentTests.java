@@ -234,7 +234,7 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		IProblem[] errors = parse(source);
 		FixtureHelper.assertTrue(errors, 1 == errors.length);
 		FixtureHelper.assertTrue(errors, errors[0] instanceof InvalidConnector);
-		assertEquals(InvalidConnector.Reason.Roles, ((InvalidConnector) errors[0]).getReason());
+		assertEquals(errors[0].getMessage(), InvalidConnector.Reason.Roles, ((InvalidConnector) errors[0]).getReason());
 	}
 	
 	public void testConnector_UnnamedPort() throws CoreException {
