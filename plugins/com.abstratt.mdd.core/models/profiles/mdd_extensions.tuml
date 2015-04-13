@@ -8,8 +8,8 @@ stereotype Test extends UML::Class
 end;
 
 stereotype Failure extends UML::Operation
-    property context : String;
-    property constraint : String;
+    property context : PrimitiveTypes::String;
+    property constraint : PrimitiveTypes::String;
 end;
 
 (* External classes are implemented as Java classes *)
@@ -78,6 +78,5 @@ end;
 stereotype WildcardTypeContext extends UML::Namespace
     property wildcardTypes : UML::Type[*];
 end;
-
 
 end.

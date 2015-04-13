@@ -1238,7 +1238,8 @@ public class StructureGenerator extends AbstractGenerator {
 				public void resolve(IBasicRepository repository) {
 					// defining must be the last thing to be done to the
 					// profile, hence must be deferred
-					((Profile) currentNamespace).define();
+				    Profile asProfile = (Profile) currentNamespace;
+					asProfile.define();
 				}
 			}, IReferenceTracker.Step.DEFINE_PROFILES);
 	}
@@ -1291,12 +1292,18 @@ public class StructureGenerator extends AbstractGenerator {
 													.getQualifiedIdentifier());
 									return;
 								}
-								if (!currentStereotypeSnapshot.getProfile().getReferencedMetamodels().contains(
-												metaClass.getModel()))
-									currentStereotypeSnapshot.getProfile().createMetamodelReference(
-													metaClass.getNearestPackage());
+								Profile profile = currentStereotypeSnapshot.getProfile();
+								boolean deletePackageImport = false;
+								if (!profile.getReferencedMetamodels().contains(metaClass.getModel())) {
+								    profile.createMetamodelReference(metaClass.getNearestPackage());
+								    // creating a metamodel reference also creates a sometimes costly) metamodel package import
+								    // delete it after creating the extension
+								    deletePackageImport = profile.getPackageImport(metaClass.getModel()) == null;
+								}
 								boolean requiredExtension = node.getRequired() != null;
 								currentStereotypeSnapshot.createExtension(metaClass, requiredExtension);
+                                if (deletePackageImport)
+                                    profile.getPackageImports().removeIf(imp -> imp.getImportedPackage() == metaClass.getModel());
 							}
 						}, IReferenceTracker.Step.GENERAL_RESOLUTION);
 	}

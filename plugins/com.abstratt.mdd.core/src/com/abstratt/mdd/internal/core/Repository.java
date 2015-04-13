@@ -436,11 +436,8 @@ public class Repository implements IRepository {
 				// element found, no need to look further
 				return (T) element;
             for (ElementImport elementImport : namespace.getElementImports())
-                if (elementImport.getName().equals(name)
-                                && isVisible(namespace, elementImport.getImportedElement(), elementImport
-                                                .getVisibility() != VisibilityKind.PRIVATE_LITERAL))
+                if (elementImport.getName().equals(name))
                     return (T) elementImport.getImportedElement();
-
 			if (deep) {
 				// check imported packages now
 				List<PackageImport> imports = namespace.getPackageImports();
