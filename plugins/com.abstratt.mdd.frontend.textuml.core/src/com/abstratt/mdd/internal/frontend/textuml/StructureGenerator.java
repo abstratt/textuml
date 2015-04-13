@@ -275,33 +275,34 @@ public class StructureGenerator extends AbstractGenerator {
 		final Package currentPackageSnapshot = namespaceTracker.currentPackage();
 		String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(node.getQualifiedIdentifier());
 		getRefTracker().add(
-						new DeferredReference<Profile>(qualifiedIdentifier, IRepository.PACKAGE.getProfile(),
-										currentPackageSnapshot) {
-							@Override
-							protected void onBind(Profile appliedProfile) {
-								if (appliedProfile == null) {
-									problemBuilder.addError("Unknown namespace: '" + getSymbolName() + "'", node
-													.getQualifiedIdentifier());
-									return;
-								}
-								// a profile can only be applied after it has
-								// been defined
-								if (!appliedProfile.isDefined()) {
-									problemBuilder.addError("Profile has not been defined: '"
-													+ appliedProfile.getQualifiedName() + "'", node
-													.getQualifiedIdentifier());
-									return;
-								}
-								if (!currentPackageSnapshot.getAppliedProfiles().contains(appliedProfile))
-									currentPackageSnapshot.applyProfile(appliedProfile);
-								// import the profile as well (note: this is a
-								// convenience only,
-								// not suggested or mandated by the UML spec)
-								if (!currentPackageSnapshot.getImportedPackages().contains(appliedProfile))
-									currentPackageSnapshot.createPackageImport(appliedProfile,
-													VisibilityKind.PRIVATE_LITERAL);
-							}
-						}, IReferenceTracker.Step.PROFILE_APPLICATIONS);
+			new DeferredReference<Profile>(qualifiedIdentifier, IRepository.PACKAGE.getProfile(),
+							currentPackageSnapshot) {
+				@Override
+				protected void onBind(Profile appliedProfile) {
+					if (appliedProfile == null) {
+						problemBuilder.addError("Unknown namespace: '" + getSymbolName() + "'", node
+										.getQualifiedIdentifier());
+						return;
+					}
+					// a profile can only be applied after it has
+					// been defined
+					if (!appliedProfile.isDefined()) {
+						problemBuilder.addError("Profile has not been defined: '"
+										+ appliedProfile.getQualifiedName() + "'", node
+										.getQualifiedIdentifier());
+						return;
+					}
+					if (!currentPackageSnapshot.getAppliedProfiles().contains(appliedProfile))
+						currentPackageSnapshot.applyProfile(appliedProfile);
+					// import the profile as well (note: this is a
+					// convenience only,
+					// not suggested or mandated by the UML spec)
+					if (!currentPackageSnapshot.getImportedPackages().contains(appliedProfile))
+						currentPackageSnapshot.createPackageImport(appliedProfile,
+										VisibilityKind.PRIVATE_LITERAL);
+				}
+			}, IReferenceTracker.Step.PROFILE_APPLICATIONS
+		);
 	}
 
 	private boolean ensureNameAvailable(String name, Node node, EClass... eClasses) {
@@ -476,24 +477,24 @@ public class StructureGenerator extends AbstractGenerator {
 					problemBuilder.addWarning("Ignored annotations on member association end: " + propertyName,
 							memberNode);
 				getRefTracker().add(
-						new DeferredReference<Classifier>(classifierName, IRepository.PACKAGE.getClassifier(), namespaceTracker
-								.currentPackage()) {
-							@Override
-							protected void onBind(Classifier associationParticipant) {
-								if (associationParticipant == null) {
-									problemBuilder.addProblem(new UnknownType(getSymbolName()), memberNode
-											.getClassifier());
-									return;
-								}
-								Property property = FeatureUtils.findAttribute(associationParticipant, propertyName, false, true);
-								if (property == null) {
-									problemBuilder.addError("Could not find property: '" + propertyName
-											+ "' in classifier '" + classifierName + "'", memberNode.getClassifier());
-									return;
-								}
-								property.setAssociation(association);
+					new DeferredReference<Classifier>(classifierName, IRepository.PACKAGE.getClassifier(), namespaceTracker
+							.currentPackage()) {
+						@Override
+						protected void onBind(Classifier associationParticipant) {
+							if (associationParticipant == null) {
+								problemBuilder.addProblem(new UnknownType(getSymbolName()), memberNode
+										.getClassifier());
+								return;
 							}
-						}, IReferenceTracker.Step.GENERAL_RESOLUTION);
+							Property property = FeatureUtils.findAttribute(associationParticipant, propertyName, false, true);
+							if (property == null) {
+								problemBuilder.addError("Could not find property: '" + propertyName
+										+ "' in classifier '" + classifierName + "'", memberNode.getClassifier());
+								return;
+							}
+							property.setAssociation(association);
+						}
+					}, IReferenceTracker.Step.GENERAL_RESOLUTION);
 			}
 
 			@Override
@@ -736,31 +737,29 @@ public class StructureGenerator extends AbstractGenerator {
 	public final void caseAClassImplementsItem(final AClassImplementsItem node) {
 		if (!(namespaceTracker.currentNamespace(null) instanceof BehavioredClassifier)) {
 			problemBuilder
-					.addError(
-							"'"
-									+ namespaceTracker.currentNamespace(null).getName()
-									+ "' is not a behaviored classifier. Only behaviored classifiers (i.e. classes, stereotypes) can realize interfaces'",
-							node.getMinimalTypeIdentifier());
+				.addError(
+						"'"
+								+ namespaceTracker.currentNamespace(null).getName()
+								+ "' is not a behaviored classifier. Only behaviored classifiers (i.e. classes, stereotypes) can realize interfaces'",
+						node.getMinimalTypeIdentifier());
 			throw new AbortedCompilationException();
 		}
 		final BehavioredClassifier implementingClassifier = (BehavioredClassifier) namespaceTracker.currentNamespace(null);
 		String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(node.getMinimalTypeIdentifier());
-		getRefTracker()
-						.add(
-										new DeferredReference<Interface>(qualifiedIdentifier, IRepository.PACKAGE.getInterface(),
-														namespaceTracker.currentPackage()) {
-											@Override
-											protected void onBind(Interface interface_) {
-												if (interface_ == null) {
-													problemBuilder.addError("Could not find interface: '"
-																	+ getSymbolName() + "'", node
-																	.getMinimalTypeIdentifier());
-													return;
-												}
-												InterfaceRealization realization = implementingClassifier.createInterfaceRealization(null, interface_);
-												processAnnotations(node.getAnnotations(), realization);
-											}
-										}, IReferenceTracker.Step.GENERAL_RESOLUTION);
+		getRefTracker().add(
+			new DeferredReference<Interface>(qualifiedIdentifier, IRepository.PACKAGE.getInterface(),
+							namespaceTracker.currentPackage()) {
+				@Override
+				protected void onBind(Interface interface_) {
+					if (interface_ == null) {
+						problemBuilder.addError("Could not find interface: '" + getSymbolName() + "'", node.getMinimalTypeIdentifier());
+						return;
+					}
+					InterfaceRealization realization = implementingClassifier.createInterfaceRealization(null, interface_);
+					processAnnotations(node.getAnnotations(), realization);
+				}
+			}, IReferenceTracker.Step.GENERAL_RESOLUTION
+		);
 	}
 
 	@Override
@@ -771,63 +770,64 @@ public class StructureGenerator extends AbstractGenerator {
 		tbp.process(node.getSingleTypeIdentifier());
 		final List<PQualifiedIdentifier> parameterIdentifiers = tbp.getParameterIdentifiers();
 		getRefTracker().add(
-						new DeferredReference<Classifier>(qualifiedIdentifier, IRepository.PACKAGE.getClassifier(),
-										currentClassSnapshot) {
-							@Override
-							protected void onBind(Classifier superClass) {
-								if (superClass == null) {
-									problemBuilder.addProblem( new UnresolvedSymbol(getSymbolName()), node
-													.getSingleTypeIdentifier());
-									return;
-								}
-								if (!currentClassSnapshot.maySpecializeType(superClass)) {
-									problemBuilder.addProblem( new CannotSpecializeClassifier(superClass.getQualifiedName(), currentClassSnapshot.getQualifiedName()), node
-													.getSingleTypeIdentifier());
-									return;
-								}
-								if (parameterIdentifiers != null) {
-									// the super classifier is a template
-									List<Type> parameters = new ArrayList<Type>(parameterIdentifiers.size());
-									boolean allTemplateParameters = false;
-									for (PQualifiedIdentifier parameterIdNode : parameterIdentifiers) {
-										String parameterId = TextUMLCore.getSourceMiner().getQualifiedIdentifier(parameterIdNode);
-										Classifier parameter =
-														(Classifier) getRepository().findNamedElement(parameterId,
-																		superClass.eClass(), currentClassSnapshot);
-										if (parameter == null) {
-											problemBuilder.addProblem( new UnresolvedSymbol(parameterId),
-															parameterIdNode);
-											return;
-										}
-										if (parameters.isEmpty())
-											// the first parameters sets the
-											// tone
-											allTemplateParameters = parameter.isTemplateParameter();
-										else if (allTemplateParameters ^ parameter.isTemplateParameter()) {
-											problemBuilder
-															.addProblem(new UnclassifiedProblem(
-																			"Cannot mix formal and actual parameters"),
-																			parameterIdNode);
-											return;
-										}
-										parameters.add(parameter);
-									}
-									if (allTemplateParameters) {
-										TemplateUtils.createSubclassTemplateBinding(superClass, currentClassSnapshot,
-														parameters);
-									} else {
-										// replace a reference to it with one
-										// one to a newly
-										// created bound element
-										Classifier bound = TemplateUtils.createBinding(currentClassSnapshot.getNearestPackage(), superClass, parameters);
-										bound.setName(TemplateUtils.generateBoundElementName(superClass, parameters));
-										superClass = bound;
-									}
-								}
-								Generalization generalization = currentClassSnapshot.createGeneralization(superClass);
-								processAnnotations(node.getAnnotations(), generalization);
+			new DeferredReference<Classifier>(qualifiedIdentifier, IRepository.PACKAGE.getClassifier(),
+							currentClassSnapshot) {
+				@Override
+				protected void onBind(Classifier superClass) {
+					if (superClass == null) {
+						problemBuilder.addProblem( new UnresolvedSymbol(getSymbolName()), node
+										.getSingleTypeIdentifier());
+						return;
+					}
+					if (!currentClassSnapshot.maySpecializeType(superClass)) {
+						problemBuilder.addProblem( new CannotSpecializeClassifier(superClass.getQualifiedName(), currentClassSnapshot.getQualifiedName()), node
+										.getSingleTypeIdentifier());
+						return;
+					}
+					if (parameterIdentifiers != null) {
+						// the super classifier is a template
+						List<Type> parameters = new ArrayList<Type>(parameterIdentifiers.size());
+						boolean allTemplateParameters = false;
+						for (PQualifiedIdentifier parameterIdNode : parameterIdentifiers) {
+							String parameterId = TextUMLCore.getSourceMiner().getQualifiedIdentifier(parameterIdNode);
+							Classifier parameter =
+											(Classifier) getRepository().findNamedElement(parameterId,
+															superClass.eClass(), currentClassSnapshot);
+							if (parameter == null) {
+								problemBuilder.addProblem( new UnresolvedSymbol(parameterId),
+												parameterIdNode);
+								return;
 							}
-						}, IReferenceTracker.Step.GENERAL_RESOLUTION);
+							if (parameters.isEmpty())
+								// the first parameters sets the
+								// tone
+								allTemplateParameters = parameter.isTemplateParameter();
+							else if (allTemplateParameters ^ parameter.isTemplateParameter()) {
+								problemBuilder
+												.addProblem(new UnclassifiedProblem(
+																"Cannot mix formal and actual parameters"),
+																parameterIdNode);
+								return;
+							}
+							parameters.add(parameter);
+						}
+						if (allTemplateParameters) {
+							TemplateUtils.createSubclassTemplateBinding(superClass, currentClassSnapshot,
+											parameters);
+						} else {
+							// replace a reference to it with one
+							// one to a newly
+							// created bound element
+							Classifier bound = TemplateUtils.createBinding(currentClassSnapshot.getNearestPackage(), superClass, parameters);
+							bound.setName(TemplateUtils.generateBoundElementName(superClass, parameters));
+							superClass = bound;
+						}
+					}
+					Generalization generalization = currentClassSnapshot.createGeneralization(superClass);
+					processAnnotations(node.getAnnotations(), generalization);
+				}
+			}, IReferenceTracker.Step.GENERAL_RESOLUTION
+		);
 	}
 
 	@Override
@@ -964,38 +964,34 @@ public class StructureGenerator extends AbstractGenerator {
 		} else
 			alias = null;
 		getRefTracker().add(
-						new DeferredReference<NamedElement>(qualifiedIdentifier, IRepository.PACKAGE.getNamedElement(),
-										namespaceTracker.currentPackage()) {
-							@Override
-							protected void onBind(NamedElement element) {
-								if (element == null) {
-									problemBuilder.addProblem( new UnresolvedSymbol(getSymbolName()), node
-													.getQualifiedIdentifier());
-									return;
-								}
-								if (element instanceof Package) {
-									if (alias != null) {
-										problemBuilder.addError("Imported packages cannot be aliased", node
-														.getQualifiedIdentifier());
-										return;
-									}
-
-									Package importedPackage = (Package) element;
-									if (currentPackageSnapshot.getImportedPackages().contains(importedPackage))
-										// just ignore 
-										return;
-									PackageImport created = currentPackageSnapshot.createPackageImport(importedPackage);
-									created.setVisibility(importVisibility);
-								} else {
-									PackageableElement packageableElement = (PackageableElement) element;
-									ElementImport elementImport =
-													currentPackageSnapshot.createElementImport(packageableElement);
-									elementImport.setVisibility(importVisibility);
-									if (alias != null)
-										elementImport.setAlias(alias);
-								}
-							}
-						}, IReferenceTracker.Step.PACKAGE_IMPORTS);
+			new DeferredReference<NamedElement>(qualifiedIdentifier, IRepository.PACKAGE.getNamedElement(), namespaceTracker.currentPackage()) {
+				@Override
+				protected void onBind(NamedElement element) {
+					if (element == null) {
+						problemBuilder.addProblem( new UnresolvedSymbol(getSymbolName()), node.getQualifiedIdentifier());
+						return;
+					}
+					if (element instanceof Package) {
+						if (alias != null) {
+							problemBuilder.addError("Imported packages cannot be aliased", node.getQualifiedIdentifier());
+							return;
+						}
+						Package importedPackage = (Package) element;
+						if (currentPackageSnapshot.getImportedPackages().contains(importedPackage))
+							// just ignore 
+							return;
+						PackageImport created = currentPackageSnapshot.createPackageImport(importedPackage);
+						created.setVisibility(importVisibility);
+					} else {
+						PackageableElement packageableElement = (PackageableElement) element;
+						ElementImport elementImport = currentPackageSnapshot.createElementImport(packageableElement);
+						elementImport.setVisibility(importVisibility);
+						if (alias != null)
+							elementImport.setAlias(alias);
+					}
+				}
+			}, IReferenceTracker.Step.PACKAGE_IMPORTS
+		);
 	}
 	
 	private <T extends Classifier> T createClassifier(EClass typeClass) {
@@ -1279,33 +1275,34 @@ public class StructureGenerator extends AbstractGenerator {
 		final Stereotype currentStereotypeSnapshot = (Stereotype) namespaceTracker.currentNamespace(IRepository.PACKAGE.getStereotype());
 		String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(node.getQualifiedIdentifier());
 		getRefTracker().add(
-						new DeferredReference<Class>(qualifiedIdentifier, IRepository.PACKAGE.getClass_(), namespaceTracker.currentPackage()) {
-							@Override
-							protected void onBind(Class metaClass) {
-								if (metaClass == null) {
-									problemBuilder.addProblem( new UnresolvedSymbol(getSymbolName()), node
-													.getQualifiedIdentifier());
-									return;
-								}
-								if (!metaClass.isMetaclass()) {
-									problemBuilder.addProblem( new NotAMetaclass(getSymbolName()), node
-													.getQualifiedIdentifier());
-									return;
-								}
-								Profile profile = currentStereotypeSnapshot.getProfile();
-								boolean deletePackageImport = false;
-								if (!profile.getReferencedMetamodels().contains(metaClass.getModel())) {
-								    profile.createMetamodelReference(metaClass.getNearestPackage());
-								    // creating a metamodel reference also creates a sometimes costly) metamodel package import
-								    // delete it after creating the extension
-								    deletePackageImport = profile.getPackageImport(metaClass.getModel()) == null;
-								}
-								boolean requiredExtension = node.getRequired() != null;
-								currentStereotypeSnapshot.createExtension(metaClass, requiredExtension);
-                                if (deletePackageImport)
-                                    profile.getPackageImports().removeIf(imp -> imp.getImportedPackage() == metaClass.getModel());
-							}
-						}, IReferenceTracker.Step.GENERAL_RESOLUTION);
+			new DeferredReference<Class>(qualifiedIdentifier, IRepository.PACKAGE.getClass_(), namespaceTracker.currentPackage()) {
+				@Override
+				protected void onBind(Class metaClass) {
+					if (metaClass == null) {
+						problemBuilder.addProblem( new UnresolvedSymbol(getSymbolName()), node
+										.getQualifiedIdentifier());
+						return;
+					}
+					if (!metaClass.isMetaclass()) {
+						problemBuilder.addProblem( new NotAMetaclass(getSymbolName()), node
+										.getQualifiedIdentifier());
+						return;
+					}
+					Profile profile = currentStereotypeSnapshot.getProfile();
+					boolean deletePackageImport = false;
+					if (!profile.getReferencedMetamodels().contains(metaClass.getModel())) {
+					    profile.createMetamodelReference(metaClass.getNearestPackage());
+					    // creating a metamodel reference also creates a sometimes costly) metamodel package import
+					    // delete it after creating the extension
+					    deletePackageImport = profile.getPackageImport(metaClass.getModel()) == null;
+					}
+					boolean requiredExtension = node.getRequired() != null;
+					currentStereotypeSnapshot.createExtension(metaClass, requiredExtension);
+                    if (deletePackageImport)
+                        profile.getPackageImports().removeIf(imp -> imp.getImportedPackage() == metaClass.getModel());
+				}
+			}, IReferenceTracker.Step.GENERAL_RESOLUTION
+		);
 	}
 
 	@Override
