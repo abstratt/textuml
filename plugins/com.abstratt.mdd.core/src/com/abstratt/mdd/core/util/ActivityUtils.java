@@ -192,6 +192,17 @@ public class ActivityUtils {
         Assert.isTrue(body.getNodes().size() == 1, "expecting 1, found " + body.getNodes().size());
         return (StructuredActivityNode) body.getNodes().get(0);
     }
+    
+    public static boolean isRootAction(Action action) {
+        if (!(action instanceof StructuredActivityNode))
+            return false;
+        StructuredActivityNode asStructuredActivityNode = (StructuredActivityNode) action;
+        EObject parentObject = asStructuredActivityNode.eContainer();
+        if (!(parentObject instanceof StructuredActivityNode))
+            return false;
+        StructuredActivityNode parentNode = (StructuredActivityNode) parentObject;
+        return isBodyNode(parentNode);
+    }
 
     public static ObjectFlow connect(StructuredActivityNode parent, ObjectNode source, ObjectNode target) {
         ObjectFlow flow = (ObjectFlow) parent.createEdge(null, UMLPackage.eINSTANCE.getObjectFlow());
@@ -371,6 +382,13 @@ public class ActivityUtils {
                 terminalActions.add((Action) node);
         }
         return terminalActions;
+    }
+    
+    public static Action findSingleStatement(StructuredActivityNode rootAction) {
+        List<Action> statements = findStatements(rootAction);
+        if (statements.size() != 1)
+            throw new IllegalArgumentException("Single statement activity expected");
+        return statements.get(0);
     }
     
     public static List<Action> findMatchingActions(StructuredActivityNode target, EClass... actionClasses) {

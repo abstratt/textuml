@@ -609,12 +609,13 @@ public class StructureGenerator extends AbstractGenerator {
 		applyCurrentComment(newProperty);
 		new DeferredTypeSetter(sourceContext, namespaceTracker.currentNamespace(null), newProperty) {
 			public void doProcess(Node node) {
-				super.doProcess(node); 
-				if ((currentNamespace instanceof DataType || currentNamespace instanceof Signal || currentNamespace instanceof StateMachine) && newProperty.getType() != null) {
-					Type propertyType = newProperty.getType();
-					if (!(propertyType instanceof DataType || propertyType instanceof Signal || propertyType instanceof StateMachine || propertyType instanceof Enumeration) && !BasicTypeUtils.isBasicType(newProperty.getType())) 
-					    problemBuilder.addProblem(new UnclassifiedProblem("Attribute must be primitive, datatype, state machine or enumeration: " + newProperty.getName()), node);
-				}
+				super.doProcess(node);
+				// leaning towards no restrictions for attribute types
+//				if ((currentNamespace instanceof DataType || currentNamespace instanceof Signal || currentNamespace instanceof StateMachine) && newProperty.getType() != null) {
+//					Type propertyType = newProperty.getType();
+//					if (!(propertyType instanceof DataType || propertyType instanceof Signal || propertyType instanceof StateMachine || propertyType instanceof Enumeration) && !BasicTypeUtils.isBasicType(newProperty.getType())) 
+//					    problemBuilder.addProblem(new UnclassifiedProblem("Attribute must be class, primitive, datatype, state machine or enumeration: " + newProperty.getName()), node);
+//				}
 			}
 		}.process(node.getTypeIdentifier());
 		
