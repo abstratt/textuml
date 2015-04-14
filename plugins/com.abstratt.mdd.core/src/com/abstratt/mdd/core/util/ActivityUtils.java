@@ -11,8 +11,11 @@
 package com.abstratt.mdd.core.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.StreamSupport;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.ecore.EClass;
@@ -391,6 +394,10 @@ public class ActivityUtils {
         return statements.get(0);
     }
     
+    public static Action findSingleStatement(Activity activity) {
+        return findSingleStatement(getRootAction(activity));
+    }
+    
     public static List<Action> findMatchingActions(StructuredActivityNode target, EClass... actionClasses) {
         List<Action> matchingActions = new ArrayList<Action>();
         for (ActivityNode node : target.getNodes()) {
@@ -411,16 +418,27 @@ public class ActivityUtils {
     }
     
     public static Action findUpstreamAction(Action startingPoint, EClass... actionClasses) {
-        for (EClass actionClass : actionClasses)
-            if (actionClass.isInstance(startingPoint))
-                return startingPoint;
+        return findUpstreamAction(
+            startingPoint, 
+            action -> Arrays.stream(actionClasses).anyMatch(actionClass -> actionClass.isInstance(action))
+        ); 
+    }
+    
+    public static Action findUpstreamAction(InputPin startingPoint, Predicate<Action> condition) {
+        return findUpstreamAction(getSourceAction(startingPoint), condition);
+    }
+    
+    public static Action findUpstreamAction(Action startingPoint, Predicate<Action> condition) {
+        if (condition.test(startingPoint))
+            return startingPoint;
         for (InputPin pin : startingPoint.getInputs()) {
-            Action foundUpstream = findUpstreamAction(pin, actionClasses);
+            Action foundUpstream = findUpstreamAction(pin, condition);
             if (foundUpstream != null)
                 return foundUpstream;
         }
         return null;
     }
+
     
     public static List<Action> findUpstreamActions(InputPin startingPoint, EClass... actionClasses) {
         return findUpstreamActions(getSourceAction(startingPoint), actionClasses);
