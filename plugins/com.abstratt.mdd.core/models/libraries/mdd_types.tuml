@@ -11,7 +11,7 @@ end;
 
 class Assert
     static operation isTrue(condition : Boolean);
-    static operation areEqual(expected : any, actual : any);
+    static operation areEqual(expected : any[*], actual : any[*]);
     static operation isNull(actual : any);
     static operation isNotNull(actual : any);
 end;

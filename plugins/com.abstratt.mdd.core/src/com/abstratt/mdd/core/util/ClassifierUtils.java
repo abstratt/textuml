@@ -42,4 +42,10 @@ public class ClassifierUtils {
             return (C) ((Class) namespace).createNestedClassifier(name, eClass);
 
     }
+    
+    public static boolean isKindOf(Classifier toTest, Classifier generalCandidate) {
+        if (toTest == generalCandidate)
+            return true;
+        return toTest.getGeneralizations().stream().anyMatch(g -> isKindOf(g.getGeneral(), generalCandidate));
+    }
 }
