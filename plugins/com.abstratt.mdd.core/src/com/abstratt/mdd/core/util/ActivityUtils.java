@@ -399,18 +399,33 @@ public class ActivityUtils {
     }
     
     public static List<Action> findMatchingActions(StructuredActivityNode target, EClass... actionClasses) {
+        return findMatchingActions(target, action -> 
+            Arrays.stream(actionClasses).anyMatch(eClass -> eClass.isInstance(action))
+        );
+    }
+    
+    public static List<Action> findMatchingActions(StructuredActivityNode target, Predicate<Action> predicate) {
         List<Action> matchingActions = new ArrayList<Action>();
         for (ActivityNode node : target.getNodes()) {
-            for (EClass actionClass : actionClasses) {
-                if (actionClass.isInstance(node)) {
-                    matchingActions.add((Action) node);
-                    break;
-                }
-            }
+            if (node instanceof Action && predicate.test((Action) node))
+                matchingActions.add((Action) node);
             if (UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE.isInstance(node))
-                matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, actionClasses));
+                matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, predicate));
         }
         return matchingActions;
+    }
+
+    public static Action findFirstMatchingAction(StructuredActivityNode target, Predicate<Action> predicate) {
+        for (ActivityNode node : target.getNodes()) {
+            if (node instanceof Action && predicate.test((Action) node))
+                return (Action) node;
+            if (UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE.isInstance(node)) {
+                Action child = findFirstMatchingAction((StructuredActivityNode) node, predicate);
+                if (child != null)
+                    return child;
+            }
+        }
+        return null;
     }
     
     public static Action findUpstreamAction(InputPin startingPoint, EClass... actionClasses) {
