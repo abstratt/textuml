@@ -17,7 +17,6 @@
     <module>com.abstratt.resman</module>
     <module>com.abstratt.resman.tests</module>
     <module>com.abstratt.mdd.core</module>
-    <module>com.abstratt.kirra.mdd.core</module>
     <module>com.abstratt.mdd.frontend.core</module>
     <module>com.abstratt.mdd.frontend.cli</module>
     <module>com.abstratt.mdd.frontend.textuml.core</module>
