@@ -30,7 +30,7 @@ the source code.
 
 ###  Requirements
 
-  * Java 6 or later 
+  * Java 8 or later 
   * Maven 3.0.x 
   * For 1.8, Eclipse SDK 3.7 (Indigo). For 1.9, Eclipse SDK 3.8 or 4.2 (Juno). For 1.120.x, Eclipse SDK 4.3.2 (Kepler) ([download](http://www.eclipse.org/downloads/)) 
   * Since 1.120.x, a git client, including Eclipse Git 
