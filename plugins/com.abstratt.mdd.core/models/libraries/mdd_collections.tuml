@@ -1,7 +1,7 @@
-[ModelLibrary]
+[StandardProfile::ModelLibrary]
 model mdd_collections;
 
-apply StandardProfileL2;
+apply StandardProfile;
 
 import mdd_types;
 
@@ -42,7 +42,7 @@ end;
 class Grouping<T>
   query <R> groupCollect(group : {(:T[*]) : R}) : R[*];
   query <R> groupReduce(group : {(:T[*]) : R}) : R[*];
-  query groupSelect(group : {(:T[*]) : Boolean}) : T[*];  
+  query groupSelect(group : {(:T[*]) : Boolean}) : Grouping<T>;  
 end;
 
 class Sequence<T> specializes Collection<T>

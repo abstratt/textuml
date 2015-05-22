@@ -46,6 +46,10 @@ public class InvalidConnector extends Problem {
 					return reason;
 			return null;
 		}
+		
+		public Integer getCode() {
+            return code;
+        }
 	}
 	private Reason reason;
 	private String reasonMessage;

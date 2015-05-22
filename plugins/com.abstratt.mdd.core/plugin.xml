@@ -12,8 +12,8 @@
 		    name="PrimitiveTypes"
     		uri="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml"/>
        <systemPackage
-		    name="StandardProfileL2"
-    		uri="pathmap://UML_PROFILES/StandardL2.profile.uml"/>
+		    name="StandardProfile"
+    		uri="pathmap://UML_PROFILES/Standard.profile.uml"/>
        <systemPackage
 		    name="mdd_extensions"
     		uri="pathmap://MDD_PROFILES/mdd_extensions.uml"

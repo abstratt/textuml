@@ -1,7 +1,7 @@
-[ModelLibrary]
+[StandardProfile::ModelLibrary]
 model mdd_types;
 
-apply StandardProfileL2;
+apply StandardProfile;
 
 actor Anyone end;
 
@@ -11,7 +11,7 @@ end;
 
 class Assert
     static operation isTrue(condition : Boolean);
-    static operation areEqual(expected : any, actual : any);
+    static operation areEqual(expected : any[*], actual : any[*]);
     static operation isNull(actual : any);
     static operation isNotNull(actual : any);
 end;
@@ -98,6 +98,8 @@ class Date specializes Primitive
 end;
 
 class Duration specializes Primitive
+  query toYears() : Integer;
+  query toMonths() : Integer;
   query toDays() : Integer;
   query toHour() : Integer;
   query toMinutes() : Integer;

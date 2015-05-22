@@ -1,7 +1,7 @@
-[ModelLibrary]
+[StandardProfile::ModelLibrary]
 model mdd_console;
 
-apply StandardProfileL2;
+apply StandardProfile;
 
 import mdd_types;
 

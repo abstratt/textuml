@@ -4,85 +4,79 @@ private import PrimitiveTypes::Boolean;
 private import PrimitiveTypes::Integer;
 private import PrimitiveTypes::String;
 
-/* we don't want to include the entire metamodel in everybody's namespace */
-private import UML; 
-
-stereotype Test extends Class
+stereotype Test extends UML::Class
 end;
 
-stereotype Failure extends Operation
-    property context : String;
-    property constraint : String;
+stereotype Failure extends UML::Operation
+    property context : PrimitiveTypes::String;
+    property constraint : PrimitiveTypes::String;
 end;
 
 (* External classes are implemented as Java classes *)
-stereotype External extends Class
+stereotype External extends UML::Class
 end;
 
 (* Debuggable elements can have line number info *)
-stereotype Debuggable extends Element
+stereotype Debuggable extends UML::Element
   property lineNumber : Integer;
   property source : String;
 end;
 
 (* Operations marked as entryPoint can be used to run a model *)
-stereotype EntryPoint extends Operation
+stereotype EntryPoint extends UML::Operation
 end;
 
-stereotype Name extends Property end;
+stereotype Name extends UML::Property end;
 
-stereotype Closure extends Activity 
-    property context : StructuredActivityNode;
+stereotype Closure extends UML::Activity 
+    property context : UML::StructuredActivityNode;
 end;
 
-stereotype ObjectInitialization extends StructuredActivityNode
+stereotype ObjectInitialization extends UML::StructuredActivityNode
 end;
 
-stereotype Cast extends StructuredActivityNode
+stereotype Cast extends UML::StructuredActivityNode
 end;
 
-stereotype ConstraintBehavior extends Activity 
-    property constraint : Constraint;
+stereotype ConstraintBehavior extends UML::Activity 
+    property constraint : UML::Constraint;
 end;
 
-stereotype Signature extends Interface
-    property context : Namespace;
+stereotype Signature extends UML::Interface
+    property context : UML::Namespace;
 end;
 
-stereotype MetaReference extends LiteralNull
-    property target : Element;
+stereotype MetaReference extends UML::LiteralNull
+    property target : UML::Element;
 end;
 
-stereotype BasicValue extends LiteralString
-    property basicType : Classifier;
+stereotype BasicValue extends UML::LiteralString
+    property basicType : UML::Classifier;
 end;
 
-stereotype VertexLiteral extends LiteralNull
-    property vertex : Vertex;
+stereotype VertexLiteral extends UML::LiteralNull
+    property vertex : UML::Vertex;
 end;
 
-stereotype Rule extends Constraint
-    property violation : Classifier;
+stereotype Rule extends UML::Constraint
+    property violation : UML::Classifier;
 end;
 
-stereotype Invariant extends Constraint
+stereotype Invariant extends UML::Constraint
 end;
 
-stereotype Access extends Constraint
+stereotype Access extends UML::Constraint
 end;
 
-stereotype PropertyDerivation extends Constraint
+stereotype PropertyDerivation extends UML::Constraint
 end;
 
-stereotype WildcardType extends Type
-    property context : Namespace;
+stereotype WildcardType extends UML::Type
+    property context : UML::Namespace;
 end;
 
-stereotype WildcardTypeContext extends Namespace
-    property wildcardTypes : Type[*];
+stereotype WildcardTypeContext extends UML::Namespace
+    property wildcardTypes : UML::Type[*];
 end;
-
-
-
 
 end.

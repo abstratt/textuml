@@ -169,6 +169,7 @@ import com.abstratt.mdd.internal.frontend.textuml.node.ASelfIdentifierExpression
 import com.abstratt.mdd.internal.frontend.textuml.node.ASendSpecificStatement;
 import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleAssociationTraversal;
 import com.abstratt.mdd.internal.frontend.textuml.node.AStatement;
+import com.abstratt.mdd.internal.frontend.textuml.node.ATarget;
 import com.abstratt.mdd.internal.frontend.textuml.node.ATryStatement;
 import com.abstratt.mdd.internal.frontend.textuml.node.ATupleComponentValue;
 import com.abstratt.mdd.internal.frontend.textuml.node.ATupleConstructor;
@@ -269,14 +270,17 @@ public class BehaviorGenerator extends AbstractGenerator {
 		ReadStructuralFeatureAction action =
 						(ReadStructuralFeatureAction) builder.createAction(IRepository.PACKAGE
 										.getReadStructuralFeatureAction());
+		final String attributeIdentifier = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
 		try {
 			builder.registerInput(action.createObject(null, null));
 			super.caseAAttributeIdentifierExpression(node);
 			builder.registerOutput(action.createResult(null, null));
 			final ObjectNode source = ActivityUtils.getSource(action.getObject());
 			Classifier targetClassifier = (Classifier) TypeUtils.getTargetType(getRepository(), source, true);
-			Assert.isNotNull(targetClassifier, "Target type not determined");
-			final String attributeIdentifier = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
+			if (targetClassifier == null) {
+	             problemBuilder.addError("Object type not determined for '" + ((ATarget) node.getTarget()).getOperand().toString().trim() + "'", node.getIdentifier());
+	             throw new AbortedStatementCompilationException();
+			}
 			Property attribute =
 							FeatureUtils.findAttribute(targetClassifier,
 											attributeIdentifier, false, true);
@@ -1500,14 +1504,17 @@ public class BehaviorGenerator extends AbstractGenerator {
 		AddStructuralFeatureValueAction action =
 						(AddStructuralFeatureValueAction) builder.createAction(IRepository.PACKAGE
 										.getAddStructuralFeatureValueAction());
+		final String attributeIdentifier = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
 		action.setIsReplaceAll(true);
 		try {
 			builder.registerInput(action.createObject(null, null));
 			builder.registerInput(action.createValue(null, null));
 			super.caseAWriteAttributeSpecificStatement(node);
 			Classifier targetClassifier = (Classifier) ActivityUtils.getSource(action.getObject()).getType();
-			Assert.isNotNull(targetClassifier, "Target type not determined");
-			final String attributeIdentifier = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
+	         if (targetClassifier == null) {
+	             problemBuilder.addError("Object type not determined for '" + ((ATarget) node.getTarget()).getOperand().toString().trim() + "'", node.getIdentifier());
+                 throw new AbortedStatementCompilationException();
+            }
 			Property attribute =
 							FeatureUtils.findAttribute(targetClassifier,
 											attributeIdentifier, false, true);

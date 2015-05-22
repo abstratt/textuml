@@ -69,8 +69,6 @@ Let's now edit the inventory.tuml file and declare a 'Product' class:
 
     end.
 
-Diagram showing a class
-
 To declare an interface instead of a class, you just replace the keyword
 class with interface.
 
@@ -86,26 +84,28 @@ the compiler use C-like '/\*' and '\*/' as delimiters.
 Basic types
 ===========
 
-Previous versions of the TextUML Toolkit had built-in predefined
-packages, such as the 'base' model and the 'base\_profile' profile.
-Starting with M4, you have now to define any required basic types
-yourself. Luckily, that is quite simple. Let's do that by declaring
-three classes: dataType::Integer, dataType::String and dataType::Real.
-Create a new file in your project and name it dataType.tuml. Then type
-in the following:
+The following basic data types (among others) are available in [mdd_types](https://github.com/abstratt/textuml/blob/master/plugins/com.abstratt.mdd.core/models/libraries/mdd_types.tuml):
 
-    package dataType;
+- String
+- Memo
+- Integer
+- Double
+- Date
+- Boolean
 
-    primitive Integer; 
+Just import the built-in mdd_types model into your application and they should become available:
 
-    primitive String; 
+```
+package myapp;
 
-    primitive Real; 
+import mdd_types;
 
-    end.
+class Person
+    attribute name : String;
+end;
 
-We can now use these types in other packages in the same project, as
-shown in the next section.
+end.
+```
 
 Adding attributes to a class
 ============================
@@ -116,31 +116,30 @@ declare attributes on the Product class:
     package inventory;
 
     class Product
-      attribute description : dataType::String;
-      attribute available : dataType::Integer;
-      attribute price : dataType::Real;
+      attribute description : mdd_types::String;
+      attribute available : mdd_types::Integer;
+      attribute price : mdd_types::Double;
     end;
 
     end.
 
 The syntax for declaring attributes should be quite obvious. Notice the
 names for the attribute types are qualified. That is because we didn't
-import the package defining them. If we import the 'dataType' package,
+import the package defining them. If we import the 'mdd_typesda' package,
 we don't need to qualify the type names:
 
     package inventory;
 
-    import dataType;
+    import mdd_types;
 
     class Product
       attribute description : String;
       attribute available : Integer;
-      attribute price : Real;
+      attribute price : Double;
     end;
 
     end.
 
-Diagram showing attributes
 
 Note that if you don't mind using qualified names, there is no need to
 import packages, you can always refer to elements in any other model in
@@ -160,7 +159,7 @@ aggregations, let's first create two new classes named 'Cart' and
 
     package shopping_cart;
 
-    import dataType;
+    import mdd_types;
     import inventory;  
 
     class Cart
@@ -182,7 +181,7 @@ unidirectional association from CartItem to Product:
 
     package shopping_cart; 
 
-    import dataType;
+    import mdd_types;
     import inventory;
 
     class Cart
@@ -207,7 +206,6 @@ For all types of associations, the syntax is basically the same - you
 specify the kind of association by specifying the corresponding keyword
 (among association, composition and aggregation).
 
-Diagram showing associations
 
 Adding operations
 =================
@@ -227,8 +225,6 @@ example, how we'd go about adding operations to the classes in
     /* other elements here */
 
     end.
-
-Diagram showing operations
 
 Generalizations (a.k.a. subclassing)
 ====================================
@@ -266,8 +262,6 @@ example:
     end.
 
 
-
-Diagram showing generalization
 
 Note that the keyword *extends* is also supported in TextUML but is used
 when declaring stereotypes.

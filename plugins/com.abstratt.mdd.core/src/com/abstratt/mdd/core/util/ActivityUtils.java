@@ -11,8 +11,15 @@
 package com.abstratt.mdd.core.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.ecore.EClass;
@@ -191,6 +198,17 @@ public class ActivityUtils {
         StructuredActivityNode body = getBodyNode(method);
         Assert.isTrue(body.getNodes().size() == 1, "expecting 1, found " + body.getNodes().size());
         return (StructuredActivityNode) body.getNodes().get(0);
+    }
+    
+    public static boolean isRootAction(Action action) {
+        if (!(action instanceof StructuredActivityNode))
+            return false;
+        StructuredActivityNode asStructuredActivityNode = (StructuredActivityNode) action;
+        EObject parentObject = asStructuredActivityNode.eContainer();
+        if (!(parentObject instanceof StructuredActivityNode))
+            return false;
+        StructuredActivityNode parentNode = (StructuredActivityNode) parentObject;
+        return isBodyNode(parentNode);
     }
 
     public static ObjectFlow connect(StructuredActivityNode parent, ObjectNode source, ObjectNode target) {
@@ -373,19 +391,45 @@ public class ActivityUtils {
         return terminalActions;
     }
     
+    public static Action findSingleStatement(StructuredActivityNode rootAction) {
+        List<Action> statements = findStatements(rootAction);
+        if (statements.size() != 1)
+            throw new IllegalArgumentException("Single statement activity expected");
+        return statements.get(0);
+    }
+    
+    public static Action findSingleStatement(Activity activity) {
+        return findSingleStatement(getRootAction(activity));
+    }
+    
     public static List<Action> findMatchingActions(StructuredActivityNode target, EClass... actionClasses) {
+        return findMatchingActions(target, action -> 
+            Arrays.stream(actionClasses).anyMatch(eClass -> eClass.isInstance(action))
+        );
+    }
+    
+    public static List<Action> findMatchingActions(StructuredActivityNode target, Predicate<Action> predicate) {
         List<Action> matchingActions = new ArrayList<Action>();
         for (ActivityNode node : target.getNodes()) {
-            for (EClass actionClass : actionClasses) {
-                if (actionClass.isInstance(node)) {
-                    matchingActions.add((Action) node);
-                    break;
-                }
-            }
+            if (node instanceof Action && predicate.test((Action) node))
+                matchingActions.add((Action) node);
             if (UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE.isInstance(node))
-                matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, actionClasses));
+                matchingActions.addAll(findMatchingActions((StructuredActivityNode) node, predicate));
         }
         return matchingActions;
+    }
+
+    public static Action findFirstMatchingAction(StructuredActivityNode target, Predicate<Action> predicate) {
+        for (ActivityNode node : target.getNodes()) {
+            if (node instanceof Action && predicate.test((Action) node))
+                return (Action) node;
+            if (UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE.isInstance(node)) {
+                Action child = findFirstMatchingAction((StructuredActivityNode) node, predicate);
+                if (child != null)
+                    return child;
+            }
+        }
+        return null;
     }
     
     public static Action findUpstreamAction(InputPin startingPoint, EClass... actionClasses) {
@@ -393,16 +437,27 @@ public class ActivityUtils {
     }
     
     public static Action findUpstreamAction(Action startingPoint, EClass... actionClasses) {
-        for (EClass actionClass : actionClasses)
-            if (actionClass.isInstance(startingPoint))
-                return startingPoint;
+        return findUpstreamAction(
+            startingPoint, 
+            action -> Arrays.stream(actionClasses).anyMatch(actionClass -> actionClass.isInstance(action))
+        ); 
+    }
+    
+    public static Action findUpstreamAction(InputPin startingPoint, Predicate<Action> condition) {
+        return findUpstreamAction(getSourceAction(startingPoint), condition);
+    }
+    
+    public static Action findUpstreamAction(Action startingPoint, Predicate<Action> condition) {
+        if (condition.test(startingPoint))
+            return startingPoint;
         for (InputPin pin : startingPoint.getInputs()) {
-            Action foundUpstream = findUpstreamAction(pin, actionClasses);
+            Action foundUpstream = findUpstreamAction(pin, condition);
             if (foundUpstream != null)
                 return foundUpstream;
         }
         return null;
     }
+
     
     public static List<Action> findUpstreamActions(InputPin startingPoint, EClass... actionClasses) {
         return findUpstreamActions(getSourceAction(startingPoint), actionClasses);
