@@ -28,7 +28,7 @@ Preparation
 
 There are two tools available that support TextUML to choose from: *Cloudfier* and the (older) *TextUML Toolkit*. The former is a web-based IDE, all you need is a web browser and an internet connection (which I guess you are using right now). The latter is an Eclipse plug-in - you need to have Java, Eclipse and then you must install the plug-in.
 
-### Using Cloudfier
+### Using Cloudfier (nothing to install)
 
 1. go to http://cloudfier.com and hit the Prototype Now button
 2. Sign up, confirm email, log in
@@ -46,10 +46,10 @@ There are two tools available that support TextUML to choose from: *Cloudfier* a
 
 For more information on how to use Cloudfier, visit the [Cloudfier Documentation](http://doc.cloudfier.com/).
 
-### Using the TextUML Toolkit
+### Using the TextUML Toolkit (for Eclipse users)
 
 1.  if you haven't yet, [install the TextUML
-    Toolkit](install.html "Install Instructions")
+    Toolkit](install.html "Install Instructions") into Eclipse
 2.  start Eclipse
 3.  create a new MDD project named "tutorial" by using the project
     creation wizard (File \> New \> Project... \> MDD \> MDD Project)
