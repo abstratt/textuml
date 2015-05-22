@@ -44,6 +44,8 @@ There are two tools available that support TextUML to choose from: *Cloudfier* a
     - attributes, operations and state machines must be declared inside classifiers
     - all types defined in mdd_types are available to you: String, Memo, Integer, Double, Date, Boolean, no need to import the package as suggested later
 
+For more information on how to use Cloudfier, visit the [Cloudfier Documentation](http://doc.cloudfier.com/).
+
 ### Using the TextUML Toolkit
 
 1.  if you haven't yet, [install the TextUML
