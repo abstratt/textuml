@@ -3,10 +3,10 @@
 
 {% include header.md %}
 
-TextUML Toolkit Tutorial
+TextUML Tutorial
 ===================
 
-*This tutorial shows how to use the TextUML Toolkit for creating UML
+*This tutorial shows how to use TextUML for creating UML
 models. It starts from a minimal model and then increasingly adds more
 and more features to it.*
 
@@ -15,7 +15,7 @@ instead of a new language. It is a common misconception that UML is
 about boxes and arrows. There is a graphical notation for UML, but the
 semantics are defined completely independently of the graphical
 notation, so alternative notations, including textual ones such as the
-TextUML Toolkit, are possible. All the concepts and mechanisms exposed
+TextUML, are possible. All the concepts and mechanisms exposed
 in TextUML are defined by the UML specification. This is **not** an
 introduction to UML (if that is what you are looking for, you might be
 interested in the [UML
@@ -25,6 +25,26 @@ article).
 
 Preparation
 ===========
+
+There are two tools available that support TextUML to choose from: *Cloudfier* and the (older) *TextUML Toolkit*. The former is a web-based IDE, all you need is a web browser and an internet connection (which I guess you are using right now). The latter is an Eclipse plug-in - you need to have Java, Eclipse and then you must install the plug-in.
+
+### Using Cloudfier
+
+1. go to http://cloudfier.com and hit the Prototype Now button
+2. Sign up, confirm email, log in
+3. Create a folder (named 'tutorial', for instance)
+4. Open the shell page (3rd button on the vertical toolbar
+5. if your initial directory is not the one you just created, type 'cd tutorial' to enter it (you can type 'help' for other commands)
+6. type: 'cloudfier init-project' (this will mark this directory as a Cloudfier app)
+7. type 'cloudfier add-namespace first' (this will create a source file named first.tuml containing an empty package in the current project)
+8. type 'ls' - you can edit any of the files by clicking on them. You want to open the 'first.tuml' file yu just created
+9. you can now use the (very basic) content assist to add classes, attributes, operations and state machines, just be aware that:
+    - there must be one top-level package declaration per source file
+    - classes, datatypes, enumerations and other classifiers must be declared inside packages
+    - attributes, operations and state machines must be declared inside classifiers
+    - all types defined in mdd_types are available to you: String, Memo, Integer, Double, Date, Boolean, no need to import the package as suggested later
+
+### Using the TextUML Toolkit
 
 1.  if you haven't yet, [install the TextUML
     Toolkit](install.html "Install Instructions")
