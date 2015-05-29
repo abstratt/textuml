@@ -53,8 +53,8 @@ For more information on how to use Cloudfier, visit the [Cloudfier Documentation
 2.  start Eclipse
 3.  create a new MDD project named "tutorial" by using the project
     creation wizard (File \> New \> Project... \> MDD \> MDD Project)
-4.  inside the project you just created, create a new file named
-    'inventory.tuml'
+4.  inside the project you just created, create a new file named 'inventory.tuml'
+5.  create a text file named 'mdd.properties' at the root of the 'tutorial project' with a single line containing: mdd.enableLibraries=true
 
 After the last step, since the file will be empty, there will be a
 problem marker telling you that a package declaration is expected. That
