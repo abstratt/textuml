@@ -32,7 +32,7 @@ file:
 -   mdd.enableExtensions=true
 -   mdd.enableLibraries=true
 
-Attaching behavior to an operation:
+Attaching behavior to an operation
 -----------
 
 Just attach a begin/end block to it.
