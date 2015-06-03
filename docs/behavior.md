@@ -293,5 +293,4 @@ Example:
       ...
     end;
     
-    
 {% include footer.md %}
