@@ -22,6 +22,28 @@
       <discovery label="%updateSiteName" url="http://abstratt.com/update/"/>
    </url>
 
+         
+   <plugin
+         id="org.apache.commons.io"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/> 
+         
+   <plugin
+         id="org.apache.commons.lang"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>                   
+
+   <plugin
+         id="org.apache.commons.collections"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>  
+
    <plugin
          id="com.abstratt.resman"
          download-size="0"
@@ -70,26 +92,5 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-   <plugin
-         id="org.apache.commons.io"
-         download-size="0"
-         install-size="0"
-         version="2.2.0"
-         unpack="false"/> 
-         
-   <plugin
-         id="org.apache.commons.lang"
-         download-size="0"
-         install-size="0"
-         version="2.6.0"
-         unpack="false"/>                   
-
-   <plugin
-         id="org.apache.commons.collections"
-         download-size="0"
-         install-size="0"
-         version="3.2.0"
-         unpack="false"/>  
 
 </feature>
