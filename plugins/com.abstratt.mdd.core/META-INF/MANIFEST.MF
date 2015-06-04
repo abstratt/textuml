@@ -5,18 +5,18 @@ Bundle-SymbolicName: com.abstratt.mdd.core;singleton:=true
 Bundle-Version: 1.120.1.qualifier
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.equinox.common;visibility:=reexport,
- com.abstratt.resman;visibility:=reexport,
+ com.abstratt.resman;bundle-version="1.120";visibility:=reexport,
  org.eclipse.uml2.uml;visibility:=reexport;bundle-version="[5.0.1,6)",
  org.eclipse.uml2.uml.resources;bundle-version="[5.0.1,6)",
- org.eclipse.osgi;bundle-version="3.8.1",
- org.eclipse.equinox.registry;bundle-version="3.5.200",
- org.eclipse.core.filesystem;visibility:=reexport,
- org.eclipse.core.runtime;bundle-version="3.8.0",
- com.abstratt.pluginutils;visibility:=reexport,
+ org.eclipse.osgi;bundle-version="3.10",
+ org.eclipse.equinox.registry;bundle-version="3.5",
+ org.eclipse.core.filesystem;bundle-version="1.4";visibility:=reexport,
+ org.eclipse.core.runtime;bundle-version="3.10",
+ com.abstratt.pluginutils;bundle-version="1.120";visibility:=reexport,
  org.eclipse.emf.query;visibility:=reexport,
- org.apache.commons.io,
- org.apache.commons.lang,
- org.apache.commons.collections
+ org.apache.commons.io;bundle-version="2.2",
+ org.apache.commons.lang;bundle-version="2.6",
+ org.apache.commons.collections;bundle-version="3.2"
 Export-Package: com.abstratt.mdd.core,
  com.abstratt.mdd.core.isv,
  com.abstratt.mdd.core.util;
