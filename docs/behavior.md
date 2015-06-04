@@ -32,6 +32,32 @@ file:
 -   mdd.enableExtensions=true
 -   mdd.enableLibraries=true
 
+Attaching behavior to an operation
+-----------
+
+Just attach a begin/end block to it.
+
+    operation reject(reason : Memo);
+    begin
+        self.rejectionReason := reason;
+        self.approver := System#user();
+    end;
+
+
+Local variables
+-------
+
+Local variables must be declared before used.
+
+
+    static operation newExpense(description : String, amount : Double, date : Date, category : Category, employee : Employee) : Expense;
+    begin
+        var newExpense : Expense;
+        newExpense := new Expense;
+        ...
+    end;
+
+
 Expressions
 -----------
 
@@ -266,6 +292,5 @@ Example:
       comparator := (p1 :  Integer, p2 : Integer) : Boolean { return p1 > p2 };
       ...
     end;
-    
     
 {% include footer.md %}
