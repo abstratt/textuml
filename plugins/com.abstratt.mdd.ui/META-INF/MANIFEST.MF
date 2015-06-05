@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MDD UI
 Bundle-SymbolicName: com.abstratt.mdd.ui;singleton:=true
-Bundle-Version: 1.120.1.qualifier
+Bundle-Version: 2.0.150605.qualifier
 Bundle-Activator: com.abstratt.mdd.ui.Activator
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,

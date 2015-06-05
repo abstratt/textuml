@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.mdd</groupId>
 	<artifactId>com.abstratt.mdd.parent</artifactId>
-	<version>1.120.1-SNAPSHOT</version>
+	<version>2.0.150605-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<parent>
 		<artifactId>master</artifactId>
@@ -47,7 +47,7 @@
 						<artifact>
 							<groupId>com.abstratt.mdd</groupId>
 							<artifactId>textuml-dependencies</artifactId>
-							<version>1.120.1-SNAPSHOT</version>
+							<version>2.0.150605-SNAPSHOT</version>
 							<classifier>textuml-dependencies</classifier>
 						</artifact>
 					</target>
