@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: UML class diagram
 Bundle-SymbolicName: com.abstratt.graphviz.uml;singleton:=true
-Bundle-Version: 2.0.150605.qualifier
+Bundle-Version: 2.1.201501.qualifier
 Bundle-Vendor: Abstratt Technologies (Eclipse Integration)
 Import-Package: org.eclipse.swt,
  org.eclipse.swt.layout,

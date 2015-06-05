@@ -2,7 +2,7 @@
 <feature
       id="com.abstratt.mdd.frontend.toolkit.feature"
       label="%featureName"
-      version="2.0.150605.qualifier"
+      version="2.1.201501.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -41,9 +41,9 @@
          version="0.0.0"/>
 
    <requires>
-      <import feature="com.abstratt.mdd.frontend.core.feature" version="2.0.150605.qualifier"/>
-      <import feature="com.abstratt.mdd.frontend.ui.feature" version="2.0.150605.qualifier"/>
-      <import feature="com.abstratt.mdd.frontend.ui.diagram.feature" version="2.0.150605.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.core.feature" version="2.1.201501.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.ui.feature" version="2.1.201501.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.ui.diagram.feature" version="2.1.201501.qualifier"/>
    </requires>
 
 </feature>

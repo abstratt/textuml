@@ -30,7 +30,7 @@
 		<location includeAllPlatforms="false" includeMode="planner"
 			includeSource="true" type="InstallableUnit">
 			<unit id="com.abstratt.eclipsegraphviz.feature.feature.group" version="0.0.0" />		
-			<repository location="jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/eclipsegraphviz/com.abstratt.eclipsegraphviz.repository/2.0.150605/com.abstratt.eclipsegraphviz.repository-2.0.150605.zip!/" />
+			<repository location="jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/eclipsegraphviz/com.abstratt.eclipsegraphviz.repository/2.1.201501/com.abstratt.eclipsegraphviz.repository-2.1.201501.zip!/" />
 		</location>
 </locations>	
 </target>
