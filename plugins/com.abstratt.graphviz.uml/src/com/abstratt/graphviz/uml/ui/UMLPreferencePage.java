@@ -36,6 +36,7 @@ public class UMLPreferencePage extends PreferencePage implements
 	private Button showAssociationNameCheckBox;
 	private Button showPrimitivesCheckBox;
 	private Button omitConstraintsForNavigabilityCheckBox;
+	private Button showCommentsCheckBox;
 	private Button showParametersCheckBox;
 	private Button showReturnParameterCheckBox;
 	private Button showParameterNamesCheckBox;
@@ -94,6 +95,7 @@ public class UMLPreferencePage extends PreferencePage implements
 		showAssociationEndMultiplicityCheckBox = makeCheck(composite, "Show end multiplicity");
 		omitConstraintsForNavigabilityCheckBox = makeCheck(composite, "Omit constraints for association navigability (rank(source) > rank (target)) ");
 		showStructuralFeatureVisibilityCheckBox = makeCheck(composite, "Show visibility in structural features");
+		showCommentsCheckBox = makeCheck(composite, "Show comments");
 		showParametersCheckBox = makeCheck(composite, "Show parameters for  operations");
 		showReturnParameterCheckBox = makeCheck(composite, "Show return parameters for operations");
 		showParameterNamesCheckBox = makeCheck(composite, "Show parameter names for operations");
@@ -132,6 +134,8 @@ public class UMLPreferencePage extends PreferencePage implements
 				SHOW_ASSOCIATION_END_NAME));
 		omitConstraintsForNavigabilityCheckBox.setSelection(preferenceStore.getBoolean(
 				OMIT_CONSTRAINTS_FOR_NAVIGABILITY));
+        showCommentsCheckBox.setSelection(preferenceStore.getBoolean(
+                SHOW_COMMENTS));
         showParametersCheckBox.setSelection(preferenceStore.getBoolean(
                 SHOW_PARAMETERS));
         showReturnParameterCheckBox.setSelection(preferenceStore.getBoolean(
@@ -178,6 +182,8 @@ public class UMLPreferencePage extends PreferencePage implements
 				showStructuralFeatureVisibilityCheckBox.getSelection());
 		preferenceStore.setValue(OMIT_CONSTRAINTS_FOR_NAVIGABILITY,
 				omitConstraintsForNavigabilityCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_COMMENTS,
+                showCommentsCheckBox.getSelection());		
         preferenceStore.setValue(SHOW_PARAMETERS,
                 showParametersCheckBox.getSelection());
         preferenceStore.setValue(SHOW_RETURN_PARAMETER,

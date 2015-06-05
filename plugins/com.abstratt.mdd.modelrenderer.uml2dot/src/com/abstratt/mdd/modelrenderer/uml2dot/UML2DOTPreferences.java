@@ -29,6 +29,7 @@ public class UML2DOTPreferences {
 	public static final String OMIT_CONSTRAINTS_FOR_NAVIGABILITY = "omitConstraintsForNavigability";
 	public static final String SHOW_PARAMETER_DIRECTION = "showParameterDirection";
 	public static final String SHOW_PARAMETER_NAMES = "showParameterNames";
+	public static final String SHOW_COMMENTS = "showComments";
 	public static final String SHOW_PARAMETERS = "showParameters";
 	public static final String SHOW_RETURN_PARAMETER = "showReturnParameter";  	
 	public static final String SHOW_ELEMENTS_IN_OTHER_PACKAGES = "showElementsInOtherPackage";
