@@ -22,9 +22,6 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 import com.abstratt.graphviz.uml.UML;
-import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierCompartmentForPackageOptions;
-import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierCompartmentOptions;
-import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowCrossPackageElementOptions;
 
 public class UMLPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
@@ -35,6 +32,9 @@ public class UMLPreferencePage extends PreferencePage implements
 	private Button showAssociationEndNameCheckBox;
 	private Button showAssociationNameCheckBox;
 	private Button showPrimitivesCheckBox;
+	private Button showClassesCheckBox;
+	private Button showInterfacesCheckBox;
+	private Button showStateMachinesCheckBox;
 	private Button showDataTypesCheckBox;
 	private Button showEnumerationsCheckBox;
 	private Button showSignalsCheckBox;
@@ -93,6 +93,9 @@ public class UMLPreferencePage extends PreferencePage implements
 		composite.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL
 				| GridData.HORIZONTAL_ALIGN_FILL));
 
+		showClassesCheckBox = makeCheck(composite, "Show classes");
+		showInterfacesCheckBox = makeCheck(composite, "Show interfaces");
+		showStateMachinesCheckBox = makeCheck(composite, "Show state machines");
 		showPrimitivesCheckBox = makeCheck(composite, "Show primitives");
 		showEnumerationsCheckBox = makeCheck(composite, "Show enumerations");
 		showDataTypesCheckBox = makeCheck(composite, "Show data types");
@@ -130,6 +133,12 @@ public class UMLPreferencePage extends PreferencePage implements
 
 	private void loadPreferences() {
 		IPreferenceStore preferenceStore = getPreferenceStore();
+        showClassesCheckBox.setSelection(preferenceStore.getBoolean(
+                SHOW_CLASSES));
+        showInterfacesCheckBox.setSelection(preferenceStore.getBoolean(
+                SHOW_INTERFACES));        
+        showStateMachinesCheckBox.setSelection(preferenceStore.getBoolean(
+                SHOW_STATEMACHINES));
 		showPrimitivesCheckBox.setSelection(preferenceStore.getBoolean(
 				SHOW_PRIMITIVES));
 		showEnumerationsCheckBox.setSelection(preferenceStore.getBoolean(
@@ -199,6 +208,12 @@ public class UMLPreferencePage extends PreferencePage implements
 				.getSelection());
 		preferenceStore.setValue(SHOW_PRIMITIVES, showPrimitivesCheckBox
 				.getSelection());
+		preferenceStore.setValue(SHOW_CLASSES, showClassesCheckBox
+                .getSelection());
+        preferenceStore.setValue(SHOW_INTERFACES, showInterfacesCheckBox
+                .getSelection());
+		preferenceStore.setValue(SHOW_STATEMACHINES, showStateMachinesCheckBox
+                .getSelection());
 		preferenceStore.setValue(SHOW_ENUMERATIONS, showEnumerationsCheckBox
                 .getSelection());
 		preferenceStore.setValue(SHOW_SIGNALS, showSignalsCheckBox
