@@ -10,6 +10,7 @@
  *******************************************************************************/
 package com.abstratt.modelrenderer;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Stack;
 import java.util.WeakHashMap;
@@ -37,9 +38,10 @@ public class RenderingSession implements IRenderingSession {
         return settings;
     }
 
-    public <T extends java.util.Collection<? extends EObject>> boolean renderAll(T toRender) {
+    @Override
+    public <E extends EObject> boolean renderAll(Collection<E> toRender) {
         boolean[] anyRendered = { false };
-        toRender.forEach(it -> anyRendered[0] |= render((EObject) it, shallow));
+        toRender.forEach(it -> anyRendered[0] |= render(it, shallow));
         return anyRendered[0];
     }
 

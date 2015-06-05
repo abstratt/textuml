@@ -22,7 +22,7 @@ public interface IRenderingSession {
 	public boolean isShallow();
 	public boolean render(EObject toRender);
 	public boolean render(EObject toRender, boolean deep);	
-	public <T extends Collection<? extends EObject>> boolean renderAll(T toRender);
+	public <E extends EObject> boolean renderAll(Collection<E> toRender);
 	public EObject getRoot();
 	public EObject getCurrent();
 	public EObject getPrevious(EClass eClass);
