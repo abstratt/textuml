@@ -2,6 +2,7 @@ package com.abstratt.mdd.modelrenderer.uml2dot;
 
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_STRUCTURAL_FEATURE_VISIBILITY;
 
+import org.eclipse.uml2.uml.LiteralNull;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.ValueSpecification;
@@ -36,11 +37,13 @@ public class PropertyRenderer implements IEObjectRenderer<Property> {
 			w.print(UML2DOTRenderingUtils.renderMultiplicity(property, true));
 		}
 		if (property.getDefaultValue() != null) {
-			ValueSpecification defaultValue = property.getDefaultValue();
-			String basicValue = defaultValue.stringValue();
-			if ("String".equals(property.getType().getName())) 
-				basicValue = "\"" + basicValue + "\"";
-			w.print(" = " + basicValue);
+		    if (property.getDefaultValue() instanceof LiteralNull) {
+    			ValueSpecification defaultValue = property.getDefaultValue();
+    			String basicValue = defaultValue.stringValue();
+    			if ("String".equals(property.getType().getName())) 
+    				basicValue = "\"" + basicValue + "\"";
+    			w.print(" = " + basicValue);
+		    }
 		} else if (property.getDefault() != null) {
 			w.print(" = " + property.getDefault());			
 		}

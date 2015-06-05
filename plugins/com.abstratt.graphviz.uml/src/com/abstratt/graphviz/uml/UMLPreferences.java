@@ -26,6 +26,9 @@ public class UMLPreferences {
 			defaults.putBoolean(UML2DOTPreferences.SHOW_ASSOCIATION_NAME, true);
 			defaults.putBoolean(UML2DOTPreferences.SHOW_ASSOCIATION_END_NAME, true);
 			defaults.putBoolean(UML2DOTPreferences.OMIT_CONSTRAINTS_FOR_NAVIGABILITY , false);
+			defaults.putBoolean(UML2DOTPreferences.SHOW_PARAMETERS, true);
+			defaults.putBoolean(UML2DOTPreferences.SHOW_RETURN_PARAMETER, true);
+			defaults.putBoolean(UML2DOTPreferences.SHOW_PARAMETER_NAMES, false);
 			defaults.putBoolean(UML2DOTPreferences.SHOW_PARAMETER_DIRECTION, false);
 			defaults.put(UML2DOTPreferences.SHOW_CLASSIFIER_COMPARTMENT, UML2DOTPreferences.ShowClassifierCompartmentOptions.Never.name());
 			defaults.put(UML2DOTPreferences.SHOW_CLASSIFIER_COMPARTMENT_FOR_PACKAGE, UML2DOTPreferences.ShowClassifierCompartmentForPackageOptions.Current.name());

@@ -1,7 +1,10 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -9,8 +12,8 @@ import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Package;
-import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.UMLPackage;
+import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierCompartmentForPackageOptions;
 import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierCompartmentOptions;
@@ -24,6 +27,8 @@ public class ClassifierRenderer<T extends Classifier> implements IEObjectRendere
 			IRenderingSession context) {
 		if (element.getName() == null || UML2DOTRenderingUtils.isTemplateInstance(element))
 			return false;
+		if (element.getVisibility() == VisibilityKind.PRIVATE_LITERAL)
+		    return false;
 		w.print('"' + element.getName() + "\" [");
 		w.println("label=<");
 		w.enterLevel();
@@ -31,7 +36,8 @@ public class ClassifierRenderer<T extends Classifier> implements IEObjectRendere
 				.println("<TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"0\" cellborder=\"0\" port=\"port\">");
 		w
 				.println("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"3\" CELLSPACING=\"0\" ALIGN=\"LEFT\">");
-		renderNameAdornments(element, w, context);
+		renderClassifierTypeAdornment(element, w, context);
+		renderStereotypeAdornments(element, w, context);
 		w.print("<TR><TD>");
 		w.print(element.getName());
 		w.println("</TD></TR>");
@@ -73,22 +79,31 @@ public class ClassifierRenderer<T extends Classifier> implements IEObjectRendere
 		return true;
 	}
 
-	protected void renderNameAdornments(T element, IndentedPrintWriter w, IRenderingSession session) {
+    protected void renderClassifierTypeAdornment(T element, IndentedPrintWriter w, IRenderingSession session) {
+        renderNameAdornments(Arrays.asList(getElementTypeName(element)), w, session);
+    }
+
+    private void renderStereotypeAdornments(T element, IndentedPrintWriter w, IRenderingSession session) {
 		if (element.getAppliedStereotypes().isEmpty() || !session.getSettings().getBoolean(UML2DOTPreferences.SHOW_CLASSIFIER_STEREOTYPES))
 		    return;
-		w.print("<TR><TD>");
-		StringBuffer stereotypeList = new StringBuffer();
-		for (Stereotype current : element.getAppliedStereotypes()) {
-			stereotypeList.append(current.getName());
-			stereotypeList.append(", ");
-		}
-		stereotypeList.delete(stereotypeList.length() - 2, stereotypeList.length());
-		w.print(UML2DOTRenderingUtils.addGuillemots(stereotypeList.toString()));
-		w.println("</TD></TR>");
+		List<String> stereotypeNames = element.getAppliedStereotypes().stream().map(it -> it.getName()).collect(Collectors.toList());
+        renderNameAdornments(stereotypeNames, w, session);
 	}
 	
+   protected void renderNameAdornments(List<String> markers, IndentedPrintWriter w, IRenderingSession session) {
+        w.print("<TR><TD>");
+        StringBuffer adornmentList = new StringBuffer();
+        for (String marker : markers) {
+            adornmentList.append(marker);
+            adornmentList.append(", ");
+        }
+        adornmentList.delete(adornmentList.length() - 2, adornmentList.length());
+        w.print(UML2DOTRenderingUtils.addGuillemots(adornmentList.toString()));
+        w.println("</TD></TR>");
+    }
+	
 	private String getElementTypeName(T element) {
-		return element.eClass().getInstanceClassName();
+		return StringUtils.uncapitalize(element.eClass().getName());
 	}
 
 	protected void renderRelationships(T element,

@@ -7,7 +7,8 @@ Bundle-Vendor: Abstratt Technologies (Eclipse Integration)
 Require-Bundle: org.eclipse.uml2.uml,
  com.abstratt.modelrenderer,
  org.eclipse.core.contenttype,
- org.eclipse.core.runtime 
+ org.eclipse.core.runtime,
+ org.apache.commons.lang
 Export-Package: com.abstratt.mdd.modelrenderer.uml2dot
 Import-Package: com.abstratt.mdd.modelrenderer.dot
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

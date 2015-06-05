@@ -3,9 +3,10 @@
  */
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_STRUCTURAL_FEATURE_VISIBILITY;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Parameter;
@@ -38,21 +39,23 @@ public class OperationRenderer implements IEObjectRenderer<Operation> {
 		if (context.getSettings().getBoolean(SHOW_STRUCTURAL_FEATURE_VISIBILITY))
 			w.print(UML2DOTRenderingUtils.renderVisibility(operation.getVisibility()));
 		w.print(operation.getName());
-		w.print("(");
 		List<Parameter> parameters = operation.getOwnedParameters();
-		Parameter returnParameter = null;
-		for (int i = 0; i < parameters.size(); i++) {
-			Parameter parameter = parameters.get(i);
-			if (parameter.getDirection() == ParameterDirectionKind.RETURN_LITERAL)
-				returnParameter = parameter;
-			else {
+		Parameter returnParameter = parameters.stream().filter(p -> p.getDirection() == ParameterDirectionKind.RETURN_LITERAL).findAny().orElse(null);
+		List<Parameter> inOutParameters = parameters.stream().filter(p -> p.getDirection() != ParameterDirectionKind.RETURN_LITERAL).collect(Collectors.toList());		
+		w.print("(");
+		if (context.getSettings().getBoolean(SHOW_PARAMETERS)) {
+    		for (int i = 0; i < inOutParameters.size(); i++) {
+    			Parameter parameter = inOutParameters.get(i);
 				if (i > 0)
 					w.print(", ");
 				context.render(parameter);
-			}
+    		}
+		} else {
+		    if (!inOutParameters.isEmpty())
+		        w.print("...");
 		}
 		w.print(")");
-		if (returnParameter != null) {
+		if (returnParameter != null && context.getSettings().getBoolean(SHOW_RETURN_PARAMETER)) {
 			w.print(" : "); 
 			Type returnType = returnParameter.getType();
 			w.print(returnType != null ? returnType.getName() : "null");
