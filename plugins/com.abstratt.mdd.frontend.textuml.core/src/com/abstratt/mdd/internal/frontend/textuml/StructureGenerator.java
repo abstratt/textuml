@@ -238,6 +238,8 @@ public class StructureGenerator extends AbstractGenerator {
 				if (feature instanceof Property) {
 					final Property property = ((Property) feature);
 					property.setIsDerived(true);
+					if (property.getAssociation() != null)
+					    property.getAssociation().setIsDerived(true);
 				}
 				else
 					problemBuilder.addError("Invalid modifier: '" + current + "'", node);
