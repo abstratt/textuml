@@ -55,7 +55,7 @@ public class DOTRendering implements DOTRenderingConstants {
 			printPrologue(emfURI.trimFileExtension().lastSegment(), defaultDotSettings, out);
 			boolean anyRendered = session.renderAll(contents);
 			if (!anyRendered) {
-			    out.println("\"No objects selected for rendering\" []");
+			    out.println("NIL [ label=\"No objects selected for rendering\"]");
 			}
 			printEpilogue(out);
 			out.close();
