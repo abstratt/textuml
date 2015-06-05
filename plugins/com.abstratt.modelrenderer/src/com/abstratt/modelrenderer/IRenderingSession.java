@@ -20,9 +20,9 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface IRenderingSession {
 	public boolean isShallow();
-	public void render(EObject toRender);
-	public void render(EObject toRender, boolean deep);	
-	public <T extends Collection<? extends EObject>> void renderAll(T toRender);
+	public boolean render(EObject toRender);
+	public boolean render(EObject toRender, boolean deep);	
+	public <T extends Collection<? extends EObject>> boolean renderAll(T toRender);
 	public EObject getRoot();
 	public EObject getCurrent();
 	public EObject getPrevious(EClass eClass);

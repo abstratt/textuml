@@ -3,7 +3,10 @@
  */
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
+import java.util.stream.Stream;
+
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Relationship;
@@ -18,9 +21,9 @@ import com.abstratt.modelrenderer.IndentedPrintWriter;
 public class PackageRenderer implements IEObjectRenderer<Package> {
 	public boolean renderObject(Package allPackage, IndentedPrintWriter pw, IRenderingSession context) {
 		EList<Element> ownedElements = allPackage.getOwnedElements();
-		for (Element element : ownedElements)
-			if (!(element instanceof Relationship))
-				context.render(element);
-		return true;
+		Stream<Element> renderable = ownedElements.stream().filter(it -> !(it instanceof Relationship));
+		boolean[] anyRendered = {false};
+		renderable.forEach(it -> anyRendered[0] |= context.render((EObject) it));
+		return anyRendered[0]; 
 	}
 }

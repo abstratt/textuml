@@ -53,7 +53,10 @@ public class DOTRendering implements DOTRenderingConstants {
 			IRenderingSession session = new RenderingSession(selector,
 					settings, out);
 			printPrologue(emfURI.trimFileExtension().lastSegment(), defaultDotSettings, out);
-			session.renderAll(contents);
+			boolean anyRendered = session.renderAll(contents);
+			if (!anyRendered) {
+			    out.println("\"No objects selected for rendering\" []");
+			}
 			printEpilogue(out);
 			out.close();
 			byte[] dotContents = sw.getBuffer().toString().getBytes();

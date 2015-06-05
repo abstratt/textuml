@@ -1,6 +1,9 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
+
 import org.eclipse.uml2.uml.BehavioredClassifier;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
 
@@ -34,5 +37,12 @@ public class InterfaceRealizationRenderer extends
 		pw.println(contract.getName() + ":port" + " -- "
 				+ implementor.getName() + ":port");
 		return true;
+	}
+	
+	@Override
+	protected boolean shouldRender(IRenderingSession context, Element source, Element destination) {
+	    if (!context.getSettings().getBoolean(SHOW_INTERFACES))
+	        return false;
+	    return super.shouldRender(context, source, destination);
 	}
 }
