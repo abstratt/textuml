@@ -39,7 +39,7 @@ public class RenderingSession implements IRenderingSession {
     }
 
     @Override
-    public <E extends EObject> boolean renderAll(Collection<E> toRender) {
+    public boolean renderAll(Collection<EObject> toRender) {
         boolean[] anyRendered = { false };
         toRender.forEach(it -> anyRendered[0] |= render(it, shallow));
         return anyRendered[0];
