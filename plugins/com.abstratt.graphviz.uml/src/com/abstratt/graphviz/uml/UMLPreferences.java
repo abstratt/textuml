@@ -35,6 +35,10 @@ public class UMLPreferences {
 			defaults.put(UML2DOTPreferences.SHOW_CLASSIFIER_COMPARTMENT_FOR_PACKAGE, UML2DOTPreferences.ShowClassifierCompartmentForPackageOptions.Current.name());
 			defaults.put(UML2DOTPreferences.SHOW_ELEMENTS_IN_OTHER_PACKAGES, UML2DOTPreferences.ShowCrossPackageElementOptions.Immediate.name());
 			defaults.putBoolean(UML2DOTPreferences.SHOW_PRIMITIVES, false);
+			defaults.putBoolean(UML2DOTPreferences.SHOW_OPERATIONS, true);
+			defaults.putBoolean(UML2DOTPreferences.SHOW_ATTRIBUTES, true);
+			defaults.putBoolean(UML2DOTPreferences.SHOW_DATATYPES, true);
+			defaults.putBoolean(UML2DOTPreferences.SHOW_SIGNALS, true);
 		}
 	}
 	

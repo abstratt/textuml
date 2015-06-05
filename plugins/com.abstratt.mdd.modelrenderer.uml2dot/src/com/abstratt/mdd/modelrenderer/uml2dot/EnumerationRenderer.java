@@ -1,5 +1,7 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
+
 import java.util.List;
 
 import org.eclipse.uml2.uml.Enumeration;
@@ -11,6 +13,10 @@ import com.abstratt.modelrenderer.IndentedPrintWriter;
 
 public class EnumerationRenderer implements IEObjectRenderer<Enumeration> {
 	public boolean renderObject(Enumeration element, IndentedPrintWriter w, IRenderingSession context) {
+       if (!context.getSettings().getBoolean(SHOW_ENUMERATIONS))
+            return false;
+
+	    
 		w.println("// enum " + element.getQualifiedName());
 		w.println('"' + element.getName() + "\" [");
 		w.println("label=<");

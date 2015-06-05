@@ -1,5 +1,7 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,9 +54,10 @@ public class ClassifierRenderer<T extends Classifier> implements IEObjectRendere
 		w.exitLevel();
 		w.print("</TABLE></TD></TR>");
 
-		if (showCompartments(context, element.getAttributes().isEmpty())) {
+		boolean attributesEmpty = !context.getSettings().getBoolean(SHOW_ATTRIBUTES) || element.getAttributes().isEmpty();
+		if (showCompartments(context, attributesEmpty)) {
 			w.println("<TR><TD>");
-			if (!element.getAttributes().isEmpty()) {
+			if (!attributesEmpty) {
 				w.println("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
 				context.renderAll(element.getAttributes());
 				w.println("</TABLE>");
@@ -62,9 +65,10 @@ public class ClassifierRenderer<T extends Classifier> implements IEObjectRendere
 				w.println("<TABLE border=\"1\" cellborder=\"0\"><TR><TD> </TD></TR></TABLE>");
 			w.println("</TD></TR>");
 		}
-		if (showCompartments(context, element.getOperations().isEmpty())) {
+		boolean operationsEmpty = !context.getSettings().getBoolean(SHOW_OPERATIONS) || element.getOperations().isEmpty();
+		if (showCompartments(context, operationsEmpty)) {
 			w.print("<TR><TD>");
-			if (!element.getOperations().isEmpty()) {
+			if (!operationsEmpty) {
 				w.print("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
 				context.renderAll(element.getOperations());
 				w.print("</TABLE>");

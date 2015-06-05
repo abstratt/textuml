@@ -35,6 +35,11 @@ public class UMLPreferencePage extends PreferencePage implements
 	private Button showAssociationEndNameCheckBox;
 	private Button showAssociationNameCheckBox;
 	private Button showPrimitivesCheckBox;
+	private Button showDataTypesCheckBox;
+	private Button showEnumerationsCheckBox;
+	private Button showSignalsCheckBox;
+	private Button showOperationsCheckBox;
+	private Button showAttributesCheckBox;
 	private Button omitConstraintsForNavigabilityCheckBox;
 	private Button showCommentsCheckBox;
 	private Button showParametersCheckBox;
@@ -89,6 +94,11 @@ public class UMLPreferencePage extends PreferencePage implements
 				| GridData.HORIZONTAL_ALIGN_FILL));
 
 		showPrimitivesCheckBox = makeCheck(composite, "Show primitives");
+		showEnumerationsCheckBox = makeCheck(composite, "Show enumerations");
+		showDataTypesCheckBox = makeCheck(composite, "Show data types");
+		showSignalsCheckBox = makeCheck(composite, "Show signals");
+		showAttributesCheckBox = makeCheck(composite, "Show attributes");
+		showOperationsCheckBox = makeCheck(composite, "Show operations");
 		showAssociationNameCheckBox = makeCheck(composite, "Show name");
 		showAssociationEndNameCheckBox = makeCheck(composite, "Show end name");
 		showAssociationEndOwnershipCheckBox = makeCheck(composite, "Show end ownership (\"dots\")");
@@ -122,6 +132,17 @@ public class UMLPreferencePage extends PreferencePage implements
 		IPreferenceStore preferenceStore = getPreferenceStore();
 		showPrimitivesCheckBox.setSelection(preferenceStore.getBoolean(
 				SHOW_PRIMITIVES));
+		showEnumerationsCheckBox.setSelection(preferenceStore.getBoolean(
+                SHOW_ENUMERATIONS));
+		showSignalsCheckBox.setSelection(preferenceStore.getBoolean(
+                SHOW_SIGNALS));
+		showDataTypesCheckBox.setSelection(preferenceStore.getBoolean(
+                SHOW_DATATYPES));
+		showOperationsCheckBox.setSelection(preferenceStore.getBoolean(
+                SHOW_OPERATIONS));
+		showAttributesCheckBox.setSelection(preferenceStore.getBoolean(
+                SHOW_ATTRIBUTES));
+		
 		showStructuralFeatureVisibilityCheckBox.setSelection(preferenceStore.getBoolean(
 				SHOW_STRUCTURAL_FEATURE_VISIBILITY));
 		showAssociationEndMultiplicityCheckBox.setSelection(preferenceStore.getBoolean(
@@ -178,6 +199,16 @@ public class UMLPreferencePage extends PreferencePage implements
 				.getSelection());
 		preferenceStore.setValue(SHOW_PRIMITIVES, showPrimitivesCheckBox
 				.getSelection());
+		preferenceStore.setValue(SHOW_ENUMERATIONS, showEnumerationsCheckBox
+                .getSelection());
+		preferenceStore.setValue(SHOW_SIGNALS, showSignalsCheckBox
+                .getSelection());
+		preferenceStore.setValue(SHOW_DATATYPES, showDataTypesCheckBox
+                .getSelection());
+		preferenceStore.setValue(SHOW_ATTRIBUTES, showAttributesCheckBox
+                .getSelection());
+		preferenceStore.setValue(SHOW_OPERATIONS, showOperationsCheckBox
+                .getSelection());
 		preferenceStore.setValue(SHOW_STRUCTURAL_FEATURE_VISIBILITY,
 				showStructuralFeatureVisibilityCheckBox.getSelection());
 		preferenceStore.setValue(OMIT_CONSTRAINTS_FOR_NAVIGABILITY,
