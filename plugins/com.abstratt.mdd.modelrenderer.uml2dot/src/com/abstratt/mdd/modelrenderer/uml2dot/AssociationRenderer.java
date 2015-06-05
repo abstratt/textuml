@@ -26,6 +26,9 @@ public class AssociationRenderer extends AbstractRelationshipRenderer<Associatio
 		if (!element.isBinary())
 			// we humbly admit we can't handle n-ary associations
 			return true;
+		if (element.isDerived())
+		    // until we support controlling whether derived associations are to be shown
+		    return true;
 		List<Property> ends = element.getMemberEnds();
 		// source and target here are about the association direction
 		// assumes source is the first end
@@ -37,13 +40,14 @@ public class AssociationRenderer extends AbstractRelationshipRenderer<Associatio
 		Type origin = (Type) context.getPrevious(UMLPackage.Literals.TYPE);
 		Type destination = (Type) (EcoreUtil.equals(ends.get(0), origin) ? ends.get(1).getType() : ends.get(0).getType()); 
 		if (!shouldRender(context, origin, destination))
+		    // don't render an association with a class that is not going to be shown
 			return false;
 		boolean aggregation = source.getAggregation() != AggregationKind.NONE_LITERAL
 				|| target.getAggregation() != AggregationKind.NONE_LITERAL;
-		boolean asymmetric = (source.isNavigable() ^ target.isNavigable())
+		boolean asymmetric = (source.isNavigable() ^ target.isNavigable() || source.getUpper() != target.getUpper())
 				&& !context.getSettings().getBoolean(OMIT_CONSTRAINTS_FOR_NAVIGABILITY);
-		if (target.getAggregation() != AggregationKind.NONE_LITERAL
-				|| (!aggregation && asymmetric && !target.isNavigable())) {
+		if ((aggregation && target.getAggregation() == AggregationKind.NONE_LITERAL) ||
+			 (asymmetric && (!target.isNavigable() || source.getUpper() < target.getUpper()))) {
 			source = ends.get(1);
 			target = ends.get(0); 
 		}
