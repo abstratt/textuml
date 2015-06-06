@@ -41,25 +41,25 @@ public class VertexRenderer<V extends Vertex> implements IEObjectRenderer<V> {
         element.getOutgoings().forEach((Transition transition) -> {
             Vertex target = transition.getTarget();
             boolean mutual = target.getOutgoings().stream().anyMatch(it -> it.getTarget() == source);
-            
+            boolean constraint = mutual || (target instanceof Pseudostate);
             transition.getTriggers().forEach((Trigger trigger) -> {
                 String triggerLabel = getEventName(trigger.getEvent());
-                renderTransition(source, target, out, mutual, triggerLabel);
+                renderTransition(source, target, out, constraint, triggerLabel);
             });
             
             if (transition.getTriggers().isEmpty()) {
-                renderTransition(source, target, out, mutual, "");
+                renderTransition(source, target, out, constraint, "");
             }
         });
     }
 
-    private void renderTransition(Vertex source, Vertex target, IndentedPrintWriter out, boolean mutual, String transitionLabel) {
+    private void renderTransition(Vertex source, Vertex target, IndentedPrintWriter out, boolean constraint, String transitionLabel) {
         out.print("\"" + source.getName() + "\":out -- " + "\"" + target.getName()
                 + "\":in "); 
         out.println("[");
         out.enterLevel();
         DOTRenderingUtils.addAttribute(out, "label", transitionLabel);
-        DOTRenderingUtils.addAttribute(out, "constraint", "" + mutual);
+        DOTRenderingUtils.addAttribute(out, "constraint", "" + constraint);
         DOTRenderingUtils.addAttribute(out, "arrowhead", "open");
         DOTRenderingUtils.addAttribute(out, "arrowtail", "tail");
         DOTRenderingUtils.addAttribute(out, "style", "solid");
