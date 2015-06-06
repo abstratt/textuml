@@ -21,10 +21,11 @@ import org.eclipse.uml2.uml.InterfaceRealization;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 public class ClassRenderer implements IEObjectRenderer<Class> {
 
 	public boolean renderObject(Class clazz, IndentedPrintWriter writer, IRenderingSession context) {
-		context.renderAll(clazz.getOwnedComments());
+		RenderingUtils.renderAll(context, clazz.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, clazz);
 		if (clazz.isAbstract()) 
 			writer.print("abstract ");
@@ -49,9 +50,9 @@ public class ClassRenderer implements IEObjectRenderer<Class> {
 		}
 		writer.println();
 		writer.enterLevel();
-		context.renderAll(clazz.getOwnedAttributes());
-		context.renderAll(clazz.getOwnedOperations());
-		context.renderAll(clazz.getClientDependencies());
+		RenderingUtils.renderAll(context, clazz.getOwnedAttributes());
+		RenderingUtils.renderAll(context, clazz.getOwnedOperations());
+		RenderingUtils.renderAll(context, clazz.getClientDependencies());
 		writer.exitLevel();
 		writer.println("end;");
 		writer.println();

@@ -22,6 +22,7 @@ import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IRenderingSettings;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 import com.abstratt.modelrenderer.RenderingSession;
+import com.abstratt.modelrenderer.RenderingUtils;
 import com.abstratt.pluginutils.LogUtils;
 
 public class DOTRendering implements DOTRenderingConstants {
@@ -53,7 +54,7 @@ public class DOTRendering implements DOTRenderingConstants {
 			IRenderingSession session = new RenderingSession(selector,
 					settings, out);
 			printPrologue(emfURI.trimFileExtension().lastSegment(), defaultDotSettings, out);
-			boolean anyRendered = session.renderAll(contents);
+			boolean anyRendered = RenderingUtils.renderAll(session, contents);
 			if (!anyRendered) {
 			    out.println("NIL [ label=\"No objects selected for rendering\"]");
 			}

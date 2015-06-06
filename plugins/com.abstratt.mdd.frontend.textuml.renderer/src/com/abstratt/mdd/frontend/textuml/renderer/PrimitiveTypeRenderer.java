@@ -17,10 +17,11 @@ import org.eclipse.uml2.uml.PrimitiveType;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 
 public class PrimitiveTypeRenderer implements IEObjectRenderer<PrimitiveType> {
 	public boolean renderObject(PrimitiveType toRender, IndentedPrintWriter writer, IRenderingSession context) {
-		context.renderAll(toRender.getOwnedComments());
+		RenderingUtils.renderAll(context, toRender.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, toRender);
 		writer.println("primitive " + name(toRender) + ";");
 		writer.println();

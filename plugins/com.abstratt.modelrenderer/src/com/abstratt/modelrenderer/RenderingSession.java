@@ -38,13 +38,6 @@ public class RenderingSession implements IRenderingSession {
         return settings;
     }
 
-    @Override
-    public <E extends EObject, C extends Collection<E>> boolean renderAll(C toRender) {
-        boolean[] anyRendered = { false };
-        toRender.forEach(it -> anyRendered[0] |= render(it, shallow));
-        return anyRendered[0];
-    }
-
     public boolean render(EObject toRender) {
         return render(toRender, false);
     }

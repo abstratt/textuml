@@ -22,6 +22,7 @@ import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierC
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 
 public class ClassifierRenderer<T extends Classifier> implements IEObjectRenderer<T> {
 
@@ -59,7 +60,7 @@ public class ClassifierRenderer<T extends Classifier> implements IEObjectRendere
 			w.println("<TR><TD>");
 			if (!attributesEmpty) {
 				w.println("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
-				context.renderAll(element.getAttributes());
+				RenderingUtils.renderAll(context, element.getAttributes());
 				w.println("</TABLE>");
 			} else
 				w.println("<TABLE border=\"1\" cellborder=\"0\"><TR><TD> </TD></TR></TABLE>");
@@ -70,7 +71,7 @@ public class ClassifierRenderer<T extends Classifier> implements IEObjectRendere
 			w.print("<TR><TD>");
 			if (!operationsEmpty) {
 				w.print("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
-				context.renderAll(element.getOperations());
+				RenderingUtils.renderAll(context, element.getOperations());
 				w.print("</TABLE>");
 			} else
 				w.print("<TABLE border=\"1\" cellborder=\"0\"><TR><TD> </TD></TR></TABLE>");
@@ -113,10 +114,10 @@ public class ClassifierRenderer<T extends Classifier> implements IEObjectRendere
 	protected void renderRelationships(T element,
 			IRenderingSession context) {
 		List<Generalization> generalizations = element.getGeneralizations();
-		context.renderAll(generalizations);
+		RenderingUtils.renderAll(context, generalizations);
 		EList<Association> associations = element.getAssociations();
-		context.renderAll(associations);
-		context.renderAll(element.getOwnedComments());
+		RenderingUtils.renderAll(context, associations);
+		RenderingUtils.renderAll(context, element.getOwnedComments());
 	}
 
 	private boolean showCompartments(IRenderingSession context, boolean isEmpty) {

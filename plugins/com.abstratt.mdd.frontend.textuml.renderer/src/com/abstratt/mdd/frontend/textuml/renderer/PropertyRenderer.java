@@ -21,6 +21,7 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 
 
 public class PropertyRenderer implements IEObjectRenderer<Property> {
@@ -29,7 +30,7 @@ public class PropertyRenderer implements IEObjectRenderer<Property> {
 		if (property.getAssociation() instanceof Extension)
 			// association of a stereotype with an extended metaclass
 			return false;
-		context.renderAll(property.getOwnedComments());
+		RenderingUtils.renderAll(context, property.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, property);
 		writer.print(TextUMLRenderingUtils.renderVisibility(property
 				.getVisibility()));

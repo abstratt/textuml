@@ -12,6 +12,7 @@ import org.eclipse.uml2.uml.Property;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 
 public class StereotypeRenderer implements IEObjectRenderer<Class> {
 
@@ -46,23 +47,23 @@ public class StereotypeRenderer implements IEObjectRenderer<Class> {
 		if (!properties.isEmpty() && !context.isShallow()) {
 			w
 					.print("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
-			context.renderAll(properties);
+			RenderingUtils.renderAll(context, properties);
 			w.print("</TABLE></TD></TR>");
 		}
 		if (!element.getOperations().isEmpty() && !context.isShallow()) {
 			w
 					.print("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" align=\"left\">");
-			context.renderAll(element.getOperations());
+			RenderingUtils.renderAll(context, element.getOperations());
 			w.print("</TABLE></TD></TR>");
 		}
 		w.exitLevel();
 		w.println("</TABLE>>];");
 		w.enterLevel();
 		List<Generalization> generalizations = element.getGeneralizations();
-		context.renderAll(generalizations);
+		RenderingUtils.renderAll(context, generalizations);
 		List<InterfaceRealization> realizations = element
 				.getInterfaceRealizations();
-		context.renderAll(realizations);
+		RenderingUtils.renderAll(context, realizations);
 		// render extensions
 		for(Property property : element.getOwnedAttributes())
 			if (property.getAssociation() instanceof Extension) {

@@ -10,6 +10,7 @@ import org.eclipse.uml2.uml.StateMachine;
 
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 
 public class ClassRenderer extends ClassifierRenderer<Class> {
 
@@ -37,6 +38,6 @@ public class ClassRenderer extends ClassifierRenderer<Class> {
 		super.renderRelationships(element, context);
 		List<InterfaceRealization> realizations = element
 				.getInterfaceRealizations();
-		context.renderAll(realizations);
+		RenderingUtils.renderAll(context, realizations);
 	}
 }

@@ -22,6 +22,7 @@ import com.abstratt.modelrenderer.IRenderingSettings;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 import com.abstratt.modelrenderer.RendererSelector;
 import com.abstratt.modelrenderer.RenderingSession;
+import com.abstratt.modelrenderer.RenderingUtils;
 
 public class TextUMLRenderer {
 	public static final String PLUGIN_ID = TextUMLRenderer.class.getPackage().getName();
@@ -32,7 +33,7 @@ public class TextUMLRenderer {
 		IRendererSelector<?, ?> selector = new RendererSelector(getClass().getPackage().getName(), ELEMENT_CLASS) {};
 		IndentedPrintWriter out = new IndentedPrintWriter(stream);
 		IRenderingSession session = new RenderingSession(selector, IRenderingSettings.NO_SETTINGS, out);
-		session.renderAll(resource.getContents());
+		RenderingUtils.renderAll(session, resource.getContents());
 		out.close();
 	}
 }

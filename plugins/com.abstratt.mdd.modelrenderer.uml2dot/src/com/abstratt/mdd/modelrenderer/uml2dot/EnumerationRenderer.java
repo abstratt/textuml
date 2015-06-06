@@ -10,6 +10,7 @@ import org.eclipse.uml2.uml.Generalization;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 
 public class EnumerationRenderer implements IEObjectRenderer<Enumeration> {
 	public boolean renderObject(Enumeration element, IndentedPrintWriter w, IRenderingSession context) {
@@ -36,25 +37,25 @@ public class EnumerationRenderer implements IEObjectRenderer<Enumeration> {
 		if (!element.getAttributes().isEmpty() && !context.isShallow()) {
 			w
 					.println("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
-			context.renderAll(element.getAttributes());
+			RenderingUtils.renderAll(context, element.getAttributes());
 			w.println("</TABLE></TD></TR>");
 		}
 		if (!element.getOperations().isEmpty() && !context.isShallow()) {
 			w
 					.println("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" align=\"left\">");
-			context.renderAll(element.getOperations());
+			RenderingUtils.renderAll(context, element.getOperations());
 			w.println("</TABLE></TD></TR>");
 		}
 		if (!element.getOwnedLiterals().isEmpty() && !context.isShallow()) {
 			w
 					.println("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" align=\"left\">");
-			context.renderAll(element.getOwnedLiterals());
+			RenderingUtils.renderAll(context, element.getOwnedLiterals());
 			w.println("</TABLE></TD></TR>");
 		}
 		w.exitLevel();
 		w.println("</TABLE>>];");
 		List<Generalization> generalizations = element.getGeneralizations();
-		context.renderAll(generalizations);
+		RenderingUtils.renderAll(context, generalizations);
 		return true;
 	}
 

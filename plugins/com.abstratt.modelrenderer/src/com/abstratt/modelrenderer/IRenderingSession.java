@@ -10,8 +10,6 @@
  *******************************************************************************/ 
 package com.abstratt.modelrenderer;
 
-import java.util.Collection;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
@@ -22,7 +20,6 @@ public interface IRenderingSession {
 	public boolean isShallow();
 	public boolean render(EObject toRender);
 	public boolean render(EObject toRender, boolean deep);	
-	public <E extends EObject, C extends Collection<E>> boolean renderAll(C toRender);
 	public EObject getRoot();
 	public EObject getCurrent();
 	public EObject getPrevious(EClass eClass);

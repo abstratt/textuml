@@ -24,6 +24,7 @@ import org.eclipse.uml2.uml.Property;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 
 public class AssociationRenderer implements IEObjectRenderer<Association> {
 
@@ -31,7 +32,7 @@ public class AssociationRenderer implements IEObjectRenderer<Association> {
 			IndentedPrintWriter writer, IRenderingSession context) {
 		if (association instanceof Extension)
 			return false;
-		context.renderAll(association.getOwnedComments());
+		RenderingUtils.renderAll(context, association.getOwnedComments());
 		AggregationKind aggregationKind = AggregationKind.NONE_LITERAL;
 		List<Property> memberEnds = association.getMemberEnds();
 		for (Property property : memberEnds)
@@ -57,7 +58,7 @@ public class AssociationRenderer implements IEObjectRenderer<Association> {
 		for (Property property : memberEnds) {
 			if (property.getClass_() == null)
 				continue;
-			context.renderAll(property.getOwnedComments());
+			RenderingUtils.renderAll(context, property.getOwnedComments());
 			writer.write("role ");
 			writer.write(TextUMLRenderingUtils.getQualifiedNameIfNeeded(
 					(NamedElement) property.getClass_(), association
@@ -68,7 +69,7 @@ public class AssociationRenderer implements IEObjectRenderer<Association> {
 		}
 		List<Property> ownedEnds = association.getOwnedEnds();
 		for (Property property : ownedEnds) {
-			context.renderAll(property.getOwnedComments());
+			RenderingUtils.renderAll(context, property.getOwnedComments());
 			TextUMLRenderingUtils.renderStereotypeApplications(writer, property, true);
 			if (property.isNavigable())
 				writer.write("navigable ");
