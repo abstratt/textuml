@@ -1,9 +1,11 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
 
+import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.StateMachine;
@@ -15,17 +17,10 @@ import com.abstratt.modelrenderer.RenderingUtils;
 public class ClassRenderer extends ClassifierRenderer<Class> {
 
     @Override
-    public boolean renderObject(Class element, IndentedPrintWriter w, IRenderingSession context) {
-        boolean renderedClass = context.getSettings().getBoolean(SHOW_CLASSES) && super.renderObject(element, w, context);
-        boolean renderedStateMachines = context.getSettings().getBoolean(SHOW_STATEMACHINES) && !element.getOwnedBehaviors().stream().allMatch(it -> {
-            if (it instanceof StateMachine) {
-                context.render(it);
-                return false;
-            } else {
-                return true;
-            }
-        });
-        return renderedClass || renderedStateMachines;
+    public boolean renderObject(Class element, IndentedPrintWriter w, IRenderingSession session) {
+        boolean renderedClass = session.getSettings().getBoolean(SHOW_CLASSES) && super.renderObject(element, w, session);
+        List<Behavior> stateMachines = element.getOwnedBehaviors().stream().filter(it -> it instanceof StateMachine).collect(Collectors.toList());
+        return renderedClass | RenderingUtils.renderAll(session, stateMachines);
     }
     
     @Override
