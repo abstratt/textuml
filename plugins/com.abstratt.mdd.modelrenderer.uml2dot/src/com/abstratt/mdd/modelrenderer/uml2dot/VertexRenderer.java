@@ -15,7 +15,7 @@ import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 
-public class VertexRenderer<V extends Vertex> implements IEObjectRenderer<V> {
+public class VertexRenderer<V extends Vertex> implements IElementRenderer<V> {
     @Override
     public boolean renderObject(V element, IndentedPrintWriter out, IRenderingSession context) {
         renderState(element, out, context);

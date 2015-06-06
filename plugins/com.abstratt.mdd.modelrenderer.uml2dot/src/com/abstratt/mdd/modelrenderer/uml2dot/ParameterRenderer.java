@@ -9,7 +9,7 @@ import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 
-public class ParameterRenderer implements IEObjectRenderer<Parameter> {
+public class ParameterRenderer implements IElementRenderer<Parameter> {
 
 	public boolean renderObject(Parameter parameter, IndentedPrintWriter w,
 			IRenderingSession context) {

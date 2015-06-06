@@ -24,7 +24,7 @@ import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 import com.abstratt.modelrenderer.RenderingUtils;
 
-public class ClassifierRenderer<T extends Classifier> implements IEObjectRenderer<T> {
+public class ClassifierRenderer<T extends Classifier> implements IElementRenderer<T> {
 
 	public boolean renderObject(T element, IndentedPrintWriter w,
 			IRenderingSession context) {

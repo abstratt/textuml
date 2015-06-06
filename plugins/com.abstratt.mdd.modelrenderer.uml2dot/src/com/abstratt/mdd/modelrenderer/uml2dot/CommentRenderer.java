@@ -9,7 +9,7 @@ import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 
-public class CommentRenderer implements IEObjectRenderer<Comment> {
+public class CommentRenderer implements IElementRenderer<Comment> {
 
 	public boolean renderObject(Comment element, IndentedPrintWriter out,
 			IRenderingSession context) {

@@ -10,7 +10,7 @@ import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 
 public abstract class AbstractRelationshipRenderer<T extends Relationship>
-		implements IEObjectRenderer<T> {
+		implements IElementRenderer<T> {
 
 	public final boolean renderObject(T element, IndentedPrintWriter out,
 			IRenderingSession context) {

@@ -12,7 +12,7 @@ import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 import com.abstratt.modelrenderer.RenderingUtils;
 
-public class EnumerationRenderer implements IEObjectRenderer<Enumeration> {
+public class EnumerationRenderer implements IElementRenderer<Enumeration> {
 	public boolean renderObject(Enumeration element, IndentedPrintWriter w, IRenderingSession context) {
        if (!context.getSettings().getBoolean(SHOW_ENUMERATIONS))
             return false;

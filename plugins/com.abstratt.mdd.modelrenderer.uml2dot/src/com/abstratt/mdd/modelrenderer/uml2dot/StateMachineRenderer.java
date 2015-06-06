@@ -9,7 +9,7 @@ import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 import com.abstratt.modelrenderer.RenderingUtils;
 
-public class StateMachineRenderer implements IEObjectRenderer<StateMachine> {
+public class StateMachineRenderer implements IElementRenderer<StateMachine> {
     @Override
     public boolean renderObject(StateMachine element, IndentedPrintWriter out, IRenderingSession session) {
         boolean shouldRender = session.getSettings().getBoolean(SHOW_STATEMACHINES);

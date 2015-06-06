@@ -11,7 +11,7 @@ import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 
-public class PropertyRenderer implements IEObjectRenderer<Property> {
+public class PropertyRenderer implements IElementRenderer<Property> {
 	public boolean renderObject(Property property, IndentedPrintWriter w, IRenderingSession context) {
 		if (property.getName() == null)
 			return false;

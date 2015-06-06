@@ -21,7 +21,7 @@ import com.abstratt.modelrenderer.IndentedPrintWriter;
 /**
  * 
  */
-public class OperationRenderer implements IEObjectRenderer<Operation> {
+public class OperationRenderer implements IElementRenderer<Operation> {
 	public boolean renderObject(Operation operation, IndentedPrintWriter w, IRenderingSession context) {
 		if (operation.getName() == null || UML2DOTRenderingUtils.isTemplateInstance(operation))
 			return false;

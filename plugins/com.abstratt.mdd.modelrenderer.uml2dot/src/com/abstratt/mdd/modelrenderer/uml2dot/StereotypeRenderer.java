@@ -14,7 +14,7 @@ import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 import com.abstratt.modelrenderer.RenderingUtils;
 
-public class StereotypeRenderer implements IEObjectRenderer<Class> {
+public class StereotypeRenderer implements IElementRenderer<Class> {
 
 	public boolean renderObject(Class element, IndentedPrintWriter w,
 			IRenderingSession context) {
