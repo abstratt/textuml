@@ -22,7 +22,7 @@ import com.abstratt.pluginutils.LogUtils;
 /**
  * Default renderer selector. Abstract so clients need to subclass and thus this class can find client classes.
  */
-public abstract class RendererSelector implements IRendererSelector<EObject, EObject> {
+public abstract class RendererSelector implements IRendererSelector<EObject> {
 
 	private String packageName;
 	private List<EClass> filter;

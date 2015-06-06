@@ -26,7 +26,7 @@ import com.abstratt.modelrenderer.IRenderingSettings;
 public abstract class AbstractModelGraphicalContentProvider extends
 		DOTGraphicalContentProvider {
 
-	protected abstract IRendererSelector<?, ?> getRendererSelector();
+	protected abstract IRendererSelector<?> getRendererSelector();
 
 	/*
 	 * (non-Javadoc)

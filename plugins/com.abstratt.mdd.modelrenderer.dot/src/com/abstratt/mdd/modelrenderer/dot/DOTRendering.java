@@ -30,13 +30,13 @@ public class DOTRendering implements DOTRenderingConstants {
 
 	
 	public static byte[] generateDOTFromModel(URI modelURI,
-			IRendererSelector<?, ?> selector, IRenderingSettings settings)
+			IRendererSelector<?> selector, IRenderingSettings settings)
 			throws CoreException {
         return generateDOTFromModel(modelURI, selector, settings, new HashMap<String, Map<String,Object>>());
 	}
 	
 	public static byte[] generateDOTFromModel(URI modelURI,
-			IRendererSelector<?, ?> selector, IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings)
+			IRendererSelector<?> selector, IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings)
 			throws CoreException {
 		org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI
 				.createURI(modelURI.toASCIIString());
