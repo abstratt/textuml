@@ -18,13 +18,21 @@ import com.abstratt.modelrenderer.IndentedPrintWriter;
 public class VertexRenderer<V extends Vertex> implements IEObjectRenderer<V> {
     @Override
     public boolean renderObject(V element, IndentedPrintWriter out, IRenderingSession context) {
-        out.print('"' + getVertexSymbol(element) + "\" [");
-        out.println("label = \"" + getVertexLabel(element) + "\"");
-        out.println("shape = \"mrecord\"");
-        out.println("style = \"rounded\""); 
-        out.println("];");
+        renderState(element, out, context);
         renderTransitions(element, out, context);
         return true;
+    }
+
+    protected void renderState(V element, IndentedPrintWriter out, IRenderingSession session) {
+        out.print('"' + getVertexSymbol(element) + "\" [");
+        out.println("shape = \"Mrecord\"");
+        out.println("style = \"rounded\"");
+        renderLabel(element, out, session);
+        out.println("];");
+    }
+
+    protected void renderLabel(V element, IndentedPrintWriter out, IRenderingSession session) {
+        out.println("label = \"" + getVertexLabel(element) + "\"");
     }
 
     protected String getVertexSymbol(V element) {
@@ -59,7 +67,7 @@ public class VertexRenderer<V extends Vertex> implements IEObjectRenderer<V> {
         out.println("[");
         out.enterLevel();
         DOTRenderingUtils.addAttribute(out, "label", transitionLabel);
-        DOTRenderingUtils.addAttribute(out, "constraint", "" + constraint);
+        DOTRenderingUtils.addAttribute(out, "constraint", "" + true);
         DOTRenderingUtils.addAttribute(out, "arrowhead", "open");
         DOTRenderingUtils.addAttribute(out, "arrowtail", "tail");
         DOTRenderingUtils.addAttribute(out, "style", "solid");
