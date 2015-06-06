@@ -10,7 +10,10 @@ import com.abstratt.modelrenderer.IndentedPrintWriter;
 public class RegionRenderer implements IEObjectRenderer<Region> {
     @Override
     public boolean renderObject(Region element, IndentedPrintWriter out, IRenderingSession context) {
-        element.getSubvertices().forEach(it -> context.render(it));
+        element.getSubvertices().forEach(it -> {
+            System.out.println(it.eClass().getName());
+            context.render(it);
+        });
         return true;
     }
 }
