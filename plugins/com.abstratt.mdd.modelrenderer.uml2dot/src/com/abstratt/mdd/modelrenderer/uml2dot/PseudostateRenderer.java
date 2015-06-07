@@ -42,7 +42,7 @@ public class PseudostateRenderer extends VertexRenderer<Pseudostate> {
         out.print("\"" + stateMachineName + "-" + "_START\" -- " + "\"" + getVertexSymbol(element) + "\":in "); 
         out.println("[");
         out.enterLevel();
-        DOTRenderingUtils.addAttribute(out, "constraint", "" + true);
+        DOTRenderingUtils.addAttribute(out, "constraint", "" + false);
         DOTRenderingUtils.addAttribute(out, "arrowhead", "open");
         DOTRenderingUtils.addAttribute(out, "arrowtail", "tail");
         DOTRenderingUtils.addAttribute(out, "style", "solid");
