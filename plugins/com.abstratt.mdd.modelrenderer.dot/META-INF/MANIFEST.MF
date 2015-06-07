@@ -5,7 +5,8 @@ Bundle-SymbolicName: com.abstratt.mdd.modelrenderer.dot
 Bundle-Version: 2.1.201501.qualifier
 Bundle-Vendor: ABSTRATT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: com.abstratt.pluginutils
+Import-Package: com.abstratt.pluginutils,
+ org.apache.commons.io
 Require-Bundle: org.eclipse.equinox.common,
  org.eclipse.emf.ecore,
  com.abstratt.modelrenderer

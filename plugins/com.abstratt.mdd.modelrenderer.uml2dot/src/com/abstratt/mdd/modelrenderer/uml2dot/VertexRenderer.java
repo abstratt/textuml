@@ -25,10 +25,12 @@ public class VertexRenderer<V extends Vertex> implements IElementRenderer<V> {
     }
 
     protected void renderState(V element, IndentedPrintWriter out, IRenderingSession session) {
-        out.print('"' + getVertexSymbol(element) + "\" [");
+        out.println('"' + getVertexSymbol(element) + "\" [");
+        out.enterLevel();
         out.println("shape = \"Mrecord\"");
         out.println("style = \"rounded\"");
         renderLabel(element, out, session);
+        out.exitLevel();
         out.println("];");
     }
 
