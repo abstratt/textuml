@@ -15,6 +15,7 @@ Since 2.1
 -   Type inference for local vars
 -   Complex expressions for [parameter default values](https://github.com/abstratt/textuml/issues/36)
 -   [Parameterized types in operations](https://github.com/abstratt/textuml/issues/46)
+-   [Enumeration literals can declare property values](#40)
 
 ### New diagram rendering features
 -   Rendering of statecharts for state machines
