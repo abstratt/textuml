@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.io.FilenameUtils;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -38,57 +39,65 @@ public class DOTRendering implements DOTRenderingConstants {
 	public static byte[] generateDOTFromModel(URI modelURI,
 			IRendererSelector<?> selector, IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings)
 			throws CoreException {
-		org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI
-				.createURI(modelURI.toASCIIString());
-		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource resource = resourceSet.createResource(emfURI);
-		try {
-			// TODO cache option map and use XMLResource constants (requires
-			// dependency change)
-			Map<String, Object> resourceOptions = new HashMap<String, Object>();
-			resourceOptions.put("DISABLE_NOTIFY", Boolean.TRUE);	
-			resource.load(resourceOptions);
-			Collection<EObject> contents = resource.getContents();
-			StringWriter sw = new StringWriter();
-			IndentedPrintWriter out = new IndentedPrintWriter(sw);
-			IRenderingSession session = new RenderingSession(selector,
-					settings, out);
-			printPrologue(emfURI.trimFileExtension().lastSegment(), defaultDotSettings, out);
-			boolean anyRendered = RenderingUtils.renderAll(session, contents);
-			if (!anyRendered) {
-			    out.println("NIL [ label=\"No objects selected for rendering\"]");
-			}
-			printEpilogue(out);
-			out.close();
-			byte[] dotContents = sw.getBuffer().toString().getBytes();
-			if (Boolean.getBoolean(ID + ".showDOT")) {
-				LogUtils.log(IStatus.INFO, ID, "DOT output for " + modelURI,
-						null);
-				LogUtils.log(IStatus.INFO, ID, sw.getBuffer().toString(), null);
-			}
-			if (Boolean.getBoolean(ID + ".showMemory"))
-				System.out.println("*** free: "
-						+ toMB(Runtime.getRuntime().freeMemory())
-						+ " / total: "
-						+ toMB(Runtime.getRuntime().totalMemory()) + " / max: "
-						+ toMB(Runtime.getRuntime().maxMemory()));
-			return dotContents;
-		} catch (FileNotFoundException e) {
-			// file was deleted before we could read it - that is alright, don't
-			// make a fuss
-			return null;
-		} catch (IOException e) {
-			throw new CoreException(new Status(IStatus.ERROR, ID, "", e));
-		} catch (RuntimeException e) {
-			// invalid file formats might cause runtime exceptions
-			throw new CoreException(new Status(IStatus.ERROR, ID, "", e));
-		} finally {
-			try {
-				unloadResources(resourceSet);
-			} catch (RuntimeException re) {
-				logUnexpected("Unloading resources", re);
-			}
+        org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI
+                .createURI(modelURI.toASCIIString());
+        ResourceSet resourceSet = new ResourceSetImpl();
+        Resource resource = resourceSet.createResource(emfURI);
+        try {
+            // TODO cache option map and use XMLResource constants (requires
+            // dependency change)
+            Map<String, Object> resourceOptions = new HashMap<String, Object>();
+            resourceOptions.put("DISABLE_NOTIFY", Boolean.TRUE);    
+            resource.load(resourceOptions);
+            Collection<EObject> contents = resource.getContents();
+            return generateDOTFromModel(modelURI, contents, selector, settings, defaultDotSettings);
+        } catch (FileNotFoundException e) {
+            // file was deleted before we could read it - that is alright, don't
+            // make a fuss
+            return null;
+        } catch (IOException e) {
+            throw new CoreException(new Status(IStatus.ERROR, ID, "", e));
+        } catch (RuntimeException e) {
+            // invalid file formats might cause runtime exceptions
+            throw new CoreException(new Status(IStatus.ERROR, ID, "", e));
+        } finally {
+            try {
+                unloadResources(resourceSet);
+            } catch (RuntimeException re) {
+                logUnexpected("Unloading resources", re);
+            }
+        }
+	    
+	}
+    public static byte[] generateDOTFromModel(URI modelURI, Collection<EObject> modelContents,
+            IRendererSelector<?> selector, IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings)
+            throws CoreException {
+        
+		StringWriter sw = new StringWriter();
+		IndentedPrintWriter out = new IndentedPrintWriter(sw);
+		IRenderingSession session = new RenderingSession(selector,
+				settings, out);
+		String modelName = FilenameUtils.removeExtension(FilenameUtils.getName(modelURI.getPath()));
+		printPrologue(modelName, defaultDotSettings, out);
+		boolean anyRendered = RenderingUtils.renderAll(session, modelContents);
+		if (!anyRendered) {
+		    out.println("NIL [ label=\"No objects selected for rendering\"]");
 		}
+		printEpilogue(out);
+		out.close();
+		byte[] dotContents = sw.getBuffer().toString().getBytes();
+		if (Boolean.getBoolean(ID + ".showDOT")) {
+			LogUtils.log(IStatus.INFO, ID, "DOT output for " + modelURI,
+					null);
+			LogUtils.log(IStatus.INFO, ID, sw.getBuffer().toString(), null);
+		}
+		if (Boolean.getBoolean(ID + ".showMemory"))
+			System.out.println("*** free: "
+					+ toMB(Runtime.getRuntime().freeMemory())
+					+ " / total: "
+					+ toMB(Runtime.getRuntime().totalMemory()) + " / max: "
+					+ toMB(Runtime.getRuntime().maxMemory()));
+		return dotContents;
 	}
 
 	private static void printEpilogue(IndentedPrintWriter w) {
