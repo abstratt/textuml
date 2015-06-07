@@ -11,7 +11,7 @@
 		<groupId>com.abstratt.mdd</groupId>
 		<version>2.1.201501-SNAPSHOT</version>
 		<relativePath>..</relativePath>
-	</parent>
+	</parent>	
 
   <modules>
     <module>com.abstratt.resman</module>

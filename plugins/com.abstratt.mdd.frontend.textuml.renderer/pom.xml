@@ -13,4 +13,14 @@
 		<version>2.1.201501-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+			</plugin>
+		</plugins>			
+	</build>
+
 </project>

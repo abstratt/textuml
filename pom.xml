@@ -10,6 +10,10 @@
 		<groupId>com.abstratt</groupId>
 		<version>1.5</version>
 	</parent>
+	
+	<properties>
+    	<xtext.version>2.8.2</xtext.version>
+	</properties>	
 
 	<repositories>
 		<repository>
@@ -54,6 +58,43 @@
 					<resolver>p2</resolver>
 				</configuration>
 			</plugin>
+                  <plugin>
+					<groupId>org.eclipse.xtend</groupId>
+					<artifactId>xtend-maven-plugin</artifactId>
+					<version>${xtext.version}</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>compile</goal>
+								<goal>testCompile</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<outputDirectory>xtend-gen</outputDirectory>
+						<javaSourceVersion>1.8</javaSourceVersion>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>gen-clean</id>
+							<goals>
+								<goal>clean</goal>
+							</goals>
+							<configuration>
+								<filesets>
+									<fileset>
+										<directory>${basedir}/xtend-gen</directory>
+									</fileset>
+								</filesets>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			
 		</plugins>
 	</build>
 
