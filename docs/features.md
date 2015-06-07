@@ -5,10 +5,10 @@
 
 #Features
 
-Since 2.0
+Since 2.1
 ----------------
 
--   Released: in progress
+-   Released: June 2015
 -   Requirements: Eclipse 4.4 or later, Java 8 or later.
 
 ### New textual notation features
@@ -16,6 +16,10 @@ Since 2.0
 -   Complex expressions for [parameter default values](https://github.com/abstratt/textuml/issues/36)
 -   [Parameterized types in operations](https://github.com/abstratt/textuml/issues/46)
 
+### New diagram rendering features
+-   Rendering of statecharts for state machines
+-   More control over what elements get rendered
+-   Copying a diagram to the clipboard
 
 Since 1.9
 ----------------
