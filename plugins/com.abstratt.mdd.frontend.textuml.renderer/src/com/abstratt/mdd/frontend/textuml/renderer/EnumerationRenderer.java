@@ -19,9 +19,10 @@ import org.eclipse.uml2.uml.EnumerationLiteral;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 public class EnumerationRenderer implements IEObjectRenderer<Enumeration> {
 	public boolean renderObject(Enumeration enumeration, IndentedPrintWriter writer, IRenderingSession context) {
-		context.renderAll(enumeration.getOwnedComments());
+		RenderingUtils.renderAll(context, enumeration.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, enumeration);
 		writer.println("enumeration " + name(enumeration));
 		writer.enterLevel();
@@ -36,8 +37,8 @@ public class EnumerationRenderer implements IEObjectRenderer<Enumeration> {
 			writer.print(builder);
 			writer.println();
 		}
-		context.renderAll(enumeration.getOwnedAttributes());
-		context.renderAll(enumeration.getOwnedOperations());
+		RenderingUtils.renderAll(context, enumeration.getOwnedAttributes());
+		RenderingUtils.renderAll(context, enumeration.getOwnedOperations());
 		writer.exitLevel();
 		writer.println("end;");
 		writer.println();

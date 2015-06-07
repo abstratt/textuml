@@ -20,6 +20,7 @@ import org.eclipse.uml2.uml.Parameter;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 /**
  * 
  */
@@ -27,7 +28,7 @@ public class OperationRenderer implements IEObjectRenderer<Operation> {
 	public boolean renderObject(Operation operation, IndentedPrintWriter w,
 			IRenderingSession context) {
 		TextUMLRenderingUtils.renderStereotypeApplications(w, operation);		
-		context.renderAll(operation.getOwnedComments());
+		RenderingUtils.renderAll(context, operation.getOwnedComments());
 		w.print(TextUMLRenderingUtils.renderVisibility(operation
 					.getVisibility()));
 		if (operation.isStatic())
@@ -55,6 +56,7 @@ public class OperationRenderer implements IEObjectRenderer<Operation> {
 			w.print(TextUMLRenderingUtils.renderMultiplicity(returnParameter, true));
 		}
 		w.println(";");
+		RenderingUtils.renderAll(context, operation.getMethods());
 		return true;
 	}
 }

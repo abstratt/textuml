@@ -5,12 +5,22 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.mdd</groupId>
 	<artifactId>com.abstratt.mdd.frontend.textuml.renderer</artifactId>
-	<version>1.120.1-SNAPSHOT</version>
+	<version>2.1.201501-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 	<parent>
 		<artifactId>com.abstratt.mdd.plugins</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
-		<version>1.120.1-SNAPSHOT</version>
+		<version>2.1.201501-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+			</plugin>
+		</plugins>			
+	</build>
+
 </project>

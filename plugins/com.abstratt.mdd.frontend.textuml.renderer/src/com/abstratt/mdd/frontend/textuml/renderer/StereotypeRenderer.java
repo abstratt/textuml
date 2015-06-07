@@ -23,12 +23,13 @@ import org.eclipse.uml2.uml.Stereotype;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 
 public class StereotypeRenderer implements IEObjectRenderer<Stereotype> {
 
 	public boolean renderObject(Stereotype stereotype, IndentedPrintWriter writer,
 			IRenderingSession context) {
-		context.renderAll(stereotype.getOwnedComments());
+		RenderingUtils.renderAll(context, stereotype.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, stereotype);
 		if (stereotype.isAbstract())
 			writer.print("abstract ");
@@ -61,8 +62,8 @@ public class StereotypeRenderer implements IEObjectRenderer<Stereotype> {
 		}
 		writer.println();
 		writer.enterLevel();
-		context.renderAll(stereotype.getOwnedAttributes());
-		context.renderAll(stereotype.getOwnedOperations());
+		RenderingUtils.renderAll(context, stereotype.getOwnedAttributes());
+		RenderingUtils.renderAll(context, stereotype.getOwnedOperations());
 		writer.exitLevel();
 		writer.println("end;");
 		writer.println();

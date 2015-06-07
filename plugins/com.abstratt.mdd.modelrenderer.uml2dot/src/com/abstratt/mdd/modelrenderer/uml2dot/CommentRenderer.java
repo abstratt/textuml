@@ -9,10 +9,12 @@ import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
 
-public class CommentRenderer implements IEObjectRenderer<Comment> {
+public class CommentRenderer implements IElementRenderer<Comment> {
 
 	public boolean renderObject(Comment element, IndentedPrintWriter out,
 			IRenderingSession context) {
+	    if (!context.getSettings().getBoolean(UML2DOTPreferences.SHOW_COMMENTS))
+	        return false;
 		String commentNodeId = "comment_" + UML2DOTRenderingUtils.getXMIID(element);
 		out.println('"' + commentNodeId + "\" [shape=note,label=\"" + element.getBody() + "\"]");
 		for (Element commented : element.getAnnotatedElements()) {

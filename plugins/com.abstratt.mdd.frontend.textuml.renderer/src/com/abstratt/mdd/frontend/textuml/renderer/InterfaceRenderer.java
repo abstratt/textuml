@@ -20,10 +20,11 @@ import org.eclipse.uml2.uml.Interface;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 public class InterfaceRenderer implements IEObjectRenderer<Interface> {
 
 	public boolean renderObject(Interface interface_, IndentedPrintWriter writer, IRenderingSession context) {
-		context.renderAll(interface_.getOwnedComments());
+		RenderingUtils.renderAll(context, interface_.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, interface_);
 		writer.print("interface " + name(interface_));
 		List<Generalization> generalizations = interface_.getGeneralizations();
@@ -37,9 +38,9 @@ public class InterfaceRenderer implements IEObjectRenderer<Interface> {
 		}
 		writer.println();
 		writer.enterLevel();
-		context.renderAll(interface_.getOwnedAttributes());
-		context.renderAll(interface_.getOwnedOperations());
-		context.renderAll(interface_.getClientDependencies());
+		RenderingUtils.renderAll(context, interface_.getOwnedAttributes());
+		RenderingUtils.renderAll(context, interface_.getOwnedOperations());
+		RenderingUtils.renderAll(context, interface_.getClientDependencies());
 		writer.exitLevel();
 		writer.println("end;");
 		writer.println();

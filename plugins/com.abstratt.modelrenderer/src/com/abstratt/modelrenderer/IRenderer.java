@@ -17,14 +17,14 @@ import org.eclipse.emf.ecore.EObject;
  * 
  * Clients to implement.
  */
-public interface IRenderer<A extends EObject, C extends A> {
+public interface IRenderer<A extends EObject> {
 	/**
 	 * Requests the given object to be rendered. 
 	 *  
 	 * @param element element to be rendered
 	 * @param out the rendering output
-	 * @param context the rendering context
+	 * @param session the rendering context
 	 * @return <code>true</code> if the object was actually rendered, <code>false</code> otherwise
 	 */
-	public boolean renderObject(C element, IndentedPrintWriter out, IRenderingSession context);
+	public boolean renderObject(A element, IndentedPrintWriter out, IRenderingSession session);
 }

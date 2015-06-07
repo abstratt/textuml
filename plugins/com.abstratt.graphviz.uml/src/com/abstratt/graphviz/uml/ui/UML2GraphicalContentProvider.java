@@ -28,7 +28,7 @@ public class UML2GraphicalContentProvider extends
 	}
 
 	@Override
-	protected IRendererSelector<?, ?> getRendererSelector() {
+	protected IRendererSelector<?> getRendererSelector() {
 		return UML2DOT.getRendererSelector();
 	}
 

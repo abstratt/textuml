@@ -2,12 +2,15 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: TextUML Renderer
 Bundle-SymbolicName: com.abstratt.mdd.frontend.textuml.renderer
-Bundle-Version: 1.120.1.qualifier
+Bundle-Version: 2.1.201501.qualifier
 Bundle-Vendor: Abstratt Technologies
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.uml2.uml,
  com.abstratt.pluginutils,
  com.abstratt.modelrenderer,
  com.abstratt.mdd.frontend.textuml.core,
- org.apache.commons.lang
+ org.apache.commons.lang,
+ com.abstratt.mdd.core,
+ com.abstratt.mdd.target.base;visibility:=reexport,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.7.0" 
 Export-Package: com.abstratt.mdd.frontend.textuml.renderer

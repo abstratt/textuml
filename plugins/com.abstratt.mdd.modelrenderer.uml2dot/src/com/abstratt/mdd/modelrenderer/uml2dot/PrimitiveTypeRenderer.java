@@ -16,12 +16,4 @@ public class PrimitiveTypeRenderer extends ClassifierRenderer<DataType> {
 			return false;
 		return super.renderObject(element, w, context);
 	}
-
-	@Override
-	protected void renderNameAdornments(DataType element, IndentedPrintWriter w, IRenderingSession context) {
-		w.print("<TR><TD>");
-		w.print(UML2DOTRenderingUtils.addGuillemots("primitive"));
-		w.print("</TD></TR>");
-		super.renderNameAdornments(element, w, context);
-	}
 }

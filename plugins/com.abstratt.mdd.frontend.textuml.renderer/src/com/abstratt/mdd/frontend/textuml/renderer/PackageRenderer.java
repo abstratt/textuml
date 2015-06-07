@@ -27,6 +27,7 @@ import org.eclipse.uml2.uml.UMLPackage;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 /**
  * 
  */
@@ -39,29 +40,29 @@ public class PackageRenderer implements IEObjectRenderer<Package> {
 		List<ProfileApplication> profileApplications = package_
 				.getProfileApplications();
 		if (!profileApplications.isEmpty()) {
-			context.renderAll(profileApplications);
+			RenderingUtils.renderAll(context, profileApplications);
 			pw.println();
 		}
 
 		List<PackageImport> packageImports = package_.getPackageImports();
 		if (!packageImports.isEmpty()) {
-			context.renderAll(packageImports);
+			RenderingUtils.renderAll(context, packageImports);
 			pw.println();
 		}
 
 		List<ElementImport> elementImports = package_.getElementImports();
 		if (!elementImports.isEmpty()) {
-			context.renderAll(elementImports);
+			RenderingUtils.renderAll(context, elementImports);
 			pw.println();
 		}
 
 		final Collection<Classifier> subPackages = EcoreUtil.getObjectsByType(
 				package_.getOwnedElements(), UMLPackage.Literals.PACKAGE);
-		context.renderAll(subPackages);
+		RenderingUtils.renderAll(context, subPackages);
 
 		final Collection<Classifier> classifiers = EcoreUtil.getObjectsByType(
 				package_.getOwnedElements(), UMLPackage.Literals.CLASSIFIER);
-		context.renderAll(classifiers);
+		RenderingUtils.renderAll(context, classifiers);
 
 		renderEpilogue(package_, pw, context);
 		return true;
@@ -70,7 +71,7 @@ public class PackageRenderer implements IEObjectRenderer<Package> {
 	public void renderPrologue(Package package_, IndentedPrintWriter pw,
 			IRenderingSession context) {
 		TextUMLRenderingUtils.renderStereotypeApplications(pw, package_);		
-		context.renderAll(package_.getOwnedComments());
+		RenderingUtils.renderAll(context, package_.getOwnedComments());
 		if (package_.getOwner() != null) {
 			pw.println(getPackageTypeName(package_) + " " + name(package_)
 					+ ";");

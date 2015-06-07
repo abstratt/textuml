@@ -20,11 +20,12 @@ import org.eclipse.uml2.uml.Generalization;
 import com.abstratt.modelrenderer.IEObjectRenderer;
 import com.abstratt.modelrenderer.IRenderingSession;
 import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.modelrenderer.RenderingUtils;
 public class DataTypeRenderer implements IEObjectRenderer<DataType> {
 
 	public boolean renderObject(DataType dataType, IndentedPrintWriter writer,
 			IRenderingSession context) {
-		context.renderAll(dataType.getOwnedComments());
+		RenderingUtils.renderAll(context, dataType.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, dataType);
 		if (dataType.isAbstract())
 			writer.print("abstract ");
@@ -44,8 +45,8 @@ public class DataTypeRenderer implements IEObjectRenderer<DataType> {
 		}
 		writer.println();
 		writer.enterLevel();
-		context.renderAll(dataType.getOwnedAttributes());
-		context.renderAll(dataType.getOwnedOperations());
+		RenderingUtils.renderAll(context, dataType.getOwnedAttributes());
+		RenderingUtils.renderAll(context, dataType.getOwnedOperations());
 		writer.exitLevel();
 		writer.println("end;");
 		writer.println();
