@@ -7,13 +7,13 @@
 Requirements
 ------------
 
--   Java 6
--   Eclipse 3.7 or later
+-   Java 8
+-   Eclipse Luna or later
 
 Install Eclipse
 ---------------
 
--   If you don't have Eclipse 3.7 (Indigo) or newer, install it from
+-   If you don't have Eclipse Luna or newer, install it from
     [http://eclipse.org/downloads/](http://eclipse.org/downloads/ "http://eclipse.org/downloads/")
 -   Start Eclipse
 
@@ -35,7 +35,7 @@ Method 2: Installation via Update Manager
     JAR URL in the "Work with:" field (include jar: to the !/ at the
     end):
 
-<pre>jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/mdd/com.abstratt.mdd.oss.repository/1.9/com.abstratt.mdd.oss.repository-1.9.zip!/</pre>
+<pre>jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/mdd/com.abstratt.mdd.oss.repository/2.1/com.abstratt.mdd.oss.repository-2.1.zip!/</pre>
 
 -   Select the TextUML Toolkit feature from the Modeling category.
 
