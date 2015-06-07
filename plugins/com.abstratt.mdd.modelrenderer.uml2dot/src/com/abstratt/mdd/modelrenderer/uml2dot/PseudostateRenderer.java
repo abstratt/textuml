@@ -1,6 +1,7 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
 import org.eclipse.uml2.uml.Pseudostate;
+import org.eclipse.uml2.uml.StateMachine;
 
 import com.abstratt.mdd.modelrenderer.dot.DOTRenderingUtils;
 import com.abstratt.modelrenderer.IRenderingSession;
@@ -24,8 +25,10 @@ public class PseudostateRenderer extends VertexRenderer<Pseudostate> {
         // render the initial node as a regular node
         super.renderObject(element, out, context);
 
+        StateMachine stateMachine = element.containingStateMachine();
+        String stateMachineName = stateMachine.getQualifiedName();
         // we render the initial node as a separate node with a transition coming into the current node
-        out.print("\"START\"[");
+        out.print("\"" + stateMachineName + "-" + "_START\"[");
         out.println("label = \"\"");
         out.println("shape = \"circle\"");
         out.println("style = \"filled\"");
@@ -36,7 +39,7 @@ public class PseudostateRenderer extends VertexRenderer<Pseudostate> {
         out.println("];");
         
         // a fake transition from the initial node to this vertex
-        out.print("\"START\" -- " + "\"" + getVertexSymbol(element) + "\":in "); 
+        out.print("\"" + stateMachineName + "-" + "_START\" -- " + "\"" + getVertexSymbol(element) + "\":in "); 
         out.println("[");
         out.enterLevel();
         DOTRenderingUtils.addAttribute(out, "constraint", "" + true);
