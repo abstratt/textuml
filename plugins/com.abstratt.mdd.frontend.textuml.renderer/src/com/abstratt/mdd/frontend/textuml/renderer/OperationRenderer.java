@@ -56,6 +56,7 @@ public class OperationRenderer implements IEObjectRenderer<Operation> {
 			w.print(TextUMLRenderingUtils.renderMultiplicity(returnParameter, true));
 		}
 		w.println(";");
+		RenderingUtils.renderAll(context, operation.getMethods());
 		return true;
 	}
 }

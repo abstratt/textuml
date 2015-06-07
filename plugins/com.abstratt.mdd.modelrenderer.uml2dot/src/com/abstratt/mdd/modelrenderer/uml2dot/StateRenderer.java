@@ -13,15 +13,15 @@ public class StateRenderer extends VertexRenderer<State> {
         else {
             out.print("label = \"{<f0>" + getVertexLabel(element));
             if (element.getEntry() != null) {
-                out.print("|<entry>entry/");
+                out.print("|<entry>entry/\\l");
                 session.render(element.getEntry());
             }
             if (element.getDoActivity() != null) {
-                out.println("|<do>do/");
+                out.println("|<do>do/\\l");
                 session.render(element.getDoActivity());
             }
             if (element.getExit() != null) {
-                out.println("|<exit>exit/");
+                out.println("|<exit>exit/\\l");
                 session.render(element.getExit());
             }
             out.println("}\"");

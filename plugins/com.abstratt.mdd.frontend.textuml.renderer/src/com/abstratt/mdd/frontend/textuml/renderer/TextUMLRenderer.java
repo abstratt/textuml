@@ -27,10 +27,8 @@ import com.abstratt.modelrenderer.RenderingUtils;
 public class TextUMLRenderer {
 	public static final String PLUGIN_ID = TextUMLRenderer.class.getPackage().getName();
 	
-	private static final EClass ELEMENT_CLASS = UMLPackage.eINSTANCE.getElement();
-
 	public void render(Resource resource, OutputStream stream) {
-		IRendererSelector<?> selector = new RendererSelector(getClass().getPackage().getName(), ELEMENT_CLASS) {};
+		IRendererSelector<?> selector = new TextUMLRendererSelector();
 		IndentedPrintWriter out = new IndentedPrintWriter(stream);
 		IRenderingSession session = new RenderingSession(selector, IRenderingSettings.NO_SETTINGS, out);
 		RenderingUtils.renderAll(session, resource.getContents());

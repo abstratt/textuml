@@ -18,6 +18,13 @@
 		
 		<location includeAllPlatforms="false" includeMode="planner"
 			includeSource="true" type="InstallableUnit">
+    		<unit id="org.eclipse.xtext.xbase.lib.feature.group" version="0.0.0" />
+			<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/head/R201409090713/" />
+		</location>
+
+		
+		<location includeAllPlatforms="false" includeMode="planner"
+			includeSource="true" type="InstallableUnit">
 			<unit id="org.apache.commons.lang" version="0.0.0" />
 			<unit id="org.apache.commons.lang3" version="0.0.0" />			
 			<unit id="org.apache.commons.io" version="0.0.0" />
