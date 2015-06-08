@@ -17,15 +17,15 @@ import java.util.WeakHashMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-public class RenderingSession implements IRenderingSession {
-    private IRendererSelector<EObject> selector;
+public class RenderingSession<E extends EObject> implements IRenderingSession<E> {
+    private IRendererSelector<E> selector;
     private IndentedPrintWriter writer;
     private Map<EObject, Object> rendered = new WeakHashMap<EObject, Object>();
-    private Stack<EObject> stack = new Stack<EObject>();
+    private Stack<E> stack = new Stack<E>();
     private boolean shallow = false;
     private IRenderingSettings settings;
 
-    public RenderingSession(IRendererSelector<EObject> selector, IRenderingSettings settings, IndentedPrintWriter writer) {
+    public RenderingSession(IRendererSelector<E> selector, IRenderingSettings settings, IndentedPrintWriter writer) {
         this.selector = selector;
         this.writer = writer;
         this.settings = settings;
@@ -36,11 +36,13 @@ public class RenderingSession implements IRenderingSession {
         return settings;
     }
 
-    public boolean render(EObject toRender) {
+    @Override
+    public boolean render(E toRender) {
         return render(toRender, false);
     }
 
-    public boolean render(EObject toRender, boolean newShallow) {
+    @Override
+    public boolean render(E toRender, boolean newShallow) {
         // if (this.shallow)
         // return;
         if (rendered.put(toRender, "") != null)
@@ -51,7 +53,7 @@ public class RenderingSession implements IRenderingSession {
         this.shallow = newShallow;
         try {
             boolean actuallyRendered = false;
-            IRenderer<EObject> renderer = selector.select(toRender);
+            IRenderer<E> renderer = selector.select(toRender);
             if (renderer != null) {
                 actuallyRendered = renderer.renderObject(toRender, writer, this);
                 if (!actuallyRendered)
@@ -68,20 +70,20 @@ public class RenderingSession implements IRenderingSession {
         return shallow;
     }
 
-    public EObject getRoot() {
+    public E getRoot() {
         return stack.isEmpty() ? null : stack.get(0);
     }
 
-    public EObject getCurrent() {
+    public E getCurrent() {
         return stack.isEmpty() ? null : stack.peek();
     }
 
-    public EObject getPrevious(EClass eClass) {
+    public E getPrevious(EClass eClass) {
         if (stack.size() <= 1)
             return null;
         int start = stack.size() - 2;
         for (int i = start; i >= 0; i--) {
-            EObject current = stack.get(i);
+            E current = stack.get(i);
             if (eClass.isInstance(current))
                 return current;
         }

@@ -16,12 +16,12 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * Clients should not implement or extend.
  */
-public interface IRenderingSession {
+public interface IRenderingSession<E extends EObject> {
 	public boolean isShallow();
-	public boolean render(EObject toRender);
-	public boolean render(EObject toRender, boolean deep);	
-	public EObject getRoot();
-	public EObject getCurrent();
-	public EObject getPrevious(EClass eClass);
+	public boolean render(E toRender);
+	public boolean render(E toRender, boolean deep);	
+	public E getRoot();
+	public E getCurrent();
+	public E getPrevious(EClass eClass);
 	public IRenderingSettings getSettings();
 }

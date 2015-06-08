@@ -14,6 +14,7 @@ package com.abstratt.modelviewer;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
@@ -26,7 +27,7 @@ import com.abstratt.modelrenderer.IRenderingSettings;
 public abstract class AbstractModelGraphicalContentProvider extends
 		DOTGraphicalContentProvider {
 
-	protected abstract IRendererSelector<?> getRendererSelector();
+	protected abstract IRendererSelector<? extends EObject> getRendererSelector();
 
 	/*
 	 * (non-Javadoc)

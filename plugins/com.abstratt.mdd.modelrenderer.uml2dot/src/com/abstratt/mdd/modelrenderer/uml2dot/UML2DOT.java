@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.modelrenderer.dot.DOTRendering;
@@ -14,7 +15,7 @@ import com.abstratt.modelrenderer.IRenderingSettings;
 import com.abstratt.modelrenderer.RendererSelector;
 
 public class UML2DOT {
-	public static RendererSelector getRendererSelector() {
+	public static RendererSelector<Element> getRendererSelector() {
 		return new RendererSelector(UML2DOTPreferences.class.getPackage().getName(), UMLPackage.Literals.ELEMENT) {};
 	}
 

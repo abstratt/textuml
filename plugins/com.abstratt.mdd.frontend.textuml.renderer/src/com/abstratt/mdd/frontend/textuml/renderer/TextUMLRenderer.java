@@ -13,6 +13,7 @@ package com.abstratt.mdd.frontend.textuml.renderer;
 import java.io.OutputStream;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.uml2.uml.UMLPackage;
 
@@ -28,7 +29,7 @@ public class TextUMLRenderer {
 	public static final String PLUGIN_ID = TextUMLRenderer.class.getPackage().getName();
 	
 	public void render(Resource resource, OutputStream stream) {
-		IRendererSelector<?> selector = new TextUMLRendererSelector();
+		IRendererSelector<EObject> selector = new TextUMLRendererSelector();
 		IndentedPrintWriter out = new IndentedPrintWriter(stream);
 		IRenderingSession session = new RenderingSession(selector, IRenderingSettings.NO_SETTINGS, out);
 		RenderingUtils.renderAll(session, resource.getContents());

@@ -22,7 +22,7 @@ import com.abstratt.pluginutils.LogUtils;
 /**
  * Default renderer selector. Abstract so clients need to subclass and thus this class can find client classes.
  */
-public abstract class RendererSelector implements IRendererSelector<EObject> {
+public abstract class RendererSelector<E extends EObject> implements IRendererSelector<E> {
 
 	private String packageName;
 	private List<EClass> filter;
@@ -32,18 +32,18 @@ public abstract class RendererSelector implements IRendererSelector<EObject> {
 		this.filter = Arrays.asList(filter);
 	}
 
-	private Class<? extends IEObjectRenderer<EObject>> findRenderer(EClass elementClass) {
+	private Class<? extends IEObjectRenderer<E>> findRenderer(EClass elementClass) {
 		if (!shouldRender(elementClass))
 			return null;
 		String className = elementClass.getName();
 		String rendererClassName = packageName + '.' + className + "Renderer";
 		try {
-			return (Class<? extends IEObjectRenderer<EObject>>) Class.forName(rendererClassName, true, getClass().getClassLoader());
+			return (Class<? extends IEObjectRenderer<E>>) Class.forName(rendererClassName, true, getClass().getClassLoader());
 		} catch (ClassNotFoundException e) {
 			// try parent
 			EList<EClass> superTypes = elementClass.getESuperTypes();
 			for (EClass superType : superTypes) {
-				Class<? extends IEObjectRenderer<EObject>> renderer = findRenderer(superType);
+				Class<? extends IEObjectRenderer<E>> renderer = findRenderer(superType);
 				if (renderer != null)
 					return renderer;
 			}
@@ -64,12 +64,12 @@ public abstract class RendererSelector implements IRendererSelector<EObject> {
 		return matched;
 	}
 
-	public IEObjectRenderer<EObject> select(EObject element) {
+	public IEObjectRenderer<E> select(EObject element) {
 		Class<?> rendererClass = findRenderer(element.eClass());
 		if (rendererClass == null)
 			return null;
 		try {
-			return (IEObjectRenderer<EObject>) rendererClass.newInstance();
+			return (IEObjectRenderer<E>) rendererClass.newInstance();
 		} catch (InstantiationException e) {
 			LogUtils.logError(packageName, "Error instantiating renderer for " + element.eClass().getName(), e);
 		} catch (IllegalAccessException e) {

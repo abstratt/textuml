@@ -6,6 +6,8 @@ package com.abstratt.graphviz.uml.ui;
  import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.PreferenceChangeEvent;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.uml2.uml.Element;
 
 import com.abstratt.graphviz.uml.UML;
 import com.abstratt.graphviz.uml.UMLPreferences;
@@ -28,7 +30,7 @@ public class UML2GraphicalContentProvider extends
 	}
 
 	@Override
-	protected IRendererSelector<?> getRendererSelector() {
+	protected IRendererSelector<Element> getRendererSelector() {
 		return UML2DOT.getRendererSelector();
 	}
 
