@@ -4,8 +4,8 @@ import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_DAT
 
 import org.eclipse.uml2.uml.DataType;
 
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class DataTypeRenderer extends ClassifierRenderer<DataType> {
     public boolean renderObject(DataType element, IndentedPrintWriter w, IRenderingSession context) {

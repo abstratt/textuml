@@ -4,10 +4,10 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Relationship;
 
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowCrossPackageElementOptions;
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
 
 public abstract class AbstractRelationshipRenderer<T extends Relationship>
 		implements IElementRenderer<T> {

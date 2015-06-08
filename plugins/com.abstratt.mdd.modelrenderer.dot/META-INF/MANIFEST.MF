@@ -9,5 +9,5 @@ Import-Package: com.abstratt.pluginutils,
  org.apache.commons.io
 Require-Bundle: org.eclipse.equinox.common,
  org.eclipse.emf.ecore,
- com.abstratt.modelrenderer
+ com.abstratt.mdd.modelrenderer
 Export-Package: com.abstratt.mdd.modelrenderer.dot

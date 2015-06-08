@@ -11,9 +11,9 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Relationship;
 
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 /**
  * 

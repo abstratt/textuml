@@ -8,5 +8,5 @@ Bundle-Vendor: Abstratt Technologies
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: 
  com.abstratt.imageviewer,
- com.abstratt.graphviz.uml
+ com.abstratt.mdd.modelviewer.uml2dot
 Bundle-ActivationPolicy: lazy

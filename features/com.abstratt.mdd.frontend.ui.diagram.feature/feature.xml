@@ -23,7 +23,7 @@
    </url>
 
    <plugin
-         id="com.abstratt.modelviewer"
+         id="com.abstratt.mdd.modelviewer"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -38,7 +38,7 @@
          unpack="false"/>
 
    <plugin
-         id="com.abstratt.graphviz.uml"
+         id="com.abstratt.mdd.modelviewer.uml2dot"
          download-size="0"
          install-size="0"
          version="0.0.0"

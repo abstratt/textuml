@@ -4,8 +4,8 @@ import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_SIG
 
 import org.eclipse.uml2.uml.Signal;
 
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class SignalRenderer extends ClassifierRenderer<Signal> {
     public boolean renderObject(Signal element, IndentedPrintWriter w, IRenderingSession context) {

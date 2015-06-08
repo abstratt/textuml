@@ -2,9 +2,9 @@ package com.abstratt.mdd.modelrenderer.uml2dot;
 
 import org.eclipse.uml2.uml.EnumerationLiteral;
 
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class EnumerationLiteralRenderer implements IElementRenderer<EnumerationLiteral> {
 

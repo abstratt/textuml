@@ -18,12 +18,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
-import com.abstratt.modelrenderer.IRendererSelector;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IRenderingSettings;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
-import com.abstratt.modelrenderer.RenderingSession;
-import com.abstratt.modelrenderer.RenderingUtils;
+import com.abstratt.mdd.modelrenderer.IRendererSelector;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IRenderingSettings;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.RenderingSession;
+import com.abstratt.mdd.modelrenderer.RenderingUtils;
 import com.abstratt.pluginutils.LogUtils;
 
 public class DOTRendering implements DOTRenderingConstants {

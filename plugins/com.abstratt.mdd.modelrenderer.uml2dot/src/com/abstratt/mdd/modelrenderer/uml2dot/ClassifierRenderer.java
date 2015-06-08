@@ -17,12 +17,12 @@ import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.VisibilityKind;
 
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.RenderingUtils;
 import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierCompartmentForPackageOptions;
 import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierCompartmentOptions;
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
-import com.abstratt.modelrenderer.RenderingUtils;
 
 public class ClassifierRenderer<T extends Classifier> implements IElementRenderer<T> {
 

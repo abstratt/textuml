@@ -7,9 +7,9 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.ValueSpecification;
 
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class PropertyRenderer implements IElementRenderer<Property> {
 	public boolean renderObject(Property property, IndentedPrintWriter w, IRenderingSession context) {

@@ -17,10 +17,10 @@ import java.util.List;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
-import com.abstratt.modelrenderer.RenderingUtils;
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.RenderingUtils;
 public class InterfaceRenderer implements IEObjectRenderer<Interface> {
 
 	public boolean renderObject(Interface interface_, IndentedPrintWriter writer, IRenderingSession context) {

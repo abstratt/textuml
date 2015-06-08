@@ -14,9 +14,9 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.dot.DOTRenderingUtils;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
 
 public class AssociationRenderer extends AbstractRelationshipRenderer<Association> {
 

@@ -10,9 +10,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.UMLPackage;
 
+import com.abstratt.mdd.modelrenderer.IRenderingSettings;
+import com.abstratt.mdd.modelrenderer.RendererSelector;
 import com.abstratt.mdd.modelrenderer.dot.DOTRendering;
-import com.abstratt.modelrenderer.IRenderingSettings;
-import com.abstratt.modelrenderer.RendererSelector;
 
 public class UML2DOT {
 	public static RendererSelector<Element> getRendererSelector() {

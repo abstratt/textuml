@@ -5,9 +5,9 @@ import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.Type;
 
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ParameterRenderer implements IElementRenderer<Parameter> {
 

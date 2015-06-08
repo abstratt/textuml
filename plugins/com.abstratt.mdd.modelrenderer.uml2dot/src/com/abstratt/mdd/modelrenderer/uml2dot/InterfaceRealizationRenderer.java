@@ -7,9 +7,9 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
 
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.dot.DOTRenderingUtils;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
 
 public class InterfaceRealizationRenderer extends
 		AbstractRelationshipRenderer<InterfaceRealization> {

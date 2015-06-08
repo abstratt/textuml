@@ -17,13 +17,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.uml2.uml.UMLPackage;
 
-import com.abstratt.modelrenderer.IRendererSelector;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IRenderingSettings;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
-import com.abstratt.modelrenderer.RendererSelector;
-import com.abstratt.modelrenderer.RenderingSession;
-import com.abstratt.modelrenderer.RenderingUtils;
+import com.abstratt.mdd.modelrenderer.IRendererSelector;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IRenderingSettings;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.RendererSelector;
+import com.abstratt.mdd.modelrenderer.RenderingSession;
+import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class TextUMLRenderer {
 	public static final String PLUGIN_ID = TextUMLRenderer.class.getPackage().getName();
