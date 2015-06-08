@@ -6,7 +6,7 @@ package com.abstratt.mdd.modelrenderer.uml2dot;
 public class UML2DOTPreferences {
 	
 	public enum ShowClassifierCompartmentForPackageOptions {
-		Current, Immediate, Any;
+		Current, Immediate, Local, Any;
 		public static String KEY = SHOW_CLASSIFIER_COMPARTMENT_FOR_PACKAGE; 
 	}
 	
@@ -16,7 +16,7 @@ public class UML2DOTPreferences {
 	}
 	
 	public enum ShowCrossPackageElementOptions {
-		Never, Immediate, Always;
+		Never, Immediate, Local, Always;
 		public static String KEY = SHOW_ELEMENTS_IN_OTHER_PACKAGES;
 	}
 

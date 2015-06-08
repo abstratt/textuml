@@ -1,13 +1,18 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Behavior;
+import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.InterfaceRealization;
+import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.Reception;
 import org.eclipse.uml2.uml.StateMachine;
 
 import com.abstratt.mdd.modelrenderer.IRenderingSession;

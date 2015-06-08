@@ -10,6 +10,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Association;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -22,7 +23,7 @@ public class AssociationRenderer extends AbstractRelationshipRenderer<Associatio
 
 	@Override
 	public boolean basicRenderObject(Association element, IndentedPrintWriter pw,
-			IRenderingSession context) {
+			IRenderingSession<Element> context) {
 		if (!element.isBinary())
 			// we humbly admit we can't handle n-ary associations
 			return true;
@@ -77,7 +78,7 @@ public class AssociationRenderer extends AbstractRelationshipRenderer<Associatio
 	}
 
 	private void addEndAttributes(IndentedPrintWriter pw, String name,
-			Property end, IRenderingSession context) {
+			Property end, IRenderingSession<Element> context) {
 		Property opposite = end.getOtherEnd();
 		String arrow = end.isNavigable() & !opposite.isNavigable() ? "open"
 				: "none";
