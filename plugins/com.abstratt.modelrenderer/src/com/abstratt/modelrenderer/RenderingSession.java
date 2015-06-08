@@ -10,7 +10,6 @@
  *******************************************************************************/
 package com.abstratt.modelrenderer;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.Stack;
 import java.util.WeakHashMap;
@@ -18,16 +17,15 @@ import java.util.WeakHashMap;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
-@SuppressWarnings("unchecked")
 public class RenderingSession implements IRenderingSession {
-    private IRendererSelector selector;
+    private IRendererSelector<EObject> selector;
     private IndentedPrintWriter writer;
     private Map<EObject, Object> rendered = new WeakHashMap<EObject, Object>();
     private Stack<EObject> stack = new Stack<EObject>();
     private boolean shallow = false;
     private IRenderingSettings settings;
 
-    public RenderingSession(IRendererSelector selector, IRenderingSettings settings, IndentedPrintWriter writer) {
+    public RenderingSession(IRendererSelector<EObject> selector, IRenderingSettings settings, IndentedPrintWriter writer) {
         this.selector = selector;
         this.writer = writer;
         this.settings = settings;
@@ -53,7 +51,7 @@ public class RenderingSession implements IRenderingSession {
         this.shallow = newShallow;
         try {
             boolean actuallyRendered = false;
-            IRenderer renderer = selector.select(toRender);
+            IRenderer<EObject> renderer = selector.select(toRender);
             if (renderer != null) {
                 actuallyRendered = renderer.renderObject(toRender, writer, this);
                 if (!actuallyRendered)
