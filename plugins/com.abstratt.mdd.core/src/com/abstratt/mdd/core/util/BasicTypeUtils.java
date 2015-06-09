@@ -16,13 +16,14 @@ public class BasicTypeUtils {
 	}
 	
 	private final static Map<String, Converter> converters = new HashMap<String, Converter>();
-	private static final Converter NOOP_CONVERTER = new Converter() {public Object convert(String v) {return v;}};
+	private static final Converter NOOP_CONVERTER = value -> value;
 	
 	static {
-        converters.put("Integer", new Converter() { public Object convert(String value) { return Long.valueOf(value); }});
-        converters.put("Double", new Converter() { public Object convert(String value) { return Double.valueOf(value); }});
-        converters.put("Boolean", new Converter() { public Object convert(String value) { return Boolean.valueOf(value); }});
-        converters.put("Date", new Converter() { public Object convert(String value) { return new Date(Long.valueOf(value)); }});
+        converters.put("Integer", value -> Long.valueOf(value));
+        converters.put("Double", value -> Double.valueOf(value));
+        converters.put("Boolean", value -> Boolean.valueOf(value));
+        converters.put("Date", value -> new Date(Long.valueOf(value)));
+        converters.put("Blob", value -> { throw new UnsupportedOperationException(); });        
         converters.put("Memo", NOOP_CONVERTER);
         converters.put("String", NOOP_CONVERTER);
 	}
