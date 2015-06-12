@@ -11,7 +11,7 @@ public class UML2DOTRenderingUtils {
 	public static String ID = UML2DOTRenderingUtils.class.getPackage().getName();
 
 	public static String addGuillemots(String original) {
-		return "&lt;&lt;" + original + "&gt;&gt;";
+		return "&laquo;" + original + "&raquo;";
 	}
 
 	public static String renderMultiplicity(MultiplicityElement multiple, boolean brackets) {

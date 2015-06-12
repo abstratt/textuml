@@ -24,9 +24,9 @@ import org.eclipse.uml2.uml.Vertex;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.frontend.textuml.renderer.ActivityGenerator;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.dot.DOTRenderingUtils;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
 
 public class TransitionRenderer implements IElementRenderer<Transition> {
     @Override

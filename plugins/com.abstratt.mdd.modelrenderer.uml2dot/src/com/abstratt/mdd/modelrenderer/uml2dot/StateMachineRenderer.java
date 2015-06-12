@@ -4,9 +4,9 @@ import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_STA
 
 import org.eclipse.uml2.uml.StateMachine;
 
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
-import com.abstratt.modelrenderer.RenderingUtils;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class StateMachineRenderer implements IElementRenderer<StateMachine> {
     @Override

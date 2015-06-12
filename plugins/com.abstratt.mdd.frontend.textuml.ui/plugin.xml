@@ -54,7 +54,7 @@
       point="org.eclipse.ui.preferencePages">
    <page
          class="com.abstratt.mdd.internal.ui.TextUMLPreferencePage"
-         id="com.abstratt.mdd.frontend.textuml.ui.mainPage"
+         id="com.abstratt.mdd.internal.ui.TextUMLPreferencePage"
          name="TextUML">
    </page>
 </extension>

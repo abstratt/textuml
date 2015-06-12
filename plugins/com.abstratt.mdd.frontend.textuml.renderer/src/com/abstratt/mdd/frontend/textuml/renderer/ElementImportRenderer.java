@@ -14,9 +14,9 @@ import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.q
 
 import org.eclipse.uml2.uml.ElementImport;
 
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ElementImportRenderer implements IEObjectRenderer<ElementImport> {
 

@@ -41,6 +41,7 @@ import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.Port;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.Reception;
 import org.eclipse.uml2.uml.TemplateBinding;
 import org.eclipse.uml2.uml.TemplateSignature;
 import org.eclipse.uml2.uml.Type;
@@ -293,4 +294,14 @@ public class FeatureUtils {
 		List<Parameter> found = filterParameters(ownedParameters, ParameterDirectionKind.RETURN_LITERAL);
 		return found.isEmpty() ? null : found.get(0);
 	}
+	
+	
+    public static List<? extends BehavioralFeature> getBehavioralFeatures(Classifier classifier) {
+        if (!(classifier instanceof Interface) && !(classifier instanceof Class))
+            return classifier.getOperations();
+        List<BehavioralFeature> combined = new ArrayList<>(classifier.getOperations());
+        EList<Reception> receptions = (classifier instanceof Interface) ? ((Interface) classifier).getOwnedReceptions() : ((Class) classifier).getOwnedReceptions();
+        combined.addAll(receptions);
+        return combined;
+    }
 }

@@ -7,10 +7,10 @@ import java.util.List;
 import org.eclipse.uml2.uml.Enumeration;
 import org.eclipse.uml2.uml.Generalization;
 
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
-import com.abstratt.modelrenderer.RenderingUtils;
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class EnumerationRenderer implements IElementRenderer<Enumeration> {
 	public boolean renderObject(Enumeration element, IndentedPrintWriter w, IRenderingSession context) {

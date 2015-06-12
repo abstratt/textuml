@@ -12,9 +12,9 @@ package com.abstratt.mdd.frontend.textuml.renderer;
 
 import org.eclipse.uml2.uml.Comment;
 
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class CommentRenderer implements IEObjectRenderer<Comment> {
 	public boolean renderObject(Comment element, IndentedPrintWriter out,

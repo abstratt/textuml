@@ -101,6 +101,7 @@ public interface TextUMLConstants {
 			"role", 
 			"self", 
 			"send",
+			"signal",
 			"specializes", 
 			"state",
 			"statemachine",

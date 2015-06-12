@@ -9,8 +9,8 @@ import org.eclipse.uml2.uml.StructuredActivityNode;
 
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.frontend.textuml.renderer.ActivityGenerator;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ActivityRenderer implements IElementRenderer<Activity> {
     @Override

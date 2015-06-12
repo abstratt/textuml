@@ -8,21 +8,27 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.Association;
+import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Generalization;
+import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.VisibilityKind;
 
+import com.abstratt.mdd.core.util.ElementUtils;
+import com.abstratt.mdd.core.util.FeatureUtils;
+import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.RenderingUtils;
 import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierCompartmentForPackageOptions;
 import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierCompartmentOptions;
-import com.abstratt.modelrenderer.IEObjectRenderer;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
-import com.abstratt.modelrenderer.RenderingUtils;
 
 public class ClassifierRenderer<T extends Classifier> implements IElementRenderer<T> {
 
@@ -66,12 +72,14 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 				w.println("<TABLE border=\"1\" cellborder=\"0\"><TR><TD> </TD></TR></TABLE>");
 			w.println("</TD></TR>");
 		}
-		boolean operationsEmpty = !context.getSettings().getBoolean(SHOW_OPERATIONS) || element.getOperations().isEmpty();
+		List<? extends BehavioralFeature> behavioralFeatures = getBehavioralFeatures(element);
+		boolean operationsEmpty = !context.getSettings().getBoolean(SHOW_OPERATIONS) || behavioralFeatures.isEmpty();
+
 		if (showCompartments(context, operationsEmpty)) {
 			w.print("<TR><TD>");
 			if (!operationsEmpty) {
 				w.print("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
-				RenderingUtils.renderAll(context, element.getOperations());
+                RenderingUtils.renderAll(context, behavioralFeatures);
 				w.print("</TABLE>");
 			} else
 				w.print("<TABLE border=\"1\" cellborder=\"0\"><TR><TD> </TD></TR></TABLE>");
@@ -83,6 +91,10 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 		renderRelationships(element, context);
 		return true;
 	}
+
+    protected List<? extends BehavioralFeature> getBehavioralFeatures(T element) {
+        return FeatureUtils.getBehavioralFeatures(element);
+    }
 
     protected void renderClassifierTypeAdornment(T element, IndentedPrintWriter w, IRenderingSession session) {
         renderNameAdornments(Arrays.asList(getElementTypeName(element)), w, session);
@@ -120,7 +132,7 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 		RenderingUtils.renderAll(context, element.getOwnedComments());
 	}
 
-	private boolean showCompartments(IRenderingSession context, boolean isEmpty) {
+	private boolean showCompartments(IRenderingSession<Element> context, boolean isEmpty) {
 		ShowClassifierCompartmentOptions showCompartmentOption = context.getSettings().getSelection(ShowClassifierCompartmentOptions.class);
 		switch (showCompartmentOption) {
 		case Never:
@@ -131,16 +143,23 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 		case Always:
 		}
 		ShowClassifierCompartmentForPackageOptions showCompartmentForPackageOption = context.getSettings().getSelection(ShowClassifierCompartmentForPackageOptions.class);
+		EObject previousClassifier = context.getPrevious(UMLPackage.Literals.CLASSIFIER);
 		switch (showCompartmentForPackageOption) {
 		case Any:
 			return true;
 		case Immediate:
-			EObject previousClassifier = context.getPrevious(UMLPackage.Literals.CLASSIFIER);
 			if (previousClassifier != null && EcoreUtil.isAncestor(context.getRoot(), previousClassifier))
 				return true;
-		default: // Current
-			return EcoreUtil
-					.isAncestor(context.getRoot(), context.getCurrent());
+			break;
+		case Local:
+		    if (ElementUtils.sameRepository(context.getRoot(), context.getCurrent()))
+		        return true;
+            break;
+		case Current:
+		    break;
 		}
+		boolean underRootPackage = EcoreUtil
+		        .isAncestor(context.getRoot(), context.getCurrent());
+		return underRootPackage;
 	}
 }

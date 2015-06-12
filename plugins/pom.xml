@@ -23,15 +23,15 @@
     <module>com.abstratt.mdd.frontend.textuml.core</module>
     <module>com.abstratt.mdd.core.tests.harness</module>
     <module>com.abstratt.mdd.core.tests</module>
-    <module>com.abstratt.modelrenderer</module>
+    <module>com.abstratt.mdd.modelrenderer</module>
     <module>com.abstratt.mdd.modelrenderer.dot</module>
     <module>com.abstratt.mdd.modelrenderer.uml2dot</module>
-    <module>com.abstratt.modelviewer</module>
+    <module>com.abstratt.mdd.modelviewer</module>
+    <module>com.abstratt.mdd.modelviewer.uml2dot</module>
     <module>com.abstratt.mdd.ui</module>
     <module>com.abstratt.mdd.frontend.ui</module>
     <module>com.abstratt.mdd.frontend.textuml.ui</module>
     <module>com.abstratt.mdd.frontend.textuml.renderer</module>
-    <module>com.abstratt.graphviz.uml</module>
     <module>com.abstratt.mdd.frontend.visualizer.eclipsegraphviz</module>
   </modules>
 

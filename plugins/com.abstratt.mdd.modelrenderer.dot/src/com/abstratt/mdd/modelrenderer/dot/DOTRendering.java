@@ -18,12 +18,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 
-import com.abstratt.modelrenderer.IRendererSelector;
-import com.abstratt.modelrenderer.IRenderingSession;
-import com.abstratt.modelrenderer.IRenderingSettings;
-import com.abstratt.modelrenderer.IndentedPrintWriter;
-import com.abstratt.modelrenderer.RenderingSession;
-import com.abstratt.modelrenderer.RenderingUtils;
+import com.abstratt.mdd.modelrenderer.IRendererSelector;
+import com.abstratt.mdd.modelrenderer.IRenderingSession;
+import com.abstratt.mdd.modelrenderer.IRenderingSettings;
+import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
+import com.abstratt.mdd.modelrenderer.RenderingSession;
+import com.abstratt.mdd.modelrenderer.RenderingUtils;
 import com.abstratt.pluginutils.LogUtils;
 
 public class DOTRendering implements DOTRenderingConstants {
@@ -31,13 +31,13 @@ public class DOTRendering implements DOTRenderingConstants {
 
 	
 	public static byte[] generateDOTFromModel(URI modelURI,
-			IRendererSelector<?> selector, IRenderingSettings settings)
+			IRendererSelector<? extends EObject> selector, IRenderingSettings settings)
 			throws CoreException {
         return generateDOTFromModel(modelURI, selector, settings, new HashMap<String, Map<String,Object>>());
 	}
 	
 	public static byte[] generateDOTFromModel(URI modelURI,
-			IRendererSelector<?> selector, IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings)
+			IRendererSelector<? extends EObject> selector, IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings)
 			throws CoreException {
         org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI
                 .createURI(modelURI.toASCIIString());
@@ -70,7 +70,7 @@ public class DOTRendering implements DOTRenderingConstants {
 	    
 	}
     public static byte[] generateDOTFromModel(URI modelURI, Collection<EObject> modelContents,
-            IRendererSelector<?> selector, IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings)
+            IRendererSelector<? extends EObject> selector, IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings)
             throws CoreException {
         
 		StringWriter sw = new StringWriter();
