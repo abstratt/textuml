@@ -22,27 +22,16 @@
       <discovery label="%updateSiteName" url="http://abstratt.com/update/"/>
    </url>
 
+   <requires>
+   <import plugin="org.apache.commons.io"
+         version="2.2.0"/> 
          
-   <plugin
-         id="org.apache.commons.io"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/> 
+   <import plugin="org.apache.commons.lang"
+         version="2.6.0"/> 
          
-   <plugin
-         id="org.apache.commons.lang"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>                   
-
-   <plugin
-         id="org.apache.commons.collections"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>  
+   <import plugin="org.apache.commons.collections"
+         version="3.2.0"/> 
+   </requires>
 
    <plugin
          id="com.abstratt.resman"
