@@ -43,8 +43,8 @@ Marketplace), install it from here:
 
 ###  Checking out the source code
 
-The code has now moved to Bitbucket. See: [https://bitbucket.org/abstratt/text
-uml](https://bitbucket.org/abstratt/textuml)
+The code has now moved to GitHub. See: [https://github.com/abstratt/text
+uml](https://github.com/abstratt/textuml)
 
 ###  Importing the source code into Eclipse
 
