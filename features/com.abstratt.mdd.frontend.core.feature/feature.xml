@@ -31,6 +31,16 @@
          
    <import plugin="org.apache.commons.collections"
          version="3.2.0"/> 
+         
+   <import plugin="org.apache.commons.collections"
+         version="3.2.0"/> 
+         
+   <import plugin="com.abstratt.pluginutils"
+         version="2.1.201501"/>          
+         
+   <import plugin="com.abstratt.pluginutils"
+         version="2.1.201501"/>                   
+         
    </requires>
 
    <plugin
