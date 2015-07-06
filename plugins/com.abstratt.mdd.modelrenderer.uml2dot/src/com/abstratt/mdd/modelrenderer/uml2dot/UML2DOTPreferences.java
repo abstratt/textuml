@@ -35,6 +35,7 @@ public class UML2DOTPreferences {
 	public static final String SHOW_ELEMENTS_IN_OTHER_PACKAGES = "showElementsInOtherPackage";
 	public static final String SHOW_CLASSIFIER_COMPARTMENT = "showClassifierCompartments";
 	public static final String SHOW_CLASSIFIER_COMPARTMENT_FOR_PACKAGE = "showClassifierCompartmentForPackage";
+	public static final String SHOW_ELEMENTS_IN_LIBRARIES = "showLibraries";
 	public static final String SHOW_PRIMITIVES = "showPrimitives";
 	public static final String SHOW_CLASSES = "showClasses";
 	public static final String SHOW_INTERFACES = "showInterfaces";

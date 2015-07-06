@@ -47,6 +47,7 @@ public class UMLPreferencePage extends PreferencePage implements
 	private Combo showClassifierCompartmentsCombo;
 	private Combo showClassifierCompartmentsForPackageCombo;
 	private Combo showElementsInOtherPackagesCombo;
+	private Button showElementsInLibrariesCheckBox;
 	private ScopedPreferenceStore preferenceStore;
 
 	public UMLPreferencePage() {
@@ -112,6 +113,7 @@ public class UMLPreferencePage extends PreferencePage implements
 		showParameterNamesCheckBox = makeCheck(composite, "Show parameter names for operations");
 		showParameterDirectionCheckBox = makeCheck(composite, "Show parameter direction for operations");
 		showElementsInOtherPackagesCombo = makeCombo(composite, "Show elements across packages", Arrays.asList(ShowCrossPackageElementOptions.values()));
+		showElementsInLibrariesCheckBox = makeCheck(composite, "Show elements in library models");
 		showClassifierCompartmentsCombo = makeCombo(composite, "Show compartments in classifiers", Arrays.asList(ShowClassifierCompartmentOptions.values()));
 		showClassifierCompartmentsForPackageCombo = makeCombo(composite, "Show compartments in classifiers for package", Arrays.asList(ShowClassifierCompartmentForPackageOptions.values()));
 		
@@ -173,6 +175,8 @@ public class UMLPreferencePage extends PreferencePage implements
 		showParameterDirectionCheckBox.setSelection(preferenceStore.getBoolean(
 				SHOW_PARAMETER_DIRECTION));
 		select(showElementsInOtherPackagesCombo, preferenceStore.getString(SHOW_ELEMENTS_IN_OTHER_PACKAGES));
+		showElementsInLibrariesCheckBox.setSelection(preferenceStore.getBoolean(
+				SHOW_ELEMENTS_IN_LIBRARIES));
 		select(showClassifierCompartmentsCombo, preferenceStore.getString(SHOW_CLASSIFIER_COMPARTMENT));
 		select(showClassifierCompartmentsForPackageCombo, preferenceStore.getString(SHOW_CLASSIFIER_COMPARTMENT_FOR_PACKAGE));
 	}
@@ -242,6 +246,9 @@ public class UMLPreferencePage extends PreferencePage implements
 				showClassifierCompartmentsForPackageCombo.getItem(showClassifierCompartmentsForPackageCombo.getSelectionIndex()));
 		preferenceStore.setValue(SHOW_ELEMENTS_IN_OTHER_PACKAGES,
 				showElementsInOtherPackagesCombo.getItem(showElementsInOtherPackagesCombo.getSelectionIndex()));
+		preferenceStore.setValue(SHOW_ELEMENTS_IN_LIBRARIES,
+				showElementsInLibrariesCheckBox.getSelection());
+		
 		return super.performOk();
 	}
 

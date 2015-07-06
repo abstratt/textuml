@@ -1,13 +1,15 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Relationship;
 
 import com.abstratt.mdd.core.util.ElementUtils;
+import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
-import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowCrossPackageElementOptions;
 
 public abstract class AbstractRelationshipRenderer<T extends Relationship>
 		implements IElementRenderer<T> {
@@ -23,6 +25,11 @@ public abstract class AbstractRelationshipRenderer<T extends Relationship>
 
 	protected boolean shouldRender(IRenderingSession<Element> context,
 			Element source, Element destination) {
+		boolean isModelLibrary = MDDUtil.getRootPackage(destination.getNearestPackage()).isModelLibrary();
+		boolean showModelLibraries = context.getSettings().getBoolean(SHOW_ELEMENTS_IN_LIBRARIES);
+		if (isModelLibrary && !showModelLibraries)
+			return false;
+
 		ShowCrossPackageElementOptions crossPackageElementOption = context.getSettings().getSelection(ShowCrossPackageElementOptions.class);
 		switch (crossPackageElementOption) {
 		case Never:
