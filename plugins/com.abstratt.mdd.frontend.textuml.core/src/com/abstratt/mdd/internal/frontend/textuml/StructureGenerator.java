@@ -839,7 +839,9 @@ public class StructureGenerator extends AbstractGenerator {
 		if (IRepository.PACKAGE.getClass_() != currentClassSnapshot.eClass())
 			// not a class
 			return;
-		createGeneralization(TypeUtils.makeTypeName("Object"), currentClassSnapshot, Literals.CLASS, node.parent());
+		boolean extendBaseObject = Boolean.TRUE.toString().equals(context.getRepositoryProperties().get(IRepository.EXTEND_BASE_OBJECT));
+		if (extendBaseObject)
+			createGeneralization(TypeUtils.makeTypeName("Object"), currentClassSnapshot, Literals.CLASS, node.parent());
 	}
 	
 	@Override
@@ -858,9 +860,6 @@ public class StructureGenerator extends AbstractGenerator {
 	 * Helper method that creates generalizations.
 	 */
 	private void createGeneralization(String baseTypeName, final Classifier classifier, EClass superMetaClass, final Node contextNode) {
-		boolean extendBaseObject = Boolean.TRUE.toString().equals(context.getRepositoryProperties().get(IRepository.EXTEND_BASE_OBJECT));
-		if (!extendBaseObject)
-			return;
 		if (superMetaClass == null)
 			superMetaClass = classifier.eClass();
 		getRefTracker().add(new DeferredReference<Classifier>(baseTypeName, superMetaClass, namespaceTracker.currentPackage()) {
