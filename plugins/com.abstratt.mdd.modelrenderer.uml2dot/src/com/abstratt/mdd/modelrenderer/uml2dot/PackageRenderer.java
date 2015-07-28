@@ -3,6 +3,8 @@
  */
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ELEMENTS_IN_LIBRARIES;
+
 import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
@@ -11,7 +13,6 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Relationship;
 
-import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
