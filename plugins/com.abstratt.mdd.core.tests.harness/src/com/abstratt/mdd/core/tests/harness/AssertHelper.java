@@ -32,6 +32,19 @@ public class AssertHelper {
         Assert.assertEquals(trim(seq1), trim(seq2));
     }
 	
+	public static void assertStringMatches(String seq, String toTest) {
+		assertStringMatches(seq, toTest, "...");
+	}
+	public static void assertStringMatches(String seq, String toTest, String marker) {
+		int elipsis = seq.indexOf(marker);
+		Assert.assertTrue(elipsis > 0);
+		String seq1 = seq.substring(0, elipsis);
+		String seq2 = seq.substring(elipsis + "...".length());
+		assertStringStartsWith(seq1, toTest);
+		assertStringEndsWith(seq2, toTest);
+	}
+
+	
 	public static void assertStringStartsAndEndsWith(String seq1, String seq2, String toTest) {
 		assertStringStartsWith(seq1, toTest);
 		assertStringEndsWith(seq2, toTest);
