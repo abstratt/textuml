@@ -12,8 +12,8 @@ import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
-import com.abstratt.mdd.internal.frontend.textuml.node.AComplexInitializationExpression;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AComplexInitializationExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 public class ComplexInitializationExpressionProcessor {
 

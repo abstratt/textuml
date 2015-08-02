@@ -15,7 +15,7 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Parameter;
 
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 public class BehavioralFeatureSignatureProcessor extends SignatureProcessor {
     public BehavioralFeatureSignatureProcessor(SourceCompilationContext<Node> sourceContext, BehavioralFeature parent) {

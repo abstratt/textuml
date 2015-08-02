@@ -10,14 +10,14 @@ import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
-import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.TFalse;
-import com.abstratt.mdd.internal.frontend.textuml.node.TInteger;
-import com.abstratt.mdd.internal.frontend.textuml.node.TNull;
-import com.abstratt.mdd.internal.frontend.textuml.node.TReal;
-import com.abstratt.mdd.internal.frontend.textuml.node.TString;
-import com.abstratt.mdd.internal.frontend.textuml.node.TTrue;
+import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TFalse;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TInteger;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TNull;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TReal;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TString;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TTrue;
 
 public class LiteralValueParser {
 	public static ValueSpecification parseLiteralValue(Node node, final org.eclipse.uml2.uml.Package currentPackage, final ProblemBuilder<Node> problemBuilder) {

@@ -16,7 +16,7 @@ import org.eclipse.uml2.uml.TypedElement;
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 /**
  * A type setter that defers resolution of type references to a later step. 

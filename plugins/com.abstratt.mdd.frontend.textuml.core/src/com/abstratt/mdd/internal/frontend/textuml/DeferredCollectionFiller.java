@@ -27,12 +27,12 @@ import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
-import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.internal.frontend.textuml.node.AAnySingleTypeIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedSingleTypeIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.ATypeIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.PTypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAnySingleTypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedSingleTypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ATypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
 
 /**
  * This deferred type resolver adds the resolved type to a target collection of types ({@link #target}.

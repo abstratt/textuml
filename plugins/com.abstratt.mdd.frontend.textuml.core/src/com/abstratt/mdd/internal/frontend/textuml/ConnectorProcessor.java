@@ -38,10 +38,10 @@ import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
-import com.abstratt.mdd.internal.frontend.textuml.node.AConnectorEndList;
-import com.abstratt.mdd.internal.frontend.textuml.node.APathConnectorEnd;
-import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleConnectorEnd;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AConnectorEndList;
+import com.abstratt.mdd.frontend.textuml.grammar.node.APathConnectorEnd;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleConnectorEnd;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 public class ConnectorProcessor extends AbstractProcessor<AConnectorEndList, StructuredClassifier> {
 	

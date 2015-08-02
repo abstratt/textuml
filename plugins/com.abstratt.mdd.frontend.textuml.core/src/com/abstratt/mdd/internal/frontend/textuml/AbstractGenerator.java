@@ -31,15 +31,15 @@ import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
 import com.abstratt.mdd.frontend.core.spi.NamespaceTracker;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
-import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.internal.frontend.textuml.node.AModelPackageType;
-import com.abstratt.mdd.internal.frontend.textuml.node.APackagePackageType;
-import com.abstratt.mdd.internal.frontend.textuml.node.AProfilePackageType;
-import com.abstratt.mdd.internal.frontend.textuml.node.AStart;
-import com.abstratt.mdd.internal.frontend.textuml.node.ATypeIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.PPackageType;
-import com.abstratt.mdd.internal.frontend.textuml.node.Token;
+import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AModelPackageType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.APackagePackageType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AProfilePackageType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AStart;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ATypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PPackageType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 
 public abstract class AbstractGenerator extends DepthFirstAdapter {
 

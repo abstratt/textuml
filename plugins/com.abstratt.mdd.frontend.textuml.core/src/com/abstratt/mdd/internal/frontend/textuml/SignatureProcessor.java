@@ -28,18 +28,18 @@ import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
-import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.internal.frontend.textuml.node.AComplexInitializationExpression;
-import com.abstratt.mdd.internal.frontend.textuml.node.AOptionalReturnType;
-import com.abstratt.mdd.internal.frontend.textuml.node.AParamDecl;
-import com.abstratt.mdd.internal.frontend.textuml.node.ARaisedExceptionItem;
-import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleInitialization;
-import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleInitializationExpression;
-import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleOptionalReturnType;
-import com.abstratt.mdd.internal.frontend.textuml.node.ASimpleParamDecl;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.POptionalParameterName;
-import com.abstratt.mdd.internal.frontend.textuml.node.PTypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AComplexInitializationExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalReturnType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AParamDecl;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ARaisedExceptionItem;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleInitialization;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleInitializationExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleOptionalReturnType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleParamDecl;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.POptionalParameterName;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
 
 public abstract class SignatureProcessor extends AbstractSignatureProcessor {
 	

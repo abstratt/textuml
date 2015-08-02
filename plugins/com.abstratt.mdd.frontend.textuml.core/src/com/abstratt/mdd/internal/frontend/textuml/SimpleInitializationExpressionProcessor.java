@@ -20,12 +20,12 @@ import com.abstratt.mdd.frontend.core.spi.DeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
-import com.abstratt.mdd.internal.frontend.textuml.node.AIdentifierLiteralOrIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.ALiteralLiteralOrIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.PLiteralOrIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.PTypeIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.TIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AIdentifierLiteralOrIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ALiteralLiteralOrIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PLiteralOrIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TIdentifier;
 
 public class SimpleInitializationExpressionProcessor {
 

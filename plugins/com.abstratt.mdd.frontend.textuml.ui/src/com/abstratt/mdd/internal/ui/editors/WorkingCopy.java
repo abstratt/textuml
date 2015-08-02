@@ -27,9 +27,9 @@ import com.abstratt.mdd.frontend.core.ASTNode;
 import com.abstratt.mdd.frontend.core.ASTNode.VisitorResult;
 import com.abstratt.mdd.frontend.core.ASTVisitor;
 import com.abstratt.mdd.internal.frontend.textuml.TextUMLCompiler;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.Start;
-import com.abstratt.mdd.internal.frontend.textuml.node.Token;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Start;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 import com.abstratt.mdd.ui.UIUtils;
 
 /**

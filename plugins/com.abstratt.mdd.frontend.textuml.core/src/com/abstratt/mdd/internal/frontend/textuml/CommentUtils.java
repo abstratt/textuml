@@ -3,7 +3,7 @@ package com.abstratt.mdd.internal.frontend.textuml;
 import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.Element;
 
-import com.abstratt.mdd.internal.frontend.textuml.node.TModelComment;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TModelComment;
 
 public class CommentUtils {
 	public static String collectCommentBody(TModelComment node) {

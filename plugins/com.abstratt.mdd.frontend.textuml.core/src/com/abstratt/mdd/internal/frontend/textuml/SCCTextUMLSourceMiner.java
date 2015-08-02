@@ -19,14 +19,14 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.uml2.uml.NamedElement;
 
 import com.abstratt.mdd.frontend.core.spi.ISourceMiner;
-import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.internal.frontend.textuml.node.AForcefullyQualifiedIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifierBase;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.TIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.TNamespaceSeparator;
-import com.abstratt.mdd.internal.frontend.textuml.node.Token;
+import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AForcefullyQualifiedIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedIdentifierBase;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TNamespaceSeparator;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 
 public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 	@SuppressWarnings("serial")
