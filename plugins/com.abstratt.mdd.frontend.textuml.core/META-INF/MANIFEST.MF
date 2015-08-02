@@ -6,13 +6,10 @@ Bundle-Version: 2.1.201501.qualifier
 Require-Bundle: org.eclipse.core.contenttype,
  com.abstratt.mdd.core,
  com.abstratt.mdd.frontend.core,
- org.apache.commons.beanutils
+ org.apache.commons.beanutils,
+ com.abstratt.mdd.frontend.textuml.grammar;visibility:=reexport
 Export-Package: com.abstratt.mdd.frontend.textuml.core,
- com.abstratt.mdd.internal.frontend.textuml;x-friends:="com.abstratt.mdd.core.tests,com.abstratt.mdd.frontend.textuml.ui,com.abstratt.mdd.frontend.tests.textuml",
- com.abstratt.mdd.internal.frontend.textuml.analysis;x-friends:="com.abstratt.mdd.core.tests,com.abstratt.mdd.frontend.textuml.ui,com.abstratt.mdd.frontend.tests.textuml",
- com.abstratt.mdd.internal.frontend.textuml.lexer;x-friends:="com.abstratt.mdd.core.tests,com.abstratt.mdd.frontend.textuml.ui,com.abstratt.mdd.frontend.tests.textuml",
- com.abstratt.mdd.internal.frontend.textuml.node;x-friends:="com.abstratt.mdd.core.tests,com.abstratt.mdd.frontend.textuml.ui,com.abstratt.mdd.frontend.tests.textuml",
- com.abstratt.mdd.internal.frontend.textuml.parser;x-friends:="com.abstratt.mdd.core.tests,com.abstratt.mdd.frontend.textuml.ui,com.abstratt.mdd.frontend.tests.textuml"
+ com.abstratt.mdd.internal.frontend.textuml.core;x-friends:="com.abstratt.mdd.core.tests,com.abstratt.mdd.frontend.textuml.ui,com.abstratt.mdd.frontend.tests.textuml"
 Import-Package: org.apache.commons.lang
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: Abstratt Technologies

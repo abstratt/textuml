@@ -72,11 +72,18 @@
          unpack="false"/>
 
    <plugin
-         id="com.abstratt.mdd.frontend.textuml.core"
+         id="com.abstratt.mdd.frontend.textuml.grammar"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+         
+   <plugin
+         id="com.abstratt.mdd.frontend.textuml.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>         
 
    <plugin
          id="com.abstratt.mdd.frontend.cli"

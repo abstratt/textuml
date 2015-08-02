@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: MDD TextUML Core
+Bundle-SymbolicName: com.abstratt.mdd.frontend.textuml.grammar;singleton:=true
+Bundle-Version: 2.1.201501.qualifier
+Export-Package: 
+ com.abstratt.mdd.frontend.textuml.grammar.analysis,
+ com.abstratt.mdd.frontend.textuml.grammar.lexer,
+ com.abstratt.mdd.frontend.textuml.grammar.node,
+ com.abstratt.mdd.frontend.textuml.grammar.parser
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Vendor: Abstratt Technologies

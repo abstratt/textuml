@@ -11,7 +11,7 @@
 package com.abstratt.mdd.internal.ui.model;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.internal.frontend.textuml.node.AAssociationHeader;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationHeader;
 
 public abstract class AbstractAssociation extends LeafModelObject {
 

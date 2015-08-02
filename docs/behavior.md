@@ -14,7 +14,7 @@ category](http://abstratt.com/blog/category/uml/action-language/ "http://abstrat
 
 You can find the EBNF grammar for the TextUML notation, which includes
 both the structural and behavioural aspects of the
-notation, [here](../plugins/com.abstratt.mdd.frontend.textuml.core/textuml.scc).
+notation, [here](../plugins/com.abstratt.mdd.frontend.textuml.grammar/textuml.scc).
 
 This complements the documentation for [structural
 aspects](structure.html)
