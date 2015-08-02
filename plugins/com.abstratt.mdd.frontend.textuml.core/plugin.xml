@@ -6,7 +6,7 @@
       <language
             file-extension="tuml"
             name="TextUML"
-            compiler="com.abstratt.mdd.internal.frontend.textuml.TextUMLCompiler"/>
+            compiler="com.abstratt.mdd.internal.frontend.textuml.core.TextUMLCompiler"/>
    </extension>
    <extension
          point="org.eclipse.core.contenttype.contentTypes">
