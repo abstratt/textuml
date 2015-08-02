@@ -16,12 +16,12 @@ import java.util.List;
 import org.eclipse.swt.graphics.Image;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AClassDef;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AClassHeader;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AInterfaceClassType;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
+import com.abstratt.mdd.internal.frontend.textuml.node.AClassDef;
+import com.abstratt.mdd.internal.frontend.textuml.node.AClassHeader;
+import com.abstratt.mdd.internal.frontend.textuml.node.AInterfaceClassType;
+import com.abstratt.mdd.internal.frontend.textuml.node.AOperationDecl;
+import com.abstratt.mdd.internal.frontend.textuml.node.Node;
+import com.abstratt.mdd.internal.frontend.textuml.node.Token;
 import com.abstratt.mdd.ui.Activator;
 import com.abstratt.mdd.ui.UIConstants;
 

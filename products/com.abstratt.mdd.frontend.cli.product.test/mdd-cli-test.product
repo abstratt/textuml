@@ -7,8 +7,7 @@
    </configIni>
 
    <launcherArgs>
-      <programArgs>-consolelog
-      </programArgs>
+      <programArgs>-consolelog</programArgs>
    </launcherArgs>
 
    <launcher name="mdd-cli-test">
@@ -23,12 +22,15 @@
 
    <plugins>
       <plugin id="com.abstratt.mdd.core"/>
-      <plugin id="com.abstratt.mdd.core.tests"/>
-      <plugin id="com.abstratt.mdd.frontend.cli"/>
       <plugin id="com.abstratt.mdd.frontend.core"/>
       <plugin id="com.abstratt.mdd.frontend.textuml.core"/>
-      <plugin id="com.abstratt.mdd.frontend.textuml.grammar"/>
+      <plugin id="com.abstratt.mdd.frontend.cli"/>
+
+      <plugin id="com.abstratt.mdd.core.tests"/>
    </plugins>
+
+   <features>
+   </features>
 
    <configurations>
       <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />

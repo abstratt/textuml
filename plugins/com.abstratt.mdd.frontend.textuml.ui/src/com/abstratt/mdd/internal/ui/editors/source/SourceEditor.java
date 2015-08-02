@@ -35,7 +35,7 @@ import org.eclipse.ui.texteditor.ITextEditorActionDefinitionIds;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 import com.abstratt.mdd.frontend.ui.IMDDEditor;
-import com.abstratt.mdd.internal.frontend.textuml.core.TextUMLCompiler;
+import com.abstratt.mdd.internal.frontend.textuml.TextUMLCompiler;
 import com.abstratt.mdd.internal.ui.TextUMLUIPlugin;
 import com.abstratt.mdd.internal.ui.editors.WorkingCopy;
 import com.abstratt.mdd.internal.ui.editors.WorkingCopyRegistry;

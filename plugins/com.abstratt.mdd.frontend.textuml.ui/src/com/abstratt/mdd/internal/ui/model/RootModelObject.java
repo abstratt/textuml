@@ -13,13 +13,13 @@ package com.abstratt.mdd.internal.ui.model;
 import org.eclipse.swt.graphics.Image;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAggregationAssociationKind;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationAssociationKind;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationDef;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AClassDef;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ACompositionAssociationKind;
-import com.abstratt.mdd.frontend.textuml.grammar.node.APrimitiveDef;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
+import com.abstratt.mdd.internal.frontend.textuml.node.AAggregationAssociationKind;
+import com.abstratt.mdd.internal.frontend.textuml.node.AAssociationAssociationKind;
+import com.abstratt.mdd.internal.frontend.textuml.node.AAssociationDef;
+import com.abstratt.mdd.internal.frontend.textuml.node.AClassDef;
+import com.abstratt.mdd.internal.frontend.textuml.node.ACompositionAssociationKind;
+import com.abstratt.mdd.internal.frontend.textuml.node.APrimitiveDef;
+import com.abstratt.mdd.internal.frontend.textuml.node.Token;
 import com.abstratt.mdd.internal.ui.TextUMLUIPlugin;
 
 public class RootModelObject extends UIModelObject {

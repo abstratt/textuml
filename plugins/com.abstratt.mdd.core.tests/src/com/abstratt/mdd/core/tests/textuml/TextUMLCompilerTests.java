@@ -5,11 +5,11 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AStart;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Start;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
-import com.abstratt.mdd.internal.frontend.textuml.core.TextUMLCompiler;
+import com.abstratt.mdd.internal.frontend.textuml.TextUMLCompiler;
+import com.abstratt.mdd.internal.frontend.textuml.node.AStart;
+import com.abstratt.mdd.internal.frontend.textuml.node.Node;
+import com.abstratt.mdd.internal.frontend.textuml.node.Start;
+import com.abstratt.mdd.internal.frontend.textuml.node.Token;
 
 public class TextUMLCompilerTests extends TestCase {
 	
