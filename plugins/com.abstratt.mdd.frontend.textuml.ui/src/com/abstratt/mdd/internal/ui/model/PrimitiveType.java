@@ -16,9 +16,9 @@ import java.util.List;
 import org.eclipse.swt.graphics.Image;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.frontend.textuml.grammar.node.APrimitiveDef;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
+import com.abstratt.mdd.internal.frontend.textuml.node.APrimitiveDef;
+import com.abstratt.mdd.internal.frontend.textuml.node.Node;
+import com.abstratt.mdd.internal.frontend.textuml.node.Token;
 import com.abstratt.mdd.ui.Activator;
 import com.abstratt.mdd.ui.UIConstants;
 

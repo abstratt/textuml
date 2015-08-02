@@ -20,11 +20,11 @@ import com.abstratt.mdd.frontend.core.ASTNode;
 import com.abstratt.mdd.frontend.core.ASTNode.VisitorResult;
 import com.abstratt.mdd.frontend.core.ASTReverseVisitor;
 import com.abstratt.mdd.frontend.core.ASTVisitor;
-import com.abstratt.mdd.frontend.textuml.grammar.node.APackageHeading;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedIdentifier;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedIdentifierBase;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
+import com.abstratt.mdd.internal.frontend.textuml.node.APackageHeading;
+import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifier;
+import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifierBase;
+import com.abstratt.mdd.internal.frontend.textuml.node.Node;
+import com.abstratt.mdd.internal.frontend.textuml.node.Token;
 
 public class ASTUtils {
 

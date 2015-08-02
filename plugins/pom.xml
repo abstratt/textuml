@@ -20,7 +20,6 @@
 		<module>com.abstratt.mdd.target.base</module>
 		<module>com.abstratt.mdd.frontend.core</module>
 		<module>com.abstratt.mdd.frontend.cli</module>
-		<module>com.abstratt.mdd.frontend.textuml.grammar</module>
 		<module>com.abstratt.mdd.frontend.textuml.core</module>
 		<module>com.abstratt.mdd.core.tests.harness</module>
 		<module>com.abstratt.mdd.core.tests</module>

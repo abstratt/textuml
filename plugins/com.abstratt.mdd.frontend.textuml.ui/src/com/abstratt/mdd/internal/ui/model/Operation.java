@@ -13,15 +13,15 @@ package com.abstratt.mdd.internal.ui.model;
 import org.eclipse.swt.graphics.Image;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationHeader;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationOperationKeyword;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalReturnType;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AQueryOperationKeyword;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ASignature;
-import com.abstratt.mdd.frontend.textuml.grammar.node.POperationKeyword;
-import com.abstratt.mdd.frontend.textuml.grammar.node.POptionalReturnType;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
+import com.abstratt.mdd.internal.frontend.textuml.node.AOperationDecl;
+import com.abstratt.mdd.internal.frontend.textuml.node.AOperationHeader;
+import com.abstratt.mdd.internal.frontend.textuml.node.AOperationOperationKeyword;
+import com.abstratt.mdd.internal.frontend.textuml.node.AOptionalReturnType;
+import com.abstratt.mdd.internal.frontend.textuml.node.AQueryOperationKeyword;
+import com.abstratt.mdd.internal.frontend.textuml.node.ASignature;
+import com.abstratt.mdd.internal.frontend.textuml.node.POperationKeyword;
+import com.abstratt.mdd.internal.frontend.textuml.node.POptionalReturnType;
+import com.abstratt.mdd.internal.frontend.textuml.node.Token;
 import com.abstratt.mdd.ui.Activator;
 import com.abstratt.mdd.ui.UIConstants;
 
