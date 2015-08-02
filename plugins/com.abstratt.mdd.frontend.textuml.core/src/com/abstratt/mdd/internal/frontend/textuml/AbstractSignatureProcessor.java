@@ -18,9 +18,9 @@ import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
-import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.PTypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
 
 public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
 	protected final CompilationContext context;

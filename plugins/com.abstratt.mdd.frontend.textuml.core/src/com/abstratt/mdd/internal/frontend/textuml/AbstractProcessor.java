@@ -7,8 +7,8 @@ import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.core.spi.ISourceMiner;
 import com.abstratt.mdd.frontend.core.spi.NamespaceTracker;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
-import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 public abstract class AbstractProcessor<N, S extends Namespace> extends DepthFirstAdapter implements
 		NodeProcessor<N> {

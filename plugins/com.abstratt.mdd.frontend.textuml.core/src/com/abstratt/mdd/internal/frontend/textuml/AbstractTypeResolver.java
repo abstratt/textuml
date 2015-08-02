@@ -30,8 +30,8 @@ import com.abstratt.mdd.frontend.core.WrongNumberOfArguments;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.PQualifiedIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PQualifiedIdentifier;
 
 public abstract class AbstractTypeResolver {
 

@@ -18,9 +18,9 @@ import org.eclipse.uml2.uml.TemplateSignature;
 import org.eclipse.uml2.uml.TemplateableElement;
 
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
-import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.internal.frontend.textuml.node.AFormalTemplateParameter;
-import com.abstratt.mdd.internal.frontend.textuml.node.POptionalFormalTemplateParameters;
+import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AFormalTemplateParameter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.POptionalFormalTemplateParameters;
 
 public class TemplateProcessor implements NodeProcessor<POptionalFormalTemplateParameters> {
 	private TemplateableElement classifier;

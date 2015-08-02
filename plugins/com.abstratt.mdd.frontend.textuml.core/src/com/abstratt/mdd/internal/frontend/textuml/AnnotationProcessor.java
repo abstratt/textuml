@@ -33,17 +33,17 @@ import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
-import com.abstratt.mdd.internal.frontend.textuml.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.internal.frontend.textuml.node.AAnnotation;
-import com.abstratt.mdd.internal.frontend.textuml.node.AAnnotationValueSpec;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.PAnnotations;
-import com.abstratt.mdd.internal.frontend.textuml.node.TFalse;
-import com.abstratt.mdd.internal.frontend.textuml.node.TIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.TInteger;
-import com.abstratt.mdd.internal.frontend.textuml.node.TReal;
-import com.abstratt.mdd.internal.frontend.textuml.node.TString;
-import com.abstratt.mdd.internal.frontend.textuml.node.TTrue;
+import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAnnotation;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAnnotationValueSpec;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PAnnotations;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TFalse;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TInteger;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TReal;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TString;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TTrue;
 
 public class AnnotationProcessor implements NodeProcessor<PAnnotations> {
 

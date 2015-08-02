@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.Assert;
 
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.Token;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 
 /**
  * A node processor that collcets modifiers.
