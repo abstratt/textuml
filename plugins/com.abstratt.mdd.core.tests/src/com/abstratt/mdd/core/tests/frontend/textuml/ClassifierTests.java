@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Actor;
-import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
@@ -33,8 +32,8 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IProblem;
-import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.IProblem.Severity;
+import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.core.util.ActivityUtils;

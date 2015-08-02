@@ -25,7 +25,6 @@ import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.util.ActivityUtils;
-import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.StructuralFeatureUtils;
 import com.abstratt.mdd.core.util.TemplateUtils;
 import com.abstratt.mdd.core.util.UML2Compatibility;

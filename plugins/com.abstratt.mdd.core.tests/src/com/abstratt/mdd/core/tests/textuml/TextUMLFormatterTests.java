@@ -6,10 +6,10 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.CoreException;
 
+import com.abstratt.mdd.frontend.textuml.grammar.analysis.AnalysisAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Start;
 import com.abstratt.mdd.internal.frontend.textuml.TextUMLCompiler;
 import com.abstratt.mdd.internal.frontend.textuml.TextUMLFormatter;
-import com.abstratt.mdd.internal.frontend.textuml.analysis.AnalysisAdapter;
-import com.abstratt.mdd.internal.frontend.textuml.node.Start;
 
 public class TextUMLFormatterTests extends TestCase {
 	
