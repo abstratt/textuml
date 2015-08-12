@@ -1,6 +1,7 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ATTRIBUTES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_OPERATIONS;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.Association;
@@ -16,14 +16,12 @@ import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Generalization;
-import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.util.ElementUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
-import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
@@ -32,19 +30,16 @@ import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierC
 
 public class ClassifierRenderer<T extends Classifier> implements IElementRenderer<T> {
 
-	public boolean renderObject(T element, IndentedPrintWriter w,
-			IRenderingSession context) {
+	public boolean renderObject(T element, IndentedPrintWriter w, IRenderingSession context) {
 		if (element.getName() == null || UML2DOTRenderingUtils.isTemplateInstance(element))
 			return false;
 		if (element.getVisibility() == VisibilityKind.PRIVATE_LITERAL)
-		    return false;
+			return false;
 		w.print('"' + element.getName() + "\" [");
 		w.println("label=<");
 		w.enterLevel();
-		w
-				.println("<TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"0\" cellborder=\"0\" port=\"port\">");
-		w
-				.println("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"3\" CELLSPACING=\"0\" ALIGN=\"LEFT\">");
+		w.println("<TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"0\" cellborder=\"0\" port=\"port\">");
+		w.println("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"3\" CELLSPACING=\"0\" ALIGN=\"LEFT\">");
 		renderClassifierTypeAdornment(element, w, context);
 		renderStereotypeAdornments(element, w, context);
 		w.print("<TR><TD>");
@@ -53,15 +48,15 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 		if (!EcoreUtil.isAncestor(context.getRoot(), element)) {
 			w.print("<TR><TD>");
 			final Package nearestPackage = element.getNearestPackage();
-				final String packageName = nearestPackage == null ? "?" : nearestPackage.getQualifiedName();
-				w.print("(from " + packageName
-						+ ")");
+			final String packageName = nearestPackage == null ? "?" : nearestPackage.getQualifiedName();
+			w.print("(from " + packageName + ")");
 			w.print("</TD></TR>");
 		}
 		w.exitLevel();
 		w.print("</TABLE></TD></TR>");
 
-		boolean attributesEmpty = !context.getSettings().getBoolean(SHOW_ATTRIBUTES) || element.getAttributes().isEmpty();
+		boolean attributesEmpty = !context.getSettings().getBoolean(SHOW_ATTRIBUTES)
+		        || element.getAttributes().isEmpty();
 		if (showCompartments(context, attributesEmpty)) {
 			w.println("<TR><TD>");
 			if (!attributesEmpty) {
@@ -79,11 +74,11 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 			w.print("<TR><TD>");
 			if (!operationsEmpty) {
 				w.print("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
-                RenderingUtils.renderAll(context, behavioralFeatures);
+				RenderingUtils.renderAll(context, behavioralFeatures);
 				w.print("</TABLE>");
 			} else
 				w.print("<TABLE border=\"1\" cellborder=\"0\"><TR><TD> </TD></TR></TABLE>");
-			w.print("</TD></TR>");		
+			w.print("</TD></TR>");
 		}
 		w.exitLevel();
 		w.println("</TABLE>>];");
@@ -92,39 +87,40 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 		return true;
 	}
 
-    protected List<? extends BehavioralFeature> getBehavioralFeatures(T element) {
-        return FeatureUtils.getBehavioralFeatures(element);
-    }
-
-    protected void renderClassifierTypeAdornment(T element, IndentedPrintWriter w, IRenderingSession session) {
-        renderNameAdornments(Arrays.asList(getElementTypeName(element)), w, session);
-    }
-
-    private void renderStereotypeAdornments(T element, IndentedPrintWriter w, IRenderingSession session) {
-		if (element.getAppliedStereotypes().isEmpty() || !session.getSettings().getBoolean(UML2DOTPreferences.SHOW_CLASSIFIER_STEREOTYPES))
-		    return;
-		List<String> stereotypeNames = element.getAppliedStereotypes().stream().map(it -> it.getName()).collect(Collectors.toList());
-        renderNameAdornments(stereotypeNames, w, session);
+	protected List<? extends BehavioralFeature> getBehavioralFeatures(T element) {
+		return FeatureUtils.getBehavioralFeatures(element);
 	}
-	
-   protected void renderNameAdornments(List<String> markers, IndentedPrintWriter w, IRenderingSession session) {
-        w.print("<TR><TD>");
-        StringBuffer adornmentList = new StringBuffer();
-        for (String marker : markers) {
-            adornmentList.append(marker);
-            adornmentList.append(", ");
-        }
-        adornmentList.delete(adornmentList.length() - 2, adornmentList.length());
-        w.print(UML2DOTRenderingUtils.addGuillemots(adornmentList.toString()));
-        w.println("</TD></TR>");
-    }
-	
+
+	protected void renderClassifierTypeAdornment(T element, IndentedPrintWriter w, IRenderingSession session) {
+		renderNameAdornments(Arrays.asList(getElementTypeName(element)), w, session);
+	}
+
+	private void renderStereotypeAdornments(T element, IndentedPrintWriter w, IRenderingSession session) {
+		if (element.getAppliedStereotypes().isEmpty()
+		        || !session.getSettings().getBoolean(UML2DOTPreferences.SHOW_CLASSIFIER_STEREOTYPES))
+			return;
+		List<String> stereotypeNames = element.getAppliedStereotypes().stream().map(it -> it.getName())
+		        .collect(Collectors.toList());
+		renderNameAdornments(stereotypeNames, w, session);
+	}
+
+	protected void renderNameAdornments(List<String> markers, IndentedPrintWriter w, IRenderingSession session) {
+		w.print("<TR><TD>");
+		StringBuffer adornmentList = new StringBuffer();
+		for (String marker : markers) {
+			adornmentList.append(marker);
+			adornmentList.append(", ");
+		}
+		adornmentList.delete(adornmentList.length() - 2, adornmentList.length());
+		w.print(UML2DOTRenderingUtils.addGuillemots(adornmentList.toString()));
+		w.println("</TD></TR>");
+	}
+
 	private String getElementTypeName(T element) {
 		return StringUtils.uncapitalize(element.eClass().getName());
 	}
 
-	protected void renderRelationships(T element,
-			IRenderingSession context) {
+	protected void renderRelationships(T element, IRenderingSession context) {
 		List<Generalization> generalizations = element.getGeneralizations();
 		RenderingUtils.renderAll(context, generalizations);
 		EList<Association> associations = element.getAssociations();
@@ -133,7 +129,8 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 	}
 
 	private boolean showCompartments(IRenderingSession<Element> context, boolean isEmpty) {
-		ShowClassifierCompartmentOptions showCompartmentOption = context.getSettings().getSelection(ShowClassifierCompartmentOptions.class);
+		ShowClassifierCompartmentOptions showCompartmentOption = context.getSettings().getSelection(
+		        ShowClassifierCompartmentOptions.class);
 		switch (showCompartmentOption) {
 		case Never:
 			return false;
@@ -142,7 +139,8 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 				return false;
 		case Always:
 		}
-		ShowClassifierCompartmentForPackageOptions showCompartmentForPackageOption = context.getSettings().getSelection(ShowClassifierCompartmentForPackageOptions.class);
+		ShowClassifierCompartmentForPackageOptions showCompartmentForPackageOption = context.getSettings()
+		        .getSelection(ShowClassifierCompartmentForPackageOptions.class);
 		EObject previousClassifier = context.getPrevious(UMLPackage.Literals.CLASSIFIER);
 		switch (showCompartmentForPackageOption) {
 		case Any:
@@ -152,14 +150,13 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 				return true;
 			break;
 		case Local:
-		    if (ElementUtils.sameRepository(context.getRoot(), context.getCurrent()))
-		        return true;
-            break;
+			if (ElementUtils.sameRepository(context.getRoot(), context.getCurrent()))
+				return true;
+			break;
 		case Current:
-		    break;
+			break;
 		}
-		boolean underRootPackage = EcoreUtil
-		        .isAncestor(context.getRoot(), context.getCurrent());
+		boolean underRootPackage = EcoreUtil.isAncestor(context.getRoot(), context.getCurrent());
 		return underRootPackage;
 	}
 }

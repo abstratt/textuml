@@ -33,7 +33,7 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "  end;\n";
 		source += "  association AccountCustomer\n";
 		source += "    navigable role account : Account[*];\n";
-		source += "    navigable role owner : Customer;\n";		
+		source += "    navigable role owner : Customer;\n";
 		source += "  end;\n";
 		source += "end.";
 		return source;
@@ -55,7 +55,7 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		model += "end.\n";
 		parseAndCheck(getSimpleModelSource(), model);
 	}
-	
+
 	public void testEmptyLiteral() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
@@ -69,22 +69,21 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(source);
 	}
-	
-	//TODO temporarily disabled during refactor to remove metamodel extensions
-//	public void testLiteral() throws CoreException {
-//		String source = "";
-//		source += "model simple;\n";
-//		source += "  import base;\n";
-//		source += "  class CollectionTests\n";
-//		source += "    operation op1( ) : Integer[*];\n";
-//		source += "    begin\n";
-//		source += "      return Integer{1, 4, 6, 9, 12};\n";
-//		source += "    end;\n";
-//		source += "  end;\n";
-//		source += "end.";
-//		parseAndCheck(source);
-//	}
 
+	// TODO temporarily disabled during refactor to remove metamodel extensions
+	// public void testLiteral() throws CoreException {
+	// String source = "";
+	// source += "model simple;\n";
+	// source += "  import base;\n";
+	// source += "  class CollectionTests\n";
+	// source += "    operation op1( ) : Integer[*];\n";
+	// source += "    begin\n";
+	// source += "      return Integer{1, 4, 6, 9, 12};\n";
+	// source += "    end;\n";
+	// source += "  end;\n";
+	// source += "end.";
+	// parseAndCheck(source);
+	// }
 
 	public void testExtent() throws CoreException {
 		String source = "";
@@ -111,7 +110,7 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(getSimpleModelSource(), source);
 	}
-	
+
 	public void _testIterateShorthand() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
@@ -139,7 +138,7 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(getSimpleModelSource(), source);
 	}
-	
+
 	public void _testSelectShorthand() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
@@ -166,25 +165,25 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(getSimpleModelSource(), source);
 	}
-	
+
 	public void testReduce() throws CoreException {
-        String source = "";
-        source += "model simple;\n";
-        source += "class TestDriver\n";
-        source += "  static operation reduction() : Integer;\n";
-        source += "  begin\n";
-        source += "    return Account extent.reduce(\n";
-        source += "        (account : Account, total : Integer) : Integer {\n";
-        source += "            account.balance + total\n";
-        source += "        },\n";
-        source += "        0\n";
-        source += "    );\n";
-        source += "  end;\n";
-        source += "end;\n";
-        source += "end.";
-        parseAndCheck(getSimpleModelSource(), source);
-    }
-	
+		String source = "";
+		source += "model simple;\n";
+		source += "class TestDriver\n";
+		source += "  static operation reduction() : Integer;\n";
+		source += "  begin\n";
+		source += "    return Account extent.reduce(\n";
+		source += "        (account : Account, total : Integer) : Integer {\n";
+		source += "            account.balance + total\n";
+		source += "        },\n";
+		source += "        0\n";
+		source += "    );\n";
+		source += "  end;\n";
+		source += "end;\n";
+		source += "end.";
+		parseAndCheck(getSimpleModelSource(), source);
+	}
+
 	public void testGroupBy() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
@@ -200,7 +199,6 @@ public class CollectionTests extends AbstractRepositoryBuildingTests {
 		parseAndCheck(getSimpleModelSource(), source);
 	}
 
-	
 	public void testCollectDataType() throws CoreException {
 		String source = "";
 		source += "model simple;\n";

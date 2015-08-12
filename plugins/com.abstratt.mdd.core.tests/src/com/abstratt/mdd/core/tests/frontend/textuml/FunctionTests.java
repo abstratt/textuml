@@ -27,13 +27,12 @@ public class FunctionTests extends AbstractRepositoryBuildingTests {
 		source += "function someFunction(par1 : Integer,par2 : Integer) : Boolean;\n";
 		source += "end.";
 		parseAndCheck(source);
-		final FunctionBehavior function =
-						(FunctionBehavior) getRepository().findNamedElement("someModel::someFunction",
-										IRepository.PACKAGE.getFunctionBehavior(), null);
-		final Type booleanType =
-						(Type) getRepository().findNamedElement("base::Boolean", IRepository.PACKAGE.getType(), null);
-		final Type integerType =
-						(Type) getRepository().findNamedElement("base::Integer", IRepository.PACKAGE.getType(), null);
+		final FunctionBehavior function = (FunctionBehavior) getRepository().findNamedElement(
+		        "someModel::someFunction", IRepository.PACKAGE.getFunctionBehavior(), null);
+		final Type booleanType = (Type) getRepository().findNamedElement("base::Boolean",
+		        IRepository.PACKAGE.getType(), null);
+		final Type integerType = (Type) getRepository().findNamedElement("base::Integer",
+		        IRepository.PACKAGE.getType(), null);
 		assertNotNull(function);
 		assertNotNull(function.getOwnedParameter("par1", integerType));
 		assertNotNull(function.getOwnedParameter("par2", integerType));
@@ -55,21 +54,21 @@ public class FunctionTests extends AbstractRepositoryBuildingTests {
 		parseAndCheck(source);
 	}
 
-	//TODO temporarily disabled during refactor to remove metamodel extensions	
-//	public void testFunctionCall() throws CoreException {
-//		String source = "";
-//		source += "model someModel;\n";
-//		source += "import base;\n";
-//		source += "  class SimpleClass\n";
-//		source += "    operation op1(f : {(p : Integer) : Boolean});\n";
-//		source += "    begin\n";
-//		source += "      var result : Boolean;\n";
-//		source += "      result := f(10);\n";
-//		source += "      Console#writeln(result.toString());\n";
-//		source += "    end;\n";
-//		source += "  end;\n";
-//		source += "end.";
-//		parseAndCheck(source);
-//	}
+	// TODO temporarily disabled during refactor to remove metamodel extensions
+	// public void testFunctionCall() throws CoreException {
+	// String source = "";
+	// source += "model someModel;\n";
+	// source += "import base;\n";
+	// source += "  class SimpleClass\n";
+	// source += "    operation op1(f : {(p : Integer) : Boolean});\n";
+	// source += "    begin\n";
+	// source += "      var result : Boolean;\n";
+	// source += "      result := f(10);\n";
+	// source += "      Console#writeln(result.toString());\n";
+	// source += "    end;\n";
+	// source += "  end;\n";
+	// source += "end.";
+	// parseAndCheck(source);
+	// }
 
 }

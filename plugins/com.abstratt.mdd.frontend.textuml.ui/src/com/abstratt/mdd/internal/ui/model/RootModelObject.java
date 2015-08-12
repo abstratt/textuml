@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import org.eclipse.swt.graphics.Image;
@@ -25,19 +25,19 @@ import com.abstratt.mdd.internal.ui.TextUMLUIPlugin;
 public class RootModelObject extends UIModelObject {
 
 	protected static Class[] CHILDREN_TYPES = new Class[] {
-	/*AImportDecl.class,*/AClassDef.class, AAssociationDef.class, ACompositionAssociationKind.class, AAssociationAssociationKind.class, AAggregationAssociationKind.class, APrimitiveDef.class};
+	/* AImportDecl.class, */AClassDef.class, AAssociationDef.class, ACompositionAssociationKind.class,
+	        AAssociationAssociationKind.class, AAggregationAssociationKind.class, APrimitiveDef.class };
 
 	protected static Class[] CHILDREN_TYPES_NOASSOCS = new Class[] {
-		/*AImportDecl.class,*/AClassDef.class,  APrimitiveDef.class};
-	
-	
+	/* AImportDecl.class, */AClassDef.class, APrimitiveDef.class };
+
 	public RootModelObject(UIModelObject parent, ASTNode node) {
 		super(parent, node);
 	}
 
 	@Override
 	public Class[] getChildrenTypes() {
-		if(TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_ASSOCINCLASS)) {
+		if (TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_ASSOCINCLASS)) {
 			return CHILDREN_TYPES_NOASSOCS;
 		}
 		return CHILDREN_TYPES;

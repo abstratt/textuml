@@ -7,13 +7,12 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import org.eclipse.emf.ecore.EClass;
 
 import com.abstratt.mdd.core.Problem;
-
 
 public class DuplicateSymbol extends Problem {
 
@@ -31,10 +30,10 @@ public class DuplicateSymbol extends Problem {
 	}
 
 	public String getSymbol() {
-        return symbol;
-    }
-	
+		return symbol;
+	}
+
 	public String getMetaClass() {
-        return metaClass;
-    }
+		return metaClass;
+	}
 }

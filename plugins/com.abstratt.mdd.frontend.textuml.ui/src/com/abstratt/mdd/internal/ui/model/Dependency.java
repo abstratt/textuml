@@ -27,18 +27,23 @@ import com.abstratt.mdd.ui.UIConstants;
  */
 public class Dependency extends LeafModelObject {
 
-	public Dependency(UIModelObject parent, ASTNode<Token,Node> node) {
+	public Dependency(UIModelObject parent, ASTNode<Token, Node> node) {
 		super(parent, node);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abstratt.mdd.internal.ui.model.UIModelObject#getImage()
 	 */
 	@Override
 	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_DEPENDENCY);	}
+		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_DEPENDENCY);
+	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.abstratt.mdd.internal.ui.model.UIModelObject#getOriginalText()
 	 */
 	protected ADependencyDecl getModel() {

@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui;
 
 import org.eclipse.core.resources.IProject;
@@ -43,7 +43,7 @@ public class CreateMDDProjectOperation implements IWorkspaceRunnable {
 			project.open(new SubProgressMonitor(monitor, 30));
 
 			IProjectDescription description = project.getDescription();
-			description.setNatureIds(new String[] {UIConstants.NATURE_ID});
+			description.setNatureIds(new String[] { UIConstants.NATURE_ID });
 			project.setDescription(description, new SubProgressMonitor(monitor, 30));
 		} finally {
 			monitor.done();

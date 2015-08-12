@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import org.eclipse.uml2.uml.LiteralInteger;
@@ -18,8 +18,7 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class LiteralIntegerRenderer implements IEObjectRenderer<LiteralInteger> {
 
-	public boolean renderObject(LiteralInteger element, IndentedPrintWriter out,
-			IRenderingSession context) {
+	public boolean renderObject(LiteralInteger element, IndentedPrintWriter out, IRenderingSession context) {
 		out.print(element.integerValue());
 		return true;
 	}

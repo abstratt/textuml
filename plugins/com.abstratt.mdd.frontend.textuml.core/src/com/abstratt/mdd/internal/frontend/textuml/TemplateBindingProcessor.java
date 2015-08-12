@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
@@ -22,27 +22,28 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ATemplateParameterList;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PQualifiedIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PSingleTypeIdentifier;
 
-public class TemplateBindingProcessor<TE extends TemplateableElement, PE extends ParameterableElement> implements NodeProcessor<PSingleTypeIdentifier> {
+public class TemplateBindingProcessor<TE extends TemplateableElement, PE extends ParameterableElement> implements
+        NodeProcessor<PSingleTypeIdentifier> {
 
 	private List<PQualifiedIdentifier> parameterIdentifiers;
 
 	public TemplateBindingProcessor() {
 		super();
 	}
-	
+
 	public void process(PSingleTypeIdentifier node) {
 		node.apply(new Visitor());
 	}
-	
+
 	private class Visitor extends DepthFirstAdapter {
 		@Override
 		public void caseATemplateParameter(ATemplateParameter node) {
 			parameterIdentifiers.add(node.getQualifiedIdentifier());
 		}
-		
+
 		@Override
 		public void caseATemplateParameterList(ATemplateParameterList node) {
-			parameterIdentifiers= new ArrayList<PQualifiedIdentifier>();
+			parameterIdentifiers = new ArrayList<PQualifiedIdentifier>();
 			super.caseATemplateParameterList(node);
 		}
 	}

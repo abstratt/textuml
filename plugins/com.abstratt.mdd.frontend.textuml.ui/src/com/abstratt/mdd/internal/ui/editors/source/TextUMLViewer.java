@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.editors.source;
 
 import java.io.ByteArrayInputStream;
@@ -78,8 +78,7 @@ public class TextUMLViewer extends SourceEditor {
 
 	}
 
-	private static class InMemoryStorageEditorInput implements
-			IStorageEditorInput {
+	private static class InMemoryStorageEditorInput implements IStorageEditorInput {
 
 		private IFileEditorInput wrappedEditorInput;
 
@@ -113,11 +112,9 @@ public class TextUMLViewer extends SourceEditor {
 			return null;
 		}
 
-		public InMemoryStorageEditorInput(IFileEditorInput wrapped,
-				InputStream inoutStream) throws CoreException {
+		public InMemoryStorageEditorInput(IFileEditorInput wrapped, InputStream inoutStream) throws CoreException {
 			this.wrappedEditorInput = wrapped;
-			this.inMemoryStorage = new InMemoryStorage(inoutStream, wrapped
-					.getStorage());
+			this.inMemoryStorage = new InMemoryStorage(inoutStream, wrapped.getStorage());
 		}
 
 	}
@@ -145,21 +142,15 @@ public class TextUMLViewer extends SourceEditor {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream(8192);
 			TextUMLRenderer renderer = new TextUMLRenderer();
 			renderer.render(resource, baos);
-			ByteArrayInputStream bais = new ByteArrayInputStream(baos
-					.toByteArray());
-			super
-					.doSetInput(new InMemoryStorageEditorInput(storageInput,
-							bais));
+			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+			super.doSetInput(new InMemoryStorageEditorInput(storageInput, bais));
 			return;
 		} catch (CoreException e) {
-			LogUtils.logError(TextUMLEditor.PLUGIN_ID,
-					"Error loading contents", e);
+			LogUtils.logError(TextUMLEditor.PLUGIN_ID, "Error loading contents", e);
 		} catch (FileNotFoundException e) {
-			LogUtils.logError(TextUMLEditor.PLUGIN_ID,
-					"Error loading contents", e);
+			LogUtils.logError(TextUMLEditor.PLUGIN_ID, "Error loading contents", e);
 		} catch (IOException e) {
-			LogUtils.logError(TextUMLEditor.PLUGIN_ID,
-					"Error loading contents", e);
+			LogUtils.logError(TextUMLEditor.PLUGIN_ID, "Error loading contents", e);
 		} finally {
 			try {
 				if (stream != null)
@@ -176,17 +167,17 @@ public class TextUMLViewer extends SourceEditor {
 				}
 			}.schedule();
 		}
-		// only get here if we failed 
+		// only get here if we failed
 		super.doSetInput(null);
 	}
-	
+
 	@Override
 	public IFile getModelFile() {
 		return modelFile;
 	}
-	
+
 	@Override
 	protected void createActions() {
-	    // disable any actions
+		// disable any actions
 	}
 }

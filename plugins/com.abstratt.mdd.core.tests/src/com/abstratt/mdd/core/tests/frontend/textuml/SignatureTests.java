@@ -25,7 +25,7 @@ public class SignatureTests extends AbstractRepositoryBuildingTests {
 	public SignatureTests(String name) {
 		super(name);
 	}
-	
+
 	public void testFunctionAsParameter() throws CoreException {
 		String model = "model tests;\n";
 		model += "import base;\n";
@@ -36,11 +36,14 @@ public class SignatureTests extends AbstractRepositoryBuildingTests {
 		model += "end;\n";
 		model += "end.\n";
 		parseAndCheck(model);
-		Type integerType = (Type) getRepository().findNamedElement("base::Integer", IRepository.PACKAGE.getType(), null);
+		Type integerType = (Type) getRepository()
+		        .findNamedElement("base::Integer", IRepository.PACKAGE.getType(), null);
 		assertNotNull(integerType);
-		Type booleanType = (Type) getRepository().findNamedElement("base::Boolean", IRepository.PACKAGE.getType(), null);
+		Type booleanType = (Type) getRepository()
+		        .findNamedElement("base::Boolean", IRepository.PACKAGE.getType(), null);
 		assertNotNull(booleanType);
-		Operation op = (Operation) getRepository().findNamedElement("tests::Test::op1", IRepository.PACKAGE.getOperation(), null);
+		Operation op = (Operation) getRepository().findNamedElement("tests::Test::op1",
+		        IRepository.PACKAGE.getOperation(), null);
 		assertNotNull(op);
 		assertEquals(1, op.getOwnedParameters().size());
 		Parameter opParam = op.getOwnedParameters().get(0);
@@ -70,7 +73,7 @@ public class SignatureTests extends AbstractRepositoryBuildingTests {
 		model += "end.\n";
 		parseAndCheck(model);
 	}
-	
+
 	public void testSignatureAsAttributeType() throws CoreException {
 		String model = "model tests;\n";
 		model += "class Test\n";

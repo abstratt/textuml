@@ -7,10 +7,10 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.cli;
 
-  import org.eclipse.core.filesystem.EFS;
+import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.filesystem.IFileSystem;
 import org.eclipse.core.runtime.Assert;
@@ -43,7 +43,8 @@ public class CompilationDirectorCLI implements IApplication {
 		compile(repository, inputPathAsString, outputPathAsString);
 	}
 
-	private void compile(IRepository repository, final String inputPathAsString, final String outputPathAsString) throws CoreException {
+	private void compile(IRepository repository, final String inputPathAsString, final String outputPathAsString)
+	        throws CoreException {
 		IFileSystem localFS = EFS.getLocalFileSystem();
 		final IFileStore outputPath = localFS.getStore(new Path(outputPathAsString));
 		LocationContext context = new LocationContext(outputPath);
@@ -66,24 +67,26 @@ public class CompilationDirectorCLI implements IApplication {
 			LogUtils.logInfo(FrontEnd.PLUGIN_ID, "Done", null);
 	}
 
-//// pending fix to EMF bug 271253
-//	public static void main(String[] args) throws CoreException, IOException {
-//		StandaloneRegistryLoader registryLoader = new StandaloneRegistryLoader(); 
-//		IExtensionRegistry registry = registryLoader.createRegistry();
-//		registryLoader.loadAllContributions(registry, CompilationDirectorCLI.class.getClassLoader());
-//		if (System.getProperty("args.plugins") != null) {
-//			String pluginsDir = System.getProperty("args.plugins");
-//			StringTokenizer tokenizer = new StringTokenizer(pluginsDir,",");
-//			while (tokenizer.hasMoreTokens()) {
-//				String current = tokenizer.nextToken();
-//				registryLoader.loadAllContributions(registry, new File(current));
-//			}
-//		}
-//		registryLoader.makeDefault(registry);
-//		//TODO enable when EMF bug 271253 is addressed
-//		//EcorePlugin.INSTANCE.processExtensions();
-//		new CompilationDirectorCLI().doIt(null);
-//	}
+	// // pending fix to EMF bug 271253
+	// public static void main(String[] args) throws CoreException, IOException
+	// {
+	// StandaloneRegistryLoader registryLoader = new StandaloneRegistryLoader();
+	// IExtensionRegistry registry = registryLoader.createRegistry();
+	// registryLoader.loadAllContributions(registry,
+	// CompilationDirectorCLI.class.getClassLoader());
+	// if (System.getProperty("args.plugins") != null) {
+	// String pluginsDir = System.getProperty("args.plugins");
+	// StringTokenizer tokenizer = new StringTokenizer(pluginsDir,",");
+	// while (tokenizer.hasMoreTokens()) {
+	// String current = tokenizer.nextToken();
+	// registryLoader.loadAllContributions(registry, new File(current));
+	// }
+	// }
+	// registryLoader.makeDefault(registry);
+	// //TODO enable when EMF bug 271253 is addressed
+	// //EcorePlugin.INSTANCE.processExtensions();
+	// new CompilationDirectorCLI().doIt(null);
+	// }
 
 	public void stop() {
 		throw new UnsupportedOperationException();

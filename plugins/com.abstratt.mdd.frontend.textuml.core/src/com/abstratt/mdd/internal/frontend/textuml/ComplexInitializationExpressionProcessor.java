@@ -17,39 +17,41 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 public class ComplexInitializationExpressionProcessor {
 
-    private ProblemBuilder<Node> problemBuilder;
-    private SourceCompilationContext<Node> sourceContext;
-    private Class currentClass;
+	private ProblemBuilder<Node> problemBuilder;
+	private SourceCompilationContext<Node> sourceContext;
+	private Class currentClass;
 
-    ComplexInitializationExpressionProcessor(SourceCompilationContext<Node> sourceContext, Class currentClass) {
-        this.problemBuilder = sourceContext.getProblemBuilder();
-        this.sourceContext = sourceContext;
-        this.currentClass = currentClass;
-    }
+	ComplexInitializationExpressionProcessor(SourceCompilationContext<Node> sourceContext, Class currentClass) {
+		this.problemBuilder = sourceContext.getProblemBuilder();
+		this.sourceContext = sourceContext;
+		this.currentClass = currentClass;
+	}
 
-    public void process(final TypedElement initializableElement, final AComplexInitializationExpression initializationExpression) {
-        sourceContext.getNamespaceTracker().enterNamespace(currentClass);
-        try {
-            Activity activity = (Activity) currentClass.createOwnedBehavior(null, IRepository.PACKAGE.getActivity());
-            activity.setIsReadOnly(true);
-            activity.setName("defaultValue_" + initializableElement.getName());
-            Parameter activityReturn = activity.createOwnedParameter(null, null);
-            activityReturn.setDirection(ParameterDirectionKind.RETURN_LITERAL);
-            TypeUtils.copyType(initializableElement, activityReturn);
-            BehaviorGenerator behaviorGenerator = new BehaviorGenerator(sourceContext);
-            behaviorGenerator.createBody(initializationExpression.getExpressionBlock(), activity);
-            ValueSpecification reference = ActivityUtils.buildBehaviorReference(currentClass.getNearestPackage(), activity, null);
-    
-            if (initializableElement instanceof Property)
-                ((Property) initializableElement).setDefaultValue(reference);
-            else if (initializableElement instanceof Parameter)
-                ((Parameter) initializableElement).setDefaultValue(reference);
-            else
-                problemBuilder.addError("Element is not initializable: " + initializableElement.getName() + " : "
-                        + initializableElement.eClass().getName(), initializationExpression);
-        } finally {
-            sourceContext.getNamespaceTracker().leaveNamespace();
-        }
-    }
+	public void process(final TypedElement initializableElement,
+	        final AComplexInitializationExpression initializationExpression) {
+		sourceContext.getNamespaceTracker().enterNamespace(currentClass);
+		try {
+			Activity activity = (Activity) currentClass.createOwnedBehavior(null, IRepository.PACKAGE.getActivity());
+			activity.setIsReadOnly(true);
+			activity.setName("defaultValue_" + initializableElement.getName());
+			Parameter activityReturn = activity.createOwnedParameter(null, null);
+			activityReturn.setDirection(ParameterDirectionKind.RETURN_LITERAL);
+			TypeUtils.copyType(initializableElement, activityReturn);
+			BehaviorGenerator behaviorGenerator = new BehaviorGenerator(sourceContext);
+			behaviorGenerator.createBody(initializationExpression.getExpressionBlock(), activity);
+			ValueSpecification reference = ActivityUtils.buildBehaviorReference(currentClass.getNearestPackage(),
+			        activity, null);
+
+			if (initializableElement instanceof Property)
+				((Property) initializableElement).setDefaultValue(reference);
+			else if (initializableElement instanceof Parameter)
+				((Parameter) initializableElement).setDefaultValue(reference);
+			else
+				problemBuilder.addError("Element is not initializable: " + initializableElement.getName() + " : "
+				        + initializableElement.eClass().getName(), initializationExpression);
+		} finally {
+			sourceContext.getNamespaceTracker().leaveNamespace();
+		}
+	}
 
 }

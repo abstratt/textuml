@@ -67,7 +67,7 @@ public class AbstractRepositoryBuildingTests extends AbstractRepositoryTests {
 			compilationCompleted();
 		return parseResults;
 	}
-	
+
 	protected <T extends IProblem> T assertExpectedProblem(Class<T> expected, IProblem[] actual) {
 		assertTrue(Arrays.asList(actual).toString(), actual.length >= 1);
 		for (IProblem p : actual) {

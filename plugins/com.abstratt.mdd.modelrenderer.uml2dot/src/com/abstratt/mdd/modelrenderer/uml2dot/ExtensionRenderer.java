@@ -14,10 +14,10 @@ public class ExtensionRenderer extends AbstractRelationshipRenderer<Extension> {
 	protected boolean basicRenderObject(Extension element, IndentedPrintWriter pw, IRenderingSession context) {
 		final Stereotype stereotype = element.getStereotype();
 		final Class metaclass = element.getMetaclass();
-		
+
 		if (!shouldRender(context, stereotype, metaclass))
 			return true;
-		
+
 		context.render(stereotype, stereotype.eResource() != element.eResource());
 		context.render(metaclass, metaclass.eResource() != element.eResource());
 

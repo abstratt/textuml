@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.core.util;
 
 import org.eclipse.uml2.uml.Classifier;
@@ -29,7 +29,7 @@ public class StereotypeUtils {
 					return true;
 		return false;
 	}
-	
+
 	public static Stereotype getStereotype(Element element, String stereotypeQName) {
 		for (Stereotype s : element.getAppliedStereotypes())
 			if (stereotypeQName.equals(s.getName()) || stereotypeQName.equals(s.getQualifiedName()))
@@ -42,14 +42,14 @@ public class StereotypeUtils {
 			}
 		return null;
 	}
-	
+
 	public static Object getValue(Element element, String stereotypeQName, String property) {
-	    Stereotype stereotype = getStereotype(element, stereotypeQName);
-	    if (stereotype == null)
-	        return null;
-        return element.getValue(stereotype, property);
-    }
-	
+		Stereotype stereotype = getStereotype(element, stereotypeQName);
+		if (stereotype == null)
+			return null;
+		return element.getValue(stereotype, property);
+	}
+
 	public static boolean hasProfile(org.eclipse.uml2.uml.Package element, String profileName) {
 		for (Profile p : element.getAppliedProfiles())
 			if (p.getName() != null && p.getName().equals(profileName))
@@ -60,14 +60,14 @@ public class StereotypeUtils {
 	public static Stereotype findStereotype(String stereotypeName) {
 		return MDDCore.getInProgressRepository().findNamedElement(stereotypeName, Literals.STEREOTYPE, null);
 	}
-	
+
 	public static void safeApplyStereotype(Element e, Stereotype s) {
 		if (!e.isStereotypeApplied(s))
-			e.applyStereotype(s); 
+			e.applyStereotype(s);
 	}
 
-    public static boolean isApplicable(Element element, String stereotypeQName) {
-        Stereotype stereotype = findStereotype(stereotypeQName);
-        return stereotype != null && element.isStereotypeApplicable(stereotype);
-    }
+	public static boolean isApplicable(Element element, String stereotypeQName) {
+		Stereotype stereotype = findStereotype(stereotypeQName);
+		return stereotype != null && element.isStereotypeApplicable(stereotype);
+	}
 }

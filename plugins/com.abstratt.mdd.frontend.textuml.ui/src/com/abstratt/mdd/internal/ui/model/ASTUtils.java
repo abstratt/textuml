@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import java.util.ArrayList;
@@ -31,7 +31,8 @@ public class ASTUtils {
 	/**
 	 * Finds child nodes that match the given types.
 	 */
-	public static List<ASTNode<Token, Node>> findNodes(ASTNode<Token, Node> root, boolean reverse, final Class<? extends Node>... types) {
+	public static List<ASTNode<Token, Node>> findNodes(ASTNode<Token, Node> root, boolean reverse,
+	        final Class<? extends Node>... types) {
 		final List<ASTNode<Token, Node>> result = new ArrayList<ASTNode<Token, Node>>();
 		final Set<Class<?>> typeSet = new HashSet<Class<?>>(Arrays.asList(types));
 		if (reverse) {

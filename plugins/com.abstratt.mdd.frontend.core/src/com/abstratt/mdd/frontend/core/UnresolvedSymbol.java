@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import org.eclipse.emf.ecore.EClass;
@@ -21,7 +21,8 @@ public class UnresolvedSymbol extends Problem {
 	private String symbolType;
 
 	/**
-	 * Returns the name of the UML metaclass of the symbol that failed to resolve.
+	 * Returns the name of the UML metaclass of the symbol that failed to
+	 * resolve.
 	 * 
 	 * @return the type of the symbol
 	 */
@@ -32,7 +33,7 @@ public class UnresolvedSymbol extends Problem {
 	public UnresolvedSymbol(String symbol) {
 		this(symbol, null);
 	}
-	
+
 	public UnresolvedSymbol(String symbol, EClass eClass) {
 		super(IProblem.Severity.ERROR);
 		this.symbol = symbol;
@@ -40,7 +41,7 @@ public class UnresolvedSymbol extends Problem {
 	}
 
 	public String getMessage() {
-		return "Unknown " + symbolType +  ": " + symbol;
+		return "Unknown " + symbolType + ": " + symbol;
 	}
 
 	public String getSymbol() {

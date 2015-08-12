@@ -14,15 +14,17 @@ import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
  * reference against a given repository. Subclasses define what behavior must be
  * performed during resolution time.
  * 
- * This implementation is comparable so it can be used in steps where order matters.
+ * This implementation is comparable so it can be used in steps where order
+ * matters.
  * 
  * @see Step#isOrdered()
  */
-public abstract class DeferredReference<E extends NamedElement> implements IDeferredReference, Comparable<DeferredReference> {
+public abstract class DeferredReference<E extends NamedElement> implements IDeferredReference,
+        Comparable<DeferredReference> {
 	private static int seed = 0;
 	/**
-     * Used as tie-breaker when sorting references to the same name.
-     */
+	 * Used as tie-breaker when sorting references to the same name.
+	 */
 	private int token = seed++;
 	private Namespace currentNamespace;
 	private String symbolName;
@@ -72,11 +74,12 @@ public abstract class DeferredReference<E extends NamedElement> implements IDefe
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abstratt.mdd.core.frontend.spi.IDeferredReference#resolve(com.abstratt.mdd.core.IRepository,
-	 *      java.util.List)
+	 * @see
+	 * com.abstratt.mdd.core.frontend.spi.IDeferredReference#resolve(com.abstratt
+	 * .mdd.core.IRepository, java.util.List)
 	 */
 	public final void resolve(IBasicRepository repository) {
-		onBind(repository.<E>findNamedElement(symbolName, symbolType, currentNamespace));
+		onBind(repository.<E> findNamedElement(symbolName, symbolType, currentNamespace));
 	}
 
 	@Override
@@ -88,10 +91,11 @@ public abstract class DeferredReference<E extends NamedElement> implements IDefe
 			sb.append(" from ").append(currentNamespace.getName());
 		return sb.toString();
 	}
-	
+
 	public int compareTo(DeferredReference another) {
 		if (this == another)
-			// the only case this returns 0 - or else references to the same name will clash in sorted sets/maps  
+			// the only case this returns 0 - or else references to the same
+			// name will clash in sorted sets/maps
 			return 0;
 		final int symbolOrder = symbolName.compareTo(((DeferredReference) another).symbolName);
 		// never return 0

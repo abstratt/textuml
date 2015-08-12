@@ -37,7 +37,7 @@ public class VerySimpleBuilder extends IncrementalProjectBuilder {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.core.resources.IncrementalProjectBuilder#build(int,
-	 *      java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
+	 * java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -59,11 +59,10 @@ public class VerySimpleBuilder extends IncrementalProjectBuilder {
 				context.addRelatedPath(modelPathEntry);
 			}
 		}
-		
+
 		removeMarkers(toBuild);
-		IProblem[] problems =
-						FrontEnd.getCompilationDirector().compile(null, null, context,
-										ICompilationDirector.FULL_BUILD, monitor);
+		IProblem[] problems = FrontEnd.getCompilationDirector().compile(null, null, context,
+		        ICompilationDirector.FULL_BUILD, monitor);
 		toBuild.refreshLocal(IResource.DEPTH_INFINITE, null);
 		Arrays.sort(problems, new Comparator<IProblem>() {
 			public int compare(IProblem o1, IProblem o2) {
@@ -74,9 +73,8 @@ public class VerySimpleBuilder extends IncrementalProjectBuilder {
 						return -1;
 					return 0;
 				}
-				int fileNameDelta =
-								((IFileStore) o1.getAttribute(IProblem.FILE_NAME)).toURI().compareTo(
-												((IFileStore) o2.getAttribute(IProblem.FILE_NAME)).toURI());
+				int fileNameDelta = ((IFileStore) o1.getAttribute(IProblem.FILE_NAME)).toURI().compareTo(
+				        ((IFileStore) o2.getAttribute(IProblem.FILE_NAME)).toURI());
 				if (fileNameDelta != 0)
 					return fileNameDelta;
 				int lineNo1 = getLineNumber(o1);
@@ -92,7 +90,9 @@ public class VerySimpleBuilder extends IncrementalProjectBuilder {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.core.resources.IncrementalProjectBuilder#clean(org.eclipse.core.runtime.IProgressMonitor)
+	 * @see
+	 * org.eclipse.core.resources.IncrementalProjectBuilder#clean(org.eclipse
+	 * .core.runtime.IProgressMonitor)
 	 */
 	@Override
 	protected void clean(IProgressMonitor monitor) throws CoreException {
@@ -138,19 +138,14 @@ public class VerySimpleBuilder extends IncrementalProjectBuilder {
 	private void removeMarkers(IResource resource) throws CoreException {
 		resource.deleteMarkers(UIConstants.MARKER_TYPE, true, IResource.DEPTH_INFINITE);
 	}
-/*	
-	protected String memory(String... messages) {
-		StringBuffer sb = new StringBuffer();
-		for (String current : messages) {
-			sb.append(current);
-			sb.append(' ');
-		}
-		sb.append(toMB(Runtime.getRuntime().freeMemory()) + " / " + toMB(Runtime.getRuntime().totalMemory()));
-		return sb.toString();
-	}
-
-	private static String toMB(long byteCount) {
-		return byteCount / (1024 * 1024) + "MB";
-	}
-*/
+	/*
+	 * protected String memory(String... messages) { StringBuffer sb = new
+	 * StringBuffer(); for (String current : messages) { sb.append(current);
+	 * sb.append(' '); } sb.append(toMB(Runtime.getRuntime().freeMemory()) +
+	 * " / " + toMB(Runtime.getRuntime().totalMemory())); return sb.toString();
+	 * }
+	 * 
+	 * private static String toMB(long byteCount) { return byteCount / (1024 *
+	 * 1024) + "MB"; }
+	 */
 }

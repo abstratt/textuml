@@ -3,8 +3,6 @@
  */
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ELEMENTS_IN_LIBRARIES;
-
 import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
@@ -23,8 +21,8 @@ public class PackageRenderer implements IElementRenderer<Package> {
 	public boolean renderObject(Package allPackage, IndentedPrintWriter pw, IRenderingSession context) {
 		EList<Element> ownedElements = allPackage.getOwnedElements();
 		Stream<Element> renderable = ownedElements.stream().filter(it -> !(it instanceof Relationship));
-		boolean[] anyRendered = {false};
+		boolean[] anyRendered = { false };
 		renderable.forEach(it -> anyRendered[0] |= context.render((EObject) it));
-		return anyRendered[0]; 
+		return anyRendered[0];
 	}
 }

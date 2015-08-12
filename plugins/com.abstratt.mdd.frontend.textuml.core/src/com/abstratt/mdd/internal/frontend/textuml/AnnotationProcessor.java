@@ -8,7 +8,7 @@
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
  *    Vladimir Sosnin - fix to bug 2796613
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
@@ -91,7 +91,8 @@ public class AnnotationProcessor implements NodeProcessor<PAnnotations> {
 	private class Visitor extends DepthFirstAdapter {
 		@Override
 		public final void caseAAnnotation(final AAnnotation node) {
-			String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(node.getQualifiedIdentifier());
+			String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(
+			        node.getQualifiedIdentifier());
 			final Annotation annotation = new Annotation(qualifiedIdentifier, node.getQualifiedIdentifier());
 			annotations.add(annotation);
 			super.caseAAnnotation(node);
@@ -119,7 +120,8 @@ public class AnnotationProcessor implements NodeProcessor<PAnnotations> {
 					try {
 						value[0] = Integer.parseInt(node.getText());
 					} catch (NumberFormatException nfe) {
-						AnnotationProcessor.this.problemBuilder.addError("Stereotype properties accept only booleans, integers, strings or null", node);
+						AnnotationProcessor.this.problemBuilder.addError(
+						        "Stereotype properties accept only booleans, integers, strings or null", node);
 					}
 				}
 
@@ -132,10 +134,12 @@ public class AnnotationProcessor implements NodeProcessor<PAnnotations> {
 
 				@Override
 				public void caseTReal(TReal node) {
-					AnnotationProcessor.this.problemBuilder.addError(
-									"Stereotype properties accept only booleans, integers, strings, enumeration literals or null", node);
+					AnnotationProcessor.this.problemBuilder
+					        .addError(
+					                "Stereotype properties accept only booleans, integers, strings, enumeration literals or null",
+					                node);
 				}
-				
+
 				@Override
 				public void caseTIdentifier(TIdentifier node) {
 					value[0] = node.getText();
@@ -160,6 +164,7 @@ public class AnnotationProcessor implements NodeProcessor<PAnnotations> {
 
 	/**
 	 * Applies the current annotations to the given element.
+	 * 
 	 * @param referenceNode
 	 *            the node to get the text position from in case of error
 	 */
@@ -168,56 +173,54 @@ public class AnnotationProcessor implements NodeProcessor<PAnnotations> {
 		Package currentPackage = targetElement.getNearestPackage();
 		for (Iterator<Annotation> i = annotations.iterator(); i.hasNext();) {
 			final Annotation annotation = i.next();
-			refTracker.add(new DeferredReference<Stereotype>(annotation.getStereotypeName(), IRepository.PACKAGE.getStereotype(),
-							currentPackage) {
-				protected void onBind(Stereotype stereotype) {
-					if (stereotype == null) {
-						problemBuilder.addError("Unknown stereotype: '" + getSymbolName() + "'", annotation
-										.getNode());
-						return;
-					}
-					// make sure stereotype is applicable to element
-					if (stereotype.isAbstract()) {
-						problemBuilder.addProblem(new NotAConcreteClassifier(stereotype.getQualifiedName()),
-										referenceNode);
-						return;
-					} 
-					if (!targetElement.isStereotypeApplicable(stereotype)) {
-						problemBuilder.addError("Stereotype '" + stereotype.getQualifiedName()
-										+ "' is not applicable",
-										referenceNode);
-						return;
-					}
-					if (targetElement.isStereotypeApplied(stereotype)) {
-						problemBuilder.addError("Stereotype '" + stereotype.getQualifiedName()
-										+ "' is already applied",
-										referenceNode);
-						return;
-					}
-					targetElement.applyStereotype(stereotype);
-					// set values for each property referenced
-					for (String propertyName : annotation.getPropertyNames()) {
-						Property propertyFound = StructuralFeatureUtils.findAttribute(stereotype, propertyName, false, true);
-						if (propertyFound == null) {
-							problemBuilder.addError(
-											"Property not defined for stereotype: '" + propertyName + "'", annotation
-															.getPropertyNode(propertyName));
-							return;
-						}
-						Object value = annotation.getValue(propertyName);
-						if (propertyFound.getType() instanceof Enumeration)
-							value = ((Enumeration) propertyFound.getType()).getOwnedLiteral((String) value);
-						try {
-							targetElement.setValue(stereotype, propertyName, annotation.getValue(propertyName));
-						} catch (ClassCastException cce) {
-							problemBuilder.addError(
-									"Value does not match expected type for property '"+ propertyName + "'", annotation
-													.getPropertyNode(propertyName));
-							return;
-						}
-					}
-				}
-			}, linkStep);
+			refTracker.add(
+			        new DeferredReference<Stereotype>(annotation.getStereotypeName(), IRepository.PACKAGE
+			                .getStereotype(), currentPackage) {
+				        protected void onBind(Stereotype stereotype) {
+					        if (stereotype == null) {
+						        problemBuilder.addError("Unknown stereotype: '" + getSymbolName() + "'",
+						                annotation.getNode());
+						        return;
+					        }
+					        // make sure stereotype is applicable to element
+					        if (stereotype.isAbstract()) {
+						        problemBuilder.addProblem(new NotAConcreteClassifier(stereotype.getQualifiedName()),
+						                referenceNode);
+						        return;
+					        }
+					        if (!targetElement.isStereotypeApplicable(stereotype)) {
+						        problemBuilder.addError("Stereotype '" + stereotype.getQualifiedName()
+						                + "' is not applicable", referenceNode);
+						        return;
+					        }
+					        if (targetElement.isStereotypeApplied(stereotype)) {
+						        problemBuilder.addError("Stereotype '" + stereotype.getQualifiedName()
+						                + "' is already applied", referenceNode);
+						        return;
+					        }
+					        targetElement.applyStereotype(stereotype);
+					        // set values for each property referenced
+					        for (String propertyName : annotation.getPropertyNames()) {
+						        Property propertyFound = StructuralFeatureUtils.findAttribute(stereotype, propertyName,
+						                false, true);
+						        if (propertyFound == null) {
+							        problemBuilder.addError("Property not defined for stereotype: '" + propertyName
+							                + "'", annotation.getPropertyNode(propertyName));
+							        return;
+						        }
+						        Object value = annotation.getValue(propertyName);
+						        if (propertyFound.getType() instanceof Enumeration)
+							        value = ((Enumeration) propertyFound.getType()).getOwnedLiteral((String) value);
+						        try {
+							        targetElement.setValue(stereotype, propertyName, annotation.getValue(propertyName));
+						        } catch (ClassCastException cce) {
+							        problemBuilder.addError("Value does not match expected type for property '"
+							                + propertyName + "'", annotation.getPropertyNode(propertyName));
+							        return;
+						        }
+					        }
+				        }
+			        }, linkStep);
 		}
 		discardAnnotations();
 	}
@@ -228,7 +231,7 @@ public class AnnotationProcessor implements NodeProcessor<PAnnotations> {
 			return;
 		node.apply(new Visitor());
 	}
-	
+
 	public void discardAnnotations() {
 		annotations.clear();
 	}

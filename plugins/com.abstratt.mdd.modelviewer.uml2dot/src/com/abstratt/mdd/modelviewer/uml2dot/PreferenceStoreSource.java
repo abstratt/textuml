@@ -7,7 +7,7 @@ import com.abstratt.mdd.modelrenderer.IRenderingSettings.SettingsSource;
 public class PreferenceStoreSource implements SettingsSource {
 
 	private IPreferenceStore store;
-	
+
 	public PreferenceStoreSource(IPreferenceStore store) {
 		this.store = store;
 	}

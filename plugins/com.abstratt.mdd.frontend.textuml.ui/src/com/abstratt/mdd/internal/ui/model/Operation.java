@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import org.eclipse.swt.graphics.Image;
@@ -58,7 +58,8 @@ public class Operation extends LeafModelObject {
 	public Token getToken() {
 		AOperationHeader header = (AOperationHeader) getModel().getOperationHeader();
 		POperationKeyword keyword = header.getOperationKeyword();
-		return keyword instanceof AQueryOperationKeyword ? ((AQueryOperationKeyword) keyword).getQuery() : ((AOperationOperationKeyword) keyword).getOperation();
+		return keyword instanceof AQueryOperationKeyword ? ((AQueryOperationKeyword) keyword).getQuery()
+		        : ((AOperationOperationKeyword) keyword).getOperation();
 	}
 
 }

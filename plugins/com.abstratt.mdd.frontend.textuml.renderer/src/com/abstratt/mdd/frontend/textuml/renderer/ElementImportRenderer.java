@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.qualifiedName;
@@ -20,8 +20,7 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ElementImportRenderer implements IEObjectRenderer<ElementImport> {
 
-	public boolean renderObject(ElementImport element, IndentedPrintWriter out,
-			IRenderingSession context) {
+	public boolean renderObject(ElementImport element, IndentedPrintWriter out, IRenderingSession context) {
 		out.println("import " + qualifiedName(element.getImportedElement()) + ";");
 		return true;
 	}

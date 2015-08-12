@@ -14,19 +14,18 @@ public class LookupTests extends AbstractRepositoryBuildingTests {
 	public static Test suite() {
 		return new TestSuite(LookupTests.class);
 	}
-	
+
 	public LookupTests(String name) {
 		super(name);
 	}
 
-	
 	public void testEscaping() throws CoreException {
 		String source = "";
 		source += "model my\\-model;\n";
 		source += "import base;\n";
 		source += "class My\\-Class\n";
 		source += "attribute my\\-attribute : Integer;\n";
-		source+= "operation my\\-Operation();\n";
+		source += "operation my\\-Operation();\n";
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
@@ -37,15 +36,17 @@ public class LookupTests extends AbstractRepositoryBuildingTests {
 		found = getRepository().findNamedElement("my-model::My-Class", IRepository.PACKAGE.getClass_(), null);
 		assertNotNull(found);
 		assertEquals("my-model::My-Class", found.getQualifiedName());
-		found = getRepository().findNamedElement("my-model::My-Class::my-attribute", IRepository.PACKAGE.getProperty(), null);
+		found = getRepository().findNamedElement("my-model::My-Class::my-attribute", IRepository.PACKAGE.getProperty(),
+		        null);
 		assertNotNull(found);
 		assertEquals("my-model::My-Class::my-attribute", found.getQualifiedName());
-		found = getRepository().findNamedElement("my-model::My-Class::my-Operation", IRepository.PACKAGE.getOperation(), null);
+		found = getRepository().findNamedElement("my-model::My-Class::my-Operation",
+		        IRepository.PACKAGE.getOperation(), null);
 		assertNotNull(found);
 		assertEquals("my-model::My-Class::my-Operation", found.getQualifiedName());
 	}
-	
-	public void testFindElementInNonExistingPackage()  {
+
+	public void testFindElementInNonExistingPackage() {
 		assertNull(getRepository().findNamedElement("foo::Bar", IRepository.PACKAGE.getModel(), null));
 	}
 

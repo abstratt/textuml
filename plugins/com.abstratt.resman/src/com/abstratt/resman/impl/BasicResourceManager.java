@@ -43,7 +43,7 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
 	private final ResourceProvider<K> resourceProvider;
 
 	protected final Set<FeatureProvider> featureProviders;
-	
+
 	private final Timer disposalThread = new Timer(true);
 
 	private ReferenceDisposer<BasicResource<K>> disposer = new ReferencePool.ReferenceDisposer<BasicResource<K>>() {
@@ -72,8 +72,9 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
 		this.resourceProvider = provider;
 		this.featureProviders = sortFeatureProviders(createFeatureProviders());
 	}
-	
-	protected BasicResourceManager(int bucketCap, ResourceProvider<K> provider, Collection<FeatureProvider> featureProviders) {
+
+	protected BasicResourceManager(int bucketCap, ResourceProvider<K> provider,
+	        Collection<FeatureProvider> featureProviders) {
 		this.pool = initPool(bucketCap);
 		this.resourceProvider = provider;
 		this.featureProviders = new HashSet<FeatureProvider>(featureProviders);
@@ -99,12 +100,12 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
 	}
 
 	private void releaseResource(BasicResource<K> toRelease, boolean operationSucceeded) throws ResourceException {
-	    try {
-		    deactivateContext(toRelease, operationSucceeded);
-	    } finally {
-	        // deactivation may fail - gotta release the resource regardless
-		    pool.release(toRelease.getId(), toRelease);
-	    }
+		try {
+			deactivateContext(toRelease, operationSucceeded);
+		} finally {
+			// deactivation may fail - gotta release the resource regardless
+			pool.release(toRelease.getId(), toRelease);
+		}
 	}
 
 	private void deactivateContext(BasicResource<K> deactivating, boolean operationSucceeded) throws ResourceException {
@@ -157,13 +158,13 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
 				try {
 					// this can cause an exception as well (saving context)
 					// make sure to run it through translators
-    				releaseResource(resource, operationSucceeded);
+					releaseResource(resource, operationSucceeded);
 				} catch (RuntimeException e) {
 					if (caught == null)
 						caught = extractCause(e);
 				}
 				if (caught != null) {
- 					for (FeatureProvider featureProvider : getFeatureProviders())
+					for (FeatureProvider featureProvider : getFeatureProviders())
 						if (featureProvider instanceof ExceptionTranslationFeatureProvider)
 							caught = ((ExceptionTranslationFeatureProvider) featureProvider).translate(caught);
 					if (caught instanceof RuntimeException)
@@ -272,13 +273,13 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
 		for (int i = 0; i < configurationElements.length; i++) {
 			try {
 				FeatureProvider currentFeatureProvider = (FeatureProvider) configurationElements[i]
-						.createExecutableExtension("provider");
+				        .createExecutableExtension("provider");
 				Set<Class<?>> provided = new HashSet<Class<?>>(Arrays.asList(currentFeatureProvider
-						.getProvidedFeatureTypes()));
+				        .getProvidedFeatureTypes()));
 				provided.retainAll(knownFeatures);
 				if (!provided.isEmpty())
 					throw new ResourceException("Provider " + currentFeatureProvider.getClass().getSimpleName()
-							+ " provides redundant features: " + provided);
+					        + " provides redundant features: " + provided);
 				knownFeatures.addAll(Arrays.asList(currentFeatureProvider.getProvidedFeatureTypes()));
 				providers.add(currentFeatureProvider);
 			} catch (CoreException e) {

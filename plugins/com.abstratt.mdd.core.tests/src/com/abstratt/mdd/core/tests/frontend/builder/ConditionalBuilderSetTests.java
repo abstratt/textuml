@@ -68,7 +68,7 @@ public class ConditionalBuilderSetTests extends AbstractElementBuilderTests {
 	 *            builder, 0 for none
 	 */
 	public void testConditionalBuilder(String actualTargetName1, String actualTargetName2, String nameReference1,
-			String nameReference2, int expectedOutcome) {
+	        String nameReference2, int expectedOutcome) {
 		PackageBuilder packageBuilder = new UML2BuilderFactory().newBuilder(UML2ProductKind.PACKAGE);
 		packageBuilder.name("myPackage");
 
@@ -81,7 +81,7 @@ public class ConditionalBuilderSetTests extends AbstractElementBuilderTests {
 		class2Builder.name(actualTargetName2);
 
 		// the referrer actually using the conditional builder
-		ClassifierBuilder referrerClassBuilder = packageBuilder.addChildBuilder(new  ResilientClassifierBuilder());
+		ClassifierBuilder referrerClassBuilder = packageBuilder.addChildBuilder(new ResilientClassifierBuilder());
 		referrerClassBuilder.name("ReferrerClass");
 
 		ConditionalBuilderSet conditional = new ConditionalBuilderSet();

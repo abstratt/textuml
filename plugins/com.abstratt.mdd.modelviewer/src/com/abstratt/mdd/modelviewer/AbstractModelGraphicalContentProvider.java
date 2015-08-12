@@ -10,7 +10,7 @@
  *******************************************************************************/
 package com.abstratt.mdd.modelviewer;
 
- import java.net.URI;
+import java.net.URI;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -24,14 +24,16 @@ import com.abstratt.mdd.modelrenderer.IRendererSelector;
 import com.abstratt.mdd.modelrenderer.IRenderingSettings;
 import com.abstratt.mdd.modelrenderer.dot.DOTRendering;
 
-public abstract class AbstractModelGraphicalContentProvider extends
-		DOTGraphicalContentProvider {
+public abstract class AbstractModelGraphicalContentProvider extends DOTGraphicalContentProvider {
 
 	protected abstract IRendererSelector<? extends EObject> getRendererSelector();
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.abstratt.graphviz.ui.DOTGraphicalContentProvider#loadImage(org.eclipse.swt.widgets.Display, org.eclipse.swt.graphics.Point, java.lang.Object)
+	 * 
+	 * @see
+	 * com.abstratt.graphviz.ui.DOTGraphicalContentProvider#loadImage(org.eclipse
+	 * .swt.widgets.Display, org.eclipse.swt.graphics.Point, java.lang.Object)
 	 */
 	public Image loadImage(Display display, Point desiredSize, Object newInput) throws CoreException {
 		if (newInput == null)
@@ -42,10 +44,10 @@ public abstract class AbstractModelGraphicalContentProvider extends
 			return super.loadImage(display, desiredSize, dotContents);
 		return new Image(display, 1, 1);
 	}
-	
+
 	@Override
 	public void saveImage(Display display, Point suggestedSize, Object input, IPath outputLocation, int fileFormat)
-					throws CoreException {
+	        throws CoreException {
 		byte[] dotContents = DOTRendering.generateDOTFromModel((URI) input, getRendererSelector(), getSettings());
 		if (dotContents == null)
 			dotContents = new byte[0];

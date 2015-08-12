@@ -36,12 +36,14 @@ public class CommentTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		
+
 		assertEquals("Class comment", MDDUtil.getDescription(get("someModel::AClass", Literals.CLASS)));
 		assertEquals("Attribute comment", MDDUtil.getDescription(get("someModel::AClass::attrib1", Literals.PROPERTY)));
-		assertEquals("Attribute inv comment", MDDUtil.getDescription(get("someModel::AClass::attrib1Inv", Literals.CONSTRAINT)));
+		assertEquals("Attribute inv comment",
+		        MDDUtil.getDescription(get("someModel::AClass::attrib1Inv", Literals.CONSTRAINT)));
 		assertEquals("Operation comment", MDDUtil.getDescription(get("someModel::AClass::op1", Literals.OPERATION)));
-		assertEquals("Precondition 1 comment", MDDUtil.getDescription(get("someModel::AClass::op1::pre1", Literals.CONSTRAINT)));
+		assertEquals("Precondition 1 comment",
+		        MDDUtil.getDescription(get("someModel::AClass::op1::pre1", Literals.CONSTRAINT)));
 
 	}
 }

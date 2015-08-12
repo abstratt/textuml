@@ -7,9 +7,8 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.ui;
-
 
 public interface UIConstants {
 	String PLUGIN_ID = "com.abstratt.mdd.ui";

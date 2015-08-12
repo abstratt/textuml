@@ -12,7 +12,10 @@ public class BasicProblemTracker implements IProblemTracker {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.abstratt.mdd.core.frontend.spi.IProblemTracker#add(com.abstratt.mdd.core.frontend.IProblem)
+	 * 
+	 * @see
+	 * com.abstratt.mdd.core.frontend.spi.IProblemTracker#add(com.abstratt.mdd
+	 * .core.frontend.IProblem)
 	 */
 	public void add(IProblem toReport) {
 		problems.add(toReport);
@@ -20,6 +23,7 @@ public class BasicProblemTracker implements IProblemTracker {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.abstratt.mdd.core.frontend.spi.IProblemTracker#getAllProblems()
 	 */
 	public IProblem[] getAllProblems() {
@@ -28,7 +32,10 @@ public class BasicProblemTracker implements IProblemTracker {
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.abstratt.mdd.core.frontend.spi.IProblemTracker#hasProblems(com.abstratt.mdd.core.frontend.IProblem.Severity)
+	 * 
+	 * @see
+	 * com.abstratt.mdd.core.frontend.spi.IProblemTracker#hasProblems(com.abstratt
+	 * .mdd.core.frontend.IProblem.Severity)
 	 */
 	public boolean hasProblems(Severity minimumSeverity) {
 		return ProblemUtils.hasProblems(this.problems, minimumSeverity);

@@ -8,7 +8,7 @@ import org.eclipse.uml2.uml.Package;
 
 import com.abstratt.mdd.frontend.core.WrongNumberOfRoles;
 
-public class AssociationBuilder extends DefaultParentBuilder<Association>{
+public class AssociationBuilder extends DefaultParentBuilder<Association> {
 
 	private PropertyBuilder childRole;
 	private PropertyBuilder parentRole;
@@ -19,37 +19,37 @@ public class AssociationBuilder extends DefaultParentBuilder<Association>{
 	}
 
 	public PropertyBuilder newChildRole(PropertyBuilder memberEnd) {
-	    return childRole = memberEnd;
+		return childRole = memberEnd;
 	}
-	
+
 	public PropertyBuilder newChildRole() {
-	    return childRole = newOwnedEnd();
+		return childRole = newOwnedEnd();
 	}
-	
+
 	public PropertyBuilder newParentRole(PropertyBuilder memberEnd) {
-	    return parentRole = memberEnd;
+		return parentRole = memberEnd;
 	}
-	
+
 	public PropertyBuilder newParentRole() {
-	    return parentRole = newOwnedEnd();
+		return parentRole = newOwnedEnd();
 	}
-	
+
 	public PropertyBuilder newOwnedEnd() {
-	    return newChildBuilder(UML2ProductKind.PROPERTY);
+		return newChildBuilder(UML2ProductKind.PROPERTY);
 	}
-	
+
 	public PropertyBuilder newMemberEnd(PropertyBuilder memberEnd) {
-	    memberEnds.add(memberEnd);
-	    return memberEnd;
+		memberEnds.add(memberEnd);
+		return memberEnd;
 	}
-	
+
 	@Override
 	protected Association createProduct() {
 		if (childBuilders.size() + memberEnds.size() != 2)
 			abortScope(new WrongNumberOfRoles(2, childBuilders.size()));
 		return (Association) ((Package) getParentProduct()).createOwnedType(getName(), getEClass());
 	}
-	
+
 	@Override
 	protected void enhance() {
 		super.enhance();

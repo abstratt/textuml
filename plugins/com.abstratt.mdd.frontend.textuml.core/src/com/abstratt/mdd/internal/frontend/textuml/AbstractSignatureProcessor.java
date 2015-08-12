@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import org.eclipse.uml2.uml.Classifier;
@@ -28,13 +28,15 @@ public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
 	protected final Namespace parent;
 	protected final boolean supportExceptions;
 	protected final boolean unnamedParameters;
-    protected SourceCompilationContext<Node> sourceContext;
+	protected SourceCompilationContext<Node> sourceContext;
 
-	public AbstractSignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent, boolean supportExceptions) {
+	public AbstractSignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent,
+	        boolean supportExceptions) {
 		this(sourceContext, parent, supportExceptions, false);
 	}
 
-	public AbstractSignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent, boolean supportExceptions, boolean unnamedParameters) {
+	public AbstractSignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent,
+	        boolean supportExceptions, boolean unnamedParameters) {
 		this.parent = parent;
 		this.supportExceptions = supportExceptions;
 		this.sourceContext = sourceContext;
@@ -43,13 +45,13 @@ public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
 		this.unnamedParameters = unnamedParameters;
 	}
 
-	protected void addRaisedException(
-	Classifier exceptionClass) {
+	protected void addRaisedException(Classifier exceptionClass) {
 		throw new UnsupportedOperationException();
 	}
 
 	public void addRaisedException(String qualifiedIdentifier, final Node node) {
-		Classifier exceptionClass = (Classifier) context.getRepository().findNamedElement(qualifiedIdentifier, UMLPackage.Literals.CLASSIFIER, parent.getNearestPackage());
+		Classifier exceptionClass = (Classifier) context.getRepository().findNamedElement(qualifiedIdentifier,
+		        UMLPackage.Literals.CLASSIFIER, parent.getNearestPackage());
 		if (exceptionClass == null) {
 			problemBuilder.addError("Could not find exception class: '" + qualifiedIdentifier + "'", node);
 			return;
@@ -70,9 +72,9 @@ public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
 		return parameter;
 	}
 
-    protected TypeSetter createParameterTypeSetter(Parameter parameter) {
-        return new TypeSetter(sourceContext, getBaseLookupNamespace(), parameter);
-    }
+	protected TypeSetter createParameterTypeSetter(Parameter parameter) {
+		return new TypeSetter(sourceContext, getBaseLookupNamespace(), parameter);
+	}
 
 	protected Namespace getBaseLookupNamespace() {
 		return this.parent;

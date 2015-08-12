@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,7 +19,6 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 
 import com.abstratt.mdd.ui.UIUtils;
-
 
 /**
  * Creates a new MDD project.
@@ -51,13 +50,14 @@ public class NewProjectWizard extends Wizard implements INewWizard {
 			return true;
 		} catch (InvocationTargetException e) {
 			UIUtils.log(e);
-			ErrorDialog.openError(getShell(), "Problem creating project", "A problem occurred during the project creation.", UIUtils.getStatus(e));
+			ErrorDialog.openError(getShell(), "Problem creating project",
+			        "A problem occurred during the project creation.", UIUtils.getStatus(e));
 		} catch (InterruptedException e) {
 			UIUtils.log(e);
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean canFinish() {
 		return super.canFinish();

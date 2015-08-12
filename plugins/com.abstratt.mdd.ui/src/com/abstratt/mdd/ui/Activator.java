@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.ui;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -17,13 +17,12 @@ import org.osgi.framework.BundleContext;
 
 import com.abstratt.mdd.internal.ui.RepositoryCache;
 
-
 /**
  * The main plugin class to be used in the desktop.
  */
 public class Activator extends AbstractUIPlugin {
 
-	//The shared instance.
+	// The shared instance.
 	private static Activator plugin;
 
 	public static String PLUGIN_ID = "com.abstratt.mdd.ui";
@@ -38,10 +37,11 @@ public class Activator extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path.
+	 * Returns an image descriptor for the image file at the given plug-in
+	 * relative path.
 	 *
-	 * @param path the path
+	 * @param path
+	 *            the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
@@ -61,10 +61,13 @@ public class Activator extends AbstractUIPlugin {
 		reg.put(UIConstants.ICON_CLASS, imageDescriptorFromPlugin(pluginId, "icons/full/obj16/Class.gif"));
 		reg.put(UIConstants.ICON_OPERATION, imageDescriptorFromPlugin(pluginId, "icons/full/obj16/Operation.gif"));
 		reg.put(UIConstants.ICON_ATTRIBUTE, imageDescriptorFromPlugin(pluginId, "icons/full/obj16/Property.gif"));
-		reg.put(UIConstants.ICON_ASSOCIATION, imageDescriptorFromPlugin(pluginId, "icons/full/obj16/Association_none.gif"));
+		reg.put(UIConstants.ICON_ASSOCIATION,
+		        imageDescriptorFromPlugin(pluginId, "icons/full/obj16/Association_none.gif"));
 		reg.put(UIConstants.ICON_DEPENDENCY, imageDescriptorFromPlugin(pluginId, "icons/full/obj16/Dependency.gif"));
-		reg.put(UIConstants.ICON_COMPOSITION, imageDescriptorFromPlugin(pluginId, "icons/full/obj16/Association_composite.gif"));
-		reg.put(UIConstants.ICON_AGGREGATION, imageDescriptorFromPlugin(pluginId, "icons/full/obj16/Association_shared.gif"));
+		reg.put(UIConstants.ICON_COMPOSITION,
+		        imageDescriptorFromPlugin(pluginId, "icons/full/obj16/Association_composite.gif"));
+		reg.put(UIConstants.ICON_AGGREGATION,
+		        imageDescriptorFromPlugin(pluginId, "icons/full/obj16/Association_shared.gif"));
 		reg.put(UIConstants.ICON_IMPORT, imageDescriptorFromPlugin(pluginId, "icons/full/obj16/PackageImport.gif"));
 	}
 

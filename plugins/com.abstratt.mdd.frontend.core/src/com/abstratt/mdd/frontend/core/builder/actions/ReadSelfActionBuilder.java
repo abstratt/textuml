@@ -13,36 +13,28 @@ import com.abstratt.mdd.frontend.core.ReadSelfFromStaticContext;
 import com.abstratt.mdd.frontend.core.builder.UML2ProductKind;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 
-public class ReadSelfActionBuilder extends
-		ActionBuilder<ReadSelfAction> {
+public class ReadSelfActionBuilder extends ActionBuilder<ReadSelfAction> {
 	public ReadSelfActionBuilder() {
 		super(UML2ProductKind.READ_SELF_ACTION);
 	}
 
 	@Override
 	public void enhanceAction() {
-		Activity currentActivity = getContext().getActivityBuilder()
-				.getCurrentActivity();
+		Activity currentActivity = getContext().getActivityBuilder().getCurrentActivity();
 		while (MDDExtensionUtils.isClosure(currentActivity)) {
-			ActivityNode rootNode = MDDExtensionUtils
-					.getClosureContext(currentActivity);
-			currentActivity = MDDUtil.getNearest(rootNode,
-					Literals.ACTIVITY);
+			ActivityNode rootNode = MDDExtensionUtils.getClosureContext(currentActivity);
+			currentActivity = MDDUtil.getNearest(rootNode, Literals.ACTIVITY);
 		}
-		final BehavioralFeature operation = currentActivity
-				.getSpecification();
+		final BehavioralFeature operation = currentActivity.getSpecification();
 		if (operation != null && operation.isStatic()) {
-			getContext().getProblemTracker().add(
-					new ReadSelfFromStaticContext());
+			getContext().getProblemTracker().add(new ReadSelfFromStaticContext());
 			throw new AbortedStatementCompilationException();
 		}
-		getProduct().createResult(null,
-				(Classifier) currentActivity.getNamespace());
+		getProduct().createResult(null, (Classifier) currentActivity.getNamespace());
 	}
-	
+
 	@Override
 	protected boolean isProducer() {
 		return true;
 	}
 }
-

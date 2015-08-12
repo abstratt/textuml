@@ -47,7 +47,7 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		source += "class AccountChange\n";
 		source += "  attribute account : Account;\n";
 		source += "end;\n";
-		source += keyword +" AccountAccountChange\n";
+		source += keyword + " AccountAccountChange\n";
 		source += "  role change : AccountChange;\n";
 		source += "  /* intentional typo */\n";
 		source += "  role AccountChange2.account;\n";
@@ -67,7 +67,7 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 	public void testCompositionMissingMemberEndType() throws CoreException {
 		testMissingMemberEndType("composition");
 	}
-	
+
 	public void testAggregationMissingMemberEndType() throws CoreException {
 		testMissingMemberEndType("aggregation");
 	}
@@ -83,19 +83,16 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		source += "  end;\n";
 		source += keyword + " AccountClient\n";
 		source += "  role ClientWithAccountAttribute.account;\n";
-		source += "  role AccountWithClientAttribute.client;\n";		
+		source += "  role AccountWithClientAttribute.client;\n";
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Class accountClass =
-						(Class) getRepository().findNamedElement("simple::AccountWithClientAttribute",
-										IRepository.PACKAGE.getClass_(), null);
-		Class clientClass =
-						(Class) getRepository().findNamedElement("simple::ClientWithAccountAttribute",
-										IRepository.PACKAGE.getClass_(), null);
-		final Association association =
-						(Association) getRepository().findNamedElement("simple::AccountClient",
-										IRepository.PACKAGE.getAssociation(), null);
+		Class accountClass = (Class) getRepository().findNamedElement("simple::AccountWithClientAttribute",
+		        IRepository.PACKAGE.getClass_(), null);
+		Class clientClass = (Class) getRepository().findNamedElement("simple::ClientWithAccountAttribute",
+		        IRepository.PACKAGE.getClass_(), null);
+		final Association association = (Association) getRepository().findNamedElement("simple::AccountClient",
+		        IRepository.PACKAGE.getAssociation(), null);
 		assertNotNull(association);
 		Property accountEnd = association.getOwnedEnd("account", accountClass);
 		assertNull(accountEnd);
@@ -123,19 +120,16 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		source += "  end;\n";
 		source += "  composition Hierarchy\n";
 		source += "    role Parent.children;\n";
-		source += "    role parent : Parent;\n";		
+		source += "    role parent : Parent;\n";
 		source += "  end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Class parentClass =
-						(Class) getRepository().findNamedElement("simple::Parent",
-										IRepository.PACKAGE.getClass_(), null);
-		Class childClass =
-						(Class) getRepository().findNamedElement("simple::Child",
-										IRepository.PACKAGE.getClass_(), null);
-		final Association association =
-						(Association) getRepository().findNamedElement("simple::Hierarchy",
-										IRepository.PACKAGE.getAssociation(), null);
+		Class parentClass = (Class) getRepository().findNamedElement("simple::Parent", IRepository.PACKAGE.getClass_(),
+		        null);
+		Class childClass = (Class) getRepository().findNamedElement("simple::Child", IRepository.PACKAGE.getClass_(),
+		        null);
+		final Association association = (Association) getRepository().findNamedElement("simple::Hierarchy",
+		        IRepository.PACKAGE.getAssociation(), null);
 		Property parentEnd = association.getOwnedEnd("parent", parentClass);
 		assertNotNull(parentEnd);
 		assertEquals(AggregationKind.NONE_LITERAL, parentEnd.getAggregation());
@@ -145,19 +139,20 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		assertNotNull(childrenEnd);
 		assertEquals(AggregationKind.COMPOSITE_LITERAL, childrenEnd.getAggregation());
 		assertEquals(0, ((LiteralInteger) childrenEnd.getLowerValue()).getValue());
-		assertEquals(LiteralUnlimitedNatural.UNLIMITED, ((LiteralUnlimitedNatural) childrenEnd.getUpperValue()).getValue());
+		assertEquals(LiteralUnlimitedNatural.UNLIMITED,
+		        ((LiteralUnlimitedNatural) childrenEnd.getUpperValue()).getValue());
 		assertEquals(1, ((LiteralUnlimitedNatural) parentEnd.getLowerValue()).getValue());
 		assertEquals(1, ((LiteralUnlimitedNatural) parentEnd.getUpperValue()).getValue());
 	}
-	
+
 	public void testAssociationMemberEnd() throws CoreException {
 		testMemberEnd("association", AggregationKind.NONE_LITERAL);
 	}
-	
+
 	public void testCompositionMemberEnd() throws CoreException {
 		testMemberEnd("composition", AggregationKind.COMPOSITE_LITERAL);
 	}
-	
+
 	public void testAggregationMemberEnd() throws CoreException {
 		testMemberEnd("aggregation", AggregationKind.SHARED_LITERAL);
 	}
@@ -192,14 +187,13 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		String source = "";
 		source += "model simple;\n";
 		source += "aggregation AccountClient\n";
-		source += "  navigable role account : Account[*];\n";		
+		source += "  navigable role account : Account[*];\n";
 		source += "  navigable role client : Client[1];\n";
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(getSimpleModelSource(), source);
-		final Association association =
-						(Association) getRepository().findNamedElement("simple::AccountClient",
-										IRepository.PACKAGE.getAssociation(), null);
+		final Association association = (Association) getRepository().findNamedElement("simple::AccountClient",
+		        IRepository.PACKAGE.getAssociation(), null);
 		assertNotNull(association);
 		Property accountEnd = association.getOwnedEnd("account", null);
 		assertNotNull(accountEnd);
@@ -218,15 +212,12 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(getSimpleModelSource(), source);
-		Class accountClass =
-						(Class) getRepository().findNamedElement("simple::Account", IRepository.PACKAGE.getClass_(),
-										null);
-		Class clientClass =
-						(Class) getRepository().findNamedElement("simple::Client", IRepository.PACKAGE.getClass_(),
-										null);
-		final Association association =
-						(Association) getRepository().findNamedElement("simple::AccountClient",
-										IRepository.PACKAGE.getAssociation(), null);
+		Class accountClass = (Class) getRepository().findNamedElement("simple::Account",
+		        IRepository.PACKAGE.getClass_(), null);
+		Class clientClass = (Class) getRepository().findNamedElement("simple::Client", IRepository.PACKAGE.getClass_(),
+		        null);
+		final Association association = (Association) getRepository().findNamedElement("simple::AccountClient",
+		        IRepository.PACKAGE.getAssociation(), null);
 		assertNotNull(association);
 		Property accountEnd = association.getOwnedEnd("account", accountClass);
 		assertNotNull(accountEnd);
@@ -235,19 +226,19 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		assertNotNull(clientEnd);
 		assertEquals(AggregationKind.NONE_LITERAL, clientEnd.getAggregation());
 		assertEquals(0, ((LiteralInteger) accountEnd.getLowerValue()).getValue());
-		assertEquals(LiteralUnlimitedNatural.UNLIMITED, ((LiteralUnlimitedNatural) accountEnd.getUpperValue())
-						.getValue());
+		assertEquals(LiteralUnlimitedNatural.UNLIMITED,
+		        ((LiteralUnlimitedNatural) accountEnd.getUpperValue()).getValue());
 		assertEquals(1, ((LiteralInteger) clientEnd.getLowerValue()).getValue());
 		assertEquals(1, ((LiteralUnlimitedNatural) clientEnd.getUpperValue()).getValue());
 	}
-	
+
 	public void testAssociationShorthand() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
 		source += "class A\n";
 		source += "end;\n";
 		source += "class C\n";
-		source += "end;\n";		
+		source += "end;\n";
 		source += "class B\n";
 		source += "  reference a : A;\n";
 		source += "end;\n";
@@ -255,21 +246,21 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		parseAndCheck(source);
 		Class classA = (Class) getRepository().findNamedElement("simple::A", IRepository.PACKAGE.getClass_(), null);
 		Class classB = (Class) getRepository().findNamedElement("simple::B", IRepository.PACKAGE.getClass_(), null);
-		
+
 		Property propertyA = classB.getOwnedAttribute("a", null);
 		assertNotNull(propertyA);
-		
+
 		Association association = propertyA.getAssociation();
 		assertNotNull(association);
-		
+
 		assertTrue(association.getMemberEnds().contains(propertyA));
 		assertFalse(association.getOwnedEnds().contains(propertyA));
 		assertEquals(AggregationKind.NONE_LITERAL, propertyA.getAggregation());
 		assertSame(classA, propertyA.getType());
-		
+
 		Property otherEnd = propertyA.getOtherEnd();
 		assertTrue(association.getMemberEnds().contains(otherEnd));
-		assertTrue(association.getOwnedEnds().contains(otherEnd));		
+		assertTrue(association.getOwnedEnds().contains(otherEnd));
 		assertEquals(AggregationKind.NONE_LITERAL, otherEnd.getAggregation());
 		assertSame(classB, otherEnd.getType());
 	}
@@ -280,7 +271,7 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		source += "class A\n";
 		source += "end;\n";
 		source += "class C\n";
-		source += "end;\n";		
+		source += "end;\n";
 		source += "class B\n";
 		source += "  aggregation a : A;\n";
 		source += "end;\n";
@@ -288,21 +279,21 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		parseAndCheck(source);
 		Class classA = (Class) getRepository().findNamedElement("simple::A", IRepository.PACKAGE.getClass_(), null);
 		Class classB = (Class) getRepository().findNamedElement("simple::B", IRepository.PACKAGE.getClass_(), null);
-		
+
 		Property propertyA = classB.getOwnedAttribute("a", null);
 		assertNotNull(propertyA);
-		
+
 		Association association = propertyA.getAssociation();
 		assertNotNull(association);
-		
+
 		assertTrue(association.getMemberEnds().contains(propertyA));
 		assertFalse(association.getOwnedEnds().contains(propertyA));
 		assertEquals(AggregationKind.SHARED_LITERAL, propertyA.getAggregation());
 		assertSame(classA, propertyA.getType());
-		
+
 		Property otherEnd = propertyA.getOtherEnd();
 		assertTrue(association.getMemberEnds().contains(otherEnd));
-		assertTrue(association.getOwnedEnds().contains(otherEnd));		
+		assertTrue(association.getOwnedEnds().contains(otherEnd));
 		assertEquals(AggregationKind.NONE_LITERAL, otherEnd.getAggregation());
 		assertSame(classB, otherEnd.getType());
 	}
@@ -313,7 +304,7 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		source += "class A\n";
 		source += "end;\n";
 		source += "class C\n";
-		source += "end;\n";		
+		source += "end;\n";
 		source += "class B\n";
 		source += "  composition a : A;\n";
 		source += "end;\n";
@@ -321,25 +312,25 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		parseAndCheck(source);
 		Class classA = (Class) getRepository().findNamedElement("simple::A", IRepository.PACKAGE.getClass_(), null);
 		Class classB = (Class) getRepository().findNamedElement("simple::B", IRepository.PACKAGE.getClass_(), null);
-		
+
 		Property propertyA = classB.getOwnedAttribute("a", null);
 		assertNotNull(propertyA);
-		
+
 		Association association = propertyA.getAssociation();
 		assertNotNull(association);
-		
+
 		assertTrue(association.getMemberEnds().contains(propertyA));
 		assertFalse(association.getOwnedEnds().contains(propertyA));
 		assertEquals(AggregationKind.COMPOSITE_LITERAL, propertyA.getAggregation());
 		assertSame(classA, propertyA.getType());
-		
+
 		Property otherEnd = propertyA.getOtherEnd();
 		assertTrue(association.getMemberEnds().contains(otherEnd));
-		assertTrue(association.getOwnedEnds().contains(otherEnd));		
+		assertTrue(association.getOwnedEnds().contains(otherEnd));
 		assertEquals(AggregationKind.NONE_LITERAL, otherEnd.getAggregation());
 		assertSame(classB, otherEnd.getType());
 	}
-	
+
 	public void testSimpleComposition() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
@@ -349,9 +340,8 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(getSimpleModelSource(), source);
-		final Association association =
-						getRepository().findNamedElement("simple::AccountClient",
-										IRepository.PACKAGE.getAssociation(), null);
+		final Association association = getRepository().findNamedElement("simple::AccountClient",
+		        IRepository.PACKAGE.getAssociation(), null);
 		assertNotNull(association);
 		Property accountEnd = association.getOwnedEnd("account", null);
 		assertNotNull(accountEnd);
@@ -360,29 +350,27 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
 		assertNotNull(clientEnd);
 		assertEquals(AggregationKind.NONE_LITERAL, clientEnd.getAggregation());
 	}
-	
+
 	public void testDerivedReference() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
 		source += "class Class1\n";
 		source += "  reference myClass2a : Class2[*];\n";
 		source += "  reference myClass2b : Class2[*];\n";
-		source += "  derived attribute allMyClass2 : Class2[*] := { self.myClass2a.union(self.myClass2b) };\n";		
+		source += "  derived attribute allMyClass2 : Class2[*] := { self.myClass2a.union(self.myClass2b) };\n";
 		source += "end;\n";
 		source += "class Class2\n";
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Class class1 = getRepository().findNamedElement("simple::Class1",
-				IRepository.PACKAGE.getClass_(), null);
-		Class class2 = getRepository().findNamedElement("simple::Class2",
-				IRepository.PACKAGE.getClass_(), null);
+		Class class1 = getRepository().findNamedElement("simple::Class1", IRepository.PACKAGE.getClass_(), null);
+		Class class2 = getRepository().findNamedElement("simple::Class2", IRepository.PACKAGE.getClass_(), null);
 		assertNotNull(class1);
 		assertNotNull(class2);
 		Property derived = class1.getAttribute("allMyClass2", class2);
 		assertTrue(derived.isDerived());
 		assertTrue(derived.isMultivalued());
 		assertNull(derived.getAssociation());
-	}	
-	
+	}
+
 }

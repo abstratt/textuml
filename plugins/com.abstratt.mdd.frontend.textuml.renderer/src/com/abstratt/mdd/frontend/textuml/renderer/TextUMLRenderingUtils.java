@@ -33,8 +33,7 @@ import org.eclipse.uml2.uml.util.UMLUtil;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLConstants;
 
 public class TextUMLRenderingUtils {
-	public static String renderMultiplicity(MultiplicityElement multiple,
-			boolean brackets) {
+	public static String renderMultiplicity(MultiplicityElement multiple, boolean brackets) {
 		if (!multiple.isMultivalued() && multiple.getLower() == 0)
 			return "";
 		String constraints = "";
@@ -50,16 +49,14 @@ public class TextUMLRenderingUtils {
 			if (multiple.upperBound() == -1)
 				return wrapInBrackets("*", brackets) + constraints;
 			else if (multiple.upperBound() != 1) {
-				return wrapInBrackets(Integer.toString(multiple.upperBound()),
-						brackets) + constraints;
+				return wrapInBrackets(Integer.toString(multiple.upperBound()), brackets) + constraints;
 			}
 			return "";
 		}
 		StringBuffer interval = new StringBuffer();
 		interval.append(multiple.lowerBound());
 		interval.append(", ");
-		interval.append(multiple.upperBound() == -1 ? "*" : multiple
-				.upperBound());
+		interval.append(multiple.upperBound() == -1 ? "*" : multiple.upperBound());
 		return wrapInBrackets(interval.toString(), brackets) + constraints;
 	}
 
@@ -96,7 +93,10 @@ public class TextUMLRenderingUtils {
 			writer.print(' ');
 	}
 
-	/** Produces  the name of the type of the typed element including multiplicity. */
+	/**
+	 * Produces the name of the type of the typed element including
+	 * multiplicity.
+	 */
 	public static String getQualifiedNameIfNeeded(TypedElement typedElement) {
 		StringBuilder builder = new StringBuilder();
 		String typeReference;
@@ -105,46 +105,38 @@ public class TextUMLRenderingUtils {
 		typeReference = getQualifiedNameIfNeeded(type, namespace);
 		builder.append(typeReference);
 		if (typedElement instanceof MultiplicityElement)
-			builder.append(TextUMLRenderingUtils.renderMultiplicity(
-					(MultiplicityElement) typedElement, true));
+			builder.append(TextUMLRenderingUtils.renderMultiplicity((MultiplicityElement) typedElement, true));
 		return builder.toString();
 	}
 
-	public static String getQualifiedNameIfNeeded(final Type type,
-			final Namespace namespace) {
+	public static String getQualifiedNameIfNeeded(final Type type, final Namespace namespace) {
 		String typeReference;
-		if (type != null
-				&& type.getName() != null) {
-			typeReference = getQualifiedNameIfNeeded((NamedElement) type,
-					namespace);
+		if (type != null && type.getName() != null) {
+			typeReference = getQualifiedNameIfNeeded((NamedElement) type, namespace);
 		} else
 			typeReference = "any";
 		return typeReference;
 	}
 
-	public static String getQualifiedNameIfNeeded(NamedElement element,
-			Namespace currentNamespace) {
+	public static String getQualifiedNameIfNeeded(NamedElement element, Namespace currentNamespace) {
 		if (element.getName() == null)
 			return "unnamed";
 		if (currentNamespace == null)
 			return qualifiedName(element);
 		if (element.getNamespace() == currentNamespace)
 			return name(element);
-		if (element.getNamespace() instanceof Package && currentNamespace.getImportedPackages().contains(
-						element.getNamespace()))
+		if (element.getNamespace() instanceof Package
+		        && currentNamespace.getImportedPackages().contains(element.getNamespace()))
 			return name(element);
 		if (currentNamespace.getImportedElements().contains(element))
 			return name(element);
 		Namespace parentNamespace = currentNamespace.getNamespace();
-		return parentNamespace == null ? qualifiedName(element)
-				: getQualifiedNameIfNeeded(element, parentNamespace);
+		return parentNamespace == null ? qualifiedName(element) : getQualifiedNameIfNeeded(element, parentNamespace);
 	}
 
-	private static void renderStereotypeApplication(NamedElement element,
-			StringBuilder builder, EObject application) {
+	private static void renderStereotypeApplication(NamedElement element, StringBuilder builder, EObject application) {
 		Stereotype stereotype = UMLUtil.getStereotype(application);
-		builder.append(getQualifiedNameIfNeeded(stereotype,
-				(Namespace) application.eContainer()));
+		builder.append(getQualifiedNameIfNeeded(stereotype, (Namespace) application.eContainer()));
 		builder.append("(");
 		int mark = builder.length();
 		for (Property stereotypeProperty : stereotype.getAllAttributes()) {
@@ -154,18 +146,16 @@ public class TextUMLRenderingUtils {
 			if (taggedValue == null)
 				continue;
 			if (taggedValue instanceof Element)
-				 if (!(taggedValue instanceof NamedElement))
-					 continue;
+				if (!(taggedValue instanceof NamedElement))
+					continue;
 			// default value for required property of type Integer is 0
 			// so don't show it
-			if ( taggedValue instanceof Integer
-					&& stereotypeProperty.getLower() >= 1
-					&& ((Integer) taggedValue).equals(0))
+			if (taggedValue instanceof Integer && stereotypeProperty.getLower() >= 1
+			        && ((Integer) taggedValue).equals(0))
 				continue;
 			// don't show default values for stereotype properties
 			String defaultValue = stereotypeProperty.getDefault();
-			if (defaultValue != null
-					&& defaultValue.equals(taggedValue.toString())) {
+			if (defaultValue != null && defaultValue.equals(taggedValue.toString())) {
 				continue;
 			}
 			builder.append(name(stereotypeProperty));
@@ -186,7 +176,7 @@ public class TextUMLRenderingUtils {
 		} else
 			builder.delete(mark - 1, mark);
 	}
-	
+
 	private static String escapeIdentifierIfNeeded(String identifier) {
 		if (StringUtils.isBlank(identifier))
 			return "";
@@ -194,21 +184,22 @@ public class TextUMLRenderingUtils {
 			StringBuffer result = new StringBuffer(identifier.length());
 			char[] chars = identifier.toCharArray();
 			for (int i = 0; i < chars.length; i++) {
-				if (chars[i] != '_' && ((Character.isDigit(chars[i]) && i == 0) || !Character.isLetterOrDigit(chars[i])))
-				    result.append('\\');
+				if (chars[i] != '_'
+				        && ((Character.isDigit(chars[i]) && i == 0) || !Character.isLetterOrDigit(chars[i])))
+					result.append('\\');
 				result.append(chars[i]);
 			}
 			return result.toString();
 		}
 		if (Arrays.binarySearch(TextUMLConstants.KEYWORDS, identifier) >= 0)
-			return "\\"+ identifier;
+			return "\\" + identifier;
 		return identifier;
 	}
-	
+
 	public static String name(NamedElement named) {
 		return escapeIdentifierIfNeeded(named.getName());
 	}
-	
+
 	public static String qualifiedName(NamedElement named) {
 		StringBuffer qualifiedName = new StringBuffer(name(named));
 		for (Namespace namespace : named.allNamespaces()) {
@@ -218,6 +209,6 @@ public class TextUMLRenderingUtils {
 			qualifiedName.insert(0, NamedElement.SEPARATOR);
 			qualifiedName.insert(0, namespaceName);
 		}
-		return qualifiedName.toString();	
+		return qualifiedName.toString();
 	}
 }

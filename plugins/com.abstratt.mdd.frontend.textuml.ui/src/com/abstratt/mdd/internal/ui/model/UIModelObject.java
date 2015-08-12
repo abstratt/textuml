@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import java.util.ArrayList;
@@ -17,7 +17,6 @@ import java.util.List;
 import org.eclipse.swt.graphics.Image;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.internal.frontend.textuml.Util;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAggregationAssociationKind;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationAssociationKind;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationDef;
@@ -37,6 +36,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PClassType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Start;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
+import com.abstratt.mdd.internal.frontend.textuml.Util;
 import com.abstratt.mdd.internal.ui.TextUMLUIPlugin;
 import com.abstratt.mdd.internal.ui.editors.WorkingCopy;
 import com.abstratt.mdd.internal.ui.editors.WorkingCopyRegistry;
@@ -50,8 +50,9 @@ public abstract class UIModelObject {
 
 	protected ASTNode<Token, Node> node;
 	protected UIModelObject parent;
+
 	public static UIModelObject createModelObject(UIModelObject parent, ASTNode<Token, Node> node) {
-		if (node.instanceOf(Start.class)) {			
+		if (node.instanceOf(Start.class)) {
 			return new RootModelObject(parent, node);
 		}
 		if (node.instanceOf(AClassDef.class)) {
@@ -61,7 +62,7 @@ public abstract class UIModelObject {
 			if (classType instanceof AInterfaceClassType)
 				return new Interface(parent, node);
 			if (classType instanceof ADatatypeClassType) {
-				if(!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_DATATYPE))
+				if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_DATATYPE))
 					return null;
 				return new DataType(parent, node);
 			}
@@ -71,7 +72,7 @@ public abstract class UIModelObject {
 			return new PrimitiveType(parent, node);
 		}
 		if (node.instanceOf(AAttributeDecl.class)) {
-			if(!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_ATTR)) {
+			if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_ATTR)) {
 				return null;
 			}
 			return new Attribute(parent, node);
@@ -80,13 +81,13 @@ public abstract class UIModelObject {
 			return new Reference(parent, node);
 		}
 		if (node.instanceOf(ADependencyDecl.class)) {
-			if(!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_DEPS)) {
+			if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_DEPS)) {
 				return null;
 			}
 			return new Dependency(parent, node);
 		}
 		if (node.instanceOf(AOperationDecl.class)) {
-			if(!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_OP)) {
+			if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_OP)) {
 				return null;
 			}
 			return new Operation(parent, node);
@@ -121,10 +122,10 @@ public abstract class UIModelObject {
 			for (Iterator<ASTNode<Token, Node>> iter = nodes.iterator(); iter.hasNext();) {
 				ASTNode<Token, Node> node = iter.next();
 				UIModelObject child = UIModelObject.createModelObject(UIModelObject.this, node);
-				if(child != null) {
+				if (child != null) {
 					children.add(child);
 				}
-				
+
 			}
 		}
 		return children;
@@ -157,7 +158,7 @@ public abstract class UIModelObject {
 	abstract public String getOriginalText();
 
 	abstract public Token getToken();
-	
+
 	public String getText() {
 		return Util.stripEscaping(getOriginalText());
 	}

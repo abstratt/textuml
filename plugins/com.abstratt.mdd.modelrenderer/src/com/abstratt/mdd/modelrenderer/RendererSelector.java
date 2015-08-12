@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.modelrenderer;
 
 import java.util.Arrays;
@@ -20,7 +20,8 @@ import org.eclipse.emf.ecore.EObject;
 import com.abstratt.pluginutils.LogUtils;
 
 /**
- * Default renderer selector. Abstract so clients need to subclass and thus this class can find client classes.
+ * Default renderer selector. Abstract so clients need to subclass and thus this
+ * class can find client classes.
  */
 public abstract class RendererSelector<E extends EObject> implements IRendererSelector<E> {
 
@@ -38,7 +39,8 @@ public abstract class RendererSelector<E extends EObject> implements IRendererSe
 		String className = elementClass.getName();
 		String rendererClassName = packageName + '.' + className + "Renderer";
 		try {
-			return (Class<? extends IEObjectRenderer<E>>) Class.forName(rendererClassName, true, getClass().getClassLoader());
+			return (Class<? extends IEObjectRenderer<E>>) Class.forName(rendererClassName, true, getClass()
+			        .getClassLoader());
 		} catch (ClassNotFoundException e) {
 			// try parent
 			EList<EClass> superTypes = elementClass.getESuperTypes();

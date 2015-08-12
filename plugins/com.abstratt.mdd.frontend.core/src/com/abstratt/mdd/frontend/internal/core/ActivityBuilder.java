@@ -38,16 +38,17 @@ public class ActivityBuilder implements IActivityBuilder {
 	public void closeAction() {
 		closeAction(true);
 	}
-	
+
 	@Override
 	public boolean isCurrentActionTerminal() {
-	    return currentAction.getParent() == null || currentAction.getParent().getAction().getInputs().isEmpty();
+		return currentAction.getParent() == null || currentAction.getParent().getAction().getInputs().isEmpty();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abstratt.mdd.core.frontend.spi.IPackageBuilder#closeAction(boolean)
+	 * @see
+	 * com.abstratt.mdd.core.frontend.spi.IPackageBuilder#closeAction(boolean)
 	 */
 	public void closeAction(boolean autoConnect) {
 		if (debug)
@@ -100,7 +101,7 @@ public class ActivityBuilder implements IActivityBuilder {
 		currentAction = new ActionInfo(currentAction, newAction, true);
 		return newAction;
 	}
-	
+
 	public StructuredActivityNode createBlock(EClass activityNodeClass) {
 		return createBlock(activityNodeClass, false);
 	}
@@ -125,12 +126,14 @@ public class ActivityBuilder implements IActivityBuilder {
 		this.currentActivity = currentActivity;
 		// create activity's root node
 		StructuredActivityNode main = ActivityUtils.createBodyNode(currentActivity);
-		// isolate the root node by default - if child nodes are defined, they will be isolated instead
+		// isolate the root node by default - if child nodes are defined, they
+		// will be isolated instead
 		main.setMustIsolate(true);
 		ActivityUtils.createParameterVariables(currentActivity);
 		enterBlock(main);
-		
-		// another block level so we can always go back and insert more blocks before the current code
+
+		// another block level so we can always go back and insert more blocks
+		// before the current code
 		StructuredActivityNode wrapper = createBlock(UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE);
 		enterBlock(wrapper);
 		return wrapper;
@@ -143,12 +146,13 @@ public class ActivityBuilder implements IActivityBuilder {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abstratt.mdd.core.frontend.spi.IPackageBuilder#getCurrentAction()
+	 * @see
+	 * com.abstratt.mdd.core.frontend.spi.IPackageBuilder#getCurrentAction()
 	 */
 	public Action getCurrentAction() {
 		return currentAction == null ? null : currentAction.getAction();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -170,7 +174,8 @@ public class ActivityBuilder implements IActivityBuilder {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abstratt.mdd.core.frontend.spi.IPackageBuilder#getLastRootAction()
+	 * @see
+	 * com.abstratt.mdd.core.frontend.spi.IPackageBuilder#getLastRootAction()
 	 */
 	public Action getLastRootAction() {
 		return lastTree == null ? null : lastTree.getAction();
@@ -188,7 +193,9 @@ public class ActivityBuilder implements IActivityBuilder {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abstratt.mdd.core.frontend.IPackageBuilder#getVariable(java.lang.String)
+	 * @see
+	 * com.abstratt.mdd.core.frontend.IPackageBuilder#getVariable(java.lang.
+	 * String)
 	 */
 	public Variable getVariable(String variableName) {
 		return ActivityUtils.findVariable(getCurrentBlock(), variableName);
@@ -213,7 +220,9 @@ public class ActivityBuilder implements IActivityBuilder {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abstratt.mdd.core.frontend.IPackageBuilder#registerInput(org.eclipse.uml2.uml.InputPin)
+	 * @see
+	 * com.abstratt.mdd.core.frontend.IPackageBuilder#registerInput(org.eclipse
+	 * .uml2.uml.InputPin)
 	 */
 	public <T extends ObjectNode> T registerInput(T input) {
 		currentAction.registerInput(input);
@@ -223,7 +232,9 @@ public class ActivityBuilder implements IActivityBuilder {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abstratt.mdd.core.frontend.IPackageBuilder#registerOutput(org.eclipse.uml2.uml.OutputPin)
+	 * @see
+	 * com.abstratt.mdd.core.frontend.IPackageBuilder#registerOutput(org.eclipse
+	 * .uml2.uml.OutputPin)
 	 */
 	public <T extends ObjectNode> T registerOutput(T output) {
 		Assert.isLegal(output != null);
@@ -239,7 +250,7 @@ public class ActivityBuilder implements IActivityBuilder {
 		// current);
 		// }
 	}
-	
+
 	@Override
 	public Variable getReturnValueVariable() {
 		return getVariable("");

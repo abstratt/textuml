@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.ui;
 
 import org.eclipse.core.resources.IFile;
@@ -46,27 +46,27 @@ public class UIUtils {
 	}
 
 	/**
-	 * Opens a repository under the given project. It is the client's responsibility to 
-	 * dispose of the repository properly.
+	 * Opens a repository under the given project. It is the client's
+	 * responsibility to dispose of the repository properly.
 	 * 
 	 * @param project
 	 * @return
 	 * @throws CoreException
 	 */
 	public static IRepository getRepository(IProject project) throws CoreException {
-			return MDDCore.createRepository(getRepositoryBaseURI(project));
+		return MDDCore.createRepository(getRepositoryBaseURI(project));
 	}
-	
+
 	/**
-	 * Returns a repository under the given project, caching it. Client should not dispose of repository.
-	 * Returned instance will be valid for a short duration, client should not cache the reference. 
+	 * Returns a repository under the given project, caching it. Client should
+	 * not dispose of repository. Returned instance will be valid for a short
+	 * duration, client should not cache the reference.
 	 * 
 	 * @param project
 	 * @return a repository
 	 * @throws CoreException
 	 */
-	public static IRepository getCachedRepository(IProject project)
-			throws CoreException {
+	public static IRepository getCachedRepository(IProject project) throws CoreException {
 		URI projectRepositoryURI = getRepositoryBaseURI(project);
 		return RepositoryCache.getInstance().getRepository(projectRepositoryURI);
 	}

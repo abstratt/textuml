@@ -48,13 +48,12 @@ public class SourceEditor extends TextEditor implements IMDDEditor {
 		setSourceViewerConfiguration(new TextUMLSourceViewerConfiguration(this));
 		// set the document provider to create the partitioner
 		setDocumentProvider(new FileDocumentProvider() {
-			protected IDocument createDocument(Object element)
-					throws CoreException {
+			protected IDocument createDocument(Object element) throws CoreException {
 				IDocument document = super.createDocument(element);
 				if (document != null) {
 					// this will create partitions
-					IDocumentPartitioner partitioner = new FastPartitioner(
-							new PartitionScanner(),ContentTypes.CONFIGURED_CONTENT_TYPES);
+					IDocumentPartitioner partitioner = new FastPartitioner(new PartitionScanner(),
+					        ContentTypes.CONFIGURED_CONTENT_TYPES);
 					partitioner.connect(document);
 					document.setDocumentPartitioner(partitioner);
 				}
@@ -67,30 +66,24 @@ public class SourceEditor extends TextEditor implements IMDDEditor {
 	protected void createActions() {
 		super.createActions();
 
-		IAction contentAssistAction = new ContentAssistAction(
-				Messages.RESOURCE_BUNDLE, "ContentAssistProposal.", this);
-		contentAssistAction
-				.setActionDefinitionId(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
+		IAction contentAssistAction = new ContentAssistAction(Messages.RESOURCE_BUNDLE, "ContentAssistProposal.", this);
+		contentAssistAction.setActionDefinitionId(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
 		setAction("ContentAssistProposal", contentAssistAction);
 		markAsStateDependentAction("ContentAssistProposal", true);
 	}
 
 	@Override
-	protected ISourceViewer createSourceViewer(Composite parent,
-			IVerticalRuler ruler, int styles) {
+	protected ISourceViewer createSourceViewer(Composite parent, IVerticalRuler ruler, int styles) {
 		ISourceViewer viewer = super.createSourceViewer(parent, ruler, styles);
 
 		// register IDocument with Jabal registry
 		viewer.addTextInputListener(new ITextInputListener() {
-			public void inputDocumentAboutToBeChanged(IDocument oldInput,
-					IDocument newInput) {
+			public void inputDocumentAboutToBeChanged(IDocument oldInput, IDocument newInput) {
 				// nothing for now
 			}
 
-			public void inputDocumentChanged(IDocument oldInput,
-					IDocument newInput) {
-				WorkingCopyRegistry registry = WorkingCopyRegistry
-						.getInstance();
+			public void inputDocumentChanged(IDocument oldInput, IDocument newInput) {
+				WorkingCopyRegistry registry = WorkingCopyRegistry.getInstance();
 				if (oldInput != null) {
 					registry.unregister(oldInput);
 				}
@@ -112,19 +105,18 @@ public class SourceEditor extends TextEditor implements IMDDEditor {
 		if (outlinePage != null)
 			outlinePage.refresh();
 	}
-	
+
 	@Override
 	protected void performSaveAs(IProgressMonitor progressMonitor) {
 		if (TextUMLUIPlugin.getDefault().getPluginPreferences().getBoolean(TextUMLUIPlugin.FORMAT_ON_SAVE))
-		    doFormat();
+			doFormat();
 		super.performSaveAs(progressMonitor);
 	}
-	
+
 	@Override
-	protected void performSave(boolean overwrite,
-			IProgressMonitor progressMonitor) {
+	protected void performSave(boolean overwrite, IProgressMonitor progressMonitor) {
 		if (TextUMLUIPlugin.getDefault().getPluginPreferences().getBoolean(TextUMLUIPlugin.FORMAT_ON_SAVE))
-		    doFormat();
+			doFormat();
 		super.performSave(overwrite, progressMonitor);
 	}
 

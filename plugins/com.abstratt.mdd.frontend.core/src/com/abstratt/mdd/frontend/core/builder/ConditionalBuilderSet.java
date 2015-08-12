@@ -13,7 +13,7 @@ public class ConditionalBuilderSet {
 	public void addOption(NameReference reference, ElementBuilder<?> builder) {
 		addOption(new ReferenceCondition(reference), builder);
 	}
-	
+
 	public void addOption(BuildCondition condition, ElementBuilder<?> builder) {
 		if (choiceMade)
 			throw new IllegalStateException();
@@ -21,7 +21,6 @@ public class ConditionalBuilderSet {
 		conditionedBuilders.put(condition, builder);
 	}
 
-	
 	public ElementBuilder<?> getChosenBuilder() {
 		if (choiceMade)
 			return chosenBuilder;

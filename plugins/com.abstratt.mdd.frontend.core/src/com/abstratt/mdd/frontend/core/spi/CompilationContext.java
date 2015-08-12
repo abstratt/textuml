@@ -12,7 +12,8 @@ public class CompilationContext implements Cloneable {
 	private Properties repositoryProperties;
 	private String sourcePath;
 
-	public CompilationContext(IReferenceTracker referenceTracker, IProblemTracker problemTracker, IRepository repository, String sourcePath, boolean debug) {
+	public CompilationContext(IReferenceTracker referenceTracker, IProblemTracker problemTracker,
+	        IRepository repository, String sourcePath, boolean debug) {
 		this.referenceTracker = referenceTracker;
 		this.problemTracker = problemTracker;
 		this.repository = repository;
@@ -40,19 +41,19 @@ public class CompilationContext implements Cloneable {
 	public boolean isDebug() {
 		return debug;
 	}
-	
+
 	public String getSourcePath() {
 		return sourcePath;
 	}
-	
+
 	public CompilationContext newLocalContext(String path) {
 		CompilationContext copy = (CompilationContext) this.clone();
 		copy.sourcePath = path;
 		return copy;
 	}
-	
+
 	@Override
-	protected Object clone()  {
+	protected Object clone() {
 		try {
 			return super.clone();
 		} catch (CloneNotSupportedException e) {

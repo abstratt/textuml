@@ -17,17 +17,17 @@ public class ModifierProcessor implements NodeProcessor<Node> {
 	private Set<Modifier> modifiers = new LinkedHashSet<Modifier>();
 
 	private SCCTextUMLSourceMiner sourceMiner;
-	
+
 	public ModifierProcessor(SCCTextUMLSourceMiner sourceMiner) {
 		this.sourceMiner = sourceMiner;
 	}
-	
+
 	@Override
 	public void process(Node node) {
 		if (node == null)
 			return;
-		for (Token modifierToken : sourceMiner.findChildren(node, Token.class)) 
-			modifiers.add(Modifier.fromToken(modifierToken.getText()));	
+		for (Token modifierToken : sourceMiner.findChildren(node, Token.class))
+			modifiers.add(Modifier.fromToken(modifierToken.getText()));
 	}
 
 	public void collectModifierToken(Node modifierNode) {

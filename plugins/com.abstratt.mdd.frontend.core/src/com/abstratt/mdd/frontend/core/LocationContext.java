@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import java.util.ArrayList;
@@ -20,17 +20,19 @@ import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.Assert;
 
 /**
- * Provides all the location-related context required by the compilation process.
+ * Provides all the location-related context required by the compilation
+ * process.
  */
 public class LocationContext {
-	
+
 	private IFileStore defaultOutputPath;
 	private List<IFileStore> relatedPaths = new ArrayList<IFileStore>();
 	private List<IFileStore> outputPaths = new ArrayList<IFileStore>();
 	private List<IFileStore> sourcePaths = new ArrayList<IFileStore>();
 
 	/**
-	 * Creates a compilation context having the given path as the default output path.
+	 * Creates a compilation context having the given path as the default output
+	 * path.
 	 * 
 	 * @param defaultOutputPath
 	 */
@@ -75,7 +77,8 @@ public class LocationContext {
 	}
 
 	/**
-	 * Returns the output path corresponding to the given source path, or <code>null</code>.
+	 * Returns the output path corresponding to the given source path, or
+	 * <code>null</code>.
 	 * 
 	 * @param sourcePath
 	 * @return
@@ -88,7 +91,7 @@ public class LocationContext {
 	/**
 	 * Returns all output paths.
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public IFileStore[] getOutputPaths() {
 		Set<IFileStore> result = new HashSet<IFileStore>(sourcePaths.size());
@@ -110,7 +113,7 @@ public class LocationContext {
 	public IFileStore[] getSourcePaths() {
 		return copy(sourcePaths);
 	}
-	
+
 	/**
 	 * Returns all related paths.
 	 * 
@@ -119,7 +122,7 @@ public class LocationContext {
 	public IFileStore[] getRelatedPaths() {
 		return copy(relatedPaths);
 	}
-	
+
 	private IFileStore[] copy(Collection<IFileStore> stores) {
 		return stores.toArray(new IFileStore[stores.size()]);
 	}

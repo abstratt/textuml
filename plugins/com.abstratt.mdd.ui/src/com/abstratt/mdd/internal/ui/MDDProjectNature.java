@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui;
 
 import org.eclipse.core.resources.ICommand;
@@ -27,7 +27,7 @@ public class MDDProjectNature implements IProjectNature {
 		IProjectDescription description = project.getDescription();
 		ICommand command = description.newCommand();
 		command.setBuilderName(UIConstants.BUILDER_ID);
-		description.setBuildSpec(new ICommand[] {command});
+		description.setBuildSpec(new ICommand[] { command });
 		project.setDescription(description, null);
 	}
 

@@ -11,7 +11,7 @@ public class BasicTypeValueSpecificationBuilder extends ValueSpecificationBuilde
 
 	private String value;
 	private String type;
-	
+
 	public BasicTypeValueSpecificationBuilder(UML2ProductKind kind) {
 		super(kind);
 	}
@@ -21,20 +21,20 @@ public class BasicTypeValueSpecificationBuilder extends ValueSpecificationBuilde
 		Classifier basicType = findBuiltInType(type);
 		return MDDExtensionUtils.buildBasicValue(as(PackageBuilder.class).getProduct(), basicType, value);
 	}
-	
+
 	private Classifier findBuiltInType(String typeName) {
 		// try first to find a type in the base package
 		Classifier builtInType = BasicTypeUtils.findBuiltInType(typeName);
 		if (builtInType == null)
-			abortStatement(new UnresolvedSymbol(
-					typeName));
+			abortStatement(new UnresolvedSymbol(typeName));
 		return builtInType;
 	}
-	
+
 	public BasicTypeValueSpecificationBuilder basicValue(String basicValue) {
 		this.value = basicValue;
 		return this;
 	}
+
 	public BasicTypeValueSpecificationBuilder basicType(String basicType) {
 		this.type = basicType;
 		return this;

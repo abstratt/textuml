@@ -32,8 +32,7 @@ public class MultiplicityTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Class class1 = getRepository().findNamedElement("simple::Class1",
-				UMLPackage.Literals.CLASS, null);
+		Class class1 = getRepository().findNamedElement("simple::Class1", UMLPackage.Literals.CLASS, null);
 		assertNotNull(class1);
 		Property attr1 = class1.getAttribute("attr1", null);
 		assertNotNull(attr1);
@@ -60,8 +59,7 @@ public class MultiplicityTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Class class1 = getRepository().findNamedElement("simple::Class1",
-				UMLPackage.Literals.CLASS, null);
+		Class class1 = getRepository().findNamedElement("simple::Class1", UMLPackage.Literals.CLASS, null);
 		assertNotNull(class1);
 		Property attr1 = class1.getAttribute("attr1", null);
 		assertNotNull(attr1);
@@ -88,8 +86,7 @@ public class MultiplicityTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Class class1 = getRepository().findNamedElement("simple::Class1",
-				UMLPackage.Literals.CLASS, null);
+		Class class1 = getRepository().findNamedElement("simple::Class1", UMLPackage.Literals.CLASS, null);
 		assertNotNull(class1);
 		Property attr1 = class1.getAttribute("attr1", null);
 		assertNotNull(attr1);
@@ -104,8 +101,7 @@ public class MultiplicityTests extends AbstractRepositoryBuildingTests {
 		ValueSpecification upperValue = attr1.getUpperValue();
 		assertNotNull(upperValue);
 		assertTrue(upperValue instanceof LiteralUnlimitedNatural);
-		assertEquals(LiteralUnlimitedNatural.UNLIMITED,
-				((LiteralUnlimitedNatural) upperValue).unlimitedValue());
+		assertEquals(LiteralUnlimitedNatural.UNLIMITED, ((LiteralUnlimitedNatural) upperValue).unlimitedValue());
 	}
 
 	public void testFrom1To1() throws CoreException {
@@ -117,8 +113,7 @@ public class MultiplicityTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Class class1 = getRepository().findNamedElement("simple::Class1",
-				UMLPackage.Literals.CLASS, null);
+		Class class1 = getRepository().findNamedElement("simple::Class1", UMLPackage.Literals.CLASS, null);
 		assertNotNull(class1);
 		Property attr1 = class1.getAttribute("attr1", null);
 		assertNotNull(attr1);
@@ -145,8 +140,7 @@ public class MultiplicityTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Class class1 = getRepository().findNamedElement("simple::Class1",
-				UMLPackage.Literals.CLASS, null);
+		Class class1 = getRepository().findNamedElement("simple::Class1", UMLPackage.Literals.CLASS, null);
 		assertNotNull(class1);
 		Property attr1 = class1.getAttribute("attr1", null);
 		assertNotNull(attr1);
@@ -161,8 +155,7 @@ public class MultiplicityTests extends AbstractRepositoryBuildingTests {
 		ValueSpecification upperValue = attr1.getUpperValue();
 		assertNotNull(upperValue);
 		assertTrue(upperValue instanceof LiteralUnlimitedNatural);
-		assertEquals(LiteralUnlimitedNatural.UNLIMITED,
-				((LiteralUnlimitedNatural) upperValue).unlimitedValue());
+		assertEquals(LiteralUnlimitedNatural.UNLIMITED, ((LiteralUnlimitedNatural) upperValue).unlimitedValue());
 	}
 
 	public void testFrom0ToUnlimited() throws CoreException {
@@ -174,8 +167,7 @@ public class MultiplicityTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Class class1 = getRepository().findNamedElement("simple::Class1",
-				UMLPackage.Literals.CLASS, null);
+		Class class1 = getRepository().findNamedElement("simple::Class1", UMLPackage.Literals.CLASS, null);
 		assertNotNull(class1);
 		Property attr1 = class1.getAttribute("attr1", null);
 		assertNotNull(attr1);
@@ -190,7 +182,6 @@ public class MultiplicityTests extends AbstractRepositoryBuildingTests {
 		ValueSpecification upperValue = attr1.getUpperValue();
 		assertNotNull(upperValue);
 		assertTrue(upperValue instanceof LiteralUnlimitedNatural);
-		assertEquals(LiteralUnlimitedNatural.UNLIMITED,
-				((LiteralUnlimitedNatural) upperValue).unlimitedValue());
+		assertEquals(LiteralUnlimitedNatural.UNLIMITED, ((LiteralUnlimitedNatural) upperValue).unlimitedValue());
 	}
 }

@@ -30,7 +30,7 @@ public class ReceptionUtils {
 				for (Interface implemented : ((Class) parent).getImplementedInterfaces()) {
 					Reception inherited = findBySignal(implemented, signal);
 					if (inherited != null)
-						return inherited;	
+						return inherited;
 				}
 			}
 		}

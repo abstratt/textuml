@@ -27,8 +27,7 @@ public class UnknownAttribute extends UnresolvedSymbol {
 
 	@Override
 	public String getMessage() {
-		return "Unknown " + (isStatic ? "static" : "") + " attribute '"
-				+ attribute + "' in '" + classifier;
+		return "Unknown " + (isStatic ? "static" : "") + " attribute '" + attribute + "' in '" + classifier;
 	}
 
 	public String getClassifier() {

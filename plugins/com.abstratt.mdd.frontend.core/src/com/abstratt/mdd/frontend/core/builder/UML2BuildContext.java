@@ -11,9 +11,11 @@ import com.abstratt.mdd.frontend.core.spi.NamespaceTracker;
  */
 public class UML2BuildContext {
 	private boolean requiredLineInfo = false;
+
 	public boolean isRequiredLineInfo() {
 		return requiredLineInfo;
 	}
+
 	public void setRequiredLineInfo(boolean requiredLines) {
 		this.requiredLineInfo = requiredLines;
 	}
@@ -23,17 +25,19 @@ public class UML2BuildContext {
 	private IReferenceTracker referenceTracker;
 	private IActivityBuilder activityBuilder;
 	private NamespaceTracker namespaceTracker = new NamespaceTracker();
-	
+
 	public UML2BuildContext(IBasicRepository repository, IProblemTracker reporter, IReferenceTracker referenceTracker) {
 		this(repository, reporter, referenceTracker, null);
 	}
-	public UML2BuildContext(IBasicRepository repository, IProblemTracker reporter, IReferenceTracker referenceTracker, IActivityBuilder activityBuilder) {
+
+	public UML2BuildContext(IBasicRepository repository, IProblemTracker reporter, IReferenceTracker referenceTracker,
+	        IActivityBuilder activityBuilder) {
 		this.repository = repository;
 		this.reporter = reporter;
 		this.referenceTracker = referenceTracker;
 		this.activityBuilder = activityBuilder;
 	}
-	
+
 	public IActivityBuilder getActivityBuilder() {
 		if (activityBuilder == null)
 			throw new UnsupportedOperationException("Activity building not enabled for this context");
@@ -47,11 +51,11 @@ public class UML2BuildContext {
 	public IProblemTracker getProblemTracker() {
 		return reporter;
 	}
-	
+
 	public IReferenceTracker getReferenceTracker() {
 		return referenceTracker;
 	}
-	
+
 	public NamespaceTracker getNamespaceTracker() {
 		return namespaceTracker;
 	}

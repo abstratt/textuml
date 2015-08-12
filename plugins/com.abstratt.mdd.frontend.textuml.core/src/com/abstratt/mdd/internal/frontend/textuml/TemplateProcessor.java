@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import org.eclipse.emf.ecore.EClass;
@@ -28,7 +28,8 @@ public class TemplateProcessor implements NodeProcessor<POptionalFormalTemplateP
 	private EClass templateParameterClass;
 	private EClass templateSignatureClass;
 
-	public TemplateProcessor(TemplateableElement templateable, EClass templateSignatureClass, EClass templateParameterClass, EClass parameterableElementClass) {
+	public TemplateProcessor(TemplateableElement templateable, EClass templateSignatureClass,
+	        EClass templateParameterClass, EClass parameterableElementClass) {
 		super();
 		this.classifier = templateable;
 		this.templateSignatureClass = templateSignatureClass;

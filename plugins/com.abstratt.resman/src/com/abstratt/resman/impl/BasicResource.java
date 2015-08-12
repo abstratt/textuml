@@ -15,13 +15,13 @@ public class BasicResource<K extends ResourceKey> extends Resource<K> {
 		System.out.println("Invalidated " + getId());
 		this.features = null;
 	}
-	
+
 	void flushContext() {
 		this.context = null;
 	}
-	
+
 	void initContext() {
-		this.context = new HashMap<Class<?>, Map<String,Object>>();
+		this.context = new HashMap<Class<?>, Map<String, Object>>();
 		for (Class<?> featureClass : features.keySet())
 			this.context.put(featureClass, new HashMap<String, Object>());
 	}

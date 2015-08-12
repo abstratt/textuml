@@ -18,8 +18,7 @@ import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.WrongNumberOfArguments;
 import com.abstratt.mdd.frontend.core.builder.UML2ProductKind;
 
-public class CallOperationActionBuilder extends
-		ActionBuilder<CallOperationAction> {
+public class CallOperationActionBuilder extends ActionBuilder<CallOperationAction> {
 	private String operationName;
 	private ActionBuilder<?> targetBuilder;
 	private List<ActionBuilder<?>> argumentBuilders = new LinkedList<ActionBuilder<?>>();
@@ -32,24 +31,26 @@ public class CallOperationActionBuilder extends
 		this.operationName = featureName;
 		return this;
 	}
-	
+
 	@Override
 	public void enhanceAction() {
-		
+
 		Operation operation = findNamedElement(operationName, Literals.OPERATION);
 		getProduct().setOperation(operation);
-		
-		List<Parameter> signatureParameters = StructuralFeatureUtils.filterParameters(operation.getOwnedParameters(), ParameterDirectionKind.IN_LITERAL, ParameterDirectionKind.INOUT_LITERAL, ParameterDirectionKind.OUT_LITERAL);
+
+		List<Parameter> signatureParameters = StructuralFeatureUtils.filterParameters(operation.getOwnedParameters(),
+		        ParameterDirectionKind.IN_LITERAL, ParameterDirectionKind.INOUT_LITERAL,
+		        ParameterDirectionKind.OUT_LITERAL);
 		int parameterCount = signatureParameters.size();
 		int argumentCount = argumentBuilders.size();
 		if (parameterCount != argumentCount)
 			abortStatement(new WrongNumberOfArguments(parameterCount, argumentCount));
-		//TODO only if not static
+		// TODO only if not static
 		getProduct().createTarget(null, null);
 		buildSource(getProduct().getTarget(), targetBuilder);
 		Classifier targetClassifier = (Classifier) ActivityUtils.getSource(getProduct().getTarget()).getType();
 		getProduct().getTarget().setType(targetClassifier);
-        // matches parameters and arguments		
+		// matches parameters and arguments
 		for (int i = 0; i < parameterCount; i++) {
 			Parameter current = signatureParameters.get(i);
 			InputPin argument = getProduct().createArgument(null, null);
@@ -63,19 +64,18 @@ public class CallOperationActionBuilder extends
 			TypeUtils.copyType(operation.getReturnResult(), result, getBoundElement());
 		}
 	}
-	
-	public CallOperationActionBuilder  target(
-			ActionBuilder<?> targetBuilder) {
+
+	public CallOperationActionBuilder target(ActionBuilder<?> targetBuilder) {
 		addSourceAction(targetBuilder);
 		this.targetBuilder = targetBuilder;
 		return this;
 	}
-	
+
 	@Override
 	protected boolean isProducer() {
 		return getProduct().getOperation().getReturnResult() != null;
 	}
-	
+
 	@Override
 	protected boolean isConsumer() {
 		return !getProduct().getOperation().isStatic() || !argumentBuilders.isEmpty();

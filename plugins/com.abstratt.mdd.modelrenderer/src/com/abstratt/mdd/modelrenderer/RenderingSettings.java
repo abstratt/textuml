@@ -7,17 +7,17 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.modelrenderer;
 
 import java.lang.reflect.Field;
 
-/** 
- * A reflection-based helper class for easy checking of settings.
- * Settings are read-only, and provided by a settings source. 
+/**
+ * A reflection-based helper class for easy checking of settings. Settings are
+ * read-only, and provided by a settings source.
  */
 public class RenderingSettings implements IRenderingSettings {
-	
+
 	private SettingsSource preferences;
 
 	public RenderingSettings(SettingsSource preferences) {
@@ -39,7 +39,7 @@ public class RenderingSettings implements IRenderingSettings {
 			return enumerationClass.getEnumConstants()[0];
 		return T.valueOf(enumerationClass, currentValue);
 	}
-	
+
 	private static <T extends Enum<?>> String getKey(Class<T> enumerationClass) {
 		try {
 			Field keyField = null;
@@ -56,8 +56,8 @@ public class RenderingSettings implements IRenderingSettings {
 	public boolean getBoolean(String key) {
 		String setting = preferences.getSetting(key);
 		return setting == null ? false : Boolean.parseBoolean(setting);
-	}	
-	
+	}
+
 	@Override
 	public String getString(String key) {
 		return preferences.getSetting(key);

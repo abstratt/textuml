@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.qualifiedName;
@@ -18,11 +18,9 @@ import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
-public class ProfileApplicationRenderer implements
-		IEObjectRenderer<ProfileApplication> {
+public class ProfileApplicationRenderer implements IEObjectRenderer<ProfileApplication> {
 
-	public boolean renderObject(ProfileApplication element,
-			IndentedPrintWriter out, IRenderingSession context) {
+	public boolean renderObject(ProfileApplication element, IndentedPrintWriter out, IRenderingSession context) {
 		out.println("apply " + qualifiedName(element.getAppliedProfile()) + ";");
 		return true;
 	}

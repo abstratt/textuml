@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 public interface ASTReverseVisitor<T, N> {
@@ -15,7 +15,8 @@ public interface ASTReverseVisitor<T, N> {
 	/**
 	 * Visits a node in the AST.
 	 * 
-	 * @param node the node we are visiting
+	 * @param node
+	 *            the node we are visiting
 	 * @return true if we should visit the parent and false otherwise
 	 */
 	boolean visit(ASTNode<T, N> node);

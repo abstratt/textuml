@@ -7,16 +7,16 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core.spi;
 
 import com.abstratt.mdd.core.IProblem;
-import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.IProblem.Severity;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 
-/** A problem builder builds problems based on node information. */ 
+/** A problem builder builds problems based on node information. */
 public class ProblemBuilder<N> {
-	
+
 	private IProblemTracker problems;
 	private ISourceMiner<N> miner;
 
@@ -38,11 +38,11 @@ public class ProblemBuilder<N> {
 	public void addWarning(String message, N node) {
 		addProblem(new UnclassifiedProblem(IProblem.Severity.WARNING, message), node);
 	}
-	
+
 	public boolean hasErrors() {
 		return problems.hasProblems(Severity.ERROR);
 	}
-	
+
 	public void ensure(boolean condition, String message, N node) {
 		if (!condition) {
 			addError(message, node);

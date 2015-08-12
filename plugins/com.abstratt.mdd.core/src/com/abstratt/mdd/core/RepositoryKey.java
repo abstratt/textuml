@@ -16,11 +16,12 @@ public class RepositoryKey implements ResourceKey {
 	public RepositoryKey(URI uri) {
 		this.uri = uri;
 	}
-	
+
 	@Override
 	public String toString() {
 		return uri.toString();
 	}
+
 	@Override
 	public int hashCode() {
 		return uri.hashCode();

@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
@@ -22,18 +22,21 @@ import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
+
 public class ClassRenderer implements IEObjectRenderer<Class> {
 
 	public boolean renderObject(Class clazz, IndentedPrintWriter writer, IRenderingSession context) {
 		RenderingUtils.renderAll(context, clazz.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, clazz);
-		if (clazz.isAbstract()) 
+		if (clazz.isAbstract())
 			writer.print("abstract ");
 		writer.print("class " + name(clazz));
 		List<Generalization> generalizations = clazz.getGeneralizations();
 		StringBuilder specializationList = new StringBuilder();
 		for (Generalization generalization : generalizations)
-			specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(), clazz.getNamespace()) + ", ");
+			specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(),
+			        clazz.getNamespace())
+			        + ", ");
 		if (specializationList.length() > 0) {
 			specializationList.delete(specializationList.length() - 2, specializationList.length());
 			writer.print(" specializes ");
@@ -42,7 +45,9 @@ public class ClassRenderer implements IEObjectRenderer<Class> {
 		List<InterfaceRealization> realizations = clazz.getInterfaceRealizations();
 		StringBuilder realizationList = new StringBuilder();
 		for (InterfaceRealization realization : realizations)
-			realizationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(realization.getContract(), clazz.getNamespace()) + ", ");
+			realizationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(realization.getContract(),
+			        clazz.getNamespace())
+			        + ", ");
 		if (realizationList.length() > 0) {
 			realizationList.delete(realizationList.length() - 2, realizationList.length());
 			writer.print(" implements ");

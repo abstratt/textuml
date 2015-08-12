@@ -9,6 +9,7 @@ public class VariableBuilder extends TypedElementBuilder<Variable> {
 	public VariableBuilder(UML2ProductKind kind) {
 		super(kind);
 	}
+
 	@Override
 	protected Variable createProduct() {
 		if (getParentProduct() != null)

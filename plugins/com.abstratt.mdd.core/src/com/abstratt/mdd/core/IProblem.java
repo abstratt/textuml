@@ -7,12 +7,12 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.core;
 
 public interface IProblem {
 
-	public static enum Severity { 
+	public static enum Severity {
 		ERROR, INFO, WARNING
 	}
 

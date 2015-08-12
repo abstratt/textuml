@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.modelrenderer;
 
 import org.eclipse.emf.ecore.EClass;
@@ -18,10 +18,16 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface IRenderingSession<E extends EObject> {
 	public boolean isShallow();
+
 	public boolean render(E toRender);
-	public boolean render(E toRender, boolean deep);	
+
+	public boolean render(E toRender, boolean deep);
+
 	public E getRoot();
+
 	public E getCurrent();
+
 	public E getPrevious(EClass eClass);
+
 	public IRenderingSettings getSettings();
 }

@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.editors;
 
 import java.util.HashSet;
@@ -21,8 +21,8 @@ import com.abstratt.mdd.frontend.core.ASTNode;
 import com.abstratt.mdd.internal.ui.model.ASTUtils;
 
 /**
- * Keeps track of all the current working copies. Working copies
- * are created for IDocument objects.
+ * Keeps track of all the current working copies. Working copies are created for
+ * IDocument objects.
  */
 public class WorkingCopyRegistry {
 
@@ -86,9 +86,8 @@ public class WorkingCopyRegistry {
 	}
 
 	/**
-	 * Registers this document with the working copies. If a
-	 * working copy for this document does not exist, a new
-	 * one will be created.
+	 * Registers this document with the working copies. If a working copy for
+	 * this document does not exist, a new one will be created.
 	 */
 	public void register(IDocument document, IFile file) {
 		synchronized (copies) {

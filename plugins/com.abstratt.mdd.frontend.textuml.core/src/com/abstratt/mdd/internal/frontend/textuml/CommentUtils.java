@@ -11,7 +11,7 @@ public class CommentUtils {
 		commentText = commentText.substring(0, commentText.length() - 2);
 		return commentText;
 	}
-	
+
 	public static void applyComment(TModelComment commentToken, Element commented) {
 		if (commentToken != null) {
 			Comment newComment = commented.createOwnedComment();

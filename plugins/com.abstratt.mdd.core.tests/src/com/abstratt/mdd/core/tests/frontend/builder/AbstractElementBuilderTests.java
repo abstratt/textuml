@@ -1,6 +1,5 @@
 package com.abstratt.mdd.core.tests.frontend.builder;
 
-
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.StrictProblemTracker;
 import com.abstratt.mdd.frontend.core.FrontEnd;
@@ -24,7 +23,8 @@ public abstract class AbstractElementBuilderTests extends AbstractRepositoryBuil
 	}
 
 	protected UML2BuildContext createBuildContext() {
-		return new UML2BuildContext(getRepository(), createProblemTracker(), createReferenceTracker(), createActivityBuilder());
+		return new UML2BuildContext(getRepository(), createProblemTracker(), createReferenceTracker(),
+		        createActivityBuilder());
 	}
 
 	protected IActivityBuilder createActivityBuilder() {

@@ -9,22 +9,22 @@ public class CacheAdapterManager extends CacheAdapter {
 	public static boolean isEnabled() {
 		return CacheAdapter.THREAD_LOCAL != null;
 	}
-	
+
 	static void remove() {
 		setAdapter(null);
 	}
-	
+
 	static CacheHolder install() {
 		CacheHolder created = new CacheHolder();
 		setAdapter(created);
 		return created;
 	}
-	
+
 	static void restore(CacheHolder toRestore) {
 		Assert.isNotNull(toRestore);
 		setAdapter(toRestore);
 	}
-	
+
 	private static void setAdapter(CacheHolder toRestore) {
 		if (!isEnabled())
 			return;

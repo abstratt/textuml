@@ -25,29 +25,30 @@ import com.abstratt.mdd.frontend.core.ICompilationDirector;
 import com.abstratt.mdd.frontend.core.LocationContext;
 import com.abstratt.mdd.frontend.internal.core.CompilationDirector;
 
-public class LeakTest extends AbstractRepositoryBuildingTests{
+public class LeakTest extends AbstractRepositoryBuildingTests {
 	public LeakTest(String name) {
 		super(name);
 	}
-	
+
 	@Override
 	protected void runTest() throws Throwable {
 		originalRunTest();
 	}
-	
+
 	@Override
 	public void setUp() {
 	}
-	
+
 	@Override
 	protected void tearDown() {
 	}
-	
+
 	public void _testLeak3() throws Exception {
 		Properties creationSettings = new Properties();
 		creationSettings.setProperty(IRepository.ENABLE_EXTENSIONS, Boolean.TRUE.toString());
 		creationSettings.setProperty(IRepository.ENABLE_LIBRARIES, Boolean.TRUE.toString());
-		IRepository repo = MDDCore.createRepository(URI.createURI("file:///C:/Users/rafael/AppData/Local/Temp/kirra/perf2"));
+		IRepository repo = MDDCore.createRepository(URI
+		        .createURI("file:///C:/Users/rafael/AppData/Local/Temp/kirra/perf2"));
 		org.eclipse.uml2.uml.Class employeeClass = repo.findNamedElement("expenses::Employee", Literals.CLASS, null);
 		Operation activeEmployeesOperation = employeeClass.getOperation("activeEmployees", null, null, true);
 		assertEquals(1, activeEmployeesOperation.getMethods().size());
@@ -58,11 +59,12 @@ public class LeakTest extends AbstractRepositoryBuildingTests{
 		repo.dispose();
 		showMemory("after test");
 	}
-	
+
 	public void testLeak2() throws Exception {
 		ICompilationDirector director = CompilationDirector.getInstance();
-		
-		IFileStore sourceRoot = EFS.getStore(java.net.URI.create("file:///C:/Users/rafael/AppData/Local/Temp/kirra/perf2/src"));
+
+		IFileStore sourceRoot = EFS.getStore(java.net.URI
+		        .create("file:///C:/Users/rafael/AppData/Local/Temp/kirra/perf2/src"));
 		IFileStore output = sourceRoot.getParent();
 		LocationContext context = new LocationContext(output);
 		context.addSourcePath(sourceRoot, output);
@@ -71,17 +73,18 @@ public class LeakTest extends AbstractRepositoryBuildingTests{
 		for (IFileStore iFileStore : allChildren)
 			if (iFileStore.getName().endsWith("tuml"))
 				source.add(iFileStore);
-		IProblem[] problems = director.compile(source.toArray(new IFileStore[0]), null, context, ICompilationDirector.FULL_BUILD | ICompilationDirector.CLEAN, null);
+		IProblem[] problems = director.compile(source.toArray(new IFileStore[0]), null, context,
+		        ICompilationDirector.FULL_BUILD | ICompilationDirector.CLEAN, null);
 		FixtureHelper.assertCompilationSuccessful(problems);
 		showMemory("after test");
 	}
-	
+
 	public void _testLeak() throws CoreException {
 		String profile;
-		profile= "profile simpleprofile;\n";
-		profile+= "stereotype Entity extends uml::Class\n";
-		profile+= "end;\n";
-		profile+= "end.";
+		profile = "profile simpleprofile;\n";
+		profile += "stereotype Entity extends uml::Class\n";
+		profile += "end;\n";
+		profile += "end.";
 
 		String source;
 		source = "model simple;\n";
@@ -103,9 +106,8 @@ public class LeakTest extends AbstractRepositoryBuildingTests{
 	private void showMemory(String string) {
 		System.gc();
 		final int MEGABYTE = (1024 * 1024);
-		System.out.println(string + " - Available memory: "
-				+ Runtime.getRuntime().freeMemory() / MEGABYTE + "MB / "
-				+ Runtime.getRuntime().totalMemory() / MEGABYTE + "MB");
+		System.out.println(string + " - Available memory: " + Runtime.getRuntime().freeMemory() / MEGABYTE + "MB / "
+		        + Runtime.getRuntime().totalMemory() / MEGABYTE + "MB");
 	}
 
 	public static Test suite() {

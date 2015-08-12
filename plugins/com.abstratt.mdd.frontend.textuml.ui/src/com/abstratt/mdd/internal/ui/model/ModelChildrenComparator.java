@@ -7,14 +7,14 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import java.util.Comparator;
 
 /**
- * Sorts the model object children according to the
- * order returned by UIModelObject.getChildrenTypes().
+ * Sorts the model object children according to the order returned by
+ * UIModelObject.getChildrenTypes().
  */
 public class ModelChildrenComparator implements Comparator {
 

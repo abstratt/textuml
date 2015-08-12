@@ -23,13 +23,13 @@ import com.abstratt.mdd.frontend.core.LocationContext;
 import com.abstratt.mdd.frontend.internal.core.CompilationDirector;
 
 public class FixtureHelper {
-	
+
 	private String extension;
-	
+
 	public FixtureHelper(String extension) {
 		this.extension = extension;
 	}
-	
+
 	public FixtureHelper() {
 		this.extension = ICompilationDirector.MDD_FILE_EXTENSION;
 	}
@@ -64,24 +64,23 @@ public class FixtureHelper {
 		}
 	}
 
-    public IProblem[] parse(IFileStore baseDir, IRepository repository,
-            String... sources) throws CoreException {
-        Map<String, String> sourcesByPaths = new LinkedHashMap<String, String>();
-        for (int i = 0; i < sources.length; i++)
-            sourcesByPaths.put("foo" + i + '.' + extension, sources[i]);
-        return parseFiles(baseDir, repository, sourcesByPaths);
-    }
+	public IProblem[] parse(IFileStore baseDir, IRepository repository, String... sources) throws CoreException {
+		Map<String, String> sourcesByPaths = new LinkedHashMap<String, String>();
+		for (int i = 0; i < sources.length; i++)
+			sourcesByPaths.put("foo" + i + '.' + extension, sources[i]);
+		return parseFiles(baseDir, repository, sourcesByPaths);
+	}
 
-	
 	/**
 	 * Compiles the given sources into the given repository.
 	 * 
 	 * @param repository
 	 * @param sources
 	 * @return
-	 * @throws CoreException 
+	 * @throws CoreException
 	 */
-	public IProblem[] parseFiles(IFileStore baseDir, IRepository repository, Map<String, String> sourcesByPaths) throws CoreException {
+	public IProblem[] parseFiles(IFileStore baseDir, IRepository repository, Map<String, String> sourcesByPaths)
+	        throws CoreException {
 		IFileStore project = baseDir;
 		IFileStore sourceRoot = project;
 		IFileStore defaultOutputDir = project;
@@ -89,14 +88,15 @@ public class FixtureHelper {
 		ICompilationDirector director = CompilationDirector.getInstance();
 		LocationContext context = new LocationContext(defaultOutputDir);
 		long start = System.currentTimeMillis();
-		IProblem[] result = director.compile(sourceFiles.toArray(new IFileStore[0]), repository, context, ICompilationDirector.FULL_BUILD | ICompilationDirector.DEBUG, null);
+		IProblem[] result = director.compile(sourceFiles.toArray(new IFileStore[0]), repository, context,
+		        ICompilationDirector.FULL_BUILD | ICompilationDirector.DEBUG, null);
 		long end = System.currentTimeMillis();
 		System.out.println((end - start) + "ms - " + baseDir);
 		return result;
 	}
 
 	public List<IFileStore> createProject(IFileStore sourceRoot, Map<String, String> sourcesByPaths)
-			throws CoreException {
+	        throws CoreException {
 		List<IFileStore> sourceFiles = new ArrayList<IFileStore>();
 		for (Entry<String, String> entry : sourcesByPaths.entrySet()) {
 			IFileStore newFile = sourceRoot.getChild(entry.getKey());

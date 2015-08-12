@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
@@ -20,6 +20,7 @@ import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
+
 public class EnumerationRenderer implements IEObjectRenderer<Enumeration> {
 	public boolean renderObject(Enumeration enumeration, IndentedPrintWriter writer, IRenderingSession context) {
 		RenderingUtils.renderAll(context, enumeration.getOwnedComments());

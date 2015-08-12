@@ -8,7 +8,7 @@
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
  *    Thipor Kong - running outside of Eclipse/OSGI
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.core;
 
 import java.io.BufferedOutputStream;
@@ -89,7 +89,7 @@ import com.abstratt.pluginutils.LogUtils;
  * A model set groups together models that can refer to each other's elements.
  */
 public class Repository implements IRepository {
-	
+
 	/** Reference to the repository being built in the current thread */
 	private static ThreadLocal<IRepository> inProgressRepository = new ThreadLocal<IRepository>();
 
@@ -99,11 +99,10 @@ public class Repository implements IRepository {
 		LOAD_OPTIONS.put(XMLResource.OPTION_DISABLE_NOTIFY, Boolean.TRUE);
 		LOAD_OPTIONS.put(XMLResource.OPTION_USE_PARSER_POOL, XMLParserPool.class.getName());
 	}
-	
+
 	private NamedElementLookupCache lookup = new NamedElementLookupCache(this);
 
-	protected static List<Package> getAllImportedPackages(Package package_,
-					List<Package> allImportedPackages) {
+	protected static List<Package> getAllImportedPackages(Package package_, List<Package> allImportedPackages) {
 		for (PackageImport packageImport : package_.getPackageImports())
 			if (packageImport.getVisibility() == VisibilityKind.PUBLIC_LITERAL) {
 				Package importedPackage = packageImport.getImportedPackage();
@@ -115,11 +114,11 @@ public class Repository implements IRepository {
 
 	public static IRepository getInProgress() {
 		IRepository inProgress = inProgressRepository.get();
-        if (inProgress != null)
-            return inProgress;
-        if (RepositoryService.ENABLED)
-            return RepositoryService.DEFAULT.getCurrentRepository();
-        return null;
+		if (inProgress != null)
+			return inProgress;
+		if (RepositoryService.ENABLED)
+			return RepositoryService.DEFAULT.getCurrentRepository();
+		return null;
 	}
 
 	private URI baseURI;
@@ -140,7 +139,9 @@ public class Repository implements IRepository {
 	 */
 	public Repository(URI baseURI, boolean systemPackages) throws CoreException {
 		Assert.isTrue(!baseURI.isRelative(), "Repository base URI must be absolute: " + baseURI);
-		// it seems trailing slash causes cross-references to become relative URIs preserving parent paths (/common/parent/../sibling/foo.uml instead of ../sibling/foo.uml) 
+		// it seems trailing slash causes cross-references to become relative
+		// URIs preserving parent paths (/common/parent/../sibling/foo.uml
+		// instead of ../sibling/foo.uml)
 		if (baseURI.hasTrailingPathSeparator())
 			baseURI = baseURI.trimSegments(1);
 		@SuppressWarnings("unused")
@@ -153,15 +154,19 @@ public class Repository implements IRepository {
 
 	/**
 	 * (non-Javadoc)
+	 * 
 	 * @see com.abstratt.mdd.core.IRepository#accept(com.abstratt.mdd.core.IRepository.IElementVisitor)
 	 */
 	public void accept(IElementVisitor visitor) {
 		accept(visitor, resourceSet.getAllContents());
 	}
-	
+
 	/*
 	 * (non-Javadoc)
-	 * @see com.abstratt.mdd.core.IRepository#accept(com.abstratt.mdd.core.IRepository.IElementVisitor, org.eclipse.uml2.uml.Element)
+	 * 
+	 * @see
+	 * com.abstratt.mdd.core.IRepository#accept(com.abstratt.mdd.core.IRepository
+	 * .IElementVisitor, org.eclipse.uml2.uml.Element)
 	 */
 	public void accept(IElementVisitor visitor, Element root) {
 		// visit the root itself
@@ -188,18 +193,18 @@ public class Repository implements IRepository {
 		}
 	}
 
-	
 	public Element findFirst(EObjectCondition condition) {
 		for (Resource currentResource : resourceSet.getResources()) {
 			if (systemResources.contains(currentResource))
 				continue;
-			IQueryResult partial = new SELECT(1, new FROM(currentResource.getContents()), new WHERE(condition)).execute();
+			IQueryResult partial = new SELECT(1, new FROM(currentResource.getContents()), new WHERE(condition))
+			        .execute();
 			if (!partial.isEmpty())
 				return (Element) partial.iterator().next();
 		}
 		return null;
 	}
-	
+
 	@Override
 	public List<Element> findAll(EObjectCondition condition, boolean internalOnly) {
 		List<Element> result = new ArrayList<Element>();
@@ -216,8 +221,7 @@ public class Repository implements IRepository {
 	}
 
 	@Override
-	public <T extends Element> List<T> findInAnyPackage(
-			EObjectCondition condition) {
+	public <T extends Element> List<T> findInAnyPackage(EObjectCondition condition) {
 		List<Package> startingPoints = new ArrayList<Package>();
 		startingPoints.addAll(Arrays.asList(getTopLevelPackages(null)));
 		for (Package top : getTopLevelPackages(null))
@@ -236,15 +240,15 @@ public class Repository implements IRepository {
 		for (PackageImport current : systemPackage.getPackageImports())
 			addSystemPackage(current.getImportedPackage());
 	}
-	
+
 	private boolean isSystemPackage(Package toCheck) {
 		return systemResources.contains(toCheck.eResource());
 	}
 
 	private void basicSaveResource(Resource resource) throws IOException {
 		final URI uri = resource.getURI();
-		BufferedOutputStream outputStream =
-						new BufferedOutputStream(resourceSet.getURIConverter().createOutputStream(uri), 8192);
+		BufferedOutputStream outputStream = new BufferedOutputStream(resourceSet.getURIConverter().createOutputStream(
+		        uri), 8192);
 		try {
 			resource.save(outputStream, null);
 		} finally {
@@ -273,16 +277,15 @@ public class Repository implements IRepository {
 		Assert.isLegal(parentName != null, "Qualified name expected");
 		Package parentNamespace = findPackage(parentName, PACKAGE.getPackage());
 		Assert.isLegal(parentNamespace != null, "Parent namespace not found");
-		return (Package) parentNamespace.createPackagedElement(MDDUtil.getLastSegment(packageName), PACKAGE
-						.getPackage());
+		return (Package) parentNamespace.createPackagedElement(MDDUtil.getLastSegment(packageName),
+		        PACKAGE.getPackage());
 	}
 
 	@Override
-	public Package createTopLevelPackage(String qualifiedName,
-			EClass packageClass) {
+	public Package createTopLevelPackage(String qualifiedName, EClass packageClass) {
 		return createTopLevelPackage(qualifiedName, packageClass, null);
 	}
-	
+
 	public Package createTopLevelPackage(String packageName, EClass packageClass, URI packageURI) {
 		Assert.isNotNull(packageName);
 		if (packageClass == null)
@@ -293,7 +296,7 @@ public class Repository implements IRepository {
 			if (packageURI != null) {
 				URI existingURI = existing.eResource().getURI();
 				Assert.isLegal(existingURI.equals(packageURI), "Wrong package location for " + packageName
-								+ " (existing: " + existingURI + ", expected: " + packageURI + ")");
+				        + " (existing: " + existingURI + ", expected: " + packageURI + ")");
 			}
 			return existing;
 		}
@@ -304,8 +307,9 @@ public class Repository implements IRepository {
 		addPackage(resource, newPackage);
 		MDDUtil.markGenerated(newPackage);
 		newPackage.setName(packageName);
-		newPackage.setURI(getBaseURI().lastSegment()+'/'+packageName);
-		if (Boolean.parseBoolean(getProperties().getProperty(ENABLE_EXTENSIONS, System.getProperty(ENABLE_EXTENSIONS, Boolean.FALSE.toString()) ))) {
+		newPackage.setURI(getBaseURI().lastSegment() + '/' + packageName);
+		if (Boolean.parseBoolean(getProperties().getProperty(ENABLE_EXTENSIONS,
+		        System.getProperty(ENABLE_EXTENSIONS, Boolean.FALSE.toString())))) {
 			Profile extensions = (Profile) findPackage(EXTENSIONS_NAMESPACE, Literals.PROFILE);
 			if (extensions != null && extensions.isDefined())
 				newPackage.applyProfile(extensions);
@@ -325,18 +329,18 @@ public class Repository implements IRepository {
 			// nothing to do
 			;
 		else
-		    MDDUtil.unloadResources(resourceSet);
+			MDDUtil.unloadResources(resourceSet);
 		resourceSet = null;
 	}
-	
+
 	@Override
 	public void close() {
-		System.out.println("Closing "+ this.hashCode());
+		System.out.println("Closing " + this.hashCode());
 		// with resource management, we don't need to unload resources
 		resourceSet = null;
 		systemResources.clear();
 	}
-	
+
 	@Override
 	public boolean isOpen() {
 		return resourceSet != null;
@@ -348,14 +352,15 @@ public class Repository implements IRepository {
 		if (!isOpen())
 			return;
 		if (RepositoryService.ENABLED)
-	    	LogUtils.logWarning(MDDCore.PLUGIN_ID, "Repository being finalized but still open: " + this.getBaseURI(), null);
+			LogUtils.logWarning(MDDCore.PLUGIN_ID, "Repository being finalized but still open: " + this.getBaseURI(),
+			        null);
 		else
 			dispose();
 	}
 
 	/*
-	 * @see com.abstratt.mdd.core.IRepository#findNamedElement(String,
-	 *      EClass, Package)
+	 * @see com.abstratt.mdd.core.IRepository#findNamedElement(String, EClass,
+	 * Package)
 	 */
 	public <T extends NamedElement> T findNamedElement(String name, EClass class_, Namespace namespace) {
 		if (namespace == null) {
@@ -368,22 +373,22 @@ public class Repository implements IRepository {
 			lookup.addToCache(namespace == null ? name : found.getQualifiedName(), found);
 		return found;
 	}
-	
+
 	@Override
 	public NamedElementLookupCache getLookupCache() {
 		return lookup;
 	}
-	
+
 	@Override
 	public String getBuild() {
 		if (!isOpen())
 			return "";
 		for (Package package1 : getTopLevelPackages(null))
 			if (!isSystemPackage(package1)) {
-			    String timestamp = MDDUtil.getGeneratedTimestamp(package1);
-			    if (timestamp != null)
-			    	return timestamp;
-		    }
+				String timestamp = MDDUtil.getGeneratedTimestamp(package1);
+				if (timestamp != null)
+					return timestamp;
+			}
 		return null;
 	}
 
@@ -391,16 +396,15 @@ public class Repository implements IRepository {
 	 * Does a best effort search in order to find the given object. Recurse to
 	 * parent if cannot find the requested symbol.
 	 */
-	private <T extends NamedElement> T internalFindNamedElement(String name, EClass class_, Namespace namespace, boolean deep, Set<Namespace> visited) {
+	private <T extends NamedElement> T internalFindNamedElement(String name, EClass class_, Namespace namespace,
+	        boolean deep, Set<Namespace> visited) {
 		Assert.isNotNull(name);
 		if (namespace != null && !visited.add(namespace))
 			// already visited, avoid infinite recursion
 			return null;
 		// tries to resolve the name regardless the contextual namespace
 		NamedElement element = internalFindNamedElement(name, class_);
-		if (element != null
-						&& (namespace == null || isVisible(namespace, element, MDDUtil
-										.isQualifiedName(name))))
+		if (element != null && (namespace == null || isVisible(namespace, element, MDDUtil.isQualifiedName(name))))
 			// element found or is fully qualified, no need to look further
 			return (T) element;
 		// no contextual namespace provided, there is nothing else we can do
@@ -408,7 +412,7 @@ public class Repository implements IRepository {
 			if (MDDUtil.isQualifiedName(name)) {
 				namespace = loadPackage(MDDUtil.getFirstSegment(name));
 				return (T) ((namespace == null) ? null : findNamedElement(MDDUtil.removeFirstSegment(name), class_,
-								namespace));
+				        namespace));
 			} else
 				return null;
 		}
@@ -421,7 +425,7 @@ public class Repository implements IRepository {
 					for (TemplateParameter parameter : signature.getParameters()) {
 						final ParameterableElement parameteredElement = parameter.getParameteredElement();
 						if (parameteredElement instanceof NamedElement
-										&& name.equals(((NamedElement) parameteredElement).getName()))
+						        && name.equals(((NamedElement) parameteredElement).getName()))
 							return (T) parameteredElement;
 					}
 
@@ -435,17 +439,16 @@ public class Repository implements IRepository {
 			if (element != null && isVisible(namespace, element, MDDUtil.isQualifiedName(name)))
 				// element found, no need to look further
 				return (T) element;
-            for (ElementImport elementImport : namespace.getElementImports())
-                if (elementImport.getName().equals(name))
-                    return (T) elementImport.getImportedElement();
+			for (ElementImport elementImport : namespace.getElementImports())
+				if (elementImport.getName().equals(name))
+					return (T) elementImport.getImportedElement();
 			if (deep) {
 				// check imported packages now
 				List<PackageImport> imports = namespace.getPackageImports();
 				for (PackageImport packageImport : imports) {
 					final Package importedPackage = packageImport.getImportedPackage();
-					element =
-									internalFindNamedElement(name, class_, importedPackage,
-													packageImport.getVisibility() != VisibilityKind.PRIVATE_LITERAL, visited);
+					element = internalFindNamedElement(name, class_, importedPackage,
+					        packageImport.getVisibility() != VisibilityKind.PRIVATE_LITERAL, visited);
 					if ((element != null && isVisible(namespace, element, false)))
 						return (T) element;
 				}
@@ -453,12 +456,13 @@ public class Repository implements IRepository {
 		}
 		// search the parent now
 		if (namespace.getOwner() == null)
-		    return null;
+			return null;
 		return (T) internalFindNamedElement(name, class_, (Namespace) namespace.getOwner(), deep, visited);
 	}
 
 	/*
-	 * @see com.abstratt.mdd.core.IRepository#findPackage(java.lang.String, org.eclipse.emf.ecore.EClass)
+	 * @see com.abstratt.mdd.core.IRepository#findPackage(java.lang.String,
+	 * org.eclipse.emf.ecore.EClass)
 	 */
 	public Package findPackage(String name, EClass packageClass) {
 		if (packageClass == null)
@@ -466,31 +470,30 @@ public class Repository implements IRepository {
 		final Package found = (Package) internalFindNamedElement(name, packageClass);
 		return found;
 	}
-	
+
 	public String resolveAlias(String qualifiedName) {
 		return resolveAlias(qualifiedName, "");
 	}
-	
+
 	public void makeAlias(String source, String target) {
 		properties.setProperty(ALIASES + '.' + source, target);
 	}
-	
+
 	private String resolveAlias(String toResolve, String tail) {
 		if (hasAlias(toResolve))
 			return getAlias(toResolve) + tail;
 		int separatorIndex = toResolve.lastIndexOf(NamedElement.SEPARATOR);
-		return separatorIndex < 0 ? (toResolve + tail) : (resolveAlias(toResolve.substring(0, separatorIndex),toResolve.substring(separatorIndex)) + tail); 
+		return separatorIndex < 0 ? (toResolve + tail) : (resolveAlias(toResolve.substring(0, separatorIndex),
+		        toResolve.substring(separatorIndex)) + tail);
 	}
 
 	private String getAlias(String qualifiedName) {
 		return properties.getProperty(ALIASES + '.' + qualifiedName);
 	}
-	
+
 	private boolean hasAlias(String qualifiedName) {
 		return properties.containsKey(ALIASES + '.' + qualifiedName);
 	}
-
-
 
 	private IFileStore getBaseStore() throws CoreException {
 		return EFS.getStore(java.net.URI.create(baseURI.toString()));
@@ -552,8 +555,9 @@ public class Repository implements IRepository {
 	}
 
 	/**
-	 * Overridable factory method for ResourceSet.
-	 * Can be used to customize ResourceSet, e.g. for standalone uses.
+	 * Overridable factory method for ResourceSet. Can be used to customize
+	 * ResourceSet, e.g. for standalone uses.
+	 * 
 	 * @return the ResourceSet
 	 */
 	protected ResourceSet newResourceSet() {
@@ -604,7 +608,7 @@ public class Repository implements IRepository {
 	 * Straightforward name-based element lookup.
 	 */
 	private Collection<NamedElement> internalFindNamedElements(String qualifiedName, EClass eClass) {
-		qualifiedName = resolveAlias(qualifiedName); 
+		qualifiedName = resolveAlias(qualifiedName);
 		Collection<NamedElement> found = UMLUtil.findNamedElements(resourceSet, qualifiedName, false, eClass);
 		return filterByQualifiedName(qualifiedName, found);
 	}
@@ -613,7 +617,7 @@ public class Repository implements IRepository {
 		List<NamedElement> matching = new ArrayList<NamedElement>(toFilter.size());
 		for (NamedElement current : toFilter)
 			if (qualifiedName.equals(current.getQualifiedName()))
-				matching.add(current);			
+				matching.add(current);
 		return matching;
 	}
 
@@ -669,7 +673,7 @@ public class Repository implements IRepository {
 		Package builtIn = findPackage(packageName, PACKAGE.getPackage());
 		if (builtIn != null)
 			return builtIn;
-		for (Package topPackage: getTopLevelPackages(null))
+		for (Package topPackage : getTopLevelPackages(null))
 			for (Package imported : topPackage.getImportedPackages())
 				if (imported.getName() != null && imported.getName().equals(packageName))
 					return loadPackage(URI.createURI(imported.getURI()));
@@ -679,7 +683,9 @@ public class Repository implements IRepository {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.abstratt.mdd.core.IRepository#loadPackage(org.eclipse.emf.common.util.URI)
+	 * @see
+	 * com.abstratt.mdd.core.IRepository#loadPackage(org.eclipse.emf.common.
+	 * util.URI)
 	 */
 	public Package loadPackage(URI packageURI) {
 		// tries first to resolve to a built-in package
@@ -748,7 +754,8 @@ public class Repository implements IRepository {
 	}
 
 	@Override
-	public <R, E extends Throwable> R buildRepository(ISharedContextRunnable<IRepository, R> runnable, IProgressMonitor monitor) throws CoreException {
+	public <R, E extends Throwable> R buildRepository(ISharedContextRunnable<IRepository, R> runnable,
+	        IProgressMonitor monitor) throws CoreException {
 		IRepository previousRepository = inProgressRepository.get();
 		Assert.isTrue(previousRepository == null, "Another repository being built in context");
 		inProgressRepository.set(this);
@@ -776,7 +783,8 @@ public class Repository implements IRepository {
 				if (resource.getContents().isEmpty())
 					// EMF bug 225939 - our ticket 166
 					continue;
-				// tries to ensure IDs are stable - does not work with method names made of symbols
+				// tries to ensure IDs are stable - does not work with method
+				// names made of symbols
 				if (resource instanceof XMIResource) {
 					for (TreeIterator<EObject> ti = resource.getAllContents(); ti.hasNext();) {
 						EObject current = ti.next();
@@ -797,7 +805,7 @@ public class Repository implements IRepository {
 					basicSaveResource(resource);
 				} catch (IOException e) {
 					throw new CoreException(new Status(IStatus.ERROR, MDDCore.PLUGIN_ID, 0, "Error saving resource '"
-									+ resource.getURI() + "'", e));
+					        + resource.getURI() + "'", e));
 				}
 			}
 		} finally {
@@ -821,11 +829,11 @@ public class Repository implements IRepository {
 			return e.toString();
 		}
 	}
-	
+
 	public Properties getProperties() {
 		return properties;
 	}
-	
+
 	private void initWeaver() {
 		String weaverName = getProperties().getProperty(WEAVER);
 		IExtensionPoint point = RegistryFactory.getRegistry().getExtensionPoint(MDDCore.PLUGIN_ID, "modelWeaver");
@@ -840,11 +848,11 @@ public class Repository implements IRepository {
 				return;
 			}
 	}
-	
+
 	public IModelWeaver getWeaver() {
 		if (weaver != null || !getProperties().containsKey(WEAVER))
 			return weaver;
 		initWeaver();
-        return weaver;
-    }
+		return weaver;
+	}
 }

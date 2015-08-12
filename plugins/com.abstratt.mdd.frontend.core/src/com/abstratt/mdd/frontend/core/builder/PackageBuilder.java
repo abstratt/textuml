@@ -26,14 +26,12 @@ public class PackageBuilder extends DefaultParentBuilder<Package> {
 	}
 
 	public PackageBuilder applyProfile(String profileName) {
-		this.profilesApplied
-				.add(reference(profileName, UML2ProductKind.PROFILE));
+		this.profilesApplied.add(reference(profileName, UML2ProductKind.PROFILE));
 		return this;
 	}
 
 	public PackageBuilder importPackage(String packageName) {
-		this.packagesImported.add(reference(packageName,
-				UML2ProductKind.PACKAGE));
+		this.packagesImported.add(reference(packageName, UML2ProductKind.PACKAGE));
 		return this;
 	}
 
@@ -43,8 +41,7 @@ public class PackageBuilder extends DefaultParentBuilder<Package> {
 
 	@Override
 	protected Package createProduct() {
-		return getContext().getRepository().createTopLevelPackage(getName(),
-				getEClass());
+		return getContext().getRepository().createTopLevelPackage(getName(), getEClass());
 	}
 
 	@Override
@@ -60,10 +57,12 @@ public class PackageBuilder extends DefaultParentBuilder<Package> {
 		for (final String packageURI : this.packagesLoaded) {
 			getContext().getReferenceTracker().add(new IDeferredReference() {
 				public void resolve(IBasicRepository repository) {
-					// TODO maybe allow package loading IBasicRepository to avoid casting 
+					// TODO maybe allow package loading IBasicRepository to
+					// avoid casting
 					Package loaded = ((IRepository) repository).loadPackage(URI.createURI(packageURI));
 					if (loaded == null)
-						getContext().getProblemTracker().add(new UnclassifiedProblem("Could not load URI: '" + packageURI + "')"));
+						getContext().getProblemTracker().add(
+						        new UnclassifiedProblem("Could not load URI: '" + packageURI + "')"));
 				}
 			}, IReferenceTracker.Step.PACKAGE_IMPORTS);
 		}
@@ -71,16 +70,15 @@ public class PackageBuilder extends DefaultParentBuilder<Package> {
 
 	private void importPackages() {
 		for (NameReference packageName : this.packagesImported)
-		new ReferenceSetter<Package>(packageName, getParentProduct(),
-				getContext(), IReferenceTracker.Step.PACKAGE_IMPORTS) {
-			@Override
-			protected void link(Package package_) {
-				if (!getProduct().getImportedPackages().contains(package_))
-					getProduct().createPackageImport(package_,
-									VisibilityKind.PRIVATE_LITERAL);
-			}
-		};
-}
+			new ReferenceSetter<Package>(packageName, getParentProduct(), getContext(),
+			        IReferenceTracker.Step.PACKAGE_IMPORTS) {
+				@Override
+				protected void link(Package package_) {
+					if (!getProduct().getImportedPackages().contains(package_))
+						getProduct().createPackageImport(package_, VisibilityKind.PRIVATE_LITERAL);
+				}
+			};
+	}
 
 	private void defineProfile() {
 		if (getProduct() instanceof Profile)
@@ -94,20 +92,18 @@ public class PackageBuilder extends DefaultParentBuilder<Package> {
 
 	private void applyProfiles() {
 		for (NameReference profileName : this.profilesApplied)
-			new ReferenceSetter<Profile>(profileName, getParentProduct(),
-					getContext(), IReferenceTracker.Step.PROFILE_APPLICATIONS) {
+			new ReferenceSetter<Profile>(profileName, getParentProduct(), getContext(),
+			        IReferenceTracker.Step.PROFILE_APPLICATIONS) {
 				@Override
 				protected void link(Profile profile) {
 					if (!profile.isDefined())
 						getContext().getProblemTracker().add(
-								new InternalProblem("Profile '"
-										+ profile.getName() + "' not defined"));
+						        new InternalProblem("Profile '" + profile.getName() + "' not defined"));
 					else {
 						if (!getProduct().getAppliedProfiles().contains(profile))
 							getProduct().applyProfile(profile);
 						if (!getProduct().getImportedPackages().contains(profile))
-							getProduct().createPackageImport(profile,
-											VisibilityKind.PRIVATE_LITERAL);
+							getProduct().createPackageImport(profile, VisibilityKind.PRIVATE_LITERAL);
 					}
 				}
 			};

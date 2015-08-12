@@ -29,9 +29,9 @@ class ActionInfo {
 	}
 
 	/**
-	 * Connects the output pins of the action represented by this action info 
-	 * to the input pins of the action represented by destination action info.
-	 *  
+	 * Connects the output pins of the action represented by this action info to
+	 * the input pins of the action represented by destination action info.
+	 * 
 	 * @param destination
 	 */
 	private void connectTo(ActionInfo destination) {
@@ -47,7 +47,9 @@ class ActionInfo {
 			ActivityUtils.connect(((StructuredActivityNode) action.getOwner()), currentOutput, currentInput);
 		}
 		boolean allPinsMatched = currentOutputIndex == allOutputs.size();
-        Assert.isTrue(allPinsMatched, "Not enough inputs in " + destination.action.eClass().getInstanceClassName() + " for " + this.action.eClass().getInstanceClassName() + ": inputs = " + currentOutputIndex + ", outputs = " + allOutputs.size());
+		Assert.isTrue(allPinsMatched, "Not enough inputs in " + destination.action.eClass().getInstanceClassName()
+		        + " for " + this.action.eClass().getInstanceClassName() + ": inputs = " + currentOutputIndex
+		        + ", outputs = " + allOutputs.size());
 	}
 
 	public Action getAction() {

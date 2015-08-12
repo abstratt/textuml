@@ -21,10 +21,10 @@ import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
+
 public class DataTypeRenderer implements IEObjectRenderer<DataType> {
 
-	public boolean renderObject(DataType dataType, IndentedPrintWriter writer,
-			IRenderingSession context) {
+	public boolean renderObject(DataType dataType, IndentedPrintWriter writer, IRenderingSession context) {
 		RenderingUtils.renderAll(context, dataType.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, dataType);
 		if (dataType.isAbstract())
@@ -33,13 +33,10 @@ public class DataTypeRenderer implements IEObjectRenderer<DataType> {
 		List<Generalization> generalizations = dataType.getGeneralizations();
 		StringBuilder specializationList = new StringBuilder();
 		for (Generalization generalization : generalizations)
-			specializationList.append(TextUMLRenderingUtils
-					.getQualifiedNameIfNeeded(generalization.getGeneral(),
-							dataType.getNamespace())
-					+ ", ");
+			specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(),
+			        dataType.getNamespace()) + ", ");
 		if (specializationList.length() > 0) {
-			specializationList.delete(specializationList.length() - 2,
-					specializationList.length());
+			specializationList.delete(specializationList.length() - 2, specializationList.length());
 			writer.print(" specializes ");
 			writer.print(specializationList);
 		}

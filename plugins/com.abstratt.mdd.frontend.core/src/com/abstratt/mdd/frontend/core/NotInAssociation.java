@@ -24,8 +24,7 @@ public class NotInAssociation extends Problem {
 	}
 
 	public String getMessage() {
-		return classifierName + " is not involved in association '"
-				+ associationName + "'";
+		return classifierName + " is not involved in association '" + associationName + "'";
 	}
 
 	public String getAssociationName() {

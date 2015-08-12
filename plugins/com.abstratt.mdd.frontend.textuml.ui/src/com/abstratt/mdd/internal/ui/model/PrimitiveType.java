@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import java.util.Collections;
@@ -30,8 +30,7 @@ public class PrimitiveType extends UIModelObject {
 
 	@Override
 	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(
-				UIConstants.ICON_INTERFACE);
+		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_INTERFACE);
 	}
 
 	private APrimitiveDef getModel() {

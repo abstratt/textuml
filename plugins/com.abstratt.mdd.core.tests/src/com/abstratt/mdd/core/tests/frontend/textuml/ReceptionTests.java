@@ -20,7 +20,7 @@ public class ReceptionTests extends AbstractRepositoryBuildingTests {
 	public ReceptionTests(String name) {
 		super(name);
 	}
-	
+
 	public void testReception() throws CoreException {
 		String source = "";
 		source += "model simple;\n";

@@ -12,13 +12,13 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 import com.abstratt.mdd.internal.frontend.textuml.TextUMLCompiler;
 
 public class TextUMLCompilerTests extends TestCase {
-	
+
 	public TextUMLCompilerTests(String name) {
 		super(name);
 	}
-	
-	private static String toParse = ""; 
-	
+
+	private static String toParse = "";
+
 	static {
 		toParse += "model mymodel;\n";
 		toParse += "package package1;\n";
@@ -34,7 +34,7 @@ public class TextUMLCompilerTests extends TestCase {
 		toParse += "end;\n";
 		toParse += "end.\n";
 	}
-	
+
 	public void testFindNamespace() {
 		TextUMLCompiler compiler = new TextUMLCompiler();
 		assertEquals("mymodel", compiler.findNamespace(toParse, 1, 1));
@@ -51,8 +51,6 @@ public class TextUMLCompilerTests extends TestCase {
 		assertEquals("mymodel::package1::class12", compiler.findNamespace(toParse, 7, 100));
 		assertEquals("mymodel::package2::class21", compiler.findNamespace(toParse, 10, 100));
 	}
-
-
 
 	public void testFindToken() {
 		TextUMLCompiler compiler = new TextUMLCompiler();
@@ -73,19 +71,18 @@ public class TextUMLCompilerTests extends TestCase {
 		assertEquals(".", compiler.findTokenAt(toParse, 13, 100).getText());
 	}
 
-	
 	public void testParse() {
 		Start parsed = new TextUMLCompiler().parse(toParse);
 		assertNotNull(parsed);
 		ASTNode<Token, Node> tree = ASTNode.<Token, Node> buildTree(parsed.getPStart());
 		assertTrue(tree.getBaseNode() instanceof AStart);
 	}
-	
+
 	public void testFindModelName() {
 		String modelName = new TextUMLCompiler().findModelName(toParse);
 		assertEquals("mymodel", modelName);
 	}
-	
+
 	public static Test suite() {
 		return new TestSuite(TextUMLCompilerTests.class);
 	}

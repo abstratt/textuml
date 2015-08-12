@@ -19,7 +19,8 @@ import com.abstratt.pluginutils.LogUtils;
 import com.abstratt.resman.ResourceManager;
 
 /**
- * A reference pool where references are cleaned-up as they pass their expiration time.
+ * A reference pool where references are cleaned-up as they pass their
+ * expiration time.
  */
 public class ReferencePool<K, R> {
 	/**
@@ -28,23 +29,29 @@ public class ReferencePool<K, R> {
 	public static interface ReferenceDisposer<R> {
 		void dispose(R toDispose);
 	}
+
 	/**
 	 * A bucket groups multiple references for the same key.
 	 * 
-	 * Clients may install multiple references for a same key for the sake of availability.
+	 * Clients may install multiple references for a same key for the sake of
+	 * availability.
 	 */
 	private class Bucket {
 		final private K key;
+
 		public Bucket(K key) {
 			this.key = key;
 		}
+
 		private Map<R, PooledReference> references = new IdentityHashMap<R, PooledReference>();
+
 		public synchronized void add(R referent) {
 			debug("Adding " + referent + " in " + key);
 			final PooledReference newReference = new PooledReference(referent, initialLease);
 			Assert.isTrue(newReference.acquire());
 			references.put(referent, newReference);
 		}
+
 		public synchronized void release(R referent) {
 			debug("Releasing " + referent + " in " + key);
 			PooledReference reference = references.get(referent);
@@ -53,18 +60,22 @@ public class ReferencePool<K, R> {
 				this.notify();
 			}
 		}
+
 		public synchronized void forget(R referent) {
 			debug("Forgetting " + referent + " in " + key);
-			// all is being asked from us is that we no longer track the referent
+			// all is being asked from us is that we no longer track the
+			// referent
 			references.remove(referent);
-		    this.notify();
+			this.notify();
 		}
+
 		public synchronized void remove() {
 			debug("Removing bucket for " + this.key);
 			for (PooledReference reference : references.values())
 				dispose(reference);
 			references.clear();
 		}
+
 		public synchronized R acquire() {
 			debug("Trying to acquire " + key);
 			int existing = references.size();
@@ -73,7 +84,7 @@ public class ReferencePool<K, R> {
 			for (int i = 0; i < attempts || existing >= bucketCap; i++) {
 				if (i > 0 && !delay())
 					break;
-				List<PooledReference> values = new ArrayList<ReferencePool<K,R>.PooledReference>(references.values());
+				List<PooledReference> values = new ArrayList<ReferencePool<K, R>.PooledReference>(references.values());
 				Collections.shuffle(values);
 				for (PooledReference reference : values)
 					if (reference.acquire()) {
@@ -85,6 +96,7 @@ public class ReferencePool<K, R> {
 			debug("Could not acquire " + key);
 			return null;
 		}
+
 		private boolean delay() {
 			try {
 				debug("Waiting for a reference");
@@ -94,11 +106,12 @@ public class ReferencePool<K, R> {
 				return false;
 			}
 		}
+
 		public void removeStaleReferences() {
 			Collection<PooledReference> toDispose = new HashSet<PooledReference>();
 			synchronized (this) {
 				for (Iterator<Map.Entry<R, PooledReference>> it = references.entrySet().iterator(); it.hasNext();) {
-				    Entry<R, PooledReference> next = it.next();
+					Entry<R, PooledReference> next = it.next();
 					final PooledReference reference = next.getValue();
 					if (reference.isStale()) {
 						toDispose.add(reference);
@@ -108,48 +121,57 @@ public class ReferencePool<K, R> {
 				}
 			}
 			for (PooledReference pooledReference : toDispose)
-			    dispose(pooledReference);    	
+				dispose(pooledReference);
 		}
-    }
+	}
+
 	private class PooledReference {
 		private final AtomicBoolean inUse = new AtomicBoolean();
 		private final AtomicBoolean valid = new AtomicBoolean(true);
 		private final R referent;
 		private final AtomicLong expiry = new AtomicLong();
+
 		public PooledReference(R referent, long initialLease) {
 			this.referent = referent;
 			this.expiry.set(System.currentTimeMillis() + initialLease * 1000);
 		}
+
 		public void invalidate() {
 			inUse.set(true);
 			valid.set(false);
 		}
+
 		public R get() {
 			return referent;
 		}
+
 		private void renew(long renewal) {
 			this.expiry.set(System.currentTimeMillis() + renewal * 1000);
 		}
+
 		private boolean isStale() {
 			return !inUse.get() && expiry.get() < System.currentTimeMillis();
 		}
+
 		public boolean acquire() {
 			// if we don't acquire, still register interest
 			renew(renewal);
 			return !inUse.getAndSet(true);
 		}
+
 		public void release() {
 			renew(renewal);
 			inUse.set(false);
 		}
 	}
+
 	private static final boolean DEBUG_POOL = Boolean.getBoolean("com.abstratt.resman.debug.pool");
 	private Map<K, Bucket> buckets = new HashMap<K, Bucket>();
 	final private long initialLease;
 	final private long renewal;
 	final private int bucketCap;
 	final private ReferenceDisposer<R> disposer;
-	
+
 	ReferencePool(int bucketCap, long lease, long renewal, ReferenceDisposer<R> disposer) {
 		this.initialLease = lease;
 		this.renewal = renewal;
@@ -158,13 +180,13 @@ public class ReferencePool<K, R> {
 		debug("Initialized reference pool");
 		debug("\tbucketCap=" + bucketCap);
 	}
-	
+
 	public ReferencePool(int bucketCap, long lease, ReferenceDisposer<R> disposer) {
 		this(bucketCap, lease, lease, disposer);
 	}
-	
+
 	public R add(K key, R referent) {
-		Bucket bucket; 
+		Bucket bucket;
 		synchronized (this) {
 			bucket = getBucket(key);
 			if (bucket == null)
@@ -187,9 +209,11 @@ public class ReferencePool<K, R> {
 		}
 		removeStaleReferences();
 	}
-	
+
 	/**
-	 * Forgets the existence of the referent. Responsibility for disposing the referent lies with the caller.
+	 * Forgets the existence of the referent. Responsibility for disposing the
+	 * referent lies with the caller.
+	 * 
 	 * @param key
 	 * @param referent
 	 */
@@ -201,6 +225,7 @@ public class ReferencePool<K, R> {
 		}
 		removeStaleReferences();
 	}
+
 	/**
 	 * Removes the entire bucket.
 	 */
@@ -210,11 +235,10 @@ public class ReferencePool<K, R> {
 			bucket.remove();
 	}
 
-	
 	private void removeStaleReferences() {
 		Collection<Bucket> bucketCopies;
 		synchronized (this) {
-			bucketCopies = new HashSet<Bucket>(buckets.values()); 
+			bucketCopies = new HashSet<Bucket>(buckets.values());
 		}
 		for (Bucket bucket : bucketCopies)
 			bucket.removeStaleReferences();
@@ -239,7 +263,7 @@ public class ReferencePool<K, R> {
 
 	public void debug(final String message) {
 		if (DEBUG_POOL) {
-		    LogUtils.logInfo(ResourceManager.ID, message, null);
+			LogUtils.logInfo(ResourceManager.ID, message, null);
 		}
 	}
 

@@ -7,11 +7,10 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.modelrenderer;
 
 import org.eclipse.emf.ecore.EObject;
-
 
 /**
  * A visitor that chooses what renderer to use for each object in the graph.

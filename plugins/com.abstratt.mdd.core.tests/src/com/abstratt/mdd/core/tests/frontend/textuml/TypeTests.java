@@ -228,7 +228,7 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
 		behavior += "end.\n";
 		parseAndCheck(structure, behavior);
 	}
-	
+
 	public void testAssignCompatibleTupleLiteralToAnonymousTuple() throws CoreException {
 		String behavior = "model tests;\n";
 		behavior += "datatype MyTuple\n";
@@ -243,7 +243,7 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
 		behavior += "end.\n";
 		parseAndCheck(structure, behavior);
 	}
-	
+
 	public void testAssignIncompatibleAnonymousTuples() throws CoreException {
 		String behavior = "model tests;\n";
 		behavior += "operation Struct.op1;\n";

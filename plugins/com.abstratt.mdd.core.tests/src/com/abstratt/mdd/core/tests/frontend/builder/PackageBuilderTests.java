@@ -12,7 +12,7 @@ public class PackageBuilderTests extends AbstractElementBuilderTests {
 	public PackageBuilderTests(String name) {
 		super(name);
 	}
-	
+
 	public void testEmptyPackage() {
 		PackageBuilder packageBuilder = new UML2BuilderFactory().newBuilder(UML2ProductKind.PACKAGE);
 		packageBuilder.name("myPackage");

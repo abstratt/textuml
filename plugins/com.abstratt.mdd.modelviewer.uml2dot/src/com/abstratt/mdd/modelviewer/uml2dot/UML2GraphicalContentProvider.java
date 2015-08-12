@@ -17,10 +17,9 @@ import com.abstratt.mdd.modelviewer.AbstractModelGraphicalContentProvider;
 /**
  * 
  */
-public class UML2GraphicalContentProvider extends
-		AbstractModelGraphicalContentProvider implements
-		IPreferenceChangeListener {
-	
+public class UML2GraphicalContentProvider extends AbstractModelGraphicalContentProvider implements
+        IPreferenceChangeListener {
+
 	@Override
 	protected IRenderingSettings getSettings() {
 		return new RenderingSettings(UMLPreferences.getPreferences());
@@ -32,14 +31,12 @@ public class UML2GraphicalContentProvider extends
 	}
 
 	public UML2GraphicalContentProvider() {
-		new InstanceScope().getNode(UML.PLUGIN_ID).addPreferenceChangeListener(
-				this);
+		new InstanceScope().getNode(UML.PLUGIN_ID).addPreferenceChangeListener(this);
 	}
 
 	@Override
 	public void dispose() {
-		new InstanceScope().getNode(UML.PLUGIN_ID)
-				.removePreferenceChangeListener(this);
+		new InstanceScope().getNode(UML.PLUGIN_ID).removePreferenceChangeListener(this);
 		super.dispose();
 	}
 

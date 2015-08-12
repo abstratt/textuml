@@ -8,10 +8,10 @@
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
  *    Vladimir Sosnin - #2796613, #2798455
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.core.tests.frontend.textuml;
 
- import java.util.Arrays;
+import java.util.Arrays;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -66,17 +66,15 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "end;\n";
 		modelSource += "end.\n";
 		parseAndCheck(profileSource, modelSource);
-		Class class_ =
-						(Class) getRepository().findNamedElement("someModel::SomeClass",
-										IRepository.PACKAGE.getClassifier(), null);
+		Class class_ = (Class) getRepository().findNamedElement("someModel::SomeClass",
+		        IRepository.PACKAGE.getClassifier(), null);
 		Property attribute = class_.getAttribute("someAttribute", null);
-		Stereotype stereotype =
-						(Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
-										IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype = (Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype);
 		assertTrue(attribute.isStereotypeApplied(stereotype));
 	}
-	
+
 	public void testParameterStereotypeApplication() throws CoreException {
 		String profileSource = "";
 		profileSource += "profile someProfile;\n";
@@ -93,26 +91,22 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "end;\n";
 		modelSource += "end.\n";
 		parseAndCheck(profileSource, modelSource);
-		Operation operation =
-			(Operation) getRepository().findNamedElement("someModel::SomeClass::someOperation",
-							IRepository.PACKAGE.getOperation(), null);
+		Operation operation = (Operation) getRepository().findNamedElement("someModel::SomeClass::someOperation",
+		        IRepository.PACKAGE.getOperation(), null);
 		Parameter param = operation.getOwnedParameter("someParam", null);
 		assertEquals(ParameterDirectionKind.OUT_LITERAL, param.getDirection());
-		Stereotype stereotype1 =
-						(Stereotype) getRepository().findNamedElement("someProfile::my_stereotype1",
-										IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype1 = (Stereotype) getRepository().findNamedElement("someProfile::my_stereotype1",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype1);
 		assertTrue(param.isStereotypeApplied(stereotype1));
-		
+
 		Parameter returnParameter = operation.getReturnResult();
-		Stereotype stereotype2 =
-						(Stereotype) getRepository().findNamedElement("someProfile::my_stereotype2",
-										IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype2 = (Stereotype) getRepository().findNamedElement("someProfile::my_stereotype2",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype2);
 		assertTrue(returnParameter.isStereotypeApplied(stereotype2));
 
 	}
-
 
 	public void testDependencyStereotypeApplication() throws CoreException {
 		String profileSource = "";
@@ -129,13 +123,11 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "end;\n";
 		modelSource += "end.\n";
 		parseAndCheck(profileSource, modelSource);
-		Class class_ =
-						(Class) getRepository().findNamedElement("someModel::SomeClass",
-										IRepository.PACKAGE.getClassifier(), null);
+		Class class_ = (Class) getRepository().findNamedElement("someModel::SomeClass",
+		        IRepository.PACKAGE.getClassifier(), null);
 		Dependency dependency = class_.getClientDependency(null);
-		Stereotype stereotype =
-						(Stereotype) getRepository().findNamedElement("someProfile::my_dep_stereotype",
-										IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype = (Stereotype) getRepository().findNamedElement("someProfile::my_dep_stereotype",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype);
 		assertTrue(dependency.isStereotypeApplied(stereotype));
 	}
@@ -161,18 +153,16 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "  [my_stereotype] navigable role SomeClass.someAttribute;\n";
 		modelSource += "end;\n";
 		modelSource += "end.\n";
-		IProblem [] problems = parse(profileSource, modelSource);
-		assertTrue(problems.length == 1 );
+		IProblem[] problems = parse(profileSource, modelSource);
+		assertTrue(problems.length == 1);
 		assertTrue(problems[0].getSeverity() == IProblem.Severity.WARNING);
-		Class class_ =
-						(Class) getRepository().findNamedElement("someModel::SomeClass",
-										IRepository.PACKAGE.getClassifier(), null);
+		Class class_ = (Class) getRepository().findNamedElement("someModel::SomeClass",
+		        IRepository.PACKAGE.getClassifier(), null);
 		Property attribute = class_.getAttribute("someAttribute", null);
 		Association assoc = (Association) getRepository().findNamedElement("someModel::SomeAssoc",
-				IRepository.PACKAGE.getAssociation(), null);
-		Stereotype stereotype =
-						(Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
-										IRepository.PACKAGE.getStereotype(), null);
+		        IRepository.PACKAGE.getAssociation(), null);
+		Stereotype stereotype = (Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype);
 		assertNotNull(assoc);
 		Property anotherEnd = assoc.getOwnedEnd("anotherAttribute", null);
@@ -190,13 +180,12 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		parseAndCheck(source);
 		Profile thisProfile = (Profile) getRepository().findPackage("someProfile", IRepository.PACKAGE.getProfile());
 		assertTrue(thisProfile.isDefined());
-		Stereotype stereotype =
-						(Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
-										IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype = (Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype);
 		assertTrue(thisProfile.getOwnedStereotypes().contains(stereotype));
 	}
-	
+
 	public void testExtensions() throws CoreException {
 		String source = "";
 		source += "profile testExtensions;\n";
@@ -204,12 +193,11 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		source += "stereotype my_stereotype extends Class, Operation required end;\n";
 		source += "end.\n";
 		parseAndCheck(source);
-		Stereotype stereotype =
-						(Stereotype) getRepository().findNamedElement("testExtensions::my_stereotype",
-										IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype = (Stereotype) getRepository().findNamedElement("testExtensions::my_stereotype",
+		        IRepository.PACKAGE.getStereotype(), null);
 		Class classMetaclass = getRepository().findNamedElement("UML::Class", Literals.CLASS, null);
 		Class operationMetaclass = getRepository().findNamedElement("UML::Operation", Literals.CLASS, null);
-		
+
 		EList<Class> extendedMetaclasses = stereotype.getExtendedMetaclasses();
 		assertEquals(2, extendedMetaclasses.size());
 		assertEquals(classMetaclass, extendedMetaclasses.get(0));
@@ -238,17 +226,15 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "[my_stereotype] class SomeClass end;\n";
 		modelSource += "end.\n";
 		parseAndCheck(profileSource, modelSource);
-		Class class_ =
-						(Class) getRepository().findNamedElement("someModel::SomeClass",
-										IRepository.PACKAGE.getClassifier(), null);
+		Class class_ = (Class) getRepository().findNamedElement("someModel::SomeClass",
+		        IRepository.PACKAGE.getClassifier(), null);
 		assertNotNull(class_);
-		Stereotype stereotype =
-						(Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
-										IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype = (Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype);
 		assertTrue(class_.isStereotypeApplied(stereotype));
 	}
-	
+
 	public void testAbstractStereotypeApplication() throws CoreException {
 		String profileSource = "";
 		profileSource += "profile someProfile;\n";
@@ -282,13 +268,11 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "end.\n";
 		parseAndCheck(profileSource, modelSource);
 
-		Stereotype stereotype =
-						(Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
-										IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype = (Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype);
-		Class someClass =
-						(Class) getRepository().findNamedElement("someModel::SomeClass",
-										IRepository.PACKAGE.getClass_(), null);
+		Class someClass = (Class) getRepository().findNamedElement("someModel::SomeClass",
+		        IRepository.PACKAGE.getClass_(), null);
 		assertNotNull(someClass);
 		assertTrue(someClass.isStereotypeApplied(stereotype));
 		assertNotNull(stereotype.getAttribute("prop1", null));
@@ -312,17 +296,15 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "end;\n";
 		modelSource += "end.\n";
 		parseAndCheck(profileSource, modelSource);
-		Class class_ =
-						(Class) getRepository().findNamedElement("someModel::SomeClass",
-										IRepository.PACKAGE.getClassifier(), null);
+		Class class_ = (Class) getRepository().findNamedElement("someModel::SomeClass",
+		        IRepository.PACKAGE.getClassifier(), null);
 		Operation operation = class_.getOperation("someOperation", null, null);
-		Stereotype stereotype =
-						(Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
-										IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype = (Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype);
 		assertTrue(operation.isStereotypeApplied(stereotype));
 	}
-	
+
 	public void testSpecializationStereotypeApplication() throws CoreException {
 		String profileSource = "";
 		profileSource += "profile someProfile;\n";
@@ -347,21 +329,17 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "end.\n";
 		parseAndCheck(profileSource, modelSource);
 		Class superClass1 = getRepository().findNamedElement("someModel::SuperClass1",
-						IRepository.PACKAGE.getClassifier(), null);
+		        IRepository.PACKAGE.getClassifier(), null);
 		Class superClass2 = getRepository().findNamedElement("someModel::SuperClass2",
-						IRepository.PACKAGE.getClassifier(), null);
-		Class someClass =
-						(Class) getRepository().findNamedElement("someModel::SomeClass",
-										IRepository.PACKAGE.getClassifier(), null);
-		Stereotype stereotype1 =
-			(Stereotype) getRepository().findNamedElement("someProfile::generalization_annotation1",
-							IRepository.PACKAGE.getStereotype(), null);
-		Stereotype stereotype2 =
-			(Stereotype) getRepository().findNamedElement("someProfile::generalization_annotation2",
-							IRepository.PACKAGE.getStereotype(), null);
-		Stereotype stereotype3 =
-			(Stereotype) getRepository().findNamedElement("someProfile::generalization_annotation3",
-							IRepository.PACKAGE.getStereotype(), null);
+		        IRepository.PACKAGE.getClassifier(), null);
+		Class someClass = (Class) getRepository().findNamedElement("someModel::SomeClass",
+		        IRepository.PACKAGE.getClassifier(), null);
+		Stereotype stereotype1 = (Stereotype) getRepository().findNamedElement(
+		        "someProfile::generalization_annotation1", IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype2 = (Stereotype) getRepository().findNamedElement(
+		        "someProfile::generalization_annotation2", IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype3 = (Stereotype) getRepository().findNamedElement(
+		        "someProfile::generalization_annotation3", IRepository.PACKAGE.getStereotype(), null);
 
 		assertNotNull(stereotype1);
 		assertNotNull(stereotype2);
@@ -375,7 +353,7 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		assertTrue(someClass.getGeneralization(superClass2).isStereotypeApplied(stereotype2));
 		assertTrue(someClass.getGeneralization(superClass2).isStereotypeApplied(stereotype3));
 	}
-	
+
 	public void testRealizationStereotypeApplication() throws CoreException {
 		String profileSource = "";
 		profileSource += "profile someProfile;\n";
@@ -400,21 +378,17 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "end.\n";
 		parseAndCheck(profileSource, modelSource);
 		Interface interface1 = getRepository().findNamedElement("someModel::Interface1",
-						IRepository.PACKAGE.getClassifier(), null);
+		        IRepository.PACKAGE.getClassifier(), null);
 		Interface interface2 = getRepository().findNamedElement("someModel::Interface2",
-						IRepository.PACKAGE.getClassifier(), null);
-		Class someClass =
-						(Class) getRepository().findNamedElement("someModel::SomeClass",
-										IRepository.PACKAGE.getClassifier(), null);
-		Stereotype stereotype1 =
-			(Stereotype) getRepository().findNamedElement("someProfile::realization_annotation1",
-							IRepository.PACKAGE.getStereotype(), null);
-		Stereotype stereotype2 =
-			(Stereotype) getRepository().findNamedElement("someProfile::realization_annotation2",
-							IRepository.PACKAGE.getStereotype(), null);
-		Stereotype stereotype3 =
-			(Stereotype) getRepository().findNamedElement("someProfile::realization_annotation3",
-							IRepository.PACKAGE.getStereotype(), null);
+		        IRepository.PACKAGE.getClassifier(), null);
+		Class someClass = (Class) getRepository().findNamedElement("someModel::SomeClass",
+		        IRepository.PACKAGE.getClassifier(), null);
+		Stereotype stereotype1 = (Stereotype) getRepository().findNamedElement("someProfile::realization_annotation1",
+		        IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype2 = (Stereotype) getRepository().findNamedElement("someProfile::realization_annotation2",
+		        IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype3 = (Stereotype) getRepository().findNamedElement("someProfile::realization_annotation3",
+		        IRepository.PACKAGE.getStereotype(), null);
 
 		assertNotNull(stereotype1);
 		assertNotNull(stereotype2);
@@ -444,14 +418,14 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 
 		getRepository().save(null);
 		getRepository().dispose();
-		//RepositoryService.DEFAULT.synchronizeCurrent();
+		// RepositoryService.DEFAULT.synchronizeCurrent();
 
 		IRepository newRepo = MDDCore.createRepository(getRepository().getBaseURI());
-		Class class_ = (Class) newRepo.findNamedElement("someModel::SomeClass", IRepository.PACKAGE.getClassifier(), null);
+		Class class_ = (Class) newRepo.findNamedElement("someModel::SomeClass", IRepository.PACKAGE.getClassifier(),
+		        null);
 		assertNotNull(class_);
-		Stereotype stereotype =
-						(Stereotype) newRepo.findNamedElement("someProfile::my_stereotype", IRepository.PACKAGE
-										.getStereotype(), null);
+		Stereotype stereotype = (Stereotype) newRepo.findNamedElement("someProfile::my_stereotype",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype);
 		assertTrue(class_.isStereotypeApplied(stereotype));
 		newRepo.dispose();
@@ -476,12 +450,10 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		source += "stereotype sub_stereotype specializes super_stereotype end;\n";
 		source += "end.\n";
 		parseAndCheck(source);
-		final Stereotype superClass =
-						(Stereotype) getRepository().findNamedElement("someProfile::super_stereotype",
-										IRepository.PACKAGE.getClass_(), null);
-		final Stereotype subClass =
-						(Stereotype) getRepository().findNamedElement("someProfile::sub_stereotype",
-										IRepository.PACKAGE.getClass_(), null);
+		final Stereotype superClass = (Stereotype) getRepository().findNamedElement("someProfile::super_stereotype",
+		        IRepository.PACKAGE.getClass_(), null);
+		final Stereotype subClass = (Stereotype) getRepository().findNamedElement("someProfile::sub_stereotype",
+		        IRepository.PACKAGE.getClass_(), null);
 		assertNotNull(superClass);
 		assertNotNull(subClass);
 		assertTrue(subClass.getSuperClasses().contains(superClass));
@@ -496,7 +468,7 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		profileSource += "property prop1 : PrimitiveTypes::String;\n";
 		profileSource += "property prop2 : PrimitiveTypes::Boolean;\n";
 		profileSource += "property prop3 : PrimitiveTypes::Integer;\n";
-		profileSource += "property prop4 : Values;\n";		
+		profileSource += "property prop4 : Values;\n";
 		profileSource += "end;\n";
 		profileSource += "end.\n";
 
@@ -508,25 +480,22 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "end.\n";
 		parseAndCheck(profileSource, modelSource);
 
-		Stereotype stereotype =
-						(Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
-										IRepository.PACKAGE.getStereotype(), null);
+		Stereotype stereotype = (Stereotype) getRepository().findNamedElement("someProfile::my_stereotype",
+		        IRepository.PACKAGE.getStereotype(), null);
 		assertNotNull(stereotype);
-		Class someClass =
-						(Class) getRepository().findNamedElement("someModel::SomeClass",
-										IRepository.PACKAGE.getClass_(), null);
+		Class someClass = (Class) getRepository().findNamedElement("someModel::SomeClass",
+		        IRepository.PACKAGE.getClass_(), null);
 		assertEquals("value1", someClass.getValue(stereotype, "prop1"));
 		assertEquals(true, someClass.getValue(stereotype, "prop2"));
 		assertEquals(45, someClass.getValue(stereotype, "prop3"));
-		
-		Enumeration valuesEnum =
-			(Enumeration) getRepository().findNamedElement("someProfile::Values",
-							IRepository.PACKAGE.getEnumeration(), null);
+
+		Enumeration valuesEnum = (Enumeration) getRepository().findNamedElement("someProfile::Values",
+		        IRepository.PACKAGE.getEnumeration(), null);
 		final EnumerationLiteral expectedLiteral = valuesEnum.getOwnedLiteral("VALUE2");
 		assertNotNull(expectedLiteral);
 		assertEquals(expectedLiteral, someClass.getValue(stereotype, "prop4"));
 	}
-	
+
 	/**
 	 * See bug 2796613.
 	 */
@@ -534,7 +503,7 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		String profileSource = "";
 		profileSource += "profile someProfile;\n";
 		profileSource += "import UML;\n";
-		profileSource += "stereotype super_stereotype extends Class\n";		
+		profileSource += "stereotype super_stereotype extends Class\n";
 		profileSource += "property prop1 : PrimitiveTypes::String;\n";
 		profileSource += "property prop2 : PrimitiveTypes::Boolean;\n";
 		profileSource += "end;\n";
@@ -554,21 +523,17 @@ public class StereotypeTests extends AbstractRepositoryBuildingTests {
 		modelSource += "end.\n";
 		parseAndCheck(profileSource, modelSource);
 
-		final Stereotype superStereotype =
-			(Stereotype) getRepository().findNamedElement("someProfile::super_stereotype",
-							IRepository.PACKAGE.getClass_(), null);
-		final Stereotype subStereotype =
-			(Stereotype) getRepository().findNamedElement("someProfile::sub_stereotype",
-							IRepository.PACKAGE.getClass_(), null);
-		Class class1 =
-						(Class) getRepository().findNamedElement("someModel::Class1",
-										IRepository.PACKAGE.getClass_(), null);
+		final Stereotype superStereotype = (Stereotype) getRepository().findNamedElement(
+		        "someProfile::super_stereotype", IRepository.PACKAGE.getClass_(), null);
+		final Stereotype subStereotype = (Stereotype) getRepository().findNamedElement("someProfile::sub_stereotype",
+		        IRepository.PACKAGE.getClass_(), null);
+		Class class1 = (Class) getRepository().findNamedElement("someModel::Class1", IRepository.PACKAGE.getClass_(),
+		        null);
 		assertTrue(class1.isStereotypeApplied(superStereotype));
 		assertEquals("value1", class1.getValue(superStereotype, "prop1"));
-		assertEquals(true, class1.getValue(superStereotype, "prop2"));		
-		Class class2 =
-			(Class) getRepository().findNamedElement("someModel::Class2",
-							IRepository.PACKAGE.getClass_(), null);
+		assertEquals(true, class1.getValue(superStereotype, "prop2"));
+		Class class2 = (Class) getRepository().findNamedElement("someModel::Class2", IRepository.PACKAGE.getClass_(),
+		        null);
 		assertTrue(class2.isStereotypeApplied(subStereotype));
 		assertEquals("value2", class2.getValue(subStereotype, "prop1"));
 		// substereotype-only property

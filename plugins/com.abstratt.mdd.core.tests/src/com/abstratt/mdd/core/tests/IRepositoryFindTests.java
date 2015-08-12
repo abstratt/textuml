@@ -50,25 +50,56 @@ public class IRepositoryFindTests extends AbstractRepositoryBuildingTests {
 
 		parseAndCheckInContext(new String[] { modelSource, profileSource });
 	}
-	
+
 	public void testTaggedValueMatching() {
-		assertIncluded("someModel::Class3", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'intValue') = 20"));
-		assertIncluded("someModel::Class3", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'stringValue') = 'foo'"));
-		assertNotIncluded("someModel::Class3", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'intValue') = 30"));
-		assertNotIncluded("someModel::Class3", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'stringValue') = 'bar'"));
-		
-		assertIncluded("someModel::Class4", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'intValue') = 30"));
-		assertIncluded("someModel::Class4", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'stringValue') = 'bar'"));
-		assertNotIncluded("someModel::Class4", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'intValue') = 20"));
-		assertNotIncluded("someModel::Class4", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'stringValue') = 'foo'"));
+		assertIncluded(
+		        "someModel::Class3",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'intValue') = 20"));
+		assertIncluded(
+		        "someModel::Class3",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'stringValue') = 'foo'"));
+		assertNotIncluded(
+		        "someModel::Class3",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'intValue') = 30"));
+		assertNotIncluded(
+		        "someModel::Class3",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'stringValue') = 'bar'"));
 
-		assertIncluded("someModel::Class5", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'booleanValue') = true"));
+		assertIncluded(
+		        "someModel::Class4",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'intValue') = 30"));
+		assertIncluded(
+		        "someModel::Class4",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'stringValue') = 'bar'"));
+		assertNotIncluded(
+		        "someModel::Class4",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'intValue') = 20"));
+		assertNotIncluded(
+		        "someModel::Class4",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'stringValue') = 'foo'"));
 
-		assertNotIncluded("someModel::Class3", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'booleanValue') = true"));
-		assertNotIncluded("someModel::Class4", Literals.CLASS, createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'booleanValue') = true"));
+		assertIncluded(
+		        "someModel::Class5",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'booleanValue') = true"));
+
+		assertNotIncluded(
+		        "someModel::Class3",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'booleanValue') = true"));
+		assertNotIncluded(
+		        "someModel::Class4",
+		        Literals.CLASS,
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null and self.getValue(self.getAppliedStereotype('someProfile::stereotype2'), 'booleanValue') = true"));
 	}
-
-
 
 	// public void testEClassMatching() {
 	// assertIncluded("someModel::Class1", Literals.CLASS, new
@@ -88,11 +119,7 @@ public class IRepositoryFindTests extends AbstractRepositoryBuildingTests {
 	private EObjectCondition createMatcher(String expression) {
 		OCL ocl = OCL.newInstance();
 		try {
-			return new BooleanOCLCondition<EClassifier, EClass, EObject>(
-			    ocl.getEnvironment(),
-			    expression,
-			    null
-			    );
+			return new BooleanOCLCondition<EClassifier, EClass, EObject>(ocl.getEnvironment(), expression, null);
 		} catch (ParserException e) {
 			throw new RuntimeException(e);
 		}
@@ -108,7 +135,7 @@ public class IRepositoryFindTests extends AbstractRepositoryBuildingTests {
 		assertNotIncluded("someModel::Class2", Literals.CLASS, createMatcher("self.oclIsTypeOf(Interface)"));
 	}
 
-	//	
+	//
 	// public void testNameMatching() {
 	// assertIncluded("someModel::Class1", Literals.CLASS, new
 	// NameMatcher("Class1"));
@@ -148,13 +175,13 @@ public class IRepositoryFindTests extends AbstractRepositoryBuildingTests {
 
 	public void testCompositeMatching() {
 		assertIncluded("someModel::Class1", Literals.CLASS,
-						createMatcher("self.oclIsTypeOf(Class) or self.oclIsTypeOf(Interface)"));
+		        createMatcher("self.oclIsTypeOf(Class) or self.oclIsTypeOf(Interface)"));
 		assertNotIncluded("someModel::Class1", Literals.CLASS,
-						createMatcher("self.oclIsTypeOf(Class) and self.oclIsTypeOf(Interface)"));
+		        createMatcher("self.oclIsTypeOf(Class) and self.oclIsTypeOf(Interface)"));
 		assertIncluded("someModel::Interface1", Literals.INTERFACE,
-						createMatcher("self.oclIsTypeOf(Class) or self.oclIsTypeOf(Interface)"));
+		        createMatcher("self.oclIsTypeOf(Class) or self.oclIsTypeOf(Interface)"));
 		assertNotIncluded("someModel::Interface1", Literals.INTERFACE,
-						createMatcher("self.oclIsTypeOf(Class) and self.oclIsTypeOf(Interface)"));
+		        createMatcher("self.oclIsTypeOf(Class) and self.oclIsTypeOf(Interface)"));
 	}
 
 	// public void testCompositeMatching() {
@@ -177,16 +204,14 @@ public class IRepositoryFindTests extends AbstractRepositoryBuildingTests {
 		assertIncluded("someModel::Class2", Literals.CLASS, createMatcher("not self.generalization->isEmpty()"));
 
 		assertIncluded("someModel::Class2", Literals.CLASS,
-						createMatcher("self.generalization.general.name->includes('Class1')"));
+		        createMatcher("self.generalization.general.name->includes('Class1')"));
 		assertIncluded("someModel::Class3", Literals.CLASS,
-						createMatcher("self.generalization.general.name->includes('Class1')"));
+		        createMatcher("self.generalization.general.name->includes('Class1')"));
 
 		// OCL bug 251808 - unexpected ambiguity between Class#general and
 		// Classifier#general - need to use ECore binding
-		assertIncluded("someModel::Class2", Literals.CLASS,
-						createMatcher("self.general.name->includes('Class1')"));
-		assertIncluded("someModel::Class3", Literals.CLASS,
-						createMatcher("self.general.name->includes('Class1')"));
+		assertIncluded("someModel::Class2", Literals.CLASS, createMatcher("self.general.name->includes('Class1')"));
+		assertIncluded("someModel::Class3", Literals.CLASS, createMatcher("self.general.name->includes('Class1')"));
 
 		assertIncluded("someModel::Class2", Literals.CLASS, createMatcher("self.superClass.name->includes('Class1')"));
 		assertIncluded("someModel::Class3", Literals.CLASS, createMatcher("self.superClass.name->includes('Class1')"));
@@ -194,18 +219,18 @@ public class IRepositoryFindTests extends AbstractRepositoryBuildingTests {
 		assertIncluded("someModel::Class2", Literals.CLASS, createMatcher("not self.interfaceRealization->isEmpty()"));
 
 		assertIncluded("someModel::Class2", Literals.CLASS,
-						createMatcher("self.interfaceRealization.contract.name->includes('Interface1')"));
+		        createMatcher("self.interfaceRealization.contract.name->includes('Interface1')"));
 		assertNotIncluded("someModel::Class3", Literals.CLASS,
-						createMatcher("self.interfaceRealization.contract.name->includes('Interface1')"));
+		        createMatcher("self.interfaceRealization.contract.name->includes('Interface1')"));
 		assertIncluded("someModel::Class3", Literals.CLASS,
-						createMatcher("self.interfaceRealization.contract.name->includes('Interface2')"));
+		        createMatcher("self.interfaceRealization.contract.name->includes('Interface2')"));
 	}
 
 	// public void testReferenceMatching() {
 	// assertIncluded("someModel::Class2", Literals.CLASS, new
 	// ReferenceMatcher(new EClassMatcher(Literals.GENERALIZATION),
 	// Literals.CLASSIFIER__GENERALIZATION.getName()));
-	//		
+	//
 	// assertIncluded("someModel::Class2", Literals.CLASS, new
 	// ReferenceMatcher(new ReferenceMatcher(new NameMatcher("Class1"),
 	// Literals.GENERALIZATION__GENERAL.getName()),
@@ -226,7 +251,7 @@ public class IRepositoryFindTests extends AbstractRepositoryBuildingTests {
 	// assertIncluded("someModel::Class3", Literals.CLASS, new
 	// ReferenceMatcher(new NameMatcher("Class1"),
 	// Literals.CLASS__SUPER_CLASS.getName()));
-	//		
+	//
 	// assertIncluded("someModel::Class2", Literals.CLASS, new
 	// ReferenceMatcher(new ReferenceMatcher(new NameMatcher("Interface1"),
 	// Literals.INTERFACE_REALIZATION__CONTRACT.getName()),
@@ -243,25 +268,27 @@ public class IRepositoryFindTests extends AbstractRepositoryBuildingTests {
 	//
 
 	public void testStereotypeApplicationMatching() {
-	 Stereotype stereotype1 = getRepository().findNamedElement("someProfile::stereotype1", Literals.STEREOTYPE, null);
-		Stereotype stereotype2 = getRepository().findNamedElement("someProfile::stereotype2", Literals.STEREOTYPE, null);
+		Stereotype stereotype1 = getRepository()
+		        .findNamedElement("someProfile::stereotype1", Literals.STEREOTYPE, null);
+		Stereotype stereotype2 = getRepository()
+		        .findNamedElement("someProfile::stereotype2", Literals.STEREOTYPE, null);
 		assertNotNull(stereotype1);
 		assertNotNull(stereotype2);
 
 		assertIncluded("someModel::Class1", Literals.CLASS,
-						createMatcher("self.getAppliedStereotype('someProfile::stereotype1') <> null"));
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype1') <> null"));
 		assertNotIncluded("someModel::Class1", Literals.CLASS,
-						createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null"));
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null"));
 
 		assertIncluded("someModel::Class2", Literals.CLASS,
-						createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null"));
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null"));
 		assertNotIncluded("someModel::Class2", Literals.CLASS,
-						createMatcher("self.getAppliedStereotype('someProfile::stereotype1') <> null"));
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype1') <> null"));
 
 		assertIncluded("someModel::Class3", Literals.CLASS,
-						createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null"));
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype2') <> null"));
 		assertNotIncluded("someModel::Class3", Literals.CLASS,
-						createMatcher("self.getAppliedStereotype('someProfile::stereotype1') <> null"));
+		        createMatcher("self.getAppliedStereotype('someProfile::stereotype1') <> null"));
 	}
 
 	// public void testStereotypeApplicationMatching() {
@@ -273,24 +300,24 @@ public class IRepositoryFindTests extends AbstractRepositoryBuildingTests {
 	// Literals.STEREOTYPE);
 	// assertNotNull(stereotype1);
 	// assertNotNull(stereotype2);
-	//		
+	//
 	// assertIncluded("someModel::Class1", Literals.CLASS, new
 	// StereotypeApplicationMatcher(stereotype1));
 	// assertNotIncluded("someModel::Class1", Literals.CLASS, new
 	// StereotypeApplicationMatcher(stereotype2));
-	//		
+	//
 	// assertIncluded("someModel::Class2", Literals.CLASS, new
 	// StereotypeApplicationMatcher(stereotype2));
 	// assertNotIncluded("someModel::Class2", Literals.CLASS, new
 	// StereotypeApplicationMatcher(stereotype1));
-	//		
+	//
 	// assertIncluded("someModel::Class3", Literals.CLASS, new
 	// StereotypeApplicationMatcher(stereotype2));
 	// assertNotIncluded("someModel::Class3", Literals.CLASS, new
 	// StereotypeApplicationMatcher(stereotype1));
 	// }
 
-	//	
+	//
 	// public void testTaggedValueMatching() {
 	// assertNotIncluded("someModel::Class1", Literals.CLASS, new
 	// TaggedValueMatcher("someProfile::stereotype2", "value", 20));

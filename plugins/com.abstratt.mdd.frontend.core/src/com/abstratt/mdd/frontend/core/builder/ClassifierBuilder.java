@@ -1,6 +1,6 @@
 package com.abstratt.mdd.frontend.core.builder;
 
- import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -34,7 +34,8 @@ public class ClassifierBuilder extends DefaultParentBuilder<Classifier> {
 
 	public ClassifierBuilder implement(String... interfaceName) {
 		if (!Literals.BEHAVIORED_CLASSIFIER.isSuperTypeOf(getEClass()))
-			getContext().getProblemTracker().add(new WrongMetaclass(Literals.INTERFACE_REALIZATION, Literals.BEHAVIORED_CLASSIFIER, getEClass()));
+			getContext().getProblemTracker().add(
+			        new WrongMetaclass(Literals.INTERFACE_REALIZATION, Literals.BEHAVIORED_CLASSIFIER, getEClass()));
 		else
 			for (String i : interfaceName)
 				this.contracts.add(reference(i, UML2ProductKind.INTERFACE));
@@ -48,15 +49,15 @@ public class ClassifierBuilder extends DefaultParentBuilder<Classifier> {
 	public PropertyBuilder newProperty(UML2ProductKind kind) {
 		return (PropertyBuilder) newChildBuilder(kind);
 	}
-	
 
 	public OperationBuilder newOperation(UML2ProductKind kind) {
 		return (OperationBuilder) newChildBuilder(kind);
 	}
-	
+
 	public ActivityBuilder newActivity() {
 		if (getKind() != UML2ProductKind.CLASS)
-			getContext().getProblemTracker().add(new WrongMetaclass(Literals.CLASS__NESTED_CLASSIFIER, Literals.CLASS, getEClass()));
+			getContext().getProblemTracker().add(
+			        new WrongMetaclass(Literals.CLASS__NESTED_CLASSIFIER, Literals.CLASS, getEClass()));
 		return newChildBuilder(UML2ProductKind.ACTIVITY);
 	}
 
@@ -91,8 +92,7 @@ public class ClassifierBuilder extends DefaultParentBuilder<Classifier> {
 						getContext().getProblemTracker().add(new NotAMetaclass(metaclass.getQualifiedName()));
 					else {
 						Stereotype stereotype = (Stereotype) getProduct();
-						if (!stereotype.getProfile().getReferencedMetamodels().contains(
-								metaclass.getModel()))
+						if (!stereotype.getProfile().getReferencedMetamodels().contains(metaclass.getModel()))
 							stereotype.getProfile().createMetamodelReference(metaclass.getNearestPackage());
 						stereotype.createExtension(metaclass, required != null && required);
 					}
@@ -124,7 +124,8 @@ public class ClassifierBuilder extends DefaultParentBuilder<Classifier> {
 
 	public ClassifierBuilder extend(String metaclass, boolean required) {
 		if (getKind() != UML2ProductKind.STEREOTYPE)
-			getContext().getProblemTracker().add(new WrongMetaclass(Literals.EXTENSION, Literals.STEREOTYPE, getEClass()));
+			getContext().getProblemTracker().add(
+			        new WrongMetaclass(Literals.EXTENSION, Literals.STEREOTYPE, getEClass()));
 		else {
 			NameReference reference = reference(metaclass, UML2ProductKind.CLASS);
 			reference.setProperty(Literals.EXTENSION__IS_REQUIRED.getName(), required);
@@ -135,7 +136,8 @@ public class ClassifierBuilder extends DefaultParentBuilder<Classifier> {
 
 	public ClassifierBuilder enumerationLiteral(String enumLiteral) {
 		if (getKind() != UML2ProductKind.ENUMERATION)
-			getContext().getProblemTracker().add(new WrongMetaclass(Literals.ENUMERATION_LITERAL, Literals.ENUMERATION, getEClass()));
+			getContext().getProblemTracker().add(
+			        new WrongMetaclass(Literals.ENUMERATION_LITERAL, Literals.ENUMERATION, getEClass()));
 		else {
 			enumerationLiterals.add(enumLiteral);
 		}

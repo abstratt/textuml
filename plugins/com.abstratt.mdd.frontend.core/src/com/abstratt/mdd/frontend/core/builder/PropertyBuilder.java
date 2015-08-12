@@ -11,6 +11,7 @@ public class PropertyBuilder extends TypedElementBuilder<Property> {
 	public PropertyBuilder(UML2ProductKind kind) {
 		super(kind);
 	}
+
 	@Override
 	protected Property createProduct() {
 		if (getParentProduct() instanceof StructuredClassifier)

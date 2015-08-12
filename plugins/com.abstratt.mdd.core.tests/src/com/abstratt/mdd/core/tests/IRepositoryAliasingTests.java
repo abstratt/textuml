@@ -26,7 +26,7 @@ public class IRepositoryAliasingTests extends AbstractRepositoryBuildingTests {
 	public IRepositoryAliasingTests(String name) {
 		super(name);
 	}
-	
+
 	@Override
 	protected Properties createDefaultSettings() {
 		return new Properties();
@@ -46,19 +46,19 @@ public class IRepositoryAliasingTests extends AbstractRepositoryBuildingTests {
 		assertEquals("anotherPackage", getRepository().resolveAlias("anotherPackage"));
 		assertEquals("anotherPackage::anotherClass", getRepository().resolveAlias("anotherPackage::anotherClass"));
 	}
-	
+
 	public void testBasePackageAliasing() throws CoreException {
 		String modelSource = "";
 		modelSource += "model myBase;\n";
 		modelSource += "class Object end;\n";
 		modelSource += "class Integer end;\n";
 		modelSource += "end.";
-		
+
 		assertNull(getRepository().findPackage("base", Literals.PACKAGE));
-		
+
 		parseAndCheck(modelSource);
 		getRepository().makeAlias("mdd_types", "myBase");
-		
+
 		Package basePackage = getRepository().findPackage("mdd_types", Literals.PACKAGE);
 		assertNotNull(basePackage);
 		assertEquals("myBase", basePackage.getQualifiedName());
@@ -69,21 +69,21 @@ public class IRepositoryAliasingTests extends AbstractRepositoryBuildingTests {
 		assertNotNull(baseInteger);
 		assertEquals("myBase::Integer", baseInteger.getQualifiedName());
 	}
-	
+
 	public void testBaseClassAliasing() throws CoreException {
 		String modelSource = "";
 		modelSource += "model myBase;\n";
 		modelSource += "class MyObject end;\n";
 		modelSource += "class MyInteger end;\n";
 		modelSource += "end.";
-		
+
 		assertNull(getRepository().findPackage("mdd_types", Literals.PACKAGE));
-		
+
 		parseAndCheck(modelSource);
 		getRepository().makeAlias("mdd_types", "myBase");
 		getRepository().makeAlias("mdd_types::Object", "myBase::MyObject");
 		getRepository().makeAlias("mdd_types::Integer", "myBase::MyInteger");
-		
+
 		Package basePackage = getRepository().findPackage("mdd_types", Literals.PACKAGE);
 		assertNotNull(basePackage);
 		assertEquals("myBase", basePackage.getQualifiedName());
@@ -94,7 +94,7 @@ public class IRepositoryAliasingTests extends AbstractRepositoryBuildingTests {
 		assertNotNull(baseInteger);
 		assertEquals("myBase::MyInteger", baseInteger.getQualifiedName());
 	}
-	
+
 	public static Test suite() {
 		return new TestSuite(IRepositoryAliasingTests.class);
 	}

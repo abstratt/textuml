@@ -10,14 +10,14 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class StructuredActivityNodeRenderer implements IEObjectRenderer<StructuredActivityNode> {
 
-    @Override
-    public boolean renderObject(StructuredActivityNode element, IndentedPrintWriter out, IRenderingSession session) {
-        out.println("begin");
-        out.enterLevel();
-        RenderingUtils.renderAll(session, ActivityUtils.findStatements(element));
-        out.exitLevel();
-        out.println("end");
-        return true;
-    }
+	@Override
+	public boolean renderObject(StructuredActivityNode element, IndentedPrintWriter out, IRenderingSession session) {
+		out.println("begin");
+		out.enterLevel();
+		RenderingUtils.renderAll(session, ActivityUtils.findStatements(element));
+		out.exitLevel();
+		out.println("end");
+		return true;
+	}
 
 }

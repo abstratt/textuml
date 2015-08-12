@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui;
 
 import org.eclipse.jface.action.IAction;
@@ -19,6 +19,7 @@ import com.abstratt.mdd.internal.ui.editors.TextUMLEditor;
 
 public class FormatActionDelegate implements IEditorActionDelegate {
 	private IEditorPart activeEditor;
+
 	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
 		this.activeEditor = targetEditor;
 	}
@@ -31,6 +32,5 @@ public class FormatActionDelegate implements IEditorActionDelegate {
 	public void selectionChanged(IAction action, ISelection selection) {
 		// we don't support selection
 	}
-	
-	
+
 }

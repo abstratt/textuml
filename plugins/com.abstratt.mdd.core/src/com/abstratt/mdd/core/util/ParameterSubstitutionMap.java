@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.core.util;
 
 import java.util.HashMap;
@@ -21,21 +21,21 @@ import org.eclipse.uml2.uml.TemplateParameterSubstitution;
 import org.eclipse.uml2.uml.TemplateableElement;
 
 public class ParameterSubstitutionMap {
-//	private ParameterSubstitutionMap parent;
-	private Map<ParameterableElement, ParameterableElement> substitutions =
-					new HashMap<ParameterableElement, ParameterableElement>();
+	// private ParameterSubstitutionMap parent;
+	private Map<ParameterableElement, ParameterableElement> substitutions = new HashMap<ParameterableElement, ParameterableElement>();
 
 	public ParameterSubstitutionMap(TemplateBinding startingPoint) {
 		this(startingPoint.getBoundElement());
 	}
-	
+
 	public ParameterSubstitutionMap(TemplateableElement... startingPoints) {
-	    for (TemplateableElement current : startingPoints)
-	        addSubstitutions(current);
+		for (TemplateableElement current : startingPoints)
+			addSubstitutions(current);
 	}
 
 	public void addSubstitution(TemplateParameterSubstitution substitution) {
-		substitutions.put(substitution.getFormal().getParameteredElement(), UML2Compatibility.getActualParameter(substitution));
+		substitutions.put(substitution.getFormal().getParameteredElement(),
+		        UML2Compatibility.getActualParameter(substitution));
 	}
 
 	public void addSubstitutions(TemplateableElement bound) {

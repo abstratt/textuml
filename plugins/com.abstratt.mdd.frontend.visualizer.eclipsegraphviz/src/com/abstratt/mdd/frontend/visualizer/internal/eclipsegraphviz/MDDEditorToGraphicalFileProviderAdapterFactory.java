@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.visualizer.internal.eclipsegraphviz;
 
 import java.lang.ref.WeakReference;
@@ -18,11 +18,9 @@ import org.eclipse.core.runtime.IAdapterFactory;
 import com.abstratt.imageviewer.IGraphicalFileProvider;
 import com.abstratt.mdd.frontend.ui.IMDDEditor;
 
-public class MDDEditorToGraphicalFileProviderAdapterFactory implements
-		IAdapterFactory {
+public class MDDEditorToGraphicalFileProviderAdapterFactory implements IAdapterFactory {
 
-	private static class GraphicalContentProvider implements
-			IGraphicalFileProvider {
+	private static class GraphicalContentProvider implements IGraphicalFileProvider {
 		private WeakReference<IMDDEditor> editorReference;
 
 		private GraphicalContentProvider(IMDDEditor editor) {
@@ -36,10 +34,8 @@ public class MDDEditorToGraphicalFileProviderAdapterFactory implements
 	}
 
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		if (adapterType == IGraphicalFileProvider.class
-				&& adaptableObject instanceof IMDDEditor)
-			return new GraphicalContentProvider(
-					(IMDDEditor) adaptableObject);
+		if (adapterType == IGraphicalFileProvider.class && adaptableObject instanceof IMDDEditor)
+			return new GraphicalContentProvider((IMDDEditor) adaptableObject);
 		return null;
 	}
 

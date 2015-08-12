@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import org.eclipse.emf.ecore.EClass;
@@ -28,9 +28,9 @@ import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
+import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.frontend.core.spi.NamespaceTracker;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AModelPackageType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.APackagePackageType;
@@ -56,7 +56,7 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
 		this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), sourceMiner);
 		this.sourceContext = new SourceCompilationContext<Node>(context, namespaceTracker, sourceMiner, problemBuilder);
 	}
-	
+
 	public AbstractGenerator(SourceCompilationContext<Node> sourceContext) {
 		this.context = sourceContext.getContext();
 		this.namespaceTracker = sourceContext.getNamespaceTracker();
@@ -88,7 +88,6 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
 	protected IRepository getRepository() {
 		return context.getRepository();
 	}
-	
 
 	protected void fillDebugInfo(final Element element, Node node) {
 		if (!context.isDebug())
@@ -101,30 +100,28 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
 		if (token == null)
 			return;
 		final int lineNumber = token.getLine();
-        final String sourceFile = context.getSourcePath() != null ? context.getSourcePath() : null;
-        sourceContext.getReferenceTracker().add(new IDeferredReference() {
-            @Override
-            public void resolve(IBasicRepository repository) {
-                if (MDDExtensionUtils.isDebuggable(element)) 
-                    MDDExtensionUtils.addDebugInfo(element, sourceFile, lineNumber);
-            }
-        }, Step.STEREOTYPE_APPLICATIONS);
+		final String sourceFile = context.getSourcePath() != null ? context.getSourcePath() : null;
+		sourceContext.getReferenceTracker().add(new IDeferredReference() {
+			@Override
+			public void resolve(IBasicRepository repository) {
+				if (MDDExtensionUtils.isDebuggable(element))
+					MDDExtensionUtils.addDebugInfo(element, sourceFile, lineNumber);
+			}
+		}, Step.STEREOTYPE_APPLICATIONS);
 	}
 
 	protected SignatureProcessor newSignatureProcessor(Namespace target) {
 		if (target instanceof Behavior)
 			return new BehaviorSignatureProcessor(sourceContext, (Behavior) target);
 		if (target instanceof BehavioralFeature)
-			return new BehavioralFeatureSignatureProcessor(sourceContext,
-					(BehavioralFeature) target);
+			return new BehavioralFeatureSignatureProcessor(sourceContext, (BehavioralFeature) target);
 		throw new IllegalArgumentException("" + target);
 	}
-	
+
 	protected Classifier findBuiltInType(String typeName, Node node) {
 		Classifier builtInType = BasicTypeUtils.findBuiltInType(typeName);
 		if (builtInType == null) {
-			problemBuilder.addProblem(new UnresolvedSymbol(
-					typeName), node);
+			problemBuilder.addProblem(new UnresolvedSymbol(typeName), node);
 			throw new AbortedStatementCompilationException();
 		}
 		return builtInType;
@@ -141,5 +138,5 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
 		if (node instanceof AProfilePackageType)
 			return UMLPackage.Literals.PROFILE;
 		return null;
-    }
+	}
 }

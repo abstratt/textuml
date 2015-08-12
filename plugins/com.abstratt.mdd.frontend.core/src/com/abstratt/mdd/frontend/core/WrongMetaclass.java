@@ -5,7 +5,6 @@ import org.eclipse.emf.ecore.ENamedElement;
 
 import com.abstratt.mdd.core.Problem;
 
-
 public class WrongMetaclass extends Problem {
 
 	private String featureName;
@@ -20,7 +19,8 @@ public class WrongMetaclass extends Problem {
 	}
 
 	public String getMessage() {
-		return "Feature '" + featureName + "' does not apply to metaclass: '" + actualMetaclass  +"'. Expected: '" + expectedMetaclass + "'";
+		return "Feature '" + featureName + "' does not apply to metaclass: '" + actualMetaclass + "'. Expected: '"
+		        + expectedMetaclass + "'";
 	}
 
 }

@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
@@ -21,6 +21,7 @@ import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
+
 public class InterfaceRenderer implements IEObjectRenderer<Interface> {
 
 	public boolean renderObject(Interface interface_, IndentedPrintWriter writer, IRenderingSession context) {
@@ -30,7 +31,8 @@ public class InterfaceRenderer implements IEObjectRenderer<Interface> {
 		List<Generalization> generalizations = interface_.getGeneralizations();
 		StringBuilder specializationList = new StringBuilder();
 		for (Generalization generalization : generalizations)
-			specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(), interface_.getNamespace()) + ", ");
+			specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(),
+			        interface_.getNamespace()) + ", ");
 		if (specializationList.length() > 0) {
 			specializationList.delete(specializationList.length() - 2, specializationList.length());
 			writer.print(" specializes ");

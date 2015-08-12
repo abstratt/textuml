@@ -41,11 +41,11 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 	public StateMachineTests(String name) {
 		super(name);
 	}
-	
+
 	public void testStateLiteral() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
-		source += "import base;\n";		
+		source += "import base;\n";
 		source += "  class SimpleClass\n";
 		source += "    attribute status : Status;\n";
 		source += "    statemachine Status\n";
@@ -59,12 +59,15 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 		source += "  end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		StateMachine statusSM = (StateMachine) getRepository().findNamedElement("simple::SimpleClass::Status", UMLPackage.Literals.STATE_MACHINE, null);
+		StateMachine statusSM = (StateMachine) getRepository().findNamedElement("simple::SimpleClass::Status",
+		        UMLPackage.Literals.STATE_MACHINE, null);
 		Vertex state2 = StateMachineUtils.getVertex(statusSM, "State2");
-		Operation statusCheckingOperation = (Operation) getRepository().findNamedElement("simple::SimpleClass::isInState", UMLPackage.Literals.OPERATION, null);
+		Operation statusCheckingOperation = (Operation) getRepository().findNamedElement(
+		        "simple::SimpleClass::isInState", UMLPackage.Literals.OPERATION, null);
 		assertNotNull(statusCheckingOperation);
 		StructuredActivityNode rootAction = ActivityUtils.getRootAction(statusCheckingOperation);
-		ValueSpecificationAction expressionAction = (ValueSpecificationAction) ActivityUtils.findNode(rootAction, new MDDUtil.EClassMatcher(Literals.VALUE_SPECIFICATION_ACTION));
+		ValueSpecificationAction expressionAction = (ValueSpecificationAction) ActivityUtils.findNode(rootAction,
+		        new MDDUtil.EClassMatcher(Literals.VALUE_SPECIFICATION_ACTION));
 		assertTrue(MDDExtensionUtils.isVertexLiteral(expressionAction.getValue()));
 		assertEquals(state2.getName(), MDDExtensionUtils.resolveVertexLiteral(expressionAction.getValue()).getName());
 		assertEquals(statusSM, expressionAction.getValue().getType());
@@ -73,7 +76,7 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 	public void testNaming() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
-		source += "import base;\n";		
+		source += "import base;\n";
 		source += "  class SimpleClass\n";
 		source += "    attribute status : Status;\n";
 		source += "    statemachine Status\n";
@@ -83,8 +86,10 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 		source += "  end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		StateMachine statusSM = (StateMachine) getRepository().findNamedElement("simple::SimpleClass::Status", UMLPackage.Literals.STATE_MACHINE, null);
-		Property statusProperty = (Property) getRepository().findNamedElement("simple::SimpleClass::status", UMLPackage.Literals.PROPERTY, null);
+		StateMachine statusSM = (StateMachine) getRepository().findNamedElement("simple::SimpleClass::Status",
+		        UMLPackage.Literals.STATE_MACHINE, null);
+		Property statusProperty = (Property) getRepository().findNamedElement("simple::SimpleClass::status",
+		        UMLPackage.Literals.PROPERTY, null);
 		assertNotNull(statusProperty);
 		assertEquals(statusSM, statusProperty.getType());
 		assertEquals(1, statusSM.getRegions().size());
@@ -92,11 +97,11 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 		assertNull(vertices.get(0).getName());
 		assertEquals("Second", vertices.get(1).getName());
 	}
-	
+
 	public void testUnnamedNonInitialState() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
-		source += "import base;\n";		
+		source += "import base;\n";
 		source += "  class SimpleClass\n";
 		source += "    statemachine Status\n";
 		source += "      state end;\n";
@@ -108,11 +113,11 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 		assertTrue(problems[0].toString(), problems[0] instanceof StateMachineMustHaveOneInitialState);
 		assertTrue(problems[1].toString(), problems[1] instanceof NonInitialStatesMustBeNamed);
 	}
-	
+
 	public void testStateMachineAsOperationArgument() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
-		source += "import base;\n";		
+		source += "import base;\n";
 		source += "  class SimpleClass\n";
 		source += "    statemachine Status\n";
 		source += "      initial state State1 end;\n";
@@ -127,12 +132,12 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 		source += "  end;\n";
 		source += "end.";
 		parseAndCheck(source);
-    }
+	}
 
 	public void testParseTransitions() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
-		source += "import base;\n";		
+		source += "import base;\n";
 		source += "  class SimpleClass\n";
 		source += "    operation op1();\n";
 		source += "    operation op2();\n";
@@ -155,15 +160,19 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 		source += "  end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		StateMachine sm1 = (StateMachine) getRepository().findNamedElement("simple::SimpleClass::Status", UMLPackage.Literals.STATE_MACHINE, null);
-		Operation op1 = getRepository().findNamedElement("simple::SimpleClass::op1", UMLPackage.Literals.OPERATION, null);
-		Operation op2 = getRepository().findNamedElement("simple::SimpleClass::op2", UMLPackage.Literals.OPERATION, null);
-		Operation op3 = getRepository().findNamedElement("simple::SimpleClass::op3", UMLPackage.Literals.OPERATION, null);
-		
+		StateMachine sm1 = (StateMachine) getRepository().findNamedElement("simple::SimpleClass::Status",
+		        UMLPackage.Literals.STATE_MACHINE, null);
+		Operation op1 = getRepository().findNamedElement("simple::SimpleClass::op1", UMLPackage.Literals.OPERATION,
+		        null);
+		Operation op2 = getRepository().findNamedElement("simple::SimpleClass::op2", UMLPackage.Literals.OPERATION,
+		        null);
+		Operation op3 = getRepository().findNamedElement("simple::SimpleClass::op3", UMLPackage.Literals.OPERATION,
+		        null);
+
 		assertEquals(1, sm1.getRegions().size());
 		List<Vertex> vertices = sm1.getRegions().get(0).getSubvertices();
 		assertEquals(4, vertices.size());
-		
+
 		assertEquals(1, vertices.get(0).getOutgoings().size());
 		assertEquals(vertices.get(1), vertices.get(0).getOutgoings().get(0).getTarget());
 		assertTrue(vertices.get(0) instanceof Pseudostate);
@@ -171,39 +180,39 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 
 		assertEquals(3, vertices.get(1).getOutgoings().size());
 		assertEquals(vertices.get(1), vertices.get(1).getOutgoings().get(0).getTarget());
-		assertEquals(vertices.get(2),  vertices.get(1).getOutgoings().get(2).getTarget());
-		assertEquals(vertices.get(3),  vertices.get(1).getOutgoings().get(1).getTarget());
+		assertEquals(vertices.get(2), vertices.get(1).getOutgoings().get(2).getTarget());
+		assertEquals(vertices.get(3), vertices.get(1).getOutgoings().get(1).getTarget());
 		assertTrue(vertices.get(1) instanceof State);
-		
+
 		EList<Trigger> transition1Triggers = vertices.get(1).getOutgoings().get(0).getTriggers();
 		assertEquals(1, transition1Triggers.size());
 		assertTrue(transition1Triggers.get(0).getEvent() instanceof CallEvent);
 		assertSame(op1, ((CallEvent) transition1Triggers.get(0).getEvent()).getOperation());
-		
+
 		EList<Trigger> transition2Triggers = vertices.get(1).getOutgoings().get(1).getTriggers();
 		assertEquals(2, transition2Triggers.size());
 		assertTrue(transition2Triggers.get(0).getEvent() instanceof CallEvent);
 		assertSame(op1, ((CallEvent) transition2Triggers.get(0).getEvent()).getOperation());
 		assertTrue(transition2Triggers.get(1).getEvent() instanceof CallEvent);
 		assertSame(op2, ((CallEvent) transition2Triggers.get(1).getEvent()).getOperation());
-		
+
 		EList<Trigger> transition3Triggers = vertices.get(1).getOutgoings().get(2).getTriggers();
 		assertTrue(transition3Triggers.get(0).getEvent() instanceof CallEvent);
 		assertSame(op3, ((CallEvent) transition3Triggers.get(0).getEvent()).getOperation());
-		
+
 		assertEquals(1, vertices.get(2).getOutgoings().size());
 		assertEquals(vertices.get(3), vertices.get(2).getOutgoings().get(0).getTarget());
 		assertTrue(vertices.get(2) instanceof State);
-		
+
 		assertEquals(0, vertices.get(3).getOutgoings().size());
 		assertTrue(vertices.get(3) instanceof Pseudostate);
 		assertTrue(((Pseudostate) vertices.get(3)).getKind() == PseudostateKind.TERMINATE_LITERAL);
 	}
-	
+
 	public void testStateMachineBehavior() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
-		source += "import base;\n";		
+		source += "import base;\n";
 		source += "  class SimpleClass\n";
 		source += "    statemachine Status\n";
 		source += "      initial state\n";
@@ -240,6 +249,5 @@ public class StateMachineTests extends AbstractRepositoryBuildingTests {
 		assertNotNull(t.getEffect());
 		assertSame(c1, ActivityUtils.getContext(t.getEffect()));
 	}
-
 
 }

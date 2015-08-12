@@ -32,7 +32,7 @@ public class AbstractRepositoryTests extends TestCase {
 
 	protected final IFileStore baseDir = computeBaseDir();
 	private final IFileStore repositoryDir = baseDir.getChild(getName());
-	
+
 	public AbstractRepositoryTests(String name) {
 		super(name);
 	}
@@ -43,7 +43,7 @@ public class AbstractRepositoryTests extends TestCase {
 	protected void originalRunTest() throws Throwable {
 		super.runTest();
 	}
-	
+
 	protected void runInContext(final Runnable runnable) {
 		RepositoryService.DEFAULT.runTask(getRepositoryURI(), new Task<Object>() {
 			@Override
@@ -61,9 +61,11 @@ public class AbstractRepositoryTests extends TestCase {
 	protected URI getRepositoryURI() {
 		return createRepositoryURI(getRepositoryDir());
 	}
+
 	protected IFileStore getRepositoryDir() {
 		return repositoryDir;
 	}
+
 	protected URI createRepositoryURI(IFileStore dir) {
 		return MDDUtil.fromJavaToEMF(dir.toURI());
 	}
@@ -73,7 +75,7 @@ public class AbstractRepositoryTests extends TestCase {
 		IFileStore baseDir = EFS.getLocalFileSystem().getStore(new Path(tempDir)).getChild("tests");
 		return baseDir;
 	}
-	
+
 	public <T> T getFeature(Class<T> featureClass) {
 		return RepositoryService.DEFAULT.getCurrentResource().getFeature(featureClass);
 	}
@@ -87,17 +89,19 @@ public class AbstractRepositoryTests extends TestCase {
 		sb.append(toMB(Runtime.getRuntime().freeMemory()) + " / " + toMB(Runtime.getRuntime().totalMemory()));
 		return sb.toString();
 	}
-	
+
 	private static String toMB(long byteCount) {
 		return byteCount / (1024 * 1024) + "MB";
 	}
+
 	protected Property getProperty(String propertyName) {
 		return get(propertyName, UMLPackage.Literals.PROPERTY);
 	}
+
 	protected Operation getOperation(String operationName) {
 		return get(operationName, UMLPackage.Literals.OPERATION);
 	}
-	
+
 	protected Activity getActivity(String operationName) {
 		Operation operation = get(operationName, UMLPackage.Literals.OPERATION);
 		Activity activity = ActivityUtils.getActivity(operation);
@@ -118,14 +122,14 @@ public class AbstractRepositoryTests extends TestCase {
 	public IRepository getRepository() {
 		return getFeature(IRepository.class);
 	}
-	
+
 	protected void saveSettings(IFileStore dir, Properties settings) throws IOException, CoreException {
 		ByteArrayOutputStream rendered = new ByteArrayOutputStream();
 		settings.store(rendered, null);
 		dir.mkdir(EFS.NONE, null);
-		FileUtils.writeByteArrayToFile(new File(dir.toLocalFile(EFS.NONE, null), IRepository.MDD_PROPERTIES), rendered.toByteArray());
+		FileUtils.writeByteArrayToFile(new File(dir.toLocalFile(EFS.NONE, null), IRepository.MDD_PROPERTIES),
+		        rendered.toByteArray());
 	}
-
 
 	protected Properties createDefaultSettings() {
 		Properties creationSettings = new Properties();
@@ -134,7 +138,7 @@ public class AbstractRepositoryTests extends TestCase {
 		creationSettings.setProperty(IRepository.DEFAULT_LANGUAGE, getExtension());
 		return creationSettings;
 	}
-	
+
 	protected String getExtension() {
 		return TEXTUML_EXTENSION;
 	}

@@ -18,28 +18,28 @@ import org.eclipse.uml2.uml.Parameter;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 public class BehavioralFeatureSignatureProcessor extends SignatureProcessor {
-    public BehavioralFeatureSignatureProcessor(SourceCompilationContext<Node> sourceContext, BehavioralFeature parent) {
-        super(sourceContext, parent, true);
-    }
+	public BehavioralFeatureSignatureProcessor(SourceCompilationContext<Node> sourceContext, BehavioralFeature parent) {
+		super(sourceContext, parent, true);
+	}
 
-    public BehavioralFeatureSignatureProcessor(SourceCompilationContext<Node> sourceContext, BehavioralFeature parent,
-            boolean supportExceptions, boolean unnamedParameters) {
-        super(sourceContext, parent, supportExceptions, unnamedParameters);
-    }
+	public BehavioralFeatureSignatureProcessor(SourceCompilationContext<Node> sourceContext, BehavioralFeature parent,
+	        boolean supportExceptions, boolean unnamedParameters) {
+		super(sourceContext, parent, supportExceptions, unnamedParameters);
+	}
 
-    @Override
-    protected void addRaisedException(Classifier exceptionClass) {
-        ((BehavioralFeature) parent).getRaisedExceptions().add(exceptionClass);
-    }
+	@Override
+	protected void addRaisedException(Classifier exceptionClass) {
+		((BehavioralFeature) parent).getRaisedExceptions().add(exceptionClass);
+	}
 
-    @Override
-    protected Parameter createParameter(String name) {
-        Parameter parameter = ((BehavioralFeature) parent).createOwnedParameter(name, null);
-        return parameter;
-    }
+	@Override
+	protected Parameter createParameter(String name) {
+		Parameter parameter = ((BehavioralFeature) parent).createOwnedParameter(name, null);
+		return parameter;
+	}
 
-    @Override
-    protected Namespace getBaseLookupNamespace() {
-        return parent;
-    }
+	@Override
+	protected Namespace getBaseLookupNamespace() {
+		return parent;
+	}
 }

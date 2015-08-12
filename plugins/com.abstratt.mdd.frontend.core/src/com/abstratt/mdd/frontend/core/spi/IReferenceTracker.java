@@ -23,16 +23,20 @@ public interface IReferenceTracker {
 		/** Validations that do not prevent a model from being built. */
 		WARNINGS(false);
 		private boolean ordered;
+
 		/**
-		 * Whether references in this stage are supposed to be comparable to each other.
+		 * Whether references in this stage are supposed to be comparable to
+		 * each other.
 		 */
 		public boolean isOrdered() {
 			return ordered;
 		}
+
 		private Step(boolean ordered) {
 			this.ordered = ordered;
 		}
 	}
+
 	public void add(IDeferredReference ref, Step step);
 
 	/**
@@ -42,6 +46,5 @@ public interface IReferenceTracker {
 	 * @param repository
 	 * @param problemTracker
 	 */
-	public void resolve(IBasicRepository repository,
-			IProblemTracker problemTracker);
+	public void resolve(IBasicRepository repository, IProblemTracker problemTracker);
 }

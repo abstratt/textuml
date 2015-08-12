@@ -8,7 +8,7 @@
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
  *    Vladimir Sosnin - extracted AbstractTypeResolver class (#2797252) 
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
@@ -37,8 +37,7 @@ public abstract class AbstractTypeResolver {
 
 	private SourceCompilationContext<Node> sourceContext;
 
-    public AbstractTypeResolver(SourceCompilationContext<Node> sourceContext,
-			Namespace currentNamespace) {
+	public AbstractTypeResolver(SourceCompilationContext<Node> sourceContext, Namespace currentNamespace) {
 		this.context = sourceContext.getContext();
 		this.sourceContext = sourceContext;
 		this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), new SCCTextUMLSourceMiner());
@@ -55,9 +54,9 @@ public abstract class AbstractTypeResolver {
 	}
 
 	protected SourceCompilationContext<Node> getSourceContext() {
-        return sourceContext;
-    }
-	
+		return sourceContext;
+	}
+
 	protected Namespace getCurrentNamespace() {
 		return currentNamespace;
 	}
@@ -68,7 +67,8 @@ public abstract class AbstractTypeResolver {
 	}
 
 	Type findType(final String qualifiedIdentifier) {
-		return (Type) getContext().getRepository().findNamedElement(qualifiedIdentifier, IRepository.PACKAGE.getType(), getCurrentNamespace());
+		return (Type) getContext().getRepository().findNamedElement(qualifiedIdentifier, IRepository.PACKAGE.getType(),
+		        getCurrentNamespace());
 	}
 
 	private Type basicResolveType(final Node node, final String qualifiedIdentifier, Type type) {
@@ -97,12 +97,14 @@ public abstract class AbstractTypeResolver {
 		List<TemplateParameter> formalParameters = signature.getParameters();
 		final int parameterCount = formalParameters.size();
 		if (parameterCount != this.parameterIdentifiers.size()) {
-			problemBuilder.addProblem(new WrongNumberOfArguments(parameterCount, this.parameterIdentifiers.size()), node);
+			problemBuilder.addProblem(new WrongNumberOfArguments(parameterCount, this.parameterIdentifiers.size()),
+			        node);
 			return null;
 		}
 		List<Type> templateParameterTypes = new ArrayList<Type>(parameterCount);
 		for (int i = 0; i < parameterCount; i++) {
-			final String templateParameterName = TextUMLCore.getSourceMiner().getQualifiedIdentifier(parameterIdentifiers.get(i));
+			final String templateParameterName = TextUMLCore.getSourceMiner().getQualifiedIdentifier(
+			        parameterIdentifiers.get(i));
 			final Type resolvedParameterType = findType(templateParameterName);
 			if (resolvedParameterType == null) {
 				problemBuilder.addProblem(new UnknownType(templateParameterName), parameterIdentifiers.get(i));
@@ -114,8 +116,10 @@ public abstract class AbstractTypeResolver {
 			}
 			templateParameterTypes.add(resolvedParameterType);
 		}
-		// now we know the actual parameters match the formal ones - let's create the bound element and the template binding
-		Classifier bound = TemplateUtils.createBinding(this.getCurrentNamespace().getNearestPackage(), template, templateParameterTypes);
+		// now we know the actual parameters match the formal ones - let's
+		// create the bound element and the template binding
+		Classifier bound = TemplateUtils.createBinding(this.getCurrentNamespace().getNearestPackage(), template,
+		        templateParameterTypes);
 		bound.setName(TemplateUtils.generateBoundElementName(template, templateParameterTypes));
 		return bound;
 	}

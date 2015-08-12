@@ -33,14 +33,14 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 	public ComponentTests(String name) {
 		super(name);
 	}
-	
+
 	@Override
 	protected Properties createDefaultSettings() {
 		Properties basicSettings = super.createDefaultSettings();
 		basicSettings.setProperty(IRepository.LIBRARY_PROJECT, Boolean.TRUE.toString());
 		return basicSettings;
 	}
-	
+
 	public void testPorts() throws CoreException {
 		String source = "";
 		source += "model someModel;\n";
@@ -57,7 +57,7 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		Class someClass = getClass("someModel::SomeClass");
 		Interface someInterface1 = get("someModel::Interface1", IRepository.PACKAGE.getInterface());
 		Interface someInterface2 = get("someModel::Interface2", IRepository.PACKAGE.getInterface());
-		
+
 		Port p1 = someClass.getOwnedPort("p1", null);
 		assertNotNull(p1);
 		assertNotNull(p1.getType());
@@ -65,7 +65,7 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		BehavioredClassifier p1Type = (BehavioredClassifier) p1.getType();
 		assertEquals(Collections.singletonList(someInterface1), p1Type.getImplementedInterfaces());
 		assertEquals(0, p1Type.getUsedInterfaces().size());
-		
+
 		Port p2 = someClass.getOwnedPort("p2", null);
 		assertNotNull(p2.getType());
 		assertNotNull(p2);
@@ -73,10 +73,10 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		BehavioredClassifier p2Type = (BehavioredClassifier) p2.getType();
 		assertEquals(Collections.singletonList(someInterface2), p2Type.getImplementedInterfaces());
 		assertEquals(0, p2Type.getUsedInterfaces().size());
-		
+
 		assertEquals(0, p1.getProvideds().size());
 		assertEquals(Collections.singletonList(someInterface1), p1.getRequireds());
-		
+
 		assertEquals(0, p2.getRequireds().size());
 		assertEquals(Collections.singletonList(someInterface2), p2.getProvideds());
 	}
@@ -94,16 +94,16 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		FixtureHelper.assertTrue(errors, 1 == errors.length);
 		FixtureHelper.assertTrue(errors, errors[0] instanceof AnonymousDisconnectedPort);
 	}
-	
+
 	public void testComponent() throws CoreException {
 		String userNotificationSrc = "";
 		userNotificationSrc += "model userNotification;\n";
 		userNotificationSrc += "interface UserNotification\n";
 		userNotificationSrc += "end;\n";
 		userNotificationSrc += "interface Commenting\n";
-		userNotificationSrc += "end;\n";		
+		userNotificationSrc += "end;\n";
 		userNotificationSrc += "end.";
-		
+
 		String issueSrc = "";
 		issueSrc += "model issues;\n";
 		issueSrc += "import userNotification;\n";
@@ -117,7 +117,7 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		issueSrc += "    required port commenting : Commenting connector issues.commenting;\n";
 		issueSrc += "end;\n";
 		issueSrc += "end.";
-		
+
 		String emailSrc = "";
 		emailSrc += "model email;\n";
 		emailSrc += "import userNotification::UserNotification;\n";
@@ -126,9 +126,9 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		emailSrc += "component EmailService\n";
 		emailSrc += "    composition emailNotification : EmailNotification;\n";
 		emailSrc += "    provided port userNotification : UserNotification connector emailNotification;\n";
-		emailSrc += "end;\n";	
+		emailSrc += "end;\n";
 		emailSrc += "end.";
-		
+
 		String commentingSrc = "";
 		commentingSrc += "model commenting;\n";
 		commentingSrc += "import userNotification;\n";
@@ -139,9 +139,9 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		commentingSrc += "    composition disqusCommenting : DisqusCommenting;\n";
 		commentingSrc += "    provided port commenting : Commenting connector disqusCommenting;\n";
 		commentingSrc += "    required port userNotification : UserNotification connector disqusCommenting.userNotification;\n";
-		commentingSrc += "end;\n";	
+		commentingSrc += "end;\n";
 		commentingSrc += "end.";
-		
+
 		String issueAppSrc = "";
 		issueAppSrc += "model issue_tracking_app;\n";
 		issueAppSrc += "import issues;\n";
@@ -153,25 +153,29 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		issueAppSrc += "    composition disqusCommenting : DisqusCommentingService;\n";
 		issueAppSrc += "    connector issueCore.userNotification, emailService.userNotification, disqusCommenting.userNotification;\n";
 		issueAppSrc += "    connector issueCore.commenting, disqusCommenting.commenting;\n";
-		issueAppSrc += "end;\n";		
+		issueAppSrc += "end;\n";
 		issueAppSrc += "end.";
-		
+
 		parseAndCheck(userNotificationSrc, commentingSrc, issueSrc, emailSrc, issueAppSrc);
-		
+
 		Component issueTrackingApp = get("issue_tracking_app::IssueTrackingApp", UMLPackage.Literals.COMPONENT);
 		assertTrue(issueTrackingApp.isIndirectlyInstantiated());
-		
+
 		Connector connector = issueTrackingApp.getOwnedConnectors().get(0);
 		assertEquals(3, connector.getEnds().size());
-		
+
 		Port issueUserNotification = get("issues::Issue::userNotification", UMLPackage.Literals.PORT);
 		Port issueCommenting = get("issues::Issue::commenting", UMLPackage.Literals.PORT);
-		Port commentingUserNotification = get("commenting::DisqusCommenting::userNotification", UMLPackage.Literals.PORT);
-		assertSame(get("email::EmailService::emailNotification", UMLPackage.Literals.PROPERTY), ConnectorUtils.findProvidingPart(issueUserNotification));
-		assertSame(get("commenting::DisqusCommentingService::disqusCommenting", UMLPackage.Literals.PROPERTY), ConnectorUtils.findProvidingPart(issueCommenting));
-		assertSame(get("email::EmailService::emailNotification", UMLPackage.Literals.PROPERTY), ConnectorUtils.findProvidingPart(commentingUserNotification));
+		Port commentingUserNotification = get("commenting::DisqusCommenting::userNotification",
+		        UMLPackage.Literals.PORT);
+		assertSame(get("email::EmailService::emailNotification", UMLPackage.Literals.PROPERTY),
+		        ConnectorUtils.findProvidingPart(issueUserNotification));
+		assertSame(get("commenting::DisqusCommentingService::disqusCommenting", UMLPackage.Literals.PROPERTY),
+		        ConnectorUtils.findProvidingPart(issueCommenting));
+		assertSame(get("email::EmailService::emailNotification", UMLPackage.Literals.PROPERTY),
+		        ConnectorUtils.findProvidingPart(commentingUserNotification));
 	}
-	
+
 	public void testConnector() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
@@ -187,10 +191,10 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		source += "    composition b : SimpleClass2[*];\n";
 		source += "    provided port p : SimpleInterface;\n";
 		source += "    connector p, a, b.c;\n";
-		source += "end;\n";	
+		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		
+
 		Port port = get("simple::SimpleComponent::p", UMLPackage.Literals.PORT);
 		assertEquals("p", port.getName());
 		Property attributeA = get("simple::SimpleComponent::a", UMLPackage.Literals.PROPERTY);
@@ -198,26 +202,28 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		validatePort(port, attributeA, attributeC);
 	}
 
-	//removed in UML2 5.0 - https://wiki.eclipse.org/MDT/UML2/UML2_5.0_Migration_Guide#Constraints
-//	public void testConnector_PortCompatibility() throws CoreException {
-//		String source = "";
-//		source += "model simple;\n";
-//		source += "interface SimpleInterface1\n";
-//		source += "end;\n";
-//		source += "interface SimpleInterface2\n";
-//		source += "end;\n";
-//		source += "component SimpleComponent\n";
-//		source += "    required port a : SimpleInterface1;\n";
-//		source += "    provided port b : SimpleInterface2;\n";
-//		source += "    connector a,b;\n";
-//		source += "end;\n";	
-//		source += "end.";
-//		IProblem[] errors = parse(source);
-//		FixtureHelper.assertTrue(errors, 1 == errors.length);
-//		FixtureHelper.assertTrue(errors, errors[0] instanceof InvalidConnector);
-//		assertEquals(InvalidConnector.Reason.BetweenInterfacesPorts, ((InvalidConnector) errors[0]).getReason());
-//	}
-	
+	// removed in UML2 5.0 -
+	// https://wiki.eclipse.org/MDT/UML2/UML2_5.0_Migration_Guide#Constraints
+	// public void testConnector_PortCompatibility() throws CoreException {
+	// String source = "";
+	// source += "model simple;\n";
+	// source += "interface SimpleInterface1\n";
+	// source += "end;\n";
+	// source += "interface SimpleInterface2\n";
+	// source += "end;\n";
+	// source += "component SimpleComponent\n";
+	// source += "    required port a : SimpleInterface1;\n";
+	// source += "    provided port b : SimpleInterface2;\n";
+	// source += "    connector a,b;\n";
+	// source += "end;\n";
+	// source += "end.";
+	// IProblem[] errors = parse(source);
+	// FixtureHelper.assertTrue(errors, 1 == errors.length);
+	// FixtureHelper.assertTrue(errors, errors[0] instanceof InvalidConnector);
+	// assertEquals(InvalidConnector.Reason.BetweenInterfacesPorts,
+	// ((InvalidConnector) errors[0]).getReason());
+	// }
+
 	public void testConnector_ConnectorMustOwnPortOrPartWithPort() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
@@ -229,15 +235,16 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		source += "component SimpleComponent\n";
 		source += "    composition a : SimpleClass;\n";
 		source += "    provided port p2 : SimpleInterface connector a.p1;\n";
-		source += "end;\n";	
+		source += "end;\n";
 		source += "end.";
 		IProblem[] errors = parse(source);
 		FixtureHelper.assertTrue(errors, 1 == errors.length);
 		FixtureHelper.assertTrue(errors, errors[0] instanceof InvalidConnector);
-		assertEquals(errors[0].getMessage(), InvalidConnector.Reason.Roles.getCode(), ((InvalidConnector) errors[0]).getReason().getCode());
+		assertEquals(errors[0].getMessage(), InvalidConnector.Reason.Roles.getCode(), ((InvalidConnector) errors[0])
+		        .getReason().getCode());
 		assertEquals(errors[0].getMessage(), InvalidConnector.Reason.Roles, ((InvalidConnector) errors[0]).getReason());
 	}
-	
+
 	public void testConnector_UnnamedPort() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
@@ -252,10 +259,10 @@ public class ComponentTests extends AbstractRepositoryBuildingTests {
 		source += "    composition a : SimpleClass;\n";
 		source += "    composition b : SimpleClass2;\n";
 		source += "    provided port  : SimpleInterface connector a, b.c;\n";
-		source += "end;\n";	
+		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		
+
 		Component component = get("simple::SimpleComponent", UMLPackage.Literals.COMPONENT);
 		assertEquals(1, component.getOwnedPorts().size());
 		Port port = component.getOwnedPorts().get(0);

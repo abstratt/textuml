@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import org.eclipse.swt.graphics.Image;
@@ -29,8 +29,7 @@ public class GenericClassifier extends UIModelObject {
 
 	@Override
 	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(
-				UIConstants.ICON_CLASS);
+		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_CLASS);
 	}
 
 	private AClassDef getModel() {

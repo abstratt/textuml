@@ -30,7 +30,7 @@ public class StringTests extends AbstractRepositoryBuildingTests {
 		model += "end.\n";
 		parseAndCheck(model);
 	}
-	
+
 	public void testStringConcatenationWithOperator() throws CoreException {
 		String model = "";
 		model += "model simple;\n";
@@ -44,6 +44,5 @@ public class StringTests extends AbstractRepositoryBuildingTests {
 		model += "end.\n";
 		parseAndCheck(model);
 	}
-
 
 }

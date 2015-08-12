@@ -34,7 +34,7 @@ public abstract class ElementBuilder<E extends Element> implements IElementBuild
 
 	protected ElementBuilder() {
 	}
-	
+
 	protected void addDependency(ElementBuilder<?> dependency) {
 		dependencies.add(dependency);
 	}
@@ -46,13 +46,12 @@ public abstract class ElementBuilder<E extends Element> implements IElementBuild
 			newComment.getAnnotatedElements().add(getProduct());
 		}
 	}
-	
+
 	public ElementBuilder<E> applyStereotype(String stereotypeName) {
-		this.stereotypesApplied.add(reference(stereotypeName,
-				UML2ProductKind.STEREOTYPE));
+		this.stereotypesApplied.add(reference(stereotypeName, UML2ProductKind.STEREOTYPE));
 		return this;
 	}
-	
+
 	public <T extends ElementBuilder<? extends Element>> T as(Class<T> type) {
 		if (type.isInstance(this))
 			return (T) this;
@@ -60,7 +59,7 @@ public abstract class ElementBuilder<E extends Element> implements IElementBuild
 			return getParent().as(type);
 		throw new ClassCastException(this + " as " + type);
 	}
-	
+
 	public void build() {
 		// just to validate
 		getContext();
@@ -79,7 +78,7 @@ public abstract class ElementBuilder<E extends Element> implements IElementBuild
 		if (!dependencies.isEmpty())
 			for (ElementBuilder<?> dependency : dependencies)
 				if (dependencySatisfied = dependency.canBuild())
-					// at least one dependency ought to be satisfied 
+					// at least one dependency ought to be satisfied
 					break;
 		return dependencySatisfied && (conditionalSet == null || conditionalSet.getChosenBuilder() == this);
 	}
@@ -98,13 +97,12 @@ public abstract class ElementBuilder<E extends Element> implements IElementBuild
 
 	private void applyStereotypes() {
 		for (NameReference stereotypeName : this.stereotypesApplied)
-			new ReferenceSetter<Stereotype>(stereotypeName, getParentProduct(),
-					getContext(), IReferenceTracker.Step.STEREOTYPE_APPLICATIONS) {
+			new ReferenceSetter<Stereotype>(stereotypeName, getParentProduct(), getContext(),
+			        IReferenceTracker.Step.STEREOTYPE_APPLICATIONS) {
 				@Override
 				protected void link(Stereotype stereotype) {
 					if (!getProduct().isStereotypeApplicable(stereotype))
-						getContext().getProblemTracker().add(
-								new UnclassifiedProblem("Stereotype not applicable"));
+						getContext().getProblemTracker().add(new UnclassifiedProblem("Stereotype not applicable"));
 					else
 						getProduct().applyStereotype(stereotype);
 				}
@@ -128,7 +126,7 @@ public abstract class ElementBuilder<E extends Element> implements IElementBuild
 	public IParentBuilder<? extends Namespace> getParent() {
 		return (IParentBuilder<? extends Namespace>) parent;
 	}
-	
+
 	protected Namespace getParentProduct() {
 		return parent == null ? null : getParent().getProduct();
 	}
@@ -147,15 +145,15 @@ public abstract class ElementBuilder<E extends Element> implements IElementBuild
 		return this;
 	}
 
-	public ElementBuilder<E> propertyValue(String stereotypeName,
-			String propertyName, Object value) {
+	public ElementBuilder<E> propertyValue(String stereotypeName, String propertyName, Object value) {
 		return this;
 	}
 
 	protected NameReference reference(String name, UML2ProductKind kind) {
 		lastReference = new NameReference(name, kind);
 		if (lastLine == null && getContext().isRequiredLineInfo())
-			abortCompilation(new InternalProblem("No line number set in reference to " + name + ":" + kind.name() + "  from " + toUserString()));
+			abortCompilation(new InternalProblem("No line number set in reference to " + name + ":" + kind.name()
+			        + "  from " + toUserString()));
 		lastReference.setLine(lastLine);
 		return lastReference;
 	}
@@ -175,7 +173,7 @@ public abstract class ElementBuilder<E extends Element> implements IElementBuild
 	private void setProduct(E element) {
 		this.element = element;
 	}
-	
+
 	protected void abortStatement(IProblem problem) {
 		collectProblem(problem);
 		throw new AbortedStatementCompilationException();
@@ -185,12 +183,11 @@ public abstract class ElementBuilder<E extends Element> implements IElementBuild
 		collectProblem(problem);
 		throw new AbortedScopeCompilationException();
 	}
-	
+
 	protected void abortCompilation(IProblem problem) {
 		collectProblem(problem);
 		throw new AbortedCompilationException();
 	}
-
 
 	private void collectProblem(IProblem problem) {
 		if (problem.getAttribute(IProblem.LINE_NUMBER) == null)

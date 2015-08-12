@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.editors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -20,8 +20,8 @@ import com.abstratt.mdd.internal.ui.editors.source.SourceEditor;
 import com.abstratt.mdd.ui.UIUtils;
 
 public class TextUMLEditor extends MultiPageEditorPart {
-	
-	public final static String PLUGIN_ID = "com.abstratt.mdd.frontend.textuml.ui"; 
+
+	public final static String PLUGIN_ID = "com.abstratt.mdd.frontend.textuml.ui";
 
 	protected SourceEditor sourceEditor;
 

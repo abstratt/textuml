@@ -21,13 +21,12 @@ public class ConnectorUtils {
 		return findProvidingPart(new HashSet<ConnectorEnd>(), port.getRequireds(), port);
 	}
 
-	private static Property findProvidingPart(Set<ConnectorEnd> visited,
-			List<Interface> requireds, Port port) {
+	private static Property findProvidingPart(Set<ConnectorEnd> visited, List<Interface> requireds, Port port) {
 		return findProvidingPart(visited, requireds, port.getEnds());
 	}
 
-	private static Property findProvidingPart(Set<ConnectorEnd> visited,
-			List<Interface> required, ConnectorEnd connectorEnd) {
+	private static Property findProvidingPart(Set<ConnectorEnd> visited, List<Interface> required,
+	        ConnectorEnd connectorEnd) {
 		if (!visited.add(connectorEnd))
 			// already visited
 			return null;
@@ -46,8 +45,8 @@ public class ConnectorUtils {
 		}
 	}
 
-	private static Property findProvidingPart(Set<ConnectorEnd> visited,
-			List<Interface> required, List<ConnectorEnd> ends) {
+	private static Property findProvidingPart(Set<ConnectorEnd> visited, List<Interface> required,
+	        List<ConnectorEnd> ends) {
 		for (ConnectorEnd end : ends) {
 			Property provider = findProvidingPart(visited, required, end);
 			if (provider != null)
@@ -55,13 +54,13 @@ public class ConnectorUtils {
 		}
 		return null;
 	}
-	
+
 	private static List<ConnectorEnd> getAllEnds(ConnectorEnd connectorEnd) {
 		if (connectorEnd.getOwner() instanceof Connector) {
 			Connector connector = (Connector) connectorEnd.getOwner();
 			return connector.getEnds();
 		}
-		return Collections.<ConnectorEnd>emptyList();
+		return Collections.<ConnectorEnd> emptyList();
 	}
 
 	public static BehavioredClassifier findProvidingClassifier(Port port) {

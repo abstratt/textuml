@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.core;
 
 import java.util.Collections;
@@ -27,7 +27,7 @@ public abstract class Problem implements IProblem, Comparable<IProblem> {
 	public Problem() {
 		this(Severity.ERROR);
 	}
-	
+
 	public Object getAttribute(String key) {
 		return attributes.get(key);
 	}
@@ -61,7 +61,7 @@ public abstract class Problem implements IProblem, Comparable<IProblem> {
 		buffer.append(getMessage());
 		return buffer.toString();
 	}
-	
+
 	@Override
 	public int compareTo(IProblem o) {
 		Integer thisLine = (Integer) getAttribute(LINE_NUMBER);

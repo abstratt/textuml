@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
@@ -21,8 +21,7 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ParameterRenderer implements IEObjectRenderer<Parameter> {
 
-	public boolean renderObject(Parameter parameter, IndentedPrintWriter w,
-			IRenderingSession context) {
+	public boolean renderObject(Parameter parameter, IndentedPrintWriter w, IRenderingSession context) {
 		TextUMLRenderingUtils.renderStereotypeApplications(w, parameter, false);
 		ParameterDirectionKind direction = parameter.getDirection();
 		if (direction != null)

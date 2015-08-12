@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.editors;
 
 import java.io.BufferedReader;
@@ -26,10 +26,10 @@ import org.eclipse.jface.text.TextUtilities;
 import com.abstratt.mdd.frontend.core.ASTNode;
 import com.abstratt.mdd.frontend.core.ASTNode.VisitorResult;
 import com.abstratt.mdd.frontend.core.ASTVisitor;
-import com.abstratt.mdd.internal.frontend.textuml.TextUMLCompiler;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Start;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
+import com.abstratt.mdd.internal.frontend.textuml.TextUMLCompiler;
 import com.abstratt.mdd.ui.UIUtils;
 
 /**
@@ -55,7 +55,7 @@ public class WorkingCopy {
 	protected String lineDelimiter;
 	protected Line[] lines;
 	protected Start root;
-	protected ASTNode<Token,Node> rootNode;
+	protected ASTNode<Token, Node> rootNode;
 	protected String source;
 
 	public WorkingCopy(IDocument document, IFile file) {
@@ -82,22 +82,24 @@ public class WorkingCopy {
 		document = null;
 	}
 
-	public ASTNode<Token,Node> getASTNode(int offset) throws CoreException {
-		final ASTNode<Token,Node>[] found = new ASTNode[1];
+	public ASTNode<Token, Node> getASTNode(int offset) throws CoreException {
+		final ASTNode<Token, Node>[] found = new ASTNode[1];
 		int[] position = transformOffsetInLineAndPos(offset);
 		if (position.length == 0)
 			return null;
 		final int line = position[0];
 		final int col = position[1];
-		ASTNode<Token,Node> root = getRootASTNode();
+		ASTNode<Token, Node> root = getRootASTNode();
 		root.accept(new ASTVisitor<Token, Node>() {
-			public ASTNode.VisitorResult visit(ASTNode<Token,Node> node) {
+			public ASTNode.VisitorResult visit(ASTNode<Token, Node> node) {
 				if (node.isToken()) {
 					Token token = (Token) node.getBaseNode();
 					int tokenLine = token.getLine();
 					int tokenPosStart = token.getPos();
 					int tokenPosEnd = tokenPosStart + token.getText().length();
-					//					System.out.println("Token: " + token + " line: " + tokenLine + " colStart: " + tokenPosStart + " colEnd: " + tokenPosEnd);
+					// System.out.println("Token: " + token + " line: " +
+					// tokenLine + " colStart: " + tokenPosStart + " colEnd: " +
+					// tokenPosEnd);
 					if (tokenLine == line && col >= tokenPosStart && col <= tokenPosEnd) {
 						found[0] = node;
 						return VisitorResult.STOP;
@@ -122,8 +124,8 @@ public class WorkingCopy {
 	}
 
 	/**
-	 * Returns a matrix where the lines represent the line numbers in a
-	 * source code and the columms represent the offset range in that line. 
+	 * Returns a matrix where the lines represent the line numbers in a source
+	 * code and the columms represent the offset range in that line.
 	 */
 	protected Line[] getLines() throws CoreException {
 		if (lines == null) {
@@ -148,7 +150,7 @@ public class WorkingCopy {
 		return lines;
 	}
 
-	public ASTNode<Token,Node> getRootASTNode() {
+	public ASTNode<Token, Node> getRootASTNode() {
 		if (rootNode == null) {
 			recompile();
 			rootNode = (root != null) ? ASTNode.<Token, Node> buildTree(root) : null;
@@ -177,9 +179,8 @@ public class WorkingCopy {
 	}
 
 	/**
-	 * Returns an array where the first value is the line number and the
-	 * second is the position in the line.
-	 * Returns null if the given offset is invalid.
+	 * Returns an array where the first value is the line number and the second
+	 * is the position in the line. Returns null if the given offset is invalid.
 	 */
 	protected int[] transformOffsetInLineAndPos(int offset) throws CoreException {
 		Line[] lines = getLines();
@@ -189,7 +190,9 @@ public class WorkingCopy {
 			Line line = lines[i];
 			if (offset >= line.start && offset <= line.end) {
 				int pos = offset - line.start;
-				return new int[] {i + 1, pos + 1}; // +1 because SableCC lines and columns start at 1
+				return new int[] { i + 1, pos + 1 }; // +1 because SableCC lines
+				                                     // and columns start at
+				                                     // 1
 			}
 		}
 		return null;

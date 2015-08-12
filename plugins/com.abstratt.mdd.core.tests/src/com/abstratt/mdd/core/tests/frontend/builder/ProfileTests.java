@@ -12,7 +12,7 @@ public class ProfileTests extends AbstractElementBuilderTests {
 	public ProfileTests(String name) {
 		super(name);
 	}
-	
+
 	public void testEmptyProfile() {
 		PackageBuilder profileBuilder = new UML2BuilderFactory().newBuilder(UML2ProductKind.PROFILE);
 		profileBuilder.name("myProfile");
@@ -21,7 +21,7 @@ public class ProfileTests extends AbstractElementBuilderTests {
 		assertEquals("myProfile", product.getName());
 		assertTrue(product.isDefined());
 	}
-	
+
 	public void testProfileApplication() {
 		PackageBuilder packageBuilder = new UML2BuilderFactory().newBuilder(UML2ProductKind.PACKAGE);
 		packageBuilder.name("myPackage");
@@ -31,7 +31,7 @@ public class ProfileTests extends AbstractElementBuilderTests {
 		profileBuilder.name("myProfile");
 		new UML2ModelBuildDriver().build(buildContext, packageBuilder, profileBuilder);
 		Profile profile = (Profile) profileBuilder.getProduct();
-		Package package_= (Package) packageBuilder.getProduct();
+		Package package_ = (Package) packageBuilder.getProduct();
 
 		assertTrue(package_.isProfileApplied(profile));
 	}

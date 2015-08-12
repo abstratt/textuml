@@ -23,7 +23,6 @@ import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
-import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
@@ -35,7 +34,8 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
 
 /**
- * This deferred type resolver adds the resolved type to a target collection of types ({@link #target}.
+ * This deferred type resolver adds the resolved type to a target collection of
+ * types ({@link #target}.
  * 
  * @author vas
  */
@@ -44,9 +44,8 @@ public class DeferredCollectionFiller extends AbstractTypeResolver implements No
 
 		@Override
 		public void caseAAnySingleTypeIdentifier(AAnySingleTypeIdentifier node) {
-			final Type anyType =
-				(Type) getContext().getRepository().findNamedElement(TypeUtils.ANY_TYPE,
-								IRepository.PACKAGE.getType(), null);
+			final Type anyType = (Type) getContext().getRepository().findNamedElement(TypeUtils.ANY_TYPE,
+			        IRepository.PACKAGE.getType(), null);
 			if (anyType == null) {
 				problemBuilder.addProblem(new UnresolvedSymbol(TypeUtils.ANY_TYPE), node);
 				throw new AbortedStatementCompilationException();
@@ -60,9 +59,10 @@ public class DeferredCollectionFiller extends AbstractTypeResolver implements No
 			TemplateBindingProcessor<Classifier, Type> tbp = new TemplateBindingProcessor<Classifier, Type>();
 			tbp.process(node);
 			parameterIdentifiers = tbp.getParameterIdentifiers();
-			final String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(node.getMinimalTypeIdentifier());
+			final String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(
+			        node.getMinimalTypeIdentifier());
 			Type type = resolveType(node.getMinimalTypeIdentifier(), qualifiedIdentifier);
-			if (type != null) 
+			if (type != null)
 				addElement(type);
 		}
 
@@ -74,11 +74,13 @@ public class DeferredCollectionFiller extends AbstractTypeResolver implements No
 		public void caseATypeIdentifier(ATypeIdentifier node) {
 			node.getSingleTypeIdentifier().apply(this);
 		}
-		
+
 	}
+
 	private List<NamedElement> target;
 
-	public DeferredCollectionFiller(SourceCompilationContext<Node> sourceContext, Namespace currentPackage, List<NamedElement> target ) {
+	public DeferredCollectionFiller(SourceCompilationContext<Node> sourceContext, Namespace currentPackage,
+	        List<NamedElement> target) {
 		super(sourceContext, currentPackage);
 		this.target = target;
 	}

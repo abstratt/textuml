@@ -10,7 +10,7 @@
  *******************************************************************************/
 package com.abstratt.mdd.internal.ui;
 
- import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -49,10 +49,10 @@ import com.abstratt.mdd.ui.UIUtils;
 /**
  * Content assist processor for TextUML.
  * 
- * FIXME This implementation has a few caveats that we need to address:
- * - it allows access to all elements in the same repository
- * - it ignores profile applications - all stereotypes in any profiles in the repository are offered
- * - ... 
+ * FIXME This implementation has a few caveats that we need to address: - it
+ * allows access to all elements in the same repository - it ignores profile
+ * applications - all stereotypes in any profiles in the repository are offered
+ * - ...
  */
 public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 
@@ -66,21 +66,16 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 	private static final String TEXTUML_ROLE = "role";
 	private static final String TEXTUML_ATTRIBUTE = "attribute";
 	private static final String TEXTUML_CONSTANT = "constant";
-	private static final String TEXTUML_DATATYPE= "datatype";
-	private static final String TEXTUML_PRIMITIVE= "primitive";
+	private static final String TEXTUML_DATATYPE = "datatype";
+	private static final String TEXTUML_PRIMITIVE = "primitive";
 	// maps TextUML keywords to the corresponding Ecore classes
-	private static final Object[][] TARGET_METACLASSES = {
-			{ TEXTUML_DEPENDENCY, Literals.DEPENDENCY },
-			{ TEXTUML_CLASS, Literals.CLASS },
-			{ TEXTUML_ASSOCIATION, Literals.ASSOCIATION},
-			{ TEXTUML_INTERFACE, Literals.INTERFACE },
-			{ TEXTUML_PRIMITIVE, Literals.PRIMITIVE_TYPE},
-			{ TEXTUML_DATATYPE, Literals.DATA_TYPE},
-			{ TEXTUML_OPERATION, Literals.OPERATION },
-			{ TEXTUML_ROLE, Literals.PROPERTY },
-			{ TEXTUML_ATTRIBUTE, Literals.PROPERTY },
-			{ TEXTUML_CONSTANT, Literals.PROPERTY } };
-	
+	private static final Object[][] TARGET_METACLASSES = { { TEXTUML_DEPENDENCY, Literals.DEPENDENCY },
+	        { TEXTUML_CLASS, Literals.CLASS }, { TEXTUML_ASSOCIATION, Literals.ASSOCIATION },
+	        { TEXTUML_INTERFACE, Literals.INTERFACE }, { TEXTUML_PRIMITIVE, Literals.PRIMITIVE_TYPE },
+	        { TEXTUML_DATATYPE, Literals.DATA_TYPE }, { TEXTUML_OPERATION, Literals.OPERATION },
+	        { TEXTUML_ROLE, Literals.PROPERTY }, { TEXTUML_ATTRIBUTE, Literals.PROPERTY },
+	        { TEXTUML_CONSTANT, Literals.PROPERTY } };
+
 	private static final String BASE_PROPERTY = "base_";
 	private static final String ECORE = "Ecore";
 	private static final String STANDARD = "Standard";
@@ -97,17 +92,17 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeCompletionProposals(org.eclipse.jface.text.ITextViewer, int)
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#
+	 * computeCompletionProposals(org.eclipse.jface.text.ITextViewer, int)
 	 */
-	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
-			int offset) {
-	
+	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
+
 		List<ICompletionProposal> finalProposals = new ArrayList<ICompletionProposal>();
 		List<String> proposals = new ArrayList<String>();
 		ICompletionProposal[] toReturn = null;
 		try {
-			toReturn = doComputeProposal(viewer, offset, finalProposals,
-					proposals);
+			toReturn = doComputeProposal(viewer, offset, finalProposals, proposals);
 		} catch (Exception ex) {
 			toReturn = new ICompletionProposal[proposals.size()];
 			return proposals.toArray(toReturn);
@@ -115,14 +110,12 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 		return toReturn;
 	}
 
-	private ICompletionProposal[] doComputeProposal(ITextViewer viewer,
-			int offset, List<ICompletionProposal> finalProposals,
-			List<String> proposals) {
+	private ICompletionProposal[] doComputeProposal(ITextViewer viewer, int offset,
+	        List<ICompletionProposal> finalProposals, List<String> proposals) {
 		IRepository repository = getRepository();
 		// Safety check
 		if (repository == null) {
-			ICompletionProposal[] dummyRet = new ICompletionProposal[proposals
-					.size()];
+			ICompletionProposal[] dummyRet = new ICompletionProposal[proposals.size()];
 			return proposals.toArray(dummyRet);
 		}
 		IDocument doc = viewer.getDocument();
@@ -135,13 +128,13 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 		}
 		// Safety check
 		if (lineNumber == -1) {
-			ICompletionProposal[] dummyRet = new ICompletionProposal[proposals
-					.size()];
+			ICompletionProposal[] dummyRet = new ICompletionProposal[proposals.size()];
 			return proposals.toArray(dummyRet);
 		}
-		//FIXME this relies on specific formatting. Should use new API in TextUMLCompiler (and enhance it if necessary) 
+		// FIXME this relies on specific formatting. Should use new API in
+		// TextUMLCompiler (and enhance it if necessary)
 		// in order to find out the context
-		
+
 		// Getting the current and the next line
 		String currentLine = getLineText(viewer, lineNumber);
 		String nextLine = getLineText(viewer, lineNumber + 1);
@@ -149,37 +142,32 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 		// Getting the last word tipped for the code completion to enable
 		// incremental search (only for keywords)
 		String lastWord = lastWord(doc, offset);
-		
+
 		// If we are in an attribute, operation or role we look up the types
 		// that are available and return
-		if (currentLine.indexOf(TEXTUML_ATTRIBUTE) > -1
-				|| currentLine.indexOf(TEXTUML_ROLE) > -1
-				|| currentLine.indexOf(TEXTUML_OPERATION) > -1
-				|| currentLine.indexOf(TEXTUML_DEPENDENCY) > -1) {
+		if (currentLine.indexOf(TEXTUML_ATTRIBUTE) > -1 || currentLine.indexOf(TEXTUML_ROLE) > -1
+		        || currentLine.indexOf(TEXTUML_OPERATION) > -1 || currentLine.indexOf(TEXTUML_DEPENDENCY) > -1) {
 			findTypes(proposals, lastWord);
-			for (Iterator<String> iterator = proposals.iterator(); iterator
-					.hasNext();) {
+			for (Iterator<String> iterator = proposals.iterator(); iterator.hasNext();) {
 				String string = iterator.next();
-				if(checkifNotEmpty(lastWord)) {
-					finalProposals.add(new CompletionProposal(string, offset-lastWord.length(), lastWord.length(),
-							string.length()));
-					
+				if (checkifNotEmpty(lastWord)) {
+					finalProposals.add(new CompletionProposal(string, offset - lastWord.length(), lastWord.length(),
+					        string.length()));
+
 				} else {
-					finalProposals.add(new CompletionProposal(string, offset, 0,
-							string.length()));
+					finalProposals.add(new CompletionProposal(string, offset, 0, string.length()));
 				}
 			}
 			return createProposalList(finalProposals);
 		}
-		
+
 		// If we are on an "empty" line or before the end in somewhere we
 		// deliver the default keyword proposals
 		if (nextLine.trim().length() == 0 || nextLine.indexOf("end") > -1) {
 			for (int i = 0; i < defaultProposals.length; i++) {
 				if (defaultProposals[i].startsWith(lastWord)) {
-					finalProposals.add(new CompletionProposal(
-							defaultProposals[i], offset - lastWord.length(),
-							lastWord.length(), defaultProposals[i].length()));
+					finalProposals.add(new CompletionProposal(defaultProposals[i], offset - lastWord.length(), lastWord
+					        .length(), defaultProposals[i].length()));
 				}
 			}
 			return createProposalList(finalProposals);
@@ -189,8 +177,7 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 		String currentLineToInspect = EMPTY_STRING;
 		try {
 			currentLineOffset = doc.getLineOffset(lineNumber);
-			currentLineToInspect = doc.get(currentLineOffset, offset
-					- currentLineOffset);
+			currentLineToInspect = doc.get(currentLineOffset, offset - currentLineOffset);
 		} catch (BadLocationException e) {
 			currentLineToInspect = EMPTY_STRING;
 		}
@@ -212,7 +199,7 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 			if (remaining.indexOf("(") > -1) {
 				// We might be working in the tagged values section
 				if (remaining.indexOf(")") > -1 && remaining.indexOf(",") > -1
-						&& remaining.indexOf(",") > remaining.indexOf(")")) {
+				        && remaining.indexOf(",") > remaining.indexOf(")")) {
 					// In this case we are outside of the tagged values section
 					// because it look like
 					// Stereotype(taggedvaluename="something"),
@@ -222,10 +209,8 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 				} else {
 					// We are in a tagged value section for sure the pattern is:
 					// Stereotype(taggedvaluename
-					String[] stringArr = profileWithStereotype.substring(0,
-							profileWithStereotype.length()).split("::");
-					findTaggedValuesForCurrentLineButNotApplied(proposals,
-							stringArr[0], stringArr[1], currentLine);
+					String[] stringArr = profileWithStereotype.substring(0, profileWithStereotype.length()).split("::");
+					findTaggedValuesForCurrentLineButNotApplied(proposals, stringArr[0], stringArr[1], currentLine);
 				}
 			} else {
 				// Normal stereotype application we are not editing tagged
@@ -239,34 +224,28 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 			findStereotypesForNextLine(proposals, nextLine);
 		}
 
-		for (Iterator<String> iterator = proposals.iterator(); iterator
-				.hasNext();) {
+		for (Iterator<String> iterator = proposals.iterator(); iterator.hasNext();) {
 			String string = iterator.next();
-			finalProposals.add(new CompletionProposal(string, offset, 0, string
-					.length()));
+			finalProposals.add(new CompletionProposal(string, offset, 0, string.length()));
 		}
 
 		return createProposalList(finalProposals);
 	}
 
-	private ICompletionProposal[] createProposalList(
-			List<ICompletionProposal> finalProposals) {
+	private ICompletionProposal[] createProposalList(List<ICompletionProposal> finalProposals) {
 		ICompletionProposal[] a = new ICompletionProposal[finalProposals.size()];
 		return finalProposals.toArray(a);
 	}
-	
+
 	private boolean checkifNotEmpty(String word) {
 		return word != null && !word.equals(EMPTY_STRING);
 	}
 
-	private void removeUnneededBecauseOfCurrentLine(List<String> proposals,
-			String currentLine) {
+	private void removeUnneededBecauseOfCurrentLine(List<String> proposals, String currentLine) {
 		List<String> result = new ArrayList<String>();
-		for (Iterator<String> iterator = proposals.iterator(); iterator
-				.hasNext();) {
+		for (Iterator<String> iterator = proposals.iterator(); iterator.hasNext();) {
 			String string = iterator.next();
-			String replaced = string.replaceAll("\\[", EMPTY_STRING)
-					.replaceAll("\\]", EMPTY_STRING);
+			String replaced = string.replaceAll("\\[", EMPTY_STRING).replaceAll("\\]", EMPTY_STRING);
 			if (currentLine.indexOf(replaced) == -1) {
 				result.add(replaced);
 			}
@@ -277,31 +256,30 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 
 	private void findTypes(List<String> proposals, String lastWord) {
 		Boolean lastWordEmpty = true;
-		if(checkifNotEmpty(lastWord)) {
+		if (checkifNotEmpty(lastWord)) {
 			lastWord = lastWord.toLowerCase();
 			lastWordEmpty = false;
 		}
 		Package[] packages = getValidPackages();
 		for (int i = 0; i < packages.length; i++) {
-			for (TreeIterator<EObject> iterator = packages[i].eAllContents(); iterator
-					.hasNext();) {
+			for (TreeIterator<EObject> iterator = packages[i].eAllContents(); iterator.hasNext();) {
 				EObject object = iterator.next();
 				if (object instanceof Class) {
 					Class clazz = (Class) object;
-					if(lastWordEmpty || clazz.getQualifiedName().toLowerCase().contains(lastWord)) {
+					if (lastWordEmpty || clazz.getQualifiedName().toLowerCase().contains(lastWord)) {
 						proposals.add(clazz.getQualifiedName());
 					}
-					
+
 				}
 				if (object instanceof PrimitiveType) {
 					PrimitiveType primo = (PrimitiveType) object;
-					if(lastWordEmpty || primo.getQualifiedName().toLowerCase().contains(lastWord)) {
+					if (lastWordEmpty || primo.getQualifiedName().toLowerCase().contains(lastWord)) {
 						proposals.add(primo.getQualifiedName());
 					}
 				}
 				if (object instanceof Enumeration) {
 					Enumeration enume = (Enumeration) object;
-					if(lastWordEmpty || enume.getQualifiedName().toLowerCase().contains(lastWord)) {
+					if (lastWordEmpty || enume.getQualifiedName().toLowerCase().contains(lastWord)) {
 						proposals.add(enume.getQualifiedName());
 					}
 				}
@@ -309,23 +287,19 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 		}
 	}
 
-	private void findTaggedValuesForCurrentLineButNotApplied(
-			List<String> proposals, String profileName, String stereotypeName,
-			String currentLine) {
-		List<String> result = findTaggedAttributesForStereotype(findStereotypeByName(
-				profileName, stereotypeName));
+	private void findTaggedValuesForCurrentLineButNotApplied(List<String> proposals, String profileName,
+	        String stereotypeName, String currentLine) {
+		List<String> result = findTaggedAttributesForStereotype(findStereotypeByName(profileName, stereotypeName));
 		for (Iterator<String> iterator = result.iterator(); iterator.hasNext();) {
 			String string = iterator.next();
-			if (string.indexOf(BASE_PROPERTY) == -1
-					&& currentLine.indexOf(string) == -1) {
+			if (string.indexOf(BASE_PROPERTY) == -1 && currentLine.indexOf(string) == -1) {
 				proposals.add(string + "=\"\"");
 			}
 		}
 	}
 
 	private IRepository getRepository() {
-		IProject currentProject = editor.getWorkingCopy().getFile()
-				.getProject();
+		IProject currentProject = editor.getWorkingCopy().getFile().getProject();
 		try {
 			return UIUtils.getCachedRepository(currentProject);
 		} catch (CoreException e) {
@@ -340,26 +314,22 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 			if (nextLine.indexOf(targetKeyword) >= 0) {
 				final EClass targetMetaclass = (EClass) targets[1];
 				selectProposalsFromStereotypes(proposals,
-						findStereotypesForExtendedClass(getStereotypes(), targetMetaclass));
+				        findStereotypesForExtendedClass(getStereotypes(), targetMetaclass));
 				return;
 			}
 		}
 	}
 
-	private void selectProposalsFromStereotypes(List<String> proposals,
-			List<Stereotype> stereos) {
-		for (Iterator<Stereotype> iterator = stereos.iterator(); iterator
-				.hasNext();) {
+	private void selectProposalsFromStereotypes(List<String> proposals, List<Stereotype> stereos) {
+		for (Iterator<Stereotype> iterator = stereos.iterator(); iterator.hasNext();) {
 			Stereotype stereotype = iterator.next();
-			proposals.add("[" + stereotype.getProfile().getName() + "::"
-					+ stereotype.getName() + "]");
+			proposals.add("[" + stereotype.getProfile().getName() + "::" + stereotype.getName() + "]");
 		}
 	}
 
 	private List<String> findTaggedAttributesForStereotype(Stereotype stereotype) {
 		List<String> result = new ArrayList<String>();
-		for (Iterator<Property> iterator = stereotype.getAllAttributes()
-				.iterator(); iterator.hasNext();) {
+		for (Iterator<Property> iterator = stereotype.getAllAttributes().iterator(); iterator.hasNext();) {
 			Property property = iterator.next();
 			result.add(property.getName());
 		}
@@ -371,8 +341,7 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 		if (profile == null)
 			return null;
 		EList<Element> elements = profile.getOwnedElements();
-		for (Iterator<Element> iterator = elements.iterator(); iterator
-				.hasNext();) {
+		for (Iterator<Element> iterator = elements.iterator(); iterator.hasNext();) {
 			Element element = iterator.next();
 			if (element instanceof Stereotype)
 				if (((Stereotype) element).getName().equals(name))
@@ -396,8 +365,7 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 	}
 
 	private Profile findProfileByName(String name) {
-		Package[] packages = getRepository()
-				.getTopLevelPackages(null);
+		Package[] packages = getRepository().getTopLevelPackages(null);
 		Profile[] validProfiles = getValidProfiles(packages);
 		for (int i = 0; i < validProfiles.length; i++)
 			if (validProfiles[i].getName().equals(name))
@@ -405,17 +373,14 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 		return null;
 	}
 
-	private List<Stereotype> findStereotypesForExtendedClass(
-			List<Stereotype> stereos, EClass targetMetaclass) {
+	private List<Stereotype> findStereotypesForExtendedClass(List<Stereotype> stereos, EClass targetMetaclass) {
 		List<Stereotype> result = new ArrayList<Stereotype>();
-		for (Iterator<Stereotype> iterator = stereos.iterator(); iterator
-				.hasNext();) {
+		for (Iterator<Stereotype> iterator = stereos.iterator(); iterator.hasNext();) {
 			Stereotype stereotype = iterator.next();
-			for (Iterator<Class> clazzIter = stereotype
-					.getAllExtendedMetaclasses().iterator(); clazzIter
-					.hasNext();) {
+			for (Iterator<Class> clazzIter = stereotype.getAllExtendedMetaclasses().iterator(); clazzIter.hasNext();) {
 				Class clazz = clazzIter.next();
-				// FIXME this does not handle inheritance (a stereotype for a base metaclass should apply to any sub metaclasses)
+				// FIXME this does not handle inheritance (a stereotype for a
+				// base metaclass should apply to any sub metaclasses)
 				if (clazz.getName().equals(targetMetaclass.getName()))
 					result.add(stereotype);
 			}
@@ -440,9 +405,8 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 		List<Package> validPackages = new ArrayList<Package>();
 		for (int i = 0; i < packages.length; i++) {
 			Package p = (Package) packages[i];
-			if (!(p instanceof Profile) && !p.getName().equals(STANDARD)
-					&& !p.getName().equals(UML)
-					&& !p.getName().equalsIgnoreCase(ECORE))
+			if (!(p instanceof Profile) && !p.getName().equals(STANDARD) && !p.getName().equals(UML)
+			        && !p.getName().equalsIgnoreCase(ECORE))
 				validPackages.add((Package) p);
 		}
 		return validPackages.toArray(new Package[validPackages.size()]);
@@ -452,8 +416,7 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 		List<Profile> validPackages = new ArrayList<Profile>();
 		for (int i = 0; i < packages.length; i++) {
 			Package p = (Package) packages[i];
-			if (p instanceof Profile && !p.getName().equals(STANDARD)
-					&& !p.getName().equals(ECORE)) {
+			if (p instanceof Profile && !p.getName().equals(STANDARD) && !p.getName().equals(ECORE)) {
 				validPackages.add((Profile) p);
 			}
 		}
@@ -462,13 +425,11 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 
 	private List<Stereotype> getStereotypes() {
 		List<Stereotype> result = new ArrayList<Stereotype>();
-		Package[] packages = getRepository()
-				.getTopLevelPackages(null);
+		Package[] packages = getRepository().getTopLevelPackages(null);
 		Profile[] validProfiles = getValidProfiles(packages);
 		for (int i = 0; i < validProfiles.length; i++) {
 			EList<Element> elements = validProfiles[i].getOwnedElements();
-			for (Iterator<Element> iterator = elements.iterator(); iterator
-					.hasNext();) {
+			for (Iterator<Element> iterator = elements.iterator(); iterator.hasNext();) {
 				Element element = iterator.next();
 				if (element instanceof Stereotype)
 					result.add((Stereotype) element);
@@ -479,16 +440,19 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#computeContextInformation(org.eclipse.jface.text.ITextViewer, int)
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#
+	 * computeContextInformation(org.eclipse.jface.text.ITextViewer, int)
 	 */
-	public IContextInformation[] computeContextInformation(ITextViewer viewer,
-			int offset) {
+	public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {
 		return null;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getCompletionProposalAutoActivationCharacters()
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#
+	 * getCompletionProposalAutoActivationCharacters()
 	 */
 	public char[] getCompletionProposalAutoActivationCharacters() {
 		return new char[] { '[' };
@@ -496,7 +460,9 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getContextInformationAutoActivationCharacters()
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#
+	 * getContextInformationAutoActivationCharacters()
 	 */
 	public char[] getContextInformationAutoActivationCharacters() {
 		return null;
@@ -504,7 +470,9 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getContextInformationValidator()
+	 * 
+	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#
+	 * getContextInformationValidator()
 	 */
 	public IContextInformationValidator getContextInformationValidator() {
 		return null;
@@ -512,7 +480,10 @@ public class TextUMLCompletionProcessor implements IContentAssistProcessor {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.eclipse.jface.text.contentassist.IContentAssistProcessor#getErrorMessage()
+	 * 
+	 * @see
+	 * org.eclipse.jface.text.contentassist.IContentAssistProcessor#getErrorMessage
+	 * ()
 	 */
 	public String getErrorMessage() {
 		return "Error in code completion";

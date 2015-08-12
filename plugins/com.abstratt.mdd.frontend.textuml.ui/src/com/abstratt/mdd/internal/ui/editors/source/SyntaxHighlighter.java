@@ -8,7 +8,7 @@
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
  *    Massimiliano Federici - bug 2127735 - multi-line comments lose highlighting
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.editors.source;
 
 import java.util.ArrayList;
@@ -86,12 +86,13 @@ public class SyntaxHighlighter extends RuleBasedScanner {
 
 		setRules(rules.toArray(new IRule[rules.size()]));
 	}
-	
+
 	ITokenScanner getCommentScanner() {
 		// lazy init
 		if (this.commentScanner == null) {
 			final Token comment = new Token(new TextAttribute(JFaceResources.getColorRegistry().get(COMMENT_COLOR)));
-			// no rules needed, because this will apply to comment partition only
+			// no rules needed, because this will apply to comment partition
+			// only
 			final RuleBasedScanner ruleBasedScanner = new RuleBasedScanner();
 			// this will apply the syntax
 			ruleBasedScanner.setDefaultReturnToken(comment);

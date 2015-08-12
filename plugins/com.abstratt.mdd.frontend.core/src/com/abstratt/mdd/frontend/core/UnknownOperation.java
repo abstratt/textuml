@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import org.eclipse.uml2.uml.NamedElement;
@@ -31,20 +31,22 @@ public class UnknownOperation extends UnresolvedSymbol {
 		this.argList = argList;
 		this.isStatic = isStatic;
 		if (alternative != null)
-		    this.alternative = alternative.getName() + MDDUtil.getArgumentListString(FeatureUtils.getInputParameters(alternative.getOwnedParameters()));
-    }
-	
-	public UnknownOperation(String type, String operation, String argList, boolean isStatic) {
-			super(type + NamedElement.SEPARATOR + operation);
-			this.classifier = type;
-			this.operation = operation;
-			this.argList = argList;
-			this.isStatic = isStatic;
+			this.alternative = alternative.getName()
+			        + MDDUtil.getArgumentListString(FeatureUtils.getInputParameters(alternative.getOwnedParameters()));
 	}
-	
+
+	public UnknownOperation(String type, String operation, String argList, boolean isStatic) {
+		super(type + NamedElement.SEPARATOR + operation);
+		this.classifier = type;
+		this.operation = operation;
+		this.argList = argList;
+		this.isStatic = isStatic;
+	}
+
 	@Override
 	public String getMessage() {
-		String message = "Unknown " + (isStatic ? "static" : "") + " operation '" + operation + argList + "' in '" + classifier +"'";
+		String message = "Unknown " + (isStatic ? "static" : "") + " operation '" + operation + argList + "' in '"
+		        + classifier + "'";
 		if (alternative != null)
 			message += (" - alternative: " + alternative);
 		return message;
@@ -53,7 +55,7 @@ public class UnknownOperation extends UnresolvedSymbol {
 	public String getClassifier() {
 		return classifier;
 	}
-	
+
 	public String getOperation() {
 		return operation;
 	}

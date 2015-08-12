@@ -10,8 +10,7 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 public class PrimitiveTypeRenderer extends ClassifierRenderer<DataType> {
 
 	@Override
-	public boolean renderObject(DataType element, IndentedPrintWriter w,
-			IRenderingSession context) {
+	public boolean renderObject(DataType element, IndentedPrintWriter w, IRenderingSession context) {
 		if (!context.getSettings().getBoolean(SHOW_PRIMITIVES))
 			return false;
 		return super.renderObject(element, w, context);

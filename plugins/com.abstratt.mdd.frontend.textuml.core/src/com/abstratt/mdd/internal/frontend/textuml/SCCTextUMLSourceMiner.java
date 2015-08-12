@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
@@ -30,10 +30,11 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 
 public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 	@SuppressWarnings("serial")
-	private static class NodeFoundTrap extends RuntimeException {};
+	private static class NodeFoundTrap extends RuntimeException {
+	};
 
 	private RuntimeException trap = new NodeFoundTrap();
-	
+
 	@Override
 	public <P extends Node, C extends Node> C findChild(P node, final Class<C> required, final boolean first) {
 		if (node == null)
@@ -41,14 +42,16 @@ public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 		final Node[] found = { null };
 		try {
 			node.apply(new DepthFirstAdapter() {
-				// for non-terminal productions 
+				// for non-terminal productions
 				public void defaultIn(Node node) {
 					match(node);
 				}
+
 				// for tokens
 				public void defaultCase(Node node) {
 					match(node);
 				}
+
 				private void match(Node node) {
 					if (required.isInstance(node)) {
 						found[0] = node;
@@ -58,25 +61,27 @@ public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 				}
 			});
 		} catch (NodeFoundTrap t) {
-			// found 
+			// found
 		}
 		return (C) found[0];
 	}
-	
+
 	@Override
 	public <P extends Node, C extends Node> List<C> findChildren(P node, final Class<C> required) {
 		final List<C> found = new ArrayList<C>();
 		if (node == null)
 			return found;
 		node.apply(new DepthFirstAdapter() {
-			// for non-terminal productions 
+			// for non-terminal productions
 			public void defaultIn(Node node) {
 				match(node);
 			}
+
 			// for tokens
 			public void defaultCase(Node node) {
 				match(node);
 			}
+
 			private void match(Node node) {
 				if (required.isInstance(node))
 					found.add((C) node);
@@ -84,7 +89,6 @@ public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 		});
 		return found;
 	}
-
 
 	@Override
 	public <P extends Node, C extends Node> P findParent(C start, Class<P> required) {
@@ -98,13 +102,13 @@ public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 	@Override
 	public int getLineNumber(Node node) {
 		return findToken(node).getLine();
-	}	
+	}
 
 	@Override
 	public String getText(Node node) {
 		return node == null ? null : node.toString().trim();
 	}
-	
+
 	/**
 	 * Returns the last token found in the given tree or <code>null</code> if
 	 * none is found (an empty production).
@@ -114,7 +118,7 @@ public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 	public Token findToken(Node node) {
 		return (Token) findChild(node, Token.class, false);
 	}
-	
+
 	@Override
 	public String getQualifiedIdentifier(Node node) {
 		final String[] qualifiedIdentifier = { null };
@@ -126,28 +130,30 @@ public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 				qualifiedIdentifier[0] = "";
 				return true;
 			}
+
 			public void caseAQualifiedIdentifier(AQualifiedIdentifier node) {
 				if (initialize())
-				    super.caseAQualifiedIdentifier(node);
+					super.caseAQualifiedIdentifier(node);
 			}
+
 			@Override
-			public void caseAForcefullyQualifiedIdentifier(
-					AForcefullyQualifiedIdentifier node) {
+			public void caseAForcefullyQualifiedIdentifier(AForcefullyQualifiedIdentifier node) {
 				if (initialize()) {
 					appendIdentifier(node.getIdentifier());
-    				super.caseAForcefullyQualifiedIdentifier(node);
+					super.caseAForcefullyQualifiedIdentifier(node);
 				}
-			}			
-			public void caseAQualifiedIdentifierBase(
-					AQualifiedIdentifierBase node) {
+			}
+
+			public void caseAQualifiedIdentifierBase(AQualifiedIdentifierBase node) {
 				Assert.isTrue(qualifiedIdentifier[0] != null);
 				appendIdentifier(node.getIdentifier());
 				super.caseAQualifiedIdentifierBase(node);
 			}
+
 			private void appendIdentifier(TIdentifier identifier) {
 				qualifiedIdentifier[0] += stripEscaping(identifier.getText());
 			}
-			
+
 			@Override
 			public void caseTNamespaceSeparator(TNamespaceSeparator node) {
 				Assert.isTrue(qualifiedIdentifier[0] != null);
@@ -157,7 +163,7 @@ public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 		Assert.isNotNull(qualifiedIdentifier[0]);
 		return qualifiedIdentifier[0];
 	}
-	
+
 	@Override
 	public String getIdentifier(Node node) {
 		if (node == null)
@@ -171,16 +177,16 @@ public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 			}
 		});
 		return identifier[0];
-	}	
-	
+	}
+
 	private String stripEscaping(String text) {
 		return text.replace("\\", "");
 	}
 
 	public static int parseLineNumber(String errorMessage) {
-        Matcher matcher = Pattern.compile("\\[([0-9]+),([0-9]+)\\].*").matcher(errorMessage);
-        if (matcher.matches())
-        	return Integer.parseInt(matcher.group(1));
-        return -1;
+		Matcher matcher = Pattern.compile("\\[([0-9]+),([0-9]+)\\].*").matcher(errorMessage);
+		if (matcher.matches())
+			return Integer.parseInt(matcher.group(1));
+		return -1;
 	}
 }

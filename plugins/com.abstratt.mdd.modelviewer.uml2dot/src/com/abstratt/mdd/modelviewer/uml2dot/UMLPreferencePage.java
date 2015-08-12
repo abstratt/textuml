@@ -1,6 +1,29 @@
 package com.abstratt.mdd.modelviewer.uml2dot;
 
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.OMIT_CONSTRAINTS_FOR_NAVIGABILITY;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ASSOCIATION_END_MULTIPLICITY;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ASSOCIATION_END_NAME;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ASSOCIATION_END_OWNERSHIP;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ASSOCIATION_NAME;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ATTRIBUTES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_CLASSES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_CLASSIFIER_COMPARTMENT;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_CLASSIFIER_COMPARTMENT_FOR_PACKAGE;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_COMMENTS;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_DATATYPES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ELEMENTS_IN_LIBRARIES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ELEMENTS_IN_OTHER_PACKAGES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ENUMERATIONS;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_INTERFACES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_OPERATIONS;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_PARAMETERS;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_PARAMETER_DIRECTION;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_PARAMETER_NAMES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_PRIMITIVES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_RETURN_PARAMETER;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_SIGNALS;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_STATEMACHINES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_STRUCTURAL_FEATURE_VISIBILITY;
 
 import java.util.Arrays;
 
@@ -21,9 +44,12 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
-public class UMLPreferencePage extends PreferencePage implements
-		IWorkbenchPreferencePage {
-	
+import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierCompartmentForPackageOptions;
+import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowClassifierCompartmentOptions;
+import com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.ShowCrossPackageElementOptions;
+
+public class UMLPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+
 	private Button showAssociationEndOwnershipCheckBox;
 	private Button showStructuralFeatureVisibilityCheckBox;
 	private Button showAssociationEndMultiplicityCheckBox;
@@ -60,13 +86,13 @@ public class UMLPreferencePage extends PreferencePage implements
 	public UMLPreferencePage(String title, ImageDescriptor image) {
 		super(title, image);
 	}
-	
+
 	private Button makeCheck(Composite parent, String label) {
 		Button newCheck = new Button(parent, SWT.CHECK);
 		newCheck.setText(label);
 		return newCheck;
 	}
-	
+
 	private Combo makeCombo(Composite parent, String labelText, java.util.List<?> options) {
 		Composite group = new Composite(parent, SWT.NONE);
 		group.setLayout(new RowLayout(SWT.HORIZONTAL));
@@ -81,7 +107,6 @@ public class UMLPreferencePage extends PreferencePage implements
 		return combo;
 	}
 
-
 	@Override
 	protected Control createContents(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
@@ -89,8 +114,7 @@ public class UMLPreferencePage extends PreferencePage implements
 		layout.marginWidth = 0;
 		layout.marginHeight = 0;
 		composite.setLayout(layout);
-		composite.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL
-				| GridData.HORIZONTAL_ALIGN_FILL));
+		composite.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL));
 
 		showClassesCheckBox = makeCheck(composite, "Show classes");
 		showInterfacesCheckBox = makeCheck(composite, "Show interfaces");
@@ -105,18 +129,23 @@ public class UMLPreferencePage extends PreferencePage implements
 		showAssociationEndNameCheckBox = makeCheck(composite, "Show association end name");
 		showAssociationEndOwnershipCheckBox = makeCheck(composite, "Show association end ownership (\"dots\")");
 		showAssociationEndMultiplicityCheckBox = makeCheck(composite, "Show association end multiplicity");
-		omitConstraintsForNavigabilityCheckBox = makeCheck(composite, "Omit constraints for association navigability (rank(source) > rank (target)) ");
+		omitConstraintsForNavigabilityCheckBox = makeCheck(composite,
+		        "Omit constraints for association navigability (rank(source) > rank (target)) ");
 		showStructuralFeatureVisibilityCheckBox = makeCheck(composite, "Show visibility in structural features");
 		showCommentsCheckBox = makeCheck(composite, "Show comments");
 		showParametersCheckBox = makeCheck(composite, "Show parameters for  operations");
 		showReturnParameterCheckBox = makeCheck(composite, "Show return parameters for operations");
 		showParameterNamesCheckBox = makeCheck(composite, "Show parameter names for operations");
 		showParameterDirectionCheckBox = makeCheck(composite, "Show parameter direction for operations");
-		showElementsInOtherPackagesCombo = makeCombo(composite, "Show elements across packages", Arrays.asList(ShowCrossPackageElementOptions.values()));
+		showElementsInOtherPackagesCombo = makeCombo(composite, "Show elements across packages",
+		        Arrays.asList(ShowCrossPackageElementOptions.values()));
 		showElementsInLibrariesCheckBox = makeCheck(composite, "Show elements in library models");
-		showClassifierCompartmentsCombo = makeCombo(composite, "Show compartments in classifiers", Arrays.asList(ShowClassifierCompartmentOptions.values()));
-		showClassifierCompartmentsForPackageCombo = makeCombo(composite, "Show compartments in classifiers for package", Arrays.asList(ShowClassifierCompartmentForPackageOptions.values()));
-		
+		showClassifierCompartmentsCombo = makeCombo(composite, "Show compartments in classifiers",
+		        Arrays.asList(ShowClassifierCompartmentOptions.values()));
+		showClassifierCompartmentsForPackageCombo = makeCombo(composite,
+		        "Show compartments in classifiers for package",
+		        Arrays.asList(ShowClassifierCompartmentForPackageOptions.values()));
+
 		loadPreferences();
 
 		return composite;
@@ -125,62 +154,44 @@ public class UMLPreferencePage extends PreferencePage implements
 	@Override
 	public IPreferenceStore getPreferenceStore() {
 		if (preferenceStore == null) {
-			preferenceStore = new ScopedPreferenceStore(new InstanceScope(),
-					UML.PLUGIN_ID);
+			preferenceStore = new ScopedPreferenceStore(new InstanceScope(), UML.PLUGIN_ID);
 		}
 		return preferenceStore;
 	}
 
 	private void loadPreferences() {
 		IPreferenceStore preferenceStore = getPreferenceStore();
-        showClassesCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_CLASSES));
-        showInterfacesCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_INTERFACES));        
-        showStateMachinesCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_STATEMACHINES));
-		showPrimitivesCheckBox.setSelection(preferenceStore.getBoolean(
-				SHOW_PRIMITIVES));
-		showEnumerationsCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_ENUMERATIONS));
-		showSignalsCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_SIGNALS));
-		showDataTypesCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_DATATYPES));
-		showOperationsCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_OPERATIONS));
-		showAttributesCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_ATTRIBUTES));
-		
-		showStructuralFeatureVisibilityCheckBox.setSelection(preferenceStore.getBoolean(
-				SHOW_STRUCTURAL_FEATURE_VISIBILITY));
-		showAssociationEndMultiplicityCheckBox.setSelection(preferenceStore.getBoolean(
-				SHOW_ASSOCIATION_END_MULTIPLICITY));
-		showAssociationEndOwnershipCheckBox.setSelection(preferenceStore.getBoolean(
-				SHOW_ASSOCIATION_END_OWNERSHIP));
-		showAssociationNameCheckBox.setSelection(preferenceStore.getBoolean(
-				SHOW_ASSOCIATION_NAME));
-		showAssociationEndNameCheckBox.setSelection(preferenceStore.getBoolean(
-				SHOW_ASSOCIATION_END_NAME));
-		omitConstraintsForNavigabilityCheckBox.setSelection(preferenceStore.getBoolean(
-				OMIT_CONSTRAINTS_FOR_NAVIGABILITY));
-        showCommentsCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_COMMENTS));
-        showParametersCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_PARAMETERS));
-        showReturnParameterCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_RETURN_PARAMETER));
-        showParameterNamesCheckBox.setSelection(preferenceStore.getBoolean(
-                SHOW_PARAMETER_NAMES));
-		showParameterDirectionCheckBox.setSelection(preferenceStore.getBoolean(
-				SHOW_PARAMETER_DIRECTION));
+		showClassesCheckBox.setSelection(preferenceStore.getBoolean(SHOW_CLASSES));
+		showInterfacesCheckBox.setSelection(preferenceStore.getBoolean(SHOW_INTERFACES));
+		showStateMachinesCheckBox.setSelection(preferenceStore.getBoolean(SHOW_STATEMACHINES));
+		showPrimitivesCheckBox.setSelection(preferenceStore.getBoolean(SHOW_PRIMITIVES));
+		showEnumerationsCheckBox.setSelection(preferenceStore.getBoolean(SHOW_ENUMERATIONS));
+		showSignalsCheckBox.setSelection(preferenceStore.getBoolean(SHOW_SIGNALS));
+		showDataTypesCheckBox.setSelection(preferenceStore.getBoolean(SHOW_DATATYPES));
+		showOperationsCheckBox.setSelection(preferenceStore.getBoolean(SHOW_OPERATIONS));
+		showAttributesCheckBox.setSelection(preferenceStore.getBoolean(SHOW_ATTRIBUTES));
+
+		showStructuralFeatureVisibilityCheckBox.setSelection(preferenceStore
+		        .getBoolean(SHOW_STRUCTURAL_FEATURE_VISIBILITY));
+		showAssociationEndMultiplicityCheckBox.setSelection(preferenceStore
+		        .getBoolean(SHOW_ASSOCIATION_END_MULTIPLICITY));
+		showAssociationEndOwnershipCheckBox.setSelection(preferenceStore.getBoolean(SHOW_ASSOCIATION_END_OWNERSHIP));
+		showAssociationNameCheckBox.setSelection(preferenceStore.getBoolean(SHOW_ASSOCIATION_NAME));
+		showAssociationEndNameCheckBox.setSelection(preferenceStore.getBoolean(SHOW_ASSOCIATION_END_NAME));
+		omitConstraintsForNavigabilityCheckBox.setSelection(preferenceStore
+		        .getBoolean(OMIT_CONSTRAINTS_FOR_NAVIGABILITY));
+		showCommentsCheckBox.setSelection(preferenceStore.getBoolean(SHOW_COMMENTS));
+		showParametersCheckBox.setSelection(preferenceStore.getBoolean(SHOW_PARAMETERS));
+		showReturnParameterCheckBox.setSelection(preferenceStore.getBoolean(SHOW_RETURN_PARAMETER));
+		showParameterNamesCheckBox.setSelection(preferenceStore.getBoolean(SHOW_PARAMETER_NAMES));
+		showParameterDirectionCheckBox.setSelection(preferenceStore.getBoolean(SHOW_PARAMETER_DIRECTION));
 		select(showElementsInOtherPackagesCombo, preferenceStore.getString(SHOW_ELEMENTS_IN_OTHER_PACKAGES));
-		showElementsInLibrariesCheckBox.setSelection(preferenceStore.getBoolean(
-				SHOW_ELEMENTS_IN_LIBRARIES));
+		showElementsInLibrariesCheckBox.setSelection(preferenceStore.getBoolean(SHOW_ELEMENTS_IN_LIBRARIES));
 		select(showClassifierCompartmentsCombo, preferenceStore.getString(SHOW_CLASSIFIER_COMPARTMENT));
-		select(showClassifierCompartmentsForPackageCombo, preferenceStore.getString(SHOW_CLASSIFIER_COMPARTMENT_FOR_PACKAGE));
+		select(showClassifierCompartmentsForPackageCombo,
+		        preferenceStore.getString(SHOW_CLASSIFIER_COMPARTMENT_FOR_PACKAGE));
 	}
-	
+
 	private void select(Combo toSelect, String option) {
 		if (option == null)
 			toSelect.select(0);
@@ -200,55 +211,37 @@ public class UMLPreferencePage extends PreferencePage implements
 	@Override
 	public boolean performOk() {
 		IPreferenceStore preferenceStore = getPreferenceStore();
-		preferenceStore.setValue(SHOW_ASSOCIATION_END_OWNERSHIP,
-				showAssociationEndOwnershipCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_ASSOCIATION_END_OWNERSHIP, showAssociationEndOwnershipCheckBox.getSelection());
 		preferenceStore.setValue(SHOW_ASSOCIATION_END_MULTIPLICITY,
-				showAssociationEndMultiplicityCheckBox.getSelection());
-		preferenceStore.setValue(SHOW_ASSOCIATION_END_NAME,
-				showAssociationEndNameCheckBox.getSelection());
-		preferenceStore.setValue(SHOW_ASSOCIATION_NAME, showAssociationNameCheckBox
-				.getSelection());
-		preferenceStore.setValue(SHOW_PRIMITIVES, showPrimitivesCheckBox
-				.getSelection());
-		preferenceStore.setValue(SHOW_CLASSES, showClassesCheckBox
-                .getSelection());
-        preferenceStore.setValue(SHOW_INTERFACES, showInterfacesCheckBox
-                .getSelection());
-		preferenceStore.setValue(SHOW_STATEMACHINES, showStateMachinesCheckBox
-                .getSelection());
-		preferenceStore.setValue(SHOW_ENUMERATIONS, showEnumerationsCheckBox
-                .getSelection());
-		preferenceStore.setValue(SHOW_SIGNALS, showSignalsCheckBox
-                .getSelection());
-		preferenceStore.setValue(SHOW_DATATYPES, showDataTypesCheckBox
-                .getSelection());
-		preferenceStore.setValue(SHOW_ATTRIBUTES, showAttributesCheckBox
-                .getSelection());
-		preferenceStore.setValue(SHOW_OPERATIONS, showOperationsCheckBox
-                .getSelection());
+		        showAssociationEndMultiplicityCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_ASSOCIATION_END_NAME, showAssociationEndNameCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_ASSOCIATION_NAME, showAssociationNameCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_PRIMITIVES, showPrimitivesCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_CLASSES, showClassesCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_INTERFACES, showInterfacesCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_STATEMACHINES, showStateMachinesCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_ENUMERATIONS, showEnumerationsCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_SIGNALS, showSignalsCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_DATATYPES, showDataTypesCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_ATTRIBUTES, showAttributesCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_OPERATIONS, showOperationsCheckBox.getSelection());
 		preferenceStore.setValue(SHOW_STRUCTURAL_FEATURE_VISIBILITY,
-				showStructuralFeatureVisibilityCheckBox.getSelection());
+		        showStructuralFeatureVisibilityCheckBox.getSelection());
 		preferenceStore.setValue(OMIT_CONSTRAINTS_FOR_NAVIGABILITY,
-				omitConstraintsForNavigabilityCheckBox.getSelection());
-		preferenceStore.setValue(SHOW_COMMENTS,
-                showCommentsCheckBox.getSelection());		
-        preferenceStore.setValue(SHOW_PARAMETERS,
-                showParametersCheckBox.getSelection());
-        preferenceStore.setValue(SHOW_RETURN_PARAMETER,
-                showReturnParameterCheckBox.getSelection());        
-		preferenceStore.setValue(SHOW_PARAMETER_NAMES,
-                showParameterNamesCheckBox.getSelection());
-		preferenceStore.setValue(SHOW_PARAMETER_DIRECTION,
-				showParameterDirectionCheckBox.getSelection());
+		        omitConstraintsForNavigabilityCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_COMMENTS, showCommentsCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_PARAMETERS, showParametersCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_RETURN_PARAMETER, showReturnParameterCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_PARAMETER_NAMES, showParameterNamesCheckBox.getSelection());
+		preferenceStore.setValue(SHOW_PARAMETER_DIRECTION, showParameterDirectionCheckBox.getSelection());
 		preferenceStore.setValue(SHOW_CLASSIFIER_COMPARTMENT,
-				showClassifierCompartmentsCombo.getItem(showClassifierCompartmentsCombo.getSelectionIndex()));
-		preferenceStore.setValue(SHOW_CLASSIFIER_COMPARTMENT_FOR_PACKAGE,
-				showClassifierCompartmentsForPackageCombo.getItem(showClassifierCompartmentsForPackageCombo.getSelectionIndex()));
+		        showClassifierCompartmentsCombo.getItem(showClassifierCompartmentsCombo.getSelectionIndex()));
+		preferenceStore.setValue(SHOW_CLASSIFIER_COMPARTMENT_FOR_PACKAGE, showClassifierCompartmentsForPackageCombo
+		        .getItem(showClassifierCompartmentsForPackageCombo.getSelectionIndex()));
 		preferenceStore.setValue(SHOW_ELEMENTS_IN_OTHER_PACKAGES,
-				showElementsInOtherPackagesCombo.getItem(showElementsInOtherPackagesCombo.getSelectionIndex()));
-		preferenceStore.setValue(SHOW_ELEMENTS_IN_LIBRARIES,
-				showElementsInLibrariesCheckBox.getSelection());
-		
+		        showElementsInOtherPackagesCombo.getItem(showElementsInOtherPackagesCombo.getSelectionIndex()));
+		preferenceStore.setValue(SHOW_ELEMENTS_IN_LIBRARIES, showElementsInLibrariesCheckBox.getSelection());
+
 		return super.performOk();
 	}
 

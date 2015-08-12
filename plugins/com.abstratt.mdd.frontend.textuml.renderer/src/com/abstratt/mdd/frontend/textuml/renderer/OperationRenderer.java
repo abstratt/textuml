@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
@@ -21,16 +21,15 @@ import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
+
 /**
  * 
  */
 public class OperationRenderer implements IEObjectRenderer<Operation> {
-	public boolean renderObject(Operation operation, IndentedPrintWriter w,
-			IRenderingSession context) {
-		TextUMLRenderingUtils.renderStereotypeApplications(w, operation);		
+	public boolean renderObject(Operation operation, IndentedPrintWriter w, IRenderingSession context) {
+		TextUMLRenderingUtils.renderStereotypeApplications(w, operation);
 		RenderingUtils.renderAll(context, operation.getOwnedComments());
-		w.print(TextUMLRenderingUtils.renderVisibility(operation
-					.getVisibility()));
+		w.print(TextUMLRenderingUtils.renderVisibility(operation.getVisibility()));
 		if (operation.isStatic())
 			w.print("static ");
 		if (operation.isAbstract())

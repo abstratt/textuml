@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.IRepository;
@@ -22,7 +22,7 @@ public class FrontEnd {
 	public static IActivityBuilder newActivityBuilder(IRepository repository) {
 		return new ActivityBuilder(repository);
 	}
-	
+
 	public static ICompilationDirector getCompilationDirector() {
 		return CompilationDirector.getInstance();
 	}

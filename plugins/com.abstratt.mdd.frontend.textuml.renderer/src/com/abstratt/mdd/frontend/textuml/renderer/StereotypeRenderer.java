@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
@@ -27,23 +27,23 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class StereotypeRenderer implements IEObjectRenderer<Stereotype> {
 
-	public boolean renderObject(Stereotype stereotype, IndentedPrintWriter writer,
-			IRenderingSession context) {
+	public boolean renderObject(Stereotype stereotype, IndentedPrintWriter writer, IRenderingSession context) {
 		RenderingUtils.renderAll(context, stereotype.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, stereotype);
 		if (stereotype.isAbstract())
 			writer.print("abstract ");
 		writer.print("stereotype " + name(stereotype));
 		List<Extension> extensions = new ArrayList<Extension>();
-		for(Property property : stereotype.getOwnedAttributes())
+		for (Property property : stereotype.getOwnedAttributes())
 			if (property.getAssociation() instanceof Extension)
 				extensions.add((Extension) property.getAssociation());
 		if (!extensions.isEmpty()) {
 			StringBuilder extensionList = new StringBuilder();
 			for (Extension extension : extensions) {
-				String extendedMetaClassName = TextUMLRenderingUtils.getQualifiedNameIfNeeded(extension.getMetaclass(), stereotype.getNamespace());
+				String extendedMetaClassName = TextUMLRenderingUtils.getQualifiedNameIfNeeded(extension.getMetaclass(),
+				        stereotype.getNamespace());
 				extensionList.append(extendedMetaClassName);
-				if (extension.isRequired()) 
+				if (extension.isRequired())
 					extensionList.append(" required");
 				extensionList.append(", ");
 			}
@@ -54,7 +54,8 @@ public class StereotypeRenderer implements IEObjectRenderer<Stereotype> {
 		List<Generalization> generalizations = stereotype.getGeneralizations();
 		StringBuilder specializationList = new StringBuilder();
 		for (Generalization generalization : generalizations)
-			specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(), stereotype.getNamespace()) + ", ");
+			specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(),
+			        stereotype.getNamespace()) + ", ");
 		if (specializationList.length() > 0) {
 			specializationList.delete(specializationList.length() - 2, specializationList.length());
 			writer.print(" specializes ");
@@ -67,7 +68,7 @@ public class StereotypeRenderer implements IEObjectRenderer<Stereotype> {
 		writer.exitLevel();
 		writer.println("end;");
 		writer.println();
-		return true;		
+		return true;
 	}
 
 }

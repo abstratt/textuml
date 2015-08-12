@@ -9,23 +9,19 @@ import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Property;
 
-import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class StereotypeRenderer implements IElementRenderer<Class> {
 
-	public boolean renderObject(Class element, IndentedPrintWriter w,
-			IRenderingSession context) {
+	public boolean renderObject(Class element, IndentedPrintWriter w, IRenderingSession context) {
 		w.println("// stereotype " + element.getQualifiedName());
 		w.print('"' + element.getName() + "\" [");
 		w.println("label=<");
 		w.enterLevel();
-		w
-				.println("<TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"0\" cellborder=\"0\" port=\"port\">");
-		w
-				.print("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"3\" CELLSPACING=\"0\" ALIGN=\"LEFT\">");
+		w.println("<TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"0\" cellborder=\"0\" port=\"port\">");
+		w.print("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"3\" CELLSPACING=\"0\" ALIGN=\"LEFT\">");
 		w.print("<TR><TD>");
 		w.print(UML2DOTRenderingUtils.addGuillemots("stereotype"));
 		w.print("</TD></TR>");
@@ -34,8 +30,7 @@ public class StereotypeRenderer implements IElementRenderer<Class> {
 		w.print("</TD></TR>");
 		if (context.isShallow()) {
 			w.print("<TR><TD>");
-			w.print("(from " + element.getNearestPackage().getQualifiedName()
-					+ ")");
+			w.print("(from " + element.getNearestPackage().getQualifiedName() + ")");
 			w.print("</TD></TR>");
 		}
 		w.print("</TABLE></TD></TR>");
@@ -45,14 +40,12 @@ public class StereotypeRenderer implements IElementRenderer<Class> {
 			if (!(property.getAssociation() instanceof Extension))
 				properties.add(property);
 		if (!properties.isEmpty() && !context.isShallow()) {
-			w
-					.print("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
+			w.print("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
 			RenderingUtils.renderAll(context, properties);
 			w.print("</TABLE></TD></TR>");
 		}
 		if (!element.getOperations().isEmpty() && !context.isShallow()) {
-			w
-					.print("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" align=\"left\">");
+			w.print("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" align=\"left\">");
 			RenderingUtils.renderAll(context, element.getOperations());
 			w.print("</TABLE></TD></TR>");
 		}
@@ -61,15 +54,14 @@ public class StereotypeRenderer implements IElementRenderer<Class> {
 		w.enterLevel();
 		List<Generalization> generalizations = element.getGeneralizations();
 		RenderingUtils.renderAll(context, generalizations);
-		List<InterfaceRealization> realizations = element
-				.getInterfaceRealizations();
+		List<InterfaceRealization> realizations = element.getInterfaceRealizations();
 		RenderingUtils.renderAll(context, realizations);
 		// render extensions
-		for(Property property : element.getOwnedAttributes())
+		for (Property property : element.getOwnedAttributes())
 			if (property.getAssociation() instanceof Extension) {
-				Extension extension = (Extension) property.getAssociation(); 
+				Extension extension = (Extension) property.getAssociation();
 				context.render(extension, false);
-			}		
+			}
 		return true;
 	}
 }

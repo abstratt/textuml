@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import java.util.ArrayList;
@@ -38,15 +38,16 @@ import com.abstratt.mdd.ui.UIConstants;
 
 public class Clazz extends UIModelObject {
 
-	protected static Class<? extends Node>[] CHILDREN_TYPES = (Class<? extends Node>[]) new Class<?>[] {AAttributeDecl.class, AReferenceDecl.class, ADependencyDecl.class, AOperationDecl.class};
+	protected static Class<? extends Node>[] CHILDREN_TYPES = (Class<? extends Node>[]) new Class<?>[] {
+	        AAttributeDecl.class, AReferenceDecl.class, ADependencyDecl.class, AOperationDecl.class };
 
 	public Clazz(UIModelObject parent, ASTNode<Token, Node> node) {
 		super(parent, node);
 	}
 
-	//	protected org.eclipse.uml2.uml.Class getClass_() {
-	//		
-	//	}
+	// protected org.eclipse.uml2.uml.Class getClass_() {
+	//
+	// }
 
 	@Override
 	public Class<? extends Node>[] getChildrenTypes() {
@@ -65,47 +66,48 @@ public class Clazz extends UIModelObject {
 	@Override
 	public List<UIModelObject> getChildren() {
 		List<UIModelObject> result = super.getChildren();
-		if(TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_ASSOCINCLASS)) {
+		if (TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_ASSOCINCLASS)) {
 			result.addAll(getAssociationsToClass());
-		}		
+		}
 		return result;
 	}
-	
+
 	private List<UIModelObject> getAssocationsFromModel() {
-			List<ASTNode<Token, Node>> nodes = ASTUtils.findNodes(getRoot().getNode(), false,AAssociationDef.class, ACompositionAssociationKind.class, AAssociationAssociationKind.class, AAggregationAssociationKind.class);
-			List<UIModelObject> c = new ArrayList<UIModelObject>(nodes.size());
-			for (Iterator<ASTNode<Token, Node>> iter = nodes.iterator(); iter.hasNext();) {
-				ASTNode<Token, Node> node = iter.next();
-				UIModelObject child = UIModelObject.createModelObject(this, node);
-				if(child != null) {
-					c.add(child);
-				}
-				
+		List<ASTNode<Token, Node>> nodes = ASTUtils
+		        .findNodes(getRoot().getNode(), false, AAssociationDef.class, ACompositionAssociationKind.class,
+		                AAssociationAssociationKind.class, AAggregationAssociationKind.class);
+		List<UIModelObject> c = new ArrayList<UIModelObject>(nodes.size());
+		for (Iterator<ASTNode<Token, Node>> iter = nodes.iterator(); iter.hasNext();) {
+			ASTNode<Token, Node> node = iter.next();
+			UIModelObject child = UIModelObject.createModelObject(this, node);
+			if (child != null) {
+				c.add(child);
 			}
+
+		}
 		return c;
 	}
-	
+
 	private List<AbstractAssociation> getAssociationsToClass() {
-				List<AbstractAssociation> result = new ArrayList<AbstractAssociation>();
-				List children = getAssocationsFromModel();
-				for (Iterator iter = children.iterator(); iter.hasNext();) {
-					Object element = iter.next();
-					if (element instanceof AbstractAssociation) {
-						AbstractAssociation child = (AbstractAssociation)element;
-						AAssociationDef definition = (AAssociationDef) child.getNode().getParent().getParent().getBaseNode();
-						AAssociationRoleDeclList roleList = (AAssociationRoleDeclList) definition.getAssociationRoleDeclList();
-						//This is a pretty dummy check for the assocs of the class
-						//TODO Make this much better in the future
-						if(roleList.toString().indexOf(" "+this.getText()+" ") > -1) {
-							result.add(child);
-						}
-					}
+		List<AbstractAssociation> result = new ArrayList<AbstractAssociation>();
+		List children = getAssocationsFromModel();
+		for (Iterator iter = children.iterator(); iter.hasNext();) {
+			Object element = iter.next();
+			if (element instanceof AbstractAssociation) {
+				AbstractAssociation child = (AbstractAssociation) element;
+				AAssociationDef definition = (AAssociationDef) child.getNode().getParent().getParent().getBaseNode();
+				AAssociationRoleDeclList roleList = (AAssociationRoleDeclList) definition.getAssociationRoleDeclList();
+				// This is a pretty dummy check for the assocs of the class
+				// TODO Make this much better in the future
+				if (roleList.toString().indexOf(" " + this.getText() + " ") > -1) {
+					result.add(child);
 				}
-				return result;
+			}
+		}
+		return result;
 
 	}
 
-	
 	public List<AbstractAssociation> getModelSourceConnections() {
 		List<AbstractAssociation> result = new ArrayList<AbstractAssociation>();
 		List<UIModelObject> children = getRoot().getChildren();
@@ -120,43 +122,50 @@ public class Clazz extends UIModelObject {
 		}
 		return result;
 
-		//		String clazzName = clazz.getText();
-		//		List<AbstractAssociation> result = new ArrayList<AbstractAssociation>();
-		//		List children = getChildren();
-		//		for (Iterator iter = children.iterator(); iter.hasNext();) {
-		//			Object element = iter.next();
-		//			if (element instanceof AbstractAssociation) {
-		//				AbstractAssociation child = (AbstractAssociation)element;
-		//				AAssociationDef definition = (AAssociationDef) child.getNode().getParent().getParent().getBaseNode();
-		//				AAssociationRoleDeclList roleList = (AAssociationRoleDeclList) definition.getAssociationRoleDeclList();
-		//				String type = getTypeFrom(roleList);
-		//				if (clazzName.equals(type)) {
-		//					result.add(child);
-		//				}
-		//			}
-		//		}
-		//		return result;
+		// String clazzName = clazz.getText();
+		// List<AbstractAssociation> result = new
+		// ArrayList<AbstractAssociation>();
+		// List children = getChildren();
+		// for (Iterator iter = children.iterator(); iter.hasNext();) {
+		// Object element = iter.next();
+		// if (element instanceof AbstractAssociation) {
+		// AbstractAssociation child = (AbstractAssociation)element;
+		// AAssociationDef definition = (AAssociationDef)
+		// child.getNode().getParent().getParent().getBaseNode();
+		// AAssociationRoleDeclList roleList = (AAssociationRoleDeclList)
+		// definition.getAssociationRoleDeclList();
+		// String type = getTypeFrom(roleList);
+		// if (clazzName.equals(type)) {
+		// result.add(child);
+		// }
+		// }
+		// }
+		// return result;
 	}
 
 	public List getModelTargetConnections() {
 		return Collections.EMPTY_LIST;
-		//		String clazzName = clazz.getText();
-		//		List<AbstractAssociation> result = new ArrayList<AbstractAssociation>();
-		//		List children = getChildren();
-		//		for (Iterator iter = children.iterator(); iter.hasNext();) {
-		//			Object element = iter.next();
-		//			if (element instanceof AbstractAssociation) {
-		//				AbstractAssociation child = (AbstractAssociation)element;
-		//				AAssociationDef definition = (AAssociationDef) child.getNode().getParent().getParent().getBaseNode();
-		//				AAssociationRoleDeclList roleList = (AAssociationRoleDeclList) definition.getAssociationRoleDeclList();
-		//				AAssociationRoleDeclList anotherList = (AAssociationRoleDeclList) roleList.getAssociationRoleDeclList();
-		//				String type = getTypeFrom(anotherList);
-		//				if (clazzName.equals(type)) {
-		//					result.add(child);
-		//				}
-		//			}
-		//		}
-		//		return result;
+		// String clazzName = clazz.getText();
+		// List<AbstractAssociation> result = new
+		// ArrayList<AbstractAssociation>();
+		// List children = getChildren();
+		// for (Iterator iter = children.iterator(); iter.hasNext();) {
+		// Object element = iter.next();
+		// if (element instanceof AbstractAssociation) {
+		// AbstractAssociation child = (AbstractAssociation)element;
+		// AAssociationDef definition = (AAssociationDef)
+		// child.getNode().getParent().getParent().getBaseNode();
+		// AAssociationRoleDeclList roleList = (AAssociationRoleDeclList)
+		// definition.getAssociationRoleDeclList();
+		// AAssociationRoleDeclList anotherList = (AAssociationRoleDeclList)
+		// roleList.getAssociationRoleDeclList();
+		// String type = getTypeFrom(anotherList);
+		// if (clazzName.equals(type)) {
+		// result.add(child);
+		// }
+		// }
+		// }
+		// return result;
 	}
 
 	@Override

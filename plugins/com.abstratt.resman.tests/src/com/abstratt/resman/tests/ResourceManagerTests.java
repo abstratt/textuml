@@ -32,10 +32,11 @@ import com.abstratt.resman.Task;
 import com.abstratt.resman.impl.BasicResourceManager;
 
 public class ResourceManagerTests extends TestCase {
-	
+
 	public class SimpleResourceProvider implements ResourceProvider<StringKey> {
 
 		final private Class<?>[] requiredFeatureTypes;
+
 		public SimpleResourceProvider(Class<?>[] requiredFeatureTypes, Class<?>[] providedFeatureTypes) {
 			this.requiredFeatureTypes = requiredFeatureTypes;
 			this.providedFeatureTypes = providedFeatureTypes;
@@ -73,16 +74,16 @@ public class ResourceManagerTests extends TestCase {
 
 		@Override
 		public final synchronized void loadResource(Resource<StringKey> toLoad) throws ResourceException {
-            initResource(toLoad);
+			initResource(toLoad);
 			open.put(toLoad, new AtomicBoolean(true));
 		}
-		
+
 		protected void initResource(Resource<StringKey> toLoad) {
 		}
 
 		@Override
 		public final synchronized void disposeResource(Resource<StringKey> resource) {
-		    open.get(resource).set(false);
+			open.get(resource).set(false);
 		}
 
 		@Override
@@ -97,11 +98,11 @@ public class ResourceManagerTests extends TestCase {
 		private static final long serialVersionUID = 1L;
 
 		private String value;
-		
+
 		public StringKey(String value) {
 			this.value = value;
 		}
-		
+
 		public String getValue() {
 			return value;
 		}
@@ -131,14 +132,15 @@ public class ResourceManagerTests extends TestCase {
 			return true;
 		}
 	}
-	
+
 	public static class SimpleResourceManager extends BasicResourceManager<StringKey> {
 
 		public SimpleResourceManager(ResourceProvider<StringKey> provider, Collection<FeatureProvider> featureProviders) {
 			super(4, provider, featureProviders);
 		}
-		
-		public SimpleResourceManager(int bucketCap, ResourceProvider<StringKey> provider, Collection<FeatureProvider> featureProviders) {
+
+		public SimpleResourceManager(int bucketCap, ResourceProvider<StringKey> provider,
+		        Collection<FeatureProvider> featureProviders) {
 			super(bucketCap, provider, featureProviders);
 		}
 
@@ -151,126 +153,136 @@ public class ResourceManagerTests extends TestCase {
 	public ResourceManagerTests(String name) {
 		super(name);
 	}
-	
+
 	public void testResourceIsValid() {
 		ResourceProvider<StringKey> resourceProvider = new SimpleResourceProvider(new Class[0], new Class[0]);
-		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider, Arrays.<FeatureProvider>asList());
-        final Task<Resource<?>> task = new Task<Resource<?>>() {
+		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider,
+		        Arrays.<FeatureProvider> asList());
+		final Task<Resource<?>> task = new Task<Resource<?>>() {
 			@Override
 			public Resource<?> run(Resource<?> resource) {
 				assertTrue(resourceManager.inTask());
 				assertTrue(resource.isValid());
 				return resource;
 			}
-        };
-        assertFalse(resourceManager.inTask());
+		};
+		assertFalse(resourceManager.inTask());
 		resourceManager.runTask(new StringKey("id1"), task);
 		assertFalse(resourceManager.inTask());
 	}
-	
+
 	public void testInTask() {
 		ResourceProvider<StringKey> resourceProvider = new SimpleResourceProvider(new Class[0], new Class[0]);
-		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider, Arrays.<FeatureProvider>asList());
-        final Task<Resource<?>> task = new Task<Resource<?>>() {
+		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider,
+		        Arrays.<FeatureProvider> asList());
+		final Task<Resource<?>> task = new Task<Resource<?>>() {
 			@Override
 			public Resource<?> run(Resource<?> resource) {
 				assertTrue(resourceManager.inTask());
 				return resource;
 			}
-        };
-        assertFalse(resourceManager.inTask());
+		};
+		assertFalse(resourceManager.inTask());
 		resourceManager.runTask(new StringKey("id1"), task);
 		assertFalse(resourceManager.inTask());
 	}
-	
-	
+
 	public void testResourceIsCurrent() {
 		ResourceProvider<StringKey> resourceProvider = new SimpleResourceProvider(new Class[0], new Class[0]);
-		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider, Arrays.<FeatureProvider>asList());
-        final Task<Resource<?>> task = new Task<Resource<?>>() {
+		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider,
+		        Arrays.<FeatureProvider> asList());
+		final Task<Resource<?>> task = new Task<Resource<?>>() {
 			@Override
 			public Resource<?> run(Resource<?> resource) {
 				assertNotNull(resource);
 				assertSame(resource, resourceManager.getCurrentResource());
 				return resource;
 			}
-        };
+		};
 		resourceManager.runTask(new StringKey("id1"), task);
 	}
 
 	public void testResourceIsReused() {
 		ResourceProvider<StringKey> resourceProvider = new SimpleResourceProvider(new Class[0], new Class[0]);
-		SimpleResourceManager resourceManager = new SimpleResourceManager(1, resourceProvider, Arrays.<FeatureProvider>asList());
-        final Task<Resource<?>> task = new Task<Resource<?>>() {
+		SimpleResourceManager resourceManager = new SimpleResourceManager(1, resourceProvider,
+		        Arrays.<FeatureProvider> asList());
+		final Task<Resource<?>> task = new Task<Resource<?>>() {
 			@Override
 			public Resource<?> run(Resource<?> resource) {
 				return resource;
 			}
-        };
+		};
 		Resource<?> first = resourceManager.runTask(new StringKey("id1"), task);
-        assertTrue(first != null);
-        assertTrue(first.isValid());
+		assertTrue(first != null);
+		assertTrue(first.isValid());
 		Resource<?> second = resourceManager.runTask(new StringKey("id1"), task);
-        assertSame(first, second);
+		assertSame(first, second);
 	}
-	
+
 	public void testFeature() {
 		ResourceProvider<StringKey> resourceProvider = new SimpleResourceProvider(new Class[0], new Class[0]);
-		SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider, Arrays.<FeatureProvider>asList(new SimpleResourceProvider(new Class[0], new Class[] {Integer.class}) {
-			@Override
-			public void initFeatures(Resource<?> resource) {
-				resource.setFeature(Integer.class, 42);
-			}
-		}));
-        resourceManager.runTask(new StringKey("id1"), new Task<Boolean>() {
+		SimpleResourceManager resourceManager = new SimpleResourceManager(
+		        resourceProvider,
+		        Arrays.<FeatureProvider> asList(new SimpleResourceProvider(new Class[0], new Class[] { Integer.class }) {
+			        @Override
+			        public void initFeatures(Resource<?> resource) {
+				        resource.setFeature(Integer.class, 42);
+			        }
+		        }));
+		resourceManager.runTask(new StringKey("id1"), new Task<Boolean>() {
 			@Override
 			public Boolean run(Resource<?> resource) {
 				assertTrue(resource.hasFeature(Integer.class));
 				assertEquals(Integer.valueOf(42), resource.getFeature(Integer.class));
 				return true;
 			}
-        });
+		});
 	}
-	
+
 	public void testSyncDeactivates() {
-		ResourceProvider<StringKey> resourceProvider = new SimpleResourceProvider(new Class[0], new Class[] {Integer.class});
+		ResourceProvider<StringKey> resourceProvider = new SimpleResourceProvider(new Class[0],
+		        new Class[] { Integer.class });
 		final List<Resource<?>> activated = new ArrayList<Resource<?>>();
 		final List<Resource<?>> deactivated = new ArrayList<Resource<?>>();
-		
-		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider, Arrays.<FeatureProvider>asList(new SimpleResourceProvider(new Class[0], new Class[] {Boolean.class}) {
-			@Override
-			public void deactivateContext(Resource<?> resource, boolean operationSucceeded) {
-				deactivated.add(resource);
-			}
-			@Override
-			public void activateContext(Resource<?> resource) {
-				activated.add(resource);
-			}
-		}));
-        resourceManager.runTask(new StringKey("id1"), new Task<Object>() {
+
+		final SimpleResourceManager resourceManager = new SimpleResourceManager(
+		        resourceProvider,
+		        Arrays.<FeatureProvider> asList(new SimpleResourceProvider(new Class[0], new Class[] { Boolean.class }) {
+			        @Override
+			        public void deactivateContext(Resource<?> resource, boolean operationSucceeded) {
+				        deactivated.add(resource);
+			        }
+
+			        @Override
+			        public void activateContext(Resource<?> resource) {
+				        activated.add(resource);
+			        }
+		        }));
+		resourceManager.runTask(new StringKey("id1"), new Task<Object>() {
 			@Override
 			public Object run(Resource<?> resource) {
 				assertEquals(1, activated.size());
 				assertEquals(0, deactivated.size());
 				assertSame(resource, activated.get(0));
-				
+
 				resourceManager.synchronizeCurrent();
-				
+
 				Resource<StringKey> newResource = resourceManager.getCurrentResource();
-				
+
 				assertEquals(2, activated.size());
 				assertEquals(1, deactivated.size());
 				assertSame(resource, deactivated.get(0));
 				assertSame(newResource, activated.get(1));
 				return null;
 			}
-        });
+		});
 	}
-	
+
 	public void testSync() {
 		ResourceProvider<StringKey> resourceProvider = new SimpleResourceProvider(new Class[0], new Class[0]);
-		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider, Arrays.<FeatureProvider>asList());
-        boolean ran = resourceManager.runTask(new StringKey("id1"), new Task<Boolean>() {
+		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider,
+		        Arrays.<FeatureProvider> asList());
+		boolean ran = resourceManager.runTask(new StringKey("id1"), new Task<Boolean>() {
 			@Override
 			public Boolean run(Resource<?> resource) {
 				assertTrue(resource.isValid());
@@ -280,19 +292,20 @@ public class ResourceManagerTests extends TestCase {
 				assertTrue(newResource.isValid());
 				assertEquals(resource.getId(), newResource.getId());
 				try {
-				    resource.getFeature(String.class);
-				    fail("Should have failed");
+					resource.getFeature(String.class);
+					fail("Should have failed");
 				} catch (InvalidResourceException e) {
 					// expected
 				}
 				return true;
 			}
-        });
-        assertTrue(ran);
+		});
+		assertTrue(ran);
 	}
 
 	/**
-	 * Shows that two requests can be served simultaneously but will get different copies of the resource.
+	 * Shows that two requests can be served simultaneously but will get
+	 * different copies of the resource.
 	 */
 	public void testConcurrency() throws Exception {
 		final String originalValue = "foo";
@@ -302,12 +315,13 @@ public class ResourceManagerTests extends TestCase {
 				toLoad.setFeature(String.class, new String(originalValue));
 			}
 		};
-		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider, Arrays.<FeatureProvider>asList());
+		final SimpleResourceManager resourceManager = new SimpleResourceManager(resourceProvider,
+		        Arrays.<FeatureProvider> asList());
 
 		ExecutorService executor = Executors.newFixedThreadPool(2);
-		
+
 		final CyclicBarrier barrier = new CyclicBarrier(3);
-		
+
 		Callable<String> backgroundJob = new Callable<String>() {
 			@Override
 			public String call() throws Exception {
@@ -333,7 +347,7 @@ public class ResourceManagerTests extends TestCase {
 		};
 		Future<String> result1 = executor.submit(backgroundJob);
 		Future<String> result2 = executor.submit(backgroundJob);
-		
+
 		// before
 		barrier.await(1, TimeUnit.SECONDS);
 		// within
@@ -347,8 +361,8 @@ public class ResourceManagerTests extends TestCase {
 	}
 
 	/**
-	 * Shows that two requests will be serialized and will share the same copy of the resource 
-	 * if the limit of copies is 1.
+	 * Shows that two requests will be serialized and will share the same copy
+	 * of the resource if the limit of copies is 1.
 	 */
 	public void testSerialization() throws Exception {
 		final String originalValue = "foo";
@@ -358,9 +372,10 @@ public class ResourceManagerTests extends TestCase {
 				toLoad.setFeature(String.class, new String(originalValue));
 			}
 		};
-		final SimpleResourceManager resourceManager = new SimpleResourceManager(1, resourceProvider, Arrays.<FeatureProvider>asList());
+		final SimpleResourceManager resourceManager = new SimpleResourceManager(1, resourceProvider,
+		        Arrays.<FeatureProvider> asList());
 
-		final Resource<?>[] resourceSeen = {null};
+		final Resource<?>[] resourceSeen = { null };
 		// run a no-op task just to get the resource instance allocated
 		resourceManager.runTask(new StringKey(""), new Task<String>() {
 			@Override
@@ -370,14 +385,14 @@ public class ResourceManagerTests extends TestCase {
 			}
 		});
 		assertNotNull(resourceSeen[0]);
-		
+
 		final AtomicInteger syncValue = new AtomicInteger(0);
 
-		
 		class SimpleTask implements Task<String>, Runnable {
 			CyclicBarrier barrier = new CyclicBarrier(2);
 			String result;
 			List<Throwable> errors = Collections.synchronizedList(new ArrayList<Throwable>());
+
 			@Override
 			public String run(Resource<?> resource) {
 				await(false, true);
@@ -388,14 +403,15 @@ public class ResourceManagerTests extends TestCase {
 				assertEquals(0, syncValue.decrementAndGet());
 				return featureValue;
 			}
+
 			protected void await(boolean ensureClean, boolean shouldSucceed) {
 				if (ensureClean)
 					ensureCleanErrors();
 				try {
-					if (shouldSucceed) 
+					if (shouldSucceed)
 						barrier.await();
 					else
-				        barrier.await(1, TimeUnit.SECONDS);
+						barrier.await(1, TimeUnit.SECONDS);
 				} catch (BrokenBarrierException e) {
 					throw new RuntimeException(e);
 				} catch (InterruptedException e) {
@@ -407,11 +423,13 @@ public class ResourceManagerTests extends TestCase {
 				}
 				assertTrue(shouldSucceed);
 			}
+
 			private void ensureCleanErrors() {
 				// ensure no task errors occurred
 				for (Throwable throwable : errors)
 					throw new RuntimeException(throwable);
 			}
+
 			@Override
 			public void run() {
 				await(false, true);
@@ -422,20 +440,22 @@ public class ResourceManagerTests extends TestCase {
 					errors.add(e);
 				}
 			}
-		};
+		}
+		;
 		SimpleTask task1 = new SimpleTask();
 		SimpleTask task2 = new SimpleTask();
 
 		new Thread(task1, "Task 1").start();
 		new Thread(task2, "Task 2").start();
-		
+
 		// gets task1 submitted
 		task1.await(true, true);
-		// wait for the task to actually commence - it will block again after modifying the shared state
+		// wait for the task to actually commence - it will block again after
+		// modifying the shared state
 		task1.await(true, true);
 		// gets task2 submitted
 		task2.await(true, true);
-        // task2 will be blocked by task1, expect timeout
+		// task2 will be blocked by task1, expect timeout
 		task2.await(true, false);
 		// reset barrier so we can use it again
 		task2.barrier.reset();
@@ -449,13 +469,12 @@ public class ResourceManagerTests extends TestCase {
 		// wait for threads to collect results
 		task1.await(true, true);
 		task2.await(true, true);
-		
+
 		assertEquals("should match the original value", originalValue, task1.result);
 		assertEquals("should be the same value", task1.result, task2.result);
 		assertTrue("should share state", task1.result == task2.result);
 	}
 
-	
 	public static Test suite() {
 		return new TestSuite(ResourceManagerTests.class);
 	}

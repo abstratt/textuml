@@ -8,21 +8,22 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Property;
 
 public class AssociationUtils {
-    public static List<Association> allAssociations(Classifier classifier) {
-        List<Association> result = new ArrayList<Association>();
-        List<Classifier> allLevels = new ArrayList<Classifier>(classifier.allParents());
-        allLevels.add(classifier);
-        for (Classifier level : allLevels)
-            result.addAll(level.getAssociations());
-        return result;
-    }
+	public static List<Association> allAssociations(Classifier classifier) {
+		List<Association> result = new ArrayList<Association>();
+		List<Classifier> allLevels = new ArrayList<Classifier>(classifier.allParents());
+		allLevels.add(classifier);
+		for (Classifier level : allLevels)
+			result.addAll(level.getAssociations());
+		return result;
+	}
 
-    /**
-     * Returns the member end with the given name.
-     * @param level
-     * @param endName
-     * @return
-     */
+	/**
+	 * Returns the member end with the given name.
+	 * 
+	 * @param level
+	 * @param endName
+	 * @return
+	 */
 	public static Property findMemberEnd(Classifier level, String endName) {
 		for (Association association : level.getAssociations())
 			for (Property memberEnd : getMemberEnds(association, level))
@@ -35,9 +36,10 @@ public class AssociationUtils {
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Returns the association member ends that represent the side of the given participant (referring to the other participant).
+	 * Returns the association member ends that represent the side of the given
+	 * participant (referring to the other participant).
 	 * 
 	 * In the case of a reflexive association, returns both ends.
 	 * 

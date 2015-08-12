@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.editors.source;
 
 import org.eclipse.jface.text.BadLocationException;
@@ -53,8 +53,8 @@ public class SourceContentOutlinePage extends ContentOutlinePage {
 		viewer.setContentProvider(contentProvider);
 		labelProvider = new TextUMLLabelProvider();
 		viewer.setLabelProvider(labelProvider);
-//      disabled: used to make elements to show sorted by type        
-//		viewer.setComparator(new UIModelObjectViewerComparator());
+		// disabled: used to make elements to show sorted by type
+		// viewer.setComparator(new UIModelObjectViewerComparator());
 		viewer.setAutoExpandLevel(AbstractTreeViewer.ALL_LEVELS);
 
 		// tracks selections in the outline and reflects them in the editor
@@ -91,8 +91,7 @@ public class SourceContentOutlinePage extends ContentOutlinePage {
 		ASTNode<Token, Node> root = workingCopy.getRootASTNode();
 		if (root == null)
 			return;
-		TextUMLTreeNode node = new TextUMLTreeNode(UIModelObject
-				.createModelObject(null, root));
+		TextUMLTreeNode node = new TextUMLTreeNode(UIModelObject.createModelObject(null, root));
 		viewer.setInput(node.getChildren());
 	}
 

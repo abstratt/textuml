@@ -23,14 +23,14 @@ public interface IActivityBuilder {
 	 * action's output pins to the input pins of its parent (caller) action.
 	 */
 	public void closeAction();
-	
+
 	public boolean isCurrentActionTerminal();
 
 	/**
 	 * Closes the current action. After the current action is closed, its parent
 	 * action becomes the current action. If <code>autoConnect</code> is
-	 * <code>true</code>, connects the current action's output pins to the
-	 * input pins of its parent (caller) action.
+	 * <code>true</code>, connects the current action's output pins to the input
+	 * pins of its parent (caller) action.
 	 * 
 	 * @param autoConnect
 	 *            whether the pins of the action being closed should be
@@ -105,10 +105,11 @@ public interface IActivityBuilder {
 	public StructuredActivityNode createRootBlock(Activity activity);
 
 	/**
-	 * Pushes the given block on top of the block stack. The given 
-	 * block will become the new {@link #getCurrentBlock()}.
+	 * Pushes the given block on top of the block stack. The given block will
+	 * become the new {@link #getCurrentBlock()}.
 	 * 
-	 * @param block the new current block
+	 * @param block
+	 *            the new current block
 	 */
 	public void enterBlock(ActivityNode block);
 

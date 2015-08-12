@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui;
 
 import java.util.ArrayList;
@@ -37,14 +37,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-public class TextUMLPreferencePage extends PreferencePage implements
-		IWorkbenchPreferencePage {
+public class TextUMLPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
 	private Button formatOnSaveCheckBox;
 	private CheckboxTableViewer checkboxTableViewer;
 	private Table table;
 	private Map<String, String> options = new HashMap<String, String>();
-	
+
 	{
 		options.put(TextUMLUIPlugin.SHOW_ATTR, "Show attributes");
 		options.put(TextUMLUIPlugin.SHOW_OP, "Show operations");
@@ -65,14 +64,12 @@ public class TextUMLPreferencePage extends PreferencePage implements
 		super(title, image);
 	}
 
-
-	
 	/**
 	 * Renders a human readable representation of the meta model contributors.
 	 */
 	class TableLabelProvider extends LabelProvider implements ITableLabelProvider {
 		public String getColumnText(Object element, int columnIndex) {
- 			return element.toString();
+			return element.toString();
 		}
 
 		public Image getColumnImage(Object element, int columnIndex) {
@@ -91,7 +88,7 @@ public class TextUMLPreferencePage extends PreferencePage implements
 
 		formatOnSaveCheckBox = new Button(editorOptions, SWT.CHECK);
 		formatOnSaveCheckBox.setText("Auto format on save");
-		
+
 		new Label(editorOptions, SWT.NONE);
 		final Label outlineLabel = new Label(editorOptions, SWT.NONE);
 		outlineLabel.setText("Outline options:");
@@ -100,24 +97,24 @@ public class TextUMLPreferencePage extends PreferencePage implements
 		checkboxTableViewer.setContentProvider(new ArrayContentProvider());
 		table = checkboxTableViewer.getTable();
 		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		
+
 		setupData();
-		
-		boolean formatOnSaveSetting = TextUMLUIPlugin.getDefault().getPluginPreferences().getBoolean(TextUMLUIPlugin.FORMAT_ON_SAVE);
+
+		boolean formatOnSaveSetting = TextUMLUIPlugin.getDefault().getPluginPreferences()
+		        .getBoolean(TextUMLUIPlugin.FORMAT_ON_SAVE);
 		formatOnSaveCheckBox.setSelection(formatOnSaveSetting);
-		
-		
+
 		return editorOptions;
 	}
-	
+
 	private void setupData() {
 		checkboxTableViewer.setInput(options.values());
 		checkboxTableViewer.setCheckedElements(findCheckedElements());
 	}
-	
+
 	private Object[] findCheckedElements() {
 		Preferences preferences = TextUMLUIPlugin.getDefault().getPluginPreferences();
-		String rawString  = preferences.getString(TextUMLUIPlugin.OPTIONS);
+		String rawString = preferences.getString(TextUMLUIPlugin.OPTIONS);
 		List a = new ArrayList();
 		if (isNotEmpty(rawString)) {
 			String[] selected = rawString.split(",");
@@ -127,41 +124,40 @@ public class TextUMLPreferencePage extends PreferencePage implements
 		}
 		return a.toArray();
 	}
-	
+
 	private boolean isNotEmpty(String rawString) {
 		return rawString != null && !rawString.equals("");
 	}
 
-
 	@Override
 	public boolean performOk() {
 		Preferences preferences = TextUMLUIPlugin.getDefault().getPluginPreferences();
-		boolean formatOnSaveSetting  = formatOnSaveCheckBox.getSelection();
+		boolean formatOnSaveSetting = formatOnSaveCheckBox.getSelection();
 		preferences.setValue(TextUMLUIPlugin.FORMAT_ON_SAVE, formatOnSaveSetting);
 		preferences.setValue(TextUMLUIPlugin.OPTIONS, createStoreString());
 		TextUMLUIPlugin.getDefault().savePluginPreferences();
 		return true;
 	}
-	
+
 	@Override
 	protected void performDefaults() {
 		Preferences preferences = TextUMLUIPlugin.getDefault().getPluginPreferences();
 		preferences.setToDefault(TextUMLUIPlugin.FORMAT_ON_SAVE);
 		super.performDefaults();
 	}
-	
+
 	@Override
 	public void init(IWorkbench workbench) {
 		//
 	}
-	
+
 	private String createStoreString() {
 		Object[] checkedElements = checkboxTableViewer.getCheckedElements();
 		String result = "";
 		for (int i = 0; i < checkedElements.length; i++) {
 			Object object = checkedElements[i];
-			if (object instanceof String && options.containsValue((String)object)) {
-				String key  = getKeyFromValue((String)object);
+			if (object instanceof String && options.containsValue((String) object)) {
+				String key = getKeyFromValue((String) object);
 				result += key;
 			}
 			if (i < checkedElements.length - 1) {
@@ -170,17 +166,17 @@ public class TextUMLPreferencePage extends PreferencePage implements
 		}
 		return result;
 	}
-	
-	 public String getKeyFromValue(String value){
-		    Set<String> ref = options.keySet();
-		    Iterator<String> it = ref.iterator();
-		    while (it.hasNext()) {
-		      String o = it.next(); 
-		      if(options.get(o).equals(value)) { 
-		        return o;
-		      } 
-		    } 
-		    return null;
-	  }
+
+	public String getKeyFromValue(String value) {
+		Set<String> ref = options.keySet();
+		Iterator<String> it = ref.iterator();
+		while (it.hasNext()) {
+			String o = it.next();
+			if (options.get(o).equals(value)) {
+				return o;
+			}
+		}
+		return null;
+	}
 
 }

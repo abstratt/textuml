@@ -47,13 +47,13 @@ public class NameReference {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	
+
 	public void setProperty(String name, Object value) {
 		if (properties == null)
 			properties = new HashMap<String, Object>();
 		properties.put(name, value);
 	}
-	
+
 	public Object getProperty(String name) {
 		return properties == null ? null : properties.get(name);
 	}

@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import org.eclipse.uml2.uml.Comment;
@@ -17,8 +17,7 @@ import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class CommentRenderer implements IEObjectRenderer<Comment> {
-	public boolean renderObject(Comment element, IndentedPrintWriter out,
-			IRenderingSession context) {
+	public boolean renderObject(Comment element, IndentedPrintWriter out, IRenderingSession context) {
 		out.print("(* ");
 		out.print(element.getBody().trim());
 		out.print(" *)");

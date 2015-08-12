@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -15,7 +15,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 public class TextUMLUIPlugin extends AbstractUIPlugin {
-	
+
 	public static final String FORMAT_ON_SAVE = "formatOnSave";
 	public static final String OPTIONS = "options";
 	public static final String SHOW_ATTR = "1";
@@ -38,36 +38,40 @@ public class TextUMLUIPlugin extends AbstractUIPlugin {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext
+	 * )
 	 */
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	 * @see
+	 * org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext
+	 * )
 	 */
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
 	}
-	
+
 	protected void initializeDefaultPluginPreferences() {
 		IPreferenceStore store = getPreferenceStore();
 		store.setDefault(FORMAT_ON_SAVE, false);
-		store.setDefault(OPTIONS, SHOW_ATTR+","+SHOW_OP+","+SHOW_DATATYPE+","+SHOW_DEPS);
+		store.setDefault(OPTIONS, SHOW_ATTR + "," + SHOW_OP + "," + SHOW_DATATYPE + "," + SHOW_DEPS);
 	}
-	
+
 	public boolean isPreferencePresentInEditorOptions(String preference) {
 		boolean result = false;
 		IPreferenceStore store = getPreferenceStore();
 		String rawString = store.getString(OPTIONS);
-		if(rawString != null && !rawString.equals("") && rawString.contains(preference)) {
+		if (rawString != null && !rawString.equals("") && rawString.contains(preference)) {
 			return true;
 		}
 		return result;

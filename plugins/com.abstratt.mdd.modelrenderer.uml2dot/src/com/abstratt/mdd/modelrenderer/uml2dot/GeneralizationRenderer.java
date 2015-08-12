@@ -32,7 +32,8 @@ public class GeneralizationRenderer extends AbstractRelationshipRenderer<General
 		DOTRenderingUtils.addAttribute(pw, "style", "none");
 		pw.exitLevel();
 		pw.println("]");
-		pw.println("\"" + element.getGeneral().getName()+"\":port" + " -- \"" + element.getSpecific().getName()+"\":port");
+		pw.println("\"" + element.getGeneral().getName() + "\":port" + " -- \"" + element.getSpecific().getName()
+		        + "\":port");
 		return true;
 	}
 

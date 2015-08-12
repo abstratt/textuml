@@ -13,7 +13,7 @@ import com.abstratt.mdd.core.IRepository;
  */
 public class NamespaceTracker {
 	private Stack<Namespace> namespaces = new Stack<Namespace>();
-	
+
 	/**
 	 * Returns the closest containing namespace that is an instance of the given
 	 * type. If the type is <code>null</code>, returns the closest containing
@@ -29,20 +29,17 @@ public class NamespaceTracker {
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Returns the closest containing package. 
-	 * Convenience method, packages is the kind of namespace most 
-	 * frequently referred to.
+	 * Returns the closest containing package. Convenience method, packages is
+	 * the kind of namespace most frequently referred to.
 	 */
 	public Package currentPackage() {
-		return (Package) currentNamespace(IRepository.PACKAGE
-				.getPackage());
+		return (Package) currentNamespace(IRepository.PACKAGE.getPackage());
 	}
 
-
 	public void enterNamespace(Namespace toEnter) {
-		namespaces.push(toEnter);		
+		namespaces.push(toEnter);
 	}
 
 	public Namespace leaveNamespace() {

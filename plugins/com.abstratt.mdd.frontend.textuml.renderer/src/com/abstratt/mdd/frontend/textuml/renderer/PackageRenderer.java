@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
@@ -28,17 +28,16 @@ import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
+
 /**
  * 
  */
 public class PackageRenderer implements IEObjectRenderer<Package> {
-	public boolean renderObject(Package package_, IndentedPrintWriter pw,
-			IRenderingSession context) {
+	public boolean renderObject(Package package_, IndentedPrintWriter pw, IRenderingSession context) {
 		renderPrologue(package_, pw, context);
 		pw.println();
 
-		List<ProfileApplication> profileApplications = package_
-				.getProfileApplications();
+		List<ProfileApplication> profileApplications = package_.getProfileApplications();
 		if (!profileApplications.isEmpty()) {
 			RenderingUtils.renderAll(context, profileApplications);
 			pw.println();
@@ -56,29 +55,26 @@ public class PackageRenderer implements IEObjectRenderer<Package> {
 			pw.println();
 		}
 
-		final Collection<Classifier> subPackages = EcoreUtil.getObjectsByType(
-				package_.getOwnedElements(), UMLPackage.Literals.PACKAGE);
+		final Collection<Classifier> subPackages = EcoreUtil.getObjectsByType(package_.getOwnedElements(),
+		        UMLPackage.Literals.PACKAGE);
 		RenderingUtils.renderAll(context, subPackages);
 
-		final Collection<Classifier> classifiers = EcoreUtil.getObjectsByType(
-				package_.getOwnedElements(), UMLPackage.Literals.CLASSIFIER);
+		final Collection<Classifier> classifiers = EcoreUtil.getObjectsByType(package_.getOwnedElements(),
+		        UMLPackage.Literals.CLASSIFIER);
 		RenderingUtils.renderAll(context, classifiers);
 
 		renderEpilogue(package_, pw, context);
 		return true;
 	}
 
-	public void renderPrologue(Package package_, IndentedPrintWriter pw,
-			IRenderingSession context) {
-		TextUMLRenderingUtils.renderStereotypeApplications(pw, package_);		
+	public void renderPrologue(Package package_, IndentedPrintWriter pw, IRenderingSession context) {
+		TextUMLRenderingUtils.renderStereotypeApplications(pw, package_);
 		RenderingUtils.renderAll(context, package_.getOwnedComments());
 		if (package_.getOwner() != null) {
-			pw.println(getPackageTypeName(package_) + " " + name(package_)
-					+ ";");
+			pw.println(getPackageTypeName(package_) + " " + name(package_) + ";");
 			pw.enterLevel();
 		} else
-			pw.println(getPackageTypeName(package_) + " "
-					+ qualifiedName(package_) + ";");
+			pw.println(getPackageTypeName(package_) + " " + qualifiedName(package_) + ";");
 	}
 
 	protected String getPackageTypeName(Package package_) {
@@ -86,7 +82,7 @@ public class PackageRenderer implements IEObjectRenderer<Package> {
 	}
 
 	public void renderEpilogue(Package package_, IndentedPrintWriter pw,
-			@SuppressWarnings("unused") IRenderingSession context) {
+	        @SuppressWarnings("unused") IRenderingSession context) {
 		if (package_.getOwner() != null)
 			pw.exitLevel();
 		pw.print("end");

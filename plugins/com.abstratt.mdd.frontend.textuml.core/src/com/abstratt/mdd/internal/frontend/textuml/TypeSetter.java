@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
@@ -30,7 +30,6 @@ import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
-import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAnySingleTypeIdentifier;
@@ -52,16 +51,16 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.TInteger;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TMult;
 
 /**
- * A node processor  that finds and resolves a  type identifier for a target typed element.
+ * A node processor that finds and resolves a type identifier for a target typed
+ * element.
  */
 public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<Node> {
 	class Visitor extends DepthFirstAdapter {
 
 		@Override
 		public void caseAAnySingleTypeIdentifier(AAnySingleTypeIdentifier node) {
-			final Type anyType =
-				(Type) getContext().getRepository().findNamedElement(TypeUtils.ANY_TYPE,
-								IRepository.PACKAGE.getType(), null);
+			final Type anyType = (Type) getContext().getRepository().findNamedElement(TypeUtils.ANY_TYPE,
+			        IRepository.PACKAGE.getType(), null);
 			if (anyType == null) {
 				problemBuilder.addProblem(new UnresolvedSymbol(TypeUtils.ANY_TYPE), node);
 				throw new AbortedStatementCompilationException();
@@ -74,20 +73,23 @@ public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<No
 				return;
 			// default multiplicities when not provided: [1,1]
 			MultiplicityElement multiplicityTarget = (MultiplicityElement) target;
-			multiplicityTarget.setLowerValue(MDDUtil.createLiteralUnlimitedNatural(getCurrentNamespace().getNearestPackage(), 1));
-			multiplicityTarget.setUpperValue(MDDUtil.createLiteralUnlimitedNatural(getCurrentNamespace().getNearestPackage(), 1));
+			multiplicityTarget.setLowerValue(MDDUtil.createLiteralUnlimitedNatural(getCurrentNamespace()
+			        .getNearestPackage(), 1));
+			multiplicityTarget.setUpperValue(MDDUtil.createLiteralUnlimitedNatural(getCurrentNamespace()
+			        .getNearestPackage(), 1));
 		}
 
 		@Override
 		public void caseAFunctionTypeIdentifier(AFunctionTypeIdentifier node) {
 			processMultiplicity(node.getOptionalMultiplicity());
 			final Type signature = MDDExtensionUtils.createSignature(getCurrentNamespace().getNearestPackage());
-			node.getFunctionSignature().apply(new SignatureProcessor(getSourceContext(), getCurrentNamespace(), true, true) {
-				@Override
-				protected Parameter createParameter(String name) {
-					return MDDExtensionUtils.createSignatureParameter(signature, name, null);
-				}
-			});
+			node.getFunctionSignature().apply(
+			        new SignatureProcessor(getSourceContext(), getCurrentNamespace(), true, true) {
+				        @Override
+				        protected Parameter createParameter(String name) {
+					        return MDDExtensionUtils.createSignatureParameter(signature, name, null);
+				        }
+			        });
 			setType(signature);
 			signature.setName(MDDUtil.computeSignatureName(signature));
 		}
@@ -99,14 +101,16 @@ public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<No
 			node.getTupleType().apply(new DepthFirstAdapter() {
 				@Override
 				public void caseATupleTypeSlot(ATupleTypeSlot node) {
-					String slotTypeIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(node.getTypeIdentifier());
+					String slotTypeIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(
+					        node.getTypeIdentifier());
 					String slotName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
 					slotNames.add(slotName);
 					Type slotType = resolveType(node.getTypeIdentifier(), slotTypeIdentifier);
 					slotTypes.add(slotType);
-				}			
-   			});
-			DataType found = DataTypeUtils.findOrCreateDataType(getCurrentNamespace().getNearestPackage(), slotNames, slotTypes);
+				}
+			});
+			DataType found = DataTypeUtils.findOrCreateDataType(getCurrentNamespace().getNearestPackage(), slotNames,
+			        slotTypes);
 			setType(found);
 		}
 
@@ -122,14 +126,15 @@ public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<No
 			Integer upperBound;
 			if (multiplicities.size() == 1) {
 				upperBound = multiplicities.get(0);
-				// if upper is unlimited, lower is 0 - otherwise, they are equal 
+				// if upper is unlimited, lower is 0 - otherwise, they are equal
 				lowerBound = upperBound == null ? 0 : upperBound;
 			} else {
 				lowerBound = multiplicities.get(0);
 				upperBound = multiplicities.get(1);
 				// validate multiplicity
 				if (compare(lowerBound, upperBound) > 0) {
-					problemBuilder.addError("Upper bound must be greater or equals to lower bound", node.getMultiplicitySpec());
+					problemBuilder.addError("Upper bound must be greater or equals to lower bound",
+					        node.getMultiplicitySpec());
 					return;
 				}
 			}
@@ -171,13 +176,13 @@ public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<No
 
 		@Override
 		public void caseAQualifiedSingleTypeIdentifier(AQualifiedSingleTypeIdentifier node) {
-			//super.caseAQualifiedSingleTypeIdentifier(node);
+			// super.caseAQualifiedSingleTypeIdentifier(node);
 			TemplateBindingProcessor<Classifier, Type> tbp = new TemplateBindingProcessor<Classifier, Type>();
 			tbp.process(node);
 			parameterIdentifiers = tbp.getParameterIdentifiers();
 			node.getMinimalTypeIdentifier().apply(this);
 		}
-		
+
 		@Override
 		public void caseAMinimalTypeIdentifier(AMinimalTypeIdentifier node) {
 			final String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(node);
@@ -185,20 +190,19 @@ public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<No
 			if (type != null)
 				setType(type);
 		}
-		
+
 		@Override
 		public void caseATypeIdentifier(ATypeIdentifier node) {
 			processMultiplicity(node.getOptionalMultiplicity());
 			node.getSingleTypeIdentifier().apply(this);
 		}
-		
-		
+
 		private void processMultiplicity(POptionalMultiplicity optionalMultiplicity) {
 			// processes multiplicities and bindings
 			if (optionalMultiplicity != null)
 				optionalMultiplicity.apply(this);
 			else
-				  createDefaultMultiplicity();
+				createDefaultMultiplicity();
 		}
 
 		public void caseTInteger(TInteger node) {
@@ -217,6 +221,7 @@ public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<No
 
 	protected List<Integer> multiplicities;
 	protected TypedElement target;
+
 	public TypeSetter(SourceCompilationContext<Node> sourceContext, Namespace currentNamespace, TypedElement target) {
 		super(sourceContext, currentNamespace);
 		this.target = target;
@@ -233,6 +238,6 @@ public class TypeSetter extends AbstractTypeResolver implements NodeProcessor<No
 	}
 
 	void setType(Type type) {
-	    this.target.setType(type);
+		this.target.setType(type);
 	}
 }

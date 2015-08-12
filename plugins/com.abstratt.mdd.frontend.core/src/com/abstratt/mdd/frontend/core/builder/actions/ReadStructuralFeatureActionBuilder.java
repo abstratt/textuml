@@ -8,8 +8,7 @@ import org.eclipse.uml2.uml.UMLPackage.Literals;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.builder.UML2ProductKind;
 
-public class ReadStructuralFeatureActionBuilder extends
-		ActionBuilder<ReadStructuralFeatureAction> {
+public class ReadStructuralFeatureActionBuilder extends ActionBuilder<ReadStructuralFeatureAction> {
 	private String featureName;
 	private ActionBuilder<?> targetBuilder;
 
@@ -21,7 +20,7 @@ public class ReadStructuralFeatureActionBuilder extends
 		this.featureName = featureName;
 		return this;
 	}
-	
+
 	@Override
 	public void enhanceAction() {
 		StructuralFeature feature = findNamedElement(featureName, Literals.STRUCTURAL_FEATURE);
@@ -31,19 +30,18 @@ public class ReadStructuralFeatureActionBuilder extends
 		final OutputPin result = getProduct().createResult(null, null);
 		TypeUtils.copyType(feature, result, getBoundElement());
 	}
-	
-	public ReadStructuralFeatureActionBuilder  target(
-			ActionBuilder<?> targetBuilder) {
+
+	public ReadStructuralFeatureActionBuilder target(ActionBuilder<?> targetBuilder) {
 		addSourceAction(targetBuilder);
 		this.targetBuilder = targetBuilder;
 		return this;
 	}
-	
+
 	@Override
 	protected boolean isProducer() {
 		return true;
 	}
-	
+
 	@Override
 	protected boolean isConsumer() {
 		return true;

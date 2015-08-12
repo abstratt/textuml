@@ -8,7 +8,7 @@
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
  *    Vladimir Sosnin - #2798455
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
@@ -28,8 +28,7 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class AssociationRenderer implements IEObjectRenderer<Association> {
 
-	public boolean renderObject(Association association,
-			IndentedPrintWriter writer, IRenderingSession context) {
+	public boolean renderObject(Association association, IndentedPrintWriter writer, IRenderingSession context) {
 		if (association instanceof Extension)
 			return false;
 		RenderingUtils.renderAll(context, association.getOwnedComments());
@@ -60,9 +59,8 @@ public class AssociationRenderer implements IEObjectRenderer<Association> {
 				continue;
 			RenderingUtils.renderAll(context, property.getOwnedComments());
 			writer.write("role ");
-			writer.write(TextUMLRenderingUtils.getQualifiedNameIfNeeded(
-					(NamedElement) property.getClass_(), association
-							.getNamespace()));
+			writer.write(TextUMLRenderingUtils.getQualifiedNameIfNeeded((NamedElement) property.getClass_(),
+			        association.getNamespace()));
 			writer.write(".");
 			writer.print(name(property));
 			writer.println(";");
@@ -76,8 +74,7 @@ public class AssociationRenderer implements IEObjectRenderer<Association> {
 			writer.write("role ");
 			writer.write((property.getName() == null || property.getName().length() == 0) ? "unnamed" : name(property));
 			writer.write(" : ");
-			writer.write(TextUMLRenderingUtils
-					.getQualifiedNameIfNeeded(property));
+			writer.write(TextUMLRenderingUtils.getQualifiedNameIfNeeded(property));
 			writer.println(";");
 		}
 		writer.exitLevel();

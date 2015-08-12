@@ -14,13 +14,12 @@ public abstract class ReferenceSetter<N extends NamedElement> extends DeferredRe
 	private UML2BuildContext context;
 	private NameReference nameReference;
 
-	public ReferenceSetter(NameReference reference,
-			Namespace currentNamespace, UML2BuildContext context) {
+	public ReferenceSetter(NameReference reference, Namespace currentNamespace, UML2BuildContext context) {
 		this(reference, currentNamespace, context, Step.GENERAL_RESOLUTION);
 	}
-	
-	public ReferenceSetter(NameReference reference,
-			Namespace currentNamespace, UML2BuildContext context, IReferenceTracker.Step step) {
+
+	public ReferenceSetter(NameReference reference, Namespace currentNamespace, UML2BuildContext context,
+	        IReferenceTracker.Step step) {
 		super(reference.getName(), reference.getElementType().getMetaClass(), currentNamespace);
 		this.context = context;
 		this.nameReference = reference;
@@ -38,6 +37,6 @@ public abstract class ReferenceSetter<N extends NamedElement> extends DeferredRe
 		}
 		link((N) element);
 	}
-	
+
 	protected abstract void link(N found);
 }

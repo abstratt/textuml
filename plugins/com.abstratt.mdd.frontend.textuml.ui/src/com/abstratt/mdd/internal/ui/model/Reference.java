@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import org.eclipse.swt.graphics.Image;
@@ -24,12 +24,12 @@ import com.abstratt.mdd.ui.Activator;
 import com.abstratt.mdd.ui.UIConstants;
 
 public class Reference extends LeafModelObject {
-	
+
 	private PReferenceType type;
 
 	public Reference(UIModelObject parent, ASTNode<Token, Node> node) {
 		super(parent, node);
-		this.type = ((AReferenceDecl) node.getBaseNode()).getReferenceType(); 
+		this.type = ((AReferenceDecl) node.getBaseNode()).getReferenceType();
 	}
 
 	@Override

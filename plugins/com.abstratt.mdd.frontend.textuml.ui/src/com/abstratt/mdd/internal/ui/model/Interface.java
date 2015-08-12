@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import java.util.Collections;
@@ -34,7 +34,7 @@ public class Interface extends UIModelObject {
 	}
 
 	// protected org.eclipse.uml2.uml.Class getClass_() {
-	//		
+	//
 	// }
 
 	@Override
@@ -44,8 +44,7 @@ public class Interface extends UIModelObject {
 
 	@Override
 	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(
-				UIConstants.ICON_INTERFACE);
+		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_INTERFACE);
 	}
 
 	private AClassDef getModel() {

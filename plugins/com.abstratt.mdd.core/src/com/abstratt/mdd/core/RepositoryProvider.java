@@ -12,19 +12,22 @@ public class RepositoryProvider implements ResourceProvider<RepositoryKey> {
 	public Class<RepositoryKey> getTarget() {
 		return RepositoryKey.class;
 	}
+
 	@Override
 	public Class<?>[] getProvidedFeatureTypes() {
-		return new Class<?>[]{IRepository.class, CacheHolder.class};
+		return new Class<?>[] { IRepository.class, CacheHolder.class };
 	}
+
 	@Override
 	public Class<?>[] getRequiredFeatureTypes() {
 		return new Class<?>[0];
 	}
+
 	@Override
 	public void initFeatures(Resource<?> resource) {
 		// already done on load
 	}
-	
+
 	@Override
 	public void loadResource(Resource<RepositoryKey> resource) throws ResourceException {
 		try {
@@ -39,19 +42,19 @@ public class RepositoryProvider implements ResourceProvider<RepositoryKey> {
 		}
 		System.out.println("Loaded " + resource.getId());
 	}
-	
+
 	@Override
 	public void activateContext(Resource<?> resource) {
 		CacheHolder cacheHolder = resource.getFeature(CacheHolder.class);
 		CacheAdapterManager.restore(cacheHolder);
 	}
-	
+
 	@Override
 	public void deactivateContext(Resource<?> resource, boolean success) {
 		// ensure no one else tries to use the same cache adapter
 		CacheAdapterManager.remove();
 	}
-	
+
 	@Override
 	public void disposeResource(Resource<RepositoryKey> resource) {
 		if (!resource.isValid())

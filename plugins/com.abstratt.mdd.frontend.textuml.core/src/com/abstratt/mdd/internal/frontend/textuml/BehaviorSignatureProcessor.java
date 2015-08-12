@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import org.eclipse.uml2.uml.Behavior;
@@ -25,9 +25,9 @@ class BehaviorSignatureProcessor extends SignatureProcessor {
 		Parameter parameter = ((Behavior) parent).createOwnedParameter(name, null);
 		return parameter;
 	}
-	
+
 	@Override
 	protected Namespace getBaseLookupNamespace() {
-	    return parent;
+		return parent;
 	}
 }

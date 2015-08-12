@@ -5,7 +5,7 @@ import com.abstratt.mdd.core.Problem;
 public class CannotLoadFromLocation extends Problem {
 
 	private String uri;
-	
+
 	public CannotLoadFromLocation(String uri) {
 		super(Severity.ERROR);
 		this.uri = uri;

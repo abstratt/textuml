@@ -13,6 +13,7 @@ public class ClassifierBuilderTests extends AbstractElementBuilderTests {
 	public ClassifierBuilderTests(String name) {
 		super(name);
 	}
+
 	public void testClassInPackage() {
 		PackageBuilder packageBuilder = new UML2BuilderFactory().newBuilder(UML2ProductKind.PACKAGE);
 		ClassifierBuilder classBuilder = packageBuilder.newClassifier(UML2ProductKind.CLASS);
@@ -23,7 +24,7 @@ public class ClassifierBuilderTests extends AbstractElementBuilderTests {
 		assertEquals("myClass", product.getName());
 		assertNull(product.getNearestPackage());
 	}
-	
+
 	public void testStereotype() {
 		PackageBuilder packageBuilder = new UML2BuilderFactory().newBuilder(UML2ProductKind.PACKAGE);
 		ClassifierBuilder stereotypeBuilder = packageBuilder.newClassifier(UML2ProductKind.STEREOTYPE);
@@ -34,7 +35,7 @@ public class ClassifierBuilderTests extends AbstractElementBuilderTests {
 		assertEquals("myStereotype", product.getName());
 		assertNull(product.getNearestPackage());
 	}
-	
+
 	public void testStandaloneClass() {
 		ClassifierBuilder classBuilder = new UML2BuilderFactory().newBuilder(UML2ProductKind.CLASS);
 		classBuilder.name("myClass");
@@ -47,17 +48,17 @@ public class ClassifierBuilderTests extends AbstractElementBuilderTests {
 	public void testSpecialize() {
 		PackageBuilder packageBuilder = new UML2BuilderFactory().newBuilder(UML2ProductKind.PACKAGE);
 		packageBuilder.name("mypackage");
-		ClassifierBuilder subClassBuilder = packageBuilder.newClassifier(UML2ProductKind.CLASS).specialize("myBaseClass");
+		ClassifierBuilder subClassBuilder = packageBuilder.newClassifier(UML2ProductKind.CLASS).specialize(
+		        "myBaseClass");
 		subClassBuilder.name("myClass");
 		ClassifierBuilder superClassBuilder = packageBuilder.newClassifier(UML2ProductKind.CLASS);
 		superClassBuilder.name("myBaseClass");
-		
+
 		new UML2ModelBuildDriver().build(buildContext, packageBuilder);
 		assertNotNull(subClassBuilder.getProduct());
 		assertNotNull(superClassBuilder.getProduct());
 		assertTrue(subClassBuilder.getProduct().getGenerals().contains(superClassBuilder.getProduct()));
 	}
-
 
 	public void testImplement() {
 		PackageBuilder packageBuilder = new UML2BuilderFactory().newBuilder(UML2ProductKind.PACKAGE);
@@ -66,12 +67,12 @@ public class ClassifierBuilderTests extends AbstractElementBuilderTests {
 		classBuilder.name("myClass");
 		ClassifierBuilder interfaceBuilder = packageBuilder.newClassifier(UML2ProductKind.INTERFACE);
 		interfaceBuilder.name("myInterface");
-		
+
 		new UML2ModelBuildDriver().build(buildContext, packageBuilder);
 		assertNotNull(classBuilder.getProduct());
 		assertNotNull(interfaceBuilder.getProduct());
-		assertTrue(((BehavioredClassifier) classBuilder.getProduct()).getAllImplementedInterfaces().contains(interfaceBuilder.getProduct()));
+		assertTrue(((BehavioredClassifier) classBuilder.getProduct()).getAllImplementedInterfaces().contains(
+		        interfaceBuilder.getProduct()));
 	}
 
-	
 }

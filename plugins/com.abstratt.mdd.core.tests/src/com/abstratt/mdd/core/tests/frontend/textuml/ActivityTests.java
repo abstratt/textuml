@@ -39,7 +39,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 	public ActivityTests(String name) {
 		super(name);
 	}
-	
+
 	static String structure = "";
 
 	static {
@@ -48,7 +48,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		structure += "  class SomeException end;\n";
 		structure += "  class SimpleClass\n";
 		structure += "    operation foo();\n";
-		structure += "    operation realOp() : Double;\n";		
+		structure += "    operation realOp() : Double;\n";
 		structure += "    operation fred();\n";
 		structure += "    operation bar(arg1 : Integer, arg2 : Boolean);\n";
 		structure += "    operation zar(arg1 : Integer) : Integer raises SomeException;\n";
@@ -64,7 +64,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 	public void testBasicStructure() throws CoreException {
 		parseAndCheck(structure);
 	}
-	
+
 	public void testCallExternalOperation() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -90,7 +90,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(structure, source);
 	}
-	
+
 	public void testCallOperationOnMultipleObject() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -120,7 +120,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(structure, source);
 	}
-	
+
 	public void testReferenceToContextualVariable() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -134,7 +134,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		IProblem[] problems = parse(structure, source);
 		FixtureHelper.assertCompilationSuccessful(problems);
 	}
-	
+
 	public void testCreateObject() throws CoreException {
 		String source2 = "";
 		source2 += "package simple::pack1;\n";
@@ -168,9 +168,8 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Operation operation =
-						(Operation) getRepository().findNamedElement("simple::MyClass::foo",
-										IRepository.PACKAGE.getOperation(), null);
+		Operation operation = (Operation) getRepository().findNamedElement("simple::MyClass::foo",
+		        IRepository.PACKAGE.getOperation(), null);
 		assertNotNull(operation);
 		StructuredActivityNode rootNode = ActivityUtils.getRootAction(operation);
 		ValueSpecificationAction found = null;
@@ -195,7 +194,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(structure, source);
 	}
-	
+
 	public void testCannotReturnWithoutReturnType() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -209,7 +208,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		IProblem[] problems = parse(source);
 		assertExpectedProblem(ReturnValueNotExpected.class, problems);
 	}
-	
+
 	public void testReturnRequiresAValue() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -238,7 +237,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		IProblem[] problems = parse(source);
 		assertExpectedProblem(ReturnStatementRequired.class, problems);
 	}
-	
+
 	public void testIf() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -297,7 +296,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(source);
 	}
-	
+
 	public void testRealLiteralValue() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -311,7 +310,6 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(source);
 	}
-
 
 	public void testOperationRaisingDeclaredException() throws CoreException {
 		String source;
@@ -353,7 +351,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(source);
 	}
-	
+
 	public void testMultipleResult() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -366,20 +364,19 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		source += "end;\n";
 		source += "end.";
 		parseAndCheck(source);
-		Operation operation =
-			(Operation) getRepository().findNamedElement("simple::MyClass::op1",
-							IRepository.PACKAGE.getOperation(), null);
+		Operation operation = (Operation) getRepository().findNamedElement("simple::MyClass::op1",
+		        IRepository.PACKAGE.getOperation(), null);
 		Activity activity = ActivityUtils.getActivity(operation);
 		assertNotNull(activity);
 		StructuredActivityNode bodyNode = ActivityUtils.getBodyNode(activity);
 		assertNotNull(bodyNode);
 		Variable returnValue = ActivityUtils.findVariable(bodyNode, "");
-        assertNotNull(returnValue);
-        assertEquals("Integer", returnValue.getType().getName());
-        assertEquals(0, returnValue.getLower());
-        assertEquals(LiteralUnlimitedNatural.UNLIMITED, returnValue.getUpper());
+		assertNotNull(returnValue);
+		assertEquals("Integer", returnValue.getType().getName());
+		assertEquals(0, returnValue.getLower());
+		assertEquals(LiteralUnlimitedNatural.UNLIMITED, returnValue.getUpper());
 	}
-	
+
 	public void testReadAttributeOnMultipleObject() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -399,7 +396,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		UnknownAttribute unknownAttribute = assertExpectedProblem(UnknownAttribute.class, problems);
 		assertEquals("Set<RelatedClass>", unknownAttribute.getClassifier());
 	}
-	
+
 	public void testTraverseRelationshipOnMultipleObjectImplicitRole() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -421,7 +418,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		IProblem[] problems = parse(source);
 		assertExpectedProblem(UnknownRole.class, problems);
 	}
-	
+
 	public void testTraverseRelationshipOnMultipleObject() throws CoreException {
 		String source;
 		source = "model simple;\n";
@@ -451,7 +448,6 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 		IProblem[] problems = parse(source);
 		assertExpectedProblem(NotInAssociation.class, problems);
 	}
-
 
 	public void testReadClassAttribute() throws CoreException {
 		String source;
@@ -571,60 +567,62 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
 	}
 
 	public void testWriteConstant() throws CoreException {
-		// TODO for now we allow this 
-		// "The semantics is undefined for adding a new value for a structural feature with 
+		// TODO for now we allow this
+		// "The semantics is undefined for adding a new value for a structural
+		// feature with
 		// isReadonly=true after initialization of the owning object."
-		
-		
-//		String source;
-//		source = "model simple;\n";
-//		source += "operation SimpleClass.fred;\n";
-//		source += "begin\n";
-//		source += "  var local : Integer;\n";
-//		source += "  SimpleClass#K := 10;\n";
-//		source += "end;\n";
-//		source += "end.";
-//		IProblem[] problems = compile(structure, source);
-//		// can't assign to a constant
-//		assertEquals(Arrays.asList(problems).toString(), 1, problems.length);
+
+		// String source;
+		// source = "model simple;\n";
+		// source += "operation SimpleClass.fred;\n";
+		// source += "begin\n";
+		// source += "  var local : Integer;\n";
+		// source += "  SimpleClass#K := 10;\n";
+		// source += "end;\n";
+		// source += "end.";
+		// IProblem[] problems = compile(structure, source);
+		// // can't assign to a constant
+		// assertEquals(Arrays.asList(problems).toString(), 1, problems.length);
 	}
-	
-   public void testTryCatch() throws CoreException {
-        String source;
+
+	public void testTryCatch() throws CoreException {
+		String source;
 		source = "model simple;\n";
 		source += "import base;\n";
 		source += "class MyClass\n";
-        source += "query returnsInteger() : Integer;\n";
-        source += "begin\n";
-        source += "  try \n";
-        source += "      raise 1;\n";
-        source += "  catch (b : Integer)\n";
-        source += "      return 1;\n";
-        source += "  end;\n";        
-        source += "end;\n";
-        source += "end;\n";
-        source += "end.";
-        IProblem[] problems = compile(source);
-        assertEquals(Arrays.asList(problems).toString(), 0, problems.length);
-    }
-   public void testTryFinally() throws CoreException {
-       String source;
-       source = "model simple;\n";
-       source += "operation SimpleClass.foo;\n";
-       source += "begin\n";
-       source += "  try \n";
-       source += "      raise 1;\n";
-       source += "  finally\n";       
-       source += "      return 1;\n";
-       source += "  end;\n";        
-       source += "end;\n";
-       source += "end.";
-       IProblem[] problems = compile(structure, source);
-       assertEquals(Arrays.asList(problems).toString(), 1, problems.length);
-       // warning expected as the method does not declare it raises Integer objects as exceptions
-       assertEquals(problems[0].getMessage(), IProblem.Severity.WARNING, problems[0].getSeverity());
-   }
-   
+		source += "query returnsInteger() : Integer;\n";
+		source += "begin\n";
+		source += "  try \n";
+		source += "      raise 1;\n";
+		source += "  catch (b : Integer)\n";
+		source += "      return 1;\n";
+		source += "  end;\n";
+		source += "end;\n";
+		source += "end;\n";
+		source += "end.";
+		IProblem[] problems = compile(source);
+		assertEquals(Arrays.asList(problems).toString(), 0, problems.length);
+	}
+
+	public void testTryFinally() throws CoreException {
+		String source;
+		source = "model simple;\n";
+		source += "operation SimpleClass.foo;\n";
+		source += "begin\n";
+		source += "  try \n";
+		source += "      raise 1;\n";
+		source += "  finally\n";
+		source += "      return 1;\n";
+		source += "  end;\n";
+		source += "end;\n";
+		source += "end.";
+		IProblem[] problems = compile(structure, source);
+		assertEquals(Arrays.asList(problems).toString(), 1, problems.length);
+		// warning expected as the method does not declare it raises Integer
+		// objects as exceptions
+		assertEquals(problems[0].getMessage(), IProblem.Severity.WARNING, problems[0].getSeverity());
+	}
+
 	public void testLinkUnlink() throws CoreException {
 		String source = "";
 		source += "model simple;\n";

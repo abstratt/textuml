@@ -7,9 +7,8 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui;
-
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -60,7 +59,9 @@ public class NewProjectWizardPage extends WizardPage {
 				IPath projectPath = new Path(getProjectName().trim());
 				boolean isValid = false;
 				setMessage(null);
-				if (projectPath.segmentCount() != 1 || !ResourcesPlugin.getWorkspace().validateName(projectPath.segment(0), IResource.PROJECT).isOK())
+				if (projectPath.segmentCount() != 1
+				        || !ResourcesPlugin.getWorkspace().validateName(projectPath.segment(0), IResource.PROJECT)
+				                .isOK())
 					setMessage("Enter a valid project name", ERROR);
 				else if (ResourcesPlugin.getWorkspace().getRoot().getProject(projectPath.segment(0)).exists())
 					setMessage("A project with that name already exists", ERROR);

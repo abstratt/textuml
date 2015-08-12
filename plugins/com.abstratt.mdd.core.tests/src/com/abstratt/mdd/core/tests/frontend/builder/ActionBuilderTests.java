@@ -18,6 +18,7 @@ public class ActionBuilderTests extends AbstractElementBuilderTests {
 	public ActionBuilderTests(String name) {
 		super(name);
 	}
+
 	public void testBasicActivity() {
 		PackageBuilder packageBuilder = new UML2BuilderFactory().newBuilder(UML2ProductKind.PACKAGE);
 		packageBuilder.name("myPackage");

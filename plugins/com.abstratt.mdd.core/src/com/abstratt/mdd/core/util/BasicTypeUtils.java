@@ -14,20 +14,22 @@ public class BasicTypeUtils {
 	private static interface Converter {
 		public Object convert(String value);
 	}
-	
+
 	private final static Map<String, Converter> converters = new HashMap<String, Converter>();
 	private static final Converter NOOP_CONVERTER = value -> value;
-	
+
 	static {
-        converters.put("Integer", value -> Long.valueOf(value));
-        converters.put("Double", value -> Double.valueOf(value));
-        converters.put("Boolean", value -> Boolean.valueOf(value));
-        converters.put("Date", value -> new Date(Long.valueOf(value)));
-        converters.put("Blob", value -> { throw new UnsupportedOperationException(); });        
-        converters.put("Memo", NOOP_CONVERTER);
-        converters.put("String", NOOP_CONVERTER);
+		converters.put("Integer", value -> Long.valueOf(value));
+		converters.put("Double", value -> Double.valueOf(value));
+		converters.put("Boolean", value -> Boolean.valueOf(value));
+		converters.put("Date", value -> new Date(Long.valueOf(value)));
+		converters.put("Blob", value -> {
+			throw new UnsupportedOperationException();
+		});
+		converters.put("Memo", NOOP_CONVERTER);
+		converters.put("String", NOOP_CONVERTER);
 	}
-	
+
 	public static Object buildBasicValue(Type basicType, String value) {
 		return findConverter(basicType).convert(value);
 	}
@@ -41,10 +43,10 @@ public class BasicTypeUtils {
 		String typeKey = toCheck.getName();
 		return converters.containsKey(typeKey);
 	}
-	
+
 	public static Classifier findBuiltInType(String typeName) {
-		Classifier builtInType = MDDCore.getInProgressRepository().findNamedElement(
-				TypeUtils.makeTypeName(typeName), IRepository.PACKAGE.getType(), null);
+		Classifier builtInType = MDDCore.getInProgressRepository().findNamedElement(TypeUtils.makeTypeName(typeName),
+		        IRepository.PACKAGE.getType(), null);
 		return builtInType;
 	}
 }

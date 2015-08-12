@@ -21,7 +21,8 @@ public interface ICompiler {
 	public void compile(Reader source, CompilationContext context) throws CoreException;
 
 	/**
-	 * Optional. 
+	 * Optional.
+	 * 
 	 * @param toParse
 	 * @return
 	 * @throws UnsupportedOperationException

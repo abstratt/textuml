@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui;
 
 import java.lang.ref.SoftReference;
@@ -31,16 +31,18 @@ import com.abstratt.mdd.core.MDDCore;
 public class RepositoryCache {
 
 	private static volatile long workspaceGeneration = 0;
-	
+
 	private static class LocalCache {
 		private long localVersion;
 		private Map<String, SoftReference<IRepository>> cachedReferences = new HashMap<String, SoftReference<IRepository>>();
+
 		public IRepository getRepository(URI repositoryBaseURI) throws CoreException {
 			if (localVersion != workspaceGeneration) {
-				Collection<SoftReference<IRepository>> toDispose = new ArrayList<SoftReference<IRepository>>(cachedReferences.values());
+				Collection<SoftReference<IRepository>> toDispose = new ArrayList<SoftReference<IRepository>>(
+				        cachedReferences.values());
 				cachedReferences.clear();
 				localVersion = workspaceGeneration;
-				//TODO this could be done in the background
+				// TODO this could be done in the background
 				for (SoftReference<IRepository> current : toDispose) {
 					IRepository repo = current.get();
 					if (repo != null)
@@ -56,32 +58,33 @@ public class RepositoryCache {
 			return repository;
 		}
 	}
+
 	// a thread-safe cache of repositories
 	private static final ThreadLocal<LocalCache> repositoryCache = new ThreadLocal<LocalCache>() {
 		protected LocalCache initialValue() {
 			return new LocalCache();
 		}
 	};
-	
+
 	private static RepositoryCache instance = new RepositoryCache();
-	
+
 	public static RepositoryCache getInstance() {
 		return instance;
 	}
-	
+
 	public void start() {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(new IResourceChangeListener() {
-			
+
 			public void resourceChanged(IResourceChangeEvent event) {
 				workspaceGeneration++;
 			}
 		});
 	}
-	
-    public void stop() {
-		
+
+	public void stop() {
+
 	}
-	
+
 	/**
 	 * Returns a thread-local shared copy of a repository.
 	 * 

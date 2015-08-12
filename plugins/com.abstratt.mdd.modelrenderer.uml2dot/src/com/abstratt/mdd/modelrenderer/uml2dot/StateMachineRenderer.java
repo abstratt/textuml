@@ -9,25 +9,25 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class StateMachineRenderer implements IElementRenderer<StateMachine> {
-    @Override
-    public boolean renderObject(StateMachine element, IndentedPrintWriter out, IRenderingSession session) {
-        boolean shouldRender = session.getSettings().getBoolean(SHOW_STATEMACHINES);
-        if (!shouldRender)
-            return false;
-        out.println("compound = true;");
-        out.println("subgraph \"cluster_"+ element.getName() + "\" {");
-        out.enterLevel();
-        out.println("graph[");
-        out.enterLevel();
-        out.println("style=\"rounded, dashed\";");
-        out.exitLevel();
-        out.println("];");
-        out.println("label = \""+ element.getQualifiedName() + "\";");
-        out.println("labeljust = \"l\";");
-        out.println("fontcolor = \"grey\";");
-        RenderingUtils.renderAll(session, element.getRegions());
-        out.exitLevel();
-        out.println("}");
-        return true; 
-    }
+	@Override
+	public boolean renderObject(StateMachine element, IndentedPrintWriter out, IRenderingSession session) {
+		boolean shouldRender = session.getSettings().getBoolean(SHOW_STATEMACHINES);
+		if (!shouldRender)
+			return false;
+		out.println("compound = true;");
+		out.println("subgraph \"cluster_" + element.getName() + "\" {");
+		out.enterLevel();
+		out.println("graph[");
+		out.enterLevel();
+		out.println("style=\"rounded, dashed\";");
+		out.exitLevel();
+		out.println("];");
+		out.println("label = \"" + element.getQualifiedName() + "\";");
+		out.println("labeljust = \"l\";");
+		out.println("fontcolor = \"grey\";");
+		RenderingUtils.renderAll(session, element.getRegions());
+		out.exitLevel();
+		out.println("}");
+		return true;
+	}
 }

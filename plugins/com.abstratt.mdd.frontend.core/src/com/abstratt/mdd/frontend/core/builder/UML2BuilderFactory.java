@@ -5,9 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.uml2.uml.Element;
 
-
 public class UML2BuilderFactory {
-	
+
 	public <B extends ElementBuilder<? extends Element>> B newBuilder(UML2ProductKind kind) {
 		Class<B> builderClass = (Class<B>) kind.getBuilderClass();
 		if (builderClass == null)
@@ -15,10 +14,10 @@ public class UML2BuilderFactory {
 		try {
 			Constructor<B> constructor = null;
 			try {
-				constructor  = builderClass.getConstructor(UML2ProductKind.class);
+				constructor = builderClass.getConstructor(UML2ProductKind.class);
 				return constructor.newInstance(kind);
 			} catch (NoSuchMethodException e) {
-				constructor  = builderClass.getConstructor();
+				constructor = builderClass.getConstructor();
 				return constructor.newInstance();
 			}
 		} catch (InstantiationException e) {

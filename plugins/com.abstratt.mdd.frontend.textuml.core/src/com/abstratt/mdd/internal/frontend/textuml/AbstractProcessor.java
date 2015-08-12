@@ -10,8 +10,7 @@ import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
-public abstract class AbstractProcessor<N, S extends Namespace> extends DepthFirstAdapter implements
-		NodeProcessor<N> {
+public abstract class AbstractProcessor<N, S extends Namespace> extends DepthFirstAdapter implements NodeProcessor<N> {
 
 	protected S namespace;
 	protected SourceCompilationContext<Node> sourceContext;
@@ -21,8 +20,7 @@ public abstract class AbstractProcessor<N, S extends Namespace> extends DepthFir
 	protected ProblemBuilder<Node> problemBuilder;
 	protected IRepository repository;
 
-	public AbstractProcessor(SourceCompilationContext<Node> sourceContext,
-			S namespace) {
+	public AbstractProcessor(SourceCompilationContext<Node> sourceContext, S namespace) {
 		this.sourceContext = sourceContext;
 		this.namespace = namespace;
 		this.namespaceTracker = sourceContext.getNamespaceTracker();

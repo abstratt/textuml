@@ -28,7 +28,7 @@ import com.abstratt.mdd.frontend.core.spi.IActivityBuilder;
 public abstract class ActionBuilder<A extends Action> extends ElementBuilder<A> {
 
 	private EClass eClass;
-	
+
 	public ActionBuilder(EClass actionClass) {
 		super(UML2ProductKind.forClass(actionClass));
 		this.eClass = actionClass;
@@ -39,12 +39,11 @@ public abstract class ActionBuilder<A extends Action> extends ElementBuilder<A> 
 		this.eClass = kind.getMetaClass();
 	}
 
-	protected void addSourceAction(ActionBuilder<?> sourceAction)
-	{
+	protected void addSourceAction(ActionBuilder<?> sourceAction) {
 		ensureSourceAction(sourceAction);
 		sourceAction.addDependency(this);
 	}
-	
+
 	protected void ensureSourceAction(ActionBuilder<?> sourceAction) {
 		Assert.isLegal(sourceAction.isProducer(), sourceAction.getClass().getName());
 	}
@@ -60,8 +59,10 @@ public abstract class ActionBuilder<A extends Action> extends ElementBuilder<A> 
 		super.enhance();
 		try {
 			enhanceAction();
-			Assert.isTrue(isProducer() != getProduct().getOutputs().isEmpty(), getProduct().getClass().getName() + " has " + getProduct().getOutputs().size() + " outputs");
-			Assert.isTrue(isConsumer() != getProduct().getInputs().isEmpty(), getProduct().getClass().getName() + " has " + getProduct().getInputs().size() + " inputs");
+			Assert.isTrue(isProducer() != getProduct().getOutputs().isEmpty(), getProduct().getClass().getName()
+			        + " has " + getProduct().getOutputs().size() + " outputs");
+			Assert.isTrue(isConsumer() != getProduct().getInputs().isEmpty(), getProduct().getClass().getName()
+			        + " has " + getProduct().getInputs().size() + " inputs");
 		} finally {
 			completeAction();
 		}
@@ -74,26 +75,23 @@ public abstract class ActionBuilder<A extends Action> extends ElementBuilder<A> 
 	}
 
 	private void checkIncomings(TemplateableElement bound) {
-		ObjectFlow incompatible = TypeUtils.checkCompatibility(getContext()
-				.getRepository(), getProduct(), bound);
+		ObjectFlow incompatible = TypeUtils.checkCompatibility(getContext().getRepository(), getProduct(), bound);
 		if (incompatible == null)
 			return;
 		final ObjectNode target = ((ObjectNode) incompatible.getTarget());
 		final ObjectNode source = ((ObjectNode) incompatible.getSource());
 		getContext().getProblemTracker().add(
-				new TypeMismatch(MDDUtil.getDisplayName(target), MDDUtil
-						.getDisplayName(source)));
+		        new TypeMismatch(MDDUtil.getDisplayName(target), MDDUtil.getDisplayName(source)));
 	}
 
 	protected TemplateableElement getBoundElement() {
-		Activity currentActivity = activityBuilder()
-				.getCurrentActivity();
-		return (Class) MDDUtil.getNearest(currentActivity.getOwner(), IRepository.PACKAGE
-				.getClass_());
+		Activity currentActivity = activityBuilder().getCurrentActivity();
+		return (Class) MDDUtil.getNearest(currentActivity.getOwner(), IRepository.PACKAGE.getClass_());
 	}
 
 	/**
-	 * Completes building of the product element, creating I/O pins and setting properties. 
+	 * Completes building of the product element, creating I/O pins and setting
+	 * properties.
 	 * 
 	 * Subclasses to implement.
 	 */
@@ -116,91 +114,103 @@ public abstract class ActionBuilder<A extends Action> extends ElementBuilder<A> 
 	}
 
 	public ReadStructuralFeatureActionBuilder readStructuralFeature(String featureName, ActionBuilder<?> target) {
-		ReadStructuralFeatureActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(UML2ProductKind.READ_STRUCTURAL_FEATURE_ACTION);
+		ReadStructuralFeatureActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(
+		        UML2ProductKind.READ_STRUCTURAL_FEATURE_ACTION);
 		return child.structuralFeature(featureName).target(target);
 	}
-	
+
 	public CallOperationActionBuilder callOperation(String featureName, ActionBuilder<?> objectBuilder) {
-		CallOperationActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(UML2ProductKind.CALL_OPERATION_ACTION);
+		CallOperationActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(
+		        UML2ProductKind.CALL_OPERATION_ACTION);
 		return child.operation(featureName).target(objectBuilder);
 	}
-	
-	public AddStructuralFeatureValueActionBuilder writeStructuralFeature(
-			String featureName, ActionBuilder<?> target, ActionBuilder<?> value) {
-		AddStructuralFeatureValueActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(UML2ProductKind.ADD_STRUCTURAL_FEATURE_VALUE_ACTION);
+
+	public AddStructuralFeatureValueActionBuilder writeStructuralFeature(String featureName, ActionBuilder<?> target,
+	        ActionBuilder<?> value) {
+		AddStructuralFeatureValueActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(
+		        UML2ProductKind.ADD_STRUCTURAL_FEATURE_VALUE_ACTION);
 		return child.structuralFeature(featureName).replace(true).target(target).value(value);
 	}
-	
-	public ReadVariableActionBuilder readVariable(
-			final String variableName) {
-		ReadVariableActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(UML2ProductKind.READ_VARIABLE_ACTION);
+
+	public ReadVariableActionBuilder readVariable(final String variableName) {
+		ReadVariableActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(
+		        UML2ProductKind.READ_VARIABLE_ACTION);
 		return child.variable(variableName);
 	}
 
-	public AddVariableValueActionBuilder writeVariable(
-			final String variableName, ActionBuilder<?> value) {
+	public AddVariableValueActionBuilder writeVariable(final String variableName, ActionBuilder<?> value) {
 		return addVariable(variableName, true, value, null);
 	}
 
-	public AddVariableValueActionBuilder addVariable(
-			final String variableName, final boolean replace,
-			final ActionBuilder<?> valueBuilder, final ActionBuilder<?> at) {
-		AddVariableValueActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(UML2ProductKind.ADD_VARIABLE_VALUE_ACTION);
+	public AddVariableValueActionBuilder addVariable(final String variableName, final boolean replace,
+	        final ActionBuilder<?> valueBuilder, final ActionBuilder<?> at) {
+		AddVariableValueActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(
+		        UML2ProductKind.ADD_VARIABLE_VALUE_ACTION);
 		return child.variable(variableName).replace(true).value(valueBuilder);
 	}
-	
+
 	public ValueSpecificationActionBuilder value(ValueSpecificationBuilder<?> valueBuilder) {
-		ValueSpecificationActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(UML2ProductKind.VALUE_SPECIFICATION_ACTION);
+		ValueSpecificationActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(
+		        UML2ProductKind.VALUE_SPECIFICATION_ACTION);
 		return child.value(valueBuilder);
 	}
-	
+
 	/**
-	 * Subclasses must invoke this method on each input pin passing the corresponding value action builder.
+	 * Subclasses must invoke this method on each input pin passing the
+	 * corresponding value action builder.
 	 * 
-	 * @param input an input pin
-	 * @param inputValueBuilder the corresponding value bulder
+	 * @param input
+	 *            an input pin
+	 * @param inputValueBuilder
+	 *            the corresponding value bulder
 	 */
 	protected void buildSource(InputPin input, ActionBuilder<?> inputValueBuilder) {
 		if (inputValueBuilder.getProduct() == null)
 			inputValueBuilder.build();
-		ActivityUtils.connect(getProduct().getInStructuredNode(), ActivityUtils.getActionOutputs(inputValueBuilder.getProduct()).get(0), input);	
+		ActivityUtils.connect(getProduct().getInStructuredNode(),
+		        ActivityUtils.getActionOutputs(inputValueBuilder.getProduct()).get(0), input);
 	}
 
-	public ReadExtentActionBuilder readExtent(
-			final String classifierName) {
-		ReadExtentActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(UML2ProductKind.READ_EXTENT_ACTION);
+	public ReadExtentActionBuilder readExtent(final String classifierName) {
+		ReadExtentActionBuilder child = as(StructuredActivityNodeBuilder.class).newChildBuilder(
+		        UML2ProductKind.READ_EXTENT_ACTION);
 		return child.classifier(classifierName);
 	}
 
 	public ReadSelfActionBuilder readSelf() {
 		return as(StructuredActivityNodeBuilder.class).newChildBuilder(UML2ProductKind.READ_SELF_ACTION);
 	}
-	
+
 	public StructuredActivityNodeBuilder newBlock() {
 		return as(StructuredActivityNodeBuilder.class).newChildBuilder(UML2ProductKind.STRUCTURED_ACTIVITY_NODE);
 	}
-	
+
 	/**
-	 * Convenience method that tries to resolve a symbol. Failure to do so will result in a problem
-	 * being logged and the current statement to be aborted.
-	 *  
+	 * Convenience method that tries to resolve a symbol. Failure to do so will
+	 * result in a problem being logged and the current statement to be aborted.
+	 * 
 	 * @param name
 	 * @param eClass
 	 * @return
 	 */
 	<NE extends NamedElement> NE findNamedElement(String name, EClass eClass) {
-		final NE found = getContext().getRepository().findNamedElement(name,
-				eClass, getContext().getNamespaceTracker().currentNamespace(null));
+		final NE found = getContext().getRepository().findNamedElement(name, eClass,
+		        getContext().getNamespaceTracker().currentNamespace(null));
 		if (found == null)
 			abortStatement(new UnresolvedSymbol(name, eClass));
 		return found;
 	}
-	
+
 	@Override
 	public void setConditionalSet(ConditionalBuilderSet conditionalBuilderSet) {
 		super.setConditionalSet(conditionalBuilderSet);
 	}
-	
-	protected boolean isConsumer() { return false; };
-	protected boolean isProducer() {return false;};
+
+	protected boolean isConsumer() {
+		return false;
+	};
+
+	protected boolean isProducer() {
+		return false;
+	};
 }

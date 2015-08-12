@@ -18,7 +18,7 @@ public class SignalTests extends AbstractRepositoryBuildingTests {
 	public SignalTests(String name) {
 		super(name);
 	}
-	
+
 	public void testSend() throws CoreException {
 		String source = "";
 		source += "model simple;\n";
@@ -33,7 +33,7 @@ public class SignalTests extends AbstractRepositoryBuildingTests {
 		source += "end.";
 		parseAndCheck(source);
 	}
-	
+
 	public void testSend_MissingArgument() throws CoreException {
 		String source = "";
 		source += "model simple;\n";

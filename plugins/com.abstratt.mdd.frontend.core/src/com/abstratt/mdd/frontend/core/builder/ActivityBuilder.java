@@ -27,21 +27,21 @@ public class ActivityBuilder extends DefaultParentBuilder<Activity> {
 		Activity activity = (Activity) parentClass.createNestedClassifier(null, getEClass());
 		return activity;
 	}
-	
+
 	public ActivityBuilder specification(OperationBuilder specification) {
 		this.specification = specification;
 		return this;
 	}
-	
+
 	public ActivityBuilder specification(String specificationName) {
 		this.behavioralFeatureName = new NameReference(specificationName, UML2ProductKind.OPERATION);
 		return this;
 	}
-	
+
 	public StructuredActivityNodeBuilder newBlock() {
 		return (StructuredActivityNodeBuilder) newChildBuilder(UML2ProductKind.STRUCTURED_ACTIVITY_NODE);
 	}
-	
+
 	@Override
 	protected void enhance() {
 		if (behavioralFeatureName != null)
@@ -51,10 +51,10 @@ public class ActivityBuilder extends DefaultParentBuilder<Activity> {
 					setSpecification(specification);
 				}
 			};
-	    else if (specification != null)
-	    	setSpecification(specification.getProduct());
-	    else
-	    	abortScope(new UnclassifiedProblem("No specification set"));
+		else if (specification != null)
+			setSpecification(specification.getProduct());
+		else
+			abortScope(new UnclassifiedProblem("No specification set"));
 		// build children as the last step
 		getContext().getReferenceTracker().add(new IDeferredReference() {
 			@Override
@@ -63,7 +63,7 @@ public class ActivityBuilder extends DefaultParentBuilder<Activity> {
 					createActivityParameters(specification.getProduct());
 				getContext().getActivityBuilder().createRootBlock(getProduct());
 				try {
-				    ActivityBuilder.super.enhance();
+					ActivityBuilder.super.enhance();
 				} finally {
 					getContext().getActivityBuilder().leaveBlock();
 				}

@@ -50,7 +50,6 @@ import org.eclipse.emf.query.statements.WHERE;
 import org.eclipse.uml2.common.util.UML2Util.EObjectMatcher;
 import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.Behavior;
-import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.LiteralBoolean;
 import org.eclipse.uml2.uml.LiteralInteger;
@@ -108,9 +107,9 @@ public class MDDUtil {
 			CONTINUE, SKIP, STOP
 		};
 	}
-	
+
 	private static SAXParserFactory cachedParserFactory;
-	
+
 	/**
 	 * Enhances the given qualified name with the given segment.
 	 */
@@ -120,45 +119,43 @@ public class MDDUtil {
 	}
 
 	public static LiteralUnlimitedNatural createLiteralUnlimitedNatural(Package parent, Integer value) {
-		LiteralUnlimitedNatural valueSpec =
-						(LiteralUnlimitedNatural) parent.createPackagedElement(null, IRepository.PACKAGE
-										.getLiteralUnlimitedNatural());
+		LiteralUnlimitedNatural valueSpec = (LiteralUnlimitedNatural) parent.createPackagedElement(null,
+		        IRepository.PACKAGE.getLiteralUnlimitedNatural());
 		valueSpec.setValue(value == null ? LiteralUnlimitedNatural.UNLIMITED : value.intValue());
 		valueSpec.setType(BasicTypeUtils.findBuiltInType("Integer"));
 		return valueSpec;
 	}
 
 	public static LiteralBoolean createLiteralBoolean(Package parent, Boolean value) {
-		LiteralBoolean valueSpec =
-						(LiteralBoolean) parent.createPackagedElement(null, IRepository.PACKAGE.getLiteralBoolean());
+		LiteralBoolean valueSpec = (LiteralBoolean) parent.createPackagedElement(null,
+		        IRepository.PACKAGE.getLiteralBoolean());
 		valueSpec.setValue(value);
 		valueSpec.setType(BasicTypeUtils.findBuiltInType("Boolean"));
 		return valueSpec;
 	}
 
 	public static LiteralInteger createLiteralInteger(Package parent, Integer value) {
-		LiteralInteger valueSpec =
-						(LiteralInteger) parent.createPackagedElement(null, IRepository.PACKAGE.getLiteralInteger());
+		LiteralInteger valueSpec = (LiteralInteger) parent.createPackagedElement(null,
+		        IRepository.PACKAGE.getLiteralInteger());
 		valueSpec.setValue(value);
 		valueSpec.setType(BasicTypeUtils.findBuiltInType("Integer"));
 		return valueSpec;
 	}
-	
+
 	public static LiteralString createLiteralString(Package parent, String value) {
-		LiteralString valueSpec =
-						(LiteralString) parent.createPackagedElement(null, IRepository.PACKAGE.getLiteralString());
+		LiteralString valueSpec = (LiteralString) parent.createPackagedElement(null,
+		        IRepository.PACKAGE.getLiteralString());
 		valueSpec.setValue(value);
 		valueSpec.setType(BasicTypeUtils.findBuiltInType("String"));
 		return valueSpec;
 	}
-	
+
 	public static LiteralNull createLiteralNull(Package parent) {
 		LiteralNull valueSpec = (LiteralNull) parent.createPackagedElement(null, IRepository.PACKAGE.getLiteralNull());
 		return valueSpec;
 	}
-	
-	public static LiteralSpecification createLiteralValue(Object value,
-			EClass eClass, Package parentProduct) {
+
+	public static LiteralSpecification createLiteralValue(Object value, EClass eClass, Package parentProduct) {
 		if (Literals.LITERAL_BOOLEAN == eClass)
 			return createLiteralBoolean(parentProduct, (Boolean) value);
 		if (Literals.LITERAL_INTEGER == eClass)
@@ -182,8 +179,9 @@ public class MDDUtil {
 				filtered.add((T) object);
 		return filtered;
 	}
-	
-	public static <T extends Element> T findSingleByClass(List<? extends Element> elements, EClass elementClass, boolean required) {
+
+	public static <T extends Element> T findSingleByClass(List<? extends Element> elements, EClass elementClass,
+	        boolean required) {
 		List<T> found = filterByClass(elements, elementClass);
 		if (found.size() > 2)
 			throw new IllegalArgumentException("Found: " + found.size());
@@ -256,7 +254,7 @@ public class MDDUtil {
 	public static String getLastSegment(String qualifiedName) {
 		int lastSeparator = qualifiedName.lastIndexOf(NamedElement.SEPARATOR);
 		return lastSeparator == -1 ? qualifiedName : qualifiedName.substring(lastSeparator
-						+ NamedElement.SEPARATOR.length());
+		        + NamedElement.SEPARATOR.length());
 	}
 
 	/**
@@ -275,10 +273,11 @@ public class MDDUtil {
 		Assert.isTrue(reference.getOwner() != null, "No '" + eClass.getName() + "' around ");
 		return getNearest(reference.getOwner(), eClass);
 	}
-	
+
 	/**
-	 * Returns the outermost parent of the given class. Fails if cannot find one.
-	 * Returns the reference itself if is an instance of the given class and no parent can be found.
+	 * Returns the outermost parent of the given class. Fails if cannot find
+	 * one. Returns the reference itself if is an instance of the given class
+	 * and no parent can be found.
 	 * 
 	 * @param reference
 	 *            the reference element
@@ -300,7 +299,7 @@ public class MDDUtil {
 	public static String getDescription(Element element) {
 		return ElementUtils.getComments(element);
 	}
-	
+
 	public static String getTypeName(Type type) {
 		if (type == null)
 			return "<any>";
@@ -312,11 +311,11 @@ public class MDDUtil {
 			return computeSignatureName(type);
 		return "Unknown " + type.eClass().getName();
 	}
-	
+
 	public static String computeSignatureName(List<Parameter> signature) {
 		StringBuffer name = new StringBuffer("{(");
-		final List<Parameter> inputParameters =
-						FeatureUtils.filterParameters(signature, ParameterDirectionKind.IN_LITERAL);
+		final List<Parameter> inputParameters = FeatureUtils.filterParameters(signature,
+		        ParameterDirectionKind.IN_LITERAL);
 		for (Parameter parameter : inputParameters) {
 			if (parameter.getName() != null) {
 				name.append(parameter.getName());
@@ -332,8 +331,8 @@ public class MDDUtil {
 		if (!inputParameters.isEmpty())
 			name.delete(name.length() - ", ".length(), name.length());
 		name.append(")");
-		List<Parameter> returnParameter =
-						FeatureUtils.filterParameters(signature, ParameterDirectionKind.RETURN_LITERAL);
+		List<Parameter> returnParameter = FeatureUtils.filterParameters(signature,
+		        ParameterDirectionKind.RETURN_LITERAL);
 		if (!returnParameter.isEmpty()) {
 			name.append(" : ");
 			final Type returnType = returnParameter.get(0).getType();
@@ -352,7 +351,6 @@ public class MDDUtil {
 		return null;
 	}
 
-
 	/**
 	 * Returns whether the given name is qualified.
 	 */
@@ -362,8 +360,8 @@ public class MDDUtil {
 
 	public static String removeFirstSegment(String qualifiedName) {
 		int firstSeparator = qualifiedName.indexOf(NamedElement.SEPARATOR);
-		return firstSeparator == -1 || firstSeparator == qualifiedName.length() - NamedElement.SEPARATOR.length()
-						? null : qualifiedName.substring(firstSeparator + Namespace.SEPARATOR.length());
+		return firstSeparator == -1 || firstSeparator == qualifiedName.length() - NamedElement.SEPARATOR.length() ? null
+		        : qualifiedName.substring(firstSeparator + Namespace.SEPARATOR.length());
 	}
 
 	/**
@@ -379,18 +377,18 @@ public class MDDUtil {
 	}
 
 	/*
-	 * This method dynamically invokes a corresponding visitor method based on the type of the node 
-	 * being visited. If a type-specific method is not found (visitFoo(Foo), where Foo is the instance class of 
-	 * the element), a generic visitAny(ActivityNode) method is invoked.  
+	 * This method dynamically invokes a corresponding visitor method based on
+	 * the type of the node being visited. If a type-specific method is not
+	 * found (visitFoo(Foo), where Foo is the instance class of the element), a
+	 * generic visitAny(ActivityNode) method is invoked.
 	 */
 	private static IActivityNodeTreeVisitor.Outcome visitNode(ActivityNode node, IActivityNodeTreeVisitor visitor) {
 		String eClassName = node.eClass().getName();
 		try {
 			Method visitorMethod;
 			try {
-				visitorMethod =
-								visitor.getClass().getDeclaredMethod("visit" + eClassName,
-												node.eClass().getInstanceClass());
+				visitorMethod = visitor.getClass().getDeclaredMethod("visit" + eClassName,
+				        node.eClass().getInstanceClass());
 			} catch (NoSuchMethodException e) {
 				// fallback: call visitAny(ActitivityNode) instead
 				visitorMethod = visitor.getClass().getDeclaredMethod("visitAny", ActivityNode.class);
@@ -451,7 +449,7 @@ public class MDDUtil {
 
 				@Override
 				public void startElement(String uri, String localName, String name, Attributes attributes)
-								throws SAXException {
+				        throws SAXException {
 					if (name.equalsIgnoreCase("eAnnotations"))
 						if (GENERATED.equals(attributes.getValue("source"))) {
 							generated[0] = true;
@@ -488,27 +486,29 @@ public class MDDUtil {
 	public static boolean isGenerated(Package package_) {
 		return getRootPackage(package_).getEAnnotation(GENERATED) != null;
 	}
-	
+
 	public static Package getRootPackage(Package start) {
 		final Package nestingPackage = start.getNestingPackage();
 		return (nestingPackage != null) ? getRootPackage(nestingPackage) : start;
 	}
-	
-	public static <T extends Element> List<T> findAllFrom(EObjectCondition condition, Collection<? extends Element> startingPoints) {
+
+	public static <T extends Element> List<T> findAllFrom(EObjectCondition condition,
+	        Collection<? extends Element> startingPoints) {
 		List<T> result = new ArrayList<T>();
 		IQueryResult partial = new SELECT(new FROM(startingPoints), new WHERE(condition)).execute();
 		for (EObject object : partial)
 			result.add((T) object);
 		return result;
 	}
-	
+
 	public static void markGenerated(Package package_) {
 		if (MDDUtil.isGenerated(package_))
 			return;
 		final Package root = getRootPackage(package_);
-		root.createEAnnotation(MDDUtil.GENERATED).getDetails().put("dateCreated", new SimpleDateFormat("yyyy/MM/dd hh:mm:ss SSS Z").format(new Date()));
+		root.createEAnnotation(MDDUtil.GENERATED).getDetails()
+		        .put("dateCreated", new SimpleDateFormat("yyyy/MM/dd hh:mm:ss SSS Z").format(new Date()));
 	}
-	
+
 	public static String getGeneratedTimestamp(Package package_) {
 		final Package root = getRootPackage(package_);
 		EAnnotation eAnnotation = root.getEAnnotation(MDDUtil.GENERATED);
@@ -516,14 +516,14 @@ public class MDDUtil {
 			return null;
 		return eAnnotation.getDetails().get("dateCreated");
 	}
-	
+
 	public static void clearGenerated(Package package_) {
 		Package root = getRootPackage(package_);
 		EAnnotation annotation = root.getEAnnotation(GENERATED);
 		if (annotation != null)
 			root.getEAnnotations().remove(annotation);
 	}
-	
+
 	public static void unloadResources(ResourceSet resourceSet) {
 		unloadResources(resourceSet.getResources());
 	}
@@ -536,7 +536,7 @@ public class MDDUtil {
 	public static void unloadResource(Resource current) {
 		current.unload();
 	}
-	
+
 	public static Properties loadRepositoryProperties(URI baseRepositoryURI) {
 		URI propertiesURI = baseRepositoryURI.appendSegment(IRepository.MDD_PROPERTIES);
 		URL asURL;
@@ -545,7 +545,7 @@ public class MDDUtil {
 		} catch (MalformedURLException e) {
 			// should never happen as it is produced by URI
 			LogUtils.log(new Status(IStatus.ERROR, MDDCore.PLUGIN_ID, 0, "Error loading properties at '"
-							+ propertiesURI + "'", e));
+			        + propertiesURI + "'", e));
 			return new Properties();
 		}
 		BufferedInputStream contents = null;
@@ -558,7 +558,7 @@ public class MDDUtil {
 			return new Properties();
 		} catch (IOException e) {
 			LogUtils.log(new Status(IStatus.ERROR, MDDCore.PLUGIN_ID, 0, "Error loading properties at '"
-							+ propertiesURI + "'", e));
+			        + propertiesURI + "'", e));
 			return new Properties();
 		} finally {
 			IOUtils.closeQuietly(contents);

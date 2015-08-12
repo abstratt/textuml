@@ -18,7 +18,7 @@ public final class NoRenderingSettings implements IRenderingSettings {
 	public <T> boolean isSelected(Enum<?> option) {
 		return option.ordinal() == 0;
 	}
-	
+
 	@Override
 	public String getString(String key) {
 		return null;

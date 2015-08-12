@@ -4,22 +4,19 @@ import org.eclipse.uml2.uml.Comment;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.NamedElement;
 
-import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.dot.DOTRenderingUtils;
 
 public class CommentRenderer implements IElementRenderer<Comment> {
 
-	public boolean renderObject(Comment element, IndentedPrintWriter out,
-			IRenderingSession context) {
-	    if (!context.getSettings().getBoolean(UML2DOTPreferences.SHOW_COMMENTS))
-	        return false;
+	public boolean renderObject(Comment element, IndentedPrintWriter out, IRenderingSession context) {
+		if (!context.getSettings().getBoolean(UML2DOTPreferences.SHOW_COMMENTS))
+			return false;
 		String commentNodeId = "comment_" + UML2DOTRenderingUtils.getXMIID(element);
 		out.println('"' + commentNodeId + "\" [shape=note,label=\"" + element.getBody() + "\"]");
 		for (Element commented : element.getAnnotatedElements()) {
-			out.print("\"" + ((NamedElement) commented).getName()
-					+ "\":port" + " -- \"" +  commentNodeId + "\"");
+			out.print("\"" + ((NamedElement) commented).getName() + "\":port" + " -- \"" + commentNodeId + "\"");
 			out.println("[");
 			out.enterLevel();
 			DOTRenderingUtils.addAttribute(out, "head", "none");

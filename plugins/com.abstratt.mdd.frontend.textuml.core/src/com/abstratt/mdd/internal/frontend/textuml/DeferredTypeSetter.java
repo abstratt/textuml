@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import org.eclipse.uml2.uml.Namespace;
@@ -19,10 +19,11 @@ import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 /**
- * A type setter that defers resolution of type references to a later step. 
+ * A type setter that defers resolution of type references to a later step.
  */
 public class DeferredTypeSetter extends TypeSetter {
-	public DeferredTypeSetter(SourceCompilationContext<Node> sourceContext, Namespace currentPackage, TypedElement target) {
+	public DeferredTypeSetter(SourceCompilationContext<Node> sourceContext, Namespace currentPackage,
+	        TypedElement target) {
 		super(sourceContext, currentPackage, target);
 	}
 
@@ -34,7 +35,7 @@ public class DeferredTypeSetter extends TypeSetter {
 			}
 		}, IReferenceTracker.Step.GENERAL_RESOLUTION);
 	}
-	
+
 	public void doProcess(final Node node) {
 		super.process(node);
 	}

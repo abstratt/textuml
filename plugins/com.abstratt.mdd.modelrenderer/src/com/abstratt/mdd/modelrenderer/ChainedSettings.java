@@ -5,7 +5,7 @@ import com.abstratt.mdd.modelrenderer.IRenderingSettings.SettingsSource;
 public class ChainedSettings implements SettingsSource {
 
 	private SettingsSource[] chain;
-	
+
 	public ChainedSettings(SettingsSource... chain) {
 		this.chain = chain;
 	}
@@ -13,9 +13,9 @@ public class ChainedSettings implements SettingsSource {
 	@Override
 	public String getSetting(String optionKey) {
 		for (SettingsSource settingsSource : this.chain) {
-		    String setting = settingsSource.getSetting(optionKey);
-		    if (setting != null)
-		    	return setting;
+			String setting = settingsSource.getSetting(optionKey);
+			if (setting != null)
+				return setting;
 		}
 		return null;
 	}

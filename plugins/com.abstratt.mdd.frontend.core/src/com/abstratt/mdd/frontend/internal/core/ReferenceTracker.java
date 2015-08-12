@@ -28,9 +28,8 @@ public class ReferenceTracker implements IReferenceTracker {
 		public Stage(Step sequence) {
 			this.sequence = sequence;
 			this.references = sequence.isOrdered() ? Collections
-					.synchronizedSortedSet(new TreeSet<IDeferredReference>())
-					: Collections
-							.synchronizedList(new LinkedList<IDeferredReference>());
+			        .synchronizedSortedSet(new TreeSet<IDeferredReference>()) : Collections
+			        .synchronizedList(new LinkedList<IDeferredReference>());
 		}
 
 		public int compareTo(Stage another) {
@@ -46,27 +45,27 @@ public class ReferenceTracker implements IReferenceTracker {
 		public int hashCode() {
 			return sequence.hashCode();
 		}
-		
+
 		@Override
 		public String toString() {
 			return sequence.name() + "(" + references.size() + ")";
 		}
 
 		public IDeferredReference nextReference() {
-			if (references.isEmpty()) 
+			if (references.isEmpty())
 				return null;
 			Iterator<IDeferredReference> iterator = references.iterator();
 			IDeferredReference next = iterator.next();
 			iterator.remove();
 			return next;
 		}
+
 		public Step getSequence() {
 			return sequence;
 		}
 	}
 
-	private SortedSet<Stage> stages = Collections
-			.synchronizedSortedSet(new TreeSet<Stage>());
+	private SortedSet<Stage> stages = Collections.synchronizedSortedSet(new TreeSet<Stage>());
 	private IBasicRepository repository;
 
 	@Override
@@ -90,8 +89,7 @@ public class ReferenceTracker implements IReferenceTracker {
 	}
 
 	@Override
-	public void resolve(IBasicRepository repository,
-			IProblemTracker problemTracker) {
+	public void resolve(IBasicRepository repository, IProblemTracker problemTracker) {
 		if (this.repository != null)
 			throw new IllegalStateException("Already resolving");
 		this.repository = repository;
@@ -108,20 +106,21 @@ public class ReferenceTracker implements IReferenceTracker {
 					} catch (RuntimeException e) {
 						final InternalProblem toReport = new InternalProblem(e);
 						problemTracker.add(toReport);
-						LogUtils.logError(MDDCore.PLUGIN_ID,
-								"Unexpected exception while compiling", e);
+						LogUtils.logError(MDDCore.PLUGIN_ID, "Unexpected exception while compiling", e);
 					}
-					// if a new reference has been added by the current reference to a previous stage, 
+					// if a new reference has been added by the current
+					// reference to a previous stage,
 					// abort, as we need to resolve it first
 					if (firstStage().compareTo(currentStage) < 0)
 						break;
 				}
-				// once we are done with the current stage, remove it from the list (but might pop-up back later) 
+				// once we are done with the current stage, remove it from the
+				// list (but might pop-up back later)
 				if (currentStage.references.isEmpty())
 					stages.remove(currentStage);
 			}
 		} finally {
-			this.repository = null;	
+			this.repository = null;
 		}
 	}
 

@@ -28,7 +28,7 @@ public class OperationBuilder extends DefaultParentBuilder<Operation> {
 	public ParameterBuilder newParameter() {
 		return newChildBuilder(UML2ProductKind.PARAMETER);
 	}
-	
+
 	public ActivityBuilder newMethod() {
 		ActivityBuilder newActivity = as(ClassifierBuilder.class).newActivity();
 		return newActivity.specification(this);

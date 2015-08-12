@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import org.eclipse.uml2.uml.LiteralNull;
@@ -18,8 +18,7 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class LiteralNullRenderer implements IEObjectRenderer<LiteralNull> {
 
-	public boolean renderObject(LiteralNull element, IndentedPrintWriter out,
-			IRenderingSession context) {
+	public boolean renderObject(LiteralNull element, IndentedPrintWriter out, IRenderingSession context) {
 		out.print("null");
 		return true;
 	}

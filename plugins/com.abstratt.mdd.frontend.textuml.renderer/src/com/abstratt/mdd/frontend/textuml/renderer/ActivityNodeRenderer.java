@@ -8,10 +8,10 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ActivityNodeRenderer implements IEObjectRenderer<ActivityNode> {
 
-    @Override
-    public boolean renderObject(ActivityNode element, IndentedPrintWriter out, IRenderingSession session) {
-        out.println("/* TBD: " + element.eClass().getName() + " */");
-        return true;
-    }
+	@Override
+	public boolean renderObject(ActivityNode element, IndentedPrintWriter out, IRenderingSession session) {
+		out.println("/* TBD: " + element.eClass().getName() + " */");
+		return true;
+	}
 
 }

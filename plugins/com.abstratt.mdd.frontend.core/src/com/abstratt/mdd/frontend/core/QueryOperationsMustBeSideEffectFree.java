@@ -6,7 +6,6 @@ import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 
 public class QueryOperationsMustBeSideEffectFree extends Problem {
 
-	
 	public QueryOperationsMustBeSideEffectFree() {
 		super(Severity.WARNING);
 	}
@@ -15,7 +14,7 @@ public class QueryOperationsMustBeSideEffectFree extends Problem {
 	public String getMessage() {
 		return "Query operations must be side-effect free";
 	}
-	
+
 	public static <N> void ensure(boolean condition, ProblemBuilder<N> builder, N node) {
 		if (!condition) {
 			IProblem problem = new QueryOperationsMustBeSideEffectFree();

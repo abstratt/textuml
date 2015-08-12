@@ -8,7 +8,7 @@
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
  *    Vladimir Sosnin - #2798743
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.name;
@@ -23,23 +23,20 @@ import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
-
 public class PropertyRenderer implements IEObjectRenderer<Property> {
-	public boolean renderObject(Property property, IndentedPrintWriter writer,
-			IRenderingSession context) {
+	public boolean renderObject(Property property, IndentedPrintWriter writer, IRenderingSession context) {
 		if (property.getAssociation() instanceof Extension)
 			// association of a stereotype with an extended metaclass
 			return false;
 		RenderingUtils.renderAll(context, property.getOwnedComments());
 		TextUMLRenderingUtils.renderStereotypeApplications(writer, property);
-		writer.print(TextUMLRenderingUtils.renderVisibility(property
-				.getVisibility()));
+		writer.print(TextUMLRenderingUtils.renderVisibility(property.getVisibility()));
 		if (property.isReadOnly())
 			writer.print("constant ");
 		else {
 			if (property.isStatic())
 				writer.print("static ");
-			if (property.getOwner() instanceof Stereotype) 
+			if (property.getOwner() instanceof Stereotype)
 				writer.print("property ");
 			else
 				writer.print("attribute ");

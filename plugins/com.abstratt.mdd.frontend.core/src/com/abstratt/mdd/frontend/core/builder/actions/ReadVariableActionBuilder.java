@@ -7,8 +7,7 @@ import org.eclipse.uml2.uml.Variable;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.builder.UML2ProductKind;
 
-public class ReadVariableActionBuilder extends
-		ActionBuilder<ReadVariableAction> {
+public class ReadVariableActionBuilder extends ActionBuilder<ReadVariableAction> {
 	private String variableName;
 
 	public ReadVariableActionBuilder() {
@@ -19,7 +18,7 @@ public class ReadVariableActionBuilder extends
 		this.variableName = varName;
 		return this;
 	}
-	
+
 	@Override
 	public void enhanceAction() {
 		Variable variable = getVariable(variableName);
@@ -27,7 +26,7 @@ public class ReadVariableActionBuilder extends
 		final OutputPin result = getProduct().createResult(null, null);
 		TypeUtils.copyType(variable, result, getBoundElement());
 	}
-	
+
 	@Override
 	protected boolean isProducer() {
 		return true;

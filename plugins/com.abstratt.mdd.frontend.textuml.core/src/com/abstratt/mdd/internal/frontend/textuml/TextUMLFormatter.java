@@ -123,7 +123,8 @@ public class TextUMLFormatter {
 	private Analysis ignoredTokens;
 
 	/**
-	 * Reflection-based formatter lookup is slow, so we cache formatter methods based on the node.
+	 * Reflection-based formatter lookup is slow, so we cache formatter methods
+	 * based on the node.
 	 */
 	private Map<Class<? extends Node>, Method> formatters = new HashMap<Class<? extends Node>, Method>();
 
@@ -171,7 +172,7 @@ public class TextUMLFormatter {
 		addWhitespace(output);
 		format(node.getOperand(), output, indentation);
 	}
-	
+
 	public void format(AIsClassifiedExpression node, StringBuilder output, int indentation) {
 		format(node.getExpression(), output, indentation);
 		addWhitespace(output);
@@ -179,7 +180,7 @@ public class TextUMLFormatter {
 		addWhitespace(output);
 		format(node.getQualifiedIdentifier(), output, indentation);
 	}
-	
+
 	public void format(ARootExpression node, StringBuilder output, int indentation) {
 		addWhitespace(output);
 		format(node.getExpression(), output, indentation);
@@ -193,13 +194,13 @@ public class TextUMLFormatter {
 		newLine(output);
 		format(node.getRCurlyBracket(), output, indentation);
 	}
-	
+
 	public void format(ATupleComponentValue node, StringBuilder output, int indentation) {
-		format(node.getIdentifier(), output, indentation+1);
-		format(node.getAssignop(), output, indentation+1);
-		format(node.getExpression(), output, indentation+1);
+		format(node.getIdentifier(), output, indentation + 1);
+		format(node.getAssignop(), output, indentation + 1);
+		format(node.getExpression(), output, indentation + 1);
 	}
-	
+
 	public void format(ATupleComponentValueTail node, StringBuilder output, int indentation) {
 		format(node.getComma(), output, indentation);
 		newLine(output);
@@ -241,7 +242,7 @@ public class TextUMLFormatter {
 		format(node.getSemicolon(), output, indentation);
 		format(node.getOptionalBehavioralFeatureBody(), output, indentation);
 	}
-	
+
 	public void format(ASignature node, StringBuilder output, int indentation) {
 		format(node.getLParen(), output, indentation);
 		format(node.getParamDeclList(), output, indentation);
@@ -249,7 +250,7 @@ public class TextUMLFormatter {
 		format(node.getOptionalReturnType(), output, indentation);
 		if (node.getOptionalRaisesSection() != null) {
 			addWhitespace(output);
-		    format(node.getOptionalRaisesSection(), output, indentation);
+			format(node.getOptionalRaisesSection(), output, indentation);
 		}
 	}
 
@@ -261,20 +262,19 @@ public class TextUMLFormatter {
 		doGenericFormat(node, output, indentation);
 	}
 
-	
 	private void breakIfNeeded(Node node, StringBuilder output, int indentation, int limit, boolean space) {
-		if (getColumn(output)+ node.toString().length() > limit) {
+		if (getColumn(output) + node.toString().length() > limit) {
 			newLine(output);
 			format(node, output, indentation + 1);
 			newLine(output);
 		} else {
 			if (space)
-			    addWhitespace(output);
+				addWhitespace(output);
 			format(node, output, indentation);
-			if (space) 
+			if (space)
 				addWhitespace(output);
 		}
-		
+
 	}
 
 	public void format(AAttributeInvariant node, StringBuilder output, int indentation) {
@@ -327,19 +327,19 @@ public class TextUMLFormatter {
 		format(node.getBlock(), output, indentation);
 		format(node.getSemicolon(), output, indentation);
 	}
-	
+
 	public void format(ASendSpecificStatement node, StringBuilder output, int indentation) {
 		format(node.getSend(), output, indentation);
 		format(node.getSignal(), output, indentation);
 		format(node.getLParen(), output, indentation);
-		format(node.getNamedArgumentList(), output, indentation+1);
+		format(node.getNamedArgumentList(), output, indentation + 1);
 		format(node.getRParen(), output, indentation);
 		addWhitespace(output);
 		format(node.getTo(), output, indentation);
 		addWhitespace(output);
 		format(node.getTarget(), output, indentation);
 	}
-	
+
 	public void format(ANamedArgument node, StringBuilder output, int indentation) {
 		newLine(output);
 		format(node.getIdentifier(), output, indentation);
@@ -393,7 +393,7 @@ public class TextUMLFormatter {
 		format(node.getSemicolon(), output, indentation);
 		newLine(output);
 	}
-	
+
 	public void format(AStateBehavior node, StringBuilder output, int indentation) {
 		newLine(output);
 		format(node.getStateBehaviorModifier(), output, indentation);
@@ -401,6 +401,7 @@ public class TextUMLFormatter {
 		format(node.getStateBehaviorDefinition(), output, indentation);
 		format(node.getSemicolon(), output, indentation);
 	}
+
 	public void format(AUnaryExpression node, StringBuilder output, int indentation) {
 		format(node.getUnaryOperator(), output, indentation);
 		addWhitespace(output);
@@ -440,14 +441,14 @@ public class TextUMLFormatter {
 		format(node.getStatementResolved(), output, indentation);
 		// omit semicolon/newline - leave it to specific formatters to handle it
 	}
-	
+
 	public void format(AIfStatement node, StringBuilder output, int indentation) {
 		format(node.getIf(), output, indentation);
 		addWhitespace(output);
 		format(node.getIfClause(), output, indentation);
 		format(node.getRestIf(), output, indentation);
 	}
-	
+
 	public void format(AElseRestIf node, StringBuilder output, int indentation) {
 		newLine(output);
 		format(node.getElse(), output, indentation);
@@ -465,7 +466,7 @@ public class TextUMLFormatter {
 		newLine(output);
 		doGenericFormat(node, output, isBlock(node) ? indentation : indentation + 1);
 	}
-	
+
 	public void format(AElseifRestIf node, StringBuilder output, int indentation) {
 		newLine(output);
 		format(node.getElseif(), output, indentation);
@@ -473,7 +474,7 @@ public class TextUMLFormatter {
 		format(node.getIfClause(), output, indentation);
 		format(node.getRestIf(), output, indentation);
 	}
-	
+
 	public void format(ANoIfStatementResolved node, StringBuilder output, int indentation) {
 		format(node.getNonIfStatement(), output, indentation);
 		addSemicolonAndNewline(output);
@@ -487,12 +488,12 @@ public class TextUMLFormatter {
 	protected void addSemicolon(StringBuilder output) {
 		output.append(";");
 	}
-	
+
 	public void format(AWithIfStatementResolved node, StringBuilder output, int indentation) {
 		format(node.getIfStatement(), output, indentation);
 		addSemicolonAndNewline(output);
 	}
-	
+
 	public void format(ATopLevelElement node, StringBuilder output, int indentation) {
 		newLine(output);
 		if (node.getModelComment() != null)
@@ -567,7 +568,8 @@ public class TextUMLFormatter {
 		if (node == null)
 			return;
 		if (!formatters.containsKey(node.getClass())) {
-			Method method = MethodUtils.getMatchingAccessibleMethod(this.getClass(), "format", new Class[] {node.getClass(), StringBuilder.class, Integer.class});
+			Method method = MethodUtils.getMatchingAccessibleMethod(this.getClass(), "format",
+			        new Class[] { node.getClass(), StringBuilder.class, Integer.class });
 			formatters.put(node.getClass(), method);
 		}
 		Method formatterMethod = formatters.get(node.getClass());
@@ -576,7 +578,7 @@ public class TextUMLFormatter {
 			return;
 		}
 		try {
-			formatterMethod.invoke(this, new Object[] {node, output, indentation});
+			formatterMethod.invoke(this, new Object[] { node, output, indentation });
 		} catch (IllegalArgumentException e) {
 			LogUtils.logError(TextUMLCore.PLUGIN_ID, "Unexpected  exception", e);
 		} catch (IllegalAccessException e) {
@@ -666,7 +668,7 @@ public class TextUMLFormatter {
 	private static void newLine(StringBuilder output) {
 		output.append(LINE_ENDING);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private void doGenericFormat(Node node, StringBuilder output, int indentation) {
 		if (node == null)
