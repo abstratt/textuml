@@ -18,11 +18,11 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
  * 
  */
 public class PackageRenderer implements IElementRenderer<Package> {
-	public boolean renderObject(Package allPackage, IndentedPrintWriter pw, IRenderingSession context) {
-		EList<Element> ownedElements = allPackage.getOwnedElements();
-		Stream<Element> renderable = ownedElements.stream().filter(it -> !(it instanceof Relationship));
-		boolean[] anyRendered = { false };
-		renderable.forEach(it -> anyRendered[0] |= context.render((EObject) it));
-		return anyRendered[0];
-	}
+    public boolean renderObject(Package allPackage, IndentedPrintWriter pw, IRenderingSession context) {
+        EList<Element> ownedElements = allPackage.getOwnedElements();
+        Stream<Element> renderable = ownedElements.stream().filter(it -> !(it instanceof Relationship));
+        boolean[] anyRendered = { false };
+        renderable.forEach(it -> anyRendered[0] |= context.render((EObject) it));
+        return anyRendered[0];
+    }
 }

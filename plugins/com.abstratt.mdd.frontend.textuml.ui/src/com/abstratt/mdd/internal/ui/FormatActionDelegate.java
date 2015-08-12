@@ -18,19 +18,19 @@ import org.eclipse.ui.IEditorPart;
 import com.abstratt.mdd.internal.ui.editors.TextUMLEditor;
 
 public class FormatActionDelegate implements IEditorActionDelegate {
-	private IEditorPart activeEditor;
+    private IEditorPart activeEditor;
 
-	public void setActiveEditor(IAction action, IEditorPart targetEditor) {
-		this.activeEditor = targetEditor;
-	}
+    public void setActiveEditor(IAction action, IEditorPart targetEditor) {
+        this.activeEditor = targetEditor;
+    }
 
-	public void run(IAction action) {
-		if (activeEditor instanceof TextUMLEditor)
-			((TextUMLEditor) activeEditor).format();
-	}
+    public void run(IAction action) {
+        if (activeEditor instanceof TextUMLEditor)
+            ((TextUMLEditor) activeEditor).format();
+    }
 
-	public void selectionChanged(IAction action, ISelection selection) {
-		// we don't support selection
-	}
+    public void selectionChanged(IAction action, ISelection selection) {
+        // we don't support selection
+    }
 
 }

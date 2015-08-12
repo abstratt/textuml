@@ -14,27 +14,27 @@ import org.eclipse.uml2.uml.NamedElement;
 
 public class UnknownAttribute extends UnresolvedSymbol {
 
-	private String classifier;
-	private String attribute;
-	private boolean isStatic;
+    private String classifier;
+    private String attribute;
+    private boolean isStatic;
 
-	public UnknownAttribute(String type, String attribute, boolean isStatic) {
-		super(type + NamedElement.SEPARATOR + attribute);
-		this.classifier = type;
-		this.attribute = attribute;
-		this.isStatic = isStatic;
-	}
+    public UnknownAttribute(String type, String attribute, boolean isStatic) {
+        super(type + NamedElement.SEPARATOR + attribute);
+        this.classifier = type;
+        this.attribute = attribute;
+        this.isStatic = isStatic;
+    }
 
-	@Override
-	public String getMessage() {
-		return "Unknown " + (isStatic ? "static" : "") + " attribute '" + attribute + "' in '" + classifier;
-	}
+    @Override
+    public String getMessage() {
+        return "Unknown " + (isStatic ? "static" : "") + " attribute '" + attribute + "' in '" + classifier;
+    }
 
-	public String getClassifier() {
-		return classifier;
-	}
+    public String getClassifier() {
+        return classifier;
+    }
 
-	public Object getAttribute() {
-		return attribute;
-	}
+    public Object getAttribute() {
+        return attribute;
+    }
 }

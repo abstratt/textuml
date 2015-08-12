@@ -14,11 +14,11 @@ import com.abstratt.mdd.core.Problem;
 
 public class IncompatibleTemplateParameter extends Problem {
 
-	public IncompatibleTemplateParameter() {
-		super(Severity.ERROR);
-	}
+    public IncompatibleTemplateParameter() {
+        super(Severity.ERROR);
+    }
 
-	public String getMessage() {
-		return "Incompatible template parameter";
-	}
+    public String getMessage() {
+        return "Incompatible template parameter";
+    }
 }

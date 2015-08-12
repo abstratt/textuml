@@ -27,45 +27,45 @@ import com.abstratt.mdd.ui.UIConstants;
 
 public class DataType extends UIModelObject {
 
-	protected static Class<? extends Node>[] CHILDREN_TYPES = (Class<? extends Node>[]) new Class<?>[] { AOperationDecl.class };
+    protected static Class<? extends Node>[] CHILDREN_TYPES = (Class<? extends Node>[]) new Class<?>[] { AOperationDecl.class };
 
-	public DataType(UIModelObject parent, ASTNode<Token, Node> node) {
-		super(parent, node);
-	}
+    public DataType(UIModelObject parent, ASTNode<Token, Node> node) {
+        super(parent, node);
+    }
 
-	// protected org.eclipse.uml2.uml.Class getClass_() {
-	//
-	// }
+    // protected org.eclipse.uml2.uml.Class getClass_() {
+    //
+    // }
 
-	@Override
-	public Class<? extends Node>[] getChildrenTypes() {
-		return CHILDREN_TYPES;
-	}
+    @Override
+    public Class<? extends Node>[] getChildrenTypes() {
+        return CHILDREN_TYPES;
+    }
 
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_DATA_TYPE);
-	}
+    @Override
+    public Image getImage() {
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_DATA_TYPE);
+    }
 
-	private AClassDef getModel() {
-		return (AClassDef) node.getBaseNode();
-	}
+    private AClassDef getModel() {
+        return (AClassDef) node.getBaseNode();
+    }
 
-	public List getModelTargetConnections() {
-		return Collections.EMPTY_LIST;
-	}
+    public List getModelTargetConnections() {
+        return Collections.EMPTY_LIST;
+    }
 
-	@Override
-	public String getOriginalText() {
-		AClassHeader header = (AClassHeader) getModel().getClassHeader();
-		return header.getIdentifier().getText();
-	}
+    @Override
+    public String getOriginalText() {
+        AClassHeader header = (AClassHeader) getModel().getClassHeader();
+        return header.getIdentifier().getText();
+    }
 
-	@Override
-	public Token getToken() {
-		AClassDef definition = getModel();
-		AClassHeader header = (AClassHeader) definition.getClassHeader();
-		ADatatypeClassType type = (ADatatypeClassType) header.getClassType();
-		return type.getDatatype();
-	}
+    @Override
+    public Token getToken() {
+        AClassDef definition = getModel();
+        AClassHeader header = (AClassHeader) definition.getClassHeader();
+        ADatatypeClassType type = (ADatatypeClassType) header.getClassType();
+        return type.getDatatype();
+    }
 }

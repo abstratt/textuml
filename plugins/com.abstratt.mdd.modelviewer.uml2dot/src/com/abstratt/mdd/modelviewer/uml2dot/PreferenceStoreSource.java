@@ -6,15 +6,15 @@ import com.abstratt.mdd.modelrenderer.IRenderingSettings.SettingsSource;
 
 public class PreferenceStoreSource implements SettingsSource {
 
-	private IPreferenceStore store;
+    private IPreferenceStore store;
 
-	public PreferenceStoreSource(IPreferenceStore store) {
-		this.store = store;
-	}
+    public PreferenceStoreSource(IPreferenceStore store) {
+        this.store = store;
+    }
 
-	@Override
-	public String getSetting(String optionKey) {
-		return store.getString(optionKey);
-	}
+    @Override
+    public String getSetting(String optionKey) {
+        return store.getString(optionKey);
+    }
 
 }

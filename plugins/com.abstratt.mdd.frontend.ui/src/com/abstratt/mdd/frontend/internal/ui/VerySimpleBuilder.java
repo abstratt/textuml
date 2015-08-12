@@ -28,124 +28,124 @@ import com.abstratt.mdd.ui.UIConstants;
  */
 public class VerySimpleBuilder extends IncrementalProjectBuilder {
 
-	private static int getLineNumber(IProblem problem) {
-		final Integer lineNumberAttribute = (Integer) problem.getAttribute(IProblem.LINE_NUMBER);
-		return lineNumberAttribute == null ? 1 : lineNumberAttribute.intValue();
-	}
+    private static int getLineNumber(IProblem problem) {
+        final Integer lineNumberAttribute = (Integer) problem.getAttribute(IProblem.LINE_NUMBER);
+        return lineNumberAttribute == null ? 1 : lineNumberAttribute.intValue();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.core.resources.IncrementalProjectBuilder#build(int,
-	 * java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
-		IProject toBuild = getProject();
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.core.resources.IncrementalProjectBuilder#build(int,
+     * java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
+        IProject toBuild = getProject();
 
-		// mark all referencing as needing rebuild
-		for (IProject referencing : toBuild.getReferencingProjects())
-			referencing.touch(monitor);
+        // mark all referencing as needing rebuild
+        for (IProject referencing : toBuild.getReferencingProjects())
+            referencing.touch(monitor);
 
-		// build location context
-		IFileStore storeToBuild = EFS.getStore(toBuild.getLocationURI());
-		LocationContext context = new LocationContext(storeToBuild);
-		context.addSourcePath(storeToBuild, null);
-		for (IProject referenced : toBuild.getReferencedProjects()) {
-			URI referencedLocation = referenced.getLocationURI();
-			if (referencedLocation != null) {
-				IFileStore modelPathEntry = EFS.getStore(referencedLocation);
-				context.addRelatedPath(modelPathEntry);
-			}
-		}
+        // build location context
+        IFileStore storeToBuild = EFS.getStore(toBuild.getLocationURI());
+        LocationContext context = new LocationContext(storeToBuild);
+        context.addSourcePath(storeToBuild, null);
+        for (IProject referenced : toBuild.getReferencedProjects()) {
+            URI referencedLocation = referenced.getLocationURI();
+            if (referencedLocation != null) {
+                IFileStore modelPathEntry = EFS.getStore(referencedLocation);
+                context.addRelatedPath(modelPathEntry);
+            }
+        }
 
-		removeMarkers(toBuild);
-		IProblem[] problems = FrontEnd.getCompilationDirector().compile(null, null, context,
-		        ICompilationDirector.FULL_BUILD, monitor);
-		toBuild.refreshLocal(IResource.DEPTH_INFINITE, null);
-		Arrays.sort(problems, new Comparator<IProblem>() {
-			public int compare(IProblem o1, IProblem o2) {
-				if ((o1 instanceof InternalProblem) || (o2 instanceof InternalProblem)) {
-					if (!(o1 instanceof InternalProblem))
-						return 1;
-					if (!(o2 instanceof InternalProblem))
-						return -1;
-					return 0;
-				}
-				int fileNameDelta = ((IFileStore) o1.getAttribute(IProblem.FILE_NAME)).toURI().compareTo(
-				        ((IFileStore) o2.getAttribute(IProblem.FILE_NAME)).toURI());
-				if (fileNameDelta != 0)
-					return fileNameDelta;
-				int lineNo1 = getLineNumber(o1);
-				int lineNo2 = getLineNumber(o2);
-				return lineNo1 - lineNo2;
-			}
+        removeMarkers(toBuild);
+        IProblem[] problems = FrontEnd.getCompilationDirector().compile(null, null, context,
+                ICompilationDirector.FULL_BUILD, monitor);
+        toBuild.refreshLocal(IResource.DEPTH_INFINITE, null);
+        Arrays.sort(problems, new Comparator<IProblem>() {
+            public int compare(IProblem o1, IProblem o2) {
+                if ((o1 instanceof InternalProblem) || (o2 instanceof InternalProblem)) {
+                    if (!(o1 instanceof InternalProblem))
+                        return 1;
+                    if (!(o2 instanceof InternalProblem))
+                        return -1;
+                    return 0;
+                }
+                int fileNameDelta = ((IFileStore) o1.getAttribute(IProblem.FILE_NAME)).toURI().compareTo(
+                        ((IFileStore) o2.getAttribute(IProblem.FILE_NAME)).toURI());
+                if (fileNameDelta != 0)
+                    return fileNameDelta;
+                int lineNo1 = getLineNumber(o1);
+                int lineNo2 = getLineNumber(o2);
+                return lineNo1 - lineNo2;
+            }
 
-		});
-		createMarkers(toBuild, problems);
-		return null;
-	}
+        });
+        createMarkers(toBuild, problems);
+        return null;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.core.resources.IncrementalProjectBuilder#clean(org.eclipse
-	 * .core.runtime.IProgressMonitor)
-	 */
-	@Override
-	protected void clean(IProgressMonitor monitor) throws CoreException {
-		IProject toBuild = getProject();
-		IFileStore storeToBuild = EFS.getStore(toBuild.getLocationURI());
-		LocationContext context = new LocationContext(storeToBuild);
-		FrontEnd.getCompilationDirector().compile(null, null, context, ICompilationDirector.CLEAN, monitor);
-		toBuild.refreshLocal(IResource.DEPTH_INFINITE, null);
-		removeMarkers(toBuild);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.eclipse.core.resources.IncrementalProjectBuilder#clean(org.eclipse
+     * .core.runtime.IProgressMonitor)
+     */
+    @Override
+    protected void clean(IProgressMonitor monitor) throws CoreException {
+        IProject toBuild = getProject();
+        IFileStore storeToBuild = EFS.getStore(toBuild.getLocationURI());
+        LocationContext context = new LocationContext(storeToBuild);
+        FrontEnd.getCompilationDirector().compile(null, null, context, ICompilationDirector.CLEAN, monitor);
+        toBuild.refreshLocal(IResource.DEPTH_INFINITE, null);
+        removeMarkers(toBuild);
+    }
 
-	protected void createMarkers(IProject project, IProblem[] problems) throws CoreException {
-		URI projectURI = project.getLocationURI();
-		for (int i = 0; i < problems.length; i++) {
-			IFileStore source = (IFileStore) problems[i].getAttribute(IProblem.FILE_NAME);
-			IResource target = project;
-			if (source != null) {
-				final URI sourceURI = source.toURI();
-				if (sourceURI != null) {
-					URI relativeURI = projectURI.relativize(sourceURI);
-					if (!relativeURI.isAbsolute())
-						target = project.getFile(new Path(relativeURI.getPath()));
-				}
-			}
-			IMarker marker = target.createMarker(UIConstants.MARKER_TYPE);
-			marker.setAttribute(IMarker.SEVERITY, getMarkerSeverity(problems[i].getSeverity()));
-			marker.setAttribute(IMarker.MESSAGE, problems[i].getMessage());
-			marker.setAttribute(IMarker.LINE_NUMBER, getLineNumber(problems[i]));
-		}
-	}
+    protected void createMarkers(IProject project, IProblem[] problems) throws CoreException {
+        URI projectURI = project.getLocationURI();
+        for (int i = 0; i < problems.length; i++) {
+            IFileStore source = (IFileStore) problems[i].getAttribute(IProblem.FILE_NAME);
+            IResource target = project;
+            if (source != null) {
+                final URI sourceURI = source.toURI();
+                if (sourceURI != null) {
+                    URI relativeURI = projectURI.relativize(sourceURI);
+                    if (!relativeURI.isAbsolute())
+                        target = project.getFile(new Path(relativeURI.getPath()));
+                }
+            }
+            IMarker marker = target.createMarker(UIConstants.MARKER_TYPE);
+            marker.setAttribute(IMarker.SEVERITY, getMarkerSeverity(problems[i].getSeverity()));
+            marker.setAttribute(IMarker.MESSAGE, problems[i].getMessage());
+            marker.setAttribute(IMarker.LINE_NUMBER, getLineNumber(problems[i]));
+        }
+    }
 
-	private int getMarkerSeverity(Severity problemSeverity) {
-		switch (problemSeverity) {
-		case ERROR:
-			return IMarker.SEVERITY_ERROR;
-		case WARNING:
-			return IMarker.SEVERITY_WARNING;
-		}
-		// not supported yet
-		return IMarker.SEVERITY_INFO;
-	}
+    private int getMarkerSeverity(Severity problemSeverity) {
+        switch (problemSeverity) {
+        case ERROR:
+            return IMarker.SEVERITY_ERROR;
+        case WARNING:
+            return IMarker.SEVERITY_WARNING;
+        }
+        // not supported yet
+        return IMarker.SEVERITY_INFO;
+    }
 
-	private void removeMarkers(IResource resource) throws CoreException {
-		resource.deleteMarkers(UIConstants.MARKER_TYPE, true, IResource.DEPTH_INFINITE);
-	}
-	/*
-	 * protected String memory(String... messages) { StringBuffer sb = new
-	 * StringBuffer(); for (String current : messages) { sb.append(current);
-	 * sb.append(' '); } sb.append(toMB(Runtime.getRuntime().freeMemory()) +
-	 * " / " + toMB(Runtime.getRuntime().totalMemory())); return sb.toString();
-	 * }
-	 * 
-	 * private static String toMB(long byteCount) { return byteCount / (1024 *
-	 * 1024) + "MB"; }
-	 */
+    private void removeMarkers(IResource resource) throws CoreException {
+        resource.deleteMarkers(UIConstants.MARKER_TYPE, true, IResource.DEPTH_INFINITE);
+    }
+    /*
+     * protected String memory(String... messages) { StringBuffer sb = new
+     * StringBuffer(); for (String current : messages) { sb.append(current);
+     * sb.append(' '); } sb.append(toMB(Runtime.getRuntime().freeMemory()) +
+     * " / " + toMB(Runtime.getRuntime().totalMemory())); return sb.toString();
+     * }
+     * 
+     * private static String toMB(long byteCount) { return byteCount / (1024 *
+     * 1024) + "MB"; }
+     */
 }

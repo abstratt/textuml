@@ -15,19 +15,19 @@ package com.abstratt.mdd.core;
  */
 public class UnclassifiedProblem extends Problem {
 
-	private String message;
+    private String message;
 
-	public UnclassifiedProblem(Severity severity, String message) {
-		super(severity);
-		this.message = message;
-	}
+    public UnclassifiedProblem(Severity severity, String message) {
+        super(severity);
+        this.message = message;
+    }
 
-	public UnclassifiedProblem(String message) {
-		this(IProblem.Severity.ERROR, message);
-	}
+    public UnclassifiedProblem(String message) {
+        this(IProblem.Severity.ERROR, message);
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
 }

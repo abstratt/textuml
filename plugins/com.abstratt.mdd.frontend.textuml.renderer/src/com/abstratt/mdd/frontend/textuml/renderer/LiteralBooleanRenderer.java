@@ -18,9 +18,9 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class LiteralBooleanRenderer implements IEObjectRenderer<LiteralBoolean> {
 
-	public boolean renderObject(LiteralBoolean element, IndentedPrintWriter out, IRenderingSession context) {
-		out.print(element.booleanValue());
-		return true;
-	}
+    public boolean renderObject(LiteralBoolean element, IndentedPrintWriter out, IRenderingSession context) {
+        out.print(element.booleanValue());
+        return true;
+    }
 
 }

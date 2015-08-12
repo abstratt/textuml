@@ -23,13 +23,13 @@ import com.abstratt.mdd.modelrenderer.RenderingSession;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class TextUMLRenderer {
-	public static final String PLUGIN_ID = TextUMLRenderer.class.getPackage().getName();
+    public static final String PLUGIN_ID = TextUMLRenderer.class.getPackage().getName();
 
-	public void render(Resource resource, OutputStream stream) {
-		IRendererSelector<EObject> selector = new TextUMLRendererSelector();
-		IndentedPrintWriter out = new IndentedPrintWriter(stream);
-		IRenderingSession session = new RenderingSession(selector, IRenderingSettings.NO_SETTINGS, out);
-		RenderingUtils.renderAll(session, resource.getContents());
-		out.close();
-	}
+    public void render(Resource resource, OutputStream stream) {
+        IRendererSelector<EObject> selector = new TextUMLRendererSelector();
+        IndentedPrintWriter out = new IndentedPrintWriter(stream);
+        IRenderingSession session = new RenderingSession(selector, IRenderingSettings.NO_SETTINGS, out);
+        RenderingUtils.renderAll(session, resource.getContents());
+        out.close();
+    }
 }

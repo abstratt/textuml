@@ -20,11 +20,11 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class PrimitiveTypeRenderer implements IEObjectRenderer<PrimitiveType> {
-	public boolean renderObject(PrimitiveType toRender, IndentedPrintWriter writer, IRenderingSession context) {
-		RenderingUtils.renderAll(context, toRender.getOwnedComments());
-		TextUMLRenderingUtils.renderStereotypeApplications(writer, toRender);
-		writer.println("primitive " + name(toRender) + ";");
-		writer.println();
-		return true;
-	}
+    public boolean renderObject(PrimitiveType toRender, IndentedPrintWriter writer, IRenderingSession context) {
+        RenderingUtils.renderAll(context, toRender.getOwnedComments());
+        TextUMLRenderingUtils.renderStereotypeApplications(writer, toRender);
+        writer.println("primitive " + name(toRender) + ";");
+        writer.println();
+        return true;
+    }
 }

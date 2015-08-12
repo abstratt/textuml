@@ -24,29 +24,29 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class InterfaceRenderer implements IEObjectRenderer<Interface> {
 
-	public boolean renderObject(Interface interface_, IndentedPrintWriter writer, IRenderingSession context) {
-		RenderingUtils.renderAll(context, interface_.getOwnedComments());
-		TextUMLRenderingUtils.renderStereotypeApplications(writer, interface_);
-		writer.print("interface " + name(interface_));
-		List<Generalization> generalizations = interface_.getGeneralizations();
-		StringBuilder specializationList = new StringBuilder();
-		for (Generalization generalization : generalizations)
-			specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(),
-			        interface_.getNamespace()) + ", ");
-		if (specializationList.length() > 0) {
-			specializationList.delete(specializationList.length() - 2, specializationList.length());
-			writer.print(" specializes ");
-			writer.print(specializationList);
-		}
-		writer.println();
-		writer.enterLevel();
-		RenderingUtils.renderAll(context, interface_.getOwnedAttributes());
-		RenderingUtils.renderAll(context, interface_.getOwnedOperations());
-		RenderingUtils.renderAll(context, interface_.getClientDependencies());
-		writer.exitLevel();
-		writer.println("end;");
-		writer.println();
-		return true;
-	}
+    public boolean renderObject(Interface interface_, IndentedPrintWriter writer, IRenderingSession context) {
+        RenderingUtils.renderAll(context, interface_.getOwnedComments());
+        TextUMLRenderingUtils.renderStereotypeApplications(writer, interface_);
+        writer.print("interface " + name(interface_));
+        List<Generalization> generalizations = interface_.getGeneralizations();
+        StringBuilder specializationList = new StringBuilder();
+        for (Generalization generalization : generalizations)
+            specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(),
+                    interface_.getNamespace()) + ", ");
+        if (specializationList.length() > 0) {
+            specializationList.delete(specializationList.length() - 2, specializationList.length());
+            writer.print(" specializes ");
+            writer.print(specializationList);
+        }
+        writer.println();
+        writer.enterLevel();
+        RenderingUtils.renderAll(context, interface_.getOwnedAttributes());
+        RenderingUtils.renderAll(context, interface_.getOwnedOperations());
+        RenderingUtils.renderAll(context, interface_.getClientDependencies());
+        writer.exitLevel();
+        writer.println("end;");
+        writer.println();
+        return true;
+    }
 
 }

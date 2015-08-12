@@ -18,15 +18,15 @@ import com.abstratt.mdd.internal.ui.model.ModelChildrenComparator;
 
 public class UIModelObjectViewerComparator extends ViewerComparator {
 
-	public UIModelObjectViewerComparator() {
-		super(new ModelChildrenComparator());
-	}
+    public UIModelObjectViewerComparator() {
+        super(new ModelChildrenComparator());
+    }
 
-	@SuppressWarnings("unchecked")
-	public int compare(Viewer viewer, Object e1, Object e2) {
-		TreeNode node1 = (TreeNode) e1;
-		TreeNode node2 = (TreeNode) e2;
-		return getComparator().compare(node1.getValue(), node2.getValue());
-	}
+    @SuppressWarnings("unchecked")
+    public int compare(Viewer viewer, Object e1, Object e2) {
+        TreeNode node1 = (TreeNode) e1;
+        TreeNode node2 = (TreeNode) e2;
+        return getComparator().compare(node1.getValue(), node2.getValue());
+    }
 
 }

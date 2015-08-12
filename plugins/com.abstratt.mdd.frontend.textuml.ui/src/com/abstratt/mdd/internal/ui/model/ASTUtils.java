@@ -28,51 +28,51 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 
 public class ASTUtils {
 
-	/**
-	 * Finds child nodes that match the given types.
-	 */
-	public static List<ASTNode<Token, Node>> findNodes(ASTNode<Token, Node> root, boolean reverse,
-	        final Class<? extends Node>... types) {
-		final List<ASTNode<Token, Node>> result = new ArrayList<ASTNode<Token, Node>>();
-		final Set<Class<?>> typeSet = new HashSet<Class<?>>(Arrays.asList(types));
-		if (reverse) {
-			root.accept(new ASTReverseVisitor<Token, Node>() {
-				public boolean visit(ASTNode<Token, Node> node) {
-					if (typeSet.contains(node.getBaseNode().getClass()))
-						result.add(node);
-					return true;
-				}
-			});
-		} else {
-			root.accept(new ASTVisitor<Token, Node>() {
-				public ASTNode.VisitorResult visit(ASTNode<Token, Node> node) {
-					if (typeSet.contains(node.getBaseNode().getClass())) {
-						result.add(node);
-					}
-					return VisitorResult.CONTINUE;
-				}
-			});
-		}
-		return result;
-	}
+    /**
+     * Finds child nodes that match the given types.
+     */
+    public static List<ASTNode<Token, Node>> findNodes(ASTNode<Token, Node> root, boolean reverse,
+            final Class<? extends Node>... types) {
+        final List<ASTNode<Token, Node>> result = new ArrayList<ASTNode<Token, Node>>();
+        final Set<Class<?>> typeSet = new HashSet<Class<?>>(Arrays.asList(types));
+        if (reverse) {
+            root.accept(new ASTReverseVisitor<Token, Node>() {
+                public boolean visit(ASTNode<Token, Node> node) {
+                    if (typeSet.contains(node.getBaseNode().getClass()))
+                        result.add(node);
+                    return true;
+                }
+            });
+        } else {
+            root.accept(new ASTVisitor<Token, Node>() {
+                public ASTNode.VisitorResult visit(ASTNode<Token, Node> node) {
+                    if (typeSet.contains(node.getBaseNode().getClass())) {
+                        result.add(node);
+                    }
+                    return VisitorResult.CONTINUE;
+                }
+            });
+        }
+        return result;
+    }
 
-	public static String getModelName(ASTNode<Token, Node> target) {
-		List<ASTNode<Token, Node>> nodes = ASTUtils.findNodes(target, false, APackageHeading.class);
-		ASTNode modelNode = nodes.get(0);
-		APackageHeading heading = (APackageHeading) modelNode.getBaseNode();
-		AQualifiedIdentifier qId = (AQualifiedIdentifier) heading.getQualifiedIdentifier();
-		AQualifiedIdentifierBase base = (AQualifiedIdentifierBase) qId.getQualifiedIdentifierBase();
-		return base.getIdentifier().getText();
-	}
+    public static String getModelName(ASTNode<Token, Node> target) {
+        List<ASTNode<Token, Node>> nodes = ASTUtils.findNodes(target, false, APackageHeading.class);
+        ASTNode modelNode = nodes.get(0);
+        APackageHeading heading = (APackageHeading) modelNode.getBaseNode();
+        AQualifiedIdentifier qId = (AQualifiedIdentifier) heading.getQualifiedIdentifier();
+        AQualifiedIdentifierBase base = (AQualifiedIdentifierBase) qId.getQualifiedIdentifierBase();
+        return base.getIdentifier().getText();
+    }
 
-	/**
-	 * Given an ASTNode returns the root node.
-	 */
-	public static ASTNode<Token, Node> getRootNode(ASTNode<Token, Node> node) {
-		if (node.getParent() == null) {
-			return node;
-		}
-		return getRootNode(node.getParent());
-	}
+    /**
+     * Given an ASTNode returns the root node.
+     */
+    public static ASTNode<Token, Node> getRootNode(ASTNode<Token, Node> node) {
+        if (node.getParent() == null) {
+            return node;
+        }
+        return getRootNode(node.getParent());
+    }
 
 }

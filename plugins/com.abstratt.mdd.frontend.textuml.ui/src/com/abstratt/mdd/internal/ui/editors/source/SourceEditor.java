@@ -42,146 +42,146 @@ import com.abstratt.mdd.internal.ui.editors.WorkingCopyRegistry;
 
 public class SourceEditor extends TextEditor implements IMDDEditor {
 
-	protected SourceContentOutlinePage outlinePage;
+    protected SourceContentOutlinePage outlinePage;
 
-	public SourceEditor() {
-		setSourceViewerConfiguration(new TextUMLSourceViewerConfiguration(this));
-		// set the document provider to create the partitioner
-		setDocumentProvider(new FileDocumentProvider() {
-			protected IDocument createDocument(Object element) throws CoreException {
-				IDocument document = super.createDocument(element);
-				if (document != null) {
-					// this will create partitions
-					IDocumentPartitioner partitioner = new FastPartitioner(new PartitionScanner(),
-					        ContentTypes.CONFIGURED_CONTENT_TYPES);
-					partitioner.connect(document);
-					document.setDocumentPartitioner(partitioner);
-				}
-				return document;
-			}
-		});
-	}
+    public SourceEditor() {
+        setSourceViewerConfiguration(new TextUMLSourceViewerConfiguration(this));
+        // set the document provider to create the partitioner
+        setDocumentProvider(new FileDocumentProvider() {
+            protected IDocument createDocument(Object element) throws CoreException {
+                IDocument document = super.createDocument(element);
+                if (document != null) {
+                    // this will create partitions
+                    IDocumentPartitioner partitioner = new FastPartitioner(new PartitionScanner(),
+                            ContentTypes.CONFIGURED_CONTENT_TYPES);
+                    partitioner.connect(document);
+                    document.setDocumentPartitioner(partitioner);
+                }
+                return document;
+            }
+        });
+    }
 
-	@Override
-	protected void createActions() {
-		super.createActions();
+    @Override
+    protected void createActions() {
+        super.createActions();
 
-		IAction contentAssistAction = new ContentAssistAction(Messages.RESOURCE_BUNDLE, "ContentAssistProposal.", this);
-		contentAssistAction.setActionDefinitionId(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
-		setAction("ContentAssistProposal", contentAssistAction);
-		markAsStateDependentAction("ContentAssistProposal", true);
-	}
+        IAction contentAssistAction = new ContentAssistAction(Messages.RESOURCE_BUNDLE, "ContentAssistProposal.", this);
+        contentAssistAction.setActionDefinitionId(ITextEditorActionDefinitionIds.CONTENT_ASSIST_PROPOSALS);
+        setAction("ContentAssistProposal", contentAssistAction);
+        markAsStateDependentAction("ContentAssistProposal", true);
+    }
 
-	@Override
-	protected ISourceViewer createSourceViewer(Composite parent, IVerticalRuler ruler, int styles) {
-		ISourceViewer viewer = super.createSourceViewer(parent, ruler, styles);
+    @Override
+    protected ISourceViewer createSourceViewer(Composite parent, IVerticalRuler ruler, int styles) {
+        ISourceViewer viewer = super.createSourceViewer(parent, ruler, styles);
 
-		// register IDocument with Jabal registry
-		viewer.addTextInputListener(new ITextInputListener() {
-			public void inputDocumentAboutToBeChanged(IDocument oldInput, IDocument newInput) {
-				// nothing for now
-			}
+        // register IDocument with Jabal registry
+        viewer.addTextInputListener(new ITextInputListener() {
+            public void inputDocumentAboutToBeChanged(IDocument oldInput, IDocument newInput) {
+                // nothing for now
+            }
 
-			public void inputDocumentChanged(IDocument oldInput, IDocument newInput) {
-				WorkingCopyRegistry registry = WorkingCopyRegistry.getInstance();
-				if (oldInput != null) {
-					registry.unregister(oldInput);
-				}
-				if (newInput != null) {
-					final IFile file = getFile();
-					if (file != null)
-						registry.register(newInput, file);
-				}
-			}
-		});
+            public void inputDocumentChanged(IDocument oldInput, IDocument newInput) {
+                WorkingCopyRegistry registry = WorkingCopyRegistry.getInstance();
+                if (oldInput != null) {
+                    registry.unregister(oldInput);
+                }
+                if (newInput != null) {
+                    final IFile file = getFile();
+                    if (file != null)
+                        registry.register(newInput, file);
+                }
+            }
+        });
 
-		return viewer;
-	}
+        return viewer;
+    }
 
-	@Override
-	public void doSave(IProgressMonitor progressMonitor) {
-		super.doSave(progressMonitor);
-		// TODO: we need a better solution to update the outline
-		if (outlinePage != null)
-			outlinePage.refresh();
-	}
+    @Override
+    public void doSave(IProgressMonitor progressMonitor) {
+        super.doSave(progressMonitor);
+        // TODO: we need a better solution to update the outline
+        if (outlinePage != null)
+            outlinePage.refresh();
+    }
 
-	@Override
-	protected void performSaveAs(IProgressMonitor progressMonitor) {
-		if (TextUMLUIPlugin.getDefault().getPluginPreferences().getBoolean(TextUMLUIPlugin.FORMAT_ON_SAVE))
-			doFormat();
-		super.performSaveAs(progressMonitor);
-	}
+    @Override
+    protected void performSaveAs(IProgressMonitor progressMonitor) {
+        if (TextUMLUIPlugin.getDefault().getPluginPreferences().getBoolean(TextUMLUIPlugin.FORMAT_ON_SAVE))
+            doFormat();
+        super.performSaveAs(progressMonitor);
+    }
 
-	@Override
-	protected void performSave(boolean overwrite, IProgressMonitor progressMonitor) {
-		if (TextUMLUIPlugin.getDefault().getPluginPreferences().getBoolean(TextUMLUIPlugin.FORMAT_ON_SAVE))
-			doFormat();
-		super.performSave(overwrite, progressMonitor);
-	}
+    @Override
+    protected void performSave(boolean overwrite, IProgressMonitor progressMonitor) {
+        if (TextUMLUIPlugin.getDefault().getPluginPreferences().getBoolean(TextUMLUIPlugin.FORMAT_ON_SAVE))
+            doFormat();
+        super.performSave(overwrite, progressMonitor);
+    }
 
-	public void format() {
-		Display display = null;
-		IWorkbenchPartSite site = getSite();
-		Shell shell = site.getShell();
-		if (shell != null && !shell.isDisposed())
-			display = shell.getDisplay();
-		BusyIndicator.showWhile(display, new Runnable() {
-			public void run() {
-				doFormat();
-			}
-		});
-	}
+    public void format() {
+        Display display = null;
+        IWorkbenchPartSite site = getSite();
+        Shell shell = site.getShell();
+        if (shell != null && !shell.isDisposed())
+            display = shell.getDisplay();
+        BusyIndicator.showWhile(display, new Runnable() {
+            public void run() {
+                doFormat();
+            }
+        });
+    }
 
-	@Override
-	public Object getAdapter(Class adapter) {
-		if (IContentOutlinePage.class.equals(adapter)) {
-			if (outlinePage == null) {
-				outlinePage = new SourceContentOutlinePage(this);
-			}
-			return outlinePage;
-		}
-		return super.getAdapter(adapter);
-	}
+    @Override
+    public Object getAdapter(Class adapter) {
+        if (IContentOutlinePage.class.equals(adapter)) {
+            if (outlinePage == null) {
+                outlinePage = new SourceContentOutlinePage(this);
+            }
+            return outlinePage;
+        }
+        return super.getAdapter(adapter);
+    }
 
-	/**
-	 * Returns the corresponding file, if any.
-	 * 
-	 * @return
-	 */
-	protected IFile getFile() {
-		if (!(getEditorInput() instanceof IFileEditorInput))
-			return null;
-		IFileEditorInput input = (IFileEditorInput) getEditorInput();
-		return input.getFile();
-	}
+    /**
+     * Returns the corresponding file, if any.
+     * 
+     * @return
+     */
+    protected IFile getFile() {
+        if (!(getEditorInput() instanceof IFileEditorInput))
+            return null;
+        IFileEditorInput input = (IFileEditorInput) getEditorInput();
+        return input.getFile();
+    }
 
-	public IFile getModelFile() {
-		final WorkingCopy workingCopy = getWorkingCopy();
-		if (workingCopy == null)
-			return null;
-		IDocument document = workingCopy.getDocument();
-		String toFormat = document.get();
-		String modelName = new TextUMLCompiler().findModelName(toFormat);
-		if (modelName == null)
-			modelName = getFile().getFullPath().removeFileExtension().lastSegment();
-		// TODO clean-up
-		IFile modelFile = getFile().getProject().getFile(modelName + ".uml");
-		return modelFile;
-	}
+    public IFile getModelFile() {
+        final WorkingCopy workingCopy = getWorkingCopy();
+        if (workingCopy == null)
+            return null;
+        IDocument document = workingCopy.getDocument();
+        String toFormat = document.get();
+        String modelName = new TextUMLCompiler().findModelName(toFormat);
+        if (modelName == null)
+            modelName = getFile().getFullPath().removeFileExtension().lastSegment();
+        // TODO clean-up
+        IFile modelFile = getFile().getProject().getFile(modelName + ".uml");
+        return modelFile;
+    }
 
-	public WorkingCopy getWorkingCopy() {
-		WorkingCopyRegistry registry = WorkingCopyRegistry.getInstance();
-		IDocument document = getSourceViewer().getDocument();
-		return registry.getWorkingCopy(document);
-	}
+    public WorkingCopy getWorkingCopy() {
+        WorkingCopyRegistry registry = WorkingCopyRegistry.getInstance();
+        IDocument document = getSourceViewer().getDocument();
+        return registry.getWorkingCopy(document);
+    }
 
-	private void doFormat() {
-		ITextSelection selection = (ITextSelection) getSelectionProvider().getSelection();
-		IDocument document = getWorkingCopy().getDocument();
-		String toFormat = document.get();
-		String formatted = new TextUMLCompiler().format(toFormat);
-		document.set(formatted);
-		getSelectionProvider().setSelection(selection);
-	}
+    private void doFormat() {
+        ITextSelection selection = (ITextSelection) getSelectionProvider().getSelection();
+        IDocument document = getWorkingCopy().getDocument();
+        String toFormat = document.get();
+        String formatted = new TextUMLCompiler().format(toFormat);
+        document.set(formatted);
+        getSelectionProvider().setSelection(selection);
+    }
 }

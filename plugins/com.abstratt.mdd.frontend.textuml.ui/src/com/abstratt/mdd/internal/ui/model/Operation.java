@@ -27,39 +27,39 @@ import com.abstratt.mdd.ui.UIConstants;
 
 public class Operation extends LeafModelObject {
 
-	public Operation(UIModelObject parent, ASTNode node) {
-		super(parent, node);
-	}
+    public Operation(UIModelObject parent, ASTNode node) {
+        super(parent, node);
+    }
 
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_OPERATION);
-	}
+    @Override
+    public Image getImage() {
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_OPERATION);
+    }
 
-	protected AOperationDecl getModel() {
-		return (AOperationDecl) node.getBaseNode();
-	}
+    protected AOperationDecl getModel() {
+        return (AOperationDecl) node.getBaseNode();
+    }
 
-	@Override
-	public String getOriginalText() {
-		AOperationDecl declaration = getModel();
-		StringBuffer text = new StringBuffer();
-		final AOperationHeader operationHeader = ((AOperationHeader) declaration.getOperationHeader());
-		text.append(operationHeader.getIdentifier().getText());
-		POptionalReturnType returnType = ((ASignature) operationHeader.getSignature()).getOptionalReturnType();
-		text.append("() ");
-		if (returnType instanceof AOptionalReturnType) {
-			text.append(returnType);
-		}
-		return text.toString();
-	}
+    @Override
+    public String getOriginalText() {
+        AOperationDecl declaration = getModel();
+        StringBuffer text = new StringBuffer();
+        final AOperationHeader operationHeader = ((AOperationHeader) declaration.getOperationHeader());
+        text.append(operationHeader.getIdentifier().getText());
+        POptionalReturnType returnType = ((ASignature) operationHeader.getSignature()).getOptionalReturnType();
+        text.append("() ");
+        if (returnType instanceof AOptionalReturnType) {
+            text.append(returnType);
+        }
+        return text.toString();
+    }
 
-	@Override
-	public Token getToken() {
-		AOperationHeader header = (AOperationHeader) getModel().getOperationHeader();
-		POperationKeyword keyword = header.getOperationKeyword();
-		return keyword instanceof AQueryOperationKeyword ? ((AQueryOperationKeyword) keyword).getQuery()
-		        : ((AOperationOperationKeyword) keyword).getOperation();
-	}
+    @Override
+    public Token getToken() {
+        AOperationHeader header = (AOperationHeader) getModel().getOperationHeader();
+        POperationKeyword keyword = header.getOperationKeyword();
+        return keyword instanceof AQueryOperationKeyword ? ((AQueryOperationKeyword) keyword).getQuery()
+                : ((AOperationOperationKeyword) keyword).getOperation();
+    }
 
 }

@@ -22,21 +22,21 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
  * A type setter that defers resolution of type references to a later step.
  */
 public class DeferredTypeSetter extends TypeSetter {
-	public DeferredTypeSetter(SourceCompilationContext<Node> sourceContext, Namespace currentPackage,
-	        TypedElement target) {
-		super(sourceContext, currentPackage, target);
-	}
+    public DeferredTypeSetter(SourceCompilationContext<Node> sourceContext, Namespace currentPackage,
+            TypedElement target) {
+        super(sourceContext, currentPackage, target);
+    }
 
-	@Override
-	public void process(final Node node) {
-		getContext().getReferenceTracker().add(new IDeferredReference() {
-			public void resolve(IBasicRepository repository) {
-				doProcess(node);
-			}
-		}, IReferenceTracker.Step.GENERAL_RESOLUTION);
-	}
+    @Override
+    public void process(final Node node) {
+        getContext().getReferenceTracker().add(new IDeferredReference() {
+            public void resolve(IBasicRepository repository) {
+                doProcess(node);
+            }
+        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+    }
 
-	public void doProcess(final Node node) {
-		super.process(node);
-	}
+    public void doProcess(final Node node) {
+        super.process(node);
+    }
 }

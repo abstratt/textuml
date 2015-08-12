@@ -7,8 +7,8 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class RegionRenderer implements IElementRenderer<Region> {
-	@Override
-	public boolean renderObject(Region element, IndentedPrintWriter out, IRenderingSession context) {
-		return RenderingUtils.renderAll(context, element.getSubvertices());
-	}
+    @Override
+    public boolean renderObject(Region element, IndentedPrintWriter out, IRenderingSession context) {
+        return RenderingUtils.renderAll(context, element.getSubvertices());
+    }
 }

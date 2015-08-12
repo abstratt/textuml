@@ -27,41 +27,41 @@ import com.abstratt.mdd.ui.UIConstants;
  */
 public class Dependency extends LeafModelObject {
 
-	public Dependency(UIModelObject parent, ASTNode<Token, Node> node) {
-		super(parent, node);
-	}
+    public Dependency(UIModelObject parent, ASTNode<Token, Node> node) {
+        super(parent, node);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.abstratt.mdd.internal.ui.model.UIModelObject#getImage()
-	 */
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_DEPENDENCY);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.abstratt.mdd.internal.ui.model.UIModelObject#getImage()
+     */
+    @Override
+    public Image getImage() {
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_DEPENDENCY);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.abstratt.mdd.internal.ui.model.UIModelObject#getOriginalText()
-	 */
-	protected ADependencyDecl getModel() {
-		return (ADependencyDecl) node.getBaseNode();
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.abstratt.mdd.internal.ui.model.UIModelObject#getOriginalText()
+     */
+    protected ADependencyDecl getModel() {
+        return (ADependencyDecl) node.getBaseNode();
+    }
 
-	@Override
-	public String getOriginalText() {
-		ADependencyDecl declaration = getModel();
-		StringBuffer text = new StringBuffer();
-		PTypeIdentifier type = declaration.getTypeIdentifier();
-		text.append(type);
-		return text.toString();
-	}
+    @Override
+    public String getOriginalText() {
+        ADependencyDecl declaration = getModel();
+        StringBuffer text = new StringBuffer();
+        PTypeIdentifier type = declaration.getTypeIdentifier();
+        text.append(type);
+        return text.toString();
+    }
 
-	@Override
-	public Token getToken() {
-		return getModel().getDependency();
-	}
+    @Override
+    public Token getToken() {
+        return getModel().getDependency();
+    }
 
 }

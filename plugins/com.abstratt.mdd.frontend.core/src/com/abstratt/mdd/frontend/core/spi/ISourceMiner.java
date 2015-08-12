@@ -16,17 +16,17 @@ import java.util.List;
  * An object that knows how to extract source information for a given compiler.
  */
 public interface ISourceMiner<N> {
-	int getLineNumber(N node);
+    int getLineNumber(N node);
 
-	String getText(N node);
+    String getText(N node);
 
-	<P extends N, C extends N> P findParent(C start, Class<P> nodeType);
+    <P extends N, C extends N> P findParent(C start, Class<P> nodeType);
 
-	<P extends N, C extends N> C findChild(P start, Class<C> nodeType, boolean first);
+    <P extends N, C extends N> C findChild(P start, Class<C> nodeType, boolean first);
 
-	<P extends N, C extends N> List<C> findChildren(P start, Class<C> nodeType);
+    <P extends N, C extends N> List<C> findChildren(P start, Class<C> nodeType);
 
-	String getQualifiedIdentifier(N node);
+    String getQualifiedIdentifier(N node);
 
-	String getIdentifier(N node);
+    String getIdentifier(N node);
 }

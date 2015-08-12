@@ -10,28 +10,28 @@ import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.builder.UML2ProductKind;
 
 public class ReadExtentActionBuilder extends ActionBuilder<ReadExtentAction> {
-	private String classifierName;
+    private String classifierName;
 
-	public ReadExtentActionBuilder() {
-		super(UML2ProductKind.READ_EXTENT_ACTION);
-	}
+    public ReadExtentActionBuilder() {
+        super(UML2ProductKind.READ_EXTENT_ACTION);
+    }
 
-	public ReadExtentActionBuilder classifier(String classifierName) {
-		this.classifierName = classifierName;
-		return this;
-	}
+    public ReadExtentActionBuilder classifier(String classifierName) {
+        this.classifierName = classifierName;
+        return this;
+    }
 
-	@Override
-	public void enhanceAction() {
-		getProduct().setClassifier(this.<Classifier> findNamedElement(classifierName, Literals.CLASSIFIER));
-		final OutputPin result = getProduct().createResult(null, getProduct().getClassifier());
-		result.setUpperValue(MDDUtil.createLiteralUnlimitedNatural(getProduct().getNearestPackage(),
-		        LiteralUnlimitedNatural.UNLIMITED));
-		result.setIsUnique(true);
-	}
+    @Override
+    public void enhanceAction() {
+        getProduct().setClassifier(this.<Classifier> findNamedElement(classifierName, Literals.CLASSIFIER));
+        final OutputPin result = getProduct().createResult(null, getProduct().getClassifier());
+        result.setUpperValue(MDDUtil.createLiteralUnlimitedNatural(getProduct().getNearestPackage(),
+                LiteralUnlimitedNatural.UNLIMITED));
+        result.setIsUnique(true);
+    }
 
-	@Override
-	protected boolean isProducer() {
-		return true;
-	}
+    @Override
+    protected boolean isProducer() {
+        return true;
+    }
 }

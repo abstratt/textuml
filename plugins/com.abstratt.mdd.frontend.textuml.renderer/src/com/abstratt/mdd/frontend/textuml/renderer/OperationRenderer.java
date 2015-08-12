@@ -26,36 +26,36 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
  * 
  */
 public class OperationRenderer implements IEObjectRenderer<Operation> {
-	public boolean renderObject(Operation operation, IndentedPrintWriter w, IRenderingSession context) {
-		TextUMLRenderingUtils.renderStereotypeApplications(w, operation);
-		RenderingUtils.renderAll(context, operation.getOwnedComments());
-		w.print(TextUMLRenderingUtils.renderVisibility(operation.getVisibility()));
-		if (operation.isStatic())
-			w.print("static ");
-		if (operation.isAbstract())
-			w.print("abstract ");
-		w.print("operation ");
-		w.print(name(operation));
-		w.print("(");
-		List<Parameter> parameters = operation.getOwnedParameters();
-		Parameter returnParameter = operation.getReturnResult();
-		int i = 0;
-		int nonReturnParameters = parameters.size() - (returnParameter == null ? 0 : 1);
-		for (Parameter parameter : parameters)
-			if (parameter != returnParameter) {
-				context.render(parameter);
-				if (++i < nonReturnParameters)
-					w.write(", ");
-			}
-		w.print(")");
-		if (returnParameter != null) {
-			TextUMLRenderingUtils.renderStereotypeApplications(w, returnParameter, false);
-			w.print(" : ");
-			w.print(TextUMLRenderingUtils.getQualifiedNameIfNeeded(returnParameter.getType(), operation.getNamespace()));
-			w.print(TextUMLRenderingUtils.renderMultiplicity(returnParameter, true));
-		}
-		w.println(";");
-		RenderingUtils.renderAll(context, operation.getMethods());
-		return true;
-	}
+    public boolean renderObject(Operation operation, IndentedPrintWriter w, IRenderingSession context) {
+        TextUMLRenderingUtils.renderStereotypeApplications(w, operation);
+        RenderingUtils.renderAll(context, operation.getOwnedComments());
+        w.print(TextUMLRenderingUtils.renderVisibility(operation.getVisibility()));
+        if (operation.isStatic())
+            w.print("static ");
+        if (operation.isAbstract())
+            w.print("abstract ");
+        w.print("operation ");
+        w.print(name(operation));
+        w.print("(");
+        List<Parameter> parameters = operation.getOwnedParameters();
+        Parameter returnParameter = operation.getReturnResult();
+        int i = 0;
+        int nonReturnParameters = parameters.size() - (returnParameter == null ? 0 : 1);
+        for (Parameter parameter : parameters)
+            if (parameter != returnParameter) {
+                context.render(parameter);
+                if (++i < nonReturnParameters)
+                    w.write(", ");
+            }
+        w.print(")");
+        if (returnParameter != null) {
+            TextUMLRenderingUtils.renderStereotypeApplications(w, returnParameter, false);
+            w.print(" : ");
+            w.print(TextUMLRenderingUtils.getQualifiedNameIfNeeded(returnParameter.getType(), operation.getNamespace()));
+            w.print(TextUMLRenderingUtils.renderMultiplicity(returnParameter, true));
+        }
+        w.println(";");
+        RenderingUtils.renderAll(context, operation.getMethods());
+        return true;
+    }
 }

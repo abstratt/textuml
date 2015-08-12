@@ -21,14 +21,14 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ParameterRenderer implements IEObjectRenderer<Parameter> {
 
-	public boolean renderObject(Parameter parameter, IndentedPrintWriter w, IRenderingSession context) {
-		TextUMLRenderingUtils.renderStereotypeApplications(w, parameter, false);
-		ParameterDirectionKind direction = parameter.getDirection();
-		if (direction != null)
-			w.print(direction.getLiteral() + " ");
-		w.print(name(parameter));
-		w.print(" : ");
-		w.print(TextUMLRenderingUtils.getQualifiedNameIfNeeded(parameter));
-		return true;
-	}
+    public boolean renderObject(Parameter parameter, IndentedPrintWriter w, IRenderingSession context) {
+        TextUMLRenderingUtils.renderStereotypeApplications(w, parameter, false);
+        ParameterDirectionKind direction = parameter.getDirection();
+        if (direction != null)
+            w.print(direction.getLiteral() + " ");
+        w.print(name(parameter));
+        w.print(" : ");
+        w.print(TextUMLRenderingUtils.getQualifiedNameIfNeeded(parameter));
+        return true;
+    }
 }

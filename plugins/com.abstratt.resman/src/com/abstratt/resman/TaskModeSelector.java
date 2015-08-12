@@ -5,9 +5,9 @@ package com.abstratt.resman;
  * resource.
  */
 public interface TaskModeSelector {
-	Mode getMode();
+    Mode getMode();
 
-	enum Mode {
-		ReadOnly, ReadWrite
-	}
+    enum Mode {
+        ReadOnly, ReadWrite
+    }
 }

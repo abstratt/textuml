@@ -12,7 +12,7 @@ import com.abstratt.mdd.core.IRepository;
  *
  */
 public interface IModelWeaver {
-	public void packageCreated(IRepository repository, org.eclipse.uml2.uml.Package created);
+    public void packageCreated(IRepository repository, org.eclipse.uml2.uml.Package created);
 
-	public void repositoryComplete(IRepository repository);
+    public void repositoryComplete(IRepository repository);
 }

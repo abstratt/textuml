@@ -11,17 +11,17 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ParameterRenderer implements IElementRenderer<Parameter> {
 
-	public boolean renderObject(Parameter parameter, IndentedPrintWriter w, IRenderingSession context) {
-		if (context.getSettings().getBoolean(SHOW_PARAMETER_DIRECTION) && parameter.getDirection() != null)
-			w.print(parameter.getDirection().getLiteral() + " ");
-		if (context.getSettings().getBoolean(SHOW_PARAMETER_NAMES))
-			w.print(parameter.getName());
-		w.print(" : ");
-		Type paramType = parameter.getType();
-		if (paramType != null) {
-			w.print(paramType.getName());
-			w.print(UML2DOTRenderingUtils.renderMultiplicity(parameter, true));
-		}
-		return true;
-	}
+    public boolean renderObject(Parameter parameter, IndentedPrintWriter w, IRenderingSession context) {
+        if (context.getSettings().getBoolean(SHOW_PARAMETER_DIRECTION) && parameter.getDirection() != null)
+            w.print(parameter.getDirection().getLiteral() + " ");
+        if (context.getSettings().getBoolean(SHOW_PARAMETER_NAMES))
+            w.print(parameter.getName());
+        w.print(" : ");
+        Type paramType = parameter.getType();
+        if (paramType != null) {
+            w.print(paramType.getName());
+            w.print(UML2DOTRenderingUtils.renderMultiplicity(parameter, true));
+        }
+        return true;
+    }
 }

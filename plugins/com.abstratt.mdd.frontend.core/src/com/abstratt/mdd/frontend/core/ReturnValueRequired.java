@@ -13,7 +13,7 @@ package com.abstratt.mdd.frontend.core;
 import com.abstratt.mdd.core.Problem;
 
 public class ReturnValueRequired extends Problem {
-	public String getMessage() {
-		return "The signature requires a return value";
-	}
+    public String getMessage() {
+        return "The signature requires a return value";
+    }
 }

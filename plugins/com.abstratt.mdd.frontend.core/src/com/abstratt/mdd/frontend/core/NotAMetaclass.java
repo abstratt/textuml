@@ -14,15 +14,15 @@ import com.abstratt.mdd.core.Problem;
 
 public class NotAMetaclass extends Problem {
 
-	private String elementName;
+    private String elementName;
 
-	public NotAMetaclass(String elementName) {
-		super(Severity.ERROR);
-		this.elementName = elementName;
-	}
+    public NotAMetaclass(String elementName) {
+        super(Severity.ERROR);
+        this.elementName = elementName;
+    }
 
-	public String getMessage() {
-		return "Not a metaclass: " + elementName;
-	}
+    public String getMessage() {
+        return "Not a metaclass: " + elementName;
+    }
 
 }

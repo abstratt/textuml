@@ -22,28 +22,28 @@ import com.abstratt.mdd.ui.UIConstants;
 
 public class Import extends LeafModelObject {
 
-	public Import(UIModelObject parent, ASTNode node) {
-		super(parent, node);
-	}
+    public Import(UIModelObject parent, ASTNode node) {
+        super(parent, node);
+    }
 
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_IMPORT);
-	}
+    @Override
+    public Image getImage() {
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_IMPORT);
+    }
 
-	protected AImportDecl getModel() {
-		return (AImportDecl) getNode().getBaseNode();
-	}
+    protected AImportDecl getModel() {
+        return (AImportDecl) getNode().getBaseNode();
+    }
 
-	@Override
-	public String getOriginalText() {
-		AQualifiedIdentifier id = (AQualifiedIdentifier) getModel().getQualifiedIdentifier();
-		AQualifiedIdentifierBase base = (AQualifiedIdentifierBase) id.getQualifiedIdentifierBase();
-		return base.getIdentifier().getText();
-	}
+    @Override
+    public String getOriginalText() {
+        AQualifiedIdentifier id = (AQualifiedIdentifier) getModel().getQualifiedIdentifier();
+        AQualifiedIdentifierBase base = (AQualifiedIdentifierBase) id.getQualifiedIdentifierBase();
+        return base.getIdentifier().getText();
+    }
 
-	@Override
-	public Token getToken() {
-		return getModel().getImport();
-	}
+    @Override
+    public Token getToken() {
+        return getModel().getImport();
+    }
 }

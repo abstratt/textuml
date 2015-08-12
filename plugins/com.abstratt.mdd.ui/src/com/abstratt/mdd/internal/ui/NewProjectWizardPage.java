@@ -28,53 +28,53 @@ import com.abstratt.mdd.ui.Activator;
 
 public class NewProjectWizardPage extends WizardPage {
 
-	protected Text nameText;
+    protected Text nameText;
 
-	public NewProjectWizardPage() {
-		super("New MDD Project");
-		setDescription("Create a new MDD project.");
-		setImageDescriptor(Activator.getImageDescriptor("icons/full/wizban/new_mdd_prj_wiz.png"));
-	}
+    public NewProjectWizardPage() {
+        super("New MDD Project");
+        setDescription("Create a new MDD project.");
+        setImageDescriptor(Activator.getImageDescriptor("icons/full/wizban/new_mdd_prj_wiz.png"));
+    }
 
-	public void createControl(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout(2, false);
-		composite.setLayout(layout);
-		setControl(composite);
+    public void createControl(Composite parent) {
+        Composite composite = new Composite(parent, SWT.NONE);
+        GridLayout layout = new GridLayout(2, false);
+        composite.setLayout(layout);
+        setControl(composite);
 
-		Label nameLabel = new Label(composite, SWT.LEFT);
-		nameLabel.setText("Project name:");
-		nameLabel.setLayoutData(new GridData(GridData.BEGINNING));
+        Label nameLabel = new Label(composite, SWT.LEFT);
+        nameLabel.setText("Project name:");
+        nameLabel.setLayoutData(new GridData(GridData.BEGINNING));
 
-		nameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
-		nameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        nameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
+        nameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		nameText.setFocus(); // initial widget with focus
-		nameText.addKeyListener(new KeyListener() {
+        nameText.setFocus(); // initial widget with focus
+        nameText.addKeyListener(new KeyListener() {
 
-			public void keyPressed(KeyEvent e) {
-			}
+            public void keyPressed(KeyEvent e) {
+            }
 
-			public void keyReleased(KeyEvent e) {
-				IPath projectPath = new Path(getProjectName().trim());
-				boolean isValid = false;
-				setMessage(null);
-				if (projectPath.segmentCount() != 1
-				        || !ResourcesPlugin.getWorkspace().validateName(projectPath.segment(0), IResource.PROJECT)
-				                .isOK())
-					setMessage("Enter a valid project name", ERROR);
-				else if (ResourcesPlugin.getWorkspace().getRoot().getProject(projectPath.segment(0)).exists())
-					setMessage("A project with that name already exists", ERROR);
-				else
-					isValid = true;
-				setPageComplete(isValid);
-			}
+            public void keyReleased(KeyEvent e) {
+                IPath projectPath = new Path(getProjectName().trim());
+                boolean isValid = false;
+                setMessage(null);
+                if (projectPath.segmentCount() != 1
+                        || !ResourcesPlugin.getWorkspace().validateName(projectPath.segment(0), IResource.PROJECT)
+                                .isOK())
+                    setMessage("Enter a valid project name", ERROR);
+                else if (ResourcesPlugin.getWorkspace().getRoot().getProject(projectPath.segment(0)).exists())
+                    setMessage("A project with that name already exists", ERROR);
+                else
+                    isValid = true;
+                setPageComplete(isValid);
+            }
 
-		});
-	}
+        });
+    }
 
-	public String getProjectName() {
-		return nameText.getText();
-	}
+    public String getProjectName() {
+        return nameText.getText();
+    }
 
 }

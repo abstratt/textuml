@@ -14,24 +14,24 @@ import com.abstratt.mdd.core.Problem;
 
 public class NotInAssociation extends Problem {
 
-	private String classifierName;
-	private String associationName;
+    private String classifierName;
+    private String associationName;
 
-	public NotInAssociation(String classifierName, String associationName) {
-		super(Severity.ERROR);
-		this.classifierName = classifierName;
-		this.associationName = associationName;
-	}
+    public NotInAssociation(String classifierName, String associationName) {
+        super(Severity.ERROR);
+        this.classifierName = classifierName;
+        this.associationName = associationName;
+    }
 
-	public String getMessage() {
-		return classifierName + " is not involved in association '" + associationName + "'";
-	}
+    public String getMessage() {
+        return classifierName + " is not involved in association '" + associationName + "'";
+    }
 
-	public String getAssociationName() {
-		return associationName;
-	}
+    public String getAssociationName() {
+        return associationName;
+    }
 
-	public String getClassifierName() {
-		return classifierName;
-	}
+    public String getClassifierName() {
+        return classifierName;
+    }
 }

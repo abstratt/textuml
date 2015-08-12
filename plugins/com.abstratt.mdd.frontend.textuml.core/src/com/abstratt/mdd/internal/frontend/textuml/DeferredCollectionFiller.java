@@ -40,56 +40,56 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
  * @author vas
  */
 public class DeferredCollectionFiller extends AbstractTypeResolver implements NodeProcessor<PTypeIdentifier> {
-	class Visitor extends DepthFirstAdapter {
+    class Visitor extends DepthFirstAdapter {
 
-		@Override
-		public void caseAAnySingleTypeIdentifier(AAnySingleTypeIdentifier node) {
-			final Type anyType = (Type) getContext().getRepository().findNamedElement(TypeUtils.ANY_TYPE,
-			        IRepository.PACKAGE.getType(), null);
-			if (anyType == null) {
-				problemBuilder.addProblem(new UnresolvedSymbol(TypeUtils.ANY_TYPE), node);
-				throw new AbortedStatementCompilationException();
-			}
-			addElement(anyType);
-		}
+        @Override
+        public void caseAAnySingleTypeIdentifier(AAnySingleTypeIdentifier node) {
+            final Type anyType = (Type) getContext().getRepository().findNamedElement(TypeUtils.ANY_TYPE,
+                    IRepository.PACKAGE.getType(), null);
+            if (anyType == null) {
+                problemBuilder.addProblem(new UnresolvedSymbol(TypeUtils.ANY_TYPE), node);
+                throw new AbortedStatementCompilationException();
+            }
+            addElement(anyType);
+        }
 
-		@Override
-		public void caseAQualifiedSingleTypeIdentifier(AQualifiedSingleTypeIdentifier node) {
-			super.caseAQualifiedSingleTypeIdentifier(node);
-			TemplateBindingProcessor<Classifier, Type> tbp = new TemplateBindingProcessor<Classifier, Type>();
-			tbp.process(node);
-			parameterIdentifiers = tbp.getParameterIdentifiers();
-			final String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(
-			        node.getMinimalTypeIdentifier());
-			Type type = resolveType(node.getMinimalTypeIdentifier(), qualifiedIdentifier);
-			if (type != null)
-				addElement(type);
-		}
+        @Override
+        public void caseAQualifiedSingleTypeIdentifier(AQualifiedSingleTypeIdentifier node) {
+            super.caseAQualifiedSingleTypeIdentifier(node);
+            TemplateBindingProcessor<Classifier, Type> tbp = new TemplateBindingProcessor<Classifier, Type>();
+            tbp.process(node);
+            parameterIdentifiers = tbp.getParameterIdentifiers();
+            final String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(
+                    node.getMinimalTypeIdentifier());
+            Type type = resolveType(node.getMinimalTypeIdentifier(), qualifiedIdentifier);
+            if (type != null)
+                addElement(type);
+        }
 
-		private void addElement(NamedElement element) {
-			target.add(element);
-		}
+        private void addElement(NamedElement element) {
+            target.add(element);
+        }
 
-		@Override
-		public void caseATypeIdentifier(ATypeIdentifier node) {
-			node.getSingleTypeIdentifier().apply(this);
-		}
+        @Override
+        public void caseATypeIdentifier(ATypeIdentifier node) {
+            node.getSingleTypeIdentifier().apply(this);
+        }
 
-	}
+    }
 
-	private List<NamedElement> target;
+    private List<NamedElement> target;
 
-	public DeferredCollectionFiller(SourceCompilationContext<Node> sourceContext, Namespace currentPackage,
-	        List<NamedElement> target) {
-		super(sourceContext, currentPackage);
-		this.target = target;
-	}
+    public DeferredCollectionFiller(SourceCompilationContext<Node> sourceContext, Namespace currentPackage,
+            List<NamedElement> target) {
+        super(sourceContext, currentPackage);
+        this.target = target;
+    }
 
-	public void process(final PTypeIdentifier node) {
-		getContext().getReferenceTracker().add(new IDeferredReference() {
-			public void resolve(IBasicRepository repository) {
-				node.apply(new Visitor());
-			}
-		}, IReferenceTracker.Step.GENERAL_RESOLUTION);
-	}
+    public void process(final PTypeIdentifier node) {
+        getContext().getReferenceTracker().add(new IDeferredReference() {
+            public void resolve(IBasicRepository repository) {
+                node.apply(new Visitor());
+            }
+        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+    }
 }

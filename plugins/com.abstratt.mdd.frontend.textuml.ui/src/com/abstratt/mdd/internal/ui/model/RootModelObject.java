@@ -24,37 +24,37 @@ import com.abstratt.mdd.internal.ui.TextUMLUIPlugin;
 
 public class RootModelObject extends UIModelObject {
 
-	protected static Class[] CHILDREN_TYPES = new Class[] {
-	/* AImportDecl.class, */AClassDef.class, AAssociationDef.class, ACompositionAssociationKind.class,
-	        AAssociationAssociationKind.class, AAggregationAssociationKind.class, APrimitiveDef.class };
+    protected static Class[] CHILDREN_TYPES = new Class[] {
+    /* AImportDecl.class, */AClassDef.class, AAssociationDef.class, ACompositionAssociationKind.class,
+            AAssociationAssociationKind.class, AAggregationAssociationKind.class, APrimitiveDef.class };
 
-	protected static Class[] CHILDREN_TYPES_NOASSOCS = new Class[] {
-	/* AImportDecl.class, */AClassDef.class, APrimitiveDef.class };
+    protected static Class[] CHILDREN_TYPES_NOASSOCS = new Class[] {
+    /* AImportDecl.class, */AClassDef.class, APrimitiveDef.class };
 
-	public RootModelObject(UIModelObject parent, ASTNode node) {
-		super(parent, node);
-	}
+    public RootModelObject(UIModelObject parent, ASTNode node) {
+        super(parent, node);
+    }
 
-	@Override
-	public Class[] getChildrenTypes() {
-		if (TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_ASSOCINCLASS)) {
-			return CHILDREN_TYPES_NOASSOCS;
-		}
-		return CHILDREN_TYPES;
-	}
+    @Override
+    public Class[] getChildrenTypes() {
+        if (TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_ASSOCINCLASS)) {
+            return CHILDREN_TYPES_NOASSOCS;
+        }
+        return CHILDREN_TYPES;
+    }
 
-	@Override
-	public Image getImage() {
-		return null;
-	}
+    @Override
+    public Image getImage() {
+        return null;
+    }
 
-	@Override
-	public String getOriginalText() {
-		return "[root]";
-	}
+    @Override
+    public String getOriginalText() {
+        return "[root]";
+    }
 
-	@Override
-	public Token getToken() {
-		return null;
-	}
+    @Override
+    public Token getToken() {
+        return null;
+    }
 }

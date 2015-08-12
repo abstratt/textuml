@@ -14,13 +14,13 @@ import com.abstratt.mdd.core.Problem;
 
 public class NonInitialStatesMustBeNamed extends Problem {
 
-	public NonInitialStatesMustBeNamed() {
-		super(Severity.ERROR);
-	}
+    public NonInitialStatesMustBeNamed() {
+        super(Severity.ERROR);
+    }
 
-	@Override
-	public String getMessage() {
-		return "Non-initial states must be named";
-	}
+    @Override
+    public String getMessage() {
+        return "Non-initial states must be named";
+    }
 
 }

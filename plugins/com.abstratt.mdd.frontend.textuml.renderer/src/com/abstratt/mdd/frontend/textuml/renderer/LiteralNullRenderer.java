@@ -18,9 +18,9 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class LiteralNullRenderer implements IEObjectRenderer<LiteralNull> {
 
-	public boolean renderObject(LiteralNull element, IndentedPrintWriter out, IRenderingSession context) {
-		out.print("null");
-		return true;
-	}
+    public boolean renderObject(LiteralNull element, IndentedPrintWriter out, IRenderingSession context) {
+        out.print("null");
+        return true;
+    }
 
 }

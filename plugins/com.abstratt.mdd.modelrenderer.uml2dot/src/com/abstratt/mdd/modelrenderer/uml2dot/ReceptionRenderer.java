@@ -12,12 +12,12 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
  * 
  */
 public class ReceptionRenderer implements IElementRenderer<Reception> {
-	public boolean renderObject(Reception reception, IndentedPrintWriter w, IRenderingSession context) {
-		w.print("<TR><TD align=\"left\">");
-		w.print(UML2DOTRenderingUtils.addGuillemots("signal"));
-		w.print(" ");
-		w.print(reception.getSignal().getName());
-		w.print("</TD></TR>");
-		return true;
-	}
+    public boolean renderObject(Reception reception, IndentedPrintWriter w, IRenderingSession context) {
+        w.print("<TR><TD align=\"left\">");
+        w.print(UML2DOTRenderingUtils.addGuillemots("signal"));
+        w.print(" ");
+        w.print(reception.getSignal().getName());
+        w.print("</TD></TR>");
+        return true;
+    }
 }

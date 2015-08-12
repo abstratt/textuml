@@ -13,17 +13,17 @@ package com.abstratt.mdd.frontend.core;
 import com.abstratt.mdd.core.Problem;
 
 public class WrongNumberOfRoles extends Problem {
-	private int expected;
-	private int actual;
+    private int expected;
+    private int actual;
 
-	public WrongNumberOfRoles(int expected, int actual) {
-		super(Severity.ERROR);
-		this.expected = expected;
-		this.actual = actual;
-	}
+    public WrongNumberOfRoles(int expected, int actual) {
+        super(Severity.ERROR);
+        this.expected = expected;
+        this.actual = actual;
+    }
 
-	public String getMessage() {
-		return "Wrong number of roles in association. Expected: " + expected + ", actual: " + actual;
-	}
+    public String getMessage() {
+        return "Wrong number of roles in association. Expected: " + expected + ", actual: " + actual;
+    }
 
 }

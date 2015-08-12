@@ -16,13 +16,13 @@ import org.eclipse.emf.common.util.URI;
 import com.abstratt.mdd.internal.core.Repository;
 
 public class MDDCore {
-	public static final String PLUGIN_ID = "com.abstratt.mdd.core";
+    public static final String PLUGIN_ID = "com.abstratt.mdd.core";
 
-	public static IRepository createRepository(URI baseURI) throws CoreException {
-		return new Repository(baseURI, true);
-	}
+    public static IRepository createRepository(URI baseURI) throws CoreException {
+        return new Repository(baseURI, true);
+    }
 
-	public static IRepository getInProgressRepository() {
-		return Repository.getInProgress();
-	}
+    public static IRepository getInProgressRepository() {
+        return Repository.getInProgress();
+    }
 }

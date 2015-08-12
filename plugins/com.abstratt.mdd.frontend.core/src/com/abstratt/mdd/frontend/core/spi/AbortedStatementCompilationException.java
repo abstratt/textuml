@@ -5,5 +5,5 @@ package com.abstratt.mdd.frontend.core.spi;
  * of a statement when an unrecoverable parsing error is found.
  */
 public class AbortedStatementCompilationException extends AbortedScopeCompilationException {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 }

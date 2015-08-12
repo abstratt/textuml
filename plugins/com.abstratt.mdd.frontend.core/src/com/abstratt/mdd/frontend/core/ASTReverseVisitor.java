@@ -12,12 +12,12 @@ package com.abstratt.mdd.frontend.core;
 
 public interface ASTReverseVisitor<T, N> {
 
-	/**
-	 * Visits a node in the AST.
-	 * 
-	 * @param node
-	 *            the node we are visiting
-	 * @return true if we should visit the parent and false otherwise
-	 */
-	boolean visit(ASTNode<T, N> node);
+    /**
+     * Visits a node in the AST.
+     * 
+     * @param node
+     *            the node we are visiting
+     * @return true if we should visit the parent and false otherwise
+     */
+    boolean visit(ASTNode<T, N> node);
 }

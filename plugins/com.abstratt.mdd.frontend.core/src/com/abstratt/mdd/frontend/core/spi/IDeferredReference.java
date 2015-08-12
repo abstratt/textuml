@@ -10,10 +10,10 @@ import com.abstratt.mdd.core.IBasicRepository;
  */
 public interface IDeferredReference {
 
-	/**
-	 * Resolves this deferred reference against the given repository.
-	 * 
-	 * @param repository
-	 */
-	public void resolve(IBasicRepository repository);
+    /**
+     * Resolves this deferred reference against the given repository.
+     * 
+     * @param repository
+     */
+    public void resolve(IBasicRepository repository);
 }

@@ -29,76 +29,76 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.TIdentifier;
 
 public class SimpleInitializationExpressionProcessor {
 
-	private IReferenceTracker referenceTracker;
-	private ProblemBuilder<Node> problemBuilder;
-	private Namespace currentNamespace;
+    private IReferenceTracker referenceTracker;
+    private ProblemBuilder<Node> problemBuilder;
+    private Namespace currentNamespace;
 
-	SimpleInitializationExpressionProcessor(SourceCompilationContext<Node> sourceContext, Namespace currentNamespace) {
-		this.referenceTracker = sourceContext.getReferenceTracker();
-		this.problemBuilder = sourceContext.getProblemBuilder();
-		this.currentNamespace = currentNamespace;
-	}
+    SimpleInitializationExpressionProcessor(SourceCompilationContext<Node> sourceContext, Namespace currentNamespace) {
+        this.referenceTracker = sourceContext.getReferenceTracker();
+        this.problemBuilder = sourceContext.getProblemBuilder();
+        this.currentNamespace = currentNamespace;
+    }
 
-	protected ValueSpecification parseValueSpecification(PLiteralOrIdentifier node, final Type expectedType) {
-		if (node instanceof ALiteralLiteralOrIdentifier) {
-			ValueSpecification asLiteralValue = LiteralValueParser.parseLiteralValue(node,
-			        currentNamespace.getNearestPackage(), problemBuilder);
-			return asLiteralValue;
-		}
-		if (expectedType instanceof Enumeration)
-			return parseEnumerationLiteral(node, expectedType);
-		problemBuilder.addError("Enumeration or data type literal expected ", node);
-		throw new AbortedStatementCompilationException();
-	}
+    protected ValueSpecification parseValueSpecification(PLiteralOrIdentifier node, final Type expectedType) {
+        if (node instanceof ALiteralLiteralOrIdentifier) {
+            ValueSpecification asLiteralValue = LiteralValueParser.parseLiteralValue(node,
+                    currentNamespace.getNearestPackage(), problemBuilder);
+            return asLiteralValue;
+        }
+        if (expectedType instanceof Enumeration)
+            return parseEnumerationLiteral(node, expectedType);
+        problemBuilder.addError("Enumeration or data type literal expected ", node);
+        throw new AbortedStatementCompilationException();
+    }
 
-	protected ValueSpecification parseEnumerationLiteral(PLiteralOrIdentifier node, final Type expectedType) {
-		TIdentifier identifier = ((AIdentifierLiteralOrIdentifier) node).getIdentifier();
-		String literalName = identifier.getText().trim();
-		Enumeration targetEnumeration = (Enumeration) expectedType;
-		EnumerationLiteral enumerationValue = ((Enumeration) targetEnumeration).getOwnedLiteral(literalName);
-		if (enumerationValue == null) {
-			problemBuilder.addError(
-			        "Unknown enumeration literal '" + literalName + "' in '" + targetEnumeration.getName() + "'", node);
-			throw new AbortedScopeCompilationException();
-		}
-		InstanceValue valueSpec = (InstanceValue) currentNamespace.getNearestPackage().createPackagedElement(null,
-		        IRepository.PACKAGE.getInstanceValue());
-		valueSpec.setInstance(enumerationValue);
-		valueSpec.setType(targetEnumeration);
-		return valueSpec;
-	}
+    protected ValueSpecification parseEnumerationLiteral(PLiteralOrIdentifier node, final Type expectedType) {
+        TIdentifier identifier = ((AIdentifierLiteralOrIdentifier) node).getIdentifier();
+        String literalName = identifier.getText().trim();
+        Enumeration targetEnumeration = (Enumeration) expectedType;
+        EnumerationLiteral enumerationValue = ((Enumeration) targetEnumeration).getOwnedLiteral(literalName);
+        if (enumerationValue == null) {
+            problemBuilder.addError(
+                    "Unknown enumeration literal '" + literalName + "' in '" + targetEnumeration.getName() + "'", node);
+            throw new AbortedScopeCompilationException();
+        }
+        InstanceValue valueSpec = (InstanceValue) currentNamespace.getNearestPackage().createPackagedElement(null,
+                IRepository.PACKAGE.getInstanceValue());
+        valueSpec.setInstance(enumerationValue);
+        valueSpec.setType(targetEnumeration);
+        return valueSpec;
+    }
 
-	public void process(final PTypeIdentifier typeIdentifierNode, final TypedElement typedElement,
-	        final PLiteralOrIdentifier initializationExpression) {
-		String typeIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(typeIdentifierNode);
+    public void process(final PTypeIdentifier typeIdentifierNode, final TypedElement typedElement,
+            final PLiteralOrIdentifier initializationExpression) {
+        String typeIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(typeIdentifierNode);
 
-		referenceTracker.add(new DeferredReference<Type>(typeIdentifier, Literals.TYPE, currentNamespace) {
+        referenceTracker.add(new DeferredReference<Type>(typeIdentifier, Literals.TYPE, currentNamespace) {
 
-			@Override
-			protected void onBind(Type element) {
-				if (element == null) {
-					problemBuilder.addProblem(new UnknownType(getSymbolName()), typeIdentifierNode);
-					return;
-				}
-				typedElement.setType(element);
-				final ValueSpecification valueSpec = parseValueSpecification(initializationExpression,
-				        typedElement.getType());
-				if (valueSpec != null) {
-					if (typedElement.getType() != valueSpec.getType())
-						problemBuilder.addProblem(new TypeMismatch(typedElement.getType().getQualifiedName(), valueSpec
-						        .getType().getQualifiedName()), typeIdentifierNode);
-					else {
-						if (typedElement instanceof Parameter)
-							((Parameter) typedElement).setDefaultValue(valueSpec);
-						else if (typedElement instanceof Property)
-							((Property) typedElement).setDefaultValue(valueSpec);
-						else
-							throw new IllegalArgumentException(typedElement.getQualifiedName() + " - "
-							        + typedElement.eClass().getName());
-					}
-				}
-			}
-		}, IReferenceTracker.Step.GENERAL_RESOLUTION);
-	}
+            @Override
+            protected void onBind(Type element) {
+                if (element == null) {
+                    problemBuilder.addProblem(new UnknownType(getSymbolName()), typeIdentifierNode);
+                    return;
+                }
+                typedElement.setType(element);
+                final ValueSpecification valueSpec = parseValueSpecification(initializationExpression,
+                        typedElement.getType());
+                if (valueSpec != null) {
+                    if (typedElement.getType() != valueSpec.getType())
+                        problemBuilder.addProblem(new TypeMismatch(typedElement.getType().getQualifiedName(), valueSpec
+                                .getType().getQualifiedName()), typeIdentifierNode);
+                    else {
+                        if (typedElement instanceof Parameter)
+                            ((Parameter) typedElement).setDefaultValue(valueSpec);
+                        else if (typedElement instanceof Property)
+                            ((Property) typedElement).setDefaultValue(valueSpec);
+                        else
+                            throw new IllegalArgumentException(typedElement.getQualifiedName() + " - "
+                                    + typedElement.eClass().getName());
+                    }
+                }
+            }
+        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+    }
 
 }

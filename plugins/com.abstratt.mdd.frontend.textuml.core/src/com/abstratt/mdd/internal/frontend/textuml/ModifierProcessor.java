@@ -14,34 +14,34 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
  */
 public class ModifierProcessor implements NodeProcessor<Node> {
 
-	private Set<Modifier> modifiers = new LinkedHashSet<Modifier>();
+    private Set<Modifier> modifiers = new LinkedHashSet<Modifier>();
 
-	private SCCTextUMLSourceMiner sourceMiner;
+    private SCCTextUMLSourceMiner sourceMiner;
 
-	public ModifierProcessor(SCCTextUMLSourceMiner sourceMiner) {
-		this.sourceMiner = sourceMiner;
-	}
+    public ModifierProcessor(SCCTextUMLSourceMiner sourceMiner) {
+        this.sourceMiner = sourceMiner;
+    }
 
-	@Override
-	public void process(Node node) {
-		if (node == null)
-			return;
-		for (Token modifierToken : sourceMiner.findChildren(node, Token.class))
-			modifiers.add(Modifier.fromToken(modifierToken.getText()));
-	}
+    @Override
+    public void process(Node node) {
+        if (node == null)
+            return;
+        for (Token modifierToken : sourceMiner.findChildren(node, Token.class))
+            modifiers.add(Modifier.fromToken(modifierToken.getText()));
+    }
 
-	public void collectModifierToken(Node modifierNode) {
-		if (modifierNode == null)
-			return;
-		Token modifierToken = sourceMiner.findToken(modifierNode);
-		modifiers.add(Modifier.fromToken(modifierToken.getText()));
-	}
+    public void collectModifierToken(Node modifierNode) {
+        if (modifierNode == null)
+            return;
+        Token modifierToken = sourceMiner.findToken(modifierNode);
+        modifiers.add(Modifier.fromToken(modifierToken.getText()));
+    }
 
-	public Set<Modifier> getModifiers(boolean consume) {
-		Assert.isNotNull(modifiers);
-		Set<Modifier> result = modifiers;
-		if (consume)
-			modifiers = new HashSet<Modifier>();
-		return result;
-	}
+    public Set<Modifier> getModifiers(boolean consume) {
+        Assert.isNotNull(modifiers);
+        Set<Modifier> result = modifiers;
+        if (consume)
+            modifiers = new HashSet<Modifier>();
+        return result;
+    }
 }

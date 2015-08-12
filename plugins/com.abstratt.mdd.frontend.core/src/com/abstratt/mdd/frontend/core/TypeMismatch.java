@@ -14,17 +14,17 @@ import com.abstratt.mdd.core.Problem;
 
 public class TypeMismatch extends Problem {
 
-	private String expected;
-	private String found;
+    private String expected;
+    private String found;
 
-	public TypeMismatch(String expected, String found) {
-		super(Severity.ERROR);
-		this.expected = expected;
-		this.found = found;
-	}
+    public TypeMismatch(String expected, String found) {
+        super(Severity.ERROR);
+        this.expected = expected;
+        this.found = found;
+    }
 
-	public String getMessage() {
-		return "Type mismatch (expected: '" + expected + "',  found: '" + found + "')";
-	}
+    public String getMessage() {
+        return "Type mismatch (expected: '" + expected + "',  found: '" + found + "')";
+    }
 
 }

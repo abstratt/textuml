@@ -6,6 +6,6 @@ package com.abstratt.mdd.frontend.core.spi;
  */
 public class AbortedCompilationException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 }

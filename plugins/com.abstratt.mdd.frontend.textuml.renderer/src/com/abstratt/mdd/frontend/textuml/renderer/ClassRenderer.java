@@ -25,42 +25,42 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class ClassRenderer implements IEObjectRenderer<Class> {
 
-	public boolean renderObject(Class clazz, IndentedPrintWriter writer, IRenderingSession context) {
-		RenderingUtils.renderAll(context, clazz.getOwnedComments());
-		TextUMLRenderingUtils.renderStereotypeApplications(writer, clazz);
-		if (clazz.isAbstract())
-			writer.print("abstract ");
-		writer.print("class " + name(clazz));
-		List<Generalization> generalizations = clazz.getGeneralizations();
-		StringBuilder specializationList = new StringBuilder();
-		for (Generalization generalization : generalizations)
-			specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(),
-			        clazz.getNamespace())
-			        + ", ");
-		if (specializationList.length() > 0) {
-			specializationList.delete(specializationList.length() - 2, specializationList.length());
-			writer.print(" specializes ");
-			writer.print(specializationList);
-		}
-		List<InterfaceRealization> realizations = clazz.getInterfaceRealizations();
-		StringBuilder realizationList = new StringBuilder();
-		for (InterfaceRealization realization : realizations)
-			realizationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(realization.getContract(),
-			        clazz.getNamespace())
-			        + ", ");
-		if (realizationList.length() > 0) {
-			realizationList.delete(realizationList.length() - 2, realizationList.length());
-			writer.print(" implements ");
-			writer.print(realizationList);
-		}
-		writer.println();
-		writer.enterLevel();
-		RenderingUtils.renderAll(context, clazz.getOwnedAttributes());
-		RenderingUtils.renderAll(context, clazz.getOwnedOperations());
-		RenderingUtils.renderAll(context, clazz.getClientDependencies());
-		writer.exitLevel();
-		writer.println("end;");
-		writer.println();
-		return true;
-	}
+    public boolean renderObject(Class clazz, IndentedPrintWriter writer, IRenderingSession context) {
+        RenderingUtils.renderAll(context, clazz.getOwnedComments());
+        TextUMLRenderingUtils.renderStereotypeApplications(writer, clazz);
+        if (clazz.isAbstract())
+            writer.print("abstract ");
+        writer.print("class " + name(clazz));
+        List<Generalization> generalizations = clazz.getGeneralizations();
+        StringBuilder specializationList = new StringBuilder();
+        for (Generalization generalization : generalizations)
+            specializationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(generalization.getGeneral(),
+                    clazz.getNamespace())
+                    + ", ");
+        if (specializationList.length() > 0) {
+            specializationList.delete(specializationList.length() - 2, specializationList.length());
+            writer.print(" specializes ");
+            writer.print(specializationList);
+        }
+        List<InterfaceRealization> realizations = clazz.getInterfaceRealizations();
+        StringBuilder realizationList = new StringBuilder();
+        for (InterfaceRealization realization : realizations)
+            realizationList.append(TextUMLRenderingUtils.getQualifiedNameIfNeeded(realization.getContract(),
+                    clazz.getNamespace())
+                    + ", ");
+        if (realizationList.length() > 0) {
+            realizationList.delete(realizationList.length() - 2, realizationList.length());
+            writer.print(" implements ");
+            writer.print(realizationList);
+        }
+        writer.println();
+        writer.enterLevel();
+        RenderingUtils.renderAll(context, clazz.getOwnedAttributes());
+        RenderingUtils.renderAll(context, clazz.getOwnedOperations());
+        RenderingUtils.renderAll(context, clazz.getClientDependencies());
+        writer.exitLevel();
+        writer.println("end;");
+        writer.println();
+        return true;
+    }
 }

@@ -17,11 +17,11 @@ import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class CommentRenderer implements IEObjectRenderer<Comment> {
-	public boolean renderObject(Comment element, IndentedPrintWriter out, IRenderingSession context) {
-		out.print("(* ");
-		out.print(element.getBody().trim());
-		out.print(" *)");
-		out.println();
-		return true;
-	}
+    public boolean renderObject(Comment element, IndentedPrintWriter out, IRenderingSession context) {
+        out.print("(* ");
+        out.print(element.getBody().trim());
+        out.print(" *)");
+        out.println();
+        return true;
+    }
 }

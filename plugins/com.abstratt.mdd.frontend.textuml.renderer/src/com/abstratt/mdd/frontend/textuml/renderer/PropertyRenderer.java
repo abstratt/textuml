@@ -24,32 +24,32 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class PropertyRenderer implements IEObjectRenderer<Property> {
-	public boolean renderObject(Property property, IndentedPrintWriter writer, IRenderingSession context) {
-		if (property.getAssociation() instanceof Extension)
-			// association of a stereotype with an extended metaclass
-			return false;
-		RenderingUtils.renderAll(context, property.getOwnedComments());
-		TextUMLRenderingUtils.renderStereotypeApplications(writer, property);
-		writer.print(TextUMLRenderingUtils.renderVisibility(property.getVisibility()));
-		if (property.isReadOnly())
-			writer.print("constant ");
-		else {
-			if (property.isStatic())
-				writer.print("static ");
-			if (property.getOwner() instanceof Stereotype)
-				writer.print("property ");
-			else
-				writer.print("attribute ");
-		}
-		writer.print(name(property));
-		writer.print(" : ");
-		writer.print(TextUMLRenderingUtils.getQualifiedNameIfNeeded(property));
-		ValueSpecification defaultValue = property.getDefaultValue();
-		if (defaultValue != null) {
-			writer.print(" := ");
-			context.render(defaultValue);
-		}
-		writer.println(";");
-		return true;
-	}
+    public boolean renderObject(Property property, IndentedPrintWriter writer, IRenderingSession context) {
+        if (property.getAssociation() instanceof Extension)
+            // association of a stereotype with an extended metaclass
+            return false;
+        RenderingUtils.renderAll(context, property.getOwnedComments());
+        TextUMLRenderingUtils.renderStereotypeApplications(writer, property);
+        writer.print(TextUMLRenderingUtils.renderVisibility(property.getVisibility()));
+        if (property.isReadOnly())
+            writer.print("constant ");
+        else {
+            if (property.isStatic())
+                writer.print("static ");
+            if (property.getOwner() instanceof Stereotype)
+                writer.print("property ");
+            else
+                writer.print("attribute ");
+        }
+        writer.print(name(property));
+        writer.print(" : ");
+        writer.print(TextUMLRenderingUtils.getQualifiedNameIfNeeded(property));
+        ValueSpecification defaultValue = property.getDefaultValue();
+        if (defaultValue != null) {
+            writer.print(" := ");
+            context.render(defaultValue);
+        }
+        writer.println(";");
+        return true;
+    }
 }

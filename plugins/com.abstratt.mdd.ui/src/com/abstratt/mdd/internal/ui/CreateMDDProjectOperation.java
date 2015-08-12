@@ -26,28 +26,28 @@ import com.abstratt.mdd.ui.UIConstants;
  */
 public class CreateMDDProjectOperation implements IWorkspaceRunnable {
 
-	protected String name;
+    protected String name;
 
-	public CreateMDDProjectOperation(String name) {
-		this.name = name;
-	}
+    public CreateMDDProjectOperation(String name) {
+        this.name = name;
+    }
 
-	public void run(IProgressMonitor monitor) throws CoreException {
-		if (monitor == null)
-			monitor = new NullProgressMonitor();
-		try {
-			monitor.beginTask("Create MDD Project", 100);
+    public void run(IProgressMonitor monitor) throws CoreException {
+        if (monitor == null)
+            monitor = new NullProgressMonitor();
+        try {
+            monitor.beginTask("Create MDD Project", 100);
 
-			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
-			project.create(new SubProgressMonitor(monitor, 40));
-			project.open(new SubProgressMonitor(monitor, 30));
+            IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
+            project.create(new SubProgressMonitor(monitor, 40));
+            project.open(new SubProgressMonitor(monitor, 30));
 
-			IProjectDescription description = project.getDescription();
-			description.setNatureIds(new String[] { UIConstants.NATURE_ID });
-			project.setDescription(description, new SubProgressMonitor(monitor, 30));
-		} finally {
-			monitor.done();
-		}
-	}
+            IProjectDescription description = project.getDescription();
+            description.setNatureIds(new String[] { UIConstants.NATURE_ID });
+            project.setDescription(description, new SubProgressMonitor(monitor, 30));
+        } finally {
+            monitor.done();
+        }
+    }
 
 }

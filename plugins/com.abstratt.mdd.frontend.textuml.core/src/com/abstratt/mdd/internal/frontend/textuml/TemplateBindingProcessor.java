@@ -25,30 +25,30 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.PSingleTypeIdentifier;
 public class TemplateBindingProcessor<TE extends TemplateableElement, PE extends ParameterableElement> implements
         NodeProcessor<PSingleTypeIdentifier> {
 
-	private List<PQualifiedIdentifier> parameterIdentifiers;
+    private List<PQualifiedIdentifier> parameterIdentifiers;
 
-	public TemplateBindingProcessor() {
-		super();
-	}
+    public TemplateBindingProcessor() {
+        super();
+    }
 
-	public void process(PSingleTypeIdentifier node) {
-		node.apply(new Visitor());
-	}
+    public void process(PSingleTypeIdentifier node) {
+        node.apply(new Visitor());
+    }
 
-	private class Visitor extends DepthFirstAdapter {
-		@Override
-		public void caseATemplateParameter(ATemplateParameter node) {
-			parameterIdentifiers.add(node.getQualifiedIdentifier());
-		}
+    private class Visitor extends DepthFirstAdapter {
+        @Override
+        public void caseATemplateParameter(ATemplateParameter node) {
+            parameterIdentifiers.add(node.getQualifiedIdentifier());
+        }
 
-		@Override
-		public void caseATemplateParameterList(ATemplateParameterList node) {
-			parameterIdentifiers = new ArrayList<PQualifiedIdentifier>();
-			super.caseATemplateParameterList(node);
-		}
-	}
+        @Override
+        public void caseATemplateParameterList(ATemplateParameterList node) {
+            parameterIdentifiers = new ArrayList<PQualifiedIdentifier>();
+            super.caseATemplateParameterList(node);
+        }
+    }
 
-	public List<PQualifiedIdentifier> getParameterIdentifiers() {
-		return parameterIdentifiers;
-	}
+    public List<PQualifiedIdentifier> getParameterIdentifiers() {
+        return parameterIdentifiers;
+    }
 }

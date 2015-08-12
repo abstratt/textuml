@@ -17,34 +17,34 @@ import com.abstratt.mdd.core.Problem;
 
 public class UnresolvedSymbol extends Problem {
 
-	private String symbol;
-	private String symbolType;
+    private String symbol;
+    private String symbolType;
 
-	/**
-	 * Returns the name of the UML metaclass of the symbol that failed to
-	 * resolve.
-	 * 
-	 * @return the type of the symbol
-	 */
-	public String getSymbolType() {
-		return symbolType;
-	}
+    /**
+     * Returns the name of the UML metaclass of the symbol that failed to
+     * resolve.
+     * 
+     * @return the type of the symbol
+     */
+    public String getSymbolType() {
+        return symbolType;
+    }
 
-	public UnresolvedSymbol(String symbol) {
-		this(symbol, null);
-	}
+    public UnresolvedSymbol(String symbol) {
+        this(symbol, null);
+    }
 
-	public UnresolvedSymbol(String symbol, EClass eClass) {
-		super(IProblem.Severity.ERROR);
-		this.symbol = symbol;
-		this.symbolType = eClass == null ? "symbol" : eClass.getName();
-	}
+    public UnresolvedSymbol(String symbol, EClass eClass) {
+        super(IProblem.Severity.ERROR);
+        this.symbol = symbol;
+        this.symbolType = eClass == null ? "symbol" : eClass.getName();
+    }
 
-	public String getMessage() {
-		return "Unknown " + symbolType + ": " + symbol;
-	}
+    public String getMessage() {
+        return "Unknown " + symbolType + ": " + symbol;
+    }
 
-	public String getSymbol() {
-		return symbol;
-	}
+    public String getSymbol() {
+        return symbol;
+    }
 }

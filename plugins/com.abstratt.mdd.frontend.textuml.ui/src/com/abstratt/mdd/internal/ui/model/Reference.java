@@ -25,40 +25,40 @@ import com.abstratt.mdd.ui.UIConstants;
 
 public class Reference extends LeafModelObject {
 
-	private PReferenceType type;
+    private PReferenceType type;
 
-	public Reference(UIModelObject parent, ASTNode<Token, Node> node) {
-		super(parent, node);
-		this.type = ((AReferenceDecl) node.getBaseNode()).getReferenceType();
-	}
+    public Reference(UIModelObject parent, ASTNode<Token, Node> node) {
+        super(parent, node);
+        this.type = ((AReferenceDecl) node.getBaseNode()).getReferenceType();
+    }
 
-	@Override
-	public Image getImage() {
-		if (type instanceof AAggregationReferenceType)
-			return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_AGGREGATION);
-		if (type instanceof ACompositionReferenceType)
-			return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_COMPOSITION);
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_ASSOCIATION);
-	}
+    @Override
+    public Image getImage() {
+        if (type instanceof AAggregationReferenceType)
+            return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_AGGREGATION);
+        if (type instanceof ACompositionReferenceType)
+            return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_COMPOSITION);
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_ASSOCIATION);
+    }
 
-	protected AReferenceDecl getModel() {
-		return (AReferenceDecl) node.getBaseNode();
-	}
+    protected AReferenceDecl getModel() {
+        return (AReferenceDecl) node.getBaseNode();
+    }
 
-	@Override
-	public String getOriginalText() {
-		AReferenceDecl declaration = getModel();
-		StringBuffer text = new StringBuffer();
-		text.append(declaration.getIdentifier().getText());
-		PTypeIdentifier type = declaration.getTypeIdentifier();
-		text.append(" : ");
-		text.append(type);
-		return text.toString();
-	}
+    @Override
+    public String getOriginalText() {
+        AReferenceDecl declaration = getModel();
+        StringBuffer text = new StringBuffer();
+        text.append(declaration.getIdentifier().getText());
+        PTypeIdentifier type = declaration.getTypeIdentifier();
+        text.append(" : ");
+        text.append(type);
+        return text.toString();
+    }
 
-	@Override
-	public Token getToken() {
-		return getModel().getIdentifier();
-	}
+    @Override
+    public Token getToken() {
+        return getModel().getIdentifier();
+    }
 
 }

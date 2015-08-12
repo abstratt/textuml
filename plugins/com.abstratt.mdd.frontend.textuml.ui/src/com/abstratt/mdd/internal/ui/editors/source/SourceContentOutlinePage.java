@@ -35,76 +35,76 @@ import com.abstratt.mdd.ui.UIUtils;
 
 public class SourceContentOutlinePage extends ContentOutlinePage {
 
-	protected IContentProvider contentProvider;
-	protected SourceEditor editor;
-	protected ILabelProvider labelProvider;
-	protected TreeViewer viewer;
+    protected IContentProvider contentProvider;
+    protected SourceEditor editor;
+    protected ILabelProvider labelProvider;
+    protected TreeViewer viewer;
 
-	public SourceContentOutlinePage(SourceEditor editor) {
-		super();
-		this.editor = editor;
-	}
+    public SourceContentOutlinePage(SourceEditor editor) {
+        super();
+        this.editor = editor;
+    }
 
-	@Override
-	public void createControl(Composite parent) {
-		super.createControl(parent);
-		viewer = getTreeViewer();
-		contentProvider = new TreeNodeContentProvider();
-		viewer.setContentProvider(contentProvider);
-		labelProvider = new TextUMLLabelProvider();
-		viewer.setLabelProvider(labelProvider);
-		// disabled: used to make elements to show sorted by type
-		// viewer.setComparator(new UIModelObjectViewerComparator());
-		viewer.setAutoExpandLevel(AbstractTreeViewer.ALL_LEVELS);
+    @Override
+    public void createControl(Composite parent) {
+        super.createControl(parent);
+        viewer = getTreeViewer();
+        contentProvider = new TreeNodeContentProvider();
+        viewer.setContentProvider(contentProvider);
+        labelProvider = new TextUMLLabelProvider();
+        viewer.setLabelProvider(labelProvider);
+        // disabled: used to make elements to show sorted by type
+        // viewer.setComparator(new UIModelObjectViewerComparator());
+        viewer.setAutoExpandLevel(AbstractTreeViewer.ALL_LEVELS);
 
-		// tracks selections in the outline and reflects them in the editor
-		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			public void selectionChanged(SelectionChangedEvent event) {
-				TreeSelection selection = (TreeSelection) event.getSelection();
-				if (!selection.isEmpty()) {
-					TreeNode treeNode = (TreeNode) selection.getFirstElement();
-					UIModelObject model = (UIModelObject) treeNode.getValue();
-					selectInEditor(model.getToken());
-				}
-			}
-		});
+        // tracks selections in the outline and reflects them in the editor
+        viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+            public void selectionChanged(SelectionChangedEvent event) {
+                TreeSelection selection = (TreeSelection) event.getSelection();
+                if (!selection.isEmpty()) {
+                    TreeNode treeNode = (TreeNode) selection.getFirstElement();
+                    UIModelObject model = (UIModelObject) treeNode.getValue();
+                    selectInEditor(model.getToken());
+                }
+            }
+        });
 
-		refresh();
-	}
+        refresh();
+    }
 
-	@Override
-	public void dispose() {
-		contentProvider.dispose();
-		contentProvider = null;
-		labelProvider.dispose();
-		labelProvider = null;
-		editor = null;
-		super.dispose();
-	}
+    @Override
+    public void dispose() {
+        contentProvider.dispose();
+        contentProvider = null;
+        labelProvider.dispose();
+        labelProvider = null;
+        editor = null;
+        super.dispose();
+    }
 
-	public void refresh() {
-		if (editor == null)
-			return;
-		WorkingCopy workingCopy = editor.getWorkingCopy();
-		if (workingCopy == null)
-			return;
-		ASTNode<Token, Node> root = workingCopy.getRootASTNode();
-		if (root == null)
-			return;
-		TextUMLTreeNode node = new TextUMLTreeNode(UIModelObject.createModelObject(null, root));
-		viewer.setInput(node.getChildren());
-	}
+    public void refresh() {
+        if (editor == null)
+            return;
+        WorkingCopy workingCopy = editor.getWorkingCopy();
+        if (workingCopy == null)
+            return;
+        ASTNode<Token, Node> root = workingCopy.getRootASTNode();
+        if (root == null)
+            return;
+        TextUMLTreeNode node = new TextUMLTreeNode(UIModelObject.createModelObject(null, root));
+        viewer.setInput(node.getChildren());
+    }
 
-	protected void selectInEditor(Token token) {
-		int line = token.getLine();
-		line--; // -1 because SableCC lines are 1-based
-		WorkingCopy workingCopy = editor.getWorkingCopy();
-		IDocument document = workingCopy.getDocument();
-		try {
-			int start = document.getLineOffset(line);
-			editor.selectAndReveal(start, 0);
-		} catch (BadLocationException e) {
-			UIUtils.log(e);
-		}
-	}
+    protected void selectInEditor(Token token) {
+        int line = token.getLine();
+        line--; // -1 because SableCC lines are 1-based
+        WorkingCopy workingCopy = editor.getWorkingCopy();
+        IDocument document = workingCopy.getDocument();
+        try {
+            int start = document.getLineOffset(line);
+            editor.selectAndReveal(start, 0);
+        } catch (BadLocationException e) {
+            UIUtils.log(e);
+        }
+    }
 }

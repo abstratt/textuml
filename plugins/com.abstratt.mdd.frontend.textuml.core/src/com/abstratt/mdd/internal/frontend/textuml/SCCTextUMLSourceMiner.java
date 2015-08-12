@@ -29,164 +29,164 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.TNamespaceSeparator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 
 public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
-	@SuppressWarnings("serial")
-	private static class NodeFoundTrap extends RuntimeException {
-	};
+    @SuppressWarnings("serial")
+    private static class NodeFoundTrap extends RuntimeException {
+    };
 
-	private RuntimeException trap = new NodeFoundTrap();
+    private RuntimeException trap = new NodeFoundTrap();
 
-	@Override
-	public <P extends Node, C extends Node> C findChild(P node, final Class<C> required, final boolean first) {
-		if (node == null)
-			return null;
-		final Node[] found = { null };
-		try {
-			node.apply(new DepthFirstAdapter() {
-				// for non-terminal productions
-				public void defaultIn(Node node) {
-					match(node);
-				}
+    @Override
+    public <P extends Node, C extends Node> C findChild(P node, final Class<C> required, final boolean first) {
+        if (node == null)
+            return null;
+        final Node[] found = { null };
+        try {
+            node.apply(new DepthFirstAdapter() {
+                // for non-terminal productions
+                public void defaultIn(Node node) {
+                    match(node);
+                }
 
-				// for tokens
-				public void defaultCase(Node node) {
-					match(node);
-				}
+                // for tokens
+                public void defaultCase(Node node) {
+                    match(node);
+                }
 
-				private void match(Node node) {
-					if (required.isInstance(node)) {
-						found[0] = node;
-						if (first)
-							throw trap;
-					}
-				}
-			});
-		} catch (NodeFoundTrap t) {
-			// found
-		}
-		return (C) found[0];
-	}
+                private void match(Node node) {
+                    if (required.isInstance(node)) {
+                        found[0] = node;
+                        if (first)
+                            throw trap;
+                    }
+                }
+            });
+        } catch (NodeFoundTrap t) {
+            // found
+        }
+        return (C) found[0];
+    }
 
-	@Override
-	public <P extends Node, C extends Node> List<C> findChildren(P node, final Class<C> required) {
-		final List<C> found = new ArrayList<C>();
-		if (node == null)
-			return found;
-		node.apply(new DepthFirstAdapter() {
-			// for non-terminal productions
-			public void defaultIn(Node node) {
-				match(node);
-			}
+    @Override
+    public <P extends Node, C extends Node> List<C> findChildren(P node, final Class<C> required) {
+        final List<C> found = new ArrayList<C>();
+        if (node == null)
+            return found;
+        node.apply(new DepthFirstAdapter() {
+            // for non-terminal productions
+            public void defaultIn(Node node) {
+                match(node);
+            }
 
-			// for tokens
-			public void defaultCase(Node node) {
-				match(node);
-			}
+            // for tokens
+            public void defaultCase(Node node) {
+                match(node);
+            }
 
-			private void match(Node node) {
-				if (required.isInstance(node))
-					found.add((C) node);
-			}
-		});
-		return found;
-	}
+            private void match(Node node) {
+                if (required.isInstance(node))
+                    found.add((C) node);
+            }
+        });
+        return found;
+    }
 
-	@Override
-	public <P extends Node, C extends Node> P findParent(C start, Class<P> required) {
-		if (start == null)
-			return null;
-		if (required.isInstance(start.parent()))
-			return (P) start.parent();
-		return findParent(start.parent(), required);
-	}
+    @Override
+    public <P extends Node, C extends Node> P findParent(C start, Class<P> required) {
+        if (start == null)
+            return null;
+        if (required.isInstance(start.parent()))
+            return (P) start.parent();
+        return findParent(start.parent(), required);
+    }
 
-	@Override
-	public int getLineNumber(Node node) {
-		return findToken(node).getLine();
-	}
+    @Override
+    public int getLineNumber(Node node) {
+        return findToken(node).getLine();
+    }
 
-	@Override
-	public String getText(Node node) {
-		return node == null ? null : node.toString().trim();
-	}
+    @Override
+    public String getText(Node node) {
+        return node == null ? null : node.toString().trim();
+    }
 
-	/**
-	 * Returns the last token found in the given tree or <code>null</code> if
-	 * none is found (an empty production).
-	 * 
-	 * @return a token, or <code>null</code>
-	 */
-	public Token findToken(Node node) {
-		return (Token) findChild(node, Token.class, false);
-	}
+    /**
+     * Returns the last token found in the given tree or <code>null</code> if
+     * none is found (an empty production).
+     * 
+     * @return a token, or <code>null</code>
+     */
+    public Token findToken(Node node) {
+        return (Token) findChild(node, Token.class, false);
+    }
 
-	@Override
-	public String getQualifiedIdentifier(Node node) {
-		final String[] qualifiedIdentifier = { null };
-		node.apply(new DepthFirstAdapter() {
-			private boolean initialize() {
-				if (qualifiedIdentifier[0] != null)
-					// avoid processing multiple QIs
-					return false;
-				qualifiedIdentifier[0] = "";
-				return true;
-			}
+    @Override
+    public String getQualifiedIdentifier(Node node) {
+        final String[] qualifiedIdentifier = { null };
+        node.apply(new DepthFirstAdapter() {
+            private boolean initialize() {
+                if (qualifiedIdentifier[0] != null)
+                    // avoid processing multiple QIs
+                    return false;
+                qualifiedIdentifier[0] = "";
+                return true;
+            }
 
-			public void caseAQualifiedIdentifier(AQualifiedIdentifier node) {
-				if (initialize())
-					super.caseAQualifiedIdentifier(node);
-			}
+            public void caseAQualifiedIdentifier(AQualifiedIdentifier node) {
+                if (initialize())
+                    super.caseAQualifiedIdentifier(node);
+            }
 
-			@Override
-			public void caseAForcefullyQualifiedIdentifier(AForcefullyQualifiedIdentifier node) {
-				if (initialize()) {
-					appendIdentifier(node.getIdentifier());
-					super.caseAForcefullyQualifiedIdentifier(node);
-				}
-			}
+            @Override
+            public void caseAForcefullyQualifiedIdentifier(AForcefullyQualifiedIdentifier node) {
+                if (initialize()) {
+                    appendIdentifier(node.getIdentifier());
+                    super.caseAForcefullyQualifiedIdentifier(node);
+                }
+            }
 
-			public void caseAQualifiedIdentifierBase(AQualifiedIdentifierBase node) {
-				Assert.isTrue(qualifiedIdentifier[0] != null);
-				appendIdentifier(node.getIdentifier());
-				super.caseAQualifiedIdentifierBase(node);
-			}
+            public void caseAQualifiedIdentifierBase(AQualifiedIdentifierBase node) {
+                Assert.isTrue(qualifiedIdentifier[0] != null);
+                appendIdentifier(node.getIdentifier());
+                super.caseAQualifiedIdentifierBase(node);
+            }
 
-			private void appendIdentifier(TIdentifier identifier) {
-				qualifiedIdentifier[0] += stripEscaping(identifier.getText());
-			}
+            private void appendIdentifier(TIdentifier identifier) {
+                qualifiedIdentifier[0] += stripEscaping(identifier.getText());
+            }
 
-			@Override
-			public void caseTNamespaceSeparator(TNamespaceSeparator node) {
-				Assert.isTrue(qualifiedIdentifier[0] != null);
-				qualifiedIdentifier[0] += NamedElement.SEPARATOR;
-			}
-		});
-		Assert.isNotNull(qualifiedIdentifier[0]);
-		return qualifiedIdentifier[0];
-	}
+            @Override
+            public void caseTNamespaceSeparator(TNamespaceSeparator node) {
+                Assert.isTrue(qualifiedIdentifier[0] != null);
+                qualifiedIdentifier[0] += NamedElement.SEPARATOR;
+            }
+        });
+        Assert.isNotNull(qualifiedIdentifier[0]);
+        return qualifiedIdentifier[0];
+    }
 
-	@Override
-	public String getIdentifier(Node node) {
-		if (node == null)
-			return null;
-		final String[] identifier = { null };
-		node.apply(new DepthFirstAdapter() {
-			public void caseTIdentifier(TIdentifier node) {
-				// ignore other identifiers under the given node
-				if (identifier[0] == null)
-					identifier[0] = stripEscaping(node.getText());
-			}
-		});
-		return identifier[0];
-	}
+    @Override
+    public String getIdentifier(Node node) {
+        if (node == null)
+            return null;
+        final String[] identifier = { null };
+        node.apply(new DepthFirstAdapter() {
+            public void caseTIdentifier(TIdentifier node) {
+                // ignore other identifiers under the given node
+                if (identifier[0] == null)
+                    identifier[0] = stripEscaping(node.getText());
+            }
+        });
+        return identifier[0];
+    }
 
-	private String stripEscaping(String text) {
-		return text.replace("\\", "");
-	}
+    private String stripEscaping(String text) {
+        return text.replace("\\", "");
+    }
 
-	public static int parseLineNumber(String errorMessage) {
-		Matcher matcher = Pattern.compile("\\[([0-9]+),([0-9]+)\\].*").matcher(errorMessage);
-		if (matcher.matches())
-			return Integer.parseInt(matcher.group(1));
-		return -1;
-	}
+    public static int parseLineNumber(String errorMessage) {
+        Matcher matcher = Pattern.compile("\\[([0-9]+),([0-9]+)\\].*").matcher(errorMessage);
+        if (matcher.matches())
+            return Integer.parseInt(matcher.group(1));
+        return -1;
+    }
 }

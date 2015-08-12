@@ -15,10 +15,10 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.internal.frontend.textuml.SCCTextUMLSourceMiner;
 
 public class TextUMLCore {
-	public static String PLUGIN_ID = TextUMLCore.class.getPackage().getName();
-	private static ISourceMiner<Node> sourceMiner = new SCCTextUMLSourceMiner();
+    public static String PLUGIN_ID = TextUMLCore.class.getPackage().getName();
+    private static ISourceMiner<Node> sourceMiner = new SCCTextUMLSourceMiner();
 
-	public static ISourceMiner<Node> getSourceMiner() {
-		return sourceMiner;
-	}
+    public static ISourceMiner<Node> getSourceMiner() {
+        return sourceMiner;
+    }
 }

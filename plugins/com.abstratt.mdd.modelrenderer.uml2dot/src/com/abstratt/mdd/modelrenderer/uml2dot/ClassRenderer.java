@@ -16,24 +16,24 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class ClassRenderer extends ClassifierRenderer<Class> {
 
-	@Override
-	public boolean renderObject(Class element, IndentedPrintWriter w, IRenderingSession session) {
-		boolean renderedClass = session.getSettings().getBoolean(SHOW_CLASSES)
-		        && super.renderObject(element, w, session);
-		List<Behavior> stateMachines = element.getOwnedBehaviors().stream().filter(it -> it instanceof StateMachine)
-		        .collect(Collectors.toList());
-		return renderedClass | RenderingUtils.renderAll(session, stateMachines);
-	}
+    @Override
+    public boolean renderObject(Class element, IndentedPrintWriter w, IRenderingSession session) {
+        boolean renderedClass = session.getSettings().getBoolean(SHOW_CLASSES)
+                && super.renderObject(element, w, session);
+        List<Behavior> stateMachines = element.getOwnedBehaviors().stream().filter(it -> it instanceof StateMachine)
+                .collect(Collectors.toList());
+        return renderedClass | RenderingUtils.renderAll(session, stateMachines);
+    }
 
-	@Override
-	protected void renderClassifierTypeAdornment(Class element, IndentedPrintWriter w, IRenderingSession session) {
-		// classes are the real deal, they do not need an adornment
-	}
+    @Override
+    protected void renderClassifierTypeAdornment(Class element, IndentedPrintWriter w, IRenderingSession session) {
+        // classes are the real deal, they do not need an adornment
+    }
 
-	@Override
-	protected void renderRelationships(Class element, IRenderingSession context) {
-		super.renderRelationships(element, context);
-		List<InterfaceRealization> realizations = element.getInterfaceRealizations();
-		RenderingUtils.renderAll(context, realizations);
-	}
+    @Override
+    protected void renderRelationships(Class element, IRenderingSession context) {
+        super.renderRelationships(element, context);
+        List<InterfaceRealization> realizations = element.getInterfaceRealizations();
+        RenderingUtils.renderAll(context, realizations);
+    }
 }

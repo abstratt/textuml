@@ -20,9 +20,9 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ProfileApplicationRenderer implements IEObjectRenderer<ProfileApplication> {
 
-	public boolean renderObject(ProfileApplication element, IndentedPrintWriter out, IRenderingSession context) {
-		out.println("apply " + qualifiedName(element.getAppliedProfile()) + ";");
-		return true;
-	}
+    public boolean renderObject(ProfileApplication element, IndentedPrintWriter out, IRenderingSession context) {
+        out.println("apply " + qualifiedName(element.getAppliedProfile()) + ";");
+        return true;
+    }
 
 }

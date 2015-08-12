@@ -23,61 +23,61 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
 
 public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
-	protected final CompilationContext context;
-	protected final ProblemBuilder<Node> problemBuilder;
-	protected final Namespace parent;
-	protected final boolean supportExceptions;
-	protected final boolean unnamedParameters;
-	protected SourceCompilationContext<Node> sourceContext;
+    protected final CompilationContext context;
+    protected final ProblemBuilder<Node> problemBuilder;
+    protected final Namespace parent;
+    protected final boolean supportExceptions;
+    protected final boolean unnamedParameters;
+    protected SourceCompilationContext<Node> sourceContext;
 
-	public AbstractSignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent,
-	        boolean supportExceptions) {
-		this(sourceContext, parent, supportExceptions, false);
-	}
+    public AbstractSignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent,
+            boolean supportExceptions) {
+        this(sourceContext, parent, supportExceptions, false);
+    }
 
-	public AbstractSignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent,
-	        boolean supportExceptions, boolean unnamedParameters) {
-		this.parent = parent;
-		this.supportExceptions = supportExceptions;
-		this.sourceContext = sourceContext;
-		this.context = sourceContext.getContext();
-		this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), new SCCTextUMLSourceMiner());
-		this.unnamedParameters = unnamedParameters;
-	}
+    public AbstractSignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent,
+            boolean supportExceptions, boolean unnamedParameters) {
+        this.parent = parent;
+        this.supportExceptions = supportExceptions;
+        this.sourceContext = sourceContext;
+        this.context = sourceContext.getContext();
+        this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), new SCCTextUMLSourceMiner());
+        this.unnamedParameters = unnamedParameters;
+    }
 
-	protected void addRaisedException(Classifier exceptionClass) {
-		throw new UnsupportedOperationException();
-	}
+    protected void addRaisedException(Classifier exceptionClass) {
+        throw new UnsupportedOperationException();
+    }
 
-	public void addRaisedException(String qualifiedIdentifier, final Node node) {
-		Classifier exceptionClass = (Classifier) context.getRepository().findNamedElement(qualifiedIdentifier,
-		        UMLPackage.Literals.CLASSIFIER, parent.getNearestPackage());
-		if (exceptionClass == null) {
-			problemBuilder.addError("Could not find exception class: '" + qualifiedIdentifier + "'", node);
-			return;
-		}
-		addRaisedException(exceptionClass);
-	}
+    public void addRaisedException(String qualifiedIdentifier, final Node node) {
+        Classifier exceptionClass = (Classifier) context.getRepository().findNamedElement(qualifiedIdentifier,
+                UMLPackage.Literals.CLASSIFIER, parent.getNearestPackage());
+        if (exceptionClass == null) {
+            problemBuilder.addError("Could not find exception class: '" + qualifiedIdentifier + "'", node);
+            return;
+        }
+        addRaisedException(exceptionClass);
+    }
 
-	protected abstract Parameter createParameter(String name);
+    protected abstract Parameter createParameter(String name);
 
-	protected Parameter createParameter(String name, PTypeIdentifier typeNode, ParameterDirectionKind direction) {
-		if (name == null && direction != ParameterDirectionKind.RETURN_LITERAL && !unnamedParameters) {
-			problemBuilder.addError("Parameter names are required in this context", typeNode.parent());
-			return null;
-		}
-		Parameter parameter = createParameter(name);
-		parameter.setDirection(direction);
-		createParameterTypeSetter(parameter).process(typeNode);
-		return parameter;
-	}
+    protected Parameter createParameter(String name, PTypeIdentifier typeNode, ParameterDirectionKind direction) {
+        if (name == null && direction != ParameterDirectionKind.RETURN_LITERAL && !unnamedParameters) {
+            problemBuilder.addError("Parameter names are required in this context", typeNode.parent());
+            return null;
+        }
+        Parameter parameter = createParameter(name);
+        parameter.setDirection(direction);
+        createParameterTypeSetter(parameter).process(typeNode);
+        return parameter;
+    }
 
-	protected TypeSetter createParameterTypeSetter(Parameter parameter) {
-		return new TypeSetter(sourceContext, getBaseLookupNamespace(), parameter);
-	}
+    protected TypeSetter createParameterTypeSetter(Parameter parameter) {
+        return new TypeSetter(sourceContext, getBaseLookupNamespace(), parameter);
+    }
 
-	protected Namespace getBaseLookupNamespace() {
-		return this.parent;
-	}
+    protected Namespace getBaseLookupNamespace() {
+        return this.parent;
+    }
 
 }

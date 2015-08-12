@@ -14,12 +14,12 @@ import com.abstratt.mdd.core.Problem;
 
 public class AnonymousDisconnectedPort extends Problem {
 
-	public AnonymousDisconnectedPort() {
-		super(Severity.WARNING);
-	}
+    public AnonymousDisconnectedPort() {
+        super(Severity.WARNING);
+    }
 
-	public String getMessage() {
-		return "An anonymous port can only be connected via an inline connector, and this port doesn't have one";
-	}
+    public String getMessage() {
+        return "An anonymous port can only be connected via an inline connector, and this port doesn't have one";
+    }
 
 }

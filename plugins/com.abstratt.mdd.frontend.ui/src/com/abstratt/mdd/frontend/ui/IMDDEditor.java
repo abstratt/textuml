@@ -14,5 +14,5 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.texteditor.ITextEditor;
 
 public interface IMDDEditor extends ITextEditor {
-	public IFile getModelFile();
+    public IFile getModelFile();
 }

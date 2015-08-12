@@ -13,23 +13,23 @@ package com.abstratt.mdd.frontend.core;
 import com.abstratt.mdd.core.Problem;
 
 public class InternalProblem extends Problem {
-	private Throwable throwable;
-	private String message;
+    private Throwable throwable;
+    private String message;
 
-	public InternalProblem(Throwable throwable) {
-		super(Severity.ERROR);
-		this.throwable = throwable;
-	}
+    public InternalProblem(Throwable throwable) {
+        super(Severity.ERROR);
+        this.throwable = throwable;
+    }
 
-	public InternalProblem(String message) {
-		super(Severity.ERROR);
-		this.message = message;
-	}
+    public InternalProblem(String message) {
+        super(Severity.ERROR);
+        this.message = message;
+    }
 
-	public String getMessage() {
-		if (message != null)
-			return "Internal error: " + message;
-		return "Internal error (" + throwable.toString() + ")";
-	}
+    public String getMessage() {
+        if (message != null)
+            return "Internal error: " + message;
+        return "Internal error (" + throwable.toString() + ")";
+    }
 
 }

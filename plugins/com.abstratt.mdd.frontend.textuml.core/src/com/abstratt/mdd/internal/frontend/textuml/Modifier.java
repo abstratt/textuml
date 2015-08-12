@@ -11,9 +11,9 @@
 package com.abstratt.mdd.internal.frontend.textuml;
 
 public enum Modifier {
-	ABSTRACT, STATIC, PUBLIC, PRIVATE, PROTECTED, PACKAGE, DERIVED, READONLY, ID, IN, OUT, INOUT, READ, CREATE, UPDATE, DELETE, TERMINATE, INITIAL;
+    ABSTRACT, STATIC, PUBLIC, PRIVATE, PROTECTED, PACKAGE, DERIVED, READONLY, ID, IN, OUT, INOUT, READ, CREATE, UPDATE, DELETE, TERMINATE, INITIAL;
 
-	public static Modifier fromToken(String token) {
-		return Modifier.valueOf(token.toUpperCase());
-	}
+    public static Modifier fromToken(String token) {
+        return Modifier.valueOf(token.toUpperCase());
+    }
 }

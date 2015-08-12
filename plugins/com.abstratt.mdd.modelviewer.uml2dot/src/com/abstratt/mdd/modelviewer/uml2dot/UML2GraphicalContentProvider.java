@@ -20,27 +20,27 @@ import com.abstratt.mdd.modelviewer.AbstractModelGraphicalContentProvider;
 public class UML2GraphicalContentProvider extends AbstractModelGraphicalContentProvider implements
         IPreferenceChangeListener {
 
-	@Override
-	protected IRenderingSettings getSettings() {
-		return new RenderingSettings(UMLPreferences.getPreferences());
-	}
+    @Override
+    protected IRenderingSettings getSettings() {
+        return new RenderingSettings(UMLPreferences.getPreferences());
+    }
 
-	@Override
-	protected IRendererSelector<Element> getRendererSelector() {
-		return UML2DOT.getRendererSelector();
-	}
+    @Override
+    protected IRendererSelector<Element> getRendererSelector() {
+        return UML2DOT.getRendererSelector();
+    }
 
-	public UML2GraphicalContentProvider() {
-		new InstanceScope().getNode(UML.PLUGIN_ID).addPreferenceChangeListener(this);
-	}
+    public UML2GraphicalContentProvider() {
+        new InstanceScope().getNode(UML.PLUGIN_ID).addPreferenceChangeListener(this);
+    }
 
-	@Override
-	public void dispose() {
-		new InstanceScope().getNode(UML.PLUGIN_ID).removePreferenceChangeListener(this);
-		super.dispose();
-	}
+    @Override
+    public void dispose() {
+        new InstanceScope().getNode(UML.PLUGIN_ID).removePreferenceChangeListener(this);
+        super.dispose();
+    }
 
-	public void preferenceChange(PreferenceChangeEvent event) {
-		reload();
-	}
+    public void preferenceChange(PreferenceChangeEvent event) {
+        reload();
+    }
 }

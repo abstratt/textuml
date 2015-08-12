@@ -40,88 +40,88 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 public class ConnectorProcessor extends AbstractProcessor<AConnectorEndList, StructuredClassifier> {
 
-	private Connector newConnector;
+    private Connector newConnector;
 
-	public ConnectorProcessor(SourceCompilationContext<Node> sourceContext, StructuredClassifier namespace) {
-		super(sourceContext, namespace);
-		this.newConnector = namespace.createOwnedConnector(null);
-	}
+    public ConnectorProcessor(SourceCompilationContext<Node> sourceContext, StructuredClassifier namespace) {
+        super(sourceContext, namespace);
+        this.newConnector = namespace.createOwnedConnector(null);
+    }
 
-	@Override
-	public void caseAPathConnectorEnd(final APathConnectorEnd node) {
-		final String partName = sourceMiner.getIdentifier(node.getPrefix());
-		final String partOrPortName = sourceMiner.getIdentifier(node.getPartOrPort());
-		referenceTracker.add(new IDeferredReference() {
-			@Override
-			public void resolve(IBasicRepository repository) {
-				Property pathPart = StructuralFeatureUtils.findAttribute(namespace, partName, false, true);
-				if (pathPart == null) {
-					problemBuilder.addProblem(new UnresolvedSymbol(partName, UMLPackage.Literals.PROPERTY), node);
-					throw new AbortedScopeCompilationException();
-				}
-				if (!pathPart.isComposite()) {
-					problemBuilder.addProblem(new UnclassifiedProblem(pathPart.getName()
-					        + " must be declared as a composition"), node);
-					throw new AbortedScopeCompilationException();
-				}
-				Classifier partType = (Classifier) pathPart.getType();
-				if (partType == null) {
-					problemBuilder.addProblem(new UnclassifiedProblem("Part found, but type not resolved"), node);
-					throw new AbortedScopeCompilationException();
-				}
-				Property partOrPort = StructuralFeatureUtils.findProperty(partType, partOrPortName, false, true, null);
-				if (partOrPort == null) {
-					problemBuilder.addProblem(new UnresolvedSymbol(partOrPortName, UMLPackage.Literals.PROPERTY), node);
-					throw new AbortedScopeCompilationException();
-				}
-				ConnectorEnd newEnd = addEnd(partOrPort);
-				if (partOrPort instanceof Port)
-					newEnd.setPartWithPort(pathPart);
-			}
-		}, IReferenceTracker.Step.GENERAL_RESOLUTION);
-		super.caseAPathConnectorEnd(node);
-	}
+    @Override
+    public void caseAPathConnectorEnd(final APathConnectorEnd node) {
+        final String partName = sourceMiner.getIdentifier(node.getPrefix());
+        final String partOrPortName = sourceMiner.getIdentifier(node.getPartOrPort());
+        referenceTracker.add(new IDeferredReference() {
+            @Override
+            public void resolve(IBasicRepository repository) {
+                Property pathPart = StructuralFeatureUtils.findAttribute(namespace, partName, false, true);
+                if (pathPart == null) {
+                    problemBuilder.addProblem(new UnresolvedSymbol(partName, UMLPackage.Literals.PROPERTY), node);
+                    throw new AbortedScopeCompilationException();
+                }
+                if (!pathPart.isComposite()) {
+                    problemBuilder.addProblem(new UnclassifiedProblem(pathPart.getName()
+                            + " must be declared as a composition"), node);
+                    throw new AbortedScopeCompilationException();
+                }
+                Classifier partType = (Classifier) pathPart.getType();
+                if (partType == null) {
+                    problemBuilder.addProblem(new UnclassifiedProblem("Part found, but type not resolved"), node);
+                    throw new AbortedScopeCompilationException();
+                }
+                Property partOrPort = StructuralFeatureUtils.findProperty(partType, partOrPortName, false, true, null);
+                if (partOrPort == null) {
+                    problemBuilder.addProblem(new UnresolvedSymbol(partOrPortName, UMLPackage.Literals.PROPERTY), node);
+                    throw new AbortedScopeCompilationException();
+                }
+                ConnectorEnd newEnd = addEnd(partOrPort);
+                if (partOrPort instanceof Port)
+                    newEnd.setPartWithPort(pathPart);
+            }
+        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        super.caseAPathConnectorEnd(node);
+    }
 
-	@Override
-	public void caseASimpleConnectorEnd(final ASimpleConnectorEnd node) {
-		final String ownPartOrPortName = sourceMiner.getIdentifier(node);
-		referenceTracker.add(new IDeferredReference() {
-			@Override
-			public void resolve(IBasicRepository repository) {
-				Property partOrPort = StructuralFeatureUtils.findAttribute(namespace, ownPartOrPortName, false, true);
-				if (partOrPort == null) {
-					problemBuilder.addProblem(new UnresolvedSymbol(ownPartOrPortName, UMLPackage.Literals.PROPERTY),
-					        node);
-					return;
-				}
-				addEnd(partOrPort);
-			}
-		}, IReferenceTracker.Step.GENERAL_RESOLUTION);
-	}
+    @Override
+    public void caseASimpleConnectorEnd(final ASimpleConnectorEnd node) {
+        final String ownPartOrPortName = sourceMiner.getIdentifier(node);
+        referenceTracker.add(new IDeferredReference() {
+            @Override
+            public void resolve(IBasicRepository repository) {
+                Property partOrPort = StructuralFeatureUtils.findAttribute(namespace, ownPartOrPortName, false, true);
+                if (partOrPort == null) {
+                    problemBuilder.addProblem(new UnresolvedSymbol(ownPartOrPortName, UMLPackage.Literals.PROPERTY),
+                            node);
+                    return;
+                }
+                addEnd(partOrPort);
+            }
+        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+    }
 
-	private void validateProduct(final Node node) {
-		BasicDiagnostic diagnostics = new BasicDiagnostic();
-		Map<Object, Object> context = new HashMap<Object, Object>();
-		boolean valid = UMLValidator.INSTANCE.validate(newConnector, diagnostics, context);
-		if (!valid) {
-			problemBuilder.addProblem(new InvalidConnector(diagnostics.getChildren().get(0).getCode()), node);
-			throw new AbortedCompilationException();
-		}
-	}
+    private void validateProduct(final Node node) {
+        BasicDiagnostic diagnostics = new BasicDiagnostic();
+        Map<Object, Object> context = new HashMap<Object, Object>();
+        boolean valid = UMLValidator.INSTANCE.validate(newConnector, diagnostics, context);
+        if (!valid) {
+            problemBuilder.addProblem(new InvalidConnector(diagnostics.getChildren().get(0).getCode()), node);
+            throw new AbortedCompilationException();
+        }
+    }
 
-	public void process(final AConnectorEndList node) {
-		node.apply(this);
-		referenceTracker.add(new IDeferredReference() {
-			@Override
-			public void resolve(IBasicRepository repository) {
-				validateProduct(node);
-			}
-		}, IReferenceTracker.Step.GENERAL_RESOLUTION);
-	}
+    public void process(final AConnectorEndList node) {
+        node.apply(this);
+        referenceTracker.add(new IDeferredReference() {
+            @Override
+            public void resolve(IBasicRepository repository) {
+                validateProduct(node);
+            }
+        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+    }
 
-	public ConnectorEnd addEnd(Property newPort) {
-		ConnectorEnd connectorEnd = newConnector.createEnd();
-		connectorEnd.setRole(newPort);
-		return connectorEnd;
-	}
+    public ConnectorEnd addEnd(Property newPort) {
+        ConnectorEnd connectorEnd = newConnector.createEnd();
+        connectorEnd.setRole(newPort);
+        return connectorEnd;
+    }
 }

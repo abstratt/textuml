@@ -22,28 +22,28 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class EnumerationRenderer implements IEObjectRenderer<Enumeration> {
-	public boolean renderObject(Enumeration enumeration, IndentedPrintWriter writer, IRenderingSession context) {
-		RenderingUtils.renderAll(context, enumeration.getOwnedComments());
-		TextUMLRenderingUtils.renderStereotypeApplications(writer, enumeration);
-		writer.println("enumeration " + name(enumeration));
-		writer.enterLevel();
-		EList<EnumerationLiteral> literals = enumeration.getOwnedLiterals();
-		StringBuilder builder = new StringBuilder();
-		for (EnumerationLiteral enumerationLiteral : literals) {
-			builder.append(name(enumerationLiteral));
-			builder.append(", ");
-		}
-		if (builder.length() > 0) {
-			builder.delete(builder.length() - 2, builder.length());
-			writer.print(builder);
-			writer.println();
-		}
-		RenderingUtils.renderAll(context, enumeration.getOwnedAttributes());
-		RenderingUtils.renderAll(context, enumeration.getOwnedOperations());
-		writer.exitLevel();
-		writer.println("end;");
-		writer.println();
-		return true;
-	}
+    public boolean renderObject(Enumeration enumeration, IndentedPrintWriter writer, IRenderingSession context) {
+        RenderingUtils.renderAll(context, enumeration.getOwnedComments());
+        TextUMLRenderingUtils.renderStereotypeApplications(writer, enumeration);
+        writer.println("enumeration " + name(enumeration));
+        writer.enterLevel();
+        EList<EnumerationLiteral> literals = enumeration.getOwnedLiterals();
+        StringBuilder builder = new StringBuilder();
+        for (EnumerationLiteral enumerationLiteral : literals) {
+            builder.append(name(enumerationLiteral));
+            builder.append(", ");
+        }
+        if (builder.length() > 0) {
+            builder.delete(builder.length() - 2, builder.length());
+            writer.print(builder);
+            writer.println();
+        }
+        RenderingUtils.renderAll(context, enumeration.getOwnedAttributes());
+        RenderingUtils.renderAll(context, enumeration.getOwnedOperations());
+        writer.exitLevel();
+        writer.println("end;");
+        writer.println();
+        return true;
+    }
 
 }

@@ -18,13 +18,13 @@ import org.eclipse.jface.text.rules.Token;
 
 public class PartitionScanner extends RuleBasedPartitionScanner {
 
-	public PartitionScanner() {
-		super();
-		final IToken comment = new Token(ContentTypes.COMMENT_CONTENT_TYPE);
-		final IPredicateRule[] rules = new IPredicateRule[2];
-		rules[0] = new MultiLineRule("/*", "*/", comment);
-		rules[1] = new MultiLineRule("(*", "*)", comment);
-		this.setPredicateRules(rules);
-	}
+    public PartitionScanner() {
+        super();
+        final IToken comment = new Token(ContentTypes.COMMENT_CONTENT_TYPE);
+        final IPredicateRule[] rules = new IPredicateRule[2];
+        rules[0] = new MultiLineRule("/*", "*/", comment);
+        rules[1] = new MultiLineRule("(*", "*)", comment);
+        this.setPredicateRules(rules);
+    }
 
 }

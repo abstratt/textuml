@@ -18,9 +18,9 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class LiteralStringRenderer implements IEObjectRenderer<LiteralString> {
 
-	public boolean renderObject(LiteralString element, IndentedPrintWriter out, IRenderingSession context) {
-		out.print('"' + element.stringValue() + '"');
-		return true;
-	}
+    public boolean renderObject(LiteralString element, IndentedPrintWriter out, IRenderingSession context) {
+        out.print('"' + element.stringValue() + '"');
+        return true;
+    }
 
 }

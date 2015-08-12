@@ -18,13 +18,13 @@ import org.eclipse.emf.ecore.EObject;
  * Clients to implement.
  */
 public interface IRendererSelector<C extends EObject> {
-	/**
-	 * Selects the appropriate renderer for the given element. Returns
-	 * <code>null</code> if the object (and any of its descendants) should not
-	 * be rendered.
-	 * 
-	 * @param element
-	 * @return
-	 */
-	public IRenderer<C> select(C element);
+    /**
+     * Selects the appropriate renderer for the given element. Returns
+     * <code>null</code> if the object (and any of its descendants) should not
+     * be rendered.
+     * 
+     * @param element
+     * @return
+     */
+    public IRenderer<C> select(C element);
 }

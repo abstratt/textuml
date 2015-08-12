@@ -17,36 +17,36 @@ import com.abstratt.mdd.core.UnclassifiedProblem;
 /** A problem builder builds problems based on node information. */
 public class ProblemBuilder<N> {
 
-	private IProblemTracker problems;
-	private ISourceMiner<N> miner;
+    private IProblemTracker problems;
+    private ISourceMiner<N> miner;
 
-	public ProblemBuilder(IProblemTracker problems, ISourceMiner<N> miner) {
-		this.problems = problems;
-		this.miner = miner;
-	}
+    public ProblemBuilder(IProblemTracker problems, ISourceMiner<N> miner) {
+        this.problems = problems;
+        this.miner = miner;
+    }
 
-	public void addError(String message, N node) {
-		addProblem(new UnclassifiedProblem(message), node);
-	}
+    public void addError(String message, N node) {
+        addProblem(new UnclassifiedProblem(message), node);
+    }
 
-	public void addProblem(IProblem problem, N node) {
-		if (node != null)
-			problem.setAttribute(IProblem.LINE_NUMBER, miner.getLineNumber(node));
-		problems.add(problem);
-	}
+    public void addProblem(IProblem problem, N node) {
+        if (node != null)
+            problem.setAttribute(IProblem.LINE_NUMBER, miner.getLineNumber(node));
+        problems.add(problem);
+    }
 
-	public void addWarning(String message, N node) {
-		addProblem(new UnclassifiedProblem(IProblem.Severity.WARNING, message), node);
-	}
+    public void addWarning(String message, N node) {
+        addProblem(new UnclassifiedProblem(IProblem.Severity.WARNING, message), node);
+    }
 
-	public boolean hasErrors() {
-		return problems.hasProblems(Severity.ERROR);
-	}
+    public boolean hasErrors() {
+        return problems.hasProblems(Severity.ERROR);
+    }
 
-	public void ensure(boolean condition, String message, N node) {
-		if (!condition) {
-			addError(message, node);
-			throw new AbortedScopeCompilationException();
-		}
-	}
+    public void ensure(boolean condition, String message, N node) {
+        if (!condition) {
+            addError(message, node);
+            throw new AbortedScopeCompilationException();
+        }
+    }
 }

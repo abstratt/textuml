@@ -30,69 +30,69 @@ import com.abstratt.mdd.core.MDDCore;
  */
 public class RepositoryCache {
 
-	private static volatile long workspaceGeneration = 0;
+    private static volatile long workspaceGeneration = 0;
 
-	private static class LocalCache {
-		private long localVersion;
-		private Map<String, SoftReference<IRepository>> cachedReferences = new HashMap<String, SoftReference<IRepository>>();
+    private static class LocalCache {
+        private long localVersion;
+        private Map<String, SoftReference<IRepository>> cachedReferences = new HashMap<String, SoftReference<IRepository>>();
 
-		public IRepository getRepository(URI repositoryBaseURI) throws CoreException {
-			if (localVersion != workspaceGeneration) {
-				Collection<SoftReference<IRepository>> toDispose = new ArrayList<SoftReference<IRepository>>(
-				        cachedReferences.values());
-				cachedReferences.clear();
-				localVersion = workspaceGeneration;
-				// TODO this could be done in the background
-				for (SoftReference<IRepository> current : toDispose) {
-					IRepository repo = current.get();
-					if (repo != null)
-						repo.dispose();
-				}
-			}
-			SoftReference<IRepository> reference = cachedReferences.get(repositoryBaseURI.toString());
-			IRepository repository = reference == null ? null : reference.get();
-			if (repository == null) {
-				repository = MDDCore.createRepository(repositoryBaseURI);
-				cachedReferences.put(repositoryBaseURI.toString(), new SoftReference<IRepository>(repository));
-			}
-			return repository;
-		}
-	}
+        public IRepository getRepository(URI repositoryBaseURI) throws CoreException {
+            if (localVersion != workspaceGeneration) {
+                Collection<SoftReference<IRepository>> toDispose = new ArrayList<SoftReference<IRepository>>(
+                        cachedReferences.values());
+                cachedReferences.clear();
+                localVersion = workspaceGeneration;
+                // TODO this could be done in the background
+                for (SoftReference<IRepository> current : toDispose) {
+                    IRepository repo = current.get();
+                    if (repo != null)
+                        repo.dispose();
+                }
+            }
+            SoftReference<IRepository> reference = cachedReferences.get(repositoryBaseURI.toString());
+            IRepository repository = reference == null ? null : reference.get();
+            if (repository == null) {
+                repository = MDDCore.createRepository(repositoryBaseURI);
+                cachedReferences.put(repositoryBaseURI.toString(), new SoftReference<IRepository>(repository));
+            }
+            return repository;
+        }
+    }
 
-	// a thread-safe cache of repositories
-	private static final ThreadLocal<LocalCache> repositoryCache = new ThreadLocal<LocalCache>() {
-		protected LocalCache initialValue() {
-			return new LocalCache();
-		}
-	};
+    // a thread-safe cache of repositories
+    private static final ThreadLocal<LocalCache> repositoryCache = new ThreadLocal<LocalCache>() {
+        protected LocalCache initialValue() {
+            return new LocalCache();
+        }
+    };
 
-	private static RepositoryCache instance = new RepositoryCache();
+    private static RepositoryCache instance = new RepositoryCache();
 
-	public static RepositoryCache getInstance() {
-		return instance;
-	}
+    public static RepositoryCache getInstance() {
+        return instance;
+    }
 
-	public void start() {
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(new IResourceChangeListener() {
+    public void start() {
+        ResourcesPlugin.getWorkspace().addResourceChangeListener(new IResourceChangeListener() {
 
-			public void resourceChanged(IResourceChangeEvent event) {
-				workspaceGeneration++;
-			}
-		});
-	}
+            public void resourceChanged(IResourceChangeEvent event) {
+                workspaceGeneration++;
+            }
+        });
+    }
 
-	public void stop() {
+    public void stop() {
 
-	}
+    }
 
-	/**
-	 * Returns a thread-local shared copy of a repository.
-	 * 
-	 * @param projectRepositoryURI
-	 * @return a shared copy of a repository
-	 * @throws CoreException
-	 */
-	public IRepository getRepository(URI projectRepositoryURI) throws CoreException {
-		return repositoryCache.get().getRepository(projectRepositoryURI);
-	}
+    /**
+     * Returns a thread-local shared copy of a repository.
+     * 
+     * @param projectRepositoryURI
+     * @return a shared copy of a repository
+     * @throws CoreException
+     */
+    public IRepository getRepository(URI projectRepositoryURI) throws CoreException {
+        return repositoryCache.get().getRepository(projectRepositoryURI);
+    }
 }

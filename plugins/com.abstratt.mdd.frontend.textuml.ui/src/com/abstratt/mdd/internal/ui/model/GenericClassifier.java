@@ -23,35 +23,35 @@ import com.abstratt.mdd.ui.UIConstants;
 
 public class GenericClassifier extends UIModelObject {
 
-	public GenericClassifier(UIModelObject parent, ASTNode<Token, Node> node) {
-		super(parent, node);
-	}
+    public GenericClassifier(UIModelObject parent, ASTNode<Token, Node> node) {
+        super(parent, node);
+    }
 
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_CLASS);
-	}
+    @Override
+    public Image getImage() {
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_CLASS);
+    }
 
-	private AClassDef getModel() {
-		return (AClassDef) node.getBaseNode();
-	}
+    private AClassDef getModel() {
+        return (AClassDef) node.getBaseNode();
+    }
 
-	@Override
-	public String getOriginalText() {
-		AClassHeader header = (AClassHeader) getModel().getClassHeader();
-		return header.getIdentifier().getText();
-	}
+    @Override
+    public String getOriginalText() {
+        AClassHeader header = (AClassHeader) getModel().getClassHeader();
+        return header.getIdentifier().getText();
+    }
 
-	@Override
-	public Token getToken() {
-		AClassDef definition = getModel();
-		AClassHeader header = (AClassHeader) definition.getClassHeader();
-		final Token[] token = { null };
-		header.apply(new DepthFirstAdapter() {
-			public void defaultCase(Node node) {
-				token[0] = (Token) node;
-			}
-		});
-		return token[0];
-	}
+    @Override
+    public Token getToken() {
+        AClassDef definition = getModel();
+        AClassHeader header = (AClassHeader) definition.getClassHeader();
+        final Token[] token = { null };
+        header.apply(new DepthFirstAdapter() {
+            public void defaultCase(Node node) {
+                token[0] = (Token) node;
+            }
+        });
+        return token[0];
+    }
 }

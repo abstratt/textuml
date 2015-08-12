@@ -19,16 +19,16 @@ import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
  */
 public class DummyProblemTracker implements IProblemTracker {
 
-	public void add(IProblem toReport) {
-		// does not do anything
-	}
+    public void add(IProblem toReport) {
+        // does not do anything
+    }
 
-	public IProblem[] getAllProblems() {
-		return null;
-	}
+    public IProblem[] getAllProblems() {
+        return null;
+    }
 
-	public boolean hasProblems(Severity minimumSeverity) {
-		return false;
-	}
+    public boolean hasProblems(Severity minimumSeverity) {
+        return false;
+    }
 
 }

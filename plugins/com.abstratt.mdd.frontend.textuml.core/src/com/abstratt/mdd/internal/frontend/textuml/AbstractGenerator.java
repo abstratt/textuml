@@ -43,100 +43,100 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 
 public abstract class AbstractGenerator extends DepthFirstAdapter {
 
-	protected CompilationContext context;
-	protected NamespaceTracker namespaceTracker;
-	protected SCCTextUMLSourceMiner sourceMiner;
-	protected ProblemBuilder<Node> problemBuilder;
-	protected SourceCompilationContext<Node> sourceContext;
+    protected CompilationContext context;
+    protected NamespaceTracker namespaceTracker;
+    protected SCCTextUMLSourceMiner sourceMiner;
+    protected ProblemBuilder<Node> problemBuilder;
+    protected SourceCompilationContext<Node> sourceContext;
 
-	public AbstractGenerator(CompilationContext context) {
-		namespaceTracker = new NamespaceTracker();
-		sourceMiner = new SCCTextUMLSourceMiner();
-		this.context = context;
-		this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), sourceMiner);
-		this.sourceContext = new SourceCompilationContext<Node>(context, namespaceTracker, sourceMiner, problemBuilder);
-	}
+    public AbstractGenerator(CompilationContext context) {
+        namespaceTracker = new NamespaceTracker();
+        sourceMiner = new SCCTextUMLSourceMiner();
+        this.context = context;
+        this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), sourceMiner);
+        this.sourceContext = new SourceCompilationContext<Node>(context, namespaceTracker, sourceMiner, problemBuilder);
+    }
 
-	public AbstractGenerator(SourceCompilationContext<Node> sourceContext) {
-		this.context = sourceContext.getContext();
-		this.namespaceTracker = sourceContext.getNamespaceTracker();
-		this.sourceMiner = (SCCTextUMLSourceMiner) sourceContext.getSourceMiner();
-		this.problemBuilder = sourceContext.getProblemBuilder();
-		this.sourceContext = sourceContext;
-	}
+    public AbstractGenerator(SourceCompilationContext<Node> sourceContext) {
+        this.context = sourceContext.getContext();
+        this.namespaceTracker = sourceContext.getNamespaceTracker();
+        this.sourceMiner = (SCCTextUMLSourceMiner) sourceContext.getSourceMiner();
+        this.problemBuilder = sourceContext.getProblemBuilder();
+        this.sourceContext = sourceContext;
+    }
 
-	@Override
-	public void caseAStart(AStart node) {
-		try {
-			super.caseAStart(node);
-		} catch (AbortedScopeCompilationException e) {
-			// aborted top level element compilation...
-		}
-	}
+    @Override
+    public void caseAStart(AStart node) {
+        try {
+            super.caseAStart(node);
+        } catch (AbortedScopeCompilationException e) {
+            // aborted top level element compilation...
+        }
+    }
 
-	@Override
-	public final void caseATypeIdentifier(ATypeIdentifier node) {
-		// forbid processing type identifiers (and corresponding
-		// multiplicities),
-		// they should be processed using TypeSetters
-	}
+    @Override
+    public final void caseATypeIdentifier(ATypeIdentifier node) {
+        // forbid processing type identifiers (and corresponding
+        // multiplicities),
+        // they should be processed using TypeSetters
+    }
 
-	protected IProblemTracker getProblems() {
-		return context.getProblemTracker();
-	}
+    protected IProblemTracker getProblems() {
+        return context.getProblemTracker();
+    }
 
-	protected IRepository getRepository() {
-		return context.getRepository();
-	}
+    protected IRepository getRepository() {
+        return context.getRepository();
+    }
 
-	protected void fillDebugInfo(final Element element, Node node) {
-		if (!context.isDebug())
-			return;
-		Token token = null;
-		while (token == null && node != null) {
-			token = sourceMiner.findToken(node);
-			node = node.parent();
-		}
-		if (token == null)
-			return;
-		final int lineNumber = token.getLine();
-		final String sourceFile = context.getSourcePath() != null ? context.getSourcePath() : null;
-		sourceContext.getReferenceTracker().add(new IDeferredReference() {
-			@Override
-			public void resolve(IBasicRepository repository) {
-				if (MDDExtensionUtils.isDebuggable(element))
-					MDDExtensionUtils.addDebugInfo(element, sourceFile, lineNumber);
-			}
-		}, Step.STEREOTYPE_APPLICATIONS);
-	}
+    protected void fillDebugInfo(final Element element, Node node) {
+        if (!context.isDebug())
+            return;
+        Token token = null;
+        while (token == null && node != null) {
+            token = sourceMiner.findToken(node);
+            node = node.parent();
+        }
+        if (token == null)
+            return;
+        final int lineNumber = token.getLine();
+        final String sourceFile = context.getSourcePath() != null ? context.getSourcePath() : null;
+        sourceContext.getReferenceTracker().add(new IDeferredReference() {
+            @Override
+            public void resolve(IBasicRepository repository) {
+                if (MDDExtensionUtils.isDebuggable(element))
+                    MDDExtensionUtils.addDebugInfo(element, sourceFile, lineNumber);
+            }
+        }, Step.STEREOTYPE_APPLICATIONS);
+    }
 
-	protected SignatureProcessor newSignatureProcessor(Namespace target) {
-		if (target instanceof Behavior)
-			return new BehaviorSignatureProcessor(sourceContext, (Behavior) target);
-		if (target instanceof BehavioralFeature)
-			return new BehavioralFeatureSignatureProcessor(sourceContext, (BehavioralFeature) target);
-		throw new IllegalArgumentException("" + target);
-	}
+    protected SignatureProcessor newSignatureProcessor(Namespace target) {
+        if (target instanceof Behavior)
+            return new BehaviorSignatureProcessor(sourceContext, (Behavior) target);
+        if (target instanceof BehavioralFeature)
+            return new BehavioralFeatureSignatureProcessor(sourceContext, (BehavioralFeature) target);
+        throw new IllegalArgumentException("" + target);
+    }
 
-	protected Classifier findBuiltInType(String typeName, Node node) {
-		Classifier builtInType = BasicTypeUtils.findBuiltInType(typeName);
-		if (builtInType == null) {
-			problemBuilder.addProblem(new UnresolvedSymbol(typeName), node);
-			throw new AbortedStatementCompilationException();
-		}
-		return builtInType;
-	}
+    protected Classifier findBuiltInType(String typeName, Node node) {
+        Classifier builtInType = BasicTypeUtils.findBuiltInType(typeName);
+        if (builtInType == null) {
+            problemBuilder.addProblem(new UnresolvedSymbol(typeName), node);
+            throw new AbortedStatementCompilationException();
+        }
+        return builtInType;
+    }
 
-	/**
-	 * Figures what kind of package we have in the package type node.
-	 */
-	public EClass determinePackageType(PPackageType node) {
-		if (node instanceof APackagePackageType)
-			return UMLPackage.Literals.PACKAGE;
-		if (node instanceof AModelPackageType)
-			return UMLPackage.Literals.MODEL;
-		if (node instanceof AProfilePackageType)
-			return UMLPackage.Literals.PROFILE;
-		return null;
-	}
+    /**
+     * Figures what kind of package we have in the package type node.
+     */
+    public EClass determinePackageType(PPackageType node) {
+        if (node instanceof APackagePackageType)
+            return UMLPackage.Literals.PACKAGE;
+        if (node instanceof AModelPackageType)
+            return UMLPackage.Literals.MODEL;
+        if (node instanceof AProfilePackageType)
+            return UMLPackage.Literals.PROFILE;
+        return null;
+    }
 }

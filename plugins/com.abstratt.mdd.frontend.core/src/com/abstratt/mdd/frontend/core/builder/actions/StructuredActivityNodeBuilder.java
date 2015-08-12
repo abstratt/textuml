@@ -13,39 +13,39 @@ import com.abstratt.mdd.frontend.core.builder.UML2ProductKind;
 
 public class StructuredActivityNodeBuilder extends ActionBuilder<StructuredActivityNode> implements
         IParentBuilder<StructuredActivityNode> {
-	private List<ElementBuilder<?>> childBuilders = new ArrayList<ElementBuilder<?>>();
+    private List<ElementBuilder<?>> childBuilders = new ArrayList<ElementBuilder<?>>();
 
-	public StructuredActivityNodeBuilder() {
-		super(UML2ProductKind.STRUCTURED_ACTIVITY_NODE);
-	}
+    public StructuredActivityNodeBuilder() {
+        super(UML2ProductKind.STRUCTURED_ACTIVITY_NODE);
+    }
 
-	@Override
-	protected StructuredActivityNode createProduct() {
-		return activityBuilder().createBlock(getEClass());
-	}
+    @Override
+    protected StructuredActivityNode createProduct() {
+        return activityBuilder().createBlock(getEClass());
+    }
 
-	@Override
-	protected void completeAction() {
-		activityBuilder().closeBlock(false);
-	}
+    @Override
+    protected void completeAction() {
+        activityBuilder().closeBlock(false);
+    }
 
-	@Override
-	protected void enhanceAction() {
-		for (ElementBuilder<?> childBuilder : this.childBuilders)
-			if (childBuilder.getProduct() == null)
-				childBuilder.build();
-	}
+    @Override
+    protected void enhanceAction() {
+        for (ElementBuilder<?> childBuilder : this.childBuilders)
+            if (childBuilder.getProduct() == null)
+                childBuilder.build();
+    }
 
-	@Override
-	public <EB extends ElementBuilder<? extends Element>> EB newChildBuilder(UML2ProductKind kind) {
-		EB childBuilder = new UML2BuilderFactory().newBuilder(kind);
-		return addChildBuilder(childBuilder);
-	}
+    @Override
+    public <EB extends ElementBuilder<? extends Element>> EB newChildBuilder(UML2ProductKind kind) {
+        EB childBuilder = new UML2BuilderFactory().newBuilder(kind);
+        return addChildBuilder(childBuilder);
+    }
 
-	@Override
-	public <EB extends ElementBuilder<? extends Element>> EB addChildBuilder(EB childBuilder) {
-		childBuilders.add(childBuilder);
-		childBuilder.setParent(this);
-		return childBuilder;
-	}
+    @Override
+    public <EB extends ElementBuilder<? extends Element>> EB addChildBuilder(EB childBuilder) {
+        childBuilders.add(childBuilder);
+        childBuilder.setParent(this);
+        return childBuilder;
+    }
 }

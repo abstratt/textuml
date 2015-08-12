@@ -14,13 +14,13 @@ import com.abstratt.mdd.core.Problem;
 
 public class StateMachineMustHaveOneInitialState extends Problem {
 
-	public StateMachineMustHaveOneInitialState() {
-		super(Severity.ERROR);
-	}
+    public StateMachineMustHaveOneInitialState() {
+        super(Severity.ERROR);
+    }
 
-	@Override
-	public String getMessage() {
-		return "A state machine must have one (and only one) initial state";
-	}
+    @Override
+    public String getMessage() {
+        return "A state machine must have one (and only one) initial state";
+    }
 
 }

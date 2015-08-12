@@ -26,86 +26,86 @@ import com.abstratt.mdd.internal.ui.model.ASTUtils;
  */
 public class WorkingCopyRegistry {
 
-	protected static WorkingCopyRegistry instance = new WorkingCopyRegistry();
+    protected static WorkingCopyRegistry instance = new WorkingCopyRegistry();
 
-	protected Set<WorkingCopy> copies;
+    protected Set<WorkingCopy> copies;
 
-	public static WorkingCopyRegistry getInstance() {
-		return instance;
-	}
+    public static WorkingCopyRegistry getInstance() {
+        return instance;
+    }
 
-	protected WorkingCopyRegistry() {
-		copies = new HashSet<WorkingCopy>();
-	}
+    protected WorkingCopyRegistry() {
+        copies = new HashSet<WorkingCopy>();
+    }
 
-	public IFile getFile(ASTNode node) {
-		WorkingCopy copy = getWorkingCopy(node);
-		if (copy != null) {
-			return copy.getFile();
-		}
-		return null;
-	}
+    public IFile getFile(ASTNode node) {
+        WorkingCopy copy = getWorkingCopy(node);
+        if (copy != null) {
+            return copy.getFile();
+        }
+        return null;
+    }
 
-	public IFile getFile(IDocument document) {
-		WorkingCopy copy = getWorkingCopy(document);
-		if (copy != null) {
-			return copy.getFile();
-		}
-		return null;
-	}
+    public IFile getFile(IDocument document) {
+        WorkingCopy copy = getWorkingCopy(document);
+        if (copy != null) {
+            return copy.getFile();
+        }
+        return null;
+    }
 
-	public WorkingCopy getWorkingCopy(ASTNode node) {
-		ASTNode root = ASTUtils.getRootNode(node);
-		for (Iterator<WorkingCopy> iter = copies.iterator(); iter.hasNext();) {
-			WorkingCopy copy = iter.next();
-			if (root == copy.getRootASTNode()) {
-				return copy;
-			}
-		}
-		return null;
-	}
+    public WorkingCopy getWorkingCopy(ASTNode node) {
+        ASTNode root = ASTUtils.getRootNode(node);
+        for (Iterator<WorkingCopy> iter = copies.iterator(); iter.hasNext();) {
+            WorkingCopy copy = iter.next();
+            if (root == copy.getRootASTNode()) {
+                return copy;
+            }
+        }
+        return null;
+    }
 
-	public WorkingCopy getWorkingCopy(IDocument document) {
-		for (Iterator<WorkingCopy> iter = copies.iterator(); iter.hasNext();) {
-			WorkingCopy copy = iter.next();
-			if (document == copy.getDocument()) {
-				return copy;
-			}
-		}
-		return null;
-	}
+    public WorkingCopy getWorkingCopy(IDocument document) {
+        for (Iterator<WorkingCopy> iter = copies.iterator(); iter.hasNext();) {
+            WorkingCopy copy = iter.next();
+            if (document == copy.getDocument()) {
+                return copy;
+            }
+        }
+        return null;
+    }
 
-	public WorkingCopy getWorkingCopy(IFile file) {
-		for (Iterator<WorkingCopy> iter = copies.iterator(); iter.hasNext();) {
-			WorkingCopy copy = iter.next();
-			if (file == copy.getFile()) {
-				return copy;
-			}
-		}
-		return null;
-	}
+    public WorkingCopy getWorkingCopy(IFile file) {
+        for (Iterator<WorkingCopy> iter = copies.iterator(); iter.hasNext();) {
+            WorkingCopy copy = iter.next();
+            if (file == copy.getFile()) {
+                return copy;
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * Registers this document with the working copies. If a working copy for
-	 * this document does not exist, a new one will be created.
-	 */
-	public void register(IDocument document, IFile file) {
-		synchronized (copies) {
-			WorkingCopy copy = getWorkingCopy(document);
-			if (copy == null) {
-				copy = new WorkingCopy(document, file);
-				copies.add(copy);
-			}
-		}
-	}
+    /**
+     * Registers this document with the working copies. If a working copy for
+     * this document does not exist, a new one will be created.
+     */
+    public void register(IDocument document, IFile file) {
+        synchronized (copies) {
+            WorkingCopy copy = getWorkingCopy(document);
+            if (copy == null) {
+                copy = new WorkingCopy(document, file);
+                copies.add(copy);
+            }
+        }
+    }
 
-	public void unregister(IDocument document) {
-		synchronized (copies) {
-			WorkingCopy copy = getWorkingCopy(document);
-			if (copy != null) {
-				copies.remove(copy);
-				copy.dispose();
-			}
-		}
-	}
+    public void unregister(IDocument document) {
+        synchronized (copies) {
+            WorkingCopy copy = getWorkingCopy(document);
+            if (copy != null) {
+                copies.remove(copy);
+                copy.dispose();
+            }
+        }
+    }
 }

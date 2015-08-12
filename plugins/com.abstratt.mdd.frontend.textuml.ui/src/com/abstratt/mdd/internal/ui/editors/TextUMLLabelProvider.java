@@ -18,13 +18,13 @@ import com.abstratt.mdd.internal.ui.model.UIModelObject;
 
 public class TextUMLLabelProvider extends LabelProvider {
 
-	public Image getImage(Object element) {
-		UIModelObject model = (UIModelObject) ((TreeNode) element).getValue();
-		return model.getImage();
-	}
+    public Image getImage(Object element) {
+        UIModelObject model = (UIModelObject) ((TreeNode) element).getValue();
+        return model.getImage();
+    }
 
-	public String getText(Object element) {
-		UIModelObject model = (UIModelObject) ((TreeNode) element).getValue();
-		return model.getText();
-	}
+    public String getText(Object element) {
+        UIModelObject model = (UIModelObject) ((TreeNode) element).getValue();
+        return model.getText();
+    }
 }

@@ -20,9 +20,9 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ElementImportRenderer implements IEObjectRenderer<ElementImport> {
 
-	public boolean renderObject(ElementImport element, IndentedPrintWriter out, IRenderingSession context) {
-		out.println("import " + qualifiedName(element.getImportedElement()) + ";");
-		return true;
-	}
+    public boolean renderObject(ElementImport element, IndentedPrintWriter out, IRenderingSession context) {
+        out.println("import " + qualifiedName(element.getImportedElement()) + ";");
+        return true;
+    }
 
 }

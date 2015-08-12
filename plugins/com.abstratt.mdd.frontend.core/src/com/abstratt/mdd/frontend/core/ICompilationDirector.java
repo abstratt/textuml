@@ -33,29 +33,29 @@ import com.abstratt.mdd.frontend.core.spi.ISourceAnalyzer;
  * </p>
  */
 public interface ICompilationDirector {
-	public static final String MDD_FILE_EXTENSION = "mdd";
-	public static final int CLEAN = 2;
-	public static final int DEBUG = 4;
-	public static final int FULL_BUILD = 1;
+    public static final String MDD_FILE_EXTENSION = "mdd";
+    public static final int CLEAN = 2;
+    public static final int DEBUG = 4;
+    public static final int FULL_BUILD = 1;
 
-	/**
-	 * Compiles the given source files, or all source files found in the context
-	 * if <code>null</code> is provided.
-	 * 
-	 * @param toBuild
-	 *            source files to build
-	 * @param repository
-	 *            a repository, or <code>null</code>
-	 * @param context
-	 * @param mode
-	 * @param monitor
-	 * @return an array of problems (empty if none)
-	 * @throws CoreException
-	 */
-	public IProblem[] compile(IFileStore[] toCompile, IRepository repository, LocationContext context, int mode,
-	        IProgressMonitor monitor) throws CoreException;
+    /**
+     * Compiles the given source files, or all source files found in the context
+     * if <code>null</code> is provided.
+     * 
+     * @param toBuild
+     *            source files to build
+     * @param repository
+     *            a repository, or <code>null</code>
+     * @param context
+     * @param mode
+     * @param monitor
+     * @return an array of problems (empty if none)
+     * @throws CoreException
+     */
+    public IProblem[] compile(IFileStore[] toCompile, IRepository repository, LocationContext context, int mode,
+            IProgressMonitor monitor) throws CoreException;
 
-	public String format(String filename, String toFormat) throws CoreException;
+    public String format(String filename, String toFormat) throws CoreException;
 
-	public List<ISourceAnalyzer.SourceElement> analyze(String extension, String toAnalyze) throws CoreException;
+    public List<ISourceAnalyzer.SourceElement> analyze(String extension, String toAnalyze) throws CoreException;
 }

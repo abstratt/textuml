@@ -46,133 +46,133 @@ import com.abstratt.mdd.internal.ui.editors.WorkingCopyRegistry;
  */
 public abstract class UIModelObject {
 
-	protected List<UIModelObject> children;
+    protected List<UIModelObject> children;
 
-	protected ASTNode<Token, Node> node;
-	protected UIModelObject parent;
+    protected ASTNode<Token, Node> node;
+    protected UIModelObject parent;
 
-	public static UIModelObject createModelObject(UIModelObject parent, ASTNode<Token, Node> node) {
-		if (node.instanceOf(Start.class)) {
-			return new RootModelObject(parent, node);
-		}
-		if (node.instanceOf(AClassDef.class)) {
-			PClassType classType = ((AClassHeader) ((AClassDef) node.getBaseNode()).getClassHeader()).getClassType();
-			if (classType instanceof AClassClassType)
-				return new Clazz(parent, node);
-			if (classType instanceof AInterfaceClassType)
-				return new Interface(parent, node);
-			if (classType instanceof ADatatypeClassType) {
-				if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_DATATYPE))
-					return null;
-				return new DataType(parent, node);
-			}
-			return new GenericClassifier(parent, node);
-		}
-		if (node.instanceOf(APrimitiveDef.class)) {
-			return new PrimitiveType(parent, node);
-		}
-		if (node.instanceOf(AAttributeDecl.class)) {
-			if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_ATTR)) {
-				return null;
-			}
-			return new Attribute(parent, node);
-		}
-		if (node.instanceOf(AReferenceDecl.class)) {
-			return new Reference(parent, node);
-		}
-		if (node.instanceOf(ADependencyDecl.class)) {
-			if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_DEPS)) {
-				return null;
-			}
-			return new Dependency(parent, node);
-		}
-		if (node.instanceOf(AOperationDecl.class)) {
-			if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_OP)) {
-				return null;
-			}
-			return new Operation(parent, node);
-		}
-		if (node.instanceOf(ACompositionAssociationKind.class)) {
-			return new Composition(parent, node);
-		}
-		if (node.instanceOf(AAssociationDef.class)) {
-			return null;
-		}
-		if (node.instanceOf(AAssociationAssociationKind.class)) {
-			return new Association(parent, node);
-		}
-		if (node.instanceOf(AAggregationAssociationKind.class)) {
-			return new Aggregation(parent, node);
-		}
-		if (node.instanceOf(AImportDecl.class)) {
-			return new Import(parent, node);
-		}
-		throw new IllegalArgumentException("Unexpected object type: " + node.getBaseNode().getClass());
-	}
+    public static UIModelObject createModelObject(UIModelObject parent, ASTNode<Token, Node> node) {
+        if (node.instanceOf(Start.class)) {
+            return new RootModelObject(parent, node);
+        }
+        if (node.instanceOf(AClassDef.class)) {
+            PClassType classType = ((AClassHeader) ((AClassDef) node.getBaseNode()).getClassHeader()).getClassType();
+            if (classType instanceof AClassClassType)
+                return new Clazz(parent, node);
+            if (classType instanceof AInterfaceClassType)
+                return new Interface(parent, node);
+            if (classType instanceof ADatatypeClassType) {
+                if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_DATATYPE))
+                    return null;
+                return new DataType(parent, node);
+            }
+            return new GenericClassifier(parent, node);
+        }
+        if (node.instanceOf(APrimitiveDef.class)) {
+            return new PrimitiveType(parent, node);
+        }
+        if (node.instanceOf(AAttributeDecl.class)) {
+            if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_ATTR)) {
+                return null;
+            }
+            return new Attribute(parent, node);
+        }
+        if (node.instanceOf(AReferenceDecl.class)) {
+            return new Reference(parent, node);
+        }
+        if (node.instanceOf(ADependencyDecl.class)) {
+            if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_DEPS)) {
+                return null;
+            }
+            return new Dependency(parent, node);
+        }
+        if (node.instanceOf(AOperationDecl.class)) {
+            if (!TextUMLUIPlugin.getDefault().isPreferencePresentInEditorOptions(TextUMLUIPlugin.SHOW_OP)) {
+                return null;
+            }
+            return new Operation(parent, node);
+        }
+        if (node.instanceOf(ACompositionAssociationKind.class)) {
+            return new Composition(parent, node);
+        }
+        if (node.instanceOf(AAssociationDef.class)) {
+            return null;
+        }
+        if (node.instanceOf(AAssociationAssociationKind.class)) {
+            return new Association(parent, node);
+        }
+        if (node.instanceOf(AAggregationAssociationKind.class)) {
+            return new Aggregation(parent, node);
+        }
+        if (node.instanceOf(AImportDecl.class)) {
+            return new Import(parent, node);
+        }
+        throw new IllegalArgumentException("Unexpected object type: " + node.getBaseNode().getClass());
+    }
 
-	public UIModelObject(UIModelObject parent, ASTNode<Token, Node> node) {
-		this.parent = parent;
-		this.node = node;
-	}
+    public UIModelObject(UIModelObject parent, ASTNode<Token, Node> node) {
+        this.parent = parent;
+        this.node = node;
+    }
 
-	public List<UIModelObject> getChildren() {
-		if (children == null) {
-			List<ASTNode<Token, Node>> nodes = ASTUtils.findNodes(getNode(), false, getChildrenTypes());
-			children = new ArrayList<UIModelObject>(nodes.size());
-			for (Iterator<ASTNode<Token, Node>> iter = nodes.iterator(); iter.hasNext();) {
-				ASTNode<Token, Node> node = iter.next();
-				UIModelObject child = UIModelObject.createModelObject(UIModelObject.this, node);
-				if (child != null) {
-					children.add(child);
-				}
+    public List<UIModelObject> getChildren() {
+        if (children == null) {
+            List<ASTNode<Token, Node>> nodes = ASTUtils.findNodes(getNode(), false, getChildrenTypes());
+            children = new ArrayList<UIModelObject>(nodes.size());
+            for (Iterator<ASTNode<Token, Node>> iter = nodes.iterator(); iter.hasNext();) {
+                ASTNode<Token, Node> node = iter.next();
+                UIModelObject child = UIModelObject.createModelObject(UIModelObject.this, node);
+                if (child != null) {
+                    children.add(child);
+                }
 
-			}
-		}
-		return children;
-	}
+            }
+        }
+        return children;
+    }
 
-	protected Class<? extends Node>[] getChildrenTypes() {
-		return (Class<? extends Node>[]) new Class<?>[0];
-	}
+    protected Class<? extends Node>[] getChildrenTypes() {
+        return (Class<? extends Node>[]) new Class<?>[0];
+    }
 
-	abstract public Image getImage();
+    abstract public Image getImage();
 
-	public ASTNode<Token, Node> getNode() {
-		return node;
-	}
+    public ASTNode<Token, Node> getNode() {
+        return node;
+    }
 
-	public UIModelObject getParent() {
-		return parent;
-	}
+    public UIModelObject getParent() {
+        return parent;
+    }
 
-	/**
-	 * Returns the root object in this structure.
-	 */
-	protected UIModelObject getRoot() {
-		if (parent == null) {
-			return this;
-		}
-		return parent.getRoot();
-	}
+    /**
+     * Returns the root object in this structure.
+     */
+    protected UIModelObject getRoot() {
+        if (parent == null) {
+            return this;
+        }
+        return parent.getRoot();
+    }
 
-	abstract public String getOriginalText();
+    abstract public String getOriginalText();
 
-	abstract public Token getToken();
+    abstract public Token getToken();
 
-	public String getText() {
-		return Util.stripEscaping(getOriginalText());
-	}
+    public String getText() {
+        return Util.stripEscaping(getOriginalText());
+    }
 
-	/**
-	 * Returns the working copy that contains this model object.
-	 */
-	protected WorkingCopy getWorkingCopy() {
-		return WorkingCopyRegistry.getInstance().getWorkingCopy(getNode());
-	}
+    /**
+     * Returns the working copy that contains this model object.
+     */
+    protected WorkingCopy getWorkingCopy() {
+        return WorkingCopyRegistry.getInstance().getWorkingCopy(getNode());
+    }
 
-	// for debug only
-	@Override
-	public String toString() {
-		return getText();
-	}
+    // for debug only
+    @Override
+    public String toString() {
+        return getText();
+    }
 }

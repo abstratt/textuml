@@ -7,11 +7,11 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class EnumerationLiteralRenderer implements IElementRenderer<EnumerationLiteral> {
 
-	public boolean renderObject(EnumerationLiteral literal, IndentedPrintWriter w, IRenderingSession context) {
-		w.print("<TR><TD align=\"left\">");
-		w.print(literal.getName());
-		w.println("</TD></TR>");
-		return true;
-	}
+    public boolean renderObject(EnumerationLiteral literal, IndentedPrintWriter w, IRenderingSession context) {
+        w.print("<TR><TD align=\"left\">");
+        w.print(literal.getName());
+        w.println("</TD></TR>");
+        return true;
+    }
 
 }

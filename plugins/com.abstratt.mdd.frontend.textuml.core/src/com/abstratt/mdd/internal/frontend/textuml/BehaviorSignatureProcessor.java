@@ -17,17 +17,17 @@ import org.eclipse.uml2.uml.Parameter;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 class BehaviorSignatureProcessor extends SignatureProcessor {
-	public BehaviorSignatureProcessor(SourceCompilationContext<Node> sourceContext, Behavior parent) {
-		super(sourceContext, parent, false);
-	}
+    public BehaviorSignatureProcessor(SourceCompilationContext<Node> sourceContext, Behavior parent) {
+        super(sourceContext, parent, false);
+    }
 
-	protected Parameter createParameter(String name) {
-		Parameter parameter = ((Behavior) parent).createOwnedParameter(name, null);
-		return parameter;
-	}
+    protected Parameter createParameter(String name) {
+        Parameter parameter = ((Behavior) parent).createOwnedParameter(name, null);
+        return parameter;
+    }
 
-	@Override
-	protected Namespace getBaseLookupNamespace() {
-		return parent;
-	}
+    @Override
+    protected Namespace getBaseLookupNamespace() {
+        return parent;
+    }
 }

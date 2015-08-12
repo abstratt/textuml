@@ -14,15 +14,15 @@ import com.abstratt.mdd.core.Problem;
 
 public class UnboundTemplate extends Problem {
 
-	private String typeName;
+    private String typeName;
 
-	public UnboundTemplate(String typeName) {
-		super(Severity.ERROR);
-		this.typeName = typeName;
-	}
+    public UnboundTemplate(String typeName) {
+        super(Severity.ERROR);
+        this.typeName = typeName;
+    }
 
-	public String getMessage() {
-		return "Unbound template: '" + typeName + "'";
-	}
+    public String getMessage() {
+        return "Unbound template: '" + typeName + "'";
+    }
 
 }

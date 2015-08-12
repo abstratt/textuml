@@ -12,45 +12,45 @@ package com.abstratt.mdd.core;
 
 public interface IProblem {
 
-	public static enum Severity {
-		ERROR, INFO, WARNING
-	}
+    public static enum Severity {
+        ERROR, INFO, WARNING
+    }
 
-	public static String FILE_NAME = "fileName";
+    public static String FILE_NAME = "fileName";
 
-	public static String LINE_NUMBER = "lineNumber";
+    public static String LINE_NUMBER = "lineNumber";
 
-	/**
-	 * Returns the value of the attribute with the given key, or
-	 * <code>null</code> if none exists.
-	 * 
-	 * @param key
-	 *            the attribute key
-	 * @return the attribute value, or <code>null</code>
-	 */
-	public Object getAttribute(String key);
+    /**
+     * Returns the value of the attribute with the given key, or
+     * <code>null</code> if none exists.
+     * 
+     * @param key
+     *            the attribute key
+     * @return the attribute value, or <code>null</code>
+     */
+    public Object getAttribute(String key);
 
-	/**
-	 * Returns the problem description.
-	 * 
-	 * @return the problem description
-	 */
-	public String getMessage();
+    /**
+     * Returns the problem description.
+     * 
+     * @return the problem description
+     */
+    public String getMessage();
 
-	/**
-	 * Returns the problem severity.
-	 * 
-	 * @return the problem severity
-	 */
-	public Severity getSeverity();
+    /**
+     * Returns the problem severity.
+     * 
+     * @return the problem severity
+     */
+    public Severity getSeverity();
 
-	/**
-	 * Attaches an attribute to this problem.
-	 * 
-	 * @param key
-	 *            the attribute key
-	 * @param value
-	 *            the attribute value
-	 */
-	public void setAttribute(String key, Object value);
+    /**
+     * Attaches an attribute to this problem.
+     * 
+     * @param key
+     *            the attribute key
+     * @param value
+     *            the attribute value
+     */
+    public void setAttribute(String key, Object value);
 }

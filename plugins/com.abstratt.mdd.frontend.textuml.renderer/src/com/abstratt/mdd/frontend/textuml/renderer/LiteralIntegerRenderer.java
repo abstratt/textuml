@@ -18,8 +18,8 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class LiteralIntegerRenderer implements IEObjectRenderer<LiteralInteger> {
 
-	public boolean renderObject(LiteralInteger element, IndentedPrintWriter out, IRenderingSession context) {
-		out.print(element.integerValue());
-		return true;
-	}
+    public boolean renderObject(LiteralInteger element, IndentedPrintWriter out, IRenderingSession context) {
+        out.print(element.integerValue());
+        return true;
+    }
 }

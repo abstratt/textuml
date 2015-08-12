@@ -20,27 +20,27 @@ import com.abstratt.mdd.frontend.ui.IMDDEditor;
 
 public class MDDEditorToGraphicalFileProviderAdapterFactory implements IAdapterFactory {
 
-	private static class GraphicalContentProvider implements IGraphicalFileProvider {
-		private WeakReference<IMDDEditor> editorReference;
+    private static class GraphicalContentProvider implements IGraphicalFileProvider {
+        private WeakReference<IMDDEditor> editorReference;
 
-		private GraphicalContentProvider(IMDDEditor editor) {
-			editorReference = new WeakReference<IMDDEditor>(editor);
-		}
+        private GraphicalContentProvider(IMDDEditor editor) {
+            editorReference = new WeakReference<IMDDEditor>(editor);
+        }
 
-		public IFile getGraphicalFile() {
-			IMDDEditor editor = editorReference.get();
-			return editor == null ? null : editor.getModelFile();
-		}
-	}
+        public IFile getGraphicalFile() {
+            IMDDEditor editor = editorReference.get();
+            return editor == null ? null : editor.getModelFile();
+        }
+    }
 
-	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		if (adapterType == IGraphicalFileProvider.class && adaptableObject instanceof IMDDEditor)
-			return new GraphicalContentProvider((IMDDEditor) adaptableObject);
-		return null;
-	}
+    public Object getAdapter(Object adaptableObject, Class adapterType) {
+        if (adapterType == IGraphicalFileProvider.class && adaptableObject instanceof IMDDEditor)
+            return new GraphicalContentProvider((IMDDEditor) adaptableObject);
+        return null;
+    }
 
-	public Class[] getAdapterList() {
-		return new Class[] { IGraphicalFileProvider.class };
-	}
+    public Class[] getAdapterList() {
+        return new Class[] { IGraphicalFileProvider.class };
+    }
 
 }

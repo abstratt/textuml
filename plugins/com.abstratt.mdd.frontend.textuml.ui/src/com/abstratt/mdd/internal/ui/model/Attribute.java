@@ -21,33 +21,33 @@ import com.abstratt.mdd.ui.UIConstants;
 
 public class Attribute extends LeafModelObject {
 
-	public Attribute(UIModelObject parent, ASTNode node) {
-		super(parent, node);
-	}
+    public Attribute(UIModelObject parent, ASTNode node) {
+        super(parent, node);
+    }
 
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_ATTRIBUTE);
-	}
+    @Override
+    public Image getImage() {
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_ATTRIBUTE);
+    }
 
-	protected AAttributeDecl getModel() {
-		return (AAttributeDecl) node.getBaseNode();
-	}
+    protected AAttributeDecl getModel() {
+        return (AAttributeDecl) node.getBaseNode();
+    }
 
-	@Override
-	public String getOriginalText() {
-		AAttributeDecl declaration = getModel();
-		StringBuffer text = new StringBuffer();
-		text.append(declaration.getIdentifier().getText());
-		PTypeIdentifier type = declaration.getTypeIdentifier();
-		text.append(" : ");
-		text.append(type);
-		return text.toString();
-	}
+    @Override
+    public String getOriginalText() {
+        AAttributeDecl declaration = getModel();
+        StringBuffer text = new StringBuffer();
+        text.append(declaration.getIdentifier().getText());
+        PTypeIdentifier type = declaration.getTypeIdentifier();
+        text.append(" : ");
+        text.append(type);
+        return text.toString();
+    }
 
-	@Override
-	public Token getToken() {
-		return getModel().getAttribute();
-	}
+    @Override
+    public Token getToken() {
+        return getModel().getAttribute();
+    }
 
 }

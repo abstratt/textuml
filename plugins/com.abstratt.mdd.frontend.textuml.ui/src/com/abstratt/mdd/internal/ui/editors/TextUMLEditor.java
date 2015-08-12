@@ -21,58 +21,58 @@ import com.abstratt.mdd.ui.UIUtils;
 
 public class TextUMLEditor extends MultiPageEditorPart {
 
-	public final static String PLUGIN_ID = "com.abstratt.mdd.frontend.textuml.ui";
+    public final static String PLUGIN_ID = "com.abstratt.mdd.frontend.textuml.ui";
 
-	protected SourceEditor sourceEditor;
+    protected SourceEditor sourceEditor;
 
-	public TextUMLEditor() {
-		super();
-	}
+    public TextUMLEditor() {
+        super();
+    }
 
-	protected IEditorInput createEditorInput() {
-		return new WorkspaceFileEditorInput((IFileEditorInput) getEditorInput());
-	}
+    protected IEditorInput createEditorInput() {
+        return new WorkspaceFileEditorInput((IFileEditorInput) getEditorInput());
+    }
 
-	@Override
-	protected void createPages() {
-		try {
-			sourceEditor = new SourceEditor();
-			int index = addPage(sourceEditor, createEditorInput());
-			setPageText(index, "Source");
+    @Override
+    protected void createPages() {
+        try {
+            sourceEditor = new SourceEditor();
+            int index = addPage(sourceEditor, createEditorInput());
+            setPageText(index, "Source");
 
-			// GraphicalEditor graphicalEditor = new GraphicalEditor();
-			// index = addPage(graphicalEditor, createEditorInput());
-			// setPageText(index, "Graphical");
+            // GraphicalEditor graphicalEditor = new GraphicalEditor();
+            // index = addPage(graphicalEditor, createEditorInput());
+            // setPageText(index, "Graphical");
 
-		} catch (PartInitException e) {
-			UIUtils.log(e);
-		}
-	}
+        } catch (PartInitException e) {
+            UIUtils.log(e);
+        }
+    }
 
-	@Override
-	public void doSave(IProgressMonitor monitor) {
-		sourceEditor.doSave(monitor);
-	}
+    @Override
+    public void doSave(IProgressMonitor monitor) {
+        sourceEditor.doSave(monitor);
+    }
 
-	@Override
-	public void doSaveAs() {
-		sourceEditor.doSaveAs();
-	}
+    @Override
+    public void doSaveAs() {
+        sourceEditor.doSaveAs();
+    }
 
-	public void format() {
-		sourceEditor.format();
-	}
+    public void format() {
+        sourceEditor.format();
+    }
 
-	@Override
-	public boolean isSaveAsAllowed() {
-		return sourceEditor.isSaveAsAllowed();
-	}
+    @Override
+    public boolean isSaveAsAllowed() {
+        return sourceEditor.isSaveAsAllowed();
+    }
 
-	// TODO: fix the nested editor inputs when the main one changes
-	@Override
-	protected void setInput(IEditorInput input) {
-		super.setInput(input);
-		setPartName(input.getName());
-	}
+    // TODO: fix the nested editor inputs when the main one changes
+    @Override
+    protected void setInput(IEditorInput input) {
+        super.setInput(input);
+        setPartName(input.getName());
+    }
 
 }
