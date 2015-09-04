@@ -10,9 +10,7 @@
  *******************************************************************************/
 package com.abstratt.mdd.core.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 
 import org.eclipse.uml2.uml.ParameterableElement;
 import org.eclipse.uml2.uml.TemplateParameterSubstitution;
@@ -22,41 +20,39 @@ import org.eclipse.uml2.uml.TemplateParameterSubstitution;
  */
 public class UML2Compatibility {
 
-	/**
-	 * Cross-version utility method for retrieving a substitution's actual
-	 * parameter in a version-independent way.
-	 * 
-	 * @see TemplateParameterSubstitution#getActual() - in UML 3.0+
-	 * @see TemplateParameterSubstitution#getActuals() - in UML 2.2
-	 */
-	public static ParameterableElement getActualParameter(
-			TemplateParameterSubstitution substitution) {
-	    return substitution.getActual();
-	}
+    /**
+     * Cross-version utility method for retrieving a substitution's actual
+     * parameter in a version-independent way.
+     * 
+     * @see TemplateParameterSubstitution#getActual() - in UML 3.0+
+     * @see TemplateParameterSubstitution#getActuals() - in UML 2.2
+     */
+    public static ParameterableElement getActualParameter(TemplateParameterSubstitution substitution) {
+        return substitution.getActual();
+    }
 
-	/**
-	 * Cross-version utility method for setting a substitution's actual
-	 * parameter in a version-independent way.
-	 * 
-	 * @see TemplateParameterSubstitution#setActual(ParameterableElement) - in UML 3.0+
-	 * @see TemplateParameterSubstitution#getActuals() - in UML 2.2
-	 */
-	public static void setActualParameter(
-			TemplateParameterSubstitution substitution,
-			ParameterableElement actual) {
-		substitution.setActual(actual);
-	}
+    /**
+     * Cross-version utility method for setting a substitution's actual
+     * parameter in a version-independent way.
+     * 
+     * @see TemplateParameterSubstitution#setActual(ParameterableElement) - in
+     *      UML 3.0+
+     * @see TemplateParameterSubstitution#getActuals() - in UML 2.2
+     */
+    public static void setActualParameter(TemplateParameterSubstitution substitution, ParameterableElement actual) {
+        substitution.setActual(actual);
+    }
 
-	/*
-	 * Convenience method for finding a method in a less verbose way.
-	 */
-	private static Method getMethod(Class<?> clazz, String name, Class<?>... signature) {
-		try {
-			return clazz.getMethod(name, signature);
-		} catch (SecurityException e) {
-			throw new RuntimeException(e);
-		} catch (NoSuchMethodException e) {
-			return null;
-		}
-	}
+    /*
+     * Convenience method for finding a method in a less verbose way.
+     */
+    private static Method getMethod(Class<?> clazz, String name, Class<?>... signature) {
+        try {
+            return clazz.getMethod(name, signature);
+        } catch (SecurityException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            return null;
+        }
+    }
 }

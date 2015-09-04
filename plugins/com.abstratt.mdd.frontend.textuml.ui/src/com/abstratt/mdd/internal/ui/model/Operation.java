@@ -7,58 +7,59 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import org.eclipse.swt.graphics.Image;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.internal.frontend.textuml.node.AOperationDecl;
-import com.abstratt.mdd.internal.frontend.textuml.node.AOperationHeader;
-import com.abstratt.mdd.internal.frontend.textuml.node.AOperationOperationKeyword;
-import com.abstratt.mdd.internal.frontend.textuml.node.AOptionalReturnType;
-import com.abstratt.mdd.internal.frontend.textuml.node.AQueryOperationKeyword;
-import com.abstratt.mdd.internal.frontend.textuml.node.ASignature;
-import com.abstratt.mdd.internal.frontend.textuml.node.POperationKeyword;
-import com.abstratt.mdd.internal.frontend.textuml.node.POptionalReturnType;
-import com.abstratt.mdd.internal.frontend.textuml.node.Token;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationHeader;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationOperationKeyword;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalReturnType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AQueryOperationKeyword;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ASignature;
+import com.abstratt.mdd.frontend.textuml.grammar.node.POperationKeyword;
+import com.abstratt.mdd.frontend.textuml.grammar.node.POptionalReturnType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 import com.abstratt.mdd.ui.Activator;
 import com.abstratt.mdd.ui.UIConstants;
 
 public class Operation extends LeafModelObject {
 
-	public Operation(UIModelObject parent, ASTNode node) {
-		super(parent, node);
-	}
+    public Operation(UIModelObject parent, ASTNode node) {
+        super(parent, node);
+    }
 
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_OPERATION);
-	}
+    @Override
+    public Image getImage() {
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_OPERATION);
+    }
 
-	protected AOperationDecl getModel() {
-		return (AOperationDecl) node.getBaseNode();
-	}
+    protected AOperationDecl getModel() {
+        return (AOperationDecl) node.getBaseNode();
+    }
 
-	@Override
-	public String getOriginalText() {
-		AOperationDecl declaration = getModel();
-		StringBuffer text = new StringBuffer();
-		final AOperationHeader operationHeader = ((AOperationHeader) declaration.getOperationHeader());
-		text.append(operationHeader.getIdentifier().getText());
-		POptionalReturnType returnType = ((ASignature) operationHeader.getSignature()).getOptionalReturnType();
-		text.append("() ");
-		if (returnType instanceof AOptionalReturnType) {
-			text.append(returnType);
-		}
-		return text.toString();
-	}
+    @Override
+    public String getOriginalText() {
+        AOperationDecl declaration = getModel();
+        StringBuffer text = new StringBuffer();
+        final AOperationHeader operationHeader = ((AOperationHeader) declaration.getOperationHeader());
+        text.append(operationHeader.getIdentifier().getText());
+        POptionalReturnType returnType = ((ASignature) operationHeader.getSignature()).getOptionalReturnType();
+        text.append("() ");
+        if (returnType instanceof AOptionalReturnType) {
+            text.append(returnType);
+        }
+        return text.toString();
+    }
 
-	@Override
-	public Token getToken() {
-		AOperationHeader header = (AOperationHeader) getModel().getOperationHeader();
-		POperationKeyword keyword = header.getOperationKeyword();
-		return keyword instanceof AQueryOperationKeyword ? ((AQueryOperationKeyword) keyword).getQuery() : ((AOperationOperationKeyword) keyword).getOperation();
-	}
+    @Override
+    public Token getToken() {
+        AOperationHeader header = (AOperationHeader) getModel().getOperationHeader();
+        POperationKeyword keyword = header.getOperationKeyword();
+        return keyword instanceof AQueryOperationKeyword ? ((AQueryOperationKeyword) keyword).getQuery()
+                : ((AOperationOperationKeyword) keyword).getOperation();
+    }
 
 }

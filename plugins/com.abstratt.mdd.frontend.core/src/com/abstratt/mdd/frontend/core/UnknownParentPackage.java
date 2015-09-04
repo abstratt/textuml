@@ -7,18 +7,18 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 public class UnknownParentPackage extends UnresolvedSymbol {
 
-	public UnknownParentPackage(String symbol) {
-		super(symbol);
-	}
+    public UnknownParentPackage(String symbol) {
+        super(symbol);
+    }
 
-	@Override
-	public String getMessage() {
-		return "Unknown parent package: " + getSymbol();
-	}
+    @Override
+    public String getMessage() {
+        return "Unknown parent package: " + getSymbol();
+    }
 
 }

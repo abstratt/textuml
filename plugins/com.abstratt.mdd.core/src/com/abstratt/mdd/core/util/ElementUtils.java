@@ -11,6 +11,7 @@ public class ElementUtils {
         List<Comment> comments = element.getOwnedComments();
         return comments.isEmpty() ? "" : comments.get(0).getBody().trim();
     }
+
     public static boolean sameRepository(Element elementA, Element elementB) {
         URI resourceALocation = elementA.eResource().getURI();
         URI resourceBLocation = elementB.eResource().getURI();

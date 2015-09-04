@@ -7,18 +7,18 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 public class UnknownType extends UnresolvedSymbol {
 
-	public UnknownType(String symbol) {
-		super(symbol);
-	}
+    public UnknownType(String symbol) {
+        super(symbol);
+    }
 
-	@Override
-	public String getMessage() {
-		return "Unknown type: " + getSymbol();
-	}
+    @Override
+    public String getMessage() {
+        return "Unknown type: " + getSymbol();
+    }
 
 }

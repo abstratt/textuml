@@ -14,9 +14,9 @@ import org.eclipse.jface.text.IDocument;
 
 public abstract class ContentTypes {
 
-	public static final String COMMENT_CONTENT_TYPE = ContentTypes.class.getName() + ".comment";
+    public static final String COMMENT_CONTENT_TYPE = ContentTypes.class.getName() + ".comment";
 
-	public static final String DEFAULT_CONTENT_TYPE = IDocument.DEFAULT_CONTENT_TYPE;
+    public static final String DEFAULT_CONTENT_TYPE = IDocument.DEFAULT_CONTENT_TYPE;
 
-	public static final String[] CONFIGURED_CONTENT_TYPES = new String[] { COMMENT_CONTENT_TYPE, DEFAULT_CONTENT_TYPE };
+    public static final String[] CONFIGURED_CONTENT_TYPES = new String[] { COMMENT_CONTENT_TYPE, DEFAULT_CONTENT_TYPE };
 }

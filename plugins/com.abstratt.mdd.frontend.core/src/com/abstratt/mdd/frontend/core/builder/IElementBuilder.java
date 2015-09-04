@@ -4,7 +4,7 @@ import org.eclipse.uml2.uml.Element;
 
 public interface IElementBuilder<E extends Element> {
 
-	<T extends ElementBuilder<? extends Element>> T as(Class<T> type);
+    <T extends ElementBuilder<? extends Element>> T as(Class<T> type);
 
-	E getProduct();
+    E getProduct();
 }

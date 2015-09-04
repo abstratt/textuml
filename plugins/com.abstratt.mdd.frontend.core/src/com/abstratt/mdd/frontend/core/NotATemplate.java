@@ -7,22 +7,22 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.Problem;
 
 public class NotATemplate extends Problem {
 
-	private String typeName;
+    private String typeName;
 
-	public NotATemplate(String typeName) {
-		super(Severity.ERROR);
-		this.typeName = typeName;
-	}
+    public NotATemplate(String typeName) {
+        super(Severity.ERROR);
+        this.typeName = typeName;
+    }
 
-	public String getMessage() {
-		return "Not a template: '" + typeName + "'";
-	}
+    public String getMessage() {
+        return "Not a template: '" + typeName + "'";
+    }
 
 }

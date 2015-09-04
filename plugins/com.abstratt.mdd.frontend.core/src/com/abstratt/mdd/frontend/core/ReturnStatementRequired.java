@@ -7,13 +7,13 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.Problem;
 
 public class ReturnStatementRequired extends Problem {
-	public String getMessage() {
-		return "Missing a return statement";
-	}
+    public String getMessage() {
+        return "Missing a return statement";
+    }
 }

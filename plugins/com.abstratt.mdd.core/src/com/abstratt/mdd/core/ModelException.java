@@ -7,11 +7,11 @@ public class ModelException extends RuntimeException {
     public ModelException(IProblem problem) {
         this.problem = problem;
     }
-    
+
     public IProblem getProblem() {
         return problem;
     }
-    
+
     @Override
     public String getMessage() {
         return problem.getMessage();

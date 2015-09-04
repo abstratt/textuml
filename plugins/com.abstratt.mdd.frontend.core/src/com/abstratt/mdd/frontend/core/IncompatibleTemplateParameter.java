@@ -7,18 +7,18 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.Problem;
 
-
 public class IncompatibleTemplateParameter extends Problem {
 
-	public IncompatibleTemplateParameter() {
-		super(Severity.ERROR);
-	}
-	public String getMessage() {
-		return "Incompatible template parameter";
-	}
+    public IncompatibleTemplateParameter() {
+        super(Severity.ERROR);
+    }
+
+    public String getMessage() {
+        return "Incompatible template parameter";
+    }
 }

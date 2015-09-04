@@ -7,19 +7,19 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.Problem;
 
 public class ReadSelfFromStaticContext extends Problem {
 
-	public ReadSelfFromStaticContext() {
-		super(Severity.ERROR);
-	}
+    public ReadSelfFromStaticContext() {
+        super(Severity.ERROR);
+    }
 
-	public String getMessage() {
-		return "Cannot get current object from a static context";
-	}
+    public String getMessage() {
+        return "Cannot get current object from a static context";
+    }
 
 }

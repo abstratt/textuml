@@ -1,6 +1,6 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_INTERFACES;
 
 import org.eclipse.uml2.uml.Interface;
 
@@ -12,7 +12,7 @@ public class InterfaceRenderer extends ClassifierRenderer<Interface> {
     public boolean renderObject(Interface element, IndentedPrintWriter w, IRenderingSession context) {
         if (!context.getSettings().getBoolean(SHOW_INTERFACES))
             return false;
-       return super.renderObject(element, w, context);
+        return super.renderObject(element, w, context);
 
     }
 }

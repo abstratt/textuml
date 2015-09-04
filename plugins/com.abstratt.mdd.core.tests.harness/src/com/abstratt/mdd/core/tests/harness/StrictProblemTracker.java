@@ -11,19 +11,19 @@ import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
 
 public class StrictProblemTracker implements IProblemTracker {
 
-	@Override
-	public void add(IProblem toReport) {
-		Assert.fail(toReport.toString());
-	}
+    @Override
+    public void add(IProblem toReport) {
+        Assert.fail(toReport.toString());
+    }
 
-	@Override
-	public IProblem[] getAllProblems() {
-		return new IProblem[0];
-	}
+    @Override
+    public IProblem[] getAllProblems() {
+        return new IProblem[0];
+    }
 
-	@Override
-	public boolean hasProblems(Severity minimumSeverity) {
-		return false;
-	}
+    @Override
+    public boolean hasProblems(Severity minimumSeverity) {
+        return false;
+    }
 
 }

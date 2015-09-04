@@ -7,39 +7,39 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.internal.frontend.textuml.node.AAssociationHeader;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationHeader;
 
 public abstract class AbstractAssociation extends LeafModelObject {
 
-	protected UIModelObject source;
-	protected UIModelObject target;
+    protected UIModelObject source;
+    protected UIModelObject target;
 
-	public AbstractAssociation(UIModelObject parent, ASTNode node) {
-		super(parent, node);
-	}
+    public AbstractAssociation(UIModelObject parent, ASTNode node) {
+        super(parent, node);
+    }
 
-	/**
-	 * Assume source is index 0.
-	 */
-	public UIModelObject getSource() {
-		return source;
-	}
+    /**
+     * Assume source is index 0.
+     */
+    public UIModelObject getSource() {
+        return source;
+    }
 
-	/**
-	 * Assume target is index 1.
-	 */
-	public UIModelObject getTarget() {
-		return target;
-	}
+    /**
+     * Assume target is index 1.
+     */
+    public UIModelObject getTarget() {
+        return target;
+    }
 
-	@Override
-	public String getOriginalText() {
-		ASTNode parent = node.getParent();
-		AAssociationHeader header = (AAssociationHeader) parent.getBaseNode();
-		return header.getIdentifier() == null ? "" : header.getIdentifier().getText();
-	}
+    @Override
+    public String getOriginalText() {
+        ASTNode parent = node.getParent();
+        AAssociationHeader header = (AAssociationHeader) parent.getBaseNode();
+        return header.getIdentifier() == null ? "" : header.getIdentifier().getText();
+    }
 }

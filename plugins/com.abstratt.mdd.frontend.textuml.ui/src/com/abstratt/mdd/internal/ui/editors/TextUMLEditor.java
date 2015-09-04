@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.editors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -20,59 +20,59 @@ import com.abstratt.mdd.internal.ui.editors.source.SourceEditor;
 import com.abstratt.mdd.ui.UIUtils;
 
 public class TextUMLEditor extends MultiPageEditorPart {
-	
-	public final static String PLUGIN_ID = "com.abstratt.mdd.frontend.textuml.ui"; 
 
-	protected SourceEditor sourceEditor;
+    public final static String PLUGIN_ID = "com.abstratt.mdd.frontend.textuml.ui";
 
-	public TextUMLEditor() {
-		super();
-	}
+    protected SourceEditor sourceEditor;
 
-	protected IEditorInput createEditorInput() {
-		return new WorkspaceFileEditorInput((IFileEditorInput) getEditorInput());
-	}
+    public TextUMLEditor() {
+        super();
+    }
 
-	@Override
-	protected void createPages() {
-		try {
-			sourceEditor = new SourceEditor();
-			int index = addPage(sourceEditor, createEditorInput());
-			setPageText(index, "Source");
+    protected IEditorInput createEditorInput() {
+        return new WorkspaceFileEditorInput((IFileEditorInput) getEditorInput());
+    }
 
-			// GraphicalEditor graphicalEditor = new GraphicalEditor();
-			// index = addPage(graphicalEditor, createEditorInput());
-			// setPageText(index, "Graphical");
+    @Override
+    protected void createPages() {
+        try {
+            sourceEditor = new SourceEditor();
+            int index = addPage(sourceEditor, createEditorInput());
+            setPageText(index, "Source");
 
-		} catch (PartInitException e) {
-			UIUtils.log(e);
-		}
-	}
+            // GraphicalEditor graphicalEditor = new GraphicalEditor();
+            // index = addPage(graphicalEditor, createEditorInput());
+            // setPageText(index, "Graphical");
 
-	@Override
-	public void doSave(IProgressMonitor monitor) {
-		sourceEditor.doSave(monitor);
-	}
+        } catch (PartInitException e) {
+            UIUtils.log(e);
+        }
+    }
 
-	@Override
-	public void doSaveAs() {
-		sourceEditor.doSaveAs();
-	}
+    @Override
+    public void doSave(IProgressMonitor monitor) {
+        sourceEditor.doSave(monitor);
+    }
 
-	public void format() {
-		sourceEditor.format();
-	}
+    @Override
+    public void doSaveAs() {
+        sourceEditor.doSaveAs();
+    }
 
-	@Override
-	public boolean isSaveAsAllowed() {
-		return sourceEditor.isSaveAsAllowed();
-	}
+    public void format() {
+        sourceEditor.format();
+    }
 
-	// TODO: fix the nested editor inputs when the main one changes
-	@Override
-	protected void setInput(IEditorInput input) {
-		super.setInput(input);
-		setPartName(input.getName());
-	}
+    @Override
+    public boolean isSaveAsAllowed() {
+        return sourceEditor.isSaveAsAllowed();
+    }
+
+    // TODO: fix the nested editor inputs when the main one changes
+    @Override
+    protected void setInput(IEditorInput input) {
+        super.setInput(input);
+        setPartName(input.getName());
+    }
 
 }

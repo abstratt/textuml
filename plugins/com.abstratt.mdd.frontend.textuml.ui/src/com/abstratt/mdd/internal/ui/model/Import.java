@@ -7,43 +7,43 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import org.eclipse.swt.graphics.Image;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.internal.frontend.textuml.node.AImportDecl;
-import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.AQualifiedIdentifierBase;
-import com.abstratt.mdd.internal.frontend.textuml.node.Token;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AImportDecl;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedIdentifierBase;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 import com.abstratt.mdd.ui.Activator;
 import com.abstratt.mdd.ui.UIConstants;
 
 public class Import extends LeafModelObject {
 
-	public Import(UIModelObject parent, ASTNode node) {
-		super(parent, node);
-	}
+    public Import(UIModelObject parent, ASTNode node) {
+        super(parent, node);
+    }
 
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_IMPORT);
-	}
+    @Override
+    public Image getImage() {
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_IMPORT);
+    }
 
-	protected AImportDecl getModel() {
-		return (AImportDecl) getNode().getBaseNode();
-	}
+    protected AImportDecl getModel() {
+        return (AImportDecl) getNode().getBaseNode();
+    }
 
-	@Override
-	public String getOriginalText() {
-		AQualifiedIdentifier id = (AQualifiedIdentifier) getModel().getQualifiedIdentifier();
-		AQualifiedIdentifierBase base = (AQualifiedIdentifierBase) id.getQualifiedIdentifierBase();
-		return base.getIdentifier().getText();
-	}
+    @Override
+    public String getOriginalText() {
+        AQualifiedIdentifier id = (AQualifiedIdentifier) getModel().getQualifiedIdentifier();
+        AQualifiedIdentifierBase base = (AQualifiedIdentifierBase) id.getQualifiedIdentifierBase();
+        return base.getIdentifier().getText();
+    }
 
-	@Override
-	public Token getToken() {
-		return getModel().getImport();
-	}
+    @Override
+    public Token getToken() {
+        return getModel().getImport();
+    }
 }

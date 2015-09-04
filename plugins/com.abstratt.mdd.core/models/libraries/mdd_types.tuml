@@ -29,7 +29,9 @@ end;
 (* The type of null. *) 
 class NullType specializes Basic
 end;
-
+(* A type for Blob properties *)
+class Blob specializes Primitive
+end;
 
 (* The implicit super class for all user classes *)
 class Object specializes Basic

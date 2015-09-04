@@ -7,58 +7,58 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import org.eclipse.swt.graphics.Image;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.internal.frontend.textuml.node.AAggregationReferenceType;
-import com.abstratt.mdd.internal.frontend.textuml.node.ACompositionReferenceType;
-import com.abstratt.mdd.internal.frontend.textuml.node.AReferenceDecl;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.PReferenceType;
-import com.abstratt.mdd.internal.frontend.textuml.node.PTypeIdentifier;
-import com.abstratt.mdd.internal.frontend.textuml.node.Token;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAggregationReferenceType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ACompositionReferenceType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AReferenceDecl;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PReferenceType;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 import com.abstratt.mdd.ui.Activator;
 import com.abstratt.mdd.ui.UIConstants;
 
 public class Reference extends LeafModelObject {
-	
-	private PReferenceType type;
 
-	public Reference(UIModelObject parent, ASTNode<Token, Node> node) {
-		super(parent, node);
-		this.type = ((AReferenceDecl) node.getBaseNode()).getReferenceType(); 
-	}
+    private PReferenceType type;
 
-	@Override
-	public Image getImage() {
-		if (type instanceof AAggregationReferenceType)
-			return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_AGGREGATION);
-		if (type instanceof ACompositionReferenceType)
-			return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_COMPOSITION);
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_ASSOCIATION);
-	}
+    public Reference(UIModelObject parent, ASTNode<Token, Node> node) {
+        super(parent, node);
+        this.type = ((AReferenceDecl) node.getBaseNode()).getReferenceType();
+    }
 
-	protected AReferenceDecl getModel() {
-		return (AReferenceDecl) node.getBaseNode();
-	}
+    @Override
+    public Image getImage() {
+        if (type instanceof AAggregationReferenceType)
+            return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_AGGREGATION);
+        if (type instanceof ACompositionReferenceType)
+            return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_COMPOSITION);
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_ASSOCIATION);
+    }
 
-	@Override
-	public String getOriginalText() {
-		AReferenceDecl declaration = getModel();
-		StringBuffer text = new StringBuffer();
-		text.append(declaration.getIdentifier().getText());
-		PTypeIdentifier type = declaration.getTypeIdentifier();
-		text.append(" : ");
-		text.append(type);
-		return text.toString();
-	}
+    protected AReferenceDecl getModel() {
+        return (AReferenceDecl) node.getBaseNode();
+    }
 
-	@Override
-	public Token getToken() {
-		return getModel().getIdentifier();
-	}
+    @Override
+    public String getOriginalText() {
+        AReferenceDecl declaration = getModel();
+        StringBuffer text = new StringBuffer();
+        text.append(declaration.getIdentifier().getText());
+        PTypeIdentifier type = declaration.getTypeIdentifier();
+        text.append(" : ");
+        text.append(type);
+        return text.toString();
+    }
+
+    @Override
+    public Token getToken() {
+        return getModel().getIdentifier();
+    }
 
 }

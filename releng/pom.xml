@@ -14,15 +14,12 @@
 	</parent>
 
   <modules>
-    <module>../features/com.abstratt.mdd.frontend.core.feature</module>
-    <module>../features/com.abstratt.mdd.frontend.ui.feature</module>
-    <module>../features/com.abstratt.mdd.frontend.ui.diagram.feature</module>
-    <module>../features/com.abstratt.mdd.frontend.toolkit.feature</module>
-    <module>../features/com.abstratt.mdd.tests.feature</module>
+	<module>../features</module>		
     <module>../products/com.abstratt.mdd.frontend.cli.product</module>
     <module>../products/com.abstratt.mdd.frontend.cli.product.test</module>
     <module>../repositories/com.abstratt.mdd.oss.repository</module>
     <module>../repositories/com.abstratt.mdd.tests.repository</module>
+    <module>../repositories/com.abstratt.mdd.source.repository</module>    
   </modules>
 
 </project>

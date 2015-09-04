@@ -7,13 +7,12 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
-
 /**
- * Base interface to be implement by node processors. 
+ * Base interface to be implement by node processors.
  */
 public interface NodeProcessor<T> {
-	public void process(T node);
+    public void process(T node);
 }

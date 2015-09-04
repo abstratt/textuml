@@ -7,13 +7,12 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
-
 public class Util {
-	
-	public static String stripEscaping(String text) {
-		return text.replace("\\", "");
-	}
+
+    public static String stripEscaping(String text) {
+        return text.replace("\\", "");
+    }
 }

@@ -7,34 +7,33 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import org.eclipse.emf.ecore.EClass;
 
 import com.abstratt.mdd.core.Problem;
 
-
 public class DuplicateSymbol extends Problem {
 
-	private String symbol;
-	private String metaClass;
+    private String symbol;
+    private String metaClass;
 
-	public DuplicateSymbol(String name, EClass class1) {
-		super(Severity.ERROR);
-		this.symbol = name;
-		this.metaClass = class1.getName();
-	}
+    public DuplicateSymbol(String name, EClass class1) {
+        super(Severity.ERROR);
+        this.symbol = name;
+        this.metaClass = class1.getName();
+    }
 
-	public String getMessage() {
-		return metaClass + " already exists with name " + symbol;
-	}
+    public String getMessage() {
+        return metaClass + " already exists with name " + symbol;
+    }
 
-	public String getSymbol() {
+    public String getSymbol() {
         return symbol;
     }
-	
-	public String getMetaClass() {
+
+    public String getMetaClass() {
         return metaClass;
     }
 }

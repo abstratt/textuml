@@ -7,19 +7,19 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import org.eclipse.uml2.uml.NamedElement;
 
 public class UnknownRole extends UnresolvedSymbol {
 
-	public UnknownRole(String association, String role) {
-		super(association + NamedElement.SEPARATOR + role);
-	}
-	
-	public UnknownRole(String role) {
-		super(role);
-	}
+    public UnknownRole(String association, String role) {
+        super(association + NamedElement.SEPARATOR + role);
+    }
+
+    public UnknownRole(String role) {
+        super(role);
+    }
 
 }

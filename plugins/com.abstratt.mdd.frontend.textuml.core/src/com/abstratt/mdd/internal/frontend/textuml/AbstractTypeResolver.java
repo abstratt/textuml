@@ -8,7 +8,7 @@
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
  *    Vladimir Sosnin - extracted AbstractTypeResolver class (#2797252) 
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
@@ -30,94 +30,98 @@ import com.abstratt.mdd.frontend.core.WrongNumberOfArguments;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
-import com.abstratt.mdd.internal.frontend.textuml.node.PQualifiedIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PQualifiedIdentifier;
 
 public abstract class AbstractTypeResolver {
 
-	private SourceCompilationContext<Node> sourceContext;
+    private SourceCompilationContext<Node> sourceContext;
 
-    public AbstractTypeResolver(SourceCompilationContext<Node> sourceContext,
-			Namespace currentNamespace) {
-		this.context = sourceContext.getContext();
-		this.sourceContext = sourceContext;
-		this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), new SCCTextUMLSourceMiner());
-		this.currentNamespace = currentNamespace;
-	}
+    public AbstractTypeResolver(SourceCompilationContext<Node> sourceContext, Namespace currentNamespace) {
+        this.context = sourceContext.getContext();
+        this.sourceContext = sourceContext;
+        this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), new SCCTextUMLSourceMiner());
+        this.currentNamespace = currentNamespace;
+    }
 
-	final private CompilationContext context;
-	final protected ProblemBuilder<Node> problemBuilder;
-	final private Namespace currentNamespace;
-	protected List<PQualifiedIdentifier> parameterIdentifiers;
+    final private CompilationContext context;
+    final protected ProblemBuilder<Node> problemBuilder;
+    final private Namespace currentNamespace;
+    protected List<PQualifiedIdentifier> parameterIdentifiers;
 
-	protected CompilationContext getContext() {
-		return context;
-	}
+    protected CompilationContext getContext() {
+        return context;
+    }
 
-	protected SourceCompilationContext<Node> getSourceContext() {
+    protected SourceCompilationContext<Node> getSourceContext() {
         return sourceContext;
     }
-	
-	protected Namespace getCurrentNamespace() {
-		return currentNamespace;
-	}
 
-	protected Type resolveType(final Node node, final String qualifiedIdentifier) {
-		Type type = findType(qualifiedIdentifier);
-		return basicResolveType(node, qualifiedIdentifier, type);
-	}
+    protected Namespace getCurrentNamespace() {
+        return currentNamespace;
+    }
 
-	Type findType(final String qualifiedIdentifier) {
-		return (Type) getContext().getRepository().findNamedElement(qualifiedIdentifier, IRepository.PACKAGE.getType(), getCurrentNamespace());
-	}
+    protected Type resolveType(final Node node, final String qualifiedIdentifier) {
+        Type type = findType(qualifiedIdentifier);
+        return basicResolveType(node, qualifiedIdentifier, type);
+    }
 
-	private Type basicResolveType(final Node node, final String qualifiedIdentifier, Type type) {
-		if (type == null) {
-			problemBuilder.addProblem(new UnknownType(qualifiedIdentifier), node);
-			return null;
-		}
-		if (type instanceof Classifier) {
-			final Classifier asClassifier = ((Classifier) type);
-			if (asClassifier.isTemplate()) {
-				if (this.parameterIdentifiers == null) {
-					problemBuilder.addProblem(new UnboundTemplate(qualifiedIdentifier), node);
-					return null;
-				}
-				type = createBinding(node, asClassifier);
-			} else if (this.parameterIdentifiers != null) {
-				problemBuilder.addProblem(new NotATemplate(qualifiedIdentifier), node);
-				return null;
-			}
-		}
-		return type;
-	}
+    Type findType(final String qualifiedIdentifier) {
+        return (Type) getContext().getRepository().findNamedElement(qualifiedIdentifier, IRepository.PACKAGE.getType(),
+                getCurrentNamespace());
+    }
 
-	private Classifier createBinding(final Node node, final Classifier template) {
-		TemplateSignature signature = template.getOwnedTemplateSignature();
-		List<TemplateParameter> formalParameters = signature.getParameters();
-		final int parameterCount = formalParameters.size();
-		if (parameterCount != this.parameterIdentifiers.size()) {
-			problemBuilder.addProblem(new WrongNumberOfArguments(parameterCount, this.parameterIdentifiers.size()), node);
-			return null;
-		}
-		List<Type> templateParameterTypes = new ArrayList<Type>(parameterCount);
-		for (int i = 0; i < parameterCount; i++) {
-			final String templateParameterName = TextUMLCore.getSourceMiner().getQualifiedIdentifier(parameterIdentifiers.get(i));
-			final Type resolvedParameterType = findType(templateParameterName);
-			if (resolvedParameterType == null) {
-				problemBuilder.addProblem(new UnknownType(templateParameterName), parameterIdentifiers.get(i));
-				return null;
-			}
-			if (!signature.getParameters().get(i).getParameteredElement().isCompatibleWith(resolvedParameterType)) {
-				problemBuilder.addProblem(new IncompatibleTemplateParameter(), parameterIdentifiers.get(i));
-				return null;
-			}
-			templateParameterTypes.add(resolvedParameterType);
-		}
-		// now we know the actual parameters match the formal ones - let's create the bound element and the template binding
-		Classifier bound = TemplateUtils.createBinding(this.getCurrentNamespace().getNearestPackage(), template, templateParameterTypes);
-		bound.setName(TemplateUtils.generateBoundElementName(template, templateParameterTypes));
-		return bound;
-	}
+    private Type basicResolveType(final Node node, final String qualifiedIdentifier, Type type) {
+        if (type == null) {
+            problemBuilder.addProblem(new UnknownType(qualifiedIdentifier), node);
+            return null;
+        }
+        if (type instanceof Classifier) {
+            final Classifier asClassifier = ((Classifier) type);
+            if (asClassifier.isTemplate()) {
+                if (this.parameterIdentifiers == null) {
+                    problemBuilder.addProblem(new UnboundTemplate(qualifiedIdentifier), node);
+                    return null;
+                }
+                type = createBinding(node, asClassifier);
+            } else if (this.parameterIdentifiers != null) {
+                problemBuilder.addProblem(new NotATemplate(qualifiedIdentifier), node);
+                return null;
+            }
+        }
+        return type;
+    }
+
+    private Classifier createBinding(final Node node, final Classifier template) {
+        TemplateSignature signature = template.getOwnedTemplateSignature();
+        List<TemplateParameter> formalParameters = signature.getParameters();
+        final int parameterCount = formalParameters.size();
+        if (parameterCount != this.parameterIdentifiers.size()) {
+            problemBuilder.addProblem(new WrongNumberOfArguments(parameterCount, this.parameterIdentifiers.size()),
+                    node);
+            return null;
+        }
+        List<Type> templateParameterTypes = new ArrayList<Type>(parameterCount);
+        for (int i = 0; i < parameterCount; i++) {
+            final String templateParameterName = TextUMLCore.getSourceMiner().getQualifiedIdentifier(
+                    parameterIdentifiers.get(i));
+            final Type resolvedParameterType = findType(templateParameterName);
+            if (resolvedParameterType == null) {
+                problemBuilder.addProblem(new UnknownType(templateParameterName), parameterIdentifiers.get(i));
+                return null;
+            }
+            if (!signature.getParameters().get(i).getParameteredElement().isCompatibleWith(resolvedParameterType)) {
+                problemBuilder.addProblem(new IncompatibleTemplateParameter(), parameterIdentifiers.get(i));
+                return null;
+            }
+            templateParameterTypes.add(resolvedParameterType);
+        }
+        // now we know the actual parameters match the formal ones - let's
+        // create the bound element and the template binding
+        Classifier bound = TemplateUtils.createBinding(this.getCurrentNamespace().getNearestPackage(), template,
+                templateParameterTypes);
+        bound.setName(TemplateUtils.generateBoundElementName(template, templateParameterTypes));
+        return bound;
+    }
 
 }

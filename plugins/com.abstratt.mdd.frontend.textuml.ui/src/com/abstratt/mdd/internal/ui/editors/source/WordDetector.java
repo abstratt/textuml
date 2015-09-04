@@ -7,18 +7,18 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.editors.source;
 
 import org.eclipse.jface.text.rules.IWordDetector;
 
 public class WordDetector implements IWordDetector {
 
-	public boolean isWordPart(char c) {
-		return Character.isJavaIdentifierPart(c);
-	}
+    public boolean isWordPart(char c) {
+        return Character.isJavaIdentifierPart(c);
+    }
 
-	public boolean isWordStart(char c) {
-		return Character.isJavaIdentifierStart(c);
-	}
+    public boolean isWordStart(char c) {
+        return Character.isJavaIdentifierStart(c);
+    }
 }

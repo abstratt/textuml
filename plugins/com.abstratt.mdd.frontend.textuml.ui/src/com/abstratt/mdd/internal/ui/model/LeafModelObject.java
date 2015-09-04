@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import java.util.Collections;
@@ -17,13 +17,13 @@ import com.abstratt.mdd.frontend.core.ASTNode;
 
 public abstract class LeafModelObject extends UIModelObject {
 
-	public LeafModelObject(UIModelObject parent, ASTNode node) {
-		super(parent, node);
-	}
+    public LeafModelObject(UIModelObject parent, ASTNode node) {
+        super(parent, node);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List getChildren() {
-		return Collections.EMPTY_LIST;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List getChildren() {
+        return Collections.EMPTY_LIST;
+    }
 }

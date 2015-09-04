@@ -23,9 +23,8 @@ public class ActivityRenderer implements IElementRenderer<Activity> {
         StructuredActivityNode rootAction = ActivityUtils.getRootAction(element);
         List<Action> statements = ActivityUtils.findStatements(rootAction);
         ActivityGenerator activityGenerator = new ActivityGenerator();
-        List<String> textumlStatements = statements.stream().map(statement ->
-            activityGenerator.generateAction(statement).toString()
-        ).collect(Collectors.toList());
+        List<String> textumlStatements = statements.stream()
+                .map(statement -> activityGenerator.generateAction(statement).toString()).collect(Collectors.toList());
         for (String line : textumlStatements) {
             out.print("                    ");
             out.print(line);

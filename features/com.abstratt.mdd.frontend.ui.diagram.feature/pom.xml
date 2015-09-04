@@ -8,9 +8,8 @@
 	<version>2.1.201501-SNAPSHOT</version>
     <packaging>eclipse-feature</packaging>	
 	<parent>
-		<artifactId>com.abstratt.mdd.parent</artifactId>
+		<artifactId>com.abstratt.mdd.feature</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
 		<version>2.1.201501-SNAPSHOT</version>
-		<relativePath>../..</relativePath>
 	</parent>
 </project>

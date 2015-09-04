@@ -7,35 +7,35 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import org.eclipse.swt.graphics.Image;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.internal.frontend.textuml.node.ACompositionAssociationKind;
-import com.abstratt.mdd.internal.frontend.textuml.node.Token;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ACompositionAssociationKind;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 import com.abstratt.mdd.ui.Activator;
 import com.abstratt.mdd.ui.UIConstants;
 
 public class Composition extends AbstractAssociation {
 
-	public Composition(UIModelObject parent, ASTNode node) {
-		super(parent, node);
-	}
+    public Composition(UIModelObject parent, ASTNode node) {
+        super(parent, node);
+    }
 
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_COMPOSITION);
-	}
+    @Override
+    public Image getImage() {
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_COMPOSITION);
+    }
 
-	protected ACompositionAssociationKind getModel() {
-		return (ACompositionAssociationKind) node.getBaseNode();
-	}
+    protected ACompositionAssociationKind getModel() {
+        return (ACompositionAssociationKind) node.getBaseNode();
+    }
 
-	@Override
-	public Token getToken() {
-		return getModel().getComposition();
-	}
+    @Override
+    public Token getToken() {
+        return getModel().getComposition();
+    }
 
 }

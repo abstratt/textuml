@@ -8,9 +8,23 @@
 	<version>2.1.201501-SNAPSHOT</version>
     <packaging>eclipse-feature</packaging>	
 	<parent>
-		<artifactId>com.abstratt.mdd.parent</artifactId>
+		<artifactId>com.abstratt.mdd.feature</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
 		<version>2.1.201501-SNAPSHOT</version>
-		<relativePath>../..</relativePath>
 	</parent>
+	
+	<build>
+  <plugins>
+	
+    <plugin>
+      <groupId>org.eclipse.tycho.extras</groupId>
+      <artifactId>tycho-source-feature-plugin</artifactId>
+      <version>${tycho-version}</version>
+ <configuration>
+      <skip>true</skip>
+ </configuration>
+     </plugin>	
+  </plugins>
+</build>    
+	
 </project>

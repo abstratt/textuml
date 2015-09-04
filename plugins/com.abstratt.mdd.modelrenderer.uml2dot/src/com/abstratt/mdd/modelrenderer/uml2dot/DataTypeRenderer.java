@@ -10,7 +10,7 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 public class DataTypeRenderer extends ClassifierRenderer<DataType> {
     public boolean renderObject(DataType element, IndentedPrintWriter w, IRenderingSession context) {
         if (!context.getSettings().getBoolean(SHOW_DATATYPES))
-             return false;
+            return false;
         return super.renderObject(element, w, context);
     }
 }

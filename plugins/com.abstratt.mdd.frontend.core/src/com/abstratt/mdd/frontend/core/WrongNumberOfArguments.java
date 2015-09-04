@@ -7,25 +7,24 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.Problem;
 
-
 public class WrongNumberOfArguments extends Problem {
 
-	private int expected;
-	private int actual;
+    private int expected;
+    private int actual;
 
-	public WrongNumberOfArguments(int expected, int actual) {
-		super(Severity.ERROR);
-		this.expected = expected;
-		this.actual = actual;
-	}
+    public WrongNumberOfArguments(int expected, int actual) {
+        super(Severity.ERROR);
+        this.expected = expected;
+        this.actual = actual;
+    }
 
-	public String getMessage() {
-		return "Wrong number of arguments. Expected: " + expected + ", actual: " + actual;
-	}
+    public String getMessage() {
+        return "Wrong number of arguments. Expected: " + expected + ", actual: " + actual;
+    }
 
 }

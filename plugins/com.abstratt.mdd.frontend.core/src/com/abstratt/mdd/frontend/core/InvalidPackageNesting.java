@@ -7,19 +7,19 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.Problem;
 
 public class InvalidPackageNesting extends Problem {
 
-	public InvalidPackageNesting() {
-		super(Severity.ERROR);
-	}
+    public InvalidPackageNesting() {
+        super(Severity.ERROR);
+    }
 
-	public String getMessage() {
-		return "Only packages can be nested";
-	}
+    public String getMessage() {
+        return "Only packages can be nested";
+    }
 
 }

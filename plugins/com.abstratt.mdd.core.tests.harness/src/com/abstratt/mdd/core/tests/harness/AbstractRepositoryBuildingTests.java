@@ -13,120 +13,120 @@ import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.RepositoryService;
 
 public class AbstractRepositoryBuildingTests extends AbstractRepositoryTests {
-	protected boolean dump;
-	protected final FixtureHelper fixtureHelper = new FixtureHelper(getExtension());
+    protected boolean dump;
+    protected final FixtureHelper fixtureHelper = new FixtureHelper(getExtension());
 
-	public AbstractRepositoryBuildingTests(String name) {
-		super(name);
-	}
+    public AbstractRepositoryBuildingTests(String name) {
+        super(name);
+    }
 
-	public IProblem[] compile(String... sources) throws CoreException {
-		return compile(fixtureHelper, sources);
-	}
+    public IProblem[] compile(String... sources) throws CoreException {
+        return compile(fixtureHelper, sources);
+    }
 
-	public IProblem[] compile(FixtureHelper fixtureHelper, String... sources) throws CoreException {
-		return fixtureHelper.parse(getRepositoryDir(), null, sources);
-	}
+    public IProblem[] compile(FixtureHelper fixtureHelper, String... sources) throws CoreException {
+        return fixtureHelper.parse(getRepositoryDir(), null, sources);
+    }
 
-	@Override
-	protected void runTest() throws Throwable {
-		final Throwable[] collected = { null };
-		runInContext(new Runnable() {
-			public void run() {
-				try {
-					originalRunTest();
-				} catch (Throwable e) {
-					collected[0] = e;
-				}
-			}
-		});
-		if (collected[0] != null)
-			throw collected[0];
-	}
+    @Override
+    protected void runTest() throws Throwable {
+        final Throwable[] collected = { null };
+        runInContext(new Runnable() {
+            public void run() {
+                try {
+                    originalRunTest();
+                } catch (Throwable e) {
+                    collected[0] = e;
+                }
+            }
+        });
+        if (collected[0] != null)
+            throw collected[0];
+    }
 
-	public void parseAndCheck(String... sources) throws CoreException {
-		FixtureHelper.assertCompilationSuccessful(parse(sources));
-	}
+    public void parseAndCheck(String... sources) throws CoreException {
+        FixtureHelper.assertCompilationSuccessful(parse(sources));
+    }
 
-	protected void parseAndCheckInContext(final String... toBuild) throws Exception {
-		runInContext(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					parseAndCheck(toBuild);
-				} catch (CoreException e) {
-					throw new RuntimeException(e);
-				}
-			}
-		});
-	}
+    protected void parseAndCheckInContext(final String... toBuild) throws Exception {
+        runInContext(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    parseAndCheck(toBuild);
+                } catch (CoreException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
 
-	public IProblem[] parse(String... sources) throws CoreException {
-		IProblem[] parseResults = fixtureHelper.parse(getRepositoryDir(), null, sources);
-		if (parseResults.length == 0)
-			compilationCompleted();
-		return parseResults;
-	}
-	
-	protected <T extends IProblem> T assertExpectedProblem(Class<T> expected, IProblem[] actual) {
-		assertTrue(Arrays.asList(actual).toString(), actual.length >= 1);
-		for (IProblem p : actual) {
-			if (expected.isInstance(p))
-				return (T) p;
-		}
-		fail(Arrays.asList(actual).toString());
-		return null;
-	}
+    public IProblem[] parse(String... sources) throws CoreException {
+        IProblem[] parseResults = fixtureHelper.parse(getRepositoryDir(), null, sources);
+        if (parseResults.length == 0)
+            compilationCompleted();
+        return parseResults;
+    }
 
-	public void setUp() throws Exception {
-		System.out.println(getName() + " - setup");
-		RepositoryService.DEFAULT.clear();
-		Assert.assertTrue(RepositoryService.DEFAULT.isEmpty());
-		if (Boolean.getBoolean("debug.memory")) {
-			System.gc();
-			System.out.println(getName() + " - before: " + memory());
-		}
-		clearLocation(getBaseDir());
-		Assert.assertFalse(getBaseDir().fetchInfo().exists());
-		baseDir.mkdir(EFS.NONE, null);
-		Properties settings = createDefaultSettings();
-		saveSettings(getRepositoryDir(), settings);
-	}
+    protected <T extends IProblem> T assertExpectedProblem(Class<T> expected, IProblem[] actual) {
+        assertTrue(Arrays.asList(actual).toString(), actual.length >= 1);
+        for (IProblem p : actual) {
+            if (expected.isInstance(p))
+                return (T) p;
+        }
+        fail(Arrays.asList(actual).toString());
+        return null;
+    }
 
-	protected void tearDown() throws Exception {
-		if (dump)
-			FixtureHelper.dumpModelSet(getRepository());
-		super.tearDown();
-		RepositoryService.DEFAULT.unregisterRepository(getRepositoryURI());
-		clearLocation(getBaseDir());
-		if (Boolean.getBoolean("debug")) {
-			System.gc();
-			System.out.println(getName() + " - after: " + memory());
-		}
-		System.out.println(getName() + " - tearDown");
-	}
+    public void setUp() throws Exception {
+        System.out.println(getName() + " - setup");
+        RepositoryService.DEFAULT.clear();
+        Assert.assertTrue(RepositoryService.DEFAULT.isEmpty());
+        if (Boolean.getBoolean("debug.memory")) {
+            System.gc();
+            System.out.println(getName() + " - before: " + memory());
+        }
+        clearLocation(getBaseDir());
+        Assert.assertFalse(getBaseDir().fetchInfo().exists());
+        baseDir.mkdir(EFS.NONE, null);
+        Properties settings = createDefaultSettings();
+        saveSettings(getRepositoryDir(), settings);
+    }
 
-	protected void clearLocation(IFileStore toDelete) {
-		for (int tries = 0; tries < 5; tries++) {
-			try {
-				toDelete.delete(EFS.NONE, null);
-				break;
-			} catch (CoreException e) {
-				// sometimes delete fails for no apparent reason (maybe other
-				// threads?), but if we try again after some wait, it just
-				// works...
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException ie) {
-					// break;
-				}
-				if (Boolean.getBoolean("debug"))
-					System.out.println("Failed deleting " + toDelete.toURI() + "(attempt #" + (tries + 1) + ")");
-			}
-		}
-	}
+    protected void tearDown() throws Exception {
+        if (dump)
+            FixtureHelper.dumpModelSet(getRepository());
+        super.tearDown();
+        RepositoryService.DEFAULT.unregisterRepository(getRepositoryURI());
+        clearLocation(getBaseDir());
+        if (Boolean.getBoolean("debug")) {
+            System.gc();
+            System.out.println(getName() + " - after: " + memory());
+        }
+        System.out.println(getName() + " - tearDown");
+    }
 
-	protected void compilationCompleted() throws CoreException {
-		// do nothing
-	}
+    protected void clearLocation(IFileStore toDelete) {
+        for (int tries = 0; tries < 5; tries++) {
+            try {
+                toDelete.delete(EFS.NONE, null);
+                break;
+            } catch (CoreException e) {
+                // sometimes delete fails for no apparent reason (maybe other
+                // threads?), but if we try again after some wait, it just
+                // works...
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException ie) {
+                    // break;
+                }
+                if (Boolean.getBoolean("debug"))
+                    System.out.println("Failed deleting " + toDelete.toURI() + "(attempt #" + (tries + 1) + ")");
+            }
+        }
+    }
+
+    protected void compilationCompleted() throws CoreException {
+        // do nothing
+    }
 }

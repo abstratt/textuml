@@ -7,18 +7,18 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.core;
 
 import com.abstratt.mdd.frontend.core.spi.ISourceMiner;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.internal.frontend.textuml.SCCTextUMLSourceMiner;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
 
 public class TextUMLCore {
-	public static String PLUGIN_ID = TextUMLCore.class.getPackage().getName();
-	private static ISourceMiner<Node> sourceMiner = new SCCTextUMLSourceMiner();
+    public static String PLUGIN_ID = TextUMLCore.class.getPackage().getName();
+    private static ISourceMiner<Node> sourceMiner = new SCCTextUMLSourceMiner();
 
-	public static ISourceMiner<Node> getSourceMiner() {
-		return sourceMiner ;
-	}
+    public static ISourceMiner<Node> getSourceMiner() {
+        return sourceMiner;
+    }
 }

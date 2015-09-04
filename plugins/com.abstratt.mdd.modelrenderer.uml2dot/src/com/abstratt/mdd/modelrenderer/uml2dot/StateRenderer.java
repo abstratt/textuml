@@ -8,7 +8,7 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 public class StateRenderer extends VertexRenderer<State> {
     @Override
     protected void renderLabel(State element, IndentedPrintWriter out, IRenderingSession session) {
-        if (element.getDoActivity() == null && element.getEntry() == null && element.getExit() == null) 
+        if (element.getDoActivity() == null && element.getEntry() == null && element.getExit() == null)
             super.renderLabel(element, out, session);
         else {
             out.print("label = \"{<f0>" + getVertexLabel(element));

@@ -25,7 +25,6 @@ import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.util.ActivityUtils;
-import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.StructuralFeatureUtils;
 import com.abstratt.mdd.core.util.TemplateUtils;
 import com.abstratt.mdd.core.util.UML2Compatibility;
@@ -44,15 +43,17 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
     private void checkTemplateBinding(Classifier boundClassifier, final String templateClassName,
             final String templateBindingParameterTypeName) {
         assertNotNull(boundClassifier);
-        Classifier templateClass = (Classifier) getRepository().findNamedElement(templateClassName, IRepository.PACKAGE.getClassifier(),
-                null);
-        Classifier templateParameterClassifier = (Classifier) getRepository().findNamedElement(templateBindingParameterTypeName,
+        Classifier templateClass = (Classifier) getRepository().findNamedElement(templateClassName,
                 IRepository.PACKAGE.getClassifier(), null);
-        final TemplateBinding templateBinding = boundClassifier.getTemplateBinding(templateClass.getOwnedTemplateSignature());
+        Classifier templateParameterClassifier = (Classifier) getRepository().findNamedElement(
+                templateBindingParameterTypeName, IRepository.PACKAGE.getClassifier(), null);
+        final TemplateBinding templateBinding = boundClassifier.getTemplateBinding(templateClass
+                .getOwnedTemplateSignature());
         assertNotNull(templateBinding);
         List<TemplateParameterSubstitution> substitutions = templateBinding.getParameterSubstitutions();
         assertEquals(1, substitutions.size());
-        final TemplateParameter templateParameter = templateClass.getOwnedTemplateSignature().getOwnedParameters().get(0);
+        final TemplateParameter templateParameter = templateClass.getOwnedTemplateSignature().getOwnedParameters()
+                .get(0);
         assertSame(templateParameter, substitutions.get(0).getFormal());
         assertSame(templateParameterClassifier, UML2Compatibility.getActualParameter(substitutions.get(0)));
         assertSame(boundClassifier, boundClassifier);
@@ -84,7 +85,8 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         model += "end;\n";
         model += "end.\n";
         parseAndCheck(model);
-        Classifier barClass = (Classifier) getRepository().findNamedElement("test::Bar", IRepository.PACKAGE.getClassifier(), null);
+        Classifier barClass = (Classifier) getRepository().findNamedElement("test::Bar",
+                IRepository.PACKAGE.getClassifier(), null);
         assertNotNull(barClass);
         assertTrue(barClass.isTemplate());
         TemplateSignature signature = barClass.getOwnedTemplateSignature();
@@ -109,9 +111,11 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         model += "end;\n";
         model += "end.\n";
         parseAndCheck(model);
-        Classifier zooClass = (Classifier) getRepository().findNamedElement("test::Zoo", IRepository.PACKAGE.getClassifier(), null);
+        Classifier zooClass = (Classifier) getRepository().findNamedElement("test::Zoo",
+                IRepository.PACKAGE.getClassifier(), null);
         assertNotNull(zooClass);
-        Classifier fooClass = (Classifier) getRepository().findNamedElement("test::Foo", IRepository.PACKAGE.getClassifier(), null);
+        Classifier fooClass = (Classifier) getRepository().findNamedElement("test::Foo",
+                IRepository.PACKAGE.getClassifier(), null);
         assertNotNull(fooClass);
         Property bozProperty = fooClass.getAttribute("boz", null);
         Classifier bozType = (Classifier) bozProperty.getType();
@@ -236,7 +240,8 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         model += "end;\n";
         model += "end.\n";
         parseAndCheck(model);
-        Classifier fooType = (Classifier) getRepository().findNamedElement("test::Foo", IRepository.PACKAGE.getClassifier(), null);
+        Classifier fooType = (Classifier) getRepository().findNamedElement("test::Foo",
+                IRepository.PACKAGE.getClassifier(), null);
         Property fooAttr1 = fooType.getAttribute("attr1", null);
         assertNotNull(fooAttr1);
         checkTemplateBinding((Classifier) fooAttr1.getType(), "test::Bar", "test::Zoo");
@@ -257,7 +262,8 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         model += "end;\n";
         model += "end.\n";
         parseAndCheck(model);
-        Classifier fooType = (Classifier) getRepository().findNamedElement("test::Foo", IRepository.PACKAGE.getClassifier(), null);
+        Classifier fooType = (Classifier) getRepository().findNamedElement("test::Foo",
+                IRepository.PACKAGE.getClassifier(), null);
         Operation myOp1 = fooType.getOperation("my_op1", null, null);
         assertNotNull(myOp1);
         StructuredActivityNode mainNode = ActivityUtils.getRootAction(myOp1);
@@ -281,7 +287,8 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         model += "end;\n";
         model += "end.\n";
         parseAndCheck(model);
-        Classifier fooType = (Classifier) getRepository().findNamedElement("test::Foo", IRepository.PACKAGE.getClassifier(), null);
+        Classifier fooType = (Classifier) getRepository().findNamedElement("test::Foo",
+                IRepository.PACKAGE.getClassifier(), null);
         Operation myOp1 = fooType.getOperation("my_op1", null, null);
         assertNotNull(myOp1);
         Parameter par1 = myOp1.getOwnedParameter("par1", null);
@@ -315,8 +322,10 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         model += "end;\n";
         model += "end.\n";
         parseAndCheck(model);
-        Classifier barClass = (Classifier) getRepository().findNamedElement("test::Bar", IRepository.PACKAGE.getClassifier(), null);
-        Classifier parameterType = (Classifier) barClass.getOwnedTemplateSignature().getParameters().get(0).getParameteredElement();
+        Classifier barClass = (Classifier) getRepository().findNamedElement("test::Bar",
+                IRepository.PACKAGE.getClassifier(), null);
+        Classifier parameterType = (Classifier) barClass.getOwnedTemplateSignature().getParameters().get(0)
+                .getParameteredElement();
         assertNotNull(parameterType);
         Property attribute = barClass.getAttribute("attr1", null);
         assertNotNull(attribute);
@@ -334,8 +343,10 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         model += "end;\n";
         model += "end.\n";
         parseAndCheck(model);
-        Classifier barClass = (Classifier) getRepository().findNamedElement("test::Bar", IRepository.PACKAGE.getClassifier(), null);
-        Classifier parameterType = (Classifier) barClass.getOwnedTemplateSignature().getParameters().get(0).getParameteredElement();
+        Classifier barClass = (Classifier) getRepository().findNamedElement("test::Bar",
+                IRepository.PACKAGE.getClassifier(), null);
+        Classifier parameterType = (Classifier) barClass.getOwnedTemplateSignature().getParameters().get(0)
+                .getParameteredElement();
         assertNotNull(parameterType);
         Operation operation = barClass.getOperation("op1", null, null);
         assertNotNull(operation);
@@ -355,8 +366,10 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         model += "end;\n";
         model += "end.\n";
         parseAndCheck(model);
-        Classifier barClass = (Classifier) getRepository().findNamedElement("test::Bar", IRepository.PACKAGE.getClassifier(), null);
-        Classifier parameterType = (Classifier) barClass.getOwnedTemplateSignature().getParameters().get(0).getParameteredElement();
+        Classifier barClass = (Classifier) getRepository().findNamedElement("test::Bar",
+                IRepository.PACKAGE.getClassifier(), null);
+        Classifier parameterType = (Classifier) barClass.getOwnedTemplateSignature().getParameters().get(0)
+                .getParameteredElement();
         assertNotNull(parameterType);
         Operation operation = barClass.getOperation("op1", null, null);
         assertNotNull(operation);
@@ -376,9 +389,11 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         model += "  end;\n";
         model += "end.\n";
         parseAndCheck(model);
-        Classifier barClass = (Classifier) getRepository().findNamedElement("test::Bar", IRepository.PACKAGE.getClassifier(), null);
+        Classifier barClass = (Classifier) getRepository().findNamedElement("test::Bar",
+                IRepository.PACKAGE.getClassifier(), null);
         assertNotNull(barClass);
-        Classifier bar2Class = (Classifier) getRepository().findNamedElement("test::Bar2", IRepository.PACKAGE.getClassifier(), null);
+        Classifier bar2Class = (Classifier) getRepository().findNamedElement("test::Bar2",
+                IRepository.PACKAGE.getClassifier(), null);
         assertNotNull(bar2Class);
         assertTrue("Bar2 is not a subclass of Bar", bar2Class.allParents().contains(barClass));
     }
@@ -430,8 +445,10 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         IRepository repo = getRepository();
         Property attr1 = (Property) repo.findNamedElement("test::Foo::attr1", UMLPackage.Literals.PROPERTY, null);
         Operation op1 = (Operation) repo.findNamedElement("test::Bar::op1", UMLPackage.Literals.OPERATION, null);
-        org.eclipse.uml2.uml.Class foo = (org.eclipse.uml2.uml.Class) repo.findNamedElement("test::Foo", UMLPackage.Literals.CLASS, null);
-        org.eclipse.uml2.uml.Class zoo = (org.eclipse.uml2.uml.Class) repo.findNamedElement("test::Zoo", UMLPackage.Literals.CLASS, null);
+        org.eclipse.uml2.uml.Class foo = (org.eclipse.uml2.uml.Class) repo.findNamedElement("test::Foo",
+                UMLPackage.Literals.CLASS, null);
+        org.eclipse.uml2.uml.Class zoo = (org.eclipse.uml2.uml.Class) repo.findNamedElement("test::Zoo",
+                UMLPackage.Literals.CLASS, null);
         assertNotNull(foo);
         assertNotNull(zoo);
         assertNotNull(attr1);
@@ -462,7 +479,7 @@ public class TemplateTests extends AbstractRepositoryBuildingTests {
         Property attr2 = getProperty("test::Foo::attr2");
         Property attr3 = getProperty("test::Bar::attr3");
         Property attr4 = getProperty("test::Bar::attr4");
-        
+
         assertFalse(TemplateUtils.isFullyResolvedTemplateInstance((Classifier) attr3.getType()));
         assertFalse(TemplateUtils.isFullyResolvedTemplateInstance((Classifier) attr4.getType()));
         assertTrue(TemplateUtils.isFullyResolvedTemplateInstance((Classifier) attr1.getType()));

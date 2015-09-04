@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.IRepository;
@@ -17,13 +17,13 @@ import com.abstratt.mdd.frontend.internal.core.CompilationDirector;
 
 public class FrontEnd {
 
-	public static final String PLUGIN_ID = FrontEnd.class.getPackage().getName();
+    public static final String PLUGIN_ID = FrontEnd.class.getPackage().getName();
 
-	public static IActivityBuilder newActivityBuilder(IRepository repository) {
-		return new ActivityBuilder(repository);
-	}
-	
-	public static ICompilationDirector getCompilationDirector() {
-		return CompilationDirector.getInstance();
-	}
+    public static IActivityBuilder newActivityBuilder(IRepository repository) {
+        return new ActivityBuilder(repository);
+    }
+
+    public static ICompilationDirector getCompilationDirector() {
+        return CompilationDirector.getInstance();
+    }
 }

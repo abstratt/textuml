@@ -1,39 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.abstratt.mdd</groupId>
-  <artifactId>com.abstratt.mdd.plugins</artifactId>
-  <version>2.1.201501-SNAPSHOT</version>
-  <packaging>pom</packaging>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.abstratt.mdd</groupId>
+	<artifactId>com.abstratt.mdd.plugins</artifactId>
+	<version>2.1.201501-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
 	<parent>
 		<artifactId>com.abstratt.mdd.parent</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
 		<version>2.1.201501-SNAPSHOT</version>
 		<relativePath>..</relativePath>
-	</parent>	
+	</parent>
 
-  <modules>
-    <module>com.abstratt.resman</module>
-    <module>com.abstratt.resman.tests</module>
-    <module>com.abstratt.mdd.core</module>
-    <module>com.abstratt.mdd.target.base</module>
-    <module>com.abstratt.mdd.frontend.core</module>
-    <module>com.abstratt.mdd.frontend.cli</module>
-    <module>com.abstratt.mdd.frontend.textuml.core</module>
-    <module>com.abstratt.mdd.core.tests.harness</module>
-    <module>com.abstratt.mdd.core.tests</module>
-    <module>com.abstratt.mdd.modelrenderer</module>
-    <module>com.abstratt.mdd.modelrenderer.dot</module>
-    <module>com.abstratt.mdd.modelrenderer.uml2dot</module>
-    <module>com.abstratt.mdd.modelviewer</module>
-    <module>com.abstratt.mdd.modelviewer.uml2dot</module>
-    <module>com.abstratt.mdd.ui</module>
-    <module>com.abstratt.mdd.frontend.ui</module>
-    <module>com.abstratt.mdd.frontend.textuml.ui</module>
-    <module>com.abstratt.mdd.frontend.textuml.renderer</module>
-    <module>com.abstratt.mdd.frontend.visualizer.eclipsegraphviz</module>
-  </modules>
+	<modules>
+		<module>com.abstratt.resman</module>
+		<module>com.abstratt.resman.tests</module>
+		<module>com.abstratt.mdd.core</module>
+		<module>com.abstratt.mdd.target.base</module>
+		<module>com.abstratt.mdd.frontend.core</module>
+		<module>com.abstratt.mdd.frontend.cli</module>
+		<module>com.abstratt.mdd.frontend.textuml.grammar</module>
+		<module>com.abstratt.mdd.frontend.textuml.core</module>
+		<module>com.abstratt.mdd.core.tests.harness</module>
+		<module>com.abstratt.mdd.core.tests</module>
+		<module>com.abstratt.mdd.modelrenderer</module>
+		<module>com.abstratt.mdd.modelrenderer.dot</module>
+		<module>com.abstratt.mdd.modelrenderer.uml2dot</module>
+		<module>com.abstratt.mdd.modelviewer</module>
+		<module>com.abstratt.mdd.modelviewer.uml2dot</module>
+		<module>com.abstratt.mdd.ui</module>
+		<module>com.abstratt.mdd.frontend.ui</module>
+		<module>com.abstratt.mdd.frontend.textuml.ui</module>
+		<module>com.abstratt.mdd.frontend.textuml.renderer</module>
+		<module>com.abstratt.mdd.frontend.visualizer.eclipsegraphviz</module>
+	</modules>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
 

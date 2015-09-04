@@ -7,20 +7,19 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.Problem;
 
-
 public class NonQualifiedIdentifierExpected extends Problem {
 
-	public NonQualifiedIdentifierExpected() {
-		super(Severity.ERROR);
-	}
+    public NonQualifiedIdentifierExpected() {
+        super(Severity.ERROR);
+    }
 
-	public String getMessage() {
-		return "Non-qualified identifier expected";
-	}
+    public String getMessage() {
+        return "Non-qualified identifier expected";
+    }
 
 }

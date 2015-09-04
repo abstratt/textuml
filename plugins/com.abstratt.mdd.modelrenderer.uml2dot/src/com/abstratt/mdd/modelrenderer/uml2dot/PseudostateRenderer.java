@@ -11,12 +11,12 @@ public class PseudostateRenderer extends VertexRenderer<Pseudostate> {
     @Override
     public boolean renderObject(Pseudostate element, IndentedPrintWriter out, IRenderingSession context) {
         switch (element.getKind()) {
-            case INITIAL_LITERAL:
-                renderInitialState(element, out, context);
-                break;   
-            case TERMINATE_LITERAL: 
-                renderTerminateState(element, out, context);
-                break;   
+        case INITIAL_LITERAL:
+            renderInitialState(element, out, context);
+            break;
+        case TERMINATE_LITERAL:
+            renderTerminateState(element, out, context);
+            break;
         }
         return true;
     }
@@ -27,7 +27,8 @@ public class PseudostateRenderer extends VertexRenderer<Pseudostate> {
 
         StateMachine stateMachine = element.containingStateMachine();
         String stateMachineName = stateMachine.getQualifiedName();
-        // we render the initial node as a separate node with a transition coming into the current node
+        // we render the initial node as a separate node with a transition
+        // coming into the current node
         out.print("\"" + stateMachineName + "-" + "_START\"[");
         out.println("label = \"\"");
         out.println("shape = \"circle\"");
@@ -35,11 +36,11 @@ public class PseudostateRenderer extends VertexRenderer<Pseudostate> {
         out.println("fillcolor= \"black\"");
         out.println("fixedsize= \"shape\"");
         out.println("width= \"0.25\"");
-        out.println("height= \"0.25\"");  
+        out.println("height= \"0.25\"");
         out.println("];");
-        
+
         // a fake transition from the initial node to this vertex
-        out.print("\"" + stateMachineName + "-" + "_START\" -- " + "\"" + getVertexSymbol(element) + "\":in "); 
+        out.print("\"" + stateMachineName + "-" + "_START\" -- " + "\"" + getVertexSymbol(element) + "\":in ");
         out.println("[");
         out.enterLevel();
         DOTRenderingUtils.addAttribute(out, "constraint", "" + false);
@@ -49,7 +50,7 @@ public class PseudostateRenderer extends VertexRenderer<Pseudostate> {
         out.exitLevel();
         out.println("]");
     }
-    
+
     private void renderTerminateState(Pseudostate element, IndentedPrintWriter out, IRenderingSession context) {
         out.print("\"" + getVertexSymbol(element) + "\"[");
         out.println("xlabel = \"" + getVertexLabel(element) + "\"");

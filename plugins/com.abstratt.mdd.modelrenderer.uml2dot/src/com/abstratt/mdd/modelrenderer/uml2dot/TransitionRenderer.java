@@ -2,7 +2,6 @@ package com.abstratt.mdd.modelrenderer.uml2dot;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.EList;
@@ -22,7 +21,6 @@ import org.eclipse.uml2.uml.Trigger;
 import org.eclipse.uml2.uml.Vertex;
 
 import com.abstratt.mdd.core.util.ActivityUtils;
-import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.frontend.textuml.renderer.ActivityGenerator;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
@@ -35,9 +33,8 @@ public class TransitionRenderer implements IElementRenderer<Transition> {
         Vertex target = transition.getTarget();
         boolean mutual = target.getOutgoings().stream().anyMatch(it -> it.getTarget() == source);
         boolean constraint = mutual || (target instanceof Pseudostate);
-        
-        out.print("\"" + source.getName() + "\":out -- " + "\"" + target.getName()
-                + "\":in "); 
+
+        out.print("\"" + source.getName() + "\":out -- " + "\"" + target.getName() + "\":in ");
         out.println("[");
         out.enterLevel();
         DOTRenderingUtils.addAttribute(out, "label", getTransitionLabel(transition));
@@ -50,15 +47,14 @@ public class TransitionRenderer implements IElementRenderer<Transition> {
         return true;
     }
 
-
     private String getTransitionLabel(Transition transition) {
         EList<Trigger> triggers = transition.getTriggers();
-        String triggerLabel = StringUtils.join(triggers.stream().map(t -> getEventName(t.getEvent())).collect(Collectors.toList()), ", ");
+        String triggerLabel = StringUtils.join(
+                triggers.stream().map(t -> getEventName(t.getEvent())).collect(Collectors.toList()), ", ");
         String guardLabel = getGuardLabel(transition.getGuard());
         String effectLabel = getEffectLabel(transition.getEffect());
         return triggerLabel + guardLabel + effectLabel;
     }
-
 
     private String getEffectLabel(Behavior effect) {
         if (effect == null)
@@ -66,12 +62,10 @@ public class TransitionRenderer implements IElementRenderer<Transition> {
         StructuredActivityNode rootAction = ActivityUtils.getRootAction((Activity) effect);
         List<Action> statements = ActivityUtils.findStatements(rootAction);
         ActivityGenerator activityGenerator = new ActivityGenerator();
-        List<String> textumlStatements = statements.stream().map(statement ->
-            activityGenerator.generateAction(statement).toString()
-        ).collect(Collectors.toList());
+        List<String> textumlStatements = statements.stream()
+                .map(statement -> activityGenerator.generateAction(statement).toString()).collect(Collectors.toList());
         return " / " + StringUtils.join(textumlStatements, "; ");
     }
-
 
     private String getGuardLabel(Constraint guard) {
         if (guard == null)
@@ -80,7 +74,6 @@ public class TransitionRenderer implements IElementRenderer<Transition> {
         CharSequence guardExpression = new ActivityGenerator().generateActivityAsExpression(behavior);
         return " [" + guardExpression + "]";
     }
-
 
     private String getEventName(Event event) {
         if (event instanceof CallEvent) {

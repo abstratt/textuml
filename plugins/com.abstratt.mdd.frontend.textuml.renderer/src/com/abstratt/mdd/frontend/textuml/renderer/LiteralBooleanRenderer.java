@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
 import org.eclipse.uml2.uml.LiteralBoolean;
@@ -18,10 +18,9 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class LiteralBooleanRenderer implements IEObjectRenderer<LiteralBoolean> {
 
-	public boolean renderObject(LiteralBoolean element, IndentedPrintWriter out,
-			IRenderingSession context) {
-		out.print(element.booleanValue());
-		return true;
-	}
+    public boolean renderObject(LiteralBoolean element, IndentedPrintWriter out, IRenderingSession context) {
+        out.print(element.booleanValue());
+        return true;
+    }
 
 }

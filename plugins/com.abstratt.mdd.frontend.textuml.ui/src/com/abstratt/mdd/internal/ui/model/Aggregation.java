@@ -7,35 +7,35 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui.model;
 
 import org.eclipse.swt.graphics.Image;
 
 import com.abstratt.mdd.frontend.core.ASTNode;
-import com.abstratt.mdd.internal.frontend.textuml.node.AAggregationAssociationKind;
-import com.abstratt.mdd.internal.frontend.textuml.node.Token;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAggregationAssociationKind;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 import com.abstratt.mdd.ui.Activator;
 import com.abstratt.mdd.ui.UIConstants;
 
 public class Aggregation extends AbstractAssociation {
 
-	public Aggregation(UIModelObject parent, ASTNode node) {
-		super(parent, node);
-	}
+    public Aggregation(UIModelObject parent, ASTNode node) {
+        super(parent, node);
+    }
 
-	@Override
-	public Image getImage() {
-		return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_AGGREGATION);
-	}
+    @Override
+    public Image getImage() {
+        return Activator.getDefault().getImageRegistry().get(UIConstants.ICON_AGGREGATION);
+    }
 
-	protected AAggregationAssociationKind getModel() {
-		return (AAggregationAssociationKind) node.getBaseNode();
-	}
+    protected AAggregationAssociationKind getModel() {
+        return (AAggregationAssociationKind) node.getBaseNode();
+    }
 
-	@Override
-	public Token getToken() {
-		return getModel().getAggregation();
-	}
+    @Override
+    public Token getToken() {
+        return getModel().getAggregation();
+    }
 
 }

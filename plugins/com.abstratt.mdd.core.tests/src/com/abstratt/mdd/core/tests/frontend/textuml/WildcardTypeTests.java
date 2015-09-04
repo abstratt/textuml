@@ -47,7 +47,7 @@ public class WildcardTypeTests extends AbstractRepositoryBuildingTests {
         assertSame(op1, MDDExtensionUtils.getWildcardTypeContext(wildcardType));
         assertTrue(MDDExtensionUtils.getWildcardTypes(op1).contains(wildcardType));
     }
-    
+
     public void testOperationWildcardTypeVisibleOnlyInOperation() throws CoreException {
         String model = "";
         model += "model tests;\n";
@@ -75,7 +75,8 @@ public class WildcardTypeTests extends AbstractRepositoryBuildingTests {
         Operation op1 = getOperation("tests::MyClass1::op1");
 
         Parameter par1 = FeatureUtils.getInputParameters(op1.getOwnedParameters()).get(0);
-        Parameter signatureResult = FeatureUtils.getReturnParameter(MDDExtensionUtils.getSignatureParameters(par1.getType()));
+        Parameter signatureResult = FeatureUtils.getReturnParameter(MDDExtensionUtils.getSignatureParameters(par1
+                .getType()));
 
         assertTrue(MDDExtensionUtils.isWildcardTypeContext(op1));
         assertTrue(MDDExtensionUtils.isWildcardType(signatureResult.getType()));
@@ -100,7 +101,8 @@ public class WildcardTypeTests extends AbstractRepositoryBuildingTests {
         parseAndCheck(model);
 
         Operation op2 = getOperation("tests::MyClass2::op2");
-        StructuredActivityNode firstChild = (StructuredActivityNode) ActivityUtils.getRootAction(op2).getContainedNode(null, false, UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE);
+        StructuredActivityNode firstChild = (StructuredActivityNode) ActivityUtils.getRootAction(op2).getContainedNode(
+                null, false, UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE);
         Variable localVar = ActivityUtils.findVariable(firstChild, "local");
         Class integerType = getClass("mdd_types::Integer");
         assertSame(integerType, localVar.getType());
@@ -120,14 +122,15 @@ public class WildcardTypeTests extends AbstractRepositoryBuildingTests {
         model += "end;\n";
         model += "end.";
         parseAndCheck(model);
-        
+
         Operation op2 = getOperation("tests::MyClass1::op2");
-        StructuredActivityNode firstChild = (StructuredActivityNode) ActivityUtils.getRootAction(op2).getContainedNode(null, false, UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE);
+        StructuredActivityNode firstChild = (StructuredActivityNode) ActivityUtils.getRootAction(op2).getContainedNode(
+                null, false, UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE);
         Variable localVar = ActivityUtils.findVariable(firstChild, "local");
         Class integerType = getClass("mdd_types::Boolean");
         assertSame(integerType, localVar.getType());
     }
-    
+
     public void testInstanceOperationWildcardTypeInClosureReplaced() throws CoreException {
         String model = "";
         model += "model tests;\n";
@@ -142,9 +145,10 @@ public class WildcardTypeTests extends AbstractRepositoryBuildingTests {
         model += "end;\n";
         model += "end.";
         parseAndCheck(model);
-        
+
         Operation op2 = getOperation("tests::MyClass1::op2");
-        StructuredActivityNode firstChild = (StructuredActivityNode) ActivityUtils.getRootAction(op2).getContainedNode(null, false, UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE);
+        StructuredActivityNode firstChild = (StructuredActivityNode) ActivityUtils.getRootAction(op2).getContainedNode(
+                null, false, UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE);
         Variable localVar = ActivityUtils.findVariable(firstChild, "local");
         Class integerType = getClass("mdd_types::Boolean");
         assertSame(integerType, localVar.getType());

@@ -7,11 +7,10 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.modelrenderer;
 
 import org.eclipse.emf.ecore.EObject;
-
 
 /**
  * A visitor that chooses what renderer to use for each object in the graph.
@@ -19,13 +18,13 @@ import org.eclipse.emf.ecore.EObject;
  * Clients to implement.
  */
 public interface IRendererSelector<C extends EObject> {
-	/**
-	 * Selects the appropriate renderer for the given element. Returns
-	 * <code>null</code> if the object (and any of its descendants) should not
-	 * be rendered.
-	 * 
-	 * @param element
-	 * @return
-	 */
-	public IRenderer<C> select(C element);
+    /**
+     * Selects the appropriate renderer for the given element. Returns
+     * <code>null</code> if the object (and any of its descendants) should not
+     * be rendered.
+     * 
+     * @param element
+     * @return
+     */
+    public IRenderer<C> select(C element);
 }

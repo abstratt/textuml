@@ -12,14 +12,9 @@ package com.abstratt.mdd.core.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.Spliterators;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.ecore.EClass;
@@ -59,7 +54,6 @@ import org.eclipse.uml2.uml.ValueSpecificationAction;
 import org.eclipse.uml2.uml.Variable;
 import org.eclipse.uml2.uml.VariableAction;
 
-
 public class ActivityUtils {
 
     private static final String BODY_NODE = "body";
@@ -68,11 +62,11 @@ public class ActivityUtils {
         BehavioralFeature specification = activity.getSpecification();
         return specification instanceof Operation ? (Operation) specification : null;
     }
-    
+
     public static Activity getDerivation(Property derived) {
         return (Activity) resolveBehaviorReference(derived.getDefaultValue());
     }
-    
+
     public static boolean isActivityStatic(Activity activity) {
         if (activity.getSpecification() != null)
             activity.getSpecification().isStatic();
@@ -82,15 +76,15 @@ public class ActivityUtils {
         }
         return false;
     }
-    
+
     public static StructuredActivityNode createBodyNode(Activity currentActivity) {
         return currentActivity.createStructuredNode(BODY_NODE);
     }
-    
+
     public static boolean isBodyNode(StructuredActivityNode node) {
         return node == getBodyNode(getActionActivity(node));
     }
-    
+
     public static boolean isNullValue(Action action) {
         if (!(action instanceof ValueSpecificationAction))
             return false;
@@ -102,7 +96,7 @@ public class ActivityUtils {
         Action sourceAction = getSourceAction(pin);
         return sourceAction != null && isNullValue(sourceAction);
     }
-    
+
     /**
      * Finds an exception handler for the given exception type.
      * 
@@ -144,7 +138,7 @@ public class ActivityUtils {
     public static List<Parameter> getClosureInputParameters(Activity closure) {
         return getActivityInputParameters(closure);
     }
-    
+
     public static List<Parameter> getActivityInputParameters(Activity closure) {
         return FeatureUtils.filterParameters(closure.getOwnedParameters(), ParameterDirectionKind.IN_LITERAL);
     }
@@ -158,7 +152,7 @@ public class ActivityUtils {
     public static Parameter getClosureReturnParameter(Activity closure) {
         return getActivityReturnParameter(closure);
     }
-    
+
     public static Parameter getActivityReturnParameter(Activity closure) {
         return FeatureUtils.getReturnParameter(closure.getOwnedParameters());
     }
@@ -188,7 +182,7 @@ public class ActivityUtils {
 
     public static Activity getActionActivity(ActivityNode action) {
         // UML2 5
-        //return action.containingActivity()
+        // return action.containingActivity()
         if (action.getActivity() != null)
             return action.getActivity();
         return MDDUtil.getNearest(action, UMLPackage.Literals.ACTIVITY);
@@ -199,7 +193,7 @@ public class ActivityUtils {
         Assert.isTrue(body.getNodes().size() == 1, "expecting 1, found " + body.getNodes().size());
         return (StructuredActivityNode) body.getNodes().get(0);
     }
-    
+
     public static boolean isRootAction(Action action) {
         if (!(action instanceof StructuredActivityNode))
             return false;
@@ -213,7 +207,8 @@ public class ActivityUtils {
 
     public static ObjectFlow connect(StructuredActivityNode parent, ObjectNode source, ObjectNode target) {
         ObjectFlow flow = (ObjectFlow) parent.createEdge(null, UMLPackage.eINSTANCE.getObjectFlow());
-        // this is valid in UML but not in TextUML (text format doesn't allow that)
+        // this is valid in UML but not in TextUML (text format doesn't allow
+        // that)
         Assert.isLegal(source.getOutgoings().isEmpty());
         // this is invalid according to UML
         Assert.isLegal(target.getIncomings().isEmpty());
@@ -266,7 +261,7 @@ public class ActivityUtils {
         Assert.isTrue(inputs.size() == 1);
         return getSourceAction(inputs.get(0));
     }
-    
+
     public static Action getTargetAction(ObjectNode target) {
         ObjectNode targetPin = getTarget(target);
         if (targetPin == null)
@@ -299,7 +294,8 @@ public class ActivityUtils {
     }
 
     public static Behavior resolveBehaviorReference(Action action) {
-        Assert.isLegal(action instanceof ValueSpecificationAction, "Not a behavior reference action: " + action.eClass().getName());
+        Assert.isLegal(action instanceof ValueSpecificationAction, "Not a behavior reference action: "
+                + action.eClass().getName());
         return (Activity) resolveBehaviorReference(((ValueSpecificationAction) action).getValue());
     }
 
@@ -361,7 +357,7 @@ public class ActivityUtils {
             TypeUtils.copyType(parameter, newVariable);
         }
     }
-    
+
     public static Parameter getParameter(Variable variable) {
         if (!(variable.getOwner() instanceof StructuredActivityNode))
             return null;
@@ -375,7 +371,8 @@ public class ActivityUtils {
      * A cast is a {@link StructuredActivityNode} with only two nodes: an input
      * and an output. TODO an ObjectFlow would be more appropriate
      */
-    @Deprecated // use MDDExtensionUtils instead
+    @Deprecated
+    // use MDDExtensionUtils instead
     public static boolean isCast(Action toCheck) {
         return MDDExtensionUtils.isCast(toCheck);
     }
@@ -390,24 +387,23 @@ public class ActivityUtils {
         }
         return terminalActions;
     }
-    
+
     public static Action findSingleStatement(StructuredActivityNode rootAction) {
         List<Action> statements = findStatements(rootAction);
         if (statements.size() != 1)
             throw new IllegalArgumentException("Single statement activity expected");
         return statements.get(0);
     }
-    
+
     public static Action findSingleStatement(Activity activity) {
         return findSingleStatement(getRootAction(activity));
     }
-    
+
     public static List<Action> findMatchingActions(StructuredActivityNode target, EClass... actionClasses) {
-        return findMatchingActions(target, action -> 
-            Arrays.stream(actionClasses).anyMatch(eClass -> eClass.isInstance(action))
-        );
+        return findMatchingActions(target,
+                action -> Arrays.stream(actionClasses).anyMatch(eClass -> eClass.isInstance(action)));
     }
-    
+
     public static List<Action> findMatchingActions(StructuredActivityNode target, Predicate<Action> predicate) {
         List<Action> matchingActions = new ArrayList<Action>();
         for (ActivityNode node : target.getNodes()) {
@@ -431,22 +427,20 @@ public class ActivityUtils {
         }
         return null;
     }
-    
+
     public static Action findUpstreamAction(InputPin startingPoint, EClass... actionClasses) {
         return findUpstreamAction(getSourceAction(startingPoint), actionClasses);
     }
-    
+
     public static Action findUpstreamAction(Action startingPoint, EClass... actionClasses) {
-        return findUpstreamAction(
-            startingPoint, 
-            action -> Arrays.stream(actionClasses).anyMatch(actionClass -> actionClass.isInstance(action))
-        ); 
+        return findUpstreamAction(startingPoint,
+                action -> Arrays.stream(actionClasses).anyMatch(actionClass -> actionClass.isInstance(action)));
     }
-    
+
     public static Action findUpstreamAction(InputPin startingPoint, Predicate<Action> condition) {
         return findUpstreamAction(getSourceAction(startingPoint), condition);
     }
-    
+
     public static Action findUpstreamAction(Action startingPoint, Predicate<Action> condition) {
         if (condition.test(startingPoint))
             return startingPoint;
@@ -458,17 +452,16 @@ public class ActivityUtils {
         return null;
     }
 
-    
     public static List<Action> findUpstreamActions(InputPin startingPoint, EClass... actionClasses) {
         return findUpstreamActions(getSourceAction(startingPoint), actionClasses);
     }
-    
+
     public static List<Action> findUpstreamActions(Action startingPoint, EClass... actionClasses) {
         List<Action> found = new LinkedList<>();
         collectUpstreamActions(found, startingPoint, actionClasses);
         return found;
     }
-    
+
     private static void collectUpstreamActions(List<Action> collected, Action current, EClass... actionClasses) {
         for (EClass actionClass : actionClasses)
             if (actionClass.isInstance(current))
@@ -476,7 +469,7 @@ public class ActivityUtils {
         for (InputPin pin : current.getInputs())
             collectUpstreamActions(collected, getSourceAction(pin), actionClasses);
     }
-    
+
     public static List<Action> findTerminals(StructuredActivityNode target) {
         List<Action> terminalActions = new ArrayList<Action>();
         for (ActivityNode node : target.getNodes()) {
@@ -495,9 +488,10 @@ public class ActivityUtils {
                 return true;
         return false;
     }
-    
+
     public static boolean isReturnAction(Action toCheck) {
-        return toCheck instanceof AddVariableValueAction && isReturnVariable(((AddVariableValueAction) toCheck).getVariable());
+        return toCheck instanceof AddVariableValueAction
+                && isReturnVariable(((AddVariableValueAction) toCheck).getVariable());
     }
 
     public static boolean isReturnVariable(Variable variable) {
@@ -517,7 +511,7 @@ public class ActivityUtils {
     public static BehavioredClassifier getContext(Behavior behavior) {
         return getBehaviorContext(behavior);
     }
-    
+
     public static BehavioredClassifier getBehaviorContext(Behavior behavior) {
         BehavioredClassifier standardContext = behavior.getContext();
         if (standardContext instanceof Behavior) {
@@ -541,13 +535,13 @@ public class ActivityUtils {
     }
 
     public static Activity getOwningActivity(ActivityNode context) {
-         return getActionActivity(context);    
+        return getActionActivity(context);
     }
-    
+
     public static Activity getParentAsActivity(ActivityNode node) {
         return node.getActivity();
     }
-    
+
     public static StructuredActivityNode getOwningBlock(Action action) {
         if (action.getOwner() instanceof StructuredActivityNode)
             return (StructuredActivityNode) action.getOwner();
@@ -555,7 +549,7 @@ public class ActivityUtils {
             return getOwningBlock((StructuredActivityNode) action.getOwner());
         return null;
     }
-   
+
     public static VariableAction findFirstAccess(StructuredActivityNode context, final Variable variable) {
         return (VariableAction) findNode(context, new EObjectMatcher() {
             @Override
@@ -571,14 +565,14 @@ public class ActivityUtils {
                 && currentBlock.getOwner().getOwner().getOwner() == getBodyNode(getOwningActivity(currentBlock));
         return shouldIsolate;
     }
-    
+
     /**
      * Is this action a data-sink (no outputs or no outputs being consumed)?
      */
     public static boolean isDataSink(Action action) {
         for (OutputPin outputPin : action.getOutputs())
-            if (!outputPin.getOutgoings().isEmpty()) 
-                return false;   
+            if (!outputPin.getOutgoings().isEmpty())
+                return false;
         return true;
     }
 

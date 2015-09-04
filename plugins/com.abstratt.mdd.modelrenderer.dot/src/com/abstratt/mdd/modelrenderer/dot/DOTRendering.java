@@ -27,27 +27,23 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 import com.abstratt.pluginutils.LogUtils;
 
 public class DOTRendering implements DOTRenderingConstants {
-	private static final String ID = DOTRendering.class.getPackage().getName();
+    private static final String ID = DOTRendering.class.getPackage().getName();
 
-	
-	public static byte[] generateDOTFromModel(URI modelURI,
-			IRendererSelector<? extends EObject> selector, IRenderingSettings settings)
-			throws CoreException {
-        return generateDOTFromModel(modelURI, selector, settings, new HashMap<String, Map<String,Object>>());
-	}
-	
-	public static byte[] generateDOTFromModel(URI modelURI,
-			IRendererSelector<? extends EObject> selector, IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings)
-			throws CoreException {
-        org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI
-                .createURI(modelURI.toASCIIString());
+    public static byte[] generateDOTFromModel(URI modelURI, IRendererSelector<? extends EObject> selector,
+            IRenderingSettings settings) throws CoreException {
+        return generateDOTFromModel(modelURI, selector, settings, new HashMap<String, Map<String, Object>>());
+    }
+
+    public static byte[] generateDOTFromModel(URI modelURI, IRendererSelector<? extends EObject> selector,
+            IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings) throws CoreException {
+        org.eclipse.emf.common.util.URI emfURI = org.eclipse.emf.common.util.URI.createURI(modelURI.toASCIIString());
         ResourceSet resourceSet = new ResourceSetImpl();
         Resource resource = resourceSet.createResource(emfURI);
         try {
             // TODO cache option map and use XMLResource constants (requires
             // dependency change)
             Map<String, Object> resourceOptions = new HashMap<String, Object>();
-            resourceOptions.put("DISABLE_NOTIFY", Boolean.TRUE);    
+            resourceOptions.put("DISABLE_NOTIFY", Boolean.TRUE);
             resource.load(resourceOptions);
             Collection<EObject> contents = resource.getContents();
             return generateDOTFromModel(modelURI, contents, selector, settings, defaultDotSettings);
@@ -67,102 +63,99 @@ public class DOTRendering implements DOTRenderingConstants {
                 logUnexpected("Unloading resources", re);
             }
         }
-	    
-	}
+
+    }
+
     public static byte[] generateDOTFromModel(URI modelURI, Collection<EObject> modelContents,
-            IRendererSelector<? extends EObject> selector, IRenderingSettings settings, Map<String, Map<String, Object>> defaultDotSettings)
-            throws CoreException {
-        
-		StringWriter sw = new StringWriter();
-		IndentedPrintWriter out = new IndentedPrintWriter(sw);
-		IRenderingSession session = new RenderingSession(selector,
-				settings, out);
-		String modelName = FilenameUtils.removeExtension(FilenameUtils.getName(modelURI.getPath()));
-		printPrologue(modelName, defaultDotSettings, out);
-		boolean anyRendered = RenderingUtils.renderAll(session, modelContents);
-		if (!anyRendered) {
-		    out.println("NIL [ label=\"No objects selected for rendering\"]");
-		}
-		printEpilogue(out);
-		out.close();
-		byte[] dotContents = sw.getBuffer().toString().getBytes();
-		if (Boolean.getBoolean(ID + ".showDOT")) {
-			LogUtils.log(IStatus.INFO, ID, "DOT output for " + modelURI,
-					null);
-			LogUtils.log(IStatus.INFO, ID, sw.getBuffer().toString(), null);
-		}
-		if (Boolean.getBoolean(ID + ".showMemory"))
-			System.out.println("*** free: "
-					+ toMB(Runtime.getRuntime().freeMemory())
-					+ " / total: "
-					+ toMB(Runtime.getRuntime().totalMemory()) + " / max: "
-					+ toMB(Runtime.getRuntime().maxMemory()));
-		return dotContents;
-	}
+            IRendererSelector<? extends EObject> selector, IRenderingSettings settings,
+            Map<String, Map<String, Object>> defaultDotSettings) throws CoreException {
 
-	private static void printEpilogue(IndentedPrintWriter w) {
-		w.exitLevel();
-		w.println();
-		w.println("}"); //$NON-NLS-1$
-	}
+        StringWriter sw = new StringWriter();
+        IndentedPrintWriter out = new IndentedPrintWriter(sw);
+        IRenderingSession session = new RenderingSession(selector, settings, out);
+        String modelName = FilenameUtils.removeExtension(FilenameUtils.getName(modelURI.getPath()));
+        printPrologue(modelName, defaultDotSettings, out);
+        boolean anyRendered = RenderingUtils.renderAll(session, modelContents);
+        if (!anyRendered) {
+            out.println("NIL [ label=\"No objects selected for rendering\"]");
+        }
+        printEpilogue(out);
+        out.close();
+        byte[] dotContents = sw.getBuffer().toString().getBytes();
+        if (Boolean.getBoolean(ID + ".showDOT")) {
+            LogUtils.log(IStatus.INFO, ID, "DOT output for " + modelURI, null);
+            LogUtils.log(IStatus.INFO, ID, sw.getBuffer().toString(), null);
+        }
+        if (Boolean.getBoolean(ID + ".showMemory"))
+            System.out.println("*** free: " + toMB(Runtime.getRuntime().freeMemory()) + " / total: "
+                    + toMB(Runtime.getRuntime().totalMemory()) + " / max: " + toMB(Runtime.getRuntime().maxMemory()));
+        return dotContents;
+    }
 
-	private static void printPrologue(String modelName, Map<String, Map<String, Object>> defaultDotSettings, IndentedPrintWriter w) {
-		w.println("graph " + modelName + " {"); //$NON-NLS-1$ //$NON-NLS-2$
-		w.enterLevel();
-		DOTRenderingUtils.addAttribute(w, "ranksep", "0.8");
-		DOTRenderingUtils.addAttribute(w, "nodesep", "0.85");
-		DOTRenderingUtils.addAttribute(w, "nojustify", "true");
-		dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.GLOBAL_SETTINGS_KEY));
-		w.println("graph [");
-		w.enterLevel();
-		// DOTRenderingUtils.addAttribute(w, "outputorder", "edgesfirst");
-		// DOTRenderingUtils.addAttribute(w, "packmode", "graph");
-		// DOTRenderingUtils.addAttribute(w, "pack", 40);
-		// DOTRenderingUtils.addAttribute(w, "ratio", "auto");
-		// DOTRenderingUtils.addAttribute(w, "rank", "sink");
-		// DOTRenderingUtils.addAttribute(w, "overlap", "ipsep");
-		dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.GRAPH_SETTINGS_KEY));		
-		w.exitLevel();
-		w.println("]");
-		// TODO provide choice
-		w.println("node [");
-		w.enterLevel();
-		DOTRenderingUtils.addAttribute(w, "fontsize", 12);
-		DOTRenderingUtils.addAttribute(w, "shape", "plaintext");
-		dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.NODE_SETTINGS_KEY));
-		w.exitLevel();
-		w.println("]");
-		w.println("edge [");
-		w.enterLevel();
-		DOTRenderingUtils.addAttribute(w, "fontsize", 9);
-		DOTRenderingUtils.addAttribute(w, "dir", "both");
-		// DOTRenderingUtils.addAttribute(w, "splines", "polyline");
-		dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.EDGE_SETTINGS_KEY));
-		w.exitLevel();
-		w.println("]");
-	}
+    private static void printEpilogue(IndentedPrintWriter w) {
+        w.exitLevel();
+        w.println();
+        w.println("}"); //$NON-NLS-1$
+    }
 
-	private static void dumpDotSettings(IndentedPrintWriter w, Map<String, Object> map) {
-		if (map == null)
-			return;
-		for (Entry<String, Object> entry : map.entrySet()) {
-			if (entry.getValue() instanceof Integer)
-				DOTRenderingUtils.addAttribute(w, entry.getKey(), (int) (Integer) entry.getValue());
-			else
-				DOTRenderingUtils.addAttribute(w, entry.getKey(), entry.getValue().toString());			
-		}
-	}
+    private static void printPrologue(String modelName, Map<String, Map<String, Object>> defaultDotSettings,
+            IndentedPrintWriter w) {
+        w.println("graph " + modelName + " {"); //$NON-NLS-1$ //$NON-NLS-2$
+        w.enterLevel();
+        DOTRenderingUtils.addAttribute(w, "ranksep", "0.8");
+        DOTRenderingUtils.addAttribute(w, "nodesep", "0.85");
+        DOTRenderingUtils.addAttribute(w, "nojustify", "true");
+        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.GLOBAL_SETTINGS_KEY));
+        w.println("graph [");
+        w.enterLevel();
+        // DOTRenderingUtils.addAttribute(w, "outputorder", "edgesfirst");
+        // DOTRenderingUtils.addAttribute(w, "packmode", "graph");
+        // DOTRenderingUtils.addAttribute(w, "pack", 40);
+        // DOTRenderingUtils.addAttribute(w, "ratio", "auto");
+        // DOTRenderingUtils.addAttribute(w, "rank", "sink");
+        // DOTRenderingUtils.addAttribute(w, "overlap", "ipsep");
+        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.GRAPH_SETTINGS_KEY));
+        w.exitLevel();
+        w.println("]");
+        // TODO provide choice
+        w.println("node [");
+        w.enterLevel();
+        DOTRenderingUtils.addAttribute(w, "fontsize", 12);
+        DOTRenderingUtils.addAttribute(w, "shape", "plaintext");
+        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.NODE_SETTINGS_KEY));
+        w.exitLevel();
+        w.println("]");
+        w.println("edge [");
+        w.enterLevel();
+        DOTRenderingUtils.addAttribute(w, "fontsize", 9);
+        DOTRenderingUtils.addAttribute(w, "dir", "both");
+        // DOTRenderingUtils.addAttribute(w, "splines", "polyline");
+        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.EDGE_SETTINGS_KEY));
+        w.exitLevel();
+        w.println("]");
+    }
 
-	private static void unloadResources(ResourceSet resourceSet) {
-		for (Resource current : resourceSet.getResources())
-			current.unload();
-	}
+    private static void dumpDotSettings(IndentedPrintWriter w, Map<String, Object> map) {
+        if (map == null)
+            return;
+        for (Entry<String, Object> entry : map.entrySet()) {
+            if (entry.getValue() instanceof Integer)
+                DOTRenderingUtils.addAttribute(w, entry.getKey(), (int) (Integer) entry.getValue());
+            else
+                DOTRenderingUtils.addAttribute(w, entry.getKey(), entry.getValue().toString());
+        }
+    }
 
-	public static void logUnexpected(String message, Exception e) {
-		LogUtils.logError(ID, message, e);
-	}
+    private static void unloadResources(ResourceSet resourceSet) {
+        for (Resource current : resourceSet.getResources())
+            current.unload();
+    }
 
-	private static String toMB(long byteCount) {
-		return byteCount / (1024 * 1024) + "MB";
-	}
+    public static void logUnexpected(String message, Exception e) {
+        LogUtils.logError(ID, message, e);
+    }
+
+    private static String toMB(long byteCount) {
+        return byteCount / (1024 * 1024) + "MB";
+    }
 }

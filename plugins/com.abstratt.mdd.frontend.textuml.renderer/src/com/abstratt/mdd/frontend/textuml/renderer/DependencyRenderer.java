@@ -23,14 +23,14 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
  */
 public class DependencyRenderer implements IEObjectRenderer<Dependency> {
 
-	public boolean renderObject(Dependency dependency, IndentedPrintWriter writer,
-			IRenderingSession context) {
-		if (dependency.getSuppliers().isEmpty()) 
-			return false;
-		writer.write("dependency ");
-		writer.write(TextUMLRenderingUtils.getQualifiedNameIfNeeded(dependency.getSuppliers().get(0), dependency.getNamespace()));
-		writer.println(";");
-		return true;
-	}
+    public boolean renderObject(Dependency dependency, IndentedPrintWriter writer, IRenderingSession context) {
+        if (dependency.getSuppliers().isEmpty())
+            return false;
+        writer.write("dependency ");
+        writer.write(TextUMLRenderingUtils.getQualifiedNameIfNeeded(dependency.getSuppliers().get(0),
+                dependency.getNamespace()));
+        writer.println(";");
+        return true;
+    }
 
 }

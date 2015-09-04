@@ -12,8 +12,8 @@ import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
-import com.abstratt.mdd.internal.frontend.textuml.node.AComplexInitializationExpression;
-import com.abstratt.mdd.internal.frontend.textuml.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AComplexInitializationExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 public class ComplexInitializationExpressionProcessor {
 
@@ -27,7 +27,8 @@ public class ComplexInitializationExpressionProcessor {
         this.currentClass = currentClass;
     }
 
-    public void process(final TypedElement initializableElement, final AComplexInitializationExpression initializationExpression) {
+    public void process(final TypedElement initializableElement,
+            final AComplexInitializationExpression initializationExpression) {
         sourceContext.getNamespaceTracker().enterNamespace(currentClass);
         try {
             Activity activity = (Activity) currentClass.createOwnedBehavior(null, IRepository.PACKAGE.getActivity());
@@ -38,8 +39,9 @@ public class ComplexInitializationExpressionProcessor {
             TypeUtils.copyType(initializableElement, activityReturn);
             BehaviorGenerator behaviorGenerator = new BehaviorGenerator(sourceContext);
             behaviorGenerator.createBody(initializationExpression.getExpressionBlock(), activity);
-            ValueSpecification reference = ActivityUtils.buildBehaviorReference(currentClass.getNearestPackage(), activity, null);
-    
+            ValueSpecification reference = ActivityUtils.buildBehaviorReference(currentClass.getNearestPackage(),
+                    activity, null);
+
             if (initializableElement instanceof Property)
                 ((Property) initializableElement).setDefaultValue(reference);
             else if (initializableElement instanceof Parameter)

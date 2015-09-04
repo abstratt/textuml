@@ -25,53 +25,49 @@ import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
 
 import com.abstratt.mdd.internal.ui.TextUMLCompletionProcessor;
 
-public class TextUMLSourceViewerConfiguration extends
-		TextSourceViewerConfiguration {
+public class TextUMLSourceViewerConfiguration extends TextSourceViewerConfiguration {
 
-	private SourceEditor editor;
+    private SourceEditor editor;
 
-	public IPresentationReconciler getPresentationReconciler(
-			ISourceViewer sourceViewer) {
-		final PresentationReconciler reconciler = new PresentationReconciler();
-		reconciler.setDocumentPartitioning(getConfiguredDocumentPartitioning(sourceViewer));
-		final SyntaxHighlighter scanner = new SyntaxHighlighter(
-				com.abstratt.mdd.frontend.textuml.core.TextUMLConstants.KEYWORDS);
-		final DefaultDamagerRepairer dr = new DefaultDamagerRepairer(scanner);
-		reconciler.setDamager(dr, ContentTypes.DEFAULT_CONTENT_TYPE);
-		reconciler.setRepairer(dr, ContentTypes.DEFAULT_CONTENT_TYPE);
-		
-		// fix bug 2127735 --multiline comment is broken
-		final ITokenScanner commentScanner = scanner.getCommentScanner();
-		final DefaultDamagerRepairer commentDamagerRepairer = new DefaultDamagerRepairer(commentScanner);
-		reconciler.setDamager(commentDamagerRepairer, ContentTypes.COMMENT_CONTENT_TYPE);
-		reconciler.setRepairer(commentDamagerRepairer, ContentTypes.COMMENT_CONTENT_TYPE);
+    public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
+        final PresentationReconciler reconciler = new PresentationReconciler();
+        reconciler.setDocumentPartitioning(getConfiguredDocumentPartitioning(sourceViewer));
+        final SyntaxHighlighter scanner = new SyntaxHighlighter(
+                com.abstratt.mdd.frontend.textuml.core.TextUMLConstants.KEYWORDS);
+        final DefaultDamagerRepairer dr = new DefaultDamagerRepairer(scanner);
+        reconciler.setDamager(dr, ContentTypes.DEFAULT_CONTENT_TYPE);
+        reconciler.setRepairer(dr, ContentTypes.DEFAULT_CONTENT_TYPE);
 
-		return reconciler;
-	}
+        // fix bug 2127735 --multiline comment is broken
+        final ITokenScanner commentScanner = scanner.getCommentScanner();
+        final DefaultDamagerRepairer commentDamagerRepairer = new DefaultDamagerRepairer(commentScanner);
+        reconciler.setDamager(commentDamagerRepairer, ContentTypes.COMMENT_CONTENT_TYPE);
+        reconciler.setRepairer(commentDamagerRepairer, ContentTypes.COMMENT_CONTENT_TYPE);
 
-	@Override
-	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
-		return ContentTypes.CONFIGURED_CONTENT_TYPES;
-	}
+        return reconciler;
+    }
 
-	@Override
-	public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
-		ContentAssistant assistant = new ContentAssistant();
-		assistant.setContentAssistProcessor(
-			new TextUMLCompletionProcessor(editor),
-			IDocument.DEFAULT_CONTENT_TYPE);
+    @Override
+    public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
+        return ContentTypes.CONFIGURED_CONTENT_TYPES;
+    }
 
-		assistant.enableAutoActivation(true);
-		assistant.setAutoActivationDelay(500);
-		assistant.setProposalPopupOrientation(
-			IContentAssistant.PROPOSAL_OVERLAY);
-		return assistant;
-	}
+    @Override
+    public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
+        ContentAssistant assistant = new ContentAssistant();
+        assistant.setContentAssistProcessor(new TextUMLCompletionProcessor(editor), IDocument.DEFAULT_CONTENT_TYPE);
 
-	public TextUMLSourceViewerConfiguration(SourceEditor editor) {
-		// failing to pass the preference store in causes annotation hovering not to work
-		super(EditorsUI.getPreferenceStore());
-		this.editor = editor;
-	}
+        assistant.enableAutoActivation(true);
+        assistant.setAutoActivationDelay(500);
+        assistant.setProposalPopupOrientation(IContentAssistant.PROPOSAL_OVERLAY);
+        return assistant;
+    }
+
+    public TextUMLSourceViewerConfiguration(SourceEditor editor) {
+        // failing to pass the preference store in causes annotation hovering
+        // not to work
+        super(EditorsUI.getPreferenceStore());
+        this.editor = editor;
+    }
 
 }

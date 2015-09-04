@@ -7,23 +7,22 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.Problem;
 
-
 public class MissingRequiredArgument extends Problem {
 
-	private String missing;
+    private String missing;
 
-	public MissingRequiredArgument(String missing) {
-		super(Severity.ERROR);
-		this.missing = missing;
-	}
+    public MissingRequiredArgument(String missing) {
+        super(Severity.ERROR);
+        this.missing = missing;
+    }
 
-	public String getMessage() {
-		return "Missing required argument: " + missing;
-	}
+    public String getMessage() {
+        return "Missing required argument: " + missing;
+    }
 
 }

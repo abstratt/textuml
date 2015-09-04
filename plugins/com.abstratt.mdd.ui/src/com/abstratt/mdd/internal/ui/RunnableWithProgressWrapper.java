@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rafael Chaves (Abstratt Technologies) - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.abstratt.mdd.internal.ui;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,19 +19,19 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 
 public class RunnableWithProgressWrapper implements IRunnableWithProgress {
 
-	protected IWorkspaceRunnable workspaceRunnable;
+    protected IWorkspaceRunnable workspaceRunnable;
 
-	public RunnableWithProgressWrapper(IWorkspaceRunnable workspaceRunnable) {
-		this.workspaceRunnable = workspaceRunnable;
-	}
+    public RunnableWithProgressWrapper(IWorkspaceRunnable workspaceRunnable) {
+        this.workspaceRunnable = workspaceRunnable;
+    }
 
-	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		try {
-			if (workspaceRunnable != null) {
-				workspaceRunnable.run(monitor);
-			}
-		} catch (CoreException e) {
-			throw new InvocationTargetException(e);
-		}
-	}
+    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+        try {
+            if (workspaceRunnable != null) {
+                workspaceRunnable.run(monitor);
+            }
+        } catch (CoreException e) {
+            throw new InvocationTargetException(e);
+        }
+    }
 }

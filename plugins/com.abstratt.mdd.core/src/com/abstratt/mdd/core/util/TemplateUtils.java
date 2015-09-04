@@ -41,14 +41,16 @@ public class TemplateUtils {
      * @param parameterable
      * @return
      */
-    public static <PE extends ParameterableElement, TE extends TemplateableElement> PE applySubstitution(TE templateable, PE parameterable) {
+    public static <PE extends ParameterableElement, TE extends TemplateableElement> PE applySubstitution(
+            TE templateable, PE parameterable) {
         if (!parameterable.isTemplateParameter())
             return parameterable;
         ParameterSubstitutionMap substitutions = new ParameterSubstitutionMap(templateable);
         return applySubstitution(parameterable, substitutions);
     }
 
-    public static <PE extends ParameterableElement> PE applySubstitution(PE parameterable, ParameterSubstitutionMap substitutions) {
+    public static <PE extends ParameterableElement> PE applySubstitution(PE parameterable,
+            ParameterSubstitutionMap substitutions) {
         return (PE) substitutions.resolveTemplateParameter(parameterable);
     }
 
@@ -60,8 +62,8 @@ public class TemplateUtils {
      * @return the created bound element
      */
     @SuppressWarnings("unchecked")
-    public static <TE extends TemplateableElement & NamedElement, PE extends ParameterableElement> TE createBinding(Namespace namespace,
-            TE template, List<PE> actualParams) {
+    public static <TE extends TemplateableElement & NamedElement, PE extends ParameterableElement> TE createBinding(
+            Namespace namespace, TE template, List<PE> actualParams) {
         TemplateSignature signature = template.getOwnedTemplateSignature();
         List<TemplateParameter> formalParameters = signature.getParameters();
         Assert.isTrue(formalParameters.size() == actualParams.size());
@@ -141,7 +143,8 @@ public class TemplateUtils {
         return bound.getOwner() == null ? null : findTemplateBinding(bound.getOwner(), signature);
     }
 
-    public static ParameterSubstitutionMap findTemplateParameterSubstitutions(Element source, TemplateSignature targetSignature) {
+    public static ParameterSubstitutionMap findTemplateParameterSubstitutions(Element source,
+            TemplateSignature targetSignature) {
         TemplateBinding binding = findTemplateBinding(source, targetSignature);
         return binding == null ? null : new ParameterSubstitutionMap(binding.getBoundElement());
     }
@@ -184,8 +187,10 @@ public class TemplateUtils {
                 return false;
             // same signature implies same template... now check the actual
             // parameters for each substitution
-            final EList<TemplateParameterSubstitution> sourceParameterSubstitutions = sourceBinding.getParameterSubstitutions();
-            final EList<TemplateParameterSubstitution> destinationParameterSubstitutions = destinationBinding.getParameterSubstitutions();
+            final EList<TemplateParameterSubstitution> sourceParameterSubstitutions = sourceBinding
+                    .getParameterSubstitutions();
+            final EList<TemplateParameterSubstitution> destinationParameterSubstitutions = destinationBinding
+                    .getParameterSubstitutions();
             if (sourceParameterSubstitutions.size() != destinationParameterSubstitutions.size())
                 return false;
             for (int i = 0; i < sourceParameterSubstitutions.size(); i++) {
@@ -202,7 +207,7 @@ public class TemplateUtils {
     public static boolean isTemplateInstance(TemplateableElement t) {
         return !t.getTemplateBindings().isEmpty();
     }
-    
+
     public static boolean isFullyResolvedTemplateInstance(Classifier t) {
         if (t.isTemplate())
             return false;
@@ -210,10 +215,11 @@ public class TemplateUtils {
             return false;
         for (TemplateBinding templateBinding : t.getTemplateBindings())
             for (TemplateParameterSubstitution subs : templateBinding.getParameterSubstitutions())
-                if (subs.getActual() instanceof TemplateableElement && !isFullyResolvedTemplateInstance((Classifier) subs.getActual()))
+                if (subs.getActual() instanceof TemplateableElement
+                        && !isFullyResolvedTemplateInstance((Classifier) subs.getActual()))
                     return false;
         return true;
-                    
+
     }
 
     /**
