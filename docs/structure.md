@@ -397,7 +397,7 @@ operation calls can trigger transitions).
 For example:
 
     class MyClass
-           attribute value : Integer;
+        attribute value : Integer;
         attribute status : SM1;
         operation action1();
         operation action2();
@@ -408,7 +408,7 @@ For example:
             end;
             state State1
                 transition on call(action1) to State1 when { self.value > 3 };
-                           transition on call(action1) to State2 when { self.value <= 3 };
+                transition on call(action1) to State2 when { self.value <= 3 };
                 transition on call(action2) to State2;
             end;
             state State2
@@ -742,3 +742,4 @@ clashing with keywords. For example:
 escaped string will exist anywhere other than the source.
 
 {% include footer.md %}    
+
