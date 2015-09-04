@@ -742,3 +742,4 @@ clashing with keywords. For example:
 escaped string will exist anywhere other than the source.
 
 {% include footer.md %}    
+
