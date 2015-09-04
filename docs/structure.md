@@ -125,7 +125,8 @@ that one for classes.
 
     end;
 
-### Data Types (1.2+)
+### Data Types 
+(1.2+)
 
 Data types also use a similar syntax as class declarations, with a
 different keyword ("datatype"). Also, data types cannot implement
@@ -139,7 +140,8 @@ not supported either.
 
     end;
 
-### Primitive Types (1.2+)
+### Primitive Types 
+(1.2+)
 
 Primitive types have the simplest syntax of all classifiers:
 
@@ -165,7 +167,8 @@ For example:
 There is no support at this time for specifying explicit values for
 literals.
 
-### Components (1.10+)
+### Components 
+(1.10+)
 
     component <component-name>
         <parts>
@@ -180,7 +183,8 @@ For example:
         provided port expensePayer : ExpensePayer connector expenses.expensePayer, expensePaymentService;
     end;
 
-### Signals (1.10+)
+### Signals
+(1.10+)
 
     signal <signal-name>
         <attributes>
@@ -259,7 +263,8 @@ Port types must be interfaces. A port is required by default.
 See examples in
 [components](structure.html#Components).
 
-### Receptions (1.10+)
+### Receptions 
+(1.10+)
 
 Receptions must have one and only one parameter, which must be of a
 signal type.
@@ -298,11 +303,13 @@ Classes and operations can be marked as 'abstract'.
 Operation parameters can optionally be marked as 'in' (the default),
 'out' or 'inout'.
 
-#### Read-only (1.7+)
+#### Read-only
+(1.7+)
 
 Attributes (a.k.a properties) can be declared as 'readonly'.
 
-#### Derived (1.6+)
+#### Derived
+(1.6+)
 
 Attributes (a.k.a properties) can be declared as 'derived'. In that
 case, you need to provide the behavior that defines the property's value
@@ -310,11 +317,13 @@ via a [closure
 literal](behavior.html#Closures "TextUML Action Language")
 (except if the attribute is an id, see below).
 
-#### Id (1.10+)
+#### Id
+(1.10+)
 
 Attributes can be declared as 'id'.
 
-#### Port direction (1.10+)
+#### Port direction 
+(1.10+)
 
 Ports can be declared as 'required' (default) or 'provided'.
 
@@ -376,8 +385,10 @@ reference type, where one end is owned by the declaring class.
       [ composition <reference-name> : <referenced-type-name>; ]
       [ aggregation <reference-name> : <referenced-type-name>; ]
 
-State machines (1.10+)
+State machines 
 ----------------------
+(1.10+)
+
 
 Classes can declare state machines. States can be regular, initial or
 terminate. Transitions can be triggered by events (currently only
@@ -428,8 +439,9 @@ triggered or when states are entered/exited/assumed:
          [state ... end;] 
     end;
 
-Dependencies (1.3+)
+Dependencies
 -------------------
+(1.3+)
 
 Classifiers can declare dependencies on any types available.
 
@@ -490,7 +502,8 @@ Also, see the section on
 [annotations](structure.html#Annotations)
 to learn how to use stereotypes in your models.
 
-### Required extensions (1.2+)
+### Required extensions
+(1.2+)
 
 In the example below, the stereotype foo is required to be applied to
 any operation element.
