@@ -405,17 +405,18 @@ For example:
         statemachine SM1
             initial state State0
                 transition on call(action1) to State1;
-                   end;
+            end;
             state State1
                 transition on call(action1) to State1 when { self.value > 3 };
                            transition on call(action1) to State2 when { self.value <= 3 };
                 transition on call(action2) to State2;
-                   end;
+            end;
             state State2
                 transition on call(action1) to State1;
                 transition on call(action3) to State3;
-                   end;
-            terminate state State3 end;
+            end;
+            terminate state State3 
+            end;
         end;
     end;
 
