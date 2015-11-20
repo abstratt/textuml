@@ -387,7 +387,10 @@ public class ActivityUtils {
         }
         return terminalActions;
     }
-
+    
+    public static List<Action> findStatements(Activity activity) {
+        return findStatements(getRootAction(activity));
+    }
     public static Action findSingleStatement(StructuredActivityNode rootAction) {
         List<Action> statements = findStatements(rootAction);
         if (statements.size() != 1)
