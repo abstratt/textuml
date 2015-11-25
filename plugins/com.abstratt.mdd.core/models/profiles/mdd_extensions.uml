@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions">
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.0">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2015/04/13 07:52:22 944 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2015/11/24 08:08:26 585 -0200"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -134,6 +134,15 @@
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
         </eStructuralFeatures>
       </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Derivation" name="Derivation">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Derivation-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Derivation"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Derivation-context" name="context" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//TypedElement"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Derivation-base_Activity" name="base_Activity" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Activity"/>
+        </eStructuralFeatures>
+      </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access" name="Access">
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Access"/>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-base_Constraint" name="base_Constraint" ordered="false" lowerBound="1">
@@ -175,6 +184,9 @@
   <elementImport xmi:id="_elementImport.2" visibility="private">
     <importedElement xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
   </elementImport>
+  <packageImport xmi:id="_packageImport.0">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="Test" name="Test">
     <ownedAttribute xmi:id="Test-base_Class" name="base_Class" association="Class_Test">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
@@ -319,6 +331,16 @@
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
     </ownedAttribute>
   </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Derivation" name="Derivation">
+    <ownedAttribute xmi:id="Derivation-context" name="context">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#TypedElement"/>
+      <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Derivation-context-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Derivation-context-_upperValue" value="1"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="Derivation-base_Activity" name="base_Activity" association="Activity_Derivation">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
+    </ownedAttribute>
+  </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="Access" name="Access">
     <ownedAttribute xmi:id="Access-base_Constraint" name="base_Constraint" association="Constraint_Access">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
@@ -396,6 +418,9 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_Invariant" name="Constraint_Invariant" memberEnd="Constraint_Invariant-extension_Invariant Invariant-base_Constraint">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_Invariant-extension_Invariant" name="extension_Invariant" type="Invariant" aggregation="composite" association="Constraint_Invariant"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Activity_Derivation" name="Activity_Derivation" memberEnd="Activity_Derivation-extension_Derivation Derivation-base_Activity">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Activity_Derivation-extension_Derivation" name="extension_Derivation" type="Derivation" aggregation="composite" association="Activity_Derivation"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_Access" name="Constraint_Access" memberEnd="Constraint_Access-extension_Access Access-base_Constraint">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_Access-extension_Access" name="extension_Access" type="Access" aggregation="composite" association="Constraint_Access"/>

@@ -7,6 +7,7 @@ import java.util.Deque
 import java.util.LinkedList
 
 import static com.abstratt.mdd.target.base.IBehaviorGenerator.*
+import java.util.function.Supplier
 
 public interface IBehaviorGenerator extends IBasicBehaviorGenerator {
     
@@ -57,6 +58,15 @@ public interface IBehaviorGenerator extends IBasicBehaviorGenerator {
         if (context != top)
             throw new IllegalStateException
         contextStack.pop
+    }
+    
+    def <R> R runInContext(IExecutionContext context, Supplier<R> p) {
+    	enterContext(context)
+    	try {
+    		return p.get()
+    	} finally {
+	    	leaveContext(context)
+    	}
     }
 
     def getContext() {

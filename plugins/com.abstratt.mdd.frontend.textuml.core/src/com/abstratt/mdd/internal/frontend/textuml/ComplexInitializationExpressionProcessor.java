@@ -10,6 +10,7 @@ import org.eclipse.uml2.uml.ValueSpecification;
 
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.util.ActivityUtils;
+import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AComplexInitializationExpression;
@@ -42,6 +43,7 @@ public class ComplexInitializationExpressionProcessor {
             ValueSpecification reference = ActivityUtils.buildBehaviorReference(currentClass.getNearestPackage(),
                     activity, null);
 
+            MDDExtensionUtils.makeDerivation(initializableElement, activity);
             if (initializableElement instanceof Property)
                 ((Property) initializableElement).setDefaultValue(reference);
             else if (initializableElement instanceof Parameter)

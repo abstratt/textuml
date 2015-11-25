@@ -35,6 +35,7 @@ class Collection<T>
   query <N> min(transformer : {(:T):N}) : N;
   query mode() : T;
   query median() : T;
+  query average(transformer : {(:T):N}) : N;
   query <N> maxElement(transformer : {(:T):N}) : T[0,1];
   query <N> minElement(transformer : {(:T):N}) : T[0,1];
   query join(delimiter : String := ", ") : String;
