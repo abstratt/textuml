@@ -1,6 +1,8 @@
 package com.abstratt.mdd.core.util;
 
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -28,6 +30,21 @@ public class ClassifierUtils {
         });
         return specifics;
     }
+    
+
+    public static <T> T collectFromHierarchy(IRepository repository, final Classifier baseClass, boolean includeSubclasses, T collected, BiConsumer<Classifier, T> consumer) {
+        Consumer<Classifier> collector = c -> consumer.accept(c, collected);
+        if (!includeSubclasses) 
+            collector.accept(baseClass);
+        else
+            runOnHierarchy(repository, baseClass, collector);
+        return collected;
+    }
+    
+    public static void runOnHierarchy(IRepository repository, Classifier general, Consumer<Classifier> visitor) {
+        List<Classifier> specifics = ClassifierUtils.findAllSpecifics(repository, general, true);
+        specifics.forEach(visitor);
+    }    
 
     public static Classifier findClassifier(IRepository repository, String className) {
         return repository.findNamedElement(className, UMLPackage.Literals.CLASSIFIER, null);
