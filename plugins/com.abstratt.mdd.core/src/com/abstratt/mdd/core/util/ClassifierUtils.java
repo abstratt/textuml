@@ -7,8 +7,10 @@ import java.util.function.Consumer;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.query.conditions.eobjects.EObjectCondition;
+import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -16,14 +18,17 @@ import org.eclipse.uml2.uml.UMLPackage;
 import com.abstratt.mdd.core.IRepository;
 
 public class ClassifierUtils {
-    public static List<Classifier> findAllSpecifics(IRepository repository, final Classifier general,
-            final boolean includeAbstract) {
+    public static List<Classifier> findAllSpecifics(IRepository repository, final Classifier general) {
+    	boolean isInterface = general instanceof Interface;
         List<Classifier> specifics = repository.findInAnyPackage(new EObjectCondition() {
             @Override
             public boolean isSatisfied(EObject object) {
                 if (object instanceof Classifier) {
                     Classifier classifier = (Classifier) object;
-                    return (includeAbstract || !classifier.isAbstract()) && classifier.conformsTo(general);
+                    if (classifier.conformsTo(general))
+                    	return true;
+                    if (isInterface  && object instanceof BehavioredClassifier)
+                    	return doesImplement((BehavioredClassifier) object, (Interface) general);
                 }
                 return false;
             }
@@ -31,7 +36,6 @@ public class ClassifierUtils {
         return specifics;
     }
     
-
     public static <T> T collectFromHierarchy(IRepository repository, final Classifier baseClass, boolean includeSubclasses, T collected, BiConsumer<Classifier, T> consumer) {
         Consumer<Classifier> collector = c -> consumer.accept(c, collected);
         if (!includeSubclasses) 
@@ -42,7 +46,7 @@ public class ClassifierUtils {
     }
     
     public static void runOnHierarchy(IRepository repository, Classifier general, Consumer<Classifier> visitor) {
-        List<Classifier> specifics = ClassifierUtils.findAllSpecifics(repository, general, true);
+        List<Classifier> specifics = ClassifierUtils.findAllSpecifics(repository, general);
         specifics.forEach(visitor);
     }    
 
@@ -64,5 +68,9 @@ public class ClassifierUtils {
         if (toTest == generalCandidate)
             return true;
         return toTest.getGeneralizations().stream().anyMatch(g -> isKindOf(g.getGeneral(), generalCandidate));
+    }
+    
+    public static boolean doesImplement(BehavioredClassifier toTest, Interface candidateInterface) {
+        return toTest.getAllImplementedInterfaces().stream().anyMatch(i -> i == candidateInterface);
     }
 }
