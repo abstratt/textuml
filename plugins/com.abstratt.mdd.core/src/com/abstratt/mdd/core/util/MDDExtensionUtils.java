@@ -47,7 +47,6 @@ public class MDDExtensionUtils {
     private static final String EXTERNAL_CLASS_STEREOTYPE = "mdd_extensions::External";
     private static final String OBJECT_INITIALIZATION_STEREOTYPE = "mdd_extensions::ObjectInitialization";
     private static final String CAST_STEREOTYPE = "mdd_extensions::Cast";
-    private static final String PERSISTENT_STEREOTYPE = "mdd_extensions::Persistent";
     private static final String SIGNATURE_STEREOTYPE = "mdd_extensions::Signature";
     private static final String SIGNATURE_CONTEXT = "context";
     private static final String RULE_STEREOTYPE = "mdd_extensions::Rule";
@@ -296,10 +295,6 @@ public class MDDExtensionUtils {
     public static void makeExternal(Classifier currentClassifier) {
         Stereotype externalStereotype = StereotypeUtils.findStereotype(EXTERNAL_CLASS_STEREOTYPE);
         StereotypeUtils.safeApplyStereotype(currentClassifier, externalStereotype);
-    }
-
-    public static boolean isPersistent(Classifier classifier) {
-        return StereotypeUtils.hasStereotype(classifier, PERSISTENT_STEREOTYPE);
     }
 
     public static boolean isSignature(Element element) {
