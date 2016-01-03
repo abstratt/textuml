@@ -373,4 +373,26 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         assertNull(derived.getAssociation());
     }
 
+    public void testDerivedAssociation() throws CoreException {
+        String source = "";
+        source += "model simple;\n";
+        source += "import mdd_types;\n";
+        source += "class Account\n";
+        source += "    attribute balance : Double;\n";
+        source += "end;\n";
+        source += "abstract class Client\n";
+        source += "end;\n";
+        source += "class Person specializes Client\n";
+        source += "    derived attribute totalWorth : Double := { self<-AccountClient->account.sum((a : Account) : Double { a.balance })};\n";
+        source += "end;\n";
+        source += "class Company specializes Client\n";
+        source += "end;\n";
+        source += "association AccountClient\n";
+        source += "  navigable role account : Account[*];\n";
+        source += "  navigable role client : Client;\n";
+        source += "end;\n";
+        source += "end.";
+        parseAndCheck(source);
+    }
+
 }

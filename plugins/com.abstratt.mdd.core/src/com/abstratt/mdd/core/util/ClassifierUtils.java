@@ -3,6 +3,7 @@ package com.abstratt.mdd.core.util;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -48,7 +49,14 @@ public class ClassifierUtils {
     public static void runOnHierarchy(IRepository repository, Classifier general, Consumer<Classifier> visitor) {
         List<Classifier> specifics = ClassifierUtils.findAllSpecifics(repository, general);
         specifics.forEach(visitor);
-    }    
+    }
+    
+    public static <T> T findUpHierarchy(IRepository repository, Classifier current, Function<Classifier, T> visitor) {
+    	T result = visitor.apply(current);
+    	if (result != null)
+    		return result;
+    	return current.getGenerals().stream().map(g -> findUpHierarchy(repository, g, visitor)).filter( it -> it != null).findAny().orElse(null);
+    }
 
     public static Classifier findClassifier(IRepository repository, String className) {
         return repository.findNamedElement(className, UMLPackage.Literals.CLASSIFIER, null);
