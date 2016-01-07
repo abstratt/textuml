@@ -70,6 +70,7 @@ import com.abstratt.mdd.core.util.ReceptionUtils;
 import com.abstratt.mdd.core.util.TemplateUtils;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.AnonymousDisconnectedPort;
+import com.abstratt.mdd.frontend.core.AssociationMemberClashesWithMemberEnd;
 import com.abstratt.mdd.frontend.core.CannotLoadFromLocation;
 import com.abstratt.mdd.frontend.core.CannotSpecializeClassifier;
 import com.abstratt.mdd.frontend.core.DuplicateSymbol;
@@ -509,6 +510,14 @@ public class StructureGenerator extends AbstractGenerator {
                                 AAssociationRoleDecl.class);
                         processAnnotations(roleDeclaration.getAnnotations(), ownedEnd);
                         CommentUtils.applyComment(roleDeclaration.getModelComment(), ownedEnd);
+                        getRefTracker().add((repo) -> {
+	                        if (ownedEnd.getOpposite() != null && ownedEnd.getOpposite().getType() != null) {
+	                        	Classifier otherType = (Classifier) ownedEnd.getOpposite().getType();
+	                        	if (FeatureUtils.findAttribute(otherType, ownedEnd.getName(), false, true) != null)
+	                        		problemBuilder.addProblem(new AssociationMemberClashesWithMemberEnd(ownedEnd.getName(), otherType.getName()),
+	                        				ownedEndNode);
+	                        }
+                        }, IReferenceTracker.Step.LAST);
                     }
                 }, IReferenceTracker.Step.GENERAL_RESOLUTION);
             }

@@ -2,9 +2,7 @@ package com.abstratt.mdd.core.tests.frontend.textuml;
 
 import java.util.Arrays;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Association;
@@ -14,11 +12,17 @@ import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
 import org.eclipse.uml2.uml.Property;
 
 import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
+import com.abstratt.mdd.core.tests.harness.FixtureHelper;
+import com.abstratt.mdd.frontend.core.AssociationMemberClashesWithMemberEnd;
 import com.abstratt.mdd.frontend.core.UnknownType;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.WrongNumberOfRoles;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 public class AssociationTests extends AbstractRepositoryBuildingTests {
 
@@ -393,6 +397,29 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         source += "end;\n";
         source += "end.";
         parseAndCheck(source);
+    }
+    
+    public void testConflictBetweenAttributeAndAssociationEnd() throws CoreException {
+        String source = "";
+        source += "model simple;\n";
+        source += "import mdd_types;\n";
+        source += "class Account\n";
+        source += "    attribute client : Client;\n";
+        source += "end;\n";
+        source += "class Client\n";
+        source += "    attribute account : Account;\n";        
+        source += "end;\n";
+        source += "association AccountClient\n";
+        source += "  navigable role account : Account[*];\n";
+        source += "  navigable role client : Client;\n";
+        source += "end;\n";
+        source += "end.";
+        IProblem[] problems = parse(source);
+        assertEquals(FixtureHelper.joinMessages(problems), 2, problems.length);
+        Arrays.stream(problems).forEach(p -> { 
+        	Assert.isTrue(p.getSeverity() == Severity.WARNING);
+        	Assert.isTrue(p instanceof AssociationMemberClashesWithMemberEnd);
+        });
     }
 
 }
