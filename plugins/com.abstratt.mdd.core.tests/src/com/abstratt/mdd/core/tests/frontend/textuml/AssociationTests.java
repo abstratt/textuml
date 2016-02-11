@@ -211,8 +211,8 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         String source = "";
         source += "model simple;\n";
         source += "association AccountClient\n";
-        source += "  navigable role account : Account[*];\n";
-        source += "  navigable role client : Client[1];\n";
+        source += "  role account : Account[*];\n";
+        source += "  !navigable role client : Client[1];\n";
         source += "end;\n";
         source += "end.";
         parseAndCheck(getSimpleModelSource(), source);
@@ -225,9 +225,11 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         assertNotNull(association);
         Property accountEnd = association.getOwnedEnd("account", accountClass);
         assertNotNull(accountEnd);
+        assertTrue(accountEnd.isNavigable());
         assertEquals(AggregationKind.NONE_LITERAL, accountEnd.getAggregation());
         Property clientEnd = association.getOwnedEnd("client", clientClass);
         assertNotNull(clientEnd);
+        assertTrue(!clientEnd.isNavigable());
         assertEquals(AggregationKind.NONE_LITERAL, clientEnd.getAggregation());
         assertEquals(0, ((LiteralInteger) accountEnd.getLowerValue()).getValue());
         assertEquals(LiteralUnlimitedNatural.UNLIMITED,

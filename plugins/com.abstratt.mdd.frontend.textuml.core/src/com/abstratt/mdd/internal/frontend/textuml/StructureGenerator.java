@@ -129,6 +129,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AInvariantDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ALoadDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AModifiers;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANamedSimpleValue;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ANavigableAssociationModifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationHeader;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalAlias;
@@ -451,11 +452,11 @@ public class StructureGenerator extends AbstractGenerator {
     @Override
     public void caseAAssociationRoleDecl(final AAssociationRoleDecl node) {
         super.caseAAssociationRoleDecl(node);
-        final boolean[] navigable = { false };
+        final boolean[] navigable = { true };
         node.getAssociationModifiers().apply(new DepthFirstAdapter() {
             @Override
-            public void caseTNavigable(TNavigable node) {
-                navigable[0] = true;
+            public void caseANavigableAssociationModifier(ANavigableAssociationModifier node) {
+                navigable[0] = node.getNot() == null;
             }
         });
         final Association association = (Association) namespaceTracker.currentNamespace(null);
