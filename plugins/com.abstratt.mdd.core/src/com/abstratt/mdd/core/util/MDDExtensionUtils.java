@@ -21,15 +21,19 @@ import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Parameter;
+import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Type;
+import org.eclipse.uml2.uml.TypedElement;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.Vertex;
 
 public class MDDExtensionUtils {
+	private static final String DERIVATION_STEREOTYPE = "mdd_extensions::Derivation";
+	private static final String DERIVATION_CONTEXT = "context";
     private static final String BASIC_VALUE_STEREOTYPE = "mdd_extensions::BasicValue";
     private static final String VERTEX_LITERAL_STEREOTYPE = "mdd_extensions::VertexLiteral";
     private static final String CLOSURE_STEREOTYPE = "mdd_extensions::Closure";
@@ -43,7 +47,6 @@ public class MDDExtensionUtils {
     private static final String EXTERNAL_CLASS_STEREOTYPE = "mdd_extensions::External";
     private static final String OBJECT_INITIALIZATION_STEREOTYPE = "mdd_extensions::ObjectInitialization";
     private static final String CAST_STEREOTYPE = "mdd_extensions::Cast";
-    private static final String PERSISTENT_STEREOTYPE = "mdd_extensions::Persistent";
     private static final String SIGNATURE_STEREOTYPE = "mdd_extensions::Signature";
     private static final String SIGNATURE_CONTEXT = "context";
     private static final String RULE_STEREOTYPE = "mdd_extensions::Rule";
@@ -122,6 +125,8 @@ public class MDDExtensionUtils {
         newConstraintBehavior.setValue(constraintStereotype, "constraint", constraint);
         return newConstraintBehavior;
     }
+    
+    
 
     public static boolean isWildcardType(Type toCheck) {
         return StereotypeUtils.hasStereotype(toCheck, WILDCARD_TYPE_STEREOTYPE);
@@ -292,10 +297,6 @@ public class MDDExtensionUtils {
         StereotypeUtils.safeApplyStereotype(currentClassifier, externalStereotype);
     }
 
-    public static boolean isPersistent(Classifier classifier) {
-        return StereotypeUtils.hasStereotype(classifier, PERSISTENT_STEREOTYPE);
-    }
-
     public static boolean isSignature(Element element) {
         return element instanceof Interface && StereotypeUtils.hasStereotype(element, SIGNATURE_STEREOTYPE);
     }
@@ -366,7 +367,21 @@ public class MDDExtensionUtils {
         Stereotype castStereotype = StereotypeUtils.findStereotype(CAST_STEREOTYPE);
         StereotypeUtils.safeApplyStereotype(action, castStereotype);
     }
+    
+    public static void makeDerivation(TypedElement context, Activity derivation) {
+        Stereotype castStereotype = StereotypeUtils.findStereotype(DERIVATION_STEREOTYPE);
+        StereotypeUtils.safeApplyStereotype(derivation, castStereotype);
+        derivation.setValue(castStereotype, DERIVATION_CONTEXT, context);
+    }
+    
+    public static boolean isDerivation(Activity toCheck) {
+        return StereotypeUtils.hasStereotype(toCheck, DERIVATION_STEREOTYPE);
+    }
 
+    public static TypedElement getDerivationContext(Activity toCheck) {
+        return (TypedElement) StereotypeUtils.getValue(toCheck, DERIVATION_STEREOTYPE, DERIVATION_CONTEXT);
+    }
+    
     public static boolean isCast(Action toCheck) {
         boolean isCast = StereotypeUtils.hasStereotype(toCheck, CAST_STEREOTYPE);
         return isCast;

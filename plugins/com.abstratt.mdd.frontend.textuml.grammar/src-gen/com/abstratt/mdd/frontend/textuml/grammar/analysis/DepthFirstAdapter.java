@@ -1757,6 +1757,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseANavigableAssociationModifier(ANavigableAssociationModifier node)
     {
         inANavigableAssociationModifier(node);
+        if(node.getNot() != null)
+        {
+            node.getNot().apply(this);
+        }
         if(node.getNavigable() != null)
         {
             node.getNavigable().apply(this);

@@ -65,6 +65,11 @@ end;
 stereotype Invariant extends UML::Constraint
 end;
 
+stereotype Derivation extends UML::Activity
+    property context : UML::TypedElement;
+end;
+
+
 stereotype Access extends UML::Constraint
 end;
 

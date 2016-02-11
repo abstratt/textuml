@@ -71,7 +71,7 @@ public class AbstractRepositoryTests extends TestCase {
     }
 
     protected IFileStore computeBaseDir() {
-        final String tempDir = System.getProperty("java.io.tmpdir");
+        final String tempDir = System.getProperty("mdd.tests.tmpdir", System.getProperty("java.io.tmpdir"));
         IFileStore baseDir = EFS.getLocalFileSystem().getStore(new Path(tempDir)).getChild("tests");
         return baseDir;
     }

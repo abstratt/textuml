@@ -6,6 +6,6 @@ Bundle-Version: 2.1.201501.qualifier
 Bundle-Vendor: Abstratt Technologies
 Export-Package: com.abstratt.resman,
  com.abstratt.resman.impl;x-friends:="com.abstratt.resman.tests"
-Require-Bundle: org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.10.0",
  com.abstratt.pluginutils
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

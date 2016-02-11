@@ -5,60 +5,145 @@ apply StandardProfile;
 
 import mdd_types;
 
+(* Provides a protocol for any multivalued data source. *)
 class Collection<T>
-  query add(toAdd : T) : T[*];
-  query count(predicate : {(:T) : Boolean}) : Integer;
-  query includes(object : T) : Boolean;
-  query includesAll(c2 : T[*]) : Boolean;
-  query includesAny(c2 : T[*]) : Boolean;
-  query isEmpty() : Boolean;
-  query size() : Integer;
-  query exists(predicate : {(:T) : Boolean}) : Boolean;
-  query \any(predicate : {(:T) : Boolean}) : T[0,1];
-  query one() : T;
-  query select(filter : {(:T) : Boolean}) : T[*];
-  query <R> collect(mapping : {(:T) : R}) : R[*];  
-  query forAll(predicate : {(:T) : Boolean}) : Boolean;
-  operation forEach(predicate : {(:T)});
-  query sortedBy(c : {(:T,:T) : Integer}) : T[*];
-  query asOrderedSet() : T[*] {ordered,unique};
-  query asSequence() : T[*] {ordered,nonunique};
-  query asSet() : T[*] {unique,unordered};
-  query asBag() : T[*] {nonunique,unordered};
-  query union(another : T[*]) : T[*];
-  (* Collects and intersects all collections obtained from each of the elements in this collection. *)
-  query collectMany(p : {(:T) : T[*]}) : T[*];
-  query groupBy(grouper : {(:T) : any}) : Grouping<T>;
-  query <R> reduce(reductor : {(:T, :R[1,*]) : R}, \initial : R) : R;
-  query <N> sum(transformer : {(:T):N}) : N;
-  query <N> max(transformer : {(:T):N}) : N;
-  query <N> min(transformer : {(:T):N}) : N;
-  query mode() : T;
-  query median() : T;
-  query join(delimiter : String := ", ") : String;
+
+    (* Adds the given object to a collection, returning a collection that now includes the given object. *)
+    query add(toAdd : T) : T[*];
+
+    (* Counts the number of elements in the collection that satisfy the given predicate. *)
+    query count(predicate : {( : T) : Boolean}) : Integer;
+
+    (* Determines whether the collection includes the given element. *)
+    query includes(object : T) : Boolean;
+
+    (* Determines whether the collection includes all the elements in the given second collection. *)
+    query includesAll(c2 : T[*]) : Boolean;
+
+    (* Determines whether the collection includes any of the elements in the given second collection. *)
+    query includesAny(c2 : T[*]) : Boolean;
+
+    (* Determines whether the collection has no elements. *)
+    query isEmpty() : Boolean;
+
+    (* Computes the size of the collection. *)
+    query size() : Integer;
+
+    (* Determines whether any of the elements of the collection satisfies the given predicate. *)
+    query exists(predicate : {( : T) : Boolean}) : Boolean;
+
+    (* Determines whether all elements in this collection satisfy the given predicate. *)
+    query forAll(predicate : {( : T) : Boolean}) : Boolean;
+
+    (* Returns an element of the collection that satisfies the given predicate, if any. *)
+    query \any(predicate : {( : T) : Boolean}) : T[0, 1];
+
+    (* Returns an element of the collection, if the collection is not empty. *)
+    query one() : T[0, 1];
+
+    (* Returns a new collection containing the subset of this collection that satisfy the given predicate. *)
+    query select(filter : {( : T) : Boolean}) : T[*];
+
+    (* Returns a new collection containing an element that is determined for every element in this collection by applying the given mapping. *)
+    query<R>collect(mapping : {( : T) : R}) : R[*];
+
+    (* Applies the given mutator to every element of this collection. *)
+    operation forEach(mutator : {( : T)});
+
+    (* Returns a new collection containing the elements of this collection sorted by the given criteria. *)
+    query sortedBy(criteria : {( : T,  : T) : Integer}) : T[*];
+
+    (* Returns a new collection containing the elements of this collection as an ordered set (no duplicates). *)
+    query asOrderedSet() : T[*]{ordered, unique};
+
+    (* Returns a new collection containing the elements of this collection as a sequence (supports order). *)
+    query asSequence() : T[*]{ordered, nonunique};
+
+    (* Returns a new collection containing the elements of this collection as a set (no duplicates). *)
+    query asSet() : T[*]{unique, unordered};
+
+    (* Returns a new collection containing the elements of this collection as a bag (duplicates allowed, no order). *)
+    query asBag() : T[*]{nonunique, unordered};
+
+    (* Returns a new collection containing all the elements of this collection plus the elements of the given collection. *)
+    query union(another : T[*]) : T[*];
+
+    (* Collects and intersects all collections obtained from each of the elements in this collection. *)
+    query collectMany(p : {( : T) : T[*]}) : T[*];
+
+    (* Groups the elements of this collection using the given grouping criteria. *)
+    query groupBy(grouper : {( : T) : any}) : Grouping<T>;
+
+    (* Produces a single value by applying the given reductor to every element of the collection. *)
+    query<R>reduce(reductor : {( : T,  : R[1, *]) : R}, \initial : R) : R;
+
+    (* Sums all values the collection using the given quantifier to map an element to a number. *)
+    query<N>sum(quantifier : {( : T) : N}) : N;
+
+    (* Determines the maximum quantified value for any element in the collection. *)
+    query<N>max(transformer : {( : T) : N}) : N;
+
+    (* Determines the minimum quantified value for any element in the collection. *)
+    query<N>min(transformer : {( : T) : N}) : N;
+
+    (* Determines the mode of the quantified values for all elements in the collection. *)
+    query mode() : T;
+
+    (* Determines the median of the quantified values for all elements in the collection. *)
+    query median() : T;
+
+    (* Determines the average of the quantified values for all elements in the collection. *)
+    query average(transformer : {( : T) : N}) : N;
+
+    (* Determines the element with the maximum quantified value for any element in the collection. *)
+    query<N>maxElement(transformer : {( : T) : N}) : T[0, 1];
+
+    (* Determines the element with the minimum quantified value for any element in the collection. *)
+    query<N>minElement(transformer : {( : T) : N}) : T[0, 1];
+
+    (* Concatenates the values of all elements in the collection using the given separator. *)
+    query join(delimiter : String := ", ") : String;
 end;
 
-
+(* Provides a protocol for grouped data sources (see Collection#groupBy). *)
 class Grouping<T>
-  query <R> groupCollect(group : {(:T[*]) : R}) : R[*];
-  query <R> groupReduce(group : {(:T[*]) : R}) : R[*];
-  query groupSelect(group : {(:T[*]) : Boolean}) : Grouping<T>;  
+
+    (* Produces a collection whose elements are obtained by applying the given collector to each group. *)
+    query<R>groupCollect(collector : {( : T[*]) : R}) : R[*];
+
+    (* Produces one value by applying the given reductor to every group. *)
+    query<R>groupReduce(reducer : {( : T[*]) : R}) : R[*];
+
+    (* Produces a new grouping that contains only the groups that satisfy the given group criteria. *)
+    query groupSelect(filter : {( : T[*]) : Boolean}) : Grouping<T>;
 end;
 
-class Sequence<T> specializes Collection<T>
-  query at(i : Integer) : T;
-  query head() : T[0,1];
-  query tail() : T[*];
+(* A collection were elements have a position. *)
+class Sequence<T>specializes Collection<T>
+
+    (* Returns the element at the given position in this sequence. *)
+    query at(i : Integer) : T;
+
+    (* Returns the first element in this sequence, if not empty *)
+    query head() : T[0, 1];
+
+    (* Returns the last element in this sequence, if not empty *)
+    query tail() : T[*];
 end;
 
-class Set<T> specializes Collection<T>
+(* A collection were elements are unique. *)
+class Set<T>specializes Collection<T>
 end;
 
-class Bag<T> specializes Collection<T>
-  query count(element : T) : Integer; 
+(* A collection were elements may not be unique. *)
+class Bag<T>specializes Collection<T>
+
+    (* Computes the number of times the given element appears in this bad. *)
+    query count(element : T) : Integer;
 end;
 
-class OrderedSet<T> specializes Set<T>
+(* A set where elements have been ordered by some criteria. *)
+class OrderedSet<T>specializes Set<T>
 end;
 
 end.

@@ -7,6 +7,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 @SuppressWarnings("nls")
 public final class ANavigableAssociationModifier extends PAssociationModifier
 {
+    private TNot _not_;
     private TNavigable _navigable_;
 
     public ANavigableAssociationModifier()
@@ -15,9 +16,12 @@ public final class ANavigableAssociationModifier extends PAssociationModifier
     }
 
     public ANavigableAssociationModifier(
+        @SuppressWarnings("hiding") TNot _not_,
         @SuppressWarnings("hiding") TNavigable _navigable_)
     {
         // Constructor
+        setNot(_not_);
+
         setNavigable(_navigable_);
 
     }
@@ -26,12 +30,38 @@ public final class ANavigableAssociationModifier extends PAssociationModifier
     public Object clone()
     {
         return new ANavigableAssociationModifier(
+            cloneNode(this._not_),
             cloneNode(this._navigable_));
     }
 
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseANavigableAssociationModifier(this);
+    }
+
+    public TNot getNot()
+    {
+        return this._not_;
+    }
+
+    public void setNot(TNot node)
+    {
+        if(this._not_ != null)
+        {
+            this._not_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._not_ = node;
     }
 
     public TNavigable getNavigable()
@@ -63,6 +93,7 @@ public final class ANavigableAssociationModifier extends PAssociationModifier
     public String toString()
     {
         return ""
+            + toString(this._not_)
             + toString(this._navigable_);
     }
 
@@ -70,6 +101,12 @@ public final class ANavigableAssociationModifier extends PAssociationModifier
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._not_ == child)
+        {
+            this._not_ = null;
+            return;
+        }
+
         if(this._navigable_ == child)
         {
             this._navigable_ = null;
@@ -83,6 +120,12 @@ public final class ANavigableAssociationModifier extends PAssociationModifier
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._not_ == oldChild)
+        {
+            setNot((TNot) newChild);
+            return;
+        }
+
         if(this._navigable_ == oldChild)
         {
             setNavigable((TNavigable) newChild);

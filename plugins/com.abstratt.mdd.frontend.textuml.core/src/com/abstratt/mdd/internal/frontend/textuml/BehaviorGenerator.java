@@ -83,6 +83,7 @@ import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
+import com.abstratt.mdd.core.util.ClassifierUtils;
 import com.abstratt.mdd.core.util.DataTypeUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
@@ -865,8 +866,8 @@ public class BehaviorGenerator extends AbstractGenerator {
                     node.getMinimalTypeIdentifier());
             throw new AbortedStatementCompilationException();
         }
-        boolean associated = sourceType.getRelationships(IRepository.PACKAGE.getAssociation()).contains(association);
-        if (!associated) {
+        Classifier associated = ClassifierUtils.findUpHierarchy(getRepository(), sourceType, it -> it.getRelationships(IRepository.PACKAGE.getAssociation()).contains(association) ? it : null);
+        if (associated == null) {
             problemBuilder.addProblem(
                     new NotInAssociation(sourceType.getQualifiedName(), association.getQualifiedName()),
                     node.getMinimalTypeIdentifier());

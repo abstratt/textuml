@@ -1767,6 +1767,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getNavigable().apply(this);
         }
+        if(node.getNot() != null)
+        {
+            node.getNot().apply(this);
+        }
         outANavigableAssociationModifier(node);
     }
 
