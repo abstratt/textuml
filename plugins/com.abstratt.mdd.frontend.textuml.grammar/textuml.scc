@@ -332,7 +332,7 @@ Productions
   
   association_modifier_list = association_modifier association_modifier_list | {empty} ;
   
-  association_modifier = {navigable} navigable ;
+  association_modifier = {navigable} not? navigable ;
   
 // classes and interfaces
 
