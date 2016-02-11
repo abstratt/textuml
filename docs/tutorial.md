@@ -213,13 +213,13 @@ unidirectional association from CartItem to Product:
     end;
 
     association CartItemProduct
-      navigable role item : CartItem[*];
-      role product : Product[1]; 
+      role item : CartItem[*];
+      navigable role product : Product[1]; 
     end;
 
     aggregation CartHasItems
-      navigable role cart : Cart[1];
       navigable role item : CartItem[*];
+      navigable role cart : Cart[1];      
     end;
 
     end.
