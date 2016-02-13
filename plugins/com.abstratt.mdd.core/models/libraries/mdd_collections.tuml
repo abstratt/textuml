@@ -93,7 +93,7 @@ class Collection<T>
     query median() : T;
 
     (* Determines the average of the quantified values for all elements in the collection. *)
-    query average(transformer : {( : T) : N}) : N;
+    query<N> average(transformer : {( : T) : N}) : N;
 
     (* Determines the element with the maximum quantified value for any element in the collection. *)
     query<N>maxElement(transformer : {( : T) : N}) : T[0, 1];
