@@ -71,7 +71,7 @@ public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
         parameter.setDirection(direction);
         createParameterTypeSetter(parameter).process(typeNode);
         // a default value was provided, consider this not required
-        if (parameter.getDefaultValue() != null)
+        if (parameter.getDefault() != null || parameter.getDefaultValue() != null)
         	parameter.setLowerValue(MDDUtil.createLiteralUnlimitedNatural(parent.getNearestPackage(), 0));
         return parameter;
     }
