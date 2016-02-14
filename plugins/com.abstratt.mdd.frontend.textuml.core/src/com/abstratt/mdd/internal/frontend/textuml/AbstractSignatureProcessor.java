@@ -16,6 +16,7 @@ import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.UMLPackage;
 
+import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
@@ -69,6 +70,9 @@ public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
         Parameter parameter = createParameter(name);
         parameter.setDirection(direction);
         createParameterTypeSetter(parameter).process(typeNode);
+        // a default value was provided, consider this not required
+        if (parameter.getDefaultValue() != null)
+        	parameter.setLowerValue(MDDUtil.createLiteralUnlimitedNatural(parent.getNearestPackage(), 0));
         return parameter;
     }
 
