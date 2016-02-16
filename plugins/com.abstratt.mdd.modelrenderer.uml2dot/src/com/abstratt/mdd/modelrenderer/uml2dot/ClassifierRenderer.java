@@ -37,53 +37,86 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
             return false;
         w.print('"' + element.getName() + "\" [");
         w.println("label=<");
-        w.enterLevel();
-        w.println("<TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"0\" cellborder=\"0\" port=\"port\">");
-        w.println("<TR><TD><TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"3\" CELLSPACING=\"0\" ALIGN=\"LEFT\">");
-        renderClassifierTypeAdornment(element, w, context);
-        renderStereotypeAdornments(element, w, context);
-        w.print("<TR><TD>");
-        w.print(element.getName());
-        w.println("</TD></TR>");
-        if (!EcoreUtil.isAncestor(context.getRoot(), element)) {
-            w.print("<TR><TD>");
-            final Package nearestPackage = element.getNearestPackage();
-            final String packageName = nearestPackage == null ? "?" : nearestPackage.getQualifiedName();
-            w.print("(from " + packageName + ")");
-            w.print("</TD></TR>");
-        }
-        w.exitLevel();
-        w.print("</TABLE></TD></TR>");
-
-        boolean attributesEmpty = !context.getSettings().getBoolean(SHOW_ATTRIBUTES)
-                || element.getAttributes().isEmpty();
-        if (showCompartments(context, attributesEmpty)) {
-            w.println("<TR><TD>");
-            if (!attributesEmpty) {
-                w.println("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
-                RenderingUtils.renderAll(context, element.getAttributes());
-                w.println("</TABLE>");
-            } else
-                w.println("<TABLE border=\"1\" cellborder=\"0\"><TR><TD> </TD></TR></TABLE>");
-            w.println("</TD></TR>");
-        }
-        List<? extends BehavioralFeature> behavioralFeatures = getBehavioralFeatures(element);
-        boolean operationsEmpty = !context.getSettings().getBoolean(SHOW_OPERATIONS) || behavioralFeatures.isEmpty();
-
-        if (showCompartments(context, operationsEmpty)) {
-            w.print("<TR><TD>");
-            if (!operationsEmpty) {
-                w.print("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
-                RenderingUtils.renderAll(context, behavioralFeatures);
-                w.print("</TABLE>");
-            } else
-                w.print("<TABLE border=\"1\" cellborder=\"0\"><TR><TD> </TD></TR></TABLE>");
-            w.print("</TD></TR>");
-        }
-        w.exitLevel();
-        w.println("</TABLE>>];");
-        w.enterLevel();
-        renderRelationships(element, context);
+        w.runInNewLevel(() -> {
+	        w.println("<TABLE border=\"0\" cellspacing=\"0\" cellpadding=\"0\" cellborder=\"0\" port=\"port\">");
+	        w.runInNewLevel(() -> {
+		        w.println("<TR><TD>");
+		        w.runInNewLevel(() -> {
+			        w.println("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"3\" CELLSPACING=\"0\" ALIGN=\"LEFT\">");
+			        renderClassifierTypeAdornment(element, w, context);
+			        renderStereotypeAdornments(element, w, context);
+			        w.runInNewLevel(() -> {
+				        w.print("<TR><TD>");
+				        if (element.isAbstract())
+				        	w.println("<i>");
+				        w.print(element.getName());
+				        if (element.isAbstract())
+				        	w.println("</i>");
+				        w.println("</TD></TR>");
+			        });
+			        if (!EcoreUtil.isAncestor(context.getRoot(), element)) {
+			        	w.runInNewLevel(() -> {
+			        		w.print("<TR><TD>");
+			        		final Package nearestPackage = element.getNearestPackage();
+			        		final String packageName = nearestPackage == null ? "?" : nearestPackage.getQualifiedName();
+			        		w.print("(from " + packageName + ")");
+			        		w.print("</TD></TR>");
+			        	});
+			        }
+			        w.println("</TABLE>");
+		        });
+		        w.println("</TD></TR>");
+		        boolean attributesEmpty = !context.getSettings().getBoolean(SHOW_ATTRIBUTES)
+		                || element.getAttributes().isEmpty();
+		        if (showCompartments(context, attributesEmpty)) {
+		        	w.println("<TR><TD>");
+		        	w.runInNewLevel(() -> {
+			            if (!attributesEmpty) {
+			                w.println("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
+			                w.runInNewLevel(() -> {
+				                boolean renderedAny = RenderingUtils.renderAll(context, element.getAttributes());
+				                if (!renderedAny) {
+				                	w.runInNewLevel(() -> {
+				                		w.println("<TR><TD> </TD></TR>");
+				                	});
+				                }
+			                });
+			                w.println("</TABLE>");
+			            } else
+			                w.println("<TABLE border=\"1\" cellborder=\"0\"><TR><TD> </TD></TR></TABLE>");
+		            });
+		        	w.println("</TD></TR>");
+		        }
+		        List<? extends BehavioralFeature> behavioralFeatures = getBehavioralFeatures(element);
+		        boolean operationsEmpty = !context.getSettings().getBoolean(SHOW_OPERATIONS) || behavioralFeatures.isEmpty();
+		        if (showCompartments(context, operationsEmpty)) {
+		            w.println("<TR><TD>");
+		            w.runInNewLevel(() -> {
+			            if (!operationsEmpty) {
+			                w.println("<TABLE border=\"1\" cellborder=\"0\">");
+			                boolean renderedAny = RenderingUtils.renderAll(context, behavioralFeatures);
+			                if (!renderedAny)
+			                	w.runInNewLevel(() -> {
+			                		w.println("<TR><TD> </TD></TR>");
+			                	});
+			                w.println("</TABLE>");
+			            } else {
+			                w.println("<TABLE border=\"1\" cellborder=\"0\">");
+			                w.runInNewLevel(() -> {
+			                	w.println("<TR><TD> </TD></TR>");
+			                });
+			                w.println("</TABLE>");
+			            }
+		            });
+		            w.println("</TD></TR>");
+		        }
+	        });
+	        w.println("</TABLE>");
+        });
+        w.println(">];");
+        w.runInNewLevel(() -> {
+        	renderRelationships(element, context);
+        });
         return true;
     }
 

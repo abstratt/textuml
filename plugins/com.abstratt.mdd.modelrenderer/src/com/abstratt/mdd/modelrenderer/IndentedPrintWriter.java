@@ -53,6 +53,15 @@ public class IndentedPrintWriter extends PrintWriter {
     public void enterLevel() {
         indentationLevel++;
     }
+    
+    public void runInNewLevel(Runnable toRun) {
+    	enterLevel();
+    	try {
+    		toRun.run();
+    	} finally {
+    		exitLevel();
+    	}
+    }
 
     public void exitLevel() {
         if (indentationLevel == 0)

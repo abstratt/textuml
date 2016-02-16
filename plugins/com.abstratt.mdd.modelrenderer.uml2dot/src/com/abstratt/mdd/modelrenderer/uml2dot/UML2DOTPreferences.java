@@ -14,6 +14,11 @@ public class UML2DOTPreferences {
         NotEmpty, Never, Always;
         public static String KEY = SHOW_CLASSIFIER_COMPARTMENT;
     }
+    
+    public enum ShowMinimumVisibilityOptions {
+        Private, Protected, Public;
+        public static String KEY = SHOW_MINIMUM_VISIBILITY;
+    }
 
     public enum ShowCrossPackageElementOptions {
         Never, Immediate, Local, Always;
@@ -21,10 +26,13 @@ public class UML2DOTPreferences {
     }
 
     public static final String SHOW_ASSOCIATION_END_OWNERSHIP = "showAssociationEndOwnership";
-    public static final String SHOW_STRUCTURAL_FEATURE_VISIBILITY = "showStructuralFeatureVisibility";
+    public static final String SHOW_FEATURE_VISIBILITY = "showFeatureVisibility";
+    public static final String SHOW_STATIC_FEATURES = "showStaticFeatures";
     public static final String SHOW_ASSOCIATION_END_MULTIPLICITY = "showAssociationEndMultiplicity";
     public static final String SHOW_ASSOCIATION_NAME = "showAssociationName";
+    public static final String SHOW_MINIMUM_VISIBILITY = "showMinimumVisibility";
     public static final String SHOW_ASSOCIATION_END_NAME = "showAssociationEndName";
+    public static final String SHOW_DERIVED_ELEMENTS = "showDerivedElements";
     /**
      * Lack of constraints may crash Graphviz or prevent associations from
      * showing.

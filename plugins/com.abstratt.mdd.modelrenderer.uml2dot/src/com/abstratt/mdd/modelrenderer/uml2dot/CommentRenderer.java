@@ -18,14 +18,14 @@ public class CommentRenderer implements IElementRenderer<Comment> {
         for (Element commented : element.getAnnotatedElements()) {
             out.print("\"" + ((NamedElement) commented).getName() + "\":port" + " -- \"" + commentNodeId + "\"");
             out.println("[");
-            out.enterLevel();
-            DOTRenderingUtils.addAttribute(out, "head", "none");
-            DOTRenderingUtils.addAttribute(out, "tail", "none");
-            DOTRenderingUtils.addAttribute(out, "constraint", Boolean.TRUE.toString());
-            DOTRenderingUtils.addAttribute(out, "arrowtail", "none");
-            DOTRenderingUtils.addAttribute(out, "arrowhead", "none");
-            DOTRenderingUtils.addAttribute(out, "style", "solid");
-            out.exitLevel();
+            out.runInNewLevel(() -> {
+	            DOTRenderingUtils.addAttribute(out, "head", "none");
+	            DOTRenderingUtils.addAttribute(out, "tail", "none");
+	            DOTRenderingUtils.addAttribute(out, "constraint", Boolean.TRUE.toString());
+	            DOTRenderingUtils.addAttribute(out, "arrowtail", "none");
+	            DOTRenderingUtils.addAttribute(out, "arrowhead", "none");
+	            DOTRenderingUtils.addAttribute(out, "style", "solid");
+            });
             out.println("]");
         }
         return true;

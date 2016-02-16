@@ -54,8 +54,13 @@ public class RenderingSettings implements IRenderingSettings {
 
     @Override
     public boolean getBoolean(String key) {
-        String setting = preferences.getSetting(key);
-        return setting == null ? false : Boolean.parseBoolean(setting);
+    	return getBoolean(key, false);
+    }
+    
+    @Override
+    public boolean getBoolean(String key, boolean defaultValue) {
+    	String setting = preferences.getSetting(key);
+        return setting == null ? defaultValue : Boolean.parseBoolean(setting);
     }
 
     @Override

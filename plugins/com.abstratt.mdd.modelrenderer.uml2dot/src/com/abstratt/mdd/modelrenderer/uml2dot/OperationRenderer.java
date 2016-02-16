@@ -5,7 +5,7 @@ package com.abstratt.mdd.modelrenderer.uml2dot;
 
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_PARAMETERS;
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_RETURN_PARAMETER;
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_STRUCTURAL_FEATURE_VISIBILITY;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_FEATURE_VISIBILITY;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +26,11 @@ public class OperationRenderer implements IElementRenderer<Operation> {
     public boolean renderObject(Operation operation, IndentedPrintWriter w, IRenderingSession context) {
         if (operation.getName() == null || UML2DOTRenderingUtils.isTemplateInstance(operation))
             return false;
+        if (RendererHelper.shouldSkip(context, operation))
+        	return false;
+        if (operation.isStatic() && !context.getSettings().getBoolean(UML2DOTPreferences.SHOW_STATIC_FEATURES, true))
+			return false;
+        
         w.print("<TR><TD align=\"left\">");
         // TODO this is duplicated in ClassRenderer#renderNameAdornments
         if (context.getSettings().getBoolean(UML2DOTPreferences.SHOW_FEATURE_STEREOTYPES)
@@ -38,9 +43,17 @@ public class OperationRenderer implements IElementRenderer<Operation> {
             stereotypeList.delete(stereotypeList.length() - 2, stereotypeList.length());
             w.print(UML2DOTRenderingUtils.addGuillemots(stereotypeList.toString()));
         }
-        if (context.getSettings().getBoolean(SHOW_STRUCTURAL_FEATURE_VISIBILITY))
+        if (context.getSettings().getBoolean(SHOW_FEATURE_VISIBILITY))
             w.print(UML2DOTRenderingUtils.renderVisibility(operation.getVisibility()));
+        if (operation.isStatic())
+        	w.print("<u>");
+        if (operation.isAbstract())
+        	w.print("<i>");
         w.print(operation.getName());
+        if (operation.isAbstract())
+        	w.print("</i>");
+        if (operation.isStatic())
+        	w.print("</u>");
         List<Parameter> parameters = operation.getOwnedParameters();
         Parameter returnParameter = parameters.stream()
                 .filter(p -> p.getDirection() == ParameterDirectionKind.RETURN_LITERAL).findAny().orElse(null);
@@ -65,6 +78,8 @@ public class OperationRenderer implements IElementRenderer<Operation> {
             w.print(returnType != null ? returnType.getName() : "null");
             w.print(UML2DOTRenderingUtils.renderMultiplicity(returnParameter, true));
         }
+        if (operation.isQuery())
+        	w.print("{query}");
         w.print("</TD></TR>");
         return true;
     }
