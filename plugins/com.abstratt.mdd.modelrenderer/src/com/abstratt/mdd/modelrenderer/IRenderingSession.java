@@ -30,4 +30,6 @@ public interface IRenderingSession<E extends EObject> {
     public E getPrevious(EClass eClass);
 
     public IRenderingSettings getSettings();
+    
+    public boolean isRendered(E toRender);
 }

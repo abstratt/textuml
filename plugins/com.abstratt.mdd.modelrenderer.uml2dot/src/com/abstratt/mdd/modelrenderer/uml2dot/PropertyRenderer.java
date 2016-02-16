@@ -19,7 +19,7 @@ public class PropertyRenderer implements IElementRenderer<Property> {
             return false;
         if (RendererHelper.shouldSkip(context, property))
         	return false;
-		if (property.isDerived() && !context.getSettings().getBoolean(UML2DOTPreferences.SHOW_DERIVED_ELEMENTS, true))
+		if (property.isDerived() && !context.getSettings().getBoolean(UML2DOTPreferences.SHOW_DERIVED_ELEMENTS, false))
 			return false;
 		if (property.isStatic() && !context.getSettings().getBoolean(UML2DOTPreferences.SHOW_STATIC_FEATURES, true))
 			return false;

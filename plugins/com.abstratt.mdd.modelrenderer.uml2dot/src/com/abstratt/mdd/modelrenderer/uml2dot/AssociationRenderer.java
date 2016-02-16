@@ -28,7 +28,7 @@ public class AssociationRenderer extends AbstractRelationshipRenderer<Associatio
             return false;
         if (RendererHelper.shouldSkip(context, element))
         	return false;
-		if (element.isDerived() && !context.getSettings().getBoolean(UML2DOTPreferences.SHOW_DERIVED_ELEMENTS, true))
+		if (element.isDerived() && !context.getSettings().getBoolean(UML2DOTPreferences.SHOW_DERIVED_ELEMENTS, false))
 			return false;        
         List<Property> ends = element.getMemberEnds();
         // source and target here are about the association direction
@@ -36,12 +36,17 @@ public class AssociationRenderer extends AbstractRelationshipRenderer<Associatio
         Property source = ends.get(0);
         Property target = ends.get(1);
         if (source.getType() == null || target.getType() == null)
-            return true;
+            return false;
         // origin and destination here are only w.r.t. where are coming from in
         // the rendering session
         Type origin = (Type) context.getPrevious(UMLPackage.Literals.TYPE);
-        Type destination = (Type) (EcoreUtil.equals(ends.get(0), origin) ? ends.get(1).getType() : ends.get(0)
-                .getType());
+        Type destination = (ends.get(0).getType() == origin) ? ends.get(1).getType() : ends.get(0)
+                .getType();
+        boolean renderedOrigin = context.isRendered(origin);
+        boolean renderedDestination = context.isRendered(destination);
+        // if at least one of the members is not going to be rendered, do not render the association
+        if (!renderedOrigin || !renderedDestination)
+        	return false;
         if (!shouldRender(context, origin, destination))
             // don't render an association with a class that is not going to be
             // shown
