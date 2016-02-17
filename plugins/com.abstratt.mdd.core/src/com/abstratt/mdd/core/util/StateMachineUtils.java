@@ -3,6 +3,7 @@ package com.abstratt.mdd.core.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Pseudostate;
 import org.eclipse.uml2.uml.PseudostateKind;
+import org.eclipse.uml2.uml.State;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Transition;
 import org.eclipse.uml2.uml.Trigger;
@@ -76,6 +78,20 @@ public class StateMachineUtils {
                     Event event = trigger.getEvent();
                     if (event instanceof CallEvent && ((CallEvent) event).getOperation() == operation)
                         result.add(trigger);
+                }
+        return result;
+    }
+    
+    public static Collection<Vertex> findStatesForCalling(StateMachine stateMachine, Operation operation) {
+        Collection<Vertex> result = new LinkedHashSet<>();
+        nextState: for (Vertex state : stateMachine.getRegions().get(0).getSubvertices())
+            for (Transition transition : state.getOutgoings())
+                for (Trigger trigger : transition.getTriggers()) {
+                    Event event = trigger.getEvent();
+                    if (event instanceof CallEvent && ((CallEvent) event).getOperation() == operation) {
+                        result.add(state);
+                        continue nextState;
+                    }
                 }
         return result;
     }

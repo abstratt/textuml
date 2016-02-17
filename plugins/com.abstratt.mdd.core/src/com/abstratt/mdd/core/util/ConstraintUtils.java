@@ -4,12 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 
 public class ConstraintUtils {
+	
+	public static boolean isConstraintParameterless(Activity constraintActivity) {
+		return ActivityUtils.getClosureInputParameters(constraintActivity).isEmpty();
+	}
 	/**
 	 * Returns all constraints that apply to the given operation parameter.
 	 * 
