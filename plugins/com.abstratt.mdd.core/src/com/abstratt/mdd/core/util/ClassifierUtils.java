@@ -49,6 +49,7 @@ public class ClassifierUtils {
     }
     
     public static void runOnHierarchy(IRepository repository, Classifier general, Consumer<Classifier> visitor) {
+    	visitor.accept(general);
         List<Classifier> specifics = ClassifierUtils.findAllSpecifics(repository, general);
         specifics.forEach(visitor);
     }
