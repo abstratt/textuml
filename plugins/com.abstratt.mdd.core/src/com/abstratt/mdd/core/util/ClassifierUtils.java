@@ -25,6 +25,8 @@ public class ClassifierUtils {
             @Override
             public boolean isSatisfied(EObject object) {
                 if (object instanceof Classifier) {
+                	if (object == general) 
+                		return false;
                     Classifier classifier = (Classifier) object;
                     if (classifier.conformsTo(general))
                     	return true;
