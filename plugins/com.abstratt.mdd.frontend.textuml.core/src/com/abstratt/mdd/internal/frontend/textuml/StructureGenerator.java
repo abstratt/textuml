@@ -432,9 +432,12 @@ public class StructureGenerator extends AbstractGenerator {
         annotationProcessor.applyAnnotations(referrent[0], node.getIdentifier());
         applyOptionalSubsetting(referrent[0], node);
         newAssociation.getMemberEnds().add(referrent[0]);
-        // anonymous end
-        newAssociation.createOwnedEnd(null, referringClassifier);
         applyModifiers(referrent[0], VisibilityKind.PUBLIC_LITERAL, node);
+        // anonymous end
+        Property otherEnd = newAssociation.createOwnedEnd(null, referringClassifier);
+        otherEnd.setIsDerived(referrent[0].isDerived());
+        otherEnd.setLower(0);
+        otherEnd.setIsNavigable(false);
         new DeferredTypeSetter(sourceContext, referringClassifier, referrent[0]).process(node.getTypeIdentifier());
     }
 
