@@ -192,6 +192,8 @@ public interface Analysis extends Switch
     void caseAAccessConstraintKeyword(AAccessConstraintKeyword node);
     void caseAInvariantDecl(AInvariantDecl node);
     void caseAReferenceDecl(AReferenceDecl node);
+    void caseAOptionalOpposite(AOptionalOpposite node);
+    void caseAEmptyOptionalOpposite(AEmptyOptionalOpposite node);
     void caseAAssociationReferenceType(AAssociationReferenceType node);
     void caseACompositionReferenceType(ACompositionReferenceType node);
     void caseAAggregationReferenceType(AAggregationReferenceType node);
@@ -446,6 +448,7 @@ public interface Analysis extends Switch
     void caseTNull(TNull node);
     void caseTOn(TOn node);
     void caseTOperation(TOperation node);
+    void caseTOpposite(TOpposite node);
     void caseTOr(TOr node);
     void caseTOrdered(TOrdered node);
     void caseTOut(TOut node);

@@ -969,6 +969,16 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAOptionalOpposite(AOptionalOpposite node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAEmptyOptionalOpposite(AEmptyOptionalOpposite node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAAssociationReferenceType(AAssociationReferenceType node)
     {
         defaultCase(node);
@@ -2230,6 +2240,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTOperation(TOperation node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTOpposite(TOpposite node)
     {
         defaultCase(node);
     }

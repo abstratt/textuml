@@ -4550,11 +4550,57 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getOptionalSubsetting().apply(this);
         }
+        if(node.getOptionalOpposite() != null)
+        {
+            node.getOptionalOpposite().apply(this);
+        }
         if(node.getSemicolon() != null)
         {
             node.getSemicolon().apply(this);
         }
         outAReferenceDecl(node);
+    }
+
+    public void inAOptionalOpposite(AOptionalOpposite node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOptionalOpposite(AOptionalOpposite node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOptionalOpposite(AOptionalOpposite node)
+    {
+        inAOptionalOpposite(node);
+        if(node.getOpposite() != null)
+        {
+            node.getOpposite().apply(this);
+        }
+        if(node.getOtherEnd() != null)
+        {
+            node.getOtherEnd().apply(this);
+        }
+        outAOptionalOpposite(node);
+    }
+
+    public void inAEmptyOptionalOpposite(AEmptyOptionalOpposite node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEmptyOptionalOpposite(AEmptyOptionalOpposite node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEmptyOptionalOpposite(AEmptyOptionalOpposite node)
+    {
+        inAEmptyOptionalOpposite(node);
+        outAEmptyOptionalOpposite(node);
     }
 
     public void inAAssociationReferenceType(AAssociationReferenceType node)

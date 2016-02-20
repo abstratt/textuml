@@ -98,6 +98,7 @@ Tokens
   null = 'null' ;
   on = 'on' ;
   operation = 'operation' ;
+  opposite = 'opposite' ;
   or = 'or' ;
   ordered = 'ordered' ;
   out = 'out' ; 
@@ -477,13 +478,15 @@ Productions
   
   invariant_decl = invariant_kernel semicolon ; 
   
-  reference_decl = reference_type identifier colon type_identifier optional_qualifier? optional_subsetting semicolon ;
+  reference_decl = reference_type identifier colon type_identifier optional_qualifier? optional_subsetting optional_opposite semicolon ;
+  
+  optional_opposite = opposite [other_end]: identifier | {empty};
   
   reference_type = {association} reference | {composition} composition | {aggregation} aggregation ;
   
   dependency_decl = dependency type_identifier semicolon ;
   
-  optional_subsetting = subsets qualified_identifier | {empty} ;
+  optional_subsetting = subsets qualified_identifier  | {empty};
   
   optional_qualifier = by identifier ;
 

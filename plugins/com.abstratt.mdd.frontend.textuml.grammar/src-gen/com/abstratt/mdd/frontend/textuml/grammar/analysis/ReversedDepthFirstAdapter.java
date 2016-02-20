@@ -4545,6 +4545,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getSemicolon().apply(this);
         }
+        if(node.getOptionalOpposite() != null)
+        {
+            node.getOptionalOpposite().apply(this);
+        }
         if(node.getOptionalSubsetting() != null)
         {
             node.getOptionalSubsetting().apply(this);
@@ -4570,6 +4574,48 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getReferenceType().apply(this);
         }
         outAReferenceDecl(node);
+    }
+
+    public void inAOptionalOpposite(AOptionalOpposite node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOptionalOpposite(AOptionalOpposite node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOptionalOpposite(AOptionalOpposite node)
+    {
+        inAOptionalOpposite(node);
+        if(node.getOtherEnd() != null)
+        {
+            node.getOtherEnd().apply(this);
+        }
+        if(node.getOpposite() != null)
+        {
+            node.getOpposite().apply(this);
+        }
+        outAOptionalOpposite(node);
+    }
+
+    public void inAEmptyOptionalOpposite(AEmptyOptionalOpposite node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEmptyOptionalOpposite(AEmptyOptionalOpposite node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEmptyOptionalOpposite(AEmptyOptionalOpposite node)
+    {
+        inAEmptyOptionalOpposite(node);
+        outAEmptyOptionalOpposite(node);
     }
 
     public void inAAssociationReferenceType(AAssociationReferenceType node)
