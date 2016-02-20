@@ -52,6 +52,7 @@ import org.eclipse.uml2.uml.Reception;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.Slot;
 import org.eclipse.uml2.uml.Stereotype;
+import org.eclipse.uml2.uml.StructuredClassifier;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
@@ -679,21 +680,10 @@ public class StructureGenerator extends AbstractGenerator {
         if (!ensureNameAvailable(attributeIdentifier, node, Literals.STRUCTURAL_FEATURE))
             return;
         // do not call super as we deal with everything here
-        final Property newProperty;
+        
         final Namespace currentNamespace = namespaceTracker.currentNamespace(null);
-        if (currentNamespace instanceof Class)
-            newProperty = ((Class) currentNamespace).createOwnedAttribute(attributeIdentifier, null);
-        else if (currentNamespace instanceof Interface)
-            newProperty = ((Interface) currentNamespace).createOwnedAttribute(attributeIdentifier, null);
-        else if (currentNamespace instanceof DataType)
-            newProperty = ((DataType) currentNamespace).createOwnedAttribute(attributeIdentifier, null);
-        else if (currentNamespace instanceof Signal)
-            newProperty = ((Signal) currentNamespace).createOwnedAttribute(attributeIdentifier, null);
-        else {
-            problemBuilder.addProblem(new UnclassifiedProblem("Cannot declare attribute under namespace: "
-                    + currentNamespace.getName()), node);
-            return;
-        }
+        final StructuredClassifier currentClassifier = (StructuredClassifier) currentNamespace;
+        final Property newProperty = currentClassifier.createOwnedAttribute(attributeIdentifier, null);
         fillDebugInfo(newProperty, node);
         applyCurrentComment(newProperty);
         new DeferredTypeSetter(sourceContext, namespaceTracker.currentNamespace(null), newProperty) {
