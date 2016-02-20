@@ -133,6 +133,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ANavigableAssociationModif
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationHeader;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalAlias;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalOpposite;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalReturnType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalSubsetting;
 import com.abstratt.mdd.frontend.textuml.grammar.node.APackageHeading;
@@ -165,7 +166,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.PQualifiedIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TAbstract;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TExternal;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TModelComment;
-import com.abstratt.mdd.frontend.textuml.grammar.node.TNavigable;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TUri;
 
 /**
@@ -392,12 +392,43 @@ public class StructureGenerator extends AbstractGenerator {
      * 
      * <pre>
      * class Foo
-     * 		property bar : Bar;
+     * 		attribute bar : Bar;
      * end;
      * 
      * association
      * 		navigable role Foo.bar;
      *      role &lt;null&gt; : Foo;  
+     * end;
+     * 
+     * Also, references can designate an opposite property, and in this case
+     * they are equivalent to binary associations where both ends are member-owned.
+     * 
+     * For instance, this:
+     * 
+     * <pre>
+     * class Foo
+     * 		reference bar : Bar opposite foo;
+     * end;
+     * class Bar
+     * 		attribute foo : Foo;
+     * end;
+     * 
+     * </pre>
+     * 
+     * is equivalent to:
+     * 
+     * <pre>
+     * class Foo
+     * 		attribute bar : Bar;
+     * end;
+     * 
+     * class Bar
+     * 		attribute foo : foo;
+     * end;
+     * 
+     * association
+     * 		navigable role Foo.bar;
+     *      navigable role Bar.foo;
      * end;
      * </pre>
      * 
@@ -407,38 +438,84 @@ public class StructureGenerator extends AbstractGenerator {
         final String propertyName = Util.stripEscaping(node.getIdentifier().getText());
         if (!ensureNameAvailable(propertyName, node, Literals.PROPERTY))
             return;
-        final Property[] referrent = { null };
         final Classifier referringClassifier = (Classifier) namespaceTracker.currentNamespace(null);
 
+        Property tmpReferrent;
         final Association newAssociation = (Association) referringClassifier.getNearestPackage().createPackagedElement(
                 null, UMLPackage.Literals.ASSOCIATION);
         if (referringClassifier instanceof Class)
-            referrent[0] = ((Class) referringClassifier).createOwnedAttribute(propertyName, null);
+        	tmpReferrent = ((Class) referringClassifier).createOwnedAttribute(propertyName, null);
         else if (referringClassifier instanceof Interface)
-            referrent[0] = ((Interface) referringClassifier).createOwnedAttribute(propertyName, null);
+        	tmpReferrent = ((Interface) referringClassifier).createOwnedAttribute(propertyName, null);
         else if (referringClassifier instanceof DataType)
-            referrent[0] = ((DataType) referringClassifier).createOwnedAttribute(propertyName, null);
+        	tmpReferrent = ((DataType) referringClassifier).createOwnedAttribute(propertyName, null);
         else if (referringClassifier instanceof Signal)
-            referrent[0] = ((Signal) referringClassifier).createOwnedAttribute(propertyName, null);
+        	tmpReferrent = ((Signal) referringClassifier).createOwnedAttribute(propertyName, null);
         else {
             problemBuilder.addError("Unexpected context: '" + referringClassifier.getQualifiedName() + "'",
                     node.getIdentifier());
+            throw new AbortedScopeCompilationException();
         }
+        Property referrent = tmpReferrent;
         if (node.getReferenceType() instanceof AAggregationReferenceType)
-            referrent[0].setAggregation(AggregationKind.SHARED_LITERAL);
+            referrent.setAggregation(AggregationKind.SHARED_LITERAL);
         else if (node.getReferenceType() instanceof ACompositionReferenceType)
-            referrent[0].setAggregation(AggregationKind.COMPOSITE_LITERAL);
-        applyCurrentComment(referrent[0]);
-        annotationProcessor.applyAnnotations(referrent[0], node.getIdentifier());
-        applyOptionalSubsetting(referrent[0], node);
-        newAssociation.getMemberEnds().add(referrent[0]);
-        applyModifiers(referrent[0], VisibilityKind.PUBLIC_LITERAL, node);
-        // anonymous end
-        Property otherEnd = newAssociation.createOwnedEnd(null, referringClassifier);
-        otherEnd.setIsDerived(referrent[0].isDerived());
-        otherEnd.setLower(0);
-        otherEnd.setIsNavigable(false);
-        new DeferredTypeSetter(sourceContext, referringClassifier, referrent[0]).process(node.getTypeIdentifier());
+            referrent.setAggregation(AggregationKind.COMPOSITE_LITERAL);
+        applyCurrentComment(referrent);
+        annotationProcessor.applyAnnotations(referrent, node.getIdentifier());
+        applyOptionalSubsetting(referrent, node);
+        newAssociation.getMemberEnds().add(referrent);
+        applyModifiers(referrent, VisibilityKind.PUBLIC_LITERAL, node);
+        
+        new DeferredTypeSetter(sourceContext, referringClassifier, referrent).process(node.getTypeIdentifier());
+        if (!(node.getOptionalOpposite() instanceof AOptionalOpposite)) {
+	        // anonymous end
+	        Property otherEnd = newAssociation.createOwnedEnd(null, referringClassifier);
+	        otherEnd.setIsDerived(referrent.isDerived());
+	        otherEnd.setLower(0);
+	        otherEnd.setIsNavigable(false);
+        } else {
+        	if (referrent.isDerived()) {
+	            problemBuilder.addError("Cannot define an opposite for a derived association",
+	                    node.getIdentifier());
+	            throw new AbortedScopeCompilationException();
+		    }
+        	
+        	String otherEndName = sourceMiner.getIdentifier(node.getOptionalOpposite());
+        	context.getReferenceTracker().add(new IDeferredReference() {
+				@Override
+				public void resolve(IBasicRepository repository) {
+				    if (referrent.getType() == null) {
+				    	// failed resolution, don't bother
+				    	return;
+				    }
+				    Type otherType = referrent.getType();
+					if (otherType.eClass() != referringClassifier.eClass()) {
+			            problemBuilder.addError("Cannot create association between '" + referringClassifier.eClass().getName() + "' and '" + otherType.eClass().getName(),
+			                    node.getIdentifier());
+			            throw new AbortedScopeCompilationException();
+				    }
+					Classifier otherClassifier = (Classifier) otherType;
+					Property otherEnd = FeatureUtils.findAttribute(otherClassifier, otherEndName, false, true);
+					if (otherEnd == null) {
+						problemBuilder.addError("Opposite attribute '" + otherEndName + "' not found in opposite classifier '" + otherClassifier.getName() + "'", node.getOptionalOpposite());
+			            throw new AbortedScopeCompilationException();
+					}
+					if (otherEnd.getAssociation() != null) {
+						problemBuilder.addError("The opposite end is already part of an association: ", node.getOptionalOpposite());
+			            throw new AbortedScopeCompilationException();
+					}
+					if (otherEnd.getAggregation() != AggregationKind.NONE_LITERAL) {
+						problemBuilder.addError("The opposite end must not be an aggregation", node.getOptionalOpposite());
+			            throw new AbortedScopeCompilationException();
+					}
+					newAssociation.getMemberEnds().add(otherEnd);
+				}
+        		
+        	}, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }
+        
+        
     }
 
     @Override
