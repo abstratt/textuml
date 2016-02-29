@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.Assert;
@@ -710,12 +711,16 @@ public class Repository implements IRepository {
             URI uri = URI.createURI(uriValue);
             String requirements = configElems[i].getAttribute("requires");
             if (requirements != null) {
-                String[] propertyNames = requirements.split(",");
-                if (propertyNames.length > 0) {
-                    boolean satisfied = false;
-                    for (String current : propertyNames) {
-                        if (Boolean.parseBoolean(properties.getProperty(current, System.getProperty(current)))) {
-                            satisfied = true;
+                String[] propertyEntries = requirements.split(",");
+                if (propertyEntries.length > 0) {
+                    boolean satisfied = true;
+                    for (String current : propertyEntries) {
+                    	String[] components = StringUtils.split(current, '=');
+                    	String propertyName = components[0];
+                    	String expectedValue = components.length > 1 ? components[1] : Boolean.TRUE.toString();
+                        String actualValue = properties.getProperty(propertyName, System.getProperty(current));
+						if (!expectedValue.equals(actualValue)) {
+                            satisfied = false;
                             break;
                         }
                     }
