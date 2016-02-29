@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Association;
+import org.eclipse.uml2.uml.AttributeOwner;
 import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
@@ -682,7 +683,7 @@ public class StructureGenerator extends AbstractGenerator {
         // do not call super as we deal with everything here
         
         final Namespace currentNamespace = namespaceTracker.currentNamespace(null);
-        final StructuredClassifier currentClassifier = (StructuredClassifier) currentNamespace;
+        final AttributeOwner currentClassifier = (AttributeOwner) currentNamespace;
         final Property newProperty = currentClassifier.createOwnedAttribute(attributeIdentifier, null);
         fillDebugInfo(newProperty, node);
         applyCurrentComment(newProperty);
@@ -1102,7 +1103,10 @@ public class StructureGenerator extends AbstractGenerator {
     public final void caseADatatypeClassType(ADatatypeClassType node) {
         super.caseADatatypeClassType(node);
         DataType newDataType = createClassifier(UMLPackage.Literals.DATA_TYPE);
-        createGeneralization(TypeUtils.makeTypeName("Value"), newDataType, Literals.DATA_TYPE, node);
+        boolean typesEnabled = Boolean.TRUE.toString().equals(
+                context.getRepositoryProperties().get(IRepository.ENABLE_TYPES));
+        if (typesEnabled)
+        	createGeneralization(TypeUtils.makeTypeName("Value"), newDataType, Literals.DATA_TYPE, node);
     }
 
     @Override
@@ -1126,7 +1130,10 @@ public class StructureGenerator extends AbstractGenerator {
     public void caseAEnumerationClassType(AEnumerationClassType node) {
         super.caseAEnumerationClassType(node);
         Classifier newEnumeration = createClassifier(UMLPackage.Literals.ENUMERATION);
-        createGeneralization(TypeUtils.makeTypeName("Value"), newEnumeration, Literals.DATA_TYPE, node);
+        boolean typesEnabled = Boolean.TRUE.toString().equals(
+                context.getRepositoryProperties().get(IRepository.ENABLE_TYPES));
+        if (typesEnabled)
+        	createGeneralization(TypeUtils.makeTypeName("Value"), newEnumeration, Literals.DATA_TYPE, node);
     }
 
     @Override
