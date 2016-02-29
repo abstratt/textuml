@@ -111,6 +111,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AClassClassType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassDef;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassHeader;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassImplementsItem;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AClassModifierList;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassSpecializesItem;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AComplexInitializationExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AComponentClassType;
@@ -159,6 +160,8 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AStereotypeDefHeader;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AStereotypeExtension;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AStereotypePropertyDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASubNamespace;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AVisibilityClassModifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AVisibilityModifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWildcardType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWordyBlock;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
@@ -807,6 +810,12 @@ public class StructureGenerator extends AbstractGenerator {
             @Override
             public void caseTExternal(TExternal node) {
                 MDDExtensionUtils.makeExternal(currentClassifier);
+            }
+            @Override
+            public void caseAVisibilityClassModifier(AVisibilityClassModifier node) {
+            	Modifier modifier = Modifier.fromToken(sourceMiner.getText(node));
+            	VisibilityKind toApply = getVisibility(modifier, VisibilityKind.PUBLIC_LITERAL);
+            	currentClassifier.setVisibility(toApply);
             }
         });
         annotationProcessor.applyAnnotations(currentClassifier, node.getIdentifier());

@@ -32,7 +32,7 @@ public class PropertyRenderer implements IEObjectRenderer<Property> {
         TextUMLRenderingUtils.renderStereotypeApplications(writer, property);
         writer.print(TextUMLRenderingUtils.renderVisibility(property.getVisibility()));
         if (property.isReadOnly())
-            writer.print("constant ");
+            writer.print("readonly ");
         else {
             if (property.isStatic())
                 writer.print("static ");

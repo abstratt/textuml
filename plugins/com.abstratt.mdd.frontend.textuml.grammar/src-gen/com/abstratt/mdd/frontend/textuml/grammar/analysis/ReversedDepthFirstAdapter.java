@@ -1915,6 +1915,27 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAEmptyClassModifierList(node);
     }
 
+    public void inAVisibilityClassModifier(AVisibilityClassModifier node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAVisibilityClassModifier(AVisibilityClassModifier node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAVisibilityClassModifier(AVisibilityClassModifier node)
+    {
+        inAVisibilityClassModifier(node);
+        if(node.getVisibilityModifier() != null)
+        {
+            node.getVisibilityModifier().apply(this);
+        }
+        outAVisibilityClassModifier(node);
+    }
+
     public void inAAbstractClassModifier(AAbstractClassModifier node)
     {
         defaultIn(node);

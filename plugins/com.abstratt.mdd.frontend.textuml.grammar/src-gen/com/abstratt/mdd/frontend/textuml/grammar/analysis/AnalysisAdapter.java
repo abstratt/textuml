@@ -444,6 +444,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAVisibilityClassModifier(AVisibilityClassModifier node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAAbstractClassModifier(AAbstractClassModifier node)
     {
         defaultCase(node);

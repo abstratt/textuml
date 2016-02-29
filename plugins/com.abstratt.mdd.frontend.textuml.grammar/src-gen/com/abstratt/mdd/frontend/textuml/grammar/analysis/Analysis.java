@@ -87,6 +87,7 @@ public interface Analysis extends Switch
     void caseAClassModifiers(AClassModifiers node);
     void caseAClassModifierList(AClassModifierList node);
     void caseAEmptyClassModifierList(AEmptyClassModifierList node);
+    void caseAVisibilityClassModifier(AVisibilityClassModifier node);
     void caseAAbstractClassModifier(AAbstractClassModifier node);
     void caseAExternalClassModifier(AExternalClassModifier node);
     void caseAClassClassType(AClassClassType node);
