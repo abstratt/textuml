@@ -68,7 +68,10 @@ class Collection<T>
     (* Returns a new collection containing all the elements of this collection plus the elements of the given collection. *)
     query union(another : T[*]) : T[*];
 
-    (* Collects and intersects all collections obtained from each of the elements in this collection. *)
+    (* 
+      Maps each element of this collection to a collection of objects of the given type 
+      (i. e., similar to collect, but producing collections instead of single objects). 
+    *)
     query collectMany(p : {( : T) : T[*]}) : T[*];
 
     (* Groups the elements of this collection using the given grouping criteria. *)
