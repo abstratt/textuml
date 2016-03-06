@@ -105,19 +105,6 @@ class Collection<T>
     query join(delimiter : String := ", ") : String;
 end;
 
-(* Provides a protocol for grouped data sources (see Collection#groupBy). *)
-class Grouping<T>
-
-    (* Produces a collection whose elements are obtained by applying the given collector to each group. *)
-    query<R>groupCollect(collector : {( : T[*]) : R}) : R[*];
-
-    (* Produces one value by applying the given reductor to every group. *)
-    query<R>groupReduce(reducer : {( : T[*]) : R}) : R[*];
-
-    (* Produces a new grouping that contains only the groups that satisfy the given group criteria. *)
-    query groupSelect(filter : {( : T[*]) : Boolean}) : Grouping<T>;
-end;
-
 (* A collection were elements have a position. *)
 class Sequence<T>specializes Collection<T>
 
@@ -144,6 +131,19 @@ end;
 
 (* A set where elements have been ordered by some criteria. *)
 class OrderedSet<T>specializes Set<T>
+end;
+
+(* Provides a protocol for grouped data sources (see Collection#groupBy). *)
+class Grouping<T>
+
+    (* Produces a collection whose elements are obtained by applying the given collector to each group. *)
+    query<R>groupCollect(collector : {( : T[*]) : R}) : R[*];
+
+    (* Produces one value by applying the given reductor to every group. *)
+    query<R>groupReduce(reducer : {( : T[*]) : R}) : R[*];
+
+    (* Produces a new grouping that contains only the groups that satisfy the given group criteria. *)
+    query groupSelect(filter : {( : T[*]) : Boolean}) : Grouping<T>;
 end;
 
 end.
