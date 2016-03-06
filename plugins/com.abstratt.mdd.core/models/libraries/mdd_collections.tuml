@@ -138,7 +138,7 @@ end;
 (* A collection were elements may not be unique. *)
 class Bag<T>specializes Collection<T>
 
-    (* Computes the number of times the given element appears in this bad. *)
+    (* Computes the number of times the given element appears in this bag. *)
     query count(element : T) : Integer;
 end;
 
