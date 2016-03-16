@@ -5,30 +5,30 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AInvariantKernel extends PInvariantKernel
+public final class APermissionConstraint extends PPermissionConstraint
 {
-    private TInvariant _invariant_;
-    private TIdentifier _identifier_;
-    private PConstraintException _constraintException_;
+    private TAllow _allow_;
+    private PAccessCapabilities _accessCapabilities_;
+    private PRoles _roles_;
     private PExpressionBlock _expressionBlock_;
 
-    public AInvariantKernel()
+    public APermissionConstraint()
     {
         // Constructor
     }
 
-    public AInvariantKernel(
-        @SuppressWarnings("hiding") TInvariant _invariant_,
-        @SuppressWarnings("hiding") TIdentifier _identifier_,
-        @SuppressWarnings("hiding") PConstraintException _constraintException_,
+    public APermissionConstraint(
+        @SuppressWarnings("hiding") TAllow _allow_,
+        @SuppressWarnings("hiding") PAccessCapabilities _accessCapabilities_,
+        @SuppressWarnings("hiding") PRoles _roles_,
         @SuppressWarnings("hiding") PExpressionBlock _expressionBlock_)
     {
         // Constructor
-        setInvariant(_invariant_);
+        setAllow(_allow_);
 
-        setIdentifier(_identifier_);
+        setAccessCapabilities(_accessCapabilities_);
 
-        setConstraintException(_constraintException_);
+        setRoles(_roles_);
 
         setExpressionBlock(_expressionBlock_);
 
@@ -37,28 +37,28 @@ public final class AInvariantKernel extends PInvariantKernel
     @Override
     public Object clone()
     {
-        return new AInvariantKernel(
-            cloneNode(this._invariant_),
-            cloneNode(this._identifier_),
-            cloneNode(this._constraintException_),
+        return new APermissionConstraint(
+            cloneNode(this._allow_),
+            cloneNode(this._accessCapabilities_),
+            cloneNode(this._roles_),
             cloneNode(this._expressionBlock_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAInvariantKernel(this);
+        ((Analysis) sw).caseAPermissionConstraint(this);
     }
 
-    public TInvariant getInvariant()
+    public TAllow getAllow()
     {
-        return this._invariant_;
+        return this._allow_;
     }
 
-    public void setInvariant(TInvariant node)
+    public void setAllow(TAllow node)
     {
-        if(this._invariant_ != null)
+        if(this._allow_ != null)
         {
-            this._invariant_.parent(null);
+            this._allow_.parent(null);
         }
 
         if(node != null)
@@ -71,19 +71,19 @@ public final class AInvariantKernel extends PInvariantKernel
             node.parent(this);
         }
 
-        this._invariant_ = node;
+        this._allow_ = node;
     }
 
-    public TIdentifier getIdentifier()
+    public PAccessCapabilities getAccessCapabilities()
     {
-        return this._identifier_;
+        return this._accessCapabilities_;
     }
 
-    public void setIdentifier(TIdentifier node)
+    public void setAccessCapabilities(PAccessCapabilities node)
     {
-        if(this._identifier_ != null)
+        if(this._accessCapabilities_ != null)
         {
-            this._identifier_.parent(null);
+            this._accessCapabilities_.parent(null);
         }
 
         if(node != null)
@@ -96,19 +96,19 @@ public final class AInvariantKernel extends PInvariantKernel
             node.parent(this);
         }
 
-        this._identifier_ = node;
+        this._accessCapabilities_ = node;
     }
 
-    public PConstraintException getConstraintException()
+    public PRoles getRoles()
     {
-        return this._constraintException_;
+        return this._roles_;
     }
 
-    public void setConstraintException(PConstraintException node)
+    public void setRoles(PRoles node)
     {
-        if(this._constraintException_ != null)
+        if(this._roles_ != null)
         {
-            this._constraintException_.parent(null);
+            this._roles_.parent(null);
         }
 
         if(node != null)
@@ -121,7 +121,7 @@ public final class AInvariantKernel extends PInvariantKernel
             node.parent(this);
         }
 
-        this._constraintException_ = node;
+        this._roles_ = node;
     }
 
     public PExpressionBlock getExpressionBlock()
@@ -153,9 +153,9 @@ public final class AInvariantKernel extends PInvariantKernel
     public String toString()
     {
         return ""
-            + toString(this._invariant_)
-            + toString(this._identifier_)
-            + toString(this._constraintException_)
+            + toString(this._allow_)
+            + toString(this._accessCapabilities_)
+            + toString(this._roles_)
             + toString(this._expressionBlock_);
     }
 
@@ -163,21 +163,21 @@ public final class AInvariantKernel extends PInvariantKernel
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._invariant_ == child)
+        if(this._allow_ == child)
         {
-            this._invariant_ = null;
+            this._allow_ = null;
             return;
         }
 
-        if(this._identifier_ == child)
+        if(this._accessCapabilities_ == child)
         {
-            this._identifier_ = null;
+            this._accessCapabilities_ = null;
             return;
         }
 
-        if(this._constraintException_ == child)
+        if(this._roles_ == child)
         {
-            this._constraintException_ = null;
+            this._roles_ = null;
             return;
         }
 
@@ -194,21 +194,21 @@ public final class AInvariantKernel extends PInvariantKernel
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._invariant_ == oldChild)
+        if(this._allow_ == oldChild)
         {
-            setInvariant((TInvariant) newChild);
+            setAllow((TAllow) newChild);
             return;
         }
 
-        if(this._identifier_ == oldChild)
+        if(this._accessCapabilities_ == oldChild)
         {
-            setIdentifier((TIdentifier) newChild);
+            setAccessCapabilities((PAccessCapabilities) newChild);
             return;
         }
 
-        if(this._constraintException_ == oldChild)
+        if(this._roles_ == oldChild)
         {
-            setConstraintException((PConstraintException) newChild);
+            setRoles((PRoles) newChild);
             return;
         }
 

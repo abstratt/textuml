@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAccessConstraintKeyword extends PConstraintKeyword
+public final class AOperationConstraintKernel extends POperationConstraintKernel
 {
-    private TAccess _access_;
+    private PPermissionConstraint _permissionConstraint_;
 
-    public AAccessConstraintKeyword()
+    public AOperationConstraintKernel()
     {
         // Constructor
     }
 
-    public AAccessConstraintKeyword(
-        @SuppressWarnings("hiding") TAccess _access_)
+    public AOperationConstraintKernel(
+        @SuppressWarnings("hiding") PPermissionConstraint _permissionConstraint_)
     {
         // Constructor
-        setAccess(_access_);
+        setPermissionConstraint(_permissionConstraint_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AAccessConstraintKeyword(
-            cloneNode(this._access_));
+        return new AOperationConstraintKernel(
+            cloneNode(this._permissionConstraint_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAccessConstraintKeyword(this);
+        ((Analysis) sw).caseAOperationConstraintKernel(this);
     }
 
-    public TAccess getAccess()
+    public PPermissionConstraint getPermissionConstraint()
     {
-        return this._access_;
+        return this._permissionConstraint_;
     }
 
-    public void setAccess(TAccess node)
+    public void setPermissionConstraint(PPermissionConstraint node)
     {
-        if(this._access_ != null)
+        if(this._permissionConstraint_ != null)
         {
-            this._access_.parent(null);
+            this._permissionConstraint_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AAccessConstraintKeyword extends PConstraintKeyword
             node.parent(this);
         }
 
-        this._access_ = node;
+        this._permissionConstraint_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._access_);
+            + toString(this._permissionConstraint_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._access_ == child)
+        if(this._permissionConstraint_ == child)
         {
-            this._access_ = null;
+            this._permissionConstraint_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AAccessConstraintKeyword extends PConstraintKeyword
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._access_ == oldChild)
+        if(this._permissionConstraint_ == oldChild)
         {
-            setAccess((TAccess) newChild);
+            setPermissionConstraint((PPermissionConstraint) newChild);
             return;
         }
 

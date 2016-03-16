@@ -173,6 +173,59 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAPackagePackageType(node);
     }
 
+    public void inAQualifiedIdentifierList(AQualifiedIdentifierList node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAQualifiedIdentifierList(AQualifiedIdentifierList node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAQualifiedIdentifierList(AQualifiedIdentifierList node)
+    {
+        inAQualifiedIdentifierList(node);
+        if(node.getQualifiedIdentifier() != null)
+        {
+            node.getQualifiedIdentifier().apply(this);
+        }
+        {
+            List<PQualifiedIdentifierListTail> copy = new ArrayList<PQualifiedIdentifierListTail>(node.getQualifiedIdentifierListTail());
+            for(PQualifiedIdentifierListTail e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outAQualifiedIdentifierList(node);
+    }
+
+    public void inAQualifiedIdentifierListTail(AQualifiedIdentifierListTail node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAQualifiedIdentifierListTail(AQualifiedIdentifierListTail node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAQualifiedIdentifierListTail(AQualifiedIdentifierListTail node)
+    {
+        inAQualifiedIdentifierListTail(node);
+        if(node.getComma() != null)
+        {
+            node.getComma().apply(this);
+        }
+        if(node.getQualifiedIdentifier() != null)
+        {
+            node.getQualifiedIdentifier().apply(this);
+        }
+        outAQualifiedIdentifierListTail(node);
+    }
+
     public void inAQualifiedIdentifier(AQualifiedIdentifier node)
     {
         defaultIn(node);
@@ -3558,8 +3611,8 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getOperationHeader().apply(this);
         }
         {
-            List<POperationPrecondition> copy = new ArrayList<POperationPrecondition>(node.getOperationPrecondition());
-            for(POperationPrecondition e : copy)
+            List<POperationConstraint> copy = new ArrayList<POperationConstraint>(node.getOperationConstraint());
+            for(POperationConstraint e : copy)
             {
                 e.apply(this);
             }
@@ -3573,6 +3626,73 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getOptionalBehavioralFeatureBody().apply(this);
         }
         outAOperationDecl(node);
+    }
+
+    public void inAOperationConstraint(AOperationConstraint node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOperationConstraint(AOperationConstraint node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOperationConstraint(AOperationConstraint node)
+    {
+        inAOperationConstraint(node);
+        if(node.getModelComment() != null)
+        {
+            node.getModelComment().apply(this);
+        }
+        if(node.getOperationConstraintKernel() != null)
+        {
+            node.getOperationConstraintKernel().apply(this);
+        }
+        outAOperationConstraint(node);
+    }
+
+    public void inAPreconditionOperationConstraintKernel(APreconditionOperationConstraintKernel node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAPreconditionOperationConstraintKernel(APreconditionOperationConstraintKernel node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAPreconditionOperationConstraintKernel(APreconditionOperationConstraintKernel node)
+    {
+        inAPreconditionOperationConstraintKernel(node);
+        if(node.getOperationPrecondition() != null)
+        {
+            node.getOperationPrecondition().apply(this);
+        }
+        outAPreconditionOperationConstraintKernel(node);
+    }
+
+    public void inAOperationConstraintKernel(AOperationConstraintKernel node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOperationConstraintKernel(AOperationConstraintKernel node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOperationConstraintKernel(AOperationConstraintKernel node)
+    {
+        inAOperationConstraintKernel(node);
+        if(node.getPermissionConstraint() != null)
+        {
+            node.getPermissionConstraint().apply(this);
+        }
+        outAOperationConstraintKernel(node);
     }
 
     public void inAOperationPrecondition(AOperationPrecondition node)
@@ -3589,10 +3709,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAOperationPrecondition(AOperationPrecondition node)
     {
         inAOperationPrecondition(node);
-        if(node.getModelComment() != null)
-        {
-            node.getModelComment().apply(this);
-        }
         if(node.getPrecondition() != null)
         {
             node.getPrecondition().apply(this);
@@ -3614,6 +3730,254 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getExpressionBlock().apply(this);
         }
         outAOperationPrecondition(node);
+    }
+
+    public void inAPermissionConstraint(APermissionConstraint node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAPermissionConstraint(APermissionConstraint node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAPermissionConstraint(APermissionConstraint node)
+    {
+        inAPermissionConstraint(node);
+        if(node.getAllow() != null)
+        {
+            node.getAllow().apply(this);
+        }
+        if(node.getAccessCapabilities() != null)
+        {
+            node.getAccessCapabilities().apply(this);
+        }
+        if(node.getRoles() != null)
+        {
+            node.getRoles().apply(this);
+        }
+        if(node.getExpressionBlock() != null)
+        {
+            node.getExpressionBlock().apply(this);
+        }
+        outAPermissionConstraint(node);
+    }
+
+    public void inARoles(ARoles node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARoles(ARoles node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARoles(ARoles node)
+    {
+        inARoles(node);
+        if(node.getTo() != null)
+        {
+            node.getTo().apply(this);
+        }
+        if(node.getQualifiedIdentifierList() != null)
+        {
+            node.getQualifiedIdentifierList().apply(this);
+        }
+        outARoles(node);
+    }
+
+    public void inAAccessCapabilities(AAccessCapabilities node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAccessCapabilities(AAccessCapabilities node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAccessCapabilities(AAccessCapabilities node)
+    {
+        inAAccessCapabilities(node);
+        if(node.getLCurlyBracket() != null)
+        {
+            node.getLCurlyBracket().apply(this);
+        }
+        {
+            List<PAccessCapability> copy = new ArrayList<PAccessCapability>(node.getAccessCapability());
+            for(PAccessCapability e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        if(node.getRCurlyBracket() != null)
+        {
+            node.getRCurlyBracket().apply(this);
+        }
+        outAAccessCapabilities(node);
+    }
+
+    public void inAAccessCapabilityList(AAccessCapabilityList node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAccessCapabilityList(AAccessCapabilityList node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAccessCapabilityList(AAccessCapabilityList node)
+    {
+        inAAccessCapabilityList(node);
+        if(node.getAccessCapability() != null)
+        {
+            node.getAccessCapability().apply(this);
+        }
+        {
+            List<PAccessCapabilityTail> copy = new ArrayList<PAccessCapabilityTail>(node.getAccessCapabilityTail());
+            for(PAccessCapabilityTail e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outAAccessCapabilityList(node);
+    }
+
+    public void inAAccessCapabilityTail(AAccessCapabilityTail node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAccessCapabilityTail(AAccessCapabilityTail node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAccessCapabilityTail(AAccessCapabilityTail node)
+    {
+        inAAccessCapabilityTail(node);
+        if(node.getComma() != null)
+        {
+            node.getComma().apply(this);
+        }
+        if(node.getAccessCapability() != null)
+        {
+            node.getAccessCapability().apply(this);
+        }
+        outAAccessCapabilityTail(node);
+    }
+
+    public void inAReadAccessCapability(AReadAccessCapability node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAReadAccessCapability(AReadAccessCapability node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAReadAccessCapability(AReadAccessCapability node)
+    {
+        inAReadAccessCapability(node);
+        if(node.getRead() != null)
+        {
+            node.getRead().apply(this);
+        }
+        outAReadAccessCapability(node);
+    }
+
+    public void inACreateAccessCapability(ACreateAccessCapability node)
+    {
+        defaultIn(node);
+    }
+
+    public void outACreateAccessCapability(ACreateAccessCapability node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseACreateAccessCapability(ACreateAccessCapability node)
+    {
+        inACreateAccessCapability(node);
+        if(node.getCreate() != null)
+        {
+            node.getCreate().apply(this);
+        }
+        outACreateAccessCapability(node);
+    }
+
+    public void inAUpdateAccessCapability(AUpdateAccessCapability node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAUpdateAccessCapability(AUpdateAccessCapability node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAUpdateAccessCapability(AUpdateAccessCapability node)
+    {
+        inAUpdateAccessCapability(node);
+        if(node.getUpdate() != null)
+        {
+            node.getUpdate().apply(this);
+        }
+        outAUpdateAccessCapability(node);
+    }
+
+    public void inADeleteAccessCapability(ADeleteAccessCapability node)
+    {
+        defaultIn(node);
+    }
+
+    public void outADeleteAccessCapability(ADeleteAccessCapability node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseADeleteAccessCapability(ADeleteAccessCapability node)
+    {
+        inADeleteAccessCapability(node);
+        if(node.getDelete() != null)
+        {
+            node.getDelete().apply(this);
+        }
+        outADeleteAccessCapability(node);
+    }
+
+    public void inACallAccessCapability(ACallAccessCapability node)
+    {
+        defaultIn(node);
+    }
+
+    public void outACallAccessCapability(ACallAccessCapability node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseACallAccessCapability(ACallAccessCapability node)
+    {
+        inACallAccessCapability(node);
+        if(node.getCall() != null)
+        {
+            node.getCall().apply(this);
+        }
+        outACallAccessCapability(node);
     }
 
     public void inAPreconditionSignature(APreconditionSignature node)
@@ -4447,9 +4811,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAInvariantKernel(AInvariantKernel node)
     {
         inAInvariantKernel(node);
-        if(node.getConstraintKeyword() != null)
+        if(node.getInvariant() != null)
         {
-            node.getConstraintKeyword().apply(this);
+            node.getInvariant().apply(this);
         }
         if(node.getIdentifier() != null)
         {
@@ -4485,27 +4849,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getInvariant().apply(this);
         }
         outAInvariantConstraintKeyword(node);
-    }
-
-    public void inAAccessConstraintKeyword(AAccessConstraintKeyword node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAAccessConstraintKeyword(AAccessConstraintKeyword node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAAccessConstraintKeyword(AAccessConstraintKeyword node)
-    {
-        inAAccessConstraintKeyword(node);
-        if(node.getAccess() != null)
-        {
-            node.getAccess().apply(this);
-        }
-        outAAccessConstraintKeyword(node);
     }
 
     public void inAInvariantDecl(AInvariantDecl node)

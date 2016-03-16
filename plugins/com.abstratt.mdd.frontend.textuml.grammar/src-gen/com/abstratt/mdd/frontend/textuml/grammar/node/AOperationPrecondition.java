@@ -7,7 +7,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 @SuppressWarnings("nls")
 public final class AOperationPrecondition extends POperationPrecondition
 {
-    private TModelComment _modelComment_;
     private TPrecondition _precondition_;
     private TIdentifier _identifier_;
     private PPreconditionSignature _preconditionSignature_;
@@ -20,7 +19,6 @@ public final class AOperationPrecondition extends POperationPrecondition
     }
 
     public AOperationPrecondition(
-        @SuppressWarnings("hiding") TModelComment _modelComment_,
         @SuppressWarnings("hiding") TPrecondition _precondition_,
         @SuppressWarnings("hiding") TIdentifier _identifier_,
         @SuppressWarnings("hiding") PPreconditionSignature _preconditionSignature_,
@@ -28,8 +26,6 @@ public final class AOperationPrecondition extends POperationPrecondition
         @SuppressWarnings("hiding") PExpressionBlock _expressionBlock_)
     {
         // Constructor
-        setModelComment(_modelComment_);
-
         setPrecondition(_precondition_);
 
         setIdentifier(_identifier_);
@@ -46,7 +42,6 @@ public final class AOperationPrecondition extends POperationPrecondition
     public Object clone()
     {
         return new AOperationPrecondition(
-            cloneNode(this._modelComment_),
             cloneNode(this._precondition_),
             cloneNode(this._identifier_),
             cloneNode(this._preconditionSignature_),
@@ -57,31 +52,6 @@ public final class AOperationPrecondition extends POperationPrecondition
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAOperationPrecondition(this);
-    }
-
-    public TModelComment getModelComment()
-    {
-        return this._modelComment_;
-    }
-
-    public void setModelComment(TModelComment node)
-    {
-        if(this._modelComment_ != null)
-        {
-            this._modelComment_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._modelComment_ = node;
     }
 
     public TPrecondition getPrecondition()
@@ -213,7 +183,6 @@ public final class AOperationPrecondition extends POperationPrecondition
     public String toString()
     {
         return ""
-            + toString(this._modelComment_)
             + toString(this._precondition_)
             + toString(this._identifier_)
             + toString(this._preconditionSignature_)
@@ -225,12 +194,6 @@ public final class AOperationPrecondition extends POperationPrecondition
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._modelComment_ == child)
-        {
-            this._modelComment_ = null;
-            return;
-        }
-
         if(this._precondition_ == child)
         {
             this._precondition_ = null;
@@ -268,12 +231,6 @@ public final class AOperationPrecondition extends POperationPrecondition
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._modelComment_ == oldChild)
-        {
-            setModelComment((TModelComment) newChild);
-            return;
-        }
-
         if(this._precondition_ == oldChild)
         {
             setPrecondition((TPrecondition) newChild);

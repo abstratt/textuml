@@ -94,6 +94,16 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAQualifiedIdentifierList(AQualifiedIdentifierList node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAQualifiedIdentifierListTail(AQualifiedIdentifierListTail node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAQualifiedIdentifier(AQualifiedIdentifier node)
     {
         defaultCase(node);
@@ -789,7 +799,72 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAOperationConstraint(AOperationConstraint node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAPreconditionOperationConstraintKernel(APreconditionOperationConstraintKernel node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAOperationConstraintKernel(AOperationConstraintKernel node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAOperationPrecondition(AOperationPrecondition node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAPermissionConstraint(APermissionConstraint node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseARoles(ARoles node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAccessCapabilities(AAccessCapabilities node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAccessCapabilityList(AAccessCapabilityList node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAccessCapabilityTail(AAccessCapabilityTail node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAReadAccessCapability(AReadAccessCapability node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseACreateAccessCapability(ACreateAccessCapability node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAUpdateAccessCapability(AUpdateAccessCapability node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseADeleteAccessCapability(ADeleteAccessCapability node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseACallAccessCapability(ACallAccessCapability node)
     {
         defaultCase(node);
     }
@@ -955,11 +1030,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseAInvariantConstraintKeyword(AInvariantConstraintKeyword node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAAccessConstraintKeyword(AAccessConstraintKeyword node)
     {
         defaultCase(node);
     }
@@ -1969,6 +2039,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseTAllow(TAllow node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTAnd(TAnd node)
     {
         defaultCase(node);
@@ -2055,6 +2130,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTDelete(TDelete node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTDeny(TDeny node)
     {
         defaultCase(node);
     }
@@ -2224,6 +2304,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseTNone(TNone node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTNonunique(TNonunique node)
     {
         defaultCase(node);
@@ -2270,6 +2355,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTPackage(TPackage node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTPermission(TPermission node)
     {
         defaultCase(node);
     }

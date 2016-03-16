@@ -39,9 +39,10 @@ Tokens
   // reserved words
   abstract = 'abstract' ;
   access = 'access' ;
-  actor = 'actor' ; 
+  actor = 'actor' ;
   aggregation = 'aggregation' ;
   alias = 'alias' ;
+  allow = 'allow' ;
   and = 'and' ;
   any = 'any';
   apply = 'apply';
@@ -60,6 +61,7 @@ Tokens
   connector = 'connector';
   datatype = 'datatype' ;
   delete = 'delete';
+  deny = 'deny' ;
   dependency = 'dependency' ;
   derived = 'derived' ; 
   destroy = 'destroy' ;  
@@ -93,6 +95,7 @@ Tokens
   model = 'model' ;
   navigable = 'navigable' ;
   new = 'new' ;
+  none = 'none' ;
   nonunique = 'nonunique';
   not = 'not' | '!';
   null = 'null' ;
@@ -103,6 +106,7 @@ Tokens
   ordered = 'ordered' ;
   out = 'out' ; 
   package = 'package' ;
+  permission = 'permission' ;
   port = 'port' ;
   postcondition = 'postcondition' ;
   precondition = 'precondition' ;
@@ -224,6 +228,10 @@ Productions
     model_comment? annotations? package_type qualified_identifier semicolon ;
     
   package_type = {model} model | {profile} profile | {package} package;  
+    
+  qualified_identifier_list = qualified_identifier qualified_identifier_list_tail* ;
+  
+  qualified_identifier_list_tail = comma qualified_identifier ; 
     
   qualified_identifier = qualified_identifier_base ;
   
@@ -419,9 +427,25 @@ Productions
   
   reception_decl = reception [reception_name]: identifier? l_paren simple_param_decl r_paren semicolon optional_behavioral_feature_body;
   
-  operation_decl = operation_header operation_precondition* semicolon optional_behavioral_feature_body ;
+  operation_decl = operation_header operation_constraint* semicolon optional_behavioral_feature_body ;
   
-  operation_precondition = model_comment? precondition identifier? precondition_signature? constraint_exception? expression_block ;
+  operation_constraint = model_comment? operation_constraint_kernel ;
+  
+  operation_constraint_kernel = {precondition} operation_precondition | permission_constraint ;
+  
+  operation_precondition = precondition identifier? precondition_signature? constraint_exception? expression_block ;
+  
+  permission_constraint = allow access_capabilities roles expression_block? ;
+  
+  roles = to qualified_identifier_list ;
+  
+  access_capabilities = l_curly_bracket access_capability* r_curly_bracket ;
+  
+  access_capability_list = access_capability access_capability_tail*;
+  
+  access_capability_tail = comma access_capability ;
+  
+  access_capability = {read} read | {create} create | {update} update | {delete} delete | {call} call;
   
   precondition_signature = l_paren identifier_list r_paren ;
   
@@ -472,9 +496,9 @@ Productions
       {path} [prefix]: identifier dot [part_or_port]: identifier |
       {simple} [part_or_port]: identifier ;
   
-  invariant_kernel = constraint_keyword identifier? constraint_exception? expression_block ;
+  invariant_kernel = invariant identifier? constraint_exception? expression_block ;
   
-  constraint_keyword = {invariant} invariant | {access} access ;
+  constraint_keyword = {invariant} invariant ;
   
   invariant_decl = invariant_kernel semicolon ; 
   

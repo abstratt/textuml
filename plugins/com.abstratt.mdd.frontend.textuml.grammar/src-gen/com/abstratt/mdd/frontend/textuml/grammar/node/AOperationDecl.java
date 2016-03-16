@@ -9,7 +9,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 public final class AOperationDecl extends POperationDecl
 {
     private POperationHeader _operationHeader_;
-    private final LinkedList<POperationPrecondition> _operationPrecondition_ = new LinkedList<POperationPrecondition>();
+    private final LinkedList<POperationConstraint> _operationConstraint_ = new LinkedList<POperationConstraint>();
     private TSemicolon _semicolon_;
     private POptionalBehavioralFeatureBody _optionalBehavioralFeatureBody_;
 
@@ -20,14 +20,14 @@ public final class AOperationDecl extends POperationDecl
 
     public AOperationDecl(
         @SuppressWarnings("hiding") POperationHeader _operationHeader_,
-        @SuppressWarnings("hiding") List<POperationPrecondition> _operationPrecondition_,
+        @SuppressWarnings("hiding") List<POperationConstraint> _operationConstraint_,
         @SuppressWarnings("hiding") TSemicolon _semicolon_,
         @SuppressWarnings("hiding") POptionalBehavioralFeatureBody _optionalBehavioralFeatureBody_)
     {
         // Constructor
         setOperationHeader(_operationHeader_);
 
-        setOperationPrecondition(_operationPrecondition_);
+        setOperationConstraint(_operationConstraint_);
 
         setSemicolon(_semicolon_);
 
@@ -40,7 +40,7 @@ public final class AOperationDecl extends POperationDecl
     {
         return new AOperationDecl(
             cloneNode(this._operationHeader_),
-            cloneList(this._operationPrecondition_),
+            cloneList(this._operationConstraint_),
             cloneNode(this._semicolon_),
             cloneNode(this._optionalBehavioralFeatureBody_));
     }
@@ -75,16 +75,16 @@ public final class AOperationDecl extends POperationDecl
         this._operationHeader_ = node;
     }
 
-    public LinkedList<POperationPrecondition> getOperationPrecondition()
+    public LinkedList<POperationConstraint> getOperationConstraint()
     {
-        return this._operationPrecondition_;
+        return this._operationConstraint_;
     }
 
-    public void setOperationPrecondition(List<POperationPrecondition> list)
+    public void setOperationConstraint(List<POperationConstraint> list)
     {
-        this._operationPrecondition_.clear();
-        this._operationPrecondition_.addAll(list);
-        for(POperationPrecondition e : list)
+        this._operationConstraint_.clear();
+        this._operationConstraint_.addAll(list);
+        for(POperationConstraint e : list)
         {
             if(e.parent() != null)
             {
@@ -150,7 +150,7 @@ public final class AOperationDecl extends POperationDecl
     {
         return ""
             + toString(this._operationHeader_)
-            + toString(this._operationPrecondition_)
+            + toString(this._operationConstraint_)
             + toString(this._semicolon_)
             + toString(this._optionalBehavioralFeatureBody_);
     }
@@ -165,7 +165,7 @@ public final class AOperationDecl extends POperationDecl
             return;
         }
 
-        if(this._operationPrecondition_.remove(child))
+        if(this._operationConstraint_.remove(child))
         {
             return;
         }
@@ -195,13 +195,13 @@ public final class AOperationDecl extends POperationDecl
             return;
         }
 
-        for(ListIterator<POperationPrecondition> i = this._operationPrecondition_.listIterator(); i.hasNext();)
+        for(ListIterator<POperationConstraint> i = this._operationConstraint_.listIterator(); i.hasNext();)
         {
             if(i.next() == oldChild)
             {
                 if(newChild != null)
                 {
-                    i.set((POperationPrecondition) newChild);
+                    i.set((POperationConstraint) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
                     return;
