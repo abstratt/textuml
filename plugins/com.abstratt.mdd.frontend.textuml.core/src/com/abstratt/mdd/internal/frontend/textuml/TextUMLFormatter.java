@@ -49,6 +49,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AIsClassifiedExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANamedArgument;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANoIfStatementResolved;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANonBlockNonIfStatement;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationConstraint;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationPrecondition;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AParamDecl;
@@ -238,7 +239,7 @@ public class TextUMLFormatter {
 
     public void format(AOperationDecl node, StringBuilder output, int indentation) {
         format(node.getOperationHeader(), output, indentation);
-        format(node.getOperationPrecondition(), output, indentation + 1);
+        format(node.getOperationConstraint(), output, indentation + 1);
         format(node.getSemicolon(), output, indentation);
         format(node.getOptionalBehavioralFeatureBody(), output, indentation);
     }
@@ -283,10 +284,14 @@ public class TextUMLFormatter {
         format(node.getAnnotations(), output, indentation + 1);
         format(node.getInvariantKernel(), output, indentation + 1);
     }
+    
+    public void format(AOperationConstraint node, StringBuilder output, int indentation) {
+    	newLine(output);
+    	format(node.getModelComment(), output, indentation);
+    	format(node.getOperationConstraintKernel(), output, indentation);
+    }
 
     public void format(AOperationPrecondition node, StringBuilder output, int indentation) {
-        newLine(output);
-        format(node.getModelComment(), output, indentation);
         format(node.getPrecondition(), output, indentation);
         addWhitespace(output);
         format(node.getIdentifier(), output, indentation);
@@ -302,7 +307,7 @@ public class TextUMLFormatter {
     }
 
     public void format(AInvariantKernel node, StringBuilder output, int indentation) {
-        format(node.getConstraintKeyword(), output, indentation);
+        format(node.getInvariant(), output, indentation);
         format(node.getIdentifier(), output, indentation);
         format(node.getConstraintException(), output, indentation);
         addWhitespace(output);

@@ -47,6 +47,8 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AFeatureDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AInvariantConstraintKeyword;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AInvariantDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AInvariantKernel;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationConstraint;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationConstraintKernel;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationHeader;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationPrecondition;
@@ -114,7 +116,8 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 
         Constraint constraint = operation.createPrecondition(preconditionName);
         fillDebugInfo(constraint, node);
-        TModelComment commentNode = node.getModelComment();
+        
+        TModelComment commentNode = sourceMiner.findParent(node, AOperationConstraint.class).getModelComment();
         CommentUtils.applyComment(commentNode, constraint);
 
         if (node.getConstraintException() != null) {
@@ -234,10 +237,8 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
     protected Constraint buildConstraint(AInvariantKernel invariantNode,
             BehavioredClassifier currentBehavioredClassifier, NamedElement constrainedElement) {
         final String invariantName = TextUMLCore.getSourceMiner().getIdentifier(invariantNode.getIdentifier());
-        String constraintStereotype = (invariantNode.getConstraintKeyword() instanceof AInvariantConstraintKeyword) ? MDDExtensionUtils.INVARIANT_STEREOTYPE
-                : MDDExtensionUtils.ACCESS_STEREOTYPE;
         Constraint constraint = MDDExtensionUtils.createConstraint(constrainedElement, invariantName,
-                constraintStereotype);
+        		MDDExtensionUtils.INVARIANT_STEREOTYPE);
         fillDebugInfo(constraint, invariantNode);
         if (invariantNode.getConstraintException() != null)
             assignConstraintException(constraint, (AConstraintException) invariantNode.getConstraintException());
@@ -292,7 +293,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
         }
         namespaceTracker.enterNamespace(currentOperation);
         try {
-            for (POperationPrecondition current : node.getOperationPrecondition())
+            for (AOperationPrecondition current : sourceMiner.findChildren(node, AOperationPrecondition.class))
                 current.apply(this);
             node.getOptionalBehavioralFeatureBody().apply(this);
         } finally {

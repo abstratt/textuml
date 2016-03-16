@@ -1,9 +1,12 @@
 package com.abstratt.mdd.core.util;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -11,6 +14,8 @@ import org.eclipse.emf.query.conditions.eobjects.EObjectCondition;
 import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.Enumeration;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Package;
@@ -19,6 +24,11 @@ import org.eclipse.uml2.uml.UMLPackage;
 import com.abstratt.mdd.core.IRepository;
 
 public class ClassifierUtils {
+	
+	public static <T extends Enum<?>> List<EnumerationLiteral> fromJavaEnumValues(Enumeration umlEnumeration, Collection<T> javaEnumValues) {
+		return javaEnumValues.stream().map(it -> umlEnumeration.getOwnedLiteral(it.name())).collect(Collectors.toList());
+	}
+	
     public static List<Classifier> findAllSpecifics(IRepository repository, final Classifier general) {
     	boolean isInterface = general instanceof Interface;
         List<Classifier> specifics = repository.findInAnyPackage(new EObjectCondition() {

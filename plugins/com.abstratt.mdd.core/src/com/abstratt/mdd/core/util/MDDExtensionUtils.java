@@ -1,7 +1,11 @@
 package com.abstratt.mdd.core.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.uml2.uml.Action;
@@ -13,6 +17,8 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ElementImport;
+import org.eclipse.uml2.uml.Enumeration;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.LiteralNull;
 import org.eclipse.uml2.uml.LiteralString;
@@ -21,7 +27,6 @@ import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Parameter;
-import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Type;
@@ -30,6 +35,9 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.Vertex;
+import static com.abstratt.mdd.core.util.ClassifierUtils.*;
+
+import com.abstratt.mdd.core.MDDCore;
 
 public class MDDExtensionUtils {
 	private static final String DERIVATION_STEREOTYPE = "mdd_extensions::Derivation";
@@ -52,8 +60,16 @@ public class MDDExtensionUtils {
     private static final String RULE_STEREOTYPE = "mdd_extensions::Rule";
     public static final String INVARIANT_STEREOTYPE = "mdd_extensions::Invariant";
     public static final String ACCESS_STEREOTYPE = "mdd_extensions::Access";
+    public static final String ACCESS_ALLOWED = "allowed";
+    public static final String ACCESS_DENIED = "denied";
+    public static final String ACCESS_ROLES = "roles";
     private static final String META_REFERENCE_STEREOTYPE = "mdd_extensions::MetaReference";
 
+    /** Matches the enumeration of same name in the mdd_extensions profile */
+    enum AccessCapability {
+    	Create, Read, Update, Delete, Call
+    }
+    
     public static void addDebugInfo(Element toEnhance, String source, int lineNumber) {
         Stereotype debuggableStereotype = StereotypeUtils.findStereotype(DEBUGGABLE_STEREOTYPE);
         toEnhance.applyStereotype(debuggableStereotype);
@@ -207,6 +223,22 @@ public class MDDExtensionUtils {
         constraint.setValue(ruleStereotype, "violation", violationClass);
     }
 
+    /**
+     * Creates an access constraint. 
+     * 
+     * @param constraint
+     */
+    public static void makeAccessConstraint(Constraint constraint, Collection<Class> roles, Collection<AccessCapability> allowed, Collection<AccessCapability> denied) {
+    	Enumeration accessCapabilityEnum = MDDCore.getInProgressRepository().findNamedElement("mdd_extensions::AccessCapability", Literals.ENUMERATION, null);
+        Stereotype accessStereotype = StereotypeUtils.findStereotype(ACCESS_STEREOTYPE);
+        
+        constraint.applyStereotype(accessStereotype);
+        
+        constraint.setValue(accessStereotype, ACCESS_ALLOWED, fromJavaEnumValues(accessCapabilityEnum, allowed));
+        constraint.setValue(accessStereotype, ACCESS_DENIED, fromJavaEnumValues(accessCapabilityEnum, denied));
+        constraint.setValue(accessStereotype, ACCESS_ROLES, new LinkedList<>(roles));
+    }
+    
     public static Classifier getRuleViolationClass(Constraint violated) {
         Stereotype ruleStereotype = violated.getAppliedStereotype(RULE_STEREOTYPE);
         return (Classifier) (ruleStereotype == null ? null : violated.getValue(ruleStereotype, "violation"));

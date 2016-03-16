@@ -69,8 +69,22 @@ stereotype Derivation extends UML::Activity
     property context : UML::TypedElement;
 end;
 
+enumeration AccessCapability
+    /* Objects */
+    Create;
+    Delete;
+    /* Attributes/links */
+    Read;
+    Update;
+    /* Operations */
+    Call;
+end;
 
+(* You can declare access constraints on any element. *)
 stereotype Access extends UML::Constraint
+    property roles : Class[1,*];
+    property allowed : AccessCapability[*];
+    property denied : AccessCapability[*];
 end;
 
 stereotype PropertyDerivation extends UML::Constraint
