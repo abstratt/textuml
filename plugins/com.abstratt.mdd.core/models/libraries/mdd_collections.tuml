@@ -68,14 +68,17 @@ class Collection<T>
     (* Returns a new collection containing all the elements of this collection plus the elements of the given collection. *)
     query union(another : T[*]) : T[*];
 
-    (* Collects and intersects all collections obtained from each of the elements in this collection. *)
-    query collectMany(p : {( : T) : T[*]}) : T[*];
+    (* 
+      Maps each element of this collection to a collection of objects of the given type 
+      (i. e., similar to collect, but producing collections instead of single objects). 
+    *)
+    query <M> collectMany(p : {( : T) : M[*]}) : M[*];
 
     (* Groups the elements of this collection using the given grouping criteria. *)
     query groupBy(grouper : {( : T) : any}) : Grouping<T>;
 
     (* Produces a single value by applying the given reductor to every element of the collection. *)
-    query<R>reduce(reductor : {( : T,  : R[1, *]) : R}, \initial : R) : R;
+    query <R> reduce(reductor : {( : T,  : R[1, *]) : R}, \initial : R) : R;
 
     (* Sums all values the collection using the given quantifier to map an element to a number. *)
     query<N>sum(quantifier : {( : T) : N}) : N;
@@ -105,19 +108,6 @@ class Collection<T>
     query join(delimiter : String := ", ") : String;
 end;
 
-(* Provides a protocol for grouped data sources (see Collection#groupBy). *)
-class Grouping<T>
-
-    (* Produces a collection whose elements are obtained by applying the given collector to each group. *)
-    query<R>groupCollect(collector : {( : T[*]) : R}) : R[*];
-
-    (* Produces one value by applying the given reductor to every group. *)
-    query<R>groupReduce(reducer : {( : T[*]) : R}) : R[*];
-
-    (* Produces a new grouping that contains only the groups that satisfy the given group criteria. *)
-    query groupSelect(filter : {( : T[*]) : Boolean}) : Grouping<T>;
-end;
-
 (* A collection were elements have a position. *)
 class Sequence<T>specializes Collection<T>
 
@@ -138,12 +128,25 @@ end;
 (* A collection were elements may not be unique. *)
 class Bag<T>specializes Collection<T>
 
-    (* Computes the number of times the given element appears in this bad. *)
+    (* Computes the number of times the given element appears in this bag. *)
     query count(element : T) : Integer;
 end;
 
 (* A set where elements have been ordered by some criteria. *)
 class OrderedSet<T>specializes Set<T>
+end;
+
+(* Provides a protocol for grouped data sources (see Collection#groupBy). *)
+class Grouping<T>
+
+    (* Produces a collection whose elements are obtained by applying the given collector to each group. *)
+    query<R>groupCollect(collector : {( : T[*]) : R}) : R[*];
+
+    (* Produces one value by applying the given reductor to every group. *)
+    query<R>groupReduce(reducer : {( : T[*]) : R}) : R[*];
+
+    (* Produces a new grouping that contains only the groups that satisfy the given group criteria. *)
+    query groupSelect(filter : {( : T[*]) : Boolean}) : Grouping<T>;
 end;
 
 end.
