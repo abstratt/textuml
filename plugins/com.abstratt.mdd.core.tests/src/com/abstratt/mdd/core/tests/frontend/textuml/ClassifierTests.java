@@ -2,10 +2,6 @@ package com.abstratt.mdd.core.tests.frontend.textuml;
 
 import java.util.Arrays;
 
-import junit.framework.Assert;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -47,6 +43,9 @@ import com.abstratt.mdd.frontend.core.IdsShouldBeRequiredSingle;
 import com.abstratt.mdd.frontend.core.MissingDefaultValue;
 import com.abstratt.mdd.frontend.core.ReadSelfFromStaticContext;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 public class ClassifierTests extends AbstractRepositoryBuildingTests {
 
@@ -170,19 +169,19 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
                 Literals.CLASS, null);
 
         Property attr1 = classifier.getAttribute("attrib1", null);
-        Assert.assertFalse(attr1.isDerived());
+        assertFalse(attr1.isDerived());
 
         Property attr2 = classifier.getAttribute("attrib2", null);
-        Assert.assertTrue(attr2.isDerived());
+        assertTrue(attr2.isDerived());
 
         Property attr3 = classifier.getAttribute("attrib3", null);
-        Assert.assertTrue(attr3.isDerived());
+        assertTrue(attr3.isDerived());
 
-        Assert.assertNotNull(attr2.getDefaultValue());
-        Assert.assertTrue(ActivityUtils.isBehaviorReference(attr2.getDefaultValue()));
+        assertNotNull(attr2.getDefaultValue());
+        assertTrue(ActivityUtils.isBehaviorReference(attr2.getDefaultValue()));
 
-        Assert.assertNotNull(attr3.getDefaultValue());
-        Assert.assertTrue(ActivityUtils.isBehaviorReference(attr3.getDefaultValue()));
+        assertNotNull(attr3.getDefaultValue());
+        assertTrue(ActivityUtils.isBehaviorReference(attr3.getDefaultValue()));
     }
 
     public void testIdAttribute() throws CoreException {
@@ -204,10 +203,10 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         assertEquals(Integer.valueOf(7), result[0].getAttribute(IProblem.LINE_NUMBER));
 
         Property attr1 = getProperty("someModel::SomeClassifier1::attrib1");
-        Assert.assertTrue(attr1.isID());
+        assertTrue(attr1.isID());
 
         Property attr2 = getProperty("someModel::SomeClassifier2::attrib2");
-        Assert.assertTrue(attr2.isID());
+        assertTrue(attr2.isID());
     }
 
     public void testDerivedAttributeMissingInitialization() throws CoreException {
@@ -219,9 +218,9 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "end;\n";
         source += "end.";
         IProblem[] problems = parse(source);
-        Assert.assertEquals(1, problems.length);
-        Assert.assertTrue(problems[0] instanceof MissingDefaultValue);
-        Assert.assertEquals((Integer) 4, problems[0].getAttribute(IProblem.LINE_NUMBER));
+        assertEquals(1, problems.length);
+        assertTrue(problems[0] instanceof MissingDefaultValue);
+        assertEquals((Integer) 4, problems[0].getAttribute(IProblem.LINE_NUMBER));
     }
 
     public void testSourceInfo() throws CoreException {
@@ -253,9 +252,9 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "end;\n";
         source += "end.";
         IProblem[] problems = parse(source);
-        Assert.assertEquals(1, problems.length);
-        Assert.assertTrue(problems[0].toString(), problems[0] instanceof CannotModifyADerivedAttribute);
-        Assert.assertEquals((Integer) 7, problems[0].getAttribute(IProblem.LINE_NUMBER));
+        assertEquals(1, problems.length);
+        assertTrue(problems[0].toString(), problems[0] instanceof CannotModifyADerivedAttribute);
+        assertEquals((Integer) 7, problems[0].getAttribute(IProblem.LINE_NUMBER));
     }
 
     public void testBasicClass() throws CoreException {
@@ -561,7 +560,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         assertNull(operation.getPreconditions().get(1).getName());
         assertEquals("condition3", operation.getPreconditions().get(2).getName());
 
-        Assert.assertNotNull(operation.getPreconditions().get(0).getSpecification());
+        assertNotNull(operation.getPreconditions().get(0).getSpecification());
 
         int[] expectedParameterCount = { 1, 1, 2 };
         int index = 0;
@@ -602,7 +601,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         assertNull(class_.getOwnedRules().get(1).getName());
         assertEquals("condition3", class_.getOwnedRules().get(2).getName());
 
-        Assert.assertNotNull(class_.getOwnedRules().get(0).getSpecification());
+        assertNotNull(class_.getOwnedRules().get(0).getSpecification());
 
         for (Constraint constraint : class_.getOwnedRules()) {
             // expect only the return parameter
