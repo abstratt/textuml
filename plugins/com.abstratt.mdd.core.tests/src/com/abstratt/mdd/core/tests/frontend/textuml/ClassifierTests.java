@@ -619,7 +619,6 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "invariant condition1 { true };\n";
         source += "invariant { true };\n";
         source += "invariant condition3 { not self.attr1 };\n";
-        source += "access condition4 { false };\n";
         source += "attribute attr1: Boolean;\n";
         source += "end;\n";
         source += "end.";
@@ -627,14 +626,13 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         Class class_ = (Class) getRepository().findNamedElement("someModel::SomeClass",
                 IRepository.PACKAGE.getClass_(), null);
         assertNotNull(class_);
-        assertEquals(4, class_.getOwnedRules().size());
+        assertEquals(3, class_.getOwnedRules().size());
 
         assertEquals("condition1", class_.getOwnedRules().get(0).getName());
         assertNull(class_.getOwnedRules().get(1).getName());
         assertEquals("condition3", class_.getOwnedRules().get(2).getName());
-        assertEquals("condition4", class_.getOwnedRules().get(3).getName());
 
-        Assert.assertNotNull(class_.getOwnedRules().get(0).getSpecification());
+        assertNotNull(class_.getOwnedRules().get(0).getSpecification());
 
         for (Constraint constraint : class_.getOwnedRules()) {
             // expect only the return parameter
