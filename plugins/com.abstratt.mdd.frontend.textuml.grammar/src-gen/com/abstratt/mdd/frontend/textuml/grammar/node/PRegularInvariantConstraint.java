@@ -2,7 +2,7 @@
 
 package com.abstratt.mdd.frontend.textuml.grammar.node;
 
-public abstract class PRoles extends Node
+public abstract class PRegularInvariantConstraint extends Node
 {
     // Empty body
 }

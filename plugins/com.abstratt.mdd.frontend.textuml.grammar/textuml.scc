@@ -43,6 +43,7 @@ Tokens
   aggregation = 'aggregation' ;
   alias = 'alias' ;
   allow = 'allow' ;
+  all = 'all' ;
   and = 'and' ;
   any = 'any';
   apply = 'apply';
@@ -353,7 +354,7 @@ Productions
   
   class_modifier_list = class_modifier class_modifier_list | {empty} ;
   
-  class_modifier = {visibility} visibility_modifier | {abstract} abstract | {external} external ;
+  class_modifier = {visibility} visibility_modifier | {abstract} abstract | {external} external | {role} role;
   
   class_type = {class} clazz | {interface} interface | {datatype} datatype | {actor} actor | {signal} signal | {component} component | {enumeration} enumeration;
   
@@ -396,7 +397,7 @@ Productions
       {reception} reception_decl |
       {port} port_decl | 
       {dependency} dependency_decl | 
-      {invariant} invariant_decl |
+      {invariant} class_invariant_decl |
       {connector} connector_decl ;
   
   state_machine_decl = statemachine identifier? state_decl*  end semicolon ;
@@ -431,21 +432,23 @@ Productions
   
   operation_constraint = model_comment? operation_constraint_kernel ;
   
-  operation_constraint_kernel = {precondition} operation_precondition | permission_constraint ;
+  operation_constraint_kernel = {precondition} operation_precondition | {permission} permission_constraint ;
   
   operation_precondition = precondition identifier? precondition_signature? constraint_exception? expression_block ;
   
-  permission_constraint = allow access_capabilities roles expression_block? ;
+  permission_constraint = allow permission_roles access_capabilities permission_expression? ;
   
-  roles = to qualified_identifier_list ;
+  permission_expression = expression_block ;
   
-  access_capabilities = l_curly_bracket access_capability* r_curly_bracket ;
+  permission_roles = qualified_identifier_list ;
+  
+  access_capabilities = access_capability_list  | {empty};
   
   access_capability_list = access_capability access_capability_tail*;
   
   access_capability_tail = comma access_capability ;
   
-  access_capability = {read} read | {create} create | {update} update | {delete} delete | {call} call;
+  access_capability = {read} read | {create} create | {update} update | {delete} delete | {call} call | {none} none;
   
   precondition_signature = l_paren identifier_list r_paren ;
   
@@ -496,11 +499,13 @@ Productions
       {path} [prefix]: identifier dot [part_or_port]: identifier |
       {simple} [part_or_port]: identifier ;
   
-  invariant_kernel = invariant identifier? constraint_exception? expression_block ;
+  invariant_kernel = regular_invariant_constraint | {permission_constraint} permission_constraint;
+  
+  regular_invariant_constraint = invariant identifier? constraint_exception? expression_block ;
   
   constraint_keyword = {invariant} invariant ;
   
-  invariant_decl = invariant_kernel semicolon ; 
+  class_invariant_decl = invariant_kernel semicolon ; 
   
   reference_decl = reference_type identifier colon type_identifier optional_qualifier? optional_subsetting optional_opposite semicolon ;
   

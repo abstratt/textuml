@@ -2032,6 +2032,27 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAExternalClassModifier(node);
     }
 
+    public void inARoleClassModifier(ARoleClassModifier node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARoleClassModifier(ARoleClassModifier node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARoleClassModifier(ARoleClassModifier node)
+    {
+        inARoleClassModifier(node);
+        if(node.getRole() != null)
+        {
+            node.getRole().apply(this);
+        }
+        outARoleClassModifier(node);
+    }
+
     public void inAClassClassType(AClassClassType node)
     {
         defaultIn(node);
@@ -2951,9 +2972,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAInvariantFeatureType(AInvariantFeatureType node)
     {
         inAInvariantFeatureType(node);
-        if(node.getInvariantDecl() != null)
+        if(node.getClassInvariantDecl() != null)
         {
-            node.getInvariantDecl().apply(this);
+            node.getClassInvariantDecl().apply(this);
         }
         outAInvariantFeatureType(node);
     }
@@ -3688,25 +3709,25 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAPreconditionOperationConstraintKernel(node);
     }
 
-    public void inAOperationConstraintKernel(AOperationConstraintKernel node)
+    public void inAPermissionOperationConstraintKernel(APermissionOperationConstraintKernel node)
     {
         defaultIn(node);
     }
 
-    public void outAOperationConstraintKernel(AOperationConstraintKernel node)
+    public void outAPermissionOperationConstraintKernel(APermissionOperationConstraintKernel node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAOperationConstraintKernel(AOperationConstraintKernel node)
+    public void caseAPermissionOperationConstraintKernel(APermissionOperationConstraintKernel node)
     {
-        inAOperationConstraintKernel(node);
+        inAPermissionOperationConstraintKernel(node);
         if(node.getPermissionConstraint() != null)
         {
             node.getPermissionConstraint().apply(this);
         }
-        outAOperationConstraintKernel(node);
+        outAPermissionOperationConstraintKernel(node);
     }
 
     public void inAOperationPrecondition(AOperationPrecondition node)
@@ -3760,17 +3781,17 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAPermissionConstraint(APermissionConstraint node)
     {
         inAPermissionConstraint(node);
-        if(node.getExpressionBlock() != null)
+        if(node.getPermissionExpression() != null)
         {
-            node.getExpressionBlock().apply(this);
-        }
-        if(node.getRoles() != null)
-        {
-            node.getRoles().apply(this);
+            node.getPermissionExpression().apply(this);
         }
         if(node.getAccessCapabilities() != null)
         {
             node.getAccessCapabilities().apply(this);
+        }
+        if(node.getPermissionRoles() != null)
+        {
+            node.getPermissionRoles().apply(this);
         }
         if(node.getAllow() != null)
         {
@@ -3779,29 +3800,46 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAPermissionConstraint(node);
     }
 
-    public void inARoles(ARoles node)
+    public void inAPermissionExpression(APermissionExpression node)
     {
         defaultIn(node);
     }
 
-    public void outARoles(ARoles node)
+    public void outAPermissionExpression(APermissionExpression node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseARoles(ARoles node)
+    public void caseAPermissionExpression(APermissionExpression node)
     {
-        inARoles(node);
+        inAPermissionExpression(node);
+        if(node.getExpressionBlock() != null)
+        {
+            node.getExpressionBlock().apply(this);
+        }
+        outAPermissionExpression(node);
+    }
+
+    public void inAPermissionRoles(APermissionRoles node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAPermissionRoles(APermissionRoles node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAPermissionRoles(APermissionRoles node)
+    {
+        inAPermissionRoles(node);
         if(node.getQualifiedIdentifierList() != null)
         {
             node.getQualifiedIdentifierList().apply(this);
         }
-        if(node.getTo() != null)
-        {
-            node.getTo().apply(this);
-        }
-        outARoles(node);
+        outAPermissionRoles(node);
     }
 
     public void inAAccessCapabilities(AAccessCapabilities node)
@@ -3818,23 +3856,28 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAAccessCapabilities(AAccessCapabilities node)
     {
         inAAccessCapabilities(node);
-        if(node.getRCurlyBracket() != null)
+        if(node.getAccessCapabilityList() != null)
         {
-            node.getRCurlyBracket().apply(this);
-        }
-        {
-            List<PAccessCapability> copy = new ArrayList<PAccessCapability>(node.getAccessCapability());
-            Collections.reverse(copy);
-            for(PAccessCapability e : copy)
-            {
-                e.apply(this);
-            }
-        }
-        if(node.getLCurlyBracket() != null)
-        {
-            node.getLCurlyBracket().apply(this);
+            node.getAccessCapabilityList().apply(this);
         }
         outAAccessCapabilities(node);
+    }
+
+    public void inAEmptyAccessCapabilities(AEmptyAccessCapabilities node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEmptyAccessCapabilities(AEmptyAccessCapabilities node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEmptyAccessCapabilities(AEmptyAccessCapabilities node)
+    {
+        inAEmptyAccessCapabilities(node);
+        outAEmptyAccessCapabilities(node);
     }
 
     public void inAAccessCapabilityList(AAccessCapabilityList node)
@@ -3994,6 +4037,27 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getCall().apply(this);
         }
         outACallAccessCapability(node);
+    }
+
+    public void inANoneAccessCapability(ANoneAccessCapability node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANoneAccessCapability(ANoneAccessCapability node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANoneAccessCapability(ANoneAccessCapability node)
+    {
+        inANoneAccessCapability(node);
+        if(node.getNone() != null)
+        {
+            node.getNone().apply(this);
+        }
+        outANoneAccessCapability(node);
     }
 
     public void inAPreconditionSignature(APreconditionSignature node)
@@ -4829,6 +4893,48 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAInvariantKernel(AInvariantKernel node)
     {
         inAInvariantKernel(node);
+        if(node.getRegularInvariantConstraint() != null)
+        {
+            node.getRegularInvariantConstraint().apply(this);
+        }
+        outAInvariantKernel(node);
+    }
+
+    public void inAPermissionConstraintInvariantKernel(APermissionConstraintInvariantKernel node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAPermissionConstraintInvariantKernel(APermissionConstraintInvariantKernel node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAPermissionConstraintInvariantKernel(APermissionConstraintInvariantKernel node)
+    {
+        inAPermissionConstraintInvariantKernel(node);
+        if(node.getPermissionConstraint() != null)
+        {
+            node.getPermissionConstraint().apply(this);
+        }
+        outAPermissionConstraintInvariantKernel(node);
+    }
+
+    public void inARegularInvariantConstraint(ARegularInvariantConstraint node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARegularInvariantConstraint(ARegularInvariantConstraint node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARegularInvariantConstraint(ARegularInvariantConstraint node)
+    {
+        inARegularInvariantConstraint(node);
         if(node.getExpressionBlock() != null)
         {
             node.getExpressionBlock().apply(this);
@@ -4845,7 +4951,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getInvariant().apply(this);
         }
-        outAInvariantKernel(node);
+        outARegularInvariantConstraint(node);
     }
 
     public void inAInvariantConstraintKeyword(AInvariantConstraintKeyword node)
@@ -4869,20 +4975,20 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAInvariantConstraintKeyword(node);
     }
 
-    public void inAInvariantDecl(AInvariantDecl node)
+    public void inAClassInvariantDecl(AClassInvariantDecl node)
     {
         defaultIn(node);
     }
 
-    public void outAInvariantDecl(AInvariantDecl node)
+    public void outAClassInvariantDecl(AClassInvariantDecl node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAInvariantDecl(AInvariantDecl node)
+    public void caseAClassInvariantDecl(AClassInvariantDecl node)
     {
-        inAInvariantDecl(node);
+        inAClassInvariantDecl(node);
         if(node.getSemicolon() != null)
         {
             node.getSemicolon().apply(this);
@@ -4891,7 +4997,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getInvariantKernel().apply(this);
         }
-        outAInvariantDecl(node);
+        outAClassInvariantDecl(node);
     }
 
     public void inAReferenceDecl(AReferenceDecl node)

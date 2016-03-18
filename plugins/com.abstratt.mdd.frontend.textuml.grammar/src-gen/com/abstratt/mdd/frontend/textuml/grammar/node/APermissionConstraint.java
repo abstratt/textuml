@@ -8,9 +8,9 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 public final class APermissionConstraint extends PPermissionConstraint
 {
     private TAllow _allow_;
+    private PPermissionRoles _permissionRoles_;
     private PAccessCapabilities _accessCapabilities_;
-    private PRoles _roles_;
-    private PExpressionBlock _expressionBlock_;
+    private PPermissionExpression _permissionExpression_;
 
     public APermissionConstraint()
     {
@@ -19,18 +19,18 @@ public final class APermissionConstraint extends PPermissionConstraint
 
     public APermissionConstraint(
         @SuppressWarnings("hiding") TAllow _allow_,
+        @SuppressWarnings("hiding") PPermissionRoles _permissionRoles_,
         @SuppressWarnings("hiding") PAccessCapabilities _accessCapabilities_,
-        @SuppressWarnings("hiding") PRoles _roles_,
-        @SuppressWarnings("hiding") PExpressionBlock _expressionBlock_)
+        @SuppressWarnings("hiding") PPermissionExpression _permissionExpression_)
     {
         // Constructor
         setAllow(_allow_);
 
+        setPermissionRoles(_permissionRoles_);
+
         setAccessCapabilities(_accessCapabilities_);
 
-        setRoles(_roles_);
-
-        setExpressionBlock(_expressionBlock_);
+        setPermissionExpression(_permissionExpression_);
 
     }
 
@@ -39,9 +39,9 @@ public final class APermissionConstraint extends PPermissionConstraint
     {
         return new APermissionConstraint(
             cloneNode(this._allow_),
+            cloneNode(this._permissionRoles_),
             cloneNode(this._accessCapabilities_),
-            cloneNode(this._roles_),
-            cloneNode(this._expressionBlock_));
+            cloneNode(this._permissionExpression_));
     }
 
     public void apply(Switch sw)
@@ -74,6 +74,31 @@ public final class APermissionConstraint extends PPermissionConstraint
         this._allow_ = node;
     }
 
+    public PPermissionRoles getPermissionRoles()
+    {
+        return this._permissionRoles_;
+    }
+
+    public void setPermissionRoles(PPermissionRoles node)
+    {
+        if(this._permissionRoles_ != null)
+        {
+            this._permissionRoles_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._permissionRoles_ = node;
+    }
+
     public PAccessCapabilities getAccessCapabilities()
     {
         return this._accessCapabilities_;
@@ -99,16 +124,16 @@ public final class APermissionConstraint extends PPermissionConstraint
         this._accessCapabilities_ = node;
     }
 
-    public PRoles getRoles()
+    public PPermissionExpression getPermissionExpression()
     {
-        return this._roles_;
+        return this._permissionExpression_;
     }
 
-    public void setRoles(PRoles node)
+    public void setPermissionExpression(PPermissionExpression node)
     {
-        if(this._roles_ != null)
+        if(this._permissionExpression_ != null)
         {
-            this._roles_.parent(null);
+            this._permissionExpression_.parent(null);
         }
 
         if(node != null)
@@ -121,32 +146,7 @@ public final class APermissionConstraint extends PPermissionConstraint
             node.parent(this);
         }
 
-        this._roles_ = node;
-    }
-
-    public PExpressionBlock getExpressionBlock()
-    {
-        return this._expressionBlock_;
-    }
-
-    public void setExpressionBlock(PExpressionBlock node)
-    {
-        if(this._expressionBlock_ != null)
-        {
-            this._expressionBlock_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._expressionBlock_ = node;
+        this._permissionExpression_ = node;
     }
 
     @Override
@@ -154,9 +154,9 @@ public final class APermissionConstraint extends PPermissionConstraint
     {
         return ""
             + toString(this._allow_)
+            + toString(this._permissionRoles_)
             + toString(this._accessCapabilities_)
-            + toString(this._roles_)
-            + toString(this._expressionBlock_);
+            + toString(this._permissionExpression_);
     }
 
     @Override
@@ -169,21 +169,21 @@ public final class APermissionConstraint extends PPermissionConstraint
             return;
         }
 
+        if(this._permissionRoles_ == child)
+        {
+            this._permissionRoles_ = null;
+            return;
+        }
+
         if(this._accessCapabilities_ == child)
         {
             this._accessCapabilities_ = null;
             return;
         }
 
-        if(this._roles_ == child)
+        if(this._permissionExpression_ == child)
         {
-            this._roles_ = null;
-            return;
-        }
-
-        if(this._expressionBlock_ == child)
-        {
-            this._expressionBlock_ = null;
+            this._permissionExpression_ = null;
             return;
         }
 
@@ -200,21 +200,21 @@ public final class APermissionConstraint extends PPermissionConstraint
             return;
         }
 
+        if(this._permissionRoles_ == oldChild)
+        {
+            setPermissionRoles((PPermissionRoles) newChild);
+            return;
+        }
+
         if(this._accessCapabilities_ == oldChild)
         {
             setAccessCapabilities((PAccessCapabilities) newChild);
             return;
         }
 
-        if(this._roles_ == oldChild)
+        if(this._permissionExpression_ == oldChild)
         {
-            setRoles((PRoles) newChild);
-            return;
-        }
-
-        if(this._expressionBlock_ == oldChild)
-        {
-            setExpressionBlock((PExpressionBlock) newChild);
+            setPermissionExpression((PPermissionExpression) newChild);
             return;
         }
 

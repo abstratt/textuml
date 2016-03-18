@@ -5,17 +5,17 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AInvariantDecl extends PInvariantDecl
+public final class AClassInvariantDecl extends PClassInvariantDecl
 {
     private PInvariantKernel _invariantKernel_;
     private TSemicolon _semicolon_;
 
-    public AInvariantDecl()
+    public AClassInvariantDecl()
     {
         // Constructor
     }
 
-    public AInvariantDecl(
+    public AClassInvariantDecl(
         @SuppressWarnings("hiding") PInvariantKernel _invariantKernel_,
         @SuppressWarnings("hiding") TSemicolon _semicolon_)
     {
@@ -29,14 +29,14 @@ public final class AInvariantDecl extends PInvariantDecl
     @Override
     public Object clone()
     {
-        return new AInvariantDecl(
+        return new AClassInvariantDecl(
             cloneNode(this._invariantKernel_),
             cloneNode(this._semicolon_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAInvariantDecl(this);
+        ((Analysis) sw).caseAClassInvariantDecl(this);
     }
 
     public PInvariantKernel getInvariantKernel()

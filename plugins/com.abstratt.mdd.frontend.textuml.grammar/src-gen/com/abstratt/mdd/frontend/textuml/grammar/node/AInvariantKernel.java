@@ -7,10 +7,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 @SuppressWarnings("nls")
 public final class AInvariantKernel extends PInvariantKernel
 {
-    private TInvariant _invariant_;
-    private TIdentifier _identifier_;
-    private PConstraintException _constraintException_;
-    private PExpressionBlock _expressionBlock_;
+    private PRegularInvariantConstraint _regularInvariantConstraint_;
 
     public AInvariantKernel()
     {
@@ -18,19 +15,10 @@ public final class AInvariantKernel extends PInvariantKernel
     }
 
     public AInvariantKernel(
-        @SuppressWarnings("hiding") TInvariant _invariant_,
-        @SuppressWarnings("hiding") TIdentifier _identifier_,
-        @SuppressWarnings("hiding") PConstraintException _constraintException_,
-        @SuppressWarnings("hiding") PExpressionBlock _expressionBlock_)
+        @SuppressWarnings("hiding") PRegularInvariantConstraint _regularInvariantConstraint_)
     {
         // Constructor
-        setInvariant(_invariant_);
-
-        setIdentifier(_identifier_);
-
-        setConstraintException(_constraintException_);
-
-        setExpressionBlock(_expressionBlock_);
+        setRegularInvariantConstraint(_regularInvariantConstraint_);
 
     }
 
@@ -38,10 +26,7 @@ public final class AInvariantKernel extends PInvariantKernel
     public Object clone()
     {
         return new AInvariantKernel(
-            cloneNode(this._invariant_),
-            cloneNode(this._identifier_),
-            cloneNode(this._constraintException_),
-            cloneNode(this._expressionBlock_));
+            cloneNode(this._regularInvariantConstraint_));
     }
 
     public void apply(Switch sw)
@@ -49,16 +34,16 @@ public final class AInvariantKernel extends PInvariantKernel
         ((Analysis) sw).caseAInvariantKernel(this);
     }
 
-    public TInvariant getInvariant()
+    public PRegularInvariantConstraint getRegularInvariantConstraint()
     {
-        return this._invariant_;
+        return this._regularInvariantConstraint_;
     }
 
-    public void setInvariant(TInvariant node)
+    public void setRegularInvariantConstraint(PRegularInvariantConstraint node)
     {
-        if(this._invariant_ != null)
+        if(this._regularInvariantConstraint_ != null)
         {
-            this._invariant_.parent(null);
+            this._regularInvariantConstraint_.parent(null);
         }
 
         if(node != null)
@@ -71,119 +56,23 @@ public final class AInvariantKernel extends PInvariantKernel
             node.parent(this);
         }
 
-        this._invariant_ = node;
-    }
-
-    public TIdentifier getIdentifier()
-    {
-        return this._identifier_;
-    }
-
-    public void setIdentifier(TIdentifier node)
-    {
-        if(this._identifier_ != null)
-        {
-            this._identifier_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._identifier_ = node;
-    }
-
-    public PConstraintException getConstraintException()
-    {
-        return this._constraintException_;
-    }
-
-    public void setConstraintException(PConstraintException node)
-    {
-        if(this._constraintException_ != null)
-        {
-            this._constraintException_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._constraintException_ = node;
-    }
-
-    public PExpressionBlock getExpressionBlock()
-    {
-        return this._expressionBlock_;
-    }
-
-    public void setExpressionBlock(PExpressionBlock node)
-    {
-        if(this._expressionBlock_ != null)
-        {
-            this._expressionBlock_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._expressionBlock_ = node;
+        this._regularInvariantConstraint_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._invariant_)
-            + toString(this._identifier_)
-            + toString(this._constraintException_)
-            + toString(this._expressionBlock_);
+            + toString(this._regularInvariantConstraint_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._invariant_ == child)
+        if(this._regularInvariantConstraint_ == child)
         {
-            this._invariant_ = null;
-            return;
-        }
-
-        if(this._identifier_ == child)
-        {
-            this._identifier_ = null;
-            return;
-        }
-
-        if(this._constraintException_ == child)
-        {
-            this._constraintException_ = null;
-            return;
-        }
-
-        if(this._expressionBlock_ == child)
-        {
-            this._expressionBlock_ = null;
+            this._regularInvariantConstraint_ = null;
             return;
         }
 
@@ -194,27 +83,9 @@ public final class AInvariantKernel extends PInvariantKernel
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._invariant_ == oldChild)
+        if(this._regularInvariantConstraint_ == oldChild)
         {
-            setInvariant((TInvariant) newChild);
-            return;
-        }
-
-        if(this._identifier_ == oldChild)
-        {
-            setIdentifier((TIdentifier) newChild);
-            return;
-        }
-
-        if(this._constraintException_ == oldChild)
-        {
-            setConstraintException((PConstraintException) newChild);
-            return;
-        }
-
-        if(this._expressionBlock_ == oldChild)
-        {
-            setExpressionBlock((PExpressionBlock) newChild);
+            setRegularInvariantConstraint((PRegularInvariantConstraint) newChild);
             return;
         }
 

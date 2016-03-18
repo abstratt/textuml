@@ -469,6 +469,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseARoleClassModifier(ARoleClassModifier node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAClassClassType(AClassClassType node)
     {
         defaultCase(node);
@@ -809,7 +814,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAOperationConstraintKernel(AOperationConstraintKernel node)
+    public void caseAPermissionOperationConstraintKernel(APermissionOperationConstraintKernel node)
     {
         defaultCase(node);
     }
@@ -824,12 +829,22 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseARoles(ARoles node)
+    public void caseAPermissionExpression(APermissionExpression node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAPermissionRoles(APermissionRoles node)
     {
         defaultCase(node);
     }
 
     public void caseAAccessCapabilities(AAccessCapabilities node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAEmptyAccessCapabilities(AEmptyAccessCapabilities node)
     {
         defaultCase(node);
     }
@@ -865,6 +880,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseACallAccessCapability(ACallAccessCapability node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseANoneAccessCapability(ANoneAccessCapability node)
     {
         defaultCase(node);
     }
@@ -1029,12 +1049,22 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAPermissionConstraintInvariantKernel(APermissionConstraintInvariantKernel node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseARegularInvariantConstraint(ARegularInvariantConstraint node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAInvariantConstraintKeyword(AInvariantConstraintKeyword node)
     {
         defaultCase(node);
     }
 
-    public void caseAInvariantDecl(AInvariantDecl node)
+    public void caseAClassInvariantDecl(AClassInvariantDecl node)
     {
         defaultCase(node);
     }
@@ -2040,6 +2070,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTAllow(TAllow node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTAll(TAll node)
     {
         defaultCase(node);
     }

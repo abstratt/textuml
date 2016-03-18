@@ -92,6 +92,7 @@ public interface Analysis extends Switch
     void caseAVisibilityClassModifier(AVisibilityClassModifier node);
     void caseAAbstractClassModifier(AAbstractClassModifier node);
     void caseAExternalClassModifier(AExternalClassModifier node);
+    void caseARoleClassModifier(ARoleClassModifier node);
     void caseAClassClassType(AClassClassType node);
     void caseAInterfaceClassType(AInterfaceClassType node);
     void caseADatatypeClassType(ADatatypeClassType node);
@@ -160,11 +161,13 @@ public interface Analysis extends Switch
     void caseAOperationDecl(AOperationDecl node);
     void caseAOperationConstraint(AOperationConstraint node);
     void caseAPreconditionOperationConstraintKernel(APreconditionOperationConstraintKernel node);
-    void caseAOperationConstraintKernel(AOperationConstraintKernel node);
+    void caseAPermissionOperationConstraintKernel(APermissionOperationConstraintKernel node);
     void caseAOperationPrecondition(AOperationPrecondition node);
     void caseAPermissionConstraint(APermissionConstraint node);
-    void caseARoles(ARoles node);
+    void caseAPermissionExpression(APermissionExpression node);
+    void caseAPermissionRoles(APermissionRoles node);
     void caseAAccessCapabilities(AAccessCapabilities node);
+    void caseAEmptyAccessCapabilities(AEmptyAccessCapabilities node);
     void caseAAccessCapabilityList(AAccessCapabilityList node);
     void caseAAccessCapabilityTail(AAccessCapabilityTail node);
     void caseAReadAccessCapability(AReadAccessCapability node);
@@ -172,6 +175,7 @@ public interface Analysis extends Switch
     void caseAUpdateAccessCapability(AUpdateAccessCapability node);
     void caseADeleteAccessCapability(ADeleteAccessCapability node);
     void caseACallAccessCapability(ACallAccessCapability node);
+    void caseANoneAccessCapability(ANoneAccessCapability node);
     void caseAPreconditionSignature(APreconditionSignature node);
     void caseAConstraintException(AConstraintException node);
     void caseAIdentifierList(AIdentifierList node);
@@ -204,8 +208,10 @@ public interface Analysis extends Switch
     void caseAPathConnectorEnd(APathConnectorEnd node);
     void caseASimpleConnectorEnd(ASimpleConnectorEnd node);
     void caseAInvariantKernel(AInvariantKernel node);
+    void caseAPermissionConstraintInvariantKernel(APermissionConstraintInvariantKernel node);
+    void caseARegularInvariantConstraint(ARegularInvariantConstraint node);
     void caseAInvariantConstraintKeyword(AInvariantConstraintKeyword node);
-    void caseAInvariantDecl(AInvariantDecl node);
+    void caseAClassInvariantDecl(AClassInvariantDecl node);
     void caseAReferenceDecl(AReferenceDecl node);
     void caseAOptionalOpposite(AOptionalOpposite node);
     void caseAEmptyOptionalOpposite(AEmptyOptionalOpposite node);
@@ -408,6 +414,7 @@ public interface Analysis extends Switch
     void caseTAggregation(TAggregation node);
     void caseTAlias(TAlias node);
     void caseTAllow(TAllow node);
+    void caseTAll(TAll node);
     void caseTAnd(TAnd node);
     void caseTAny(TAny node);
     void caseTApply(TApply node);

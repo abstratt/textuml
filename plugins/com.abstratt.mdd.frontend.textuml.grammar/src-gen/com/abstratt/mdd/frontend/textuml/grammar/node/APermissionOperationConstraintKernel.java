@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AInvariantFeatureType extends PFeatureType
+public final class APermissionOperationConstraintKernel extends POperationConstraintKernel
 {
-    private PClassInvariantDecl _classInvariantDecl_;
+    private PPermissionConstraint _permissionConstraint_;
 
-    public AInvariantFeatureType()
+    public APermissionOperationConstraintKernel()
     {
         // Constructor
     }
 
-    public AInvariantFeatureType(
-        @SuppressWarnings("hiding") PClassInvariantDecl _classInvariantDecl_)
+    public APermissionOperationConstraintKernel(
+        @SuppressWarnings("hiding") PPermissionConstraint _permissionConstraint_)
     {
         // Constructor
-        setClassInvariantDecl(_classInvariantDecl_);
+        setPermissionConstraint(_permissionConstraint_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AInvariantFeatureType(
-            cloneNode(this._classInvariantDecl_));
+        return new APermissionOperationConstraintKernel(
+            cloneNode(this._permissionConstraint_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAInvariantFeatureType(this);
+        ((Analysis) sw).caseAPermissionOperationConstraintKernel(this);
     }
 
-    public PClassInvariantDecl getClassInvariantDecl()
+    public PPermissionConstraint getPermissionConstraint()
     {
-        return this._classInvariantDecl_;
+        return this._permissionConstraint_;
     }
 
-    public void setClassInvariantDecl(PClassInvariantDecl node)
+    public void setPermissionConstraint(PPermissionConstraint node)
     {
-        if(this._classInvariantDecl_ != null)
+        if(this._permissionConstraint_ != null)
         {
-            this._classInvariantDecl_.parent(null);
+            this._permissionConstraint_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AInvariantFeatureType extends PFeatureType
             node.parent(this);
         }
 
-        this._classInvariantDecl_ = node;
+        this._permissionConstraint_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._classInvariantDecl_);
+            + toString(this._permissionConstraint_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._classInvariantDecl_ == child)
+        if(this._permissionConstraint_ == child)
         {
-            this._classInvariantDecl_ = null;
+            this._permissionConstraint_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AInvariantFeatureType extends PFeatureType
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._classInvariantDecl_ == oldChild)
+        if(this._permissionConstraint_ == oldChild)
         {
-            setClassInvariantDecl((PClassInvariantDecl) newChild);
+            setPermissionConstraint((PPermissionConstraint) newChild);
             return;
         }
 

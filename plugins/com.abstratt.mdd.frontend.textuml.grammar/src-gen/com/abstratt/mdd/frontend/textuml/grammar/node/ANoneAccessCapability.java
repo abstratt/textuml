@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AInvariantFeatureType extends PFeatureType
+public final class ANoneAccessCapability extends PAccessCapability
 {
-    private PClassInvariantDecl _classInvariantDecl_;
+    private TNone _none_;
 
-    public AInvariantFeatureType()
+    public ANoneAccessCapability()
     {
         // Constructor
     }
 
-    public AInvariantFeatureType(
-        @SuppressWarnings("hiding") PClassInvariantDecl _classInvariantDecl_)
+    public ANoneAccessCapability(
+        @SuppressWarnings("hiding") TNone _none_)
     {
         // Constructor
-        setClassInvariantDecl(_classInvariantDecl_);
+        setNone(_none_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AInvariantFeatureType(
-            cloneNode(this._classInvariantDecl_));
+        return new ANoneAccessCapability(
+            cloneNode(this._none_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAInvariantFeatureType(this);
+        ((Analysis) sw).caseANoneAccessCapability(this);
     }
 
-    public PClassInvariantDecl getClassInvariantDecl()
+    public TNone getNone()
     {
-        return this._classInvariantDecl_;
+        return this._none_;
     }
 
-    public void setClassInvariantDecl(PClassInvariantDecl node)
+    public void setNone(TNone node)
     {
-        if(this._classInvariantDecl_ != null)
+        if(this._none_ != null)
         {
-            this._classInvariantDecl_.parent(null);
+            this._none_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AInvariantFeatureType extends PFeatureType
             node.parent(this);
         }
 
-        this._classInvariantDecl_ = node;
+        this._none_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._classInvariantDecl_);
+            + toString(this._none_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._classInvariantDecl_ == child)
+        if(this._none_ == child)
         {
-            this._classInvariantDecl_ = null;
+            this._none_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AInvariantFeatureType extends PFeatureType
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._classInvariantDecl_ == oldChild)
+        if(this._none_ == oldChild)
         {
-            setClassInvariantDecl((PClassInvariantDecl) newChild);
+            setNone((TNone) newChild);
             return;
         }
 

@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AOperationConstraintKernel extends POperationConstraintKernel
+public final class APermissionExpression extends PPermissionExpression
 {
-    private PPermissionConstraint _permissionConstraint_;
+    private PExpressionBlock _expressionBlock_;
 
-    public AOperationConstraintKernel()
+    public APermissionExpression()
     {
         // Constructor
     }
 
-    public AOperationConstraintKernel(
-        @SuppressWarnings("hiding") PPermissionConstraint _permissionConstraint_)
+    public APermissionExpression(
+        @SuppressWarnings("hiding") PExpressionBlock _expressionBlock_)
     {
         // Constructor
-        setPermissionConstraint(_permissionConstraint_);
+        setExpressionBlock(_expressionBlock_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AOperationConstraintKernel(
-            cloneNode(this._permissionConstraint_));
+        return new APermissionExpression(
+            cloneNode(this._expressionBlock_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAOperationConstraintKernel(this);
+        ((Analysis) sw).caseAPermissionExpression(this);
     }
 
-    public PPermissionConstraint getPermissionConstraint()
+    public PExpressionBlock getExpressionBlock()
     {
-        return this._permissionConstraint_;
+        return this._expressionBlock_;
     }
 
-    public void setPermissionConstraint(PPermissionConstraint node)
+    public void setExpressionBlock(PExpressionBlock node)
     {
-        if(this._permissionConstraint_ != null)
+        if(this._expressionBlock_ != null)
         {
-            this._permissionConstraint_.parent(null);
+            this._expressionBlock_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AOperationConstraintKernel extends POperationConstraintKernel
             node.parent(this);
         }
 
-        this._permissionConstraint_ = node;
+        this._expressionBlock_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._permissionConstraint_);
+            + toString(this._expressionBlock_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._permissionConstraint_ == child)
+        if(this._expressionBlock_ == child)
         {
-            this._permissionConstraint_ = null;
+            this._expressionBlock_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AOperationConstraintKernel extends POperationConstraintKernel
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._permissionConstraint_ == oldChild)
+        if(this._expressionBlock_ == oldChild)
         {
-            setPermissionConstraint((PPermissionConstraint) newChild);
+            setExpressionBlock((PExpressionBlock) newChild);
             return;
         }
 

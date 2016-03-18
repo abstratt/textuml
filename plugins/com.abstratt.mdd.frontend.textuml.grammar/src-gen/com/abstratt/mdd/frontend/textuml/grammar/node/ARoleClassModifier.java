@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AInvariantFeatureType extends PFeatureType
+public final class ARoleClassModifier extends PClassModifier
 {
-    private PClassInvariantDecl _classInvariantDecl_;
+    private TRole _role_;
 
-    public AInvariantFeatureType()
+    public ARoleClassModifier()
     {
         // Constructor
     }
 
-    public AInvariantFeatureType(
-        @SuppressWarnings("hiding") PClassInvariantDecl _classInvariantDecl_)
+    public ARoleClassModifier(
+        @SuppressWarnings("hiding") TRole _role_)
     {
         // Constructor
-        setClassInvariantDecl(_classInvariantDecl_);
+        setRole(_role_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AInvariantFeatureType(
-            cloneNode(this._classInvariantDecl_));
+        return new ARoleClassModifier(
+            cloneNode(this._role_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAInvariantFeatureType(this);
+        ((Analysis) sw).caseARoleClassModifier(this);
     }
 
-    public PClassInvariantDecl getClassInvariantDecl()
+    public TRole getRole()
     {
-        return this._classInvariantDecl_;
+        return this._role_;
     }
 
-    public void setClassInvariantDecl(PClassInvariantDecl node)
+    public void setRole(TRole node)
     {
-        if(this._classInvariantDecl_ != null)
+        if(this._role_ != null)
         {
-            this._classInvariantDecl_.parent(null);
+            this._role_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AInvariantFeatureType extends PFeatureType
             node.parent(this);
         }
 
-        this._classInvariantDecl_ = node;
+        this._role_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._classInvariantDecl_);
+            + toString(this._role_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._classInvariantDecl_ == child)
+        if(this._role_ == child)
         {
-            this._classInvariantDecl_ = null;
+            this._role_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AInvariantFeatureType extends PFeatureType
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._classInvariantDecl_ == oldChild)
+        if(this._role_ == oldChild)
         {
-            setClassInvariantDecl((PClassInvariantDecl) newChild);
+            setRole((TRole) newChild);
             return;
         }
 

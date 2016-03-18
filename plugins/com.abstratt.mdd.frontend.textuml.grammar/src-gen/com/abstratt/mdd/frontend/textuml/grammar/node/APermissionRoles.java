@@ -5,23 +5,19 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ARoles extends PRoles
+public final class APermissionRoles extends PPermissionRoles
 {
-    private TTo _to_;
     private PQualifiedIdentifierList _qualifiedIdentifierList_;
 
-    public ARoles()
+    public APermissionRoles()
     {
         // Constructor
     }
 
-    public ARoles(
-        @SuppressWarnings("hiding") TTo _to_,
+    public APermissionRoles(
         @SuppressWarnings("hiding") PQualifiedIdentifierList _qualifiedIdentifierList_)
     {
         // Constructor
-        setTo(_to_);
-
         setQualifiedIdentifierList(_qualifiedIdentifierList_);
 
     }
@@ -29,39 +25,13 @@ public final class ARoles extends PRoles
     @Override
     public Object clone()
     {
-        return new ARoles(
-            cloneNode(this._to_),
+        return new APermissionRoles(
             cloneNode(this._qualifiedIdentifierList_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseARoles(this);
-    }
-
-    public TTo getTo()
-    {
-        return this._to_;
-    }
-
-    public void setTo(TTo node)
-    {
-        if(this._to_ != null)
-        {
-            this._to_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._to_ = node;
+        ((Analysis) sw).caseAPermissionRoles(this);
     }
 
     public PQualifiedIdentifierList getQualifiedIdentifierList()
@@ -93,7 +63,6 @@ public final class ARoles extends PRoles
     public String toString()
     {
         return ""
-            + toString(this._to_)
             + toString(this._qualifiedIdentifierList_);
     }
 
@@ -101,12 +70,6 @@ public final class ARoles extends PRoles
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._to_ == child)
-        {
-            this._to_ = null;
-            return;
-        }
-
         if(this._qualifiedIdentifierList_ == child)
         {
             this._qualifiedIdentifierList_ = null;
@@ -120,12 +83,6 @@ public final class ARoles extends PRoles
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._to_ == oldChild)
-        {
-            setTo((TTo) newChild);
-            return;
-        }
-
         if(this._qualifiedIdentifierList_ == oldChild)
         {
             setQualifiedIdentifierList((PQualifiedIdentifierList) newChild);
