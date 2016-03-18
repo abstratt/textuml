@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.0">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2016/02/20 08:21:32 022 -0200"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2016/03/17 05:38:23 609 -0300"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -143,21 +143,22 @@
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Activity"/>
         </eStructuralFeatures>
       </eClassifiers>
-      <eClassifiers xmi:type="ecore:EEnum" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Capability" name="Capability">
-        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Capability-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Capability"/>
-        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Capability-Access" name="Access"/>
-        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Capability-Create" name="Create" value="1"/>
-        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Capability-Delete" name="Delete" value="2"/>
-        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Capability-Update" name="Update" value="3"/>
+      <eClassifiers xmi:type="ecore:EEnum" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability" name="AccessCapability">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="AccessCapability"/>
+        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Create" name="Create"/>
+        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Delete" name="Delete" value="1"/>
+        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Read" name="Read" value="2"/>
+        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Update" name="Update" value="3"/>
+        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Call" name="Call" value="4"/>
       </eClassifiers>
-      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessConstraint" name="AccessConstraint">
-        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessConstraint-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="AccessConstraint"/>
-        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessConstraint-subjects" name="subjects" ordered="false" lowerBound="1" upperBound="-1">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access" name="Access">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Access"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-roles" name="roles" ordered="false" lowerBound="1" upperBound="-1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
         </eStructuralFeatures>
-        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessConstraint-allow" name="allow" ordered="false" upperBound="-1" eType="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Capability"/>
-        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessConstraint-deny" name="deny" ordered="false" upperBound="-1" eType="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Capability"/>
-        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessConstraint-base_Constraint" name="base_Constraint" ordered="false" lowerBound="1">
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-allowed" name="allowed" ordered="false" upperBound="-1" eType="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-denied" name="denied" ordered="false" upperBound="-1" eType="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-base_Constraint" name="base_Constraint" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Constraint"/>
         </eStructuralFeatures>
       </eClassifiers>
@@ -183,6 +184,12 @@
         </eStructuralFeatures>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardTypeContext-base_Namespace" name="base_Namespace" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Role" name="Role">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Role-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Role"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Role-base_Class" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Class"/>
         </eStructuralFeatures>
       </eClassifiers>
     </contents>
@@ -353,33 +360,34 @@
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Activity"/>
     </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Enumeration" xmi:id="Capability" name="Capability">
-    <eAnnotations xmi:id="Capability-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
-      <details xmi:id="Capability-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_extensions.tuml"/>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="AccessCapability" name="AccessCapability">
+    <eAnnotations xmi:id="AccessCapability-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+      <details xmi:id="AccessCapability-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_extensions.tuml"/>
     </eAnnotations>
-    <ownedLiteral xmi:id="Capability-Access" name="Access"/>
-    <ownedLiteral xmi:id="Capability-Create" name="Create"/>
-    <ownedLiteral xmi:id="Capability-Delete" name="Delete"/>
-    <ownedLiteral xmi:id="Capability-Update" name="Update"/>
+    <ownedLiteral xmi:id="AccessCapability-Create" name="Create"/>
+    <ownedLiteral xmi:id="AccessCapability-Delete" name="Delete"/>
+    <ownedLiteral xmi:id="AccessCapability-Read" name="Read"/>
+    <ownedLiteral xmi:id="AccessCapability-Update" name="Update"/>
+    <ownedLiteral xmi:id="AccessCapability-Call" name="Call"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Stereotype" xmi:id="AccessConstraint" name="AccessConstraint">
-    <ownedComment xmi:id="AccessConstraint-_ownedComment.0" annotatedElement="AccessConstraint">
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Access" name="Access">
+    <ownedComment xmi:id="Access-_ownedComment.0" annotatedElement="Access">
       <body> You can declare access constraints on any element. </body>
     </ownedComment>
-    <ownedAttribute xmi:id="AccessConstraint-subjects" name="subjects">
+    <ownedAttribute xmi:id="Access-roles" name="roles">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="AccessConstraint-subjects-_lowerValue" value="1"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="AccessConstraint-subjects-_upperValue" value="*"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Access-roles-_lowerValue" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Access-roles-_upperValue" value="*"/>
     </ownedAttribute>
-    <ownedAttribute xmi:id="AccessConstraint-allow" name="allow" type="Capability">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="AccessConstraint-allow-_lowerValue"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="AccessConstraint-allow-_upperValue" value="*"/>
+    <ownedAttribute xmi:id="Access-allowed" name="allowed" type="AccessCapability">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Access-allowed-_lowerValue"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Access-allowed-_upperValue" value="*"/>
     </ownedAttribute>
-    <ownedAttribute xmi:id="AccessConstraint-deny" name="deny" type="Capability">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="AccessConstraint-deny-_lowerValue"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="AccessConstraint-deny-_upperValue" value="*"/>
+    <ownedAttribute xmi:id="Access-denied" name="denied" type="AccessCapability">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Access-denied-_lowerValue"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Access-denied-_upperValue" value="*"/>
     </ownedAttribute>
-    <ownedAttribute xmi:id="AccessConstraint-base_Constraint" name="base_Constraint" association="Constraint_AccessConstraint">
+    <ownedAttribute xmi:id="Access-base_Constraint" name="base_Constraint" association="Constraint_Access">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
     </ownedAttribute>
   </packagedElement>
@@ -406,6 +414,11 @@
     </ownedAttribute>
     <ownedAttribute xmi:id="WildcardTypeContext-base_Namespace" name="base_Namespace" association="Namespace_WildcardTypeContext">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Namespace"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Role" name="Role">
+    <ownedAttribute xmi:id="Role-base_Class" name="base_Class" association="Class_Role">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Class_Test" name="Class_Test" memberEnd="Class_Test-extension_Test Test-base_Class">
@@ -459,8 +472,8 @@
   <packagedElement xmi:type="uml:Extension" xmi:id="Activity_Derivation" name="Activity_Derivation" memberEnd="Activity_Derivation-extension_Derivation Derivation-base_Activity">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Activity_Derivation-extension_Derivation" name="extension_Derivation" type="Derivation" aggregation="composite" association="Activity_Derivation"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_AccessConstraint" name="Constraint_AccessConstraint" memberEnd="Constraint_AccessConstraint-extension_AccessConstraint AccessConstraint-base_Constraint">
-    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_AccessConstraint-extension_AccessConstraint" name="extension_AccessConstraint" type="AccessConstraint" aggregation="composite" association="Constraint_AccessConstraint"/>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_Access" name="Constraint_Access" memberEnd="Constraint_Access-extension_Access Access-base_Constraint">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_Access-extension_Access" name="extension_Access" type="Access" aggregation="composite" association="Constraint_Access"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Constraint_PropertyDerivation" name="Constraint_PropertyDerivation" memberEnd="Constraint_PropertyDerivation-extension_PropertyDerivation PropertyDerivation-base_Constraint">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Constraint_PropertyDerivation-extension_PropertyDerivation" name="extension_PropertyDerivation" type="PropertyDerivation" aggregation="composite" association="Constraint_PropertyDerivation"/>
@@ -470,5 +483,8 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Namespace_WildcardTypeContext" name="Namespace_WildcardTypeContext" memberEnd="Namespace_WildcardTypeContext-extension_WildcardTypeContext WildcardTypeContext-base_Namespace">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Namespace_WildcardTypeContext-extension_WildcardTypeContext" name="extension_WildcardTypeContext" type="WildcardTypeContext" aggregation="composite" association="Namespace_WildcardTypeContext"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Class_Role" name="Class_Role" memberEnd="Class_Role-extension_Role Role-base_Class">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Class_Role-extension_Role" name="extension_Role" type="Role" aggregation="composite" association="Class_Role"/>
   </packagedElement>
 </uml:Profile>

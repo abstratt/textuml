@@ -81,7 +81,7 @@ enumeration AccessCapability
 end;
 
 (* You can declare access constraints on any element. *)
-stereotype Access extends UML::Constraint
+stereotype Access specializes Invariant
     property roles : Class[1,*];
     property allowed : AccessCapability[*];
     property denied : AccessCapability[*];
@@ -97,5 +97,7 @@ end;
 stereotype WildcardTypeContext extends UML::Namespace
     property wildcardTypes : UML::Type[*];
 end;
+
+stereotype Role extends UML::Class end;
 
 end.

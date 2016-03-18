@@ -1,11 +1,11 @@
 package com.abstratt.mdd.core.util;
 
+import static com.abstratt.mdd.core.util.ClassifierUtils.toEnumerationLiterals;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.uml2.uml.Action;
@@ -18,7 +18,6 @@ import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ElementImport;
 import org.eclipse.uml2.uml.Enumeration;
-import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.LiteralNull;
 import org.eclipse.uml2.uml.LiteralString;
@@ -35,7 +34,6 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.Vertex;
-import static com.abstratt.mdd.core.util.ClassifierUtils.*;
 
 import com.abstratt.mdd.core.MDDCore;
 
@@ -53,6 +51,7 @@ public class MDDExtensionUtils {
     public static final String DEBUGGABLE_STEREOTYPE = "mdd_extensions::Debuggable";
     private static final String ENTRY_POINT_STEREOTYPE = "mdd_extensions::EntryPoint";
     private static final String EXTERNAL_CLASS_STEREOTYPE = "mdd_extensions::External";
+    private static final String ROLE_CLASS_STEREOTYPE = "mdd_extensions::Role";
     private static final String OBJECT_INITIALIZATION_STEREOTYPE = "mdd_extensions::ObjectInitialization";
     private static final String CAST_STEREOTYPE = "mdd_extensions::Cast";
     private static final String SIGNATURE_STEREOTYPE = "mdd_extensions::Signature";
@@ -66,7 +65,7 @@ public class MDDExtensionUtils {
     private static final String META_REFERENCE_STEREOTYPE = "mdd_extensions::MetaReference";
 
     /** Matches the enumeration of same name in the mdd_extensions profile */
-    enum AccessCapability {
+    public enum AccessCapability {
     	Create, Read, Update, Delete, Call
     }
     
@@ -223,22 +222,6 @@ public class MDDExtensionUtils {
         constraint.setValue(ruleStereotype, "violation", violationClass);
     }
 
-    /**
-     * Creates an access constraint. 
-     * 
-     * @param constraint
-     */
-    public static void makeAccessConstraint(Constraint constraint, Collection<Class> roles, Collection<AccessCapability> allowed, Collection<AccessCapability> denied) {
-    	Enumeration accessCapabilityEnum = MDDCore.getInProgressRepository().findNamedElement("mdd_extensions::AccessCapability", Literals.ENUMERATION, null);
-        Stereotype accessStereotype = StereotypeUtils.findStereotype(ACCESS_STEREOTYPE);
-        
-        constraint.applyStereotype(accessStereotype);
-        
-        constraint.setValue(accessStereotype, ACCESS_ALLOWED, fromJavaEnumValues(accessCapabilityEnum, allowed));
-        constraint.setValue(accessStereotype, ACCESS_DENIED, fromJavaEnumValues(accessCapabilityEnum, denied));
-        constraint.setValue(accessStereotype, ACCESS_ROLES, new LinkedList<>(roles));
-    }
-    
     public static Classifier getRuleViolationClass(Constraint violated) {
         Stereotype ruleStereotype = violated.getAppliedStereotype(RULE_STEREOTYPE);
         return (Classifier) (ruleStereotype == null ? null : violated.getValue(ruleStereotype, "violation"));
@@ -334,21 +317,35 @@ public class MDDExtensionUtils {
     }
 
     public static Constraint createConstraint(NamedElement element, String constraintName, String stereotype) {
+        return createConstraint(element, constraintName, StereotypeUtils.findStereotype(stereotype));
+    }
+    
+    public static Constraint createConstraint(NamedElement element, String constraintName, Stereotype invariantStereotype) {
         Namespace namespace = element instanceof Namespace ? ((Namespace) element) : element.getNamespace();
         Constraint invariant = namespace.createOwnedRule(constraintName);
-        Stereotype invariantStereotype = StereotypeUtils.findStereotype(stereotype);
         invariant.applyStereotype(invariantStereotype);
         invariant.getConstrainedElements().add(element);
         return invariant;
     }
 
+
     protected static boolean isInvariant(Constraint constraint) {
         return constraint.getAppliedStereotype(INVARIANT_STEREOTYPE) != null;
     }
 
-    protected static boolean isAccess(Constraint constraint) {
+    public static boolean isAccess(Constraint constraint) {
         return constraint.getAppliedStereotype(ACCESS_STEREOTYPE) != null;
     }
+    
+	public static Constraint createAccessConstraint(NamedElement constrainedElement, String name, Collection<Class> roles, Collection<AccessCapability> allowed) {
+		Stereotype accessStereotype = StereotypeUtils.findStereotype(ACCESS_STEREOTYPE);
+		Enumeration accessCapabilityEnum = MDDCore.getInProgressRepository().findNamedElement("mdd_extensions::AccessCapability", Literals.ENUMERATION, null);
+		Constraint constraint = createConstraint(constrainedElement, name, accessStereotype);
+		constraint.setValue(accessStereotype , ACCESS_ALLOWED, toEnumerationLiterals(accessCapabilityEnum, allowed));
+        constraint.setValue(accessStereotype, ACCESS_ROLES, new LinkedList<>(roles));
+		return constraint;
+	}
+
 
     public static List<Constraint> findConstraints(NamedElement element, String stereotype) {
         List<Constraint> result = new ArrayList<Constraint>();
@@ -381,9 +378,7 @@ public class MDDExtensionUtils {
         return result;
     }
 
-    public static NamedElement getInvariantScope(Constraint violated) {
-        if (violated.getAppliedStereotype(INVARIANT_STEREOTYPE) == null)
-            return null;
+    public static NamedElement getConstraintScope(Constraint violated) {
         if (violated.getConstrainedElements().size() == 1
                 && violated.getConstrainedElements().get(0) instanceof NamedElement)
             return (NamedElement) violated.getConstrainedElements().get(0);
@@ -426,5 +421,11 @@ public class MDDExtensionUtils {
     public static boolean isTestClass(Type toCheck) {
         return StereotypeUtils.hasStereotype(toCheck, "Test");
     }
+
+	public static void makeRole(Class class_) {
+        Stereotype roleClassStereotype = StereotypeUtils.findStereotype(ROLE_CLASS_STEREOTYPE);
+        StereotypeUtils.safeApplyStereotype(class_, roleClassStereotype);
+
+	}
 
 }

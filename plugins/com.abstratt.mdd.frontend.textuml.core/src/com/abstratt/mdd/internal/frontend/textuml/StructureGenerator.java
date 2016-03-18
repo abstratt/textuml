@@ -53,7 +53,6 @@ import org.eclipse.uml2.uml.Reception;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.Slot;
 import org.eclipse.uml2.uml.Stereotype;
-import org.eclipse.uml2.uml.StructuredClassifier;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
@@ -111,7 +110,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AClassClassType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassDef;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassHeader;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassImplementsItem;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AClassModifierList;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AClassInvariantDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassSpecializesItem;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AComplexInitializationExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AComponentClassType;
@@ -128,7 +127,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AFeatureDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AFunctionDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AImportDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AInterfaceClassType;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AInvariantDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ALoadDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AModifiers;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANamedSimpleValue;
@@ -161,7 +159,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AStereotypeExtension;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AStereotypePropertyDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASubNamespace;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AVisibilityClassModifier;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AVisibilityModifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWildcardType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWordyBlock;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
@@ -171,6 +168,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.PQualifiedIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TAbstract;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TExternal;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TModelComment;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TRole;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TUri;
 
 /**
@@ -812,6 +810,13 @@ public class StructureGenerator extends AbstractGenerator {
                 MDDExtensionUtils.makeExternal(currentClassifier);
             }
             @Override
+            public void caseTRole(TRole node) {
+            	if (currentClassifier.eClass() == UMLPackage.Literals.CLASS)
+            		MDDExtensionUtils.makeRole((Class) currentClassifier);
+            	else
+					problemBuilder.addError("Only classes can be roles", node);
+            }
+            @Override
             public void caseAVisibilityClassModifier(AVisibilityClassModifier node) {
             	Modifier modifier = Modifier.fromToken(sourceMiner.getText(node));
             	VisibilityKind toApply = getVisibility(modifier, VisibilityKind.PUBLIC_LITERAL);
@@ -973,7 +978,7 @@ public class StructureGenerator extends AbstractGenerator {
     }
 
     @Override
-    public void caseAInvariantDecl(AInvariantDecl node) {
+    public void caseAClassInvariantDecl(AClassInvariantDecl node) {
         // ignore - handled by behavior generator
         // but discard annotations so they don't leak to another element
         annotationProcessor.discardAnnotations();

@@ -44,7 +44,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AFeatureDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AGlobalDirectiveSection;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIfClause;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIfStatement;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AInvariantKernel;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIsClassifiedExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANamedArgument;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANoIfStatementResolved;
@@ -53,6 +52,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationConstraint;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationPrecondition;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AParamDecl;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ARegularInvariantConstraint;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARootExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASendSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASignature;
@@ -306,7 +306,7 @@ public class TextUMLFormatter {
             output.append(' ');
     }
 
-    public void format(AInvariantKernel node, StringBuilder output, int indentation) {
+    public void format(ARegularInvariantConstraint node, StringBuilder output, int indentation) {
         format(node.getInvariant(), output, indentation);
         format(node.getIdentifier(), output, indentation);
         format(node.getConstraintException(), output, indentation);
