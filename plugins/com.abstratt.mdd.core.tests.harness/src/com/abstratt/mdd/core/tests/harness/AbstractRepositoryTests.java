@@ -112,6 +112,10 @@ public class AbstractRepositoryTests extends TestCase {
     protected org.eclipse.uml2.uml.Class getClass(String className) {
         return get(className, UMLPackage.Literals.CLASS);
     }
+    
+    protected org.eclipse.uml2.uml.Classifier getClassifier(String className) {
+        return get(className, UMLPackage.Literals.CLASSIFIER);
+    }
 
     protected <T extends NamedElement> T get(String name, EClass eClass) {
         T found = getRepository().findNamedElement(name, eClass, null);

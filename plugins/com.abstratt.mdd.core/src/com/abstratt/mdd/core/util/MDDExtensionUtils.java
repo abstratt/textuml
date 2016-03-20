@@ -425,7 +425,10 @@ public class MDDExtensionUtils {
 	public static void makeRole(Class class_) {
         Stereotype roleClassStereotype = StereotypeUtils.findStereotype(ROLE_CLASS_STEREOTYPE);
         StereotypeUtils.safeApplyStereotype(class_, roleClassStereotype);
-
 	}
+
+    public static boolean isRoleClass(Classifier toCheck) {
+        return StereotypeUtils.hasStereotype(toCheck, ROLE_CLASS_STEREOTYPE);
+    }
 
 }

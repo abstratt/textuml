@@ -87,6 +87,9 @@ stereotype Access specializes Invariant
     property denied : AccessCapability[*];
 end;
 
+(* A role class is a class that represents the role for a user. *)
+stereotype Role extends UML::Class end;
+
 stereotype PropertyDerivation extends UML::Constraint
 end;
 
@@ -98,6 +101,5 @@ stereotype WildcardTypeContext extends UML::Namespace
     property wildcardTypes : UML::Type[*];
 end;
 
-stereotype Role extends UML::Class end;
 
 end.

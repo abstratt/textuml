@@ -31,6 +31,7 @@ import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils.AccessCapability;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.ReceptionUtils;
+import com.abstratt.mdd.core.util.StereotypeUtils;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
@@ -312,6 +313,10 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 					namespaceTracker.currentPackage());
 			if (roleClass == null) {
 				problemBuilder.addProblem(new UnresolvedSymbol(roleClassName, IRepository.PACKAGE.getClass_()), roleId);
+				throw new AbortedCompilationException();
+			}
+			if (!MDDExtensionUtils.isRoleClass(roleClass)) {
+				problemBuilder.addProblem(new UnclassifiedProblem(roleClassName + " is not a role class"), roleId);
 				throw new AbortedCompilationException();
 			}
 			roleClasses.add(roleClass);

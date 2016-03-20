@@ -29,10 +29,19 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
         source += "model banking;\n";
         source += "import base;\n";
         source += "apply mdd_extensions;\n";
-        source += "  role class AccountOwner end;\n";
-        source += "  role class BranchManager end;\n";
-        source += "  role class AccountManager end;\n";        
-        source += "  role class SecurityOfficer end;\n";
+        source += "  class Person\n";
+        source += "      attribute name : String;\n";
+        source += "  end;\n";
+        source += "  abstract role class User specializes Person end;\n";
+        source += "  class AccountOwner specializes User\n";
+        source += "      reference accounts : BankAccount[*] opposite owner;\n";
+        source += "  end;\n";
+        source += "  abstract class Employee specializes User end;\n";
+        source += "  class BranchOfficer specializes Employee end;\n";
+        source += "  class AccountManager specializes Employee end;\n";
+        source += "  class BranchManager specializes BranchOfficer end;\n";
+        source += "  class Teller specializes BranchOfficer end;\n";
+        source += "  class SecurityOfficer specializes Employee end;\n";
         source += "\n";
         source += "  class Branch\n";
         source += "    reference manager : BranchManager;\n";
@@ -40,8 +49,8 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
         source += "\n";
         source += "  class BankAccount\n";
         source += "    allow BranchManager, AccountManager create, delete;\n";
-        source += "    reference owner : AccountOwner;\n";
-        source += "    reference branch : Branch;\n";
+        source += "    attribute owner : AccountOwner;\n";
+        source += "    attribute branch : Branch;\n";
         source += "    attribute balance : Double\n";
         source += "        allow AccountOwner read { System#user() == self.owner } \n";
         source += "        allow BranchManager read { System#user() == self.branch.manager } \n";
@@ -53,6 +62,7 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
         source += "  end;\n";
         source += "end.";        
 
+        System.out.println(source);
 	}
 
     public static Test suite() {
@@ -80,7 +90,7 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     	
     	List<Class> allowedRoles = (List<Class>) permission.getValue(accessStereotype, "roles");
     	assertEquals(2, allowedRoles.size());
-    	assertEquals(Arrays.asList(getClass("banking::BranchManager"), getClass("banking::AccountManager")), allowedRoles);
+    	assertEquals(Arrays.asList(getClassifier("banking::BranchManager"), getClassifier("banking::AccountManager")), allowedRoles);
     	
     	assertNull(permission.getSpecification());
     	
