@@ -12,6 +12,7 @@ end;
 class Assert
     static operation isTrue(condition : Boolean);
     static operation areEqual(expected : any[*], actual : any[*]);
+    static operation areSame(expected : any[*], actual : any[*]);    
     static operation isNull(actual : any);
     static operation isNotNull(actual : any);
 end;
@@ -90,7 +91,7 @@ end;
 class Date specializes Primitive
   static query today() : Date;
   static query now() : Date;
-  static query make(day : Integer, month : Integer, year : Integer) : Date;
+  static query make(year : Integer, month : Integer, day : Integer) : Date;
   static query fromString(string : String) : Date;
   query difference(another : Date) : Duration;
   query day() : Integer;

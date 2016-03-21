@@ -23,4 +23,9 @@ public final class NoRenderingSettings implements IRenderingSettings {
     public String getString(String key) {
         return null;
     }
+    
+    @Override
+    public boolean getBoolean(String key, boolean defaultValue) {
+    	return false;
+    }
 }

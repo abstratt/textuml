@@ -40,6 +40,10 @@ public class RenderingSession<E extends EObject> implements IRenderingSession<E>
     public boolean render(E toRender) {
         return render(toRender, false);
     }
+    
+    public boolean isRendered(E toRender) {
+    	return rendered.containsKey(toRender);
+    }
 
     @Override
     public boolean render(E toRender, boolean newShallow) {

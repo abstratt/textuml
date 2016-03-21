@@ -2,7 +2,7 @@
 
 package com.abstratt.mdd.frontend.textuml.grammar.node;
 
-public abstract class PInvariantDecl extends Node
+public abstract class PAccessCapabilities extends Node
 {
     // Empty body
 }

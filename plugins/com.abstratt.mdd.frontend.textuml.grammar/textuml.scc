@@ -39,9 +39,11 @@ Tokens
   // reserved words
   abstract = 'abstract' ;
   access = 'access' ;
-  actor = 'actor' ; 
+  actor = 'actor' ;
   aggregation = 'aggregation' ;
   alias = 'alias' ;
+  allow = 'allow' ;
+  all = 'all' ;
   and = 'and' ;
   any = 'any';
   apply = 'apply';
@@ -60,6 +62,7 @@ Tokens
   connector = 'connector';
   datatype = 'datatype' ;
   delete = 'delete';
+  deny = 'deny' ;
   dependency = 'dependency' ;
   derived = 'derived' ; 
   destroy = 'destroy' ;  
@@ -93,15 +96,18 @@ Tokens
   model = 'model' ;
   navigable = 'navigable' ;
   new = 'new' ;
+  none = 'none' ;
   nonunique = 'nonunique';
   not = 'not' | '!';
   null = 'null' ;
   on = 'on' ;
   operation = 'operation' ;
+  opposite = 'opposite' ;
   or = 'or' ;
   ordered = 'ordered' ;
   out = 'out' ; 
   package = 'package' ;
+  permission = 'permission' ;
   port = 'port' ;
   postcondition = 'postcondition' ;
   precondition = 'precondition' ;
@@ -224,6 +230,10 @@ Productions
     
   package_type = {model} model | {profile} profile | {package} package;  
     
+  qualified_identifier_list = qualified_identifier qualified_identifier_list_tail* ;
+  
+  qualified_identifier_list_tail = comma qualified_identifier ; 
+    
   qualified_identifier = qualified_identifier_base ;
   
   forcefully_qualified_identifier = identifier qualified_identifier_tail ;
@@ -344,7 +354,7 @@ Productions
   
   class_modifier_list = class_modifier class_modifier_list | {empty} ;
   
-  class_modifier = {abstract} abstract | {external} external ;
+  class_modifier = {visibility} visibility_modifier | {abstract} abstract | {external} external | {role} role;
   
   class_type = {class} clazz | {interface} interface | {datatype} datatype | {actor} actor | {signal} signal | {component} component | {enumeration} enumeration;
   
@@ -387,7 +397,7 @@ Productions
       {reception} reception_decl |
       {port} port_decl | 
       {dependency} dependency_decl | 
-      {invariant} invariant_decl |
+      {invariant} class_invariant_decl |
       {connector} connector_decl ;
   
   state_machine_decl = statemachine identifier? state_decl*  end semicolon ;
@@ -418,9 +428,27 @@ Productions
   
   reception_decl = reception [reception_name]: identifier? l_paren simple_param_decl r_paren semicolon optional_behavioral_feature_body;
   
-  operation_decl = operation_header operation_precondition* semicolon optional_behavioral_feature_body ;
+  operation_decl = operation_header operation_constraint* semicolon optional_behavioral_feature_body ;
   
-  operation_precondition = model_comment? precondition identifier? precondition_signature? constraint_exception? expression_block ;
+  operation_constraint = model_comment? operation_constraint_kernel ;
+  
+  operation_constraint_kernel = {precondition} operation_precondition | {permission} permission_constraint ;
+  
+  operation_precondition = precondition identifier? precondition_signature? constraint_exception? expression_block ;
+  
+  permission_constraint = allow permission_roles access_capabilities permission_expression? ;
+  
+  permission_expression = expression_block ;
+  
+  permission_roles = qualified_identifier_list ;
+  
+  access_capabilities = access_capability_list  | {empty};
+  
+  access_capability_list = access_capability access_capability_tail*;
+  
+  access_capability_tail = comma access_capability ;
+  
+  access_capability = {read} read | {create} create | {update} update | {delete} delete | {call} call | {none} none;
   
   precondition_signature = l_paren identifier_list r_paren ;
   
@@ -471,19 +499,23 @@ Productions
       {path} [prefix]: identifier dot [part_or_port]: identifier |
       {simple} [part_or_port]: identifier ;
   
-  invariant_kernel = constraint_keyword identifier? constraint_exception? expression_block ;
+  invariant_kernel = regular_invariant_constraint | {permission_constraint} permission_constraint;
   
-  constraint_keyword = {invariant} invariant | {access} access ;
+  regular_invariant_constraint = invariant identifier? constraint_exception? expression_block ;
   
-  invariant_decl = invariant_kernel semicolon ; 
+  constraint_keyword = {invariant} invariant ;
   
-  reference_decl = reference_type identifier colon type_identifier optional_qualifier? optional_subsetting semicolon ;
+  class_invariant_decl = invariant_kernel semicolon ; 
+  
+  reference_decl = reference_type identifier colon type_identifier optional_qualifier? optional_subsetting optional_opposite semicolon ;
+  
+  optional_opposite = opposite [other_end]: identifier | {empty};
   
   reference_type = {association} reference | {composition} composition | {aggregation} aggregation ;
   
   dependency_decl = dependency type_identifier semicolon ;
   
-  optional_subsetting = subsets qualified_identifier | {empty} ;
+  optional_subsetting = subsets qualified_identifier  | {empty};
   
   optional_qualifier = by identifier ;
 

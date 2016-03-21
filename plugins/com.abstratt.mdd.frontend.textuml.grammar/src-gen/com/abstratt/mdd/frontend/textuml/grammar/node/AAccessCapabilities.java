@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAccessConstraintKeyword extends PConstraintKeyword
+public final class AAccessCapabilities extends PAccessCapabilities
 {
-    private TAccess _access_;
+    private PAccessCapabilityList _accessCapabilityList_;
 
-    public AAccessConstraintKeyword()
+    public AAccessCapabilities()
     {
         // Constructor
     }
 
-    public AAccessConstraintKeyword(
-        @SuppressWarnings("hiding") TAccess _access_)
+    public AAccessCapabilities(
+        @SuppressWarnings("hiding") PAccessCapabilityList _accessCapabilityList_)
     {
         // Constructor
-        setAccess(_access_);
+        setAccessCapabilityList(_accessCapabilityList_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AAccessConstraintKeyword(
-            cloneNode(this._access_));
+        return new AAccessCapabilities(
+            cloneNode(this._accessCapabilityList_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAccessConstraintKeyword(this);
+        ((Analysis) sw).caseAAccessCapabilities(this);
     }
 
-    public TAccess getAccess()
+    public PAccessCapabilityList getAccessCapabilityList()
     {
-        return this._access_;
+        return this._accessCapabilityList_;
     }
 
-    public void setAccess(TAccess node)
+    public void setAccessCapabilityList(PAccessCapabilityList node)
     {
-        if(this._access_ != null)
+        if(this._accessCapabilityList_ != null)
         {
-            this._access_.parent(null);
+            this._accessCapabilityList_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AAccessConstraintKeyword extends PConstraintKeyword
             node.parent(this);
         }
 
-        this._access_ = node;
+        this._accessCapabilityList_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._access_);
+            + toString(this._accessCapabilityList_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._access_ == child)
+        if(this._accessCapabilityList_ == child)
         {
-            this._access_ = null;
+            this._accessCapabilityList_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AAccessConstraintKeyword extends PConstraintKeyword
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._access_ == oldChild)
+        if(this._accessCapabilityList_ == oldChild)
         {
-            setAccess((TAccess) newChild);
+            setAccessCapabilityList((PAccessCapabilityList) newChild);
             return;
         }
 

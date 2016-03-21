@@ -11,6 +11,7 @@
 package com.abstratt.mdd.modelrenderer;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 /**
  * A reflection-based helper class for easy checking of settings. Settings are
@@ -35,9 +36,8 @@ public class RenderingSettings implements IRenderingSettings {
     public <T extends Enum<T>> T getSelection(Class<T> enumerationClass) {
         String optionKey = getKey(enumerationClass);
         String currentValue = preferences.getSetting(optionKey);
-        if (currentValue == null)
-            return enumerationClass.getEnumConstants()[0];
-        return T.valueOf(enumerationClass, currentValue);
+        T[] options = enumerationClass.getEnumConstants();
+		return Arrays.stream(options).filter(it -> it.name().equals(currentValue)).findAny().orElseGet(() -> options[0]);
     }
 
     private static <T extends Enum<?>> String getKey(Class<T> enumerationClass) {
@@ -54,8 +54,13 @@ public class RenderingSettings implements IRenderingSettings {
 
     @Override
     public boolean getBoolean(String key) {
-        String setting = preferences.getSetting(key);
-        return setting == null ? false : Boolean.parseBoolean(setting);
+    	return getBoolean(key, false);
+    }
+    
+    @Override
+    public boolean getBoolean(String key, boolean defaultValue) {
+    	String setting = preferences.getSetting(key);
+        return setting == null ? defaultValue : Boolean.parseBoolean(setting);
     }
 
     @Override

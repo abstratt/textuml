@@ -12,6 +12,8 @@ public interface IRenderingSettings {
     public <T extends Enum<T>> T getSelection(Class<T> enumerationClass);
 
     public boolean getBoolean(String key);
+    
+    public boolean getBoolean(String key, boolean defaultValue);
 
     public String getString(String key);
 }

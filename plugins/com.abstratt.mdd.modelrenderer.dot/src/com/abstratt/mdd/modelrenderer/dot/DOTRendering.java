@@ -107,31 +107,32 @@ public class DOTRendering implements DOTRenderingConstants {
         DOTRenderingUtils.addAttribute(w, "nojustify", "true");
         dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.GLOBAL_SETTINGS_KEY));
         w.println("graph [");
-        w.enterLevel();
-        // DOTRenderingUtils.addAttribute(w, "outputorder", "edgesfirst");
-        // DOTRenderingUtils.addAttribute(w, "packmode", "graph");
-        // DOTRenderingUtils.addAttribute(w, "pack", 40);
-        // DOTRenderingUtils.addAttribute(w, "ratio", "auto");
-        // DOTRenderingUtils.addAttribute(w, "rank", "sink");
-        // DOTRenderingUtils.addAttribute(w, "overlap", "ipsep");
-        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.GRAPH_SETTINGS_KEY));
-        w.exitLevel();
+        
+        w.runInNewLevel(() -> {
+	        // DOTRenderingUtils.addAttribute(w, "outputorder", "edgesfirst");
+	        // DOTRenderingUtils.addAttribute(w, "packmode", "graph");
+	        // DOTRenderingUtils.addAttribute(w, "pack", 40);
+	        // DOTRenderingUtils.addAttribute(w, "ratio", "auto");
+	        // DOTRenderingUtils.addAttribute(w, "rank", "sink");
+	        // DOTRenderingUtils.addAttribute(w, "overlap", "ipsep");
+	        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.GRAPH_SETTINGS_KEY));
+        });
         w.println("]");
         // TODO provide choice
         w.println("node [");
-        w.enterLevel();
-        DOTRenderingUtils.addAttribute(w, "fontsize", 12);
-        DOTRenderingUtils.addAttribute(w, "shape", "plaintext");
-        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.NODE_SETTINGS_KEY));
-        w.exitLevel();
+        w.runInNewLevel(() -> {
+	        DOTRenderingUtils.addAttribute(w, "fontsize", 12);
+	        DOTRenderingUtils.addAttribute(w, "shape", "plaintext");
+	        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.NODE_SETTINGS_KEY));
+        });
         w.println("]");
         w.println("edge [");
-        w.enterLevel();
-        DOTRenderingUtils.addAttribute(w, "fontsize", 9);
-        DOTRenderingUtils.addAttribute(w, "dir", "both");
-        // DOTRenderingUtils.addAttribute(w, "splines", "polyline");
-        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.EDGE_SETTINGS_KEY));
-        w.exitLevel();
+        w.runInNewLevel(() -> {
+        	DOTRenderingUtils.addAttribute(w, "fontsize", 9);
+        	DOTRenderingUtils.addAttribute(w, "dir", "both");
+        	// DOTRenderingUtils.addAttribute(w, "splines", "polyline");
+        	dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.EDGE_SETTINGS_KEY));
+        });
         w.println("]");
     }
 

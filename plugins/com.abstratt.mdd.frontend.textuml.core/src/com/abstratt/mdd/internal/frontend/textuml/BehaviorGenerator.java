@@ -318,8 +318,9 @@ public class BehaviorGenerator extends AbstractGenerator {
             InputPin target = action.getTarget();
             InputPin argument = action.getArguments().get(0);
             Type targetType = ActivityUtils.getSource(target).getType();
-            target.setType(targetType);
-            argument.setType(ActivityUtils.getSource(argument).getType());
+            TypeUtils.copyType(ActivityUtils.getSource(target), target);
+            TypeUtils.copyType(ActivityUtils.getSource(argument), argument);
+            
             String operationName = parseOperationName(node.getBinaryOperator());
             List<TypedElement> argumentList = Collections.singletonList((TypedElement) argument);
             Operation operation = FeatureUtils.findOperation(getRepository(), (Classifier) targetType, operationName,

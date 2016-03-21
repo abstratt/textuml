@@ -3,11 +3,7 @@
  */
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.OMIT_CONSTRAINTS_FOR_NAVIGABILITY;
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ASSOCIATION_END_MULTIPLICITY;
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ASSOCIATION_END_NAME;
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ASSOCIATION_END_OWNERSHIP;
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ASSOCIATION_NAME;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.*;
 
 import java.util.List;
 
@@ -29,23 +25,28 @@ public class AssociationRenderer extends AbstractRelationshipRenderer<Associatio
     public boolean basicRenderObject(Association element, IndentedPrintWriter pw, IRenderingSession<Element> context) {
         if (!element.isBinary())
             // we humbly admit we can't handle n-ary associations
-            return true;
-        if (element.isDerived())
-            // until we support controlling whether derived associations are to
-            // be shown
-            return true;
+            return false;
+        if (RendererHelper.shouldSkip(context, element))
+        	return false;
+		if (element.isDerived() && !context.getSettings().getBoolean(UML2DOTPreferences.SHOW_DERIVED_ELEMENTS, false))
+			return false;        
         List<Property> ends = element.getMemberEnds();
         // source and target here are about the association direction
         // assumes source is the first end
         Property source = ends.get(0);
         Property target = ends.get(1);
         if (source.getType() == null || target.getType() == null)
-            return true;
+            return false;
         // origin and destination here are only w.r.t. where are coming from in
         // the rendering session
         Type origin = (Type) context.getPrevious(UMLPackage.Literals.TYPE);
-        Type destination = (Type) (EcoreUtil.equals(ends.get(0), origin) ? ends.get(1).getType() : ends.get(0)
-                .getType());
+        Type destination = (ends.get(0).getType() == origin) ? ends.get(1).getType() : ends.get(0)
+                .getType();
+        boolean renderedOrigin = context.isRendered(origin);
+        boolean renderedDestination = context.isRendered(destination);
+        // if at least one of the members is not going to be rendered, do not render the association
+        if (!renderedOrigin || !renderedDestination)
+        	return false;
         if (!shouldRender(context, origin, destination))
             // don't render an association with a class that is not going to be
             // shown
@@ -65,16 +66,18 @@ public class AssociationRenderer extends AbstractRelationshipRenderer<Associatio
         context.render(sourceType, sourceType.eResource() != element.eResource());
         pw.print("\"" + sourceType.getName() + "\":port -- " + "\"" + targetType.getName() + "\":port ");
         pw.println("[");
-        pw.enterLevel();
-        String edgeLabel = context.getSettings().getBoolean(SHOW_ASSOCIATION_NAME) && element.getName() != null ? element
-                .getName() : "";
-        DOTRenderingUtils.addAttribute(pw, "label", edgeLabel);
-        addEndAttributes(pw, "head", target, context);
-        addEndAttributes(pw, "tail", source, context);
-        DOTRenderingUtils.addAttribute(pw, "labeldistance", "1.7");
-        DOTRenderingUtils.addAttribute(pw, "constraint", Boolean.toString(asymmetric || aggregation));
-        DOTRenderingUtils.addAttribute(pw, "style", "solid");
-        pw.exitLevel();
+        Property finalTarget = target;
+        Property finalSource = source;
+        pw.runInNewLevel(() -> {
+	        String edgeLabel = context.getSettings().getBoolean(SHOW_ASSOCIATION_NAME) && element.getName() != null ? element
+	                .getName() : "";
+	        DOTRenderingUtils.addAttribute(pw, "label", edgeLabel);
+	        addEndAttributes(pw, "head", finalTarget, context);
+	        addEndAttributes(pw, "tail", finalSource, context);
+	        DOTRenderingUtils.addAttribute(pw, "labeldistance", "1.7");
+	        DOTRenderingUtils.addAttribute(pw, "constraint", Boolean.toString(asymmetric || aggregation));
+	        DOTRenderingUtils.addAttribute(pw, "style", "solid");
+        });
         pw.println("]");
         return true;
     }

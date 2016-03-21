@@ -13,6 +13,7 @@ public final class AReferenceDecl extends PReferenceDecl
     private PTypeIdentifier _typeIdentifier_;
     private POptionalQualifier _optionalQualifier_;
     private POptionalSubsetting _optionalSubsetting_;
+    private POptionalOpposite _optionalOpposite_;
     private TSemicolon _semicolon_;
 
     public AReferenceDecl()
@@ -27,6 +28,7 @@ public final class AReferenceDecl extends PReferenceDecl
         @SuppressWarnings("hiding") PTypeIdentifier _typeIdentifier_,
         @SuppressWarnings("hiding") POptionalQualifier _optionalQualifier_,
         @SuppressWarnings("hiding") POptionalSubsetting _optionalSubsetting_,
+        @SuppressWarnings("hiding") POptionalOpposite _optionalOpposite_,
         @SuppressWarnings("hiding") TSemicolon _semicolon_)
     {
         // Constructor
@@ -42,6 +44,8 @@ public final class AReferenceDecl extends PReferenceDecl
 
         setOptionalSubsetting(_optionalSubsetting_);
 
+        setOptionalOpposite(_optionalOpposite_);
+
         setSemicolon(_semicolon_);
 
     }
@@ -56,6 +60,7 @@ public final class AReferenceDecl extends PReferenceDecl
             cloneNode(this._typeIdentifier_),
             cloneNode(this._optionalQualifier_),
             cloneNode(this._optionalSubsetting_),
+            cloneNode(this._optionalOpposite_),
             cloneNode(this._semicolon_));
     }
 
@@ -214,6 +219,31 @@ public final class AReferenceDecl extends PReferenceDecl
         this._optionalSubsetting_ = node;
     }
 
+    public POptionalOpposite getOptionalOpposite()
+    {
+        return this._optionalOpposite_;
+    }
+
+    public void setOptionalOpposite(POptionalOpposite node)
+    {
+        if(this._optionalOpposite_ != null)
+        {
+            this._optionalOpposite_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._optionalOpposite_ = node;
+    }
+
     public TSemicolon getSemicolon()
     {
         return this._semicolon_;
@@ -249,6 +279,7 @@ public final class AReferenceDecl extends PReferenceDecl
             + toString(this._typeIdentifier_)
             + toString(this._optionalQualifier_)
             + toString(this._optionalSubsetting_)
+            + toString(this._optionalOpposite_)
             + toString(this._semicolon_);
     }
 
@@ -289,6 +320,12 @@ public final class AReferenceDecl extends PReferenceDecl
         if(this._optionalSubsetting_ == child)
         {
             this._optionalSubsetting_ = null;
+            return;
+        }
+
+        if(this._optionalOpposite_ == child)
+        {
+            this._optionalOpposite_ = null;
             return;
         }
 
@@ -338,6 +375,12 @@ public final class AReferenceDecl extends PReferenceDecl
         if(this._optionalSubsetting_ == oldChild)
         {
             setOptionalSubsetting((POptionalSubsetting) newChild);
+            return;
+        }
+
+        if(this._optionalOpposite_ == oldChild)
+        {
+            setOptionalOpposite((POptionalOpposite) newChild);
             return;
         }
 

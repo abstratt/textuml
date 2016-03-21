@@ -20,6 +20,7 @@ public class AllFrontEndTextUMLTests {
         suite.addTest(PackageTests.suite());
         suite.addTest(SignatureTests.suite());
         suite.addTest(StateMachineTests.suite());
+        suite.addTest(AccessControlTests.suite());
         suite.addTest(StereotypeTests.suite());
         suite.addTest(StringTests.suite());
         suite.addTest(TemplateTests.suite());

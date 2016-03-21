@@ -29,13 +29,13 @@ import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
-import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.OperationOwner;
 import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
@@ -62,16 +62,9 @@ public class FeatureUtils {
     }
 
     public static Operation createOperation(Classifier parent, String operationName) {
-        Operation operation;
-        if (parent instanceof Class)
-            operation = ((Class) parent).createOwnedOperation(operationName, null, null, null);
-        else if (parent instanceof Interface)
-            operation = ((Interface) parent).createOwnedOperation(operationName, null, null, null);
-        else if (parent instanceof DataType)
-            operation = ((DataType) parent).createOwnedOperation(operationName, null, null, null);
-        else
-            throw new IllegalArgumentException("Cannot create operation for " + parent.eClass().getName());
-        return operation;
+    	if (!(parent instanceof OperationOwner))
+    		throw new IllegalArgumentException("Cannot create operation for " + parent.eClass().getName());
+        return ((OperationOwner) parent).createOwnedOperation(operationName, null, null, null);
     }
 
     public static List<Parameter> filterParameters(List<Parameter> original, ParameterDirectionKind... direction) {

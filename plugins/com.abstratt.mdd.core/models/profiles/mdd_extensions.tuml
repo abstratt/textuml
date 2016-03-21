@@ -69,9 +69,26 @@ stereotype Derivation extends UML::Activity
     property context : UML::TypedElement;
 end;
 
-
-stereotype Access extends UML::Constraint
+enumeration AccessCapability
+    /* Objects */
+    Create;
+    Delete;
+    /* Attributes/links */
+    Read;
+    Update;
+    /* Operations */
+    Call;
 end;
+
+(* You can declare access constraints on any element. *)
+stereotype Access specializes Invariant
+    property roles : Class[1,*];
+    property allowed : AccessCapability[*];
+    property denied : AccessCapability[*];
+end;
+
+(* A role class is a class that represents the role for a user. *)
+stereotype Role extends UML::Class end;
 
 stereotype PropertyDerivation extends UML::Constraint
 end;
@@ -83,5 +100,6 @@ end;
 stereotype WildcardTypeContext extends UML::Namespace
     property wildcardTypes : UML::Type[*];
 end;
+
 
 end.

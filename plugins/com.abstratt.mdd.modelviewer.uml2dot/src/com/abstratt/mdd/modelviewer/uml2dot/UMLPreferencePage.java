@@ -23,7 +23,7 @@ import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_PRI
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_RETURN_PARAMETER;
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_SIGNALS;
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_STATEMACHINES;
-import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_STRUCTURAL_FEATURE_VISIBILITY;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_FEATURE_VISIBILITY;
 
 import java.util.Arrays;
 
@@ -172,7 +172,7 @@ public class UMLPreferencePage extends PreferencePage implements IWorkbenchPrefe
         showAttributesCheckBox.setSelection(preferenceStore.getBoolean(SHOW_ATTRIBUTES));
 
         showStructuralFeatureVisibilityCheckBox.setSelection(preferenceStore
-                .getBoolean(SHOW_STRUCTURAL_FEATURE_VISIBILITY));
+                .getBoolean(SHOW_FEATURE_VISIBILITY));
         showAssociationEndMultiplicityCheckBox.setSelection(preferenceStore
                 .getBoolean(SHOW_ASSOCIATION_END_MULTIPLICITY));
         showAssociationEndOwnershipCheckBox.setSelection(preferenceStore.getBoolean(SHOW_ASSOCIATION_END_OWNERSHIP));
@@ -225,7 +225,7 @@ public class UMLPreferencePage extends PreferencePage implements IWorkbenchPrefe
         preferenceStore.setValue(SHOW_DATATYPES, showDataTypesCheckBox.getSelection());
         preferenceStore.setValue(SHOW_ATTRIBUTES, showAttributesCheckBox.getSelection());
         preferenceStore.setValue(SHOW_OPERATIONS, showOperationsCheckBox.getSelection());
-        preferenceStore.setValue(SHOW_STRUCTURAL_FEATURE_VISIBILITY,
+        preferenceStore.setValue(SHOW_FEATURE_VISIBILITY,
                 showStructuralFeatureVisibilityCheckBox.getSelection());
         preferenceStore.setValue(OMIT_CONSTRAINTS_FOR_NAVIGABILITY,
                 omitConstraintsForNavigabilityCheckBox.getSelection());
@@ -252,7 +252,7 @@ public class UMLPreferencePage extends PreferencePage implements IWorkbenchPrefe
         preferenceStore.setToDefault(SHOW_ASSOCIATION_END_MULTIPLICITY);
         preferenceStore.setToDefault(SHOW_ASSOCIATION_END_NAME);
         preferenceStore.setToDefault(SHOW_ASSOCIATION_NAME);
-        preferenceStore.setToDefault(SHOW_STRUCTURAL_FEATURE_VISIBILITY);
+        preferenceStore.setToDefault(SHOW_FEATURE_VISIBILITY);
         preferenceStore.setToDefault(OMIT_CONSTRAINTS_FOR_NAVIGABILITY);
         preferenceStore.setToDefault(SHOW_PARAMETERS);
         preferenceStore.setToDefault(SHOW_PARAMETER_NAMES);

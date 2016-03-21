@@ -20,7 +20,7 @@ public class UMLPreferences {
             defaults.putBoolean(UML2DOTPreferences.SHOW_FEATURE_STEREOTYPES, false);
             defaults.putBoolean(UML2DOTPreferences.SHOW_RELATIONSHIP_STEREOTYPES, true);
             defaults.putBoolean(UML2DOTPreferences.SHOW_ASSOCIATION_END_OWNERSHIP, false);
-            defaults.putBoolean(UML2DOTPreferences.SHOW_STRUCTURAL_FEATURE_VISIBILITY, true);
+            defaults.putBoolean(UML2DOTPreferences.SHOW_FEATURE_VISIBILITY, true);
             defaults.putBoolean(UML2DOTPreferences.SHOW_ASSOCIATION_END_MULTIPLICITY, true);
             defaults.putBoolean(UML2DOTPreferences.SHOW_ASSOCIATION_NAME, false);
             defaults.putBoolean(UML2DOTPreferences.SHOW_ASSOCIATION_END_NAME, true);

@@ -17,6 +17,13 @@ public class WrongMetaclass extends Problem {
         this.expectedMetaclass = expectedMetaclass.getName();
         this.actualMetaclass = actualMetaclass.getName();
     }
+    
+    public WrongMetaclass(String featureName, EClass expectedMetaclass, EClass actualMetaclass) {
+        super(Severity.ERROR);
+        this.featureName = featureName;
+        this.expectedMetaclass = expectedMetaclass.getName();
+        this.actualMetaclass = actualMetaclass.getName();
+    }
 
     public String getMessage() {
         return "Feature '" + featureName + "' does not apply to metaclass: '" + actualMetaclass + "'. Expected: '"

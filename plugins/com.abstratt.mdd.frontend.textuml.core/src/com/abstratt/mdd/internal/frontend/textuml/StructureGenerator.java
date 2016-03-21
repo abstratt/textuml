@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Association;
+import org.eclipse.uml2.uml.AttributeOwner;
 import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
@@ -109,6 +110,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AClassClassType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassDef;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassHeader;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassImplementsItem;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AClassInvariantDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassSpecializesItem;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AComplexInitializationExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AComponentClassType;
@@ -125,7 +127,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AFeatureDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AFunctionDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AImportDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AInterfaceClassType;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AInvariantDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ALoadDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AModifiers;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANamedSimpleValue;
@@ -133,6 +134,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ANavigableAssociationModif
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationHeader;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalAlias;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalOpposite;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalReturnType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalSubsetting;
 import com.abstratt.mdd.frontend.textuml.grammar.node.APackageHeading;
@@ -156,6 +158,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AStereotypeDefHeader;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AStereotypeExtension;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AStereotypePropertyDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASubNamespace;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AVisibilityClassModifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWildcardType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWordyBlock;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
@@ -165,7 +168,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.PQualifiedIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TAbstract;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TExternal;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TModelComment;
-import com.abstratt.mdd.frontend.textuml.grammar.node.TNavigable;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TRole;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TUri;
 
 /**
@@ -392,12 +395,43 @@ public class StructureGenerator extends AbstractGenerator {
      * 
      * <pre>
      * class Foo
-     * 		property bar : Bar;
+     * 		attribute bar : Bar;
      * end;
      * 
      * association
      * 		navigable role Foo.bar;
      *      role &lt;null&gt; : Foo;  
+     * end;
+     * 
+     * Also, references can designate an opposite property, and in this case
+     * they are equivalent to binary associations where both ends are member-owned.
+     * 
+     * For instance, this:
+     * 
+     * <pre>
+     * class Foo
+     * 		reference bar : Bar opposite foo;
+     * end;
+     * class Bar
+     * 		attribute foo : Foo;
+     * end;
+     * 
+     * </pre>
+     * 
+     * is equivalent to:
+     * 
+     * <pre>
+     * class Foo
+     * 		attribute bar : Bar;
+     * end;
+     * 
+     * class Bar
+     * 		attribute foo : foo;
+     * end;
+     * 
+     * association
+     * 		navigable role Foo.bar;
+     *      navigable role Bar.foo;
      * end;
      * </pre>
      * 
@@ -407,35 +441,84 @@ public class StructureGenerator extends AbstractGenerator {
         final String propertyName = Util.stripEscaping(node.getIdentifier().getText());
         if (!ensureNameAvailable(propertyName, node, Literals.PROPERTY))
             return;
-        final Property[] referrent = { null };
         final Classifier referringClassifier = (Classifier) namespaceTracker.currentNamespace(null);
 
+        Property tmpReferrent;
         final Association newAssociation = (Association) referringClassifier.getNearestPackage().createPackagedElement(
                 null, UMLPackage.Literals.ASSOCIATION);
         if (referringClassifier instanceof Class)
-            referrent[0] = ((Class) referringClassifier).createOwnedAttribute(propertyName, null);
+        	tmpReferrent = ((Class) referringClassifier).createOwnedAttribute(propertyName, null);
         else if (referringClassifier instanceof Interface)
-            referrent[0] = ((Interface) referringClassifier).createOwnedAttribute(propertyName, null);
+        	tmpReferrent = ((Interface) referringClassifier).createOwnedAttribute(propertyName, null);
         else if (referringClassifier instanceof DataType)
-            referrent[0] = ((DataType) referringClassifier).createOwnedAttribute(propertyName, null);
+        	tmpReferrent = ((DataType) referringClassifier).createOwnedAttribute(propertyName, null);
         else if (referringClassifier instanceof Signal)
-            referrent[0] = ((Signal) referringClassifier).createOwnedAttribute(propertyName, null);
+        	tmpReferrent = ((Signal) referringClassifier).createOwnedAttribute(propertyName, null);
         else {
             problemBuilder.addError("Unexpected context: '" + referringClassifier.getQualifiedName() + "'",
                     node.getIdentifier());
+            throw new AbortedScopeCompilationException();
         }
+        Property referrent = tmpReferrent;
         if (node.getReferenceType() instanceof AAggregationReferenceType)
-            referrent[0].setAggregation(AggregationKind.SHARED_LITERAL);
+            referrent.setAggregation(AggregationKind.SHARED_LITERAL);
         else if (node.getReferenceType() instanceof ACompositionReferenceType)
-            referrent[0].setAggregation(AggregationKind.COMPOSITE_LITERAL);
-        applyCurrentComment(referrent[0]);
-        annotationProcessor.applyAnnotations(referrent[0], node.getIdentifier());
-        applyOptionalSubsetting(referrent[0], node);
-        newAssociation.getMemberEnds().add(referrent[0]);
-        // anonymous end
-        newAssociation.createOwnedEnd(null, referringClassifier);
-        applyModifiers(referrent[0], VisibilityKind.PUBLIC_LITERAL, node);
-        new DeferredTypeSetter(sourceContext, referringClassifier, referrent[0]).process(node.getTypeIdentifier());
+            referrent.setAggregation(AggregationKind.COMPOSITE_LITERAL);
+        applyCurrentComment(referrent);
+        annotationProcessor.applyAnnotations(referrent, node.getIdentifier());
+        applyOptionalSubsetting(referrent, node);
+        newAssociation.getMemberEnds().add(referrent);
+        applyModifiers(referrent, VisibilityKind.PUBLIC_LITERAL, node);
+        
+        new DeferredTypeSetter(sourceContext, referringClassifier, referrent).process(node.getTypeIdentifier());
+        if (!(node.getOptionalOpposite() instanceof AOptionalOpposite)) {
+	        // anonymous end
+	        Property otherEnd = newAssociation.createOwnedEnd(null, referringClassifier);
+	        otherEnd.setIsDerived(referrent.isDerived());
+	        otherEnd.setLower(0);
+	        otherEnd.setIsNavigable(false);
+        } else {
+        	if (referrent.isDerived()) {
+	            problemBuilder.addError("Cannot define an opposite for a derived association",
+	                    node.getIdentifier());
+	            throw new AbortedScopeCompilationException();
+		    }
+        	
+        	String otherEndName = sourceMiner.getIdentifier(node.getOptionalOpposite());
+        	context.getReferenceTracker().add(new IDeferredReference() {
+				@Override
+				public void resolve(IBasicRepository repository) {
+				    if (referrent.getType() == null) {
+				    	// failed resolution, don't bother
+				    	return;
+				    }
+				    Type otherType = referrent.getType();
+					if (otherType.eClass() != referringClassifier.eClass()) {
+			            problemBuilder.addError("Cannot create association between '" + referringClassifier.eClass().getName() + "' and '" + otherType.eClass().getName(),
+			                    node.getIdentifier());
+			            throw new AbortedScopeCompilationException();
+				    }
+					Classifier otherClassifier = (Classifier) otherType;
+					Property otherEnd = FeatureUtils.findAttribute(otherClassifier, otherEndName, false, true);
+					if (otherEnd == null) {
+						problemBuilder.addError("Opposite attribute '" + otherEndName + "' not found in opposite classifier '" + otherClassifier.getName() + "'", node.getOptionalOpposite());
+			            throw new AbortedScopeCompilationException();
+					}
+					if (otherEnd.getAssociation() != null) {
+						problemBuilder.addError("The opposite end is already part of an association: ", node.getOptionalOpposite());
+			            throw new AbortedScopeCompilationException();
+					}
+					if (otherEnd.getAggregation() != AggregationKind.NONE_LITERAL) {
+						problemBuilder.addError("The opposite end must not be an aggregation", node.getOptionalOpposite());
+			            throw new AbortedScopeCompilationException();
+					}
+					newAssociation.getMemberEnds().add(otherEnd);
+				}
+        		
+        	}, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }
+        
+        
     }
 
     @Override
@@ -599,39 +682,18 @@ public class StructureGenerator extends AbstractGenerator {
         if (!ensureNameAvailable(attributeIdentifier, node, Literals.STRUCTURAL_FEATURE))
             return;
         // do not call super as we deal with everything here
-        final Property newProperty;
+        
         final Namespace currentNamespace = namespaceTracker.currentNamespace(null);
-        if (currentNamespace instanceof Class)
-            newProperty = ((Class) currentNamespace).createOwnedAttribute(attributeIdentifier, null);
-        else if (currentNamespace instanceof Interface)
-            newProperty = ((Interface) currentNamespace).createOwnedAttribute(attributeIdentifier, null);
-        else if (currentNamespace instanceof DataType)
-            newProperty = ((DataType) currentNamespace).createOwnedAttribute(attributeIdentifier, null);
-        else if (currentNamespace instanceof Signal)
-            newProperty = ((Signal) currentNamespace).createOwnedAttribute(attributeIdentifier, null);
-        else {
-            problemBuilder.addProblem(new UnclassifiedProblem("Cannot declare attribute under namespace: "
-                    + currentNamespace.getName()), node);
-            return;
-        }
+        final AttributeOwner currentClassifier = (AttributeOwner) currentNamespace;
+        final Property newProperty = currentClassifier.createOwnedAttribute(attributeIdentifier, null);
         fillDebugInfo(newProperty, node);
         applyCurrentComment(newProperty);
         new DeferredTypeSetter(sourceContext, namespaceTracker.currentNamespace(null), newProperty) {
             public void doProcess(Node node) {
                 super.doProcess(node);
-                // leaning towards no restrictions for attribute types
-                // if ((currentNamespace instanceof DataType || currentNamespace
-                // instanceof Signal || currentNamespace instanceof
-                // StateMachine) && newProperty.getType() != null) {
-                // Type propertyType = newProperty.getType();
-                // if (!(propertyType instanceof DataType || propertyType
-                // instanceof Signal || propertyType instanceof StateMachine ||
-                // propertyType instanceof Enumeration) &&
-                // !BasicTypeUtils.isBasicType(newProperty.getType()))
-                // problemBuilder.addProblem(new
-                // UnclassifiedProblem("Attribute must be class, primitive, datatype, state machine or enumeration: "
-                // + newProperty.getName()), node);
-                // }
+                if (newProperty.getDefault() != null || newProperty.getDefaultValue() != null)
+                	// if a default exists, consider it not required
+                	newProperty.setLowerValue(MDDUtil.createLiteralUnlimitedNatural(currentNamespace.getNearestPackage(), 0));
             }
         }.process(node.getTypeIdentifier());
 
@@ -746,6 +808,19 @@ public class StructureGenerator extends AbstractGenerator {
             @Override
             public void caseTExternal(TExternal node) {
                 MDDExtensionUtils.makeExternal(currentClassifier);
+            }
+            @Override
+            public void caseTRole(TRole node) {
+            	if (currentClassifier.eClass() == UMLPackage.Literals.CLASS)
+            		MDDExtensionUtils.makeRole((Class) currentClassifier);
+            	else
+					problemBuilder.addError("Only classes can be roles", node);
+            }
+            @Override
+            public void caseAVisibilityClassModifier(AVisibilityClassModifier node) {
+            	Modifier modifier = Modifier.fromToken(sourceMiner.getText(node));
+            	VisibilityKind toApply = getVisibility(modifier, VisibilityKind.PUBLIC_LITERAL);
+            	currentClassifier.setVisibility(toApply);
             }
         });
         annotationProcessor.applyAnnotations(currentClassifier, node.getIdentifier());
@@ -903,7 +978,7 @@ public class StructureGenerator extends AbstractGenerator {
     }
 
     @Override
-    public void caseAInvariantDecl(AInvariantDecl node) {
+    public void caseAClassInvariantDecl(AClassInvariantDecl node) {
         // ignore - handled by behavior generator
         // but discard annotations so they don't leak to another element
         annotationProcessor.discardAnnotations();
@@ -1042,7 +1117,10 @@ public class StructureGenerator extends AbstractGenerator {
     public final void caseADatatypeClassType(ADatatypeClassType node) {
         super.caseADatatypeClassType(node);
         DataType newDataType = createClassifier(UMLPackage.Literals.DATA_TYPE);
-        createGeneralization(TypeUtils.makeTypeName("Value"), newDataType, Literals.DATA_TYPE, node);
+        boolean typesEnabled = Boolean.TRUE.toString().equals(
+                context.getRepositoryProperties().get(IRepository.ENABLE_TYPES));
+        if (typesEnabled)
+        	createGeneralization(TypeUtils.makeTypeName("Value"), newDataType, Literals.DATA_TYPE, node);
     }
 
     @Override
@@ -1066,7 +1144,10 @@ public class StructureGenerator extends AbstractGenerator {
     public void caseAEnumerationClassType(AEnumerationClassType node) {
         super.caseAEnumerationClassType(node);
         Classifier newEnumeration = createClassifier(UMLPackage.Literals.ENUMERATION);
-        createGeneralization(TypeUtils.makeTypeName("Value"), newEnumeration, Literals.DATA_TYPE, node);
+        boolean typesEnabled = Boolean.TRUE.toString().equals(
+                context.getRepositoryProperties().get(IRepository.ENABLE_TYPES));
+        if (typesEnabled)
+        	createGeneralization(TypeUtils.makeTypeName("Value"), newEnumeration, Literals.DATA_TYPE, node);
     }
 
     @Override
