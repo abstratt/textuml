@@ -66,7 +66,7 @@ Using the Toolkit
     - a series of articles explaining UML concepts using the TextUML
     notation: multiplicity, profiles and stereotypes and templates.
     
--   **[Contributing](docs/contributing)**
+-   **[Contributing](docs/contributing.md)**
     - everything you need to know to contribute as a developer or tester.
 
 [![](https://www.cloudbees.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
