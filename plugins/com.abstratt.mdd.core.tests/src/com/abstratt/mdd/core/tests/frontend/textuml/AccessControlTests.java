@@ -13,6 +13,7 @@ import org.eclipse.uml2.uml.Stereotype;
 
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.util.ClassifierUtils;
+import com.abstratt.mdd.core.util.ConstraintUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils.AccessCapability;
 import com.abstratt.mdd.core.util.StereotypeUtils;
@@ -81,10 +82,10 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     	parseAndCheck(source);
     	Stereotype accessStereotype = StereotypeUtils.findStereotype(MDDExtensionUtils.ACCESS_STEREOTYPE);
     	Class bankAccount = getClass("banking::BankAccount");
-    	List<Constraint> accessConstraints = MDDExtensionUtils.findConstraints(bankAccount, MDDExtensionUtils.ACCESS_STEREOTYPE);
+    	List<Constraint> accessConstraints = ConstraintUtils.findConstraints(bankAccount, MDDExtensionUtils.ACCESS_STEREOTYPE);
 		assertEquals(1, accessConstraints.size());
     	Constraint permission = accessConstraints.get(0);
-    	List<AccessCapability> allowed = ClassifierUtils.fromEnumerationLiterals(AccessCapability.class, (List<EEnumLiteral>) permission.getValue(accessStereotype, MDDExtensionUtils.ACCESS_ALLOWED));
+    	List<AccessCapability> allowed = MDDExtensionUtils.getAllowedCapabilities(permission);
     	assertEquals(2, allowed.size());
     	assertEquals(Arrays.asList(AccessCapability.Create, AccessCapability.Delete), allowed);
     	
@@ -99,7 +100,7 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     public void testAttributePermission() throws CoreException {
     	parseAndCheck(source);
     	Property balance = getProperty("banking::BankAccount::balance");
-    	List<Constraint> accessConstraints = MDDExtensionUtils.findConstraints(balance, MDDExtensionUtils.ACCESS_STEREOTYPE);
+    	List<Constraint> accessConstraints = ConstraintUtils.findConstraints(balance, MDDExtensionUtils.ACCESS_STEREOTYPE);
 		assertEquals(3, accessConstraints.size());
 		
     	Constraint permission1 = accessConstraints.get(0);
@@ -110,7 +111,7 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     public void testOperationPermission() throws CoreException {
     	parseAndCheck(source);
     	Operation deposit = getOperation("banking::BankAccount::deposit");
-    	List<Constraint> accessConstraints = MDDExtensionUtils.findConstraints(deposit, MDDExtensionUtils.ACCESS_STEREOTYPE);
+    	List<Constraint> accessConstraints = ConstraintUtils.findConstraints(deposit, MDDExtensionUtils.ACCESS_STEREOTYPE);
 		assertEquals(1, accessConstraints.size());
     	Constraint permission = accessConstraints.get(0);
     	assertNotNull(permission.getSpecification());

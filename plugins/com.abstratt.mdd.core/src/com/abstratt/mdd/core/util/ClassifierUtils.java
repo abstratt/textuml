@@ -2,6 +2,7 @@ package com.abstratt.mdd.core.util;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -32,6 +33,8 @@ public class ClassifierUtils {
 	}
 	
 	public static <T extends Enum<?>> List<T> fromEnumerationLiterals(java.lang.Class<T> enumClass, Collection<EEnumLiteral> umlEnumValues) {
+		if (umlEnumValues == null) 
+			return Collections.emptyList();
 		Map<String, T> values = Arrays.stream(enumClass.getEnumConstants()).collect(Collectors.toMap(it -> it.name(), it -> it));
 		return umlEnumValues.stream().map(it -> values.get(it.getName())).collect(Collectors.toList());
 	}

@@ -15,7 +15,7 @@ public interface IBasicRepository {
      * @param qualifiedName
      *            the qualified name for the element
      * @param class_
-     *            its EMF type
+     *            its EMF type, or null for NamedElement
      * @param scope
      *            the current scope, or <code>null</code>
      * @return

@@ -364,6 +364,8 @@ public class Repository implements IRepository {
      * Package)
      */
     public <T extends NamedElement> T findNamedElement(String name, EClass class_, Namespace namespace) {
+    	if (class_ == null)
+			class_ = UMLPackage.Literals.NAMED_ELEMENT;
         if (namespace == null) {
             T cached = lookup.findInCache(name, class_);
             if (cached != null)
