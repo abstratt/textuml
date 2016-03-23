@@ -46,6 +46,7 @@ Tokens
   all = 'all' ;
   and = 'and' ;
   any = 'any';
+  anyone = 'anyone';  
   apply = 'apply';
   association = 'association' ;
   as = 'as' ;
@@ -56,10 +57,10 @@ Tokens
   call = 'call';
   catch = 'catch' ;
   clazz = 'class' ;
-  create = 'create';
   component = 'component' ;
   composition = 'composition' ;
   connector = 'connector';
+  create = 'create';
   datatype = 'datatype' ;
   delete = 'delete';
   deny = 'deny' ;
@@ -70,8 +71,8 @@ Tokens
   else = 'else' ;
   elseif = 'elseif' ;
   end = 'end' ;
-  enumeration = 'enumeration' ;
   entry = 'entry' ;
+  enumeration = 'enumeration' ;
   exit = 'exit' ;
   extends = 'extends' ;
   extent = 'extent' ;
@@ -107,7 +108,6 @@ Tokens
   ordered = 'ordered' ;
   out = 'out' ; 
   package = 'package' ;
-  permission = 'permission' ;
   port = 'port' ;
   postcondition = 'postcondition' ;
   precondition = 'precondition' ;
@@ -440,15 +440,15 @@ Productions
   
   permission_expression = expression_block ;
   
-  permission_roles = qualified_identifier_list ;
+  permission_roles = qualified_identifier_list | {empty};
   
-  access_capabilities = access_capability_list  | {empty};
+  access_capabilities = access_capability_list  | {all} all | {none} none | {empty};
   
   access_capability_list = access_capability access_capability_tail*;
   
   access_capability_tail = comma access_capability ;
   
-  access_capability = {read} read | {create} create | {update} update | {delete} delete | {call} call | {none} none;
+  access_capability = {read} read | {create} create | {update} update | {delete} delete | {call} call;
   
   precondition_signature = l_paren identifier_list r_paren ;
   
