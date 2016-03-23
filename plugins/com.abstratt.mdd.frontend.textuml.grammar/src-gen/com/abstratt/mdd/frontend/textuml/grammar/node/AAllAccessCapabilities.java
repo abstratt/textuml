@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ANoneAccessCapability extends PAccessCapability
+public final class AAllAccessCapabilities extends PAccessCapabilities
 {
-    private TNone _none_;
+    private TAll _all_;
 
-    public ANoneAccessCapability()
+    public AAllAccessCapabilities()
     {
         // Constructor
     }
 
-    public ANoneAccessCapability(
-        @SuppressWarnings("hiding") TNone _none_)
+    public AAllAccessCapabilities(
+        @SuppressWarnings("hiding") TAll _all_)
     {
         // Constructor
-        setNone(_none_);
+        setAll(_all_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ANoneAccessCapability(
-            cloneNode(this._none_));
+        return new AAllAccessCapabilities(
+            cloneNode(this._all_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseANoneAccessCapability(this);
+        ((Analysis) sw).caseAAllAccessCapabilities(this);
     }
 
-    public TNone getNone()
+    public TAll getAll()
     {
-        return this._none_;
+        return this._all_;
     }
 
-    public void setNone(TNone node)
+    public void setAll(TAll node)
     {
-        if(this._none_ != null)
+        if(this._all_ != null)
         {
-            this._none_.parent(null);
+            this._all_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ANoneAccessCapability extends PAccessCapability
             node.parent(this);
         }
 
-        this._none_ = node;
+        this._all_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._none_);
+            + toString(this._all_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._none_ == child)
+        if(this._all_ == child)
         {
-            this._none_ = null;
+            this._all_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ANoneAccessCapability extends PAccessCapability
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._none_ == oldChild)
+        if(this._all_ == oldChild)
         {
-            setNone((TNone) newChild);
+            setAll((TAll) newChild);
             return;
         }
 

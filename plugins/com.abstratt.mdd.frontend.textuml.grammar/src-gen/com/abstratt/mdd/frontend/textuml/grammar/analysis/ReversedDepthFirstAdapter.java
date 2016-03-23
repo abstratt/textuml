@@ -3842,6 +3842,23 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAPermissionRoles(node);
     }
 
+    public void inAEmptyPermissionRoles(AEmptyPermissionRoles node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAEmptyPermissionRoles(AEmptyPermissionRoles node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAEmptyPermissionRoles(AEmptyPermissionRoles node)
+    {
+        inAEmptyPermissionRoles(node);
+        outAEmptyPermissionRoles(node);
+    }
+
     public void inAAccessCapabilities(AAccessCapabilities node)
     {
         defaultIn(node);
@@ -3861,6 +3878,48 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getAccessCapabilityList().apply(this);
         }
         outAAccessCapabilities(node);
+    }
+
+    public void inAAllAccessCapabilities(AAllAccessCapabilities node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAllAccessCapabilities(AAllAccessCapabilities node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAllAccessCapabilities(AAllAccessCapabilities node)
+    {
+        inAAllAccessCapabilities(node);
+        if(node.getAll() != null)
+        {
+            node.getAll().apply(this);
+        }
+        outAAllAccessCapabilities(node);
+    }
+
+    public void inANoneAccessCapabilities(ANoneAccessCapabilities node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANoneAccessCapabilities(ANoneAccessCapabilities node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANoneAccessCapabilities(ANoneAccessCapabilities node)
+    {
+        inANoneAccessCapabilities(node);
+        if(node.getNone() != null)
+        {
+            node.getNone().apply(this);
+        }
+        outANoneAccessCapabilities(node);
     }
 
     public void inAEmptyAccessCapabilities(AEmptyAccessCapabilities node)
@@ -4037,27 +4096,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getCall().apply(this);
         }
         outACallAccessCapability(node);
-    }
-
-    public void inANoneAccessCapability(ANoneAccessCapability node)
-    {
-        defaultIn(node);
-    }
-
-    public void outANoneAccessCapability(ANoneAccessCapability node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseANoneAccessCapability(ANoneAccessCapability node)
-    {
-        inANoneAccessCapability(node);
-        if(node.getNone() != null)
-        {
-            node.getNone().apply(this);
-        }
-        outANoneAccessCapability(node);
     }
 
     public void inAPreconditionSignature(APreconditionSignature node)

@@ -5,16 +5,16 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class TPermission extends Token
+public final class TAnyone extends Token
 {
-    public TPermission()
+    public TAnyone()
     {
-        super.setText("permission");
+        super.setText("anyone");
     }
 
-    public TPermission(int line, int pos)
+    public TAnyone(int line, int pos)
     {
-        super.setText("permission");
+        super.setText("anyone");
         setLine(line);
         setPos(pos);
     }
@@ -22,17 +22,17 @@ public final class TPermission extends Token
     @Override
     public Object clone()
     {
-      return new TPermission(getLine(), getPos());
+      return new TAnyone(getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseTPermission(this);
+        ((Analysis) sw).caseTAnyone(this);
     }
 
     @Override
     public void setText(@SuppressWarnings("unused") String text)
     {
-        throw new RuntimeException("Cannot change TPermission text.");
+        throw new RuntimeException("Cannot change TAnyone text.");
     }
 }

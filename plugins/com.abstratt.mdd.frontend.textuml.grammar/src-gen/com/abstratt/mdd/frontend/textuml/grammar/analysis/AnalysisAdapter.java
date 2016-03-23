@@ -839,7 +839,22 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAEmptyPermissionRoles(AEmptyPermissionRoles node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAAccessCapabilities(AAccessCapabilities node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAllAccessCapabilities(AAllAccessCapabilities node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseANoneAccessCapabilities(ANoneAccessCapabilities node)
     {
         defaultCase(node);
     }
@@ -880,11 +895,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseACallAccessCapability(ACallAccessCapability node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseANoneAccessCapability(ANoneAccessCapability node)
     {
         defaultCase(node);
     }
@@ -2089,6 +2099,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseTAnyone(TAnyone node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTApply(TApply node)
     {
         defaultCase(node);
@@ -2139,11 +2154,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTCreate(TCreate node)
-    {
-        defaultCase(node);
-    }
-
     public void caseTComponent(TComponent node)
     {
         defaultCase(node);
@@ -2155,6 +2165,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTConnector(TConnector node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTCreate(TCreate node)
     {
         defaultCase(node);
     }
@@ -2209,12 +2224,12 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTEnumeration(TEnumeration node)
+    public void caseTEntry(TEntry node)
     {
         defaultCase(node);
     }
 
-    public void caseTEntry(TEntry node)
+    public void caseTEnumeration(TEnumeration node)
     {
         defaultCase(node);
     }
@@ -2390,11 +2405,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTPackage(TPackage node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTPermission(TPermission node)
     {
         defaultCase(node);
     }

@@ -166,7 +166,10 @@ public interface Analysis extends Switch
     void caseAPermissionConstraint(APermissionConstraint node);
     void caseAPermissionExpression(APermissionExpression node);
     void caseAPermissionRoles(APermissionRoles node);
+    void caseAEmptyPermissionRoles(AEmptyPermissionRoles node);
     void caseAAccessCapabilities(AAccessCapabilities node);
+    void caseAAllAccessCapabilities(AAllAccessCapabilities node);
+    void caseANoneAccessCapabilities(ANoneAccessCapabilities node);
     void caseAEmptyAccessCapabilities(AEmptyAccessCapabilities node);
     void caseAAccessCapabilityList(AAccessCapabilityList node);
     void caseAAccessCapabilityTail(AAccessCapabilityTail node);
@@ -175,7 +178,6 @@ public interface Analysis extends Switch
     void caseAUpdateAccessCapability(AUpdateAccessCapability node);
     void caseADeleteAccessCapability(ADeleteAccessCapability node);
     void caseACallAccessCapability(ACallAccessCapability node);
-    void caseANoneAccessCapability(ANoneAccessCapability node);
     void caseAPreconditionSignature(APreconditionSignature node);
     void caseAConstraintException(AConstraintException node);
     void caseAIdentifierList(AIdentifierList node);
@@ -417,6 +419,7 @@ public interface Analysis extends Switch
     void caseTAll(TAll node);
     void caseTAnd(TAnd node);
     void caseTAny(TAny node);
+    void caseTAnyone(TAnyone node);
     void caseTApply(TApply node);
     void caseTAssociation(TAssociation node);
     void caseTAs(TAs node);
@@ -427,10 +430,10 @@ public interface Analysis extends Switch
     void caseTCall(TCall node);
     void caseTCatch(TCatch node);
     void caseTClazz(TClazz node);
-    void caseTCreate(TCreate node);
     void caseTComponent(TComponent node);
     void caseTComposition(TComposition node);
     void caseTConnector(TConnector node);
+    void caseTCreate(TCreate node);
     void caseTDatatype(TDatatype node);
     void caseTDelete(TDelete node);
     void caseTDeny(TDeny node);
@@ -441,8 +444,8 @@ public interface Analysis extends Switch
     void caseTElse(TElse node);
     void caseTElseif(TElseif node);
     void caseTEnd(TEnd node);
-    void caseTEnumeration(TEnumeration node);
     void caseTEntry(TEntry node);
+    void caseTEnumeration(TEnumeration node);
     void caseTExit(TExit node);
     void caseTExtends(TExtends node);
     void caseTExtent(TExtent node);
@@ -478,7 +481,6 @@ public interface Analysis extends Switch
     void caseTOrdered(TOrdered node);
     void caseTOut(TOut node);
     void caseTPackage(TPackage node);
-    void caseTPermission(TPermission node);
     void caseTPort(TPort node);
     void caseTPostcondition(TPostcondition node);
     void caseTPrecondition(TPrecondition node);
