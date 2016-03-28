@@ -84,6 +84,11 @@ public class MDDExtensionUtils {
 			implied.forEach(it -> allImplied.addAll(valueOf(it).getImplied(true)));
 			return allImplied;
 		}
+		public static Set<AccessCapability> getDenied(Set<AccessCapability> allowed) {
+			Set<AccessCapability> result = new LinkedHashSet<>(Arrays.asList(values()));
+			result.removeAll(allowed);
+			return result;
+		}
 	}
 
 	public static void addDebugInfo(Element toEnhance, String source, int lineNumber) {
@@ -439,8 +444,10 @@ public class MDDExtensionUtils {
 	}
 
 	public static void makeRole(Class class_) {
+		Class userClass = MDDCore.getInProgressRepository().findNamedElement("mdd_types::User", Literals.CLASS, null);
 		Stereotype roleClassStereotype = StereotypeUtils.findStereotype(ROLE_CLASS_STEREOTYPE);
 		StereotypeUtils.safeApplyStereotype(class_, roleClassStereotype);
+		class_.createGeneralization(userClass);
 	}
 
 	public static boolean isRoleClass(Classifier toCheck) {

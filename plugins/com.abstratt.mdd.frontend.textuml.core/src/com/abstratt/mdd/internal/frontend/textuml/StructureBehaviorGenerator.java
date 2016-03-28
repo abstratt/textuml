@@ -28,6 +28,7 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.OneRoleAllowedForConstraintWithCondition;
 import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils.AccessCapability;
@@ -326,6 +327,11 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 			}
 			roleClasses.add(roleClass);
 		});
+		
+		if (roleClasses.size() != 1 && constraintNode.getPermissionExpression() != null) {
+			problemBuilder.addProblem(new OneRoleAllowedForConstraintWithCondition(), constraintNode.getPermissionExpression());
+			throw new AbortedCompilationException();
+		}
 
 		Set<AccessCapability> allowed = new LinkedHashSet<>();
 		constraintNode.apply(new DepthFirstAdapter() {
@@ -358,10 +364,9 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 		Constraint constraint = MDDExtensionUtils.createAccessConstraint(constrainedElement, null, roleClasses,
 				allowed);
 		fillDebugInfo(constraint, constraintNode);
-
-		if (constraintNode.getPermissionExpression() != null)
-			behaviorGenerator.createConstraintBehavior(currentBehavioredClassifier, constraint,
-					constraintNode.getPermissionExpression(), Collections.<Parameter> emptyList());
+		
+		behaviorGenerator.createConstraintBehavior(currentBehavioredClassifier, constraint,
+			constraintNode.getPermissionExpression(), Collections.<Parameter> emptyList());
 		return constraint;
 	}
 

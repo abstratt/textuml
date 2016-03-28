@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.Constraint;
+import org.eclipse.uml2.uml.LiteralSpecification;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Parameter;
@@ -18,6 +19,12 @@ public class ConstraintUtils {
 	
 	public static boolean isConstraintParameterless(Activity constraintActivity) {
 		return ActivityUtils.getClosureInputParameters(constraintActivity).isEmpty();
+	}
+	
+	public static boolean isTautology(Constraint constraint) {
+		Activity constraintBehavior = (Activity) ActivityUtils.resolveBehaviorReference(constraint.getSpecification());
+		LiteralSpecification constantValue = ActivityUtils.findConstantValue(constraintBehavior);
+		return constantValue != null && Boolean.TRUE.equals(MDDExtensionUtils.getBasicValue(constantValue));
 	}
 	
 	public static List<Constraint> findConstraints(NamedElement element) {

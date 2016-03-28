@@ -11,7 +11,10 @@ import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 
+import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.OneRoleAllowedForConstraintWithCondition;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
+import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.core.util.ClassifierUtils;
 import com.abstratt.mdd.core.util.ConstraintUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
@@ -33,11 +36,11 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
         source += "  class Person\n";
         source += "      attribute name : String;\n";
         source += "  end;\n";
-        source += "  abstract role class User specializes Person end;\n";
-        source += "  class AccountOwner specializes User\n";
+        source += "  abstract role class ApplicationUser specializes Person end;\n";
+        source += "  class AccountOwner specializes ApplicationUser\n";
         source += "      reference accounts : BankAccount[*] opposite owner;\n";
         source += "  end;\n";
-        source += "  abstract class Employee specializes User end;\n";
+        source += "  abstract class Employee specializes ApplicationUser end;\n";
         source += "  class BranchOfficer specializes Employee end;\n";
         source += "  class AccountManager specializes Employee end;\n";
         source += "  class BranchManager specializes BranchOfficer end;\n";
@@ -78,6 +81,26 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
         parseAndCheck(source);
     }
     
+    public void testOnlyOneRoleClassWithCondition() throws CoreException {
+    	String source = "";
+        source = "";
+        source += "model banking;\n";
+        source += "import base;\n";
+        source += "apply mdd_extensions;\n";
+        source += "  role class Employee\n";
+        source += "      attribute name : String;\n";
+        source += "  end;\n";        
+        source += "  class Approver specializes Employee end;\n";
+        source += "\n";
+        source += "  class Expense\n";
+        source += "    allow Approver, Employee read { true };\n";
+        source += "  end;\n";
+        source += "end.";
+        IProblem[] errors = parse(source);
+        FixtureHelper.assertTrue(errors, errors.length == 1);
+        FixtureHelper.assertTrue(errors, errors[0] instanceof OneRoleAllowedForConstraintWithCondition);
+    }
+    
     public void testObjectPermission() throws CoreException {
     	parseAndCheck(source);
     	Stereotype accessStereotype = StereotypeUtils.findStereotype(MDDExtensionUtils.ACCESS_STEREOTYPE);
@@ -93,8 +116,7 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     	assertEquals(2, allowedRoles.size());
     	assertEquals(Arrays.asList(getClassifier("banking::BranchManager"), getClassifier("banking::AccountManager")), allowedRoles);
     	
-    	assertNull(permission.getSpecification());
-    	
+    	assertTrue(ConstraintUtils.isTautology(permission));
     }
     
     public void testAttributePermission() throws CoreException {
@@ -115,6 +137,14 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
 		assertEquals(1, accessConstraints.size());
     	Constraint permission = accessConstraints.get(0);
     	assertNotNull(permission.getSpecification());
+    }
+    
+    public void testRoleClassSpecializesUser() throws CoreException {
+    	parseAndCheck(source);
+    	Class appUser = getClass("banking::ApplicationUser");
+    	Class systemUser = getClass("mdd_types::User");
+    	
+    	assertTrue(ClassifierUtils.isKindOf(appUser, systemUser));
     }
     
 }

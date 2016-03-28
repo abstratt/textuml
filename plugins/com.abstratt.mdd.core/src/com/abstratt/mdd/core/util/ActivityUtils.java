@@ -35,6 +35,7 @@ import org.eclipse.uml2.uml.ExceptionHandler;
 import org.eclipse.uml2.uml.ExecutableNode;
 import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.LiteralNull;
+import org.eclipse.uml2.uml.LiteralSpecification;
 import org.eclipse.uml2.uml.ObjectFlow;
 import org.eclipse.uml2.uml.ObjectNode;
 import org.eclipse.uml2.uml.OpaqueExpression;
@@ -61,6 +62,26 @@ public class ActivityUtils {
     public static Operation getOperation(Activity activity) {
         BehavioralFeature specification = activity.getSpecification();
         return specification instanceof Operation ? (Operation) specification : null;
+    }
+    
+    public static boolean isConstant(Activity activity) {
+    	return findConstantValue(activity) != null;
+    }
+    
+    public static LiteralSpecification findConstantValue(Activity activity) {
+    	List<Action> statements = findStatements(activity);
+    	if (statements.size() != 1)
+    		return null;
+    	Action singleStatement = statements.get(0);
+    	if (!isReturnAction(singleStatement))
+    		return null;
+    	Action sourceAction = getSourceAction(singleStatement);
+    	if (!(sourceAction instanceof ValueSpecificationAction))
+    		return null;
+    	ValueSpecificationAction asVSA = (ValueSpecificationAction) sourceAction;
+    	if (!(asVSA.getValue() instanceof LiteralSpecification))
+    		return null;
+    	return (LiteralSpecification) asVSA.getValue();
     }
 
     public static Activity getDerivation(Property derived) {

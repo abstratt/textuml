@@ -6,8 +6,11 @@ apply StandardProfile;
 actor Anyone end;
 
 class System
-    static query user() : any;
+    static query user() : User;
 end;
+
+class User
+end; 
 
 class Assert
     static operation isTrue(condition : Boolean);

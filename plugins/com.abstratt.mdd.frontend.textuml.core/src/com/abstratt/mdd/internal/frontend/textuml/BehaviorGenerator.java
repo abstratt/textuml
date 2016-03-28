@@ -119,6 +119,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AArithmeticBinaryOperator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAttributeIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABinaryExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABlockKernel;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ABooleanLiteral;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABroadcastSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ACatchSection;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassAttributeIdentifierExpression;
@@ -157,16 +158,20 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ANewIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANotEqualsComparisonBinaryOperator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANotNullUnaryOperator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANotUnaryOperator;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOperandExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AParenthesisOperand;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedAssociationTraversal;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARaiseSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARepeatLoopBody;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ARootExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASelfIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASendSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleAssociationTraversal;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleExpressionBlock;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATarget;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ATrueBoolean;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATryStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleComponentValue;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleConstructor;
@@ -192,6 +197,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.TNot;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TNotNull;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TOr;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TPlus;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TTrue;
 import com.abstratt.pluginutils.LogUtils;
 
 /**
@@ -370,6 +376,8 @@ public class BehaviorGenerator extends AbstractGenerator {
             builder.registerInput(action.createSecond(null, null));
             node.getExpression().apply(this);
             node.getOperand().apply(this);
+            TypeUtils.copyType(ActivityUtils.getSource(action.getFirst()), action.getFirst());
+            TypeUtils.copyType(ActivityUtils.getSource(action.getSecond()), action.getSecond());
             Classifier expressionType = BasicTypeUtils.findBuiltInType("Boolean");
             builder.registerOutput(action.createResult(null, expressionType));
             fillDebugInfo(action, node);
@@ -2017,6 +2025,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 
         Classifier constraintType = BasicTypeUtils.findBuiltInType("Boolean");
         activity.createOwnedParameter(null, constraintType).setDirection(ParameterDirectionKind.RETURN_LITERAL);
+        
+        if (constraintBlock == null)
+        	// an always true block: { true } 
+        	constraintBlock = new AExpressionSimpleBlockResolved(new ASimpleExpressionBlock(null, new ARootExpression(new AOperandExpression(new ALiteralOperand(new ABooleanLiteral(new ATrueBoolean(new TTrue()))))), null));
         createBody(constraintBlock, activity);
 
         ValueSpecification reference = ActivityUtils.buildBehaviorReference(constraint.getNearestPackage(), activity,
