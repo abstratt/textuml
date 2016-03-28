@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.0">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2016/03/20 10:38:50 390 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2016/03/28 06:56:17 449 -0300"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -147,9 +147,10 @@
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="AccessCapability"/>
         <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Create" name="Create"/>
         <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Delete" name="Delete" value="1"/>
-        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Read" name="Read" value="2"/>
-        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Update" name="Update" value="3"/>
-        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Call" name="Call" value="4"/>
+        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-List" name="List" value="2"/>
+        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Read" name="Read" value="3"/>
+        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Update" name="Update" value="4"/>
+        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Call" name="Call" value="5"/>
       </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access" name="Access" eSuperTypes="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Invariant">
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Access"/>
@@ -363,6 +364,7 @@
     </eAnnotations>
     <ownedLiteral xmi:id="AccessCapability-Create" name="Create"/>
     <ownedLiteral xmi:id="AccessCapability-Delete" name="Delete"/>
+    <ownedLiteral xmi:id="AccessCapability-List" name="List"/>
     <ownedLiteral xmi:id="AccessCapability-Read" name="Read"/>
     <ownedLiteral xmi:id="AccessCapability-Update" name="Update"/>
     <ownedLiteral xmi:id="AccessCapability-Call" name="Call"/>

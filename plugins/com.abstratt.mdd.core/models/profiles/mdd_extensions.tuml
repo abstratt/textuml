@@ -73,6 +73,7 @@ enumeration AccessCapability
     /* Objects */
     Create;
     Delete;
+    List;
     /* Attributes/links */
     Read;
     Update;

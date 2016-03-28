@@ -72,7 +72,7 @@ public class MDDExtensionUtils {
 
 	/** Matches the enumeration of same name in the mdd_extensions profile */
 	public enum AccessCapability {
-		Create, Delete("Create"), Read, Update("Read"), Call;
+		Create, Delete("Create"), List("Read"), Read, Update("Read"), Call("Read");
 		private Collection<String> implied;
 		private AccessCapability(String... impliedNames) {
 			implied = Arrays.asList(impliedNames);
