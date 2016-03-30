@@ -42,6 +42,13 @@ public class ConstraintUtils {
 		}
 		return result;
 	}
+
+	public static NamedElement getConstraintScope(Constraint violated) {
+		if (violated.getConstrainedElements().size() == 1
+				&& violated.getConstrainedElements().get(0) instanceof NamedElement)
+			return (NamedElement) violated.getConstrainedElements().get(0);
+		return null;
+	}
 	
 	/**
 	 * Returns all constraints that apply to the given operation parameter.

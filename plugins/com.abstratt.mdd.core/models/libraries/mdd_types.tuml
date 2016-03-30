@@ -6,10 +6,10 @@ apply StandardProfile;
 actor Anyone end;
 
 class System
-    static query user() : User;
+    static query user() : SystemUser;
 end;
 
-class User
+abstract class SystemUser
 end; 
 
 class Assert

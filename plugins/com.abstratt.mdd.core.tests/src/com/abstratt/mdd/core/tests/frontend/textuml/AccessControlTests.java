@@ -142,7 +142,7 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     public void testRoleClassSpecializesUser() throws CoreException {
     	parseAndCheck(source);
     	Class appUser = getClass("banking::ApplicationUser");
-    	Class systemUser = getClass("mdd_types::User");
+    	Class systemUser = getClass("mdd_types::SystemUser");
     	
     	assertTrue(ClassifierUtils.isKindOf(appUser, systemUser));
     }

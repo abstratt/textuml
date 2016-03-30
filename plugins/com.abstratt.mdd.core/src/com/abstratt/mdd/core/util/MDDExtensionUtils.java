@@ -399,13 +399,6 @@ public class MDDExtensionUtils {
 		return result;
 	}
 
-	public static NamedElement getConstraintScope(Constraint violated) {
-		if (violated.getConstrainedElements().size() == 1
-				&& violated.getConstrainedElements().get(0) instanceof NamedElement)
-			return (NamedElement) violated.getConstrainedElements().get(0);
-		return null;
-	}
-
 	public static void makeObjectInitialization(StructuredActivityNode action) {
 		Stereotype objectInitStereotype = StereotypeUtils.findStereotype(OBJECT_INITIALIZATION_STEREOTYPE);
 		StereotypeUtils.safeApplyStereotype(action, objectInitStereotype);
@@ -444,7 +437,7 @@ public class MDDExtensionUtils {
 	}
 
 	public static void makeRole(Class class_) {
-		Class userClass = MDDCore.getInProgressRepository().findNamedElement("mdd_types::User", Literals.CLASS, null);
+		Class userClass = MDDCore.getInProgressRepository().findNamedElement("mdd_types::SystemUser", Literals.CLASS, null);
 		Stereotype roleClassStereotype = StereotypeUtils.findStereotype(ROLE_CLASS_STEREOTYPE);
 		StereotypeUtils.safeApplyStereotype(class_, roleClassStereotype);
 		class_.createGeneralization(userClass);
