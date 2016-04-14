@@ -178,6 +178,7 @@ public interface Analysis extends Switch
     void caseAUpdateAccessCapability(AUpdateAccessCapability node);
     void caseADeleteAccessCapability(ADeleteAccessCapability node);
     void caseACallAccessCapability(ACallAccessCapability node);
+    void caseAExtentAccessCapability(AExtentAccessCapability node);
     void caseAPreconditionSignature(APreconditionSignature node);
     void caseAConstraintException(AConstraintException node);
     void caseAIdentifierList(AIdentifierList node);

@@ -4083,6 +4083,27 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outACallAccessCapability(node);
     }
 
+    public void inAExtentAccessCapability(AExtentAccessCapability node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAExtentAccessCapability(AExtentAccessCapability node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAExtentAccessCapability(AExtentAccessCapability node)
+    {
+        inAExtentAccessCapability(node);
+        if(node.getExtent() != null)
+        {
+            node.getExtent().apply(this);
+        }
+        outAExtentAccessCapability(node);
+    }
+
     public void inAPreconditionSignature(APreconditionSignature node)
     {
         defaultIn(node);

@@ -899,6 +899,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAExtentAccessCapability(AExtentAccessCapability node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAPreconditionSignature(APreconditionSignature node)
     {
         defaultCase(node);
