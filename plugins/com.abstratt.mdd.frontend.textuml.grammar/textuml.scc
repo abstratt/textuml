@@ -448,7 +448,7 @@ Productions
   
   access_capability_tail = comma access_capability ;
   
-  access_capability = {read} read | {create} create | {update} update | {delete} delete | {call} call;
+  access_capability = {read} read | {create} create | {update} update | {delete} delete | {call} call| {extent} extent;
   
   precondition_signature = l_paren identifier_list r_paren ;
   

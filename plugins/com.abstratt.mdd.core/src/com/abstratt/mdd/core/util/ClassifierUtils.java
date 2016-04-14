@@ -101,6 +101,12 @@ public class ClassifierUtils {
         return toTest.getGeneralizations().stream().anyMatch(g -> isKindOf(g.getGeneral(), generalCandidate));
     }
     
+    public static boolean isKindOfAnyOf(Classifier toTest, Collection<? extends Classifier> generalCandidates, boolean includeSelf) {
+        if (includeSelf && generalCandidates.contains(toTest))
+            return true;
+        return toTest.getGeneralizations().stream().anyMatch(g -> isKindOfAnyOf(g.getGeneral(), generalCandidates, true));
+    }
+    
     public static boolean doesImplement(BehavioredClassifier toTest, Interface candidateInterface) {
         return toTest.getAllImplementedInterfaces().stream().anyMatch(i -> i == candidateInterface);
     }

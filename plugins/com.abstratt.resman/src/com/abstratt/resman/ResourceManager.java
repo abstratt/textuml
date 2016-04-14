@@ -1,11 +1,15 @@
 package com.abstratt.resman;
 
+import org.eclipse.core.runtime.Assert;
+
 import com.abstratt.resman.impl.BasicResourceManager;
 
 /**
  * Manages access to shared/expensive resources.
  */
 public abstract class ResourceManager<K extends ResourceKey> {
+	
+	protected static ThreadLocal<Resource<?>> currentResource = new ThreadLocal<Resource<?>>();
 
     public static final String ID = ResourceManager.class.getPackage().getName();
 
@@ -71,11 +75,27 @@ public abstract class ResourceManager<K extends ResourceKey> {
      */
     public abstract void synchronizeCurrent() throws ResourceException;
 
-    public abstract Resource<K> getCurrentResource();
+	public Resource<K> getCurrentResource() {
+        final Resource<K> resource = (Resource<K>) currentResource.get();
+        Assert.isTrue(resource != null, "No current resource");
+        Assert.isTrue(resource.isValid());
+        return resource;
+    }
 
-    public abstract boolean inTask();
+    public boolean inTask() {
+    	return currentResource.get() != null;
+    }
+    
+    public static ResourceManager<?> getCurrentResourceManager() {
+        Resource<?> resource = currentResource.get();
+        Assert.isTrue(resource != null, "No current resource");
+        Assert.isTrue(resource.isValid());
+        return resource.getManager();
+    }
 
-    public abstract void clear();
+    public void clear() {
+        currentResource.remove();
+    }
 
     public abstract boolean isEmpty();
 }

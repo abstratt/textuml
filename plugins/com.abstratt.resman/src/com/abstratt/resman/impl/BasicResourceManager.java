@@ -36,8 +36,6 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
 
     private static final String PLUGIN_ID = ResourceManager.class.getPackage().getName();
 
-    private static ThreadLocal<Resource<?>> currentResource = new ThreadLocal<Resource<?>>();
-
     private final ReferencePool<K, BasicResource<K>> pool;
 
     private final ResourceProvider<K> resourceProvider;
@@ -75,7 +73,7 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
 
     protected BasicResourceManager(int bucketCap, ResourceProvider<K> provider,
             Collection<FeatureProvider> featureProviders) {
-        this.pool = initPool(bucketCap);
+    	this.pool = initPool(bucketCap);
         this.resourceProvider = provider;
         this.featureProviders = new HashSet<FeatureProvider>(featureProviders);
     }
@@ -210,7 +208,7 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
                 }
             }
         }
-        BasicResource<K> newResource = new BasicResource<K>(resourceId);
+        BasicResource<K> newResource = new BasicResource<K>(this, resourceId);
         initResource(newResource);
         pool.add(resourceId, newResource);
         activateContext(newResource);
@@ -295,21 +293,8 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
     }
 
     @Override
-    public Resource<K> getCurrentResource() {
-        final Resource<K> resource = (Resource<K>) currentResource.get();
-        Assert.isTrue(resource != null, "No current resource");
-        Assert.isTrue(resource.isValid());
-        return resource;
-    }
-
-    @Override
-    public boolean inTask() {
-        return (Resource<K>) currentResource.get() != null;
-    }
-
-    @Override
     public void clear() {
-        currentResource.remove();
+        super.clear();
         this.pool.clear();
     }
 

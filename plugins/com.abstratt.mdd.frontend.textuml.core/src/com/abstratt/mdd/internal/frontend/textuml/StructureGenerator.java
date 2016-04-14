@@ -12,6 +12,7 @@
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Set;
 
@@ -170,6 +171,8 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.TExternal;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TModelComment;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TRole;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TUri;
+
+import static com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step.*;
 
 /**
  * This tree visitor will generate the structural model for a given input.
@@ -812,7 +815,7 @@ public class StructureGenerator extends AbstractGenerator {
             @Override
             public void caseTRole(TRole node) {
             	if (currentClassifier.eClass() == UMLPackage.Literals.CLASS)
-            		MDDExtensionUtils.makeRole((Class) currentClassifier);
+            		getRefTracker().add(repo -> MDDExtensionUtils.makeRole((Class) currentClassifier), STEREOTYPE_APPLICATIONS); 
             	else
 					problemBuilder.addError("Only classes can be roles", node);
             }

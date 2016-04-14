@@ -339,7 +339,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 			public void caseAAccessCapabilities(AAccessCapabilities node) {
 				List<PAccessCapability> selectedCapabilities = sourceMiner.findChildren(node, PAccessCapability.class);
 				selectedCapabilities.forEach(it -> 
-				    allowed.addAll(AccessCapability.valueOf(StringUtils.capitalize(sourceMiner.getText(it))).getImplied(true))
+				    allowed.addAll(AccessCapability.byName(StringUtils.capitalize(sourceMiner.getText(it))).getImplied(true))
 				);
 			}
 			@Override

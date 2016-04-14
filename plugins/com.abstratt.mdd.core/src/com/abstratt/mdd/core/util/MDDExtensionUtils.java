@@ -72,11 +72,18 @@ public class MDDExtensionUtils {
 
 	/** Matches the enumeration of same name in the mdd_extensions profile */
 	public enum AccessCapability {
-		Create, Delete("Create"), List("Read"), Read, Update("Read"), Call("Read");
+		Create(null, null), Delete("Create", null), List("Read", "Extent"), Read(null, null), Update("Read", null), Call("Read", null);
 		private Collection<String> implied;
-		private AccessCapability(String... impliedNames) {
-			implied = Arrays.asList(impliedNames);
+		private Collection<String> aliases;
+		private AccessCapability(String implied, String alias) {
+			this.implied = implied == null ? Collections.emptyList() : Arrays.asList(implied);
+			this.aliases = alias == null ? Collections.emptyList() : Arrays.asList(alias);
 		}
+		
+		public static AccessCapability byName(String name) {
+			return Arrays.stream(values()).filter(it -> it.name().equals(name) || it.aliases.contains(name)).findAny().orElse(null);
+		}
+		
 		public Set<AccessCapability> getImplied(boolean includeSelf) {
 			Set<AccessCapability> allImplied = new LinkedHashSet<>();
 			if (includeSelf)

@@ -5,12 +5,14 @@ import java.util.Map;
 
 import com.abstratt.resman.Resource;
 import com.abstratt.resman.ResourceKey;
+import com.abstratt.resman.ResourceManager;
 
 public class BasicResource<K extends ResourceKey> extends Resource<K> {
-    protected BasicResource(K resourceId) {
-        super(resourceId);
-    }
 
+	protected BasicResource(ResourceManager<K> manager, K resourceId) {
+        super(manager, resourceId);
+    }
+	
     void invalidate() {
         System.out.println("Invalidated " + getId());
         this.features = null;
