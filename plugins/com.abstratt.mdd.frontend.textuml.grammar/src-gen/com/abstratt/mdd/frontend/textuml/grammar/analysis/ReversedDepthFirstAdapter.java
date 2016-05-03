@@ -4077,25 +4077,50 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outADeleteAccessCapability(node);
     }
 
-    public void inACallAccessCapability(ACallAccessCapability node)
+    public void inAStaticCallAccessCapability(AStaticCallAccessCapability node)
     {
         defaultIn(node);
     }
 
-    public void outACallAccessCapability(ACallAccessCapability node)
+    public void outAStaticCallAccessCapability(AStaticCallAccessCapability node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseACallAccessCapability(ACallAccessCapability node)
+    public void caseAStaticCallAccessCapability(AStaticCallAccessCapability node)
     {
-        inACallAccessCapability(node);
+        inAStaticCallAccessCapability(node);
         if(node.getCall() != null)
         {
             node.getCall().apply(this);
         }
-        outACallAccessCapability(node);
+        if(node.getStatic() != null)
+        {
+            node.getStatic().apply(this);
+        }
+        outAStaticCallAccessCapability(node);
+    }
+
+    public void inAInstanceCallAccessCapability(AInstanceCallAccessCapability node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAInstanceCallAccessCapability(AInstanceCallAccessCapability node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAInstanceCallAccessCapability(AInstanceCallAccessCapability node)
+    {
+        inAInstanceCallAccessCapability(node);
+        if(node.getCall() != null)
+        {
+            node.getCall().apply(this);
+        }
+        outAInstanceCallAccessCapability(node);
     }
 
     public void inAExtentAccessCapability(AExtentAccessCapability node)

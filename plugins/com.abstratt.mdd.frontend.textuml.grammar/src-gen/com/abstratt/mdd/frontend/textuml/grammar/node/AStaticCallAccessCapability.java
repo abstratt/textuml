@@ -5,19 +5,23 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ACallAccessCapability extends PAccessCapability
+public final class AStaticCallAccessCapability extends PAccessCapability
 {
+    private TStatic _static_;
     private TCall _call_;
 
-    public ACallAccessCapability()
+    public AStaticCallAccessCapability()
     {
         // Constructor
     }
 
-    public ACallAccessCapability(
+    public AStaticCallAccessCapability(
+        @SuppressWarnings("hiding") TStatic _static_,
         @SuppressWarnings("hiding") TCall _call_)
     {
         // Constructor
+        setStatic(_static_);
+
         setCall(_call_);
 
     }
@@ -25,13 +29,39 @@ public final class ACallAccessCapability extends PAccessCapability
     @Override
     public Object clone()
     {
-        return new ACallAccessCapability(
+        return new AStaticCallAccessCapability(
+            cloneNode(this._static_),
             cloneNode(this._call_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseACallAccessCapability(this);
+        ((Analysis) sw).caseAStaticCallAccessCapability(this);
+    }
+
+    public TStatic getStatic()
+    {
+        return this._static_;
+    }
+
+    public void setStatic(TStatic node)
+    {
+        if(this._static_ != null)
+        {
+            this._static_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._static_ = node;
     }
 
     public TCall getCall()
@@ -63,6 +93,7 @@ public final class ACallAccessCapability extends PAccessCapability
     public String toString()
     {
         return ""
+            + toString(this._static_)
             + toString(this._call_);
     }
 
@@ -70,6 +101,12 @@ public final class ACallAccessCapability extends PAccessCapability
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._static_ == child)
+        {
+            this._static_ = null;
+            return;
+        }
+
         if(this._call_ == child)
         {
             this._call_ = null;
@@ -83,6 +120,12 @@ public final class ACallAccessCapability extends PAccessCapability
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._static_ == oldChild)
+        {
+            setStatic((TStatic) newChild);
+            return;
+        }
+
         if(this._call_ == oldChild)
         {
             setCall((TCall) newChild);
