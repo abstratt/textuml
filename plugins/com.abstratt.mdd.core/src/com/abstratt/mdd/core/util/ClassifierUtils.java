@@ -29,7 +29,13 @@ import com.abstratt.mdd.core.IRepository;
 public class ClassifierUtils {
 	
 	public static <T extends Enum<?>> List<EnumerationLiteral> toEnumerationLiterals(Enumeration umlEnumeration, Collection<T> javaEnumValues) {
-		return javaEnumValues.stream().map(it -> umlEnumeration.getOwnedLiteral(it.name())).collect(Collectors.toList());
+		List<EnumerationLiteral> mapped = javaEnumValues.stream().map(it -> { 
+			EnumerationLiteral ownedLiteral = umlEnumeration.getOwnedLiteral(it.name());
+			if (ownedLiteral == null)
+				throw new IllegalArgumentException("Unknown literal: "  + it.name() + " in " + umlEnumeration.getQualifiedName());
+			return ownedLiteral;
+		}).collect(Collectors.toList());
+		return mapped;
 	}
 	
 	public static <T extends Enum<?>> List<T> fromEnumerationLiterals(java.lang.Class<T> enumClass, Collection<EEnumLiteral> umlEnumValues) {

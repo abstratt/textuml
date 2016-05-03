@@ -6,6 +6,8 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -15,6 +17,7 @@ import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
+import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Operation;
@@ -30,8 +33,8 @@ import org.eclipse.uml2.uml.UMLPackage.Literals;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.OneRoleAllowedForConstraintWithCondition;
 import com.abstratt.mdd.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.util.AccessCapability;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
-import com.abstratt.mdd.core.util.MDDExtensionUtils.AccessCapability;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.ReceptionUtils;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
@@ -339,7 +342,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 			public void caseAAccessCapabilities(AAccessCapabilities node) {
 				List<PAccessCapability> selectedCapabilities = sourceMiner.findChildren(node, PAccessCapability.class);
 				selectedCapabilities.forEach(it -> 
-				    allowed.addAll(AccessCapability.byName(StringUtils.capitalize(sourceMiner.getText(it))).getImplied(true))
+				    allowed.add(AccessCapability.byName(StringUtils.capitalize(sourceMiner.getText(it))))
 				);
 			}
 			@Override

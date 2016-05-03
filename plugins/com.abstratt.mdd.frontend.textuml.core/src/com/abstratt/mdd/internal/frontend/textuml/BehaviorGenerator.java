@@ -1288,7 +1288,14 @@ public class BehaviorGenerator extends AbstractGenerator {
                 currentActivity = ActivityUtils.getActionActivity(rootNode);
             }
             final BehavioralFeature operation = currentActivity.getSpecification();
-            if (operation != null && operation.isStatic()) {
+            boolean staticContext = false;
+            if (operation != null) {
+            	staticContext = operation.isStatic();
+            } else if (MDDExtensionUtils.isConstraintBehavior(currentActivity)) {
+            	Constraint constraint = MDDExtensionUtils.getBehaviorConstraint(currentActivity);
+            	staticContext = MDDExtensionUtils.isStaticConstraint(constraint);
+            }
+            if (staticContext) {
                 problemBuilder.addProblem(new ReadSelfFromStaticContext(), node);
                 throw new AbortedStatementCompilationException();
             }

@@ -132,6 +132,8 @@ public interface IRepository extends IBasicRepository {
      * @return the package found or created
      */
     public Package createPackage(String qualifiedName);
+    
+    public void addTopLevelPackage(Package toAdd, String name, URI resourceURI);
 
     /**
      * Creates a new top-level package from the given qualified name. If a

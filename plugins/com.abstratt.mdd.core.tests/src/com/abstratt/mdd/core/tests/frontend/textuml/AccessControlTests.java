@@ -15,10 +15,10 @@ import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.OneRoleAllowedForConstraintWithCondition;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
+import com.abstratt.mdd.core.util.AccessCapability;
 import com.abstratt.mdd.core.util.ClassifierUtils;
 import com.abstratt.mdd.core.util.ConstraintUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
-import com.abstratt.mdd.core.util.MDDExtensionUtils.AccessCapability;
 import com.abstratt.mdd.core.util.StereotypeUtils;
 
 import junit.framework.Test;

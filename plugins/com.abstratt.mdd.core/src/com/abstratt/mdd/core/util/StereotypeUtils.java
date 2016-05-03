@@ -49,6 +49,14 @@ public class StereotypeUtils {
             return null;
         return element.getValue(stereotype, property);
     }
+    
+
+	public static void setValue(Element element, String stereotypeQName,
+			String property, Object value) {
+        Stereotype stereotype = getStereotype(element, stereotypeQName);
+        element.setValue(stereotype, property, value);
+		
+	}    
 
     public static boolean hasProfile(org.eclipse.uml2.uml.Package element, String profileName) {
         for (Profile p : element.getAppliedProfiles())
@@ -70,4 +78,5 @@ public class StereotypeUtils {
         Stereotype stereotype = findStereotype(stereotypeQName);
         return stereotype != null && element.isStereotypeApplicable(stereotype);
     }
+
 }
