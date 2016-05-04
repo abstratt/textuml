@@ -83,6 +83,7 @@ import com.abstratt.mdd.core.RepositoryService;
 import com.abstratt.mdd.core.isv.IModelWeaver;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
+import com.abstratt.mdd.core.util.StereotypeUtils;
 import com.abstratt.pluginutils.ISharedContextRunnable;
 import com.abstratt.pluginutils.LogUtils;
 
@@ -321,7 +322,7 @@ public class Repository implements IRepository {
                 System.getProperty(ENABLE_EXTENSIONS, Boolean.FALSE.toString())))) {
             Profile extensions = (Profile) findPackage(EXTENSIONS_NAMESPACE, Literals.PROFILE);
             if (extensions != null && extensions.isDefined())
-                newPackage.applyProfile(extensions);
+                StereotypeUtils.safeApplyProfile(newPackage, extensions);
         }
         if (getWeaver() != null)
             getWeaver().packageCreated(this, newPackage);

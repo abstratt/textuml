@@ -78,5 +78,9 @@ public class StereotypeUtils {
         Stereotype stereotype = findStereotype(stereotypeQName);
         return stereotype != null && element.isStereotypeApplicable(stereotype);
     }
+    
+    public static void safeApplyProfile(org.eclipse.uml2.uml.Package package_, Profile profile) {
+    	PackageUtils.safeApplyProfile(package_, profile);
+    }
 
 }
