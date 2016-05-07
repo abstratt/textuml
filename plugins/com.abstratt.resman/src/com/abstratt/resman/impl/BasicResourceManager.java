@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -272,6 +273,8 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
             try {
                 FeatureProvider currentFeatureProvider = (FeatureProvider) configurationElements[i]
                         .createExecutableExtension("provider");
+                if (!currentFeatureProvider.isEnabled())
+                	continue;
                 Set<Class<?>> provided = new HashSet<Class<?>>(Arrays.asList(currentFeatureProvider
                         .getProvidedFeatureTypes()));
                 provided.retainAll(knownFeatures);

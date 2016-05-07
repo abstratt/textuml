@@ -6,4 +6,8 @@ public interface FeatureProvider {
     public Class<?>[] getProvidedFeatureTypes();
 
     public Class<?>[] getRequiredFeatureTypes();
+    
+    public default boolean isEnabled() {
+    	return true;
+    }
 }

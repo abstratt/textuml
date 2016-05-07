@@ -1,5 +1,7 @@
 package com.abstratt.mdd.core;
 
+import java.net.URI;
+
 import org.eclipse.core.runtime.CoreException;
 
 import com.abstratt.mdd.core.util.MDDUtil;
