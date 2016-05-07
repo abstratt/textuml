@@ -245,8 +245,14 @@ public class Repository implements IRepository {
             addSystemPackage(current.getImportedPackage());
     }
 
-    private boolean isSystemPackage(Package toCheck) {
+    @Override
+    public boolean isSystemPackage(Package toCheck) {
         return systemResources.contains(toCheck.eResource());
+    }
+    
+    @Override
+    public boolean isOwnPackage(Package toCheck) {
+    	return isManaged(toCheck.eResource());
     }
 
     private void basicSaveResource(Resource resource) throws IOException {

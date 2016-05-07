@@ -275,4 +275,8 @@ public interface IRepository extends IBasicRepository {
     public NamedElementLookupCache getLookupCache();
 
     public String getBuild();
+
+	boolean isSystemPackage(Package toCheck);
+	
+	boolean isOwnPackage(Package toCheck);
 }
