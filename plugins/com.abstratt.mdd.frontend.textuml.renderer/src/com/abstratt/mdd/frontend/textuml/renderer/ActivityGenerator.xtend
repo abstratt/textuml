@@ -5,8 +5,11 @@ import java.util.List
 import org.eclipse.uml2.uml.Action
 import org.eclipse.uml2.uml.Activity
 import org.eclipse.uml2.uml.AddStructuralFeatureValueAction
+import org.eclipse.uml2.uml.AddVariableValueAction
 import org.eclipse.uml2.uml.CallOperationAction
+import org.eclipse.uml2.uml.CreateObjectAction
 import org.eclipse.uml2.uml.DataType
+import org.eclipse.uml2.uml.DestroyObjectAction
 import org.eclipse.uml2.uml.Feature
 import org.eclipse.uml2.uml.InputPin
 import org.eclipse.uml2.uml.LiteralNull
@@ -15,6 +18,7 @@ import org.eclipse.uml2.uml.Operation
 import org.eclipse.uml2.uml.Parameter
 import org.eclipse.uml2.uml.ReadSelfAction
 import org.eclipse.uml2.uml.ReadStructuralFeatureAction
+import org.eclipse.uml2.uml.ReadVariableAction
 import org.eclipse.uml2.uml.StructuredActivityNode
 import org.eclipse.uml2.uml.Type
 import org.eclipse.uml2.uml.ValueSpecification
@@ -26,11 +30,14 @@ import static extension com.abstratt.mdd.core.util.FeatureUtils.*
 class ActivityGenerator implements IBasicBehaviorGenerator {
     
     override generateActivity(Activity activity) {
-        activity.rootAction.generateAction
+        val generated = activity.rootAction.generateAction
+        return generated
     }
     
     override generateActivityAsExpression(Activity toGenerate, boolean asClosure, List<Parameter> parameters) {
-        toGenerate.rootAction.findSingleStatement.sourceAction.generateAction
+        val singleStatement = toGenerate.rootAction.findSingleStatement
+		val sourceAction = singleStatement.sourceAction
+		return sourceAction.generateAction
     }
     
     override generateAction(Action action, boolean delegate) {
@@ -43,16 +50,41 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     
     def dispatch generateProperAction(StructuredActivityNode action) {
         val statements = action.findStatements
+        val isRoot = action.rootAction
+        val isCast = action.isCast
+        if (isCast)
+        	'''(«action.inputs.get(0).sourceAction.generateAction» as «action.outputs.get(0).type.name»)'''
+        else 
         '''
-        begin
-            «statements.map[generateStatement].join('\n')»
-        end;
-        '''
+        «IF !isRoot»begin«ENDIF»
+        «statements.map[generateStatement].join('\n')»
+        «IF !isRoot»end«ENDIF»'''
     }
     
     def dispatch generateProperAction(ReadSelfAction action) {
         'self'
     }
+    
+    def dispatch generateProperAction(CreateObjectAction action) {
+        '''new «action.classifier.name»()'''
+    }
+    
+    def dispatch generateProperAction(DestroyObjectAction action) {
+        '''delete «action.target.generateAction»'''
+    }
+    
+    def dispatch generateProperAction(AddVariableValueAction action) {
+    	val sourceExpression = action.sourceAction.generateAction
+    	if (action.variable.returnVariable)
+        	'''return «sourceExpression»'''
+		else
+			'''«action.variable.name» := «sourceExpression»'''
+    }
+    
+    def dispatch generateProperAction(ReadVariableAction action) {
+        action.variable.name
+    }
+    
     
     def dispatch generateProperAction(AddStructuralFeatureValueAction action) {
         val base = generateFeatureActionBase(action.structuralFeature, action.object)
@@ -90,7 +122,11 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     }
     
     def generateValue(ValueSpecification valueSpec) {
-        switch (valueSpec) {
+    	if (valueSpec.behaviorReference) {
+    		val closure = valueSpec.resolveBehaviorReference as Activity
+    		'''(«closure.closureInputParameters.map[name].join(", ")») {«closure.generateActivity.toString().trim()»}'''
+    		
+    	} else switch (valueSpec) {
             LiteralNull : 'null'
             LiteralString : '''"«valueSpec.value»"'''
             default: valueSpec.stringValue

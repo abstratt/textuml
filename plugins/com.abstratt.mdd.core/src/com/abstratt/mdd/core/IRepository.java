@@ -11,6 +11,7 @@
 package com.abstratt.mdd.core;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -205,6 +206,10 @@ public interface IRepository extends IBasicRepository {
      * @return an array of top level packages, never <code>null</code>
      */
     public Package[] getTopLevelPackages(EClass packageClass);
+    
+    public default Package[] getOwnPackages(EClass packageClass) {
+    	return Arrays.stream(getTopLevelPackages(packageClass)).filter(it -> isOwnPackage(it)).toArray(size -> new Package[size]);
+    }
 
     /**
      * Loads an existing package with the given qualified name. If a package

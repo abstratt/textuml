@@ -15,6 +15,7 @@ import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.CallEvent;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Event;
+import org.eclipse.uml2.uml.LiteralNull;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Pseudostate;
@@ -23,6 +24,7 @@ import org.eclipse.uml2.uml.State;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Transition;
 import org.eclipse.uml2.uml.Trigger;
+import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.Vertex;
 
 public class StateMachineUtils {
@@ -34,6 +36,14 @@ public class StateMachineUtils {
     public static Vertex getVertex(StateMachine stateMachine, String name) {
         return stateMachine.getRegions().get(0).getSubvertex(name);
     }
+    
+	public static boolean isVertexLiteral(ValueSpecification specification) {
+		return MDDExtensionUtils.isVertexLiteral(specification);
+	}
+	
+	public static Vertex resolveVertexLiteral(ValueSpecification specification) {
+		return MDDExtensionUtils.resolveVertexLiteral(specification);
+	}
 
     public static Vertex getInitialVertex(StateMachine stateMachine) {
         EList<Vertex> subvertices = stateMachine.getRegions().get(0).getSubvertices();

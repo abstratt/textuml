@@ -40,6 +40,7 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.Vertex;
+import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.MDDCore;
 
@@ -445,6 +446,16 @@ public class MDDExtensionUtils {
 	public static boolean isTestClass(Type toCheck) {
 		return StereotypeUtils.hasStereotype(toCheck, "Test");
 	}
+	
+    public static boolean isTestCase(Operation op) {
+    	if (op.getVisibility() != VisibilityKind.PUBLIC_LITERAL)
+    		return false;
+    	if (!op.getOwnedParameters().isEmpty())
+    		return false;
+    	if (op.isStatic())
+    		return false;
+        return op.getClass_() != null && isTestClass(op.getClass_());
+    }
 
 	public static void makeRole(Class class_) {
 		Class userClass = MDDCore.getInProgressRepository().findNamedElement(SYSTEM_USER_CLASS, Literals.CLASS, null);
