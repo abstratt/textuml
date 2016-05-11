@@ -54,7 +54,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.PStateDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PTransitionDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PTransitionTrigger;
 
-public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, BehavioredClassifier> {
+public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, BehavioredClassifier> implements ProducingNodeProcessor<StateMachine, AStateMachineDecl> {
 
     private class TriggerProcessor<T extends PTransitionTrigger> implements NodeProcessor<T> {
         private Transition transition;
@@ -236,7 +236,7 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
     }
 
     @Override
-    public void process(AStateMachineDecl node) {
+    public StateMachine processAndProduce(AStateMachineDecl node) {
         String smName = sourceMiner.getText(node.getIdentifier());
         StateMachine sm = (StateMachine) namespace.createOwnedBehavior(smName, UMLPackage.Literals.STATE_MACHINE);
         Region region = sm.createRegion(smName);
@@ -248,7 +248,7 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
             if (region.getSubvertices().isEmpty()) {
                 problemBuilder.addProblem(new UnclassifiedProblem("Can't have a state machine without states"),
                         node.getStatemachine());
-                return;
+                return null;
             }
             int initialCount = 0;
             for (Vertex vertex : region.getSubvertices()) {
@@ -258,15 +258,16 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
             }
             if (initialCount == 0) {
                 problemBuilder.addProblem(new StateMachineMustHaveOneInitialState(), node.getStatemachine());
-                return;
+                return null;
             }
             if (initialCount > 1) {
                 problemBuilder.addProblem(new StateMachineMustHaveOneInitialState(), node.getStatemachine());
-                return;
+                return null;
             }
         } finally {
             namespaceTracker.leaveNamespace();
         }
+        return sm;
     }
 
 }

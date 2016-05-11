@@ -53,6 +53,7 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Reception;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.Slot;
+import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -788,9 +789,11 @@ public class StructureGenerator extends AbstractGenerator {
 
     @Override
     public void caseAStateMachineDecl(AStateMachineDecl node) {
-        new StateMachineProcessor(sourceContext,
+        StateMachine newStateMachine = new StateMachineProcessor(sourceContext,
                 (BehavioredClassifier) namespaceTracker.currentNamespace(UMLPackage.Literals.BEHAVIORED_CLASSIFIER))
-                .process(node);
+                .processAndProduce(node);
+        if (newStateMachine != null)
+        	applyCurrentComment(newStateMachine);
     }
 
     @Override
