@@ -5,50 +5,50 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ALowerOrEqualsComparisonBinaryOperator extends PComparisonBinaryOperator
+public final class AUnaryExpressionP1 extends PExpressionP1
 {
-    private TLab _lab_;
-    private TEquals _equals_;
+    private PUnaryOperator _unaryOperator_;
+    private POperand _operand_;
 
-    public ALowerOrEqualsComparisonBinaryOperator()
+    public AUnaryExpressionP1()
     {
         // Constructor
     }
 
-    public ALowerOrEqualsComparisonBinaryOperator(
-        @SuppressWarnings("hiding") TLab _lab_,
-        @SuppressWarnings("hiding") TEquals _equals_)
+    public AUnaryExpressionP1(
+        @SuppressWarnings("hiding") PUnaryOperator _unaryOperator_,
+        @SuppressWarnings("hiding") POperand _operand_)
     {
         // Constructor
-        setLab(_lab_);
+        setUnaryOperator(_unaryOperator_);
 
-        setEquals(_equals_);
+        setOperand(_operand_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ALowerOrEqualsComparisonBinaryOperator(
-            cloneNode(this._lab_),
-            cloneNode(this._equals_));
+        return new AUnaryExpressionP1(
+            cloneNode(this._unaryOperator_),
+            cloneNode(this._operand_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseALowerOrEqualsComparisonBinaryOperator(this);
+        ((Analysis) sw).caseAUnaryExpressionP1(this);
     }
 
-    public TLab getLab()
+    public PUnaryOperator getUnaryOperator()
     {
-        return this._lab_;
+        return this._unaryOperator_;
     }
 
-    public void setLab(TLab node)
+    public void setUnaryOperator(PUnaryOperator node)
     {
-        if(this._lab_ != null)
+        if(this._unaryOperator_ != null)
         {
-            this._lab_.parent(null);
+            this._unaryOperator_.parent(null);
         }
 
         if(node != null)
@@ -61,19 +61,19 @@ public final class ALowerOrEqualsComparisonBinaryOperator extends PComparisonBin
             node.parent(this);
         }
 
-        this._lab_ = node;
+        this._unaryOperator_ = node;
     }
 
-    public TEquals getEquals()
+    public POperand getOperand()
     {
-        return this._equals_;
+        return this._operand_;
     }
 
-    public void setEquals(TEquals node)
+    public void setOperand(POperand node)
     {
-        if(this._equals_ != null)
+        if(this._operand_ != null)
         {
-            this._equals_.parent(null);
+            this._operand_.parent(null);
         }
 
         if(node != null)
@@ -86,30 +86,30 @@ public final class ALowerOrEqualsComparisonBinaryOperator extends PComparisonBin
             node.parent(this);
         }
 
-        this._equals_ = node;
+        this._operand_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._lab_)
-            + toString(this._equals_);
+            + toString(this._unaryOperator_)
+            + toString(this._operand_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._lab_ == child)
+        if(this._unaryOperator_ == child)
         {
-            this._lab_ = null;
+            this._unaryOperator_ = null;
             return;
         }
 
-        if(this._equals_ == child)
+        if(this._operand_ == child)
         {
-            this._equals_ = null;
+            this._operand_ = null;
             return;
         }
 
@@ -120,15 +120,15 @@ public final class ALowerOrEqualsComparisonBinaryOperator extends PComparisonBin
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._lab_ == oldChild)
+        if(this._unaryOperator_ == oldChild)
         {
-            setLab((TLab) newChild);
+            setUnaryOperator((PUnaryOperator) newChild);
             return;
         }
 
-        if(this._equals_ == oldChild)
+        if(this._operand_ == oldChild)
         {
-            setEquals((TEquals) newChild);
+            setOperand((POperand) newChild);
             return;
         }
 

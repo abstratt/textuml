@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ALowerThanComparisonBinaryOperator extends PComparisonBinaryOperator
+public final class ANotEqualsComparisonBinaryOperatorP2 extends PComparisonBinaryOperatorP2
 {
-    private TLab _lab_;
+    private TNotEquals _notEquals_;
 
-    public ALowerThanComparisonBinaryOperator()
+    public ANotEqualsComparisonBinaryOperatorP2()
     {
         // Constructor
     }
 
-    public ALowerThanComparisonBinaryOperator(
-        @SuppressWarnings("hiding") TLab _lab_)
+    public ANotEqualsComparisonBinaryOperatorP2(
+        @SuppressWarnings("hiding") TNotEquals _notEquals_)
     {
         // Constructor
-        setLab(_lab_);
+        setNotEquals(_notEquals_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ALowerThanComparisonBinaryOperator(
-            cloneNode(this._lab_));
+        return new ANotEqualsComparisonBinaryOperatorP2(
+            cloneNode(this._notEquals_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseALowerThanComparisonBinaryOperator(this);
+        ((Analysis) sw).caseANotEqualsComparisonBinaryOperatorP2(this);
     }
 
-    public TLab getLab()
+    public TNotEquals getNotEquals()
     {
-        return this._lab_;
+        return this._notEquals_;
     }
 
-    public void setLab(TLab node)
+    public void setNotEquals(TNotEquals node)
     {
-        if(this._lab_ != null)
+        if(this._notEquals_ != null)
         {
-            this._lab_.parent(null);
+            this._notEquals_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ALowerThanComparisonBinaryOperator extends PComparisonBinaryO
             node.parent(this);
         }
 
-        this._lab_ = node;
+        this._notEquals_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._lab_);
+            + toString(this._notEquals_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._lab_ == child)
+        if(this._notEquals_ == child)
         {
-            this._lab_ = null;
+            this._notEquals_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ALowerThanComparisonBinaryOperator extends PComparisonBinaryO
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._lab_ == oldChild)
+        if(this._notEquals_ == oldChild)
         {
-            setLab((TLab) newChild);
+            setNotEquals((TNotEquals) newChild);
             return;
         }
 

@@ -5,16 +5,16 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AMinusArithmeticBinaryOperator extends PArithmeticBinaryOperator
+public final class AMinusArithmeticBinaryOperatorP2 extends PArithmeticBinaryOperatorP2
 {
     private TMinus _minus_;
 
-    public AMinusArithmeticBinaryOperator()
+    public AMinusArithmeticBinaryOperatorP2()
     {
         // Constructor
     }
 
-    public AMinusArithmeticBinaryOperator(
+    public AMinusArithmeticBinaryOperatorP2(
         @SuppressWarnings("hiding") TMinus _minus_)
     {
         // Constructor
@@ -25,13 +25,13 @@ public final class AMinusArithmeticBinaryOperator extends PArithmeticBinaryOpera
     @Override
     public Object clone()
     {
-        return new AMinusArithmeticBinaryOperator(
+        return new AMinusArithmeticBinaryOperatorP2(
             cloneNode(this._minus_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAMinusArithmeticBinaryOperator(this);
+        ((Analysis) sw).caseAMinusArithmeticBinaryOperatorP2(this);
     }
 
     public TMinus getMinus()

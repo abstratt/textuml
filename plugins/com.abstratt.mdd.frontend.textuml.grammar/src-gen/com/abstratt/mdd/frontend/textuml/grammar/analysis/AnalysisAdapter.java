@@ -1829,27 +1829,47 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAUnaryExpression(AUnaryExpression node)
+    public void caseAP1Expression(AP1Expression node)
     {
         defaultCase(node);
     }
 
-    public void caseABinaryExpression(ABinaryExpression node)
+    public void caseAP2Expression(AP2Expression node)
     {
         defaultCase(node);
     }
 
-    public void caseAIsClassifiedExpression(AIsClassifiedExpression node)
+    public void caseABinaryExpressionP2(ABinaryExpressionP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAOperandExpression(AOperandExpression node)
+    public void caseAUnaryExpressionP1(AUnaryExpressionP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAClosureExpression(AClosureExpression node)
+    public void caseABinaryExpressionP1(ABinaryExpressionP1 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAOperandExpressionP1(AOperandExpressionP1 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAClosureExpressionP1(AClosureExpressionP1 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAIsClassExpressionP1(AIsClassExpressionP1 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAIsClassExpression(AIsClassExpression node)
     {
         defaultCase(node);
     }
@@ -1889,82 +1909,92 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseALogicalBinaryOperator(ALogicalBinaryOperator node)
+    public void caseALogicalBinaryOperatorP1(ALogicalBinaryOperatorP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAArithmeticBinaryOperator(AArithmeticBinaryOperator node)
+    public void caseAArithmeticBinaryOperatorP1(AArithmeticBinaryOperatorP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAComparisonBinaryOperator(AComparisonBinaryOperator node)
+    public void caseALogicalBinaryOperatorP2(ALogicalBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAIdentityBinaryOperator(AIdentityBinaryOperator node)
+    public void caseAArithmeticBinaryOperatorP2(AArithmeticBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAOrLogicalBinaryOperator(AOrLogicalBinaryOperator node)
+    public void caseAComparisonBinaryOperatorP2(AComparisonBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAndLogicalBinaryOperator(AAndLogicalBinaryOperator node)
+    public void caseAAndLogicalBinaryOperatorP1(AAndLogicalBinaryOperatorP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAMultArithmeticBinaryOperator(AMultArithmeticBinaryOperator node)
+    public void caseAOrLogicalBinaryOperatorP2(AOrLogicalBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseADivArithmeticBinaryOperator(ADivArithmeticBinaryOperator node)
+    public void caseAMultArithmeticBinaryOperatorP1(AMultArithmeticBinaryOperatorP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAPlusArithmeticBinaryOperator(APlusArithmeticBinaryOperator node)
+    public void caseADivArithmeticBinaryOperatorP1(ADivArithmeticBinaryOperatorP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAMinusArithmeticBinaryOperator(AMinusArithmeticBinaryOperator node)
+    public void caseAPlusArithmeticBinaryOperatorP2(APlusArithmeticBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAEqualsComparisonBinaryOperator(AEqualsComparisonBinaryOperator node)
+    public void caseAMinusArithmeticBinaryOperatorP2(AMinusArithmeticBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseANotEqualsComparisonBinaryOperator(ANotEqualsComparisonBinaryOperator node)
+    public void caseAIdentityComparisonBinaryOperatorP2(AIdentityComparisonBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseALowerThanComparisonBinaryOperator(ALowerThanComparisonBinaryOperator node)
+    public void caseAEqualsComparisonBinaryOperatorP2(AEqualsComparisonBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAGreaterThanComparisonBinaryOperator(AGreaterThanComparisonBinaryOperator node)
+    public void caseANotEqualsComparisonBinaryOperatorP2(ANotEqualsComparisonBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAGreaterOrEqualsComparisonBinaryOperator(AGreaterOrEqualsComparisonBinaryOperator node)
+    public void caseALowerThanComparisonBinaryOperatorP2(ALowerThanComparisonBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseALowerOrEqualsComparisonBinaryOperator(ALowerOrEqualsComparisonBinaryOperator node)
+    public void caseAGreaterThanComparisonBinaryOperatorP2(AGreaterThanComparisonBinaryOperatorP2 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAGreaterOrEqualsComparisonBinaryOperatorP2(AGreaterOrEqualsComparisonBinaryOperatorP2 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseALowerOrEqualsComparisonBinaryOperatorP2(ALowerOrEqualsComparisonBinaryOperatorP2 node)
     {
         defaultCase(node);
     }
@@ -2679,12 +2709,27 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseTEqualsEquals(TEqualsEquals node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTLab(TLab node)
     {
         defaultCase(node);
     }
 
+    public void caseTLabEquals(TLabEquals node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTRab(TRab node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTRabEquals(TRabEquals node)
     {
         defaultCase(node);
     }

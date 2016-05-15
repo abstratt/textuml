@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AOperandExpression extends PExpression
+public final class AClosureExpressionP1 extends PExpressionP1
 {
-    private POperand _operand_;
+    private PClosure _closure_;
 
-    public AOperandExpression()
+    public AClosureExpressionP1()
     {
         // Constructor
     }
 
-    public AOperandExpression(
-        @SuppressWarnings("hiding") POperand _operand_)
+    public AClosureExpressionP1(
+        @SuppressWarnings("hiding") PClosure _closure_)
     {
         // Constructor
-        setOperand(_operand_);
+        setClosure(_closure_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AOperandExpression(
-            cloneNode(this._operand_));
+        return new AClosureExpressionP1(
+            cloneNode(this._closure_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAOperandExpression(this);
+        ((Analysis) sw).caseAClosureExpressionP1(this);
     }
 
-    public POperand getOperand()
+    public PClosure getClosure()
     {
-        return this._operand_;
+        return this._closure_;
     }
 
-    public void setOperand(POperand node)
+    public void setClosure(PClosure node)
     {
-        if(this._operand_ != null)
+        if(this._closure_ != null)
         {
-            this._operand_.parent(null);
+            this._closure_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AOperandExpression extends PExpression
             node.parent(this);
         }
 
-        this._operand_ = node;
+        this._closure_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._operand_);
+            + toString(this._closure_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._operand_ == child)
+        if(this._closure_ == child)
         {
-            this._operand_ = null;
+            this._closure_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AOperandExpression extends PExpression
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._operand_ == oldChild)
+        if(this._closure_ == oldChild)
         {
-            setOperand((POperand) newChild);
+            setClosure((PClosure) newChild);
             return;
         }
 

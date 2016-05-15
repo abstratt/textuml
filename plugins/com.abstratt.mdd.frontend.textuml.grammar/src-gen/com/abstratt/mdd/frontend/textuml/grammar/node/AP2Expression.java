@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ANotEqualsComparisonBinaryOperator extends PComparisonBinaryOperator
+public final class AP2Expression extends PExpression
 {
-    private TNotEquals _notEquals_;
+    private PExpressionP2 _expressionP2_;
 
-    public ANotEqualsComparisonBinaryOperator()
+    public AP2Expression()
     {
         // Constructor
     }
 
-    public ANotEqualsComparisonBinaryOperator(
-        @SuppressWarnings("hiding") TNotEquals _notEquals_)
+    public AP2Expression(
+        @SuppressWarnings("hiding") PExpressionP2 _expressionP2_)
     {
         // Constructor
-        setNotEquals(_notEquals_);
+        setExpressionP2(_expressionP2_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ANotEqualsComparisonBinaryOperator(
-            cloneNode(this._notEquals_));
+        return new AP2Expression(
+            cloneNode(this._expressionP2_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseANotEqualsComparisonBinaryOperator(this);
+        ((Analysis) sw).caseAP2Expression(this);
     }
 
-    public TNotEquals getNotEquals()
+    public PExpressionP2 getExpressionP2()
     {
-        return this._notEquals_;
+        return this._expressionP2_;
     }
 
-    public void setNotEquals(TNotEquals node)
+    public void setExpressionP2(PExpressionP2 node)
     {
-        if(this._notEquals_ != null)
+        if(this._expressionP2_ != null)
         {
-            this._notEquals_.parent(null);
+            this._expressionP2_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ANotEqualsComparisonBinaryOperator extends PComparisonBinaryO
             node.parent(this);
         }
 
-        this._notEquals_ = node;
+        this._expressionP2_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._notEquals_);
+            + toString(this._expressionP2_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._notEquals_ == child)
+        if(this._expressionP2_ == child)
         {
-            this._notEquals_ = null;
+            this._expressionP2_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ANotEqualsComparisonBinaryOperator extends PComparisonBinaryO
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._notEquals_ == oldChild)
+        if(this._expressionP2_ == oldChild)
         {
-            setNotEquals((TNotEquals) newChild);
+            setExpressionP2((PExpressionP2) newChild);
             return;
         }
 

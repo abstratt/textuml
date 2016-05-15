@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class APlusArithmeticBinaryOperator extends PArithmeticBinaryOperator
+public final class ALogicalBinaryOperatorP2 extends PBinaryOperatorP2
 {
-    private TPlus _plus_;
+    private PLogicalBinaryOperatorP2 _logicalBinaryOperatorP2_;
 
-    public APlusArithmeticBinaryOperator()
+    public ALogicalBinaryOperatorP2()
     {
         // Constructor
     }
 
-    public APlusArithmeticBinaryOperator(
-        @SuppressWarnings("hiding") TPlus _plus_)
+    public ALogicalBinaryOperatorP2(
+        @SuppressWarnings("hiding") PLogicalBinaryOperatorP2 _logicalBinaryOperatorP2_)
     {
         // Constructor
-        setPlus(_plus_);
+        setLogicalBinaryOperatorP2(_logicalBinaryOperatorP2_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new APlusArithmeticBinaryOperator(
-            cloneNode(this._plus_));
+        return new ALogicalBinaryOperatorP2(
+            cloneNode(this._logicalBinaryOperatorP2_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAPlusArithmeticBinaryOperator(this);
+        ((Analysis) sw).caseALogicalBinaryOperatorP2(this);
     }
 
-    public TPlus getPlus()
+    public PLogicalBinaryOperatorP2 getLogicalBinaryOperatorP2()
     {
-        return this._plus_;
+        return this._logicalBinaryOperatorP2_;
     }
 
-    public void setPlus(TPlus node)
+    public void setLogicalBinaryOperatorP2(PLogicalBinaryOperatorP2 node)
     {
-        if(this._plus_ != null)
+        if(this._logicalBinaryOperatorP2_ != null)
         {
-            this._plus_.parent(null);
+            this._logicalBinaryOperatorP2_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class APlusArithmeticBinaryOperator extends PArithmeticBinaryOperat
             node.parent(this);
         }
 
-        this._plus_ = node;
+        this._logicalBinaryOperatorP2_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._plus_);
+            + toString(this._logicalBinaryOperatorP2_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._plus_ == child)
+        if(this._logicalBinaryOperatorP2_ == child)
         {
-            this._plus_ = null;
+            this._logicalBinaryOperatorP2_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class APlusArithmeticBinaryOperator extends PArithmeticBinaryOperat
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._plus_ == oldChild)
+        if(this._logicalBinaryOperatorP2_ == oldChild)
         {
-            setPlus((TPlus) newChild);
+            setLogicalBinaryOperatorP2((PLogicalBinaryOperatorP2) newChild);
             return;
         }
 

@@ -5,23 +5,19 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AUnaryExpression extends PExpression
+public final class AOperandExpressionP1 extends PExpressionP1
 {
-    private PUnaryOperator _unaryOperator_;
     private POperand _operand_;
 
-    public AUnaryExpression()
+    public AOperandExpressionP1()
     {
         // Constructor
     }
 
-    public AUnaryExpression(
-        @SuppressWarnings("hiding") PUnaryOperator _unaryOperator_,
+    public AOperandExpressionP1(
         @SuppressWarnings("hiding") POperand _operand_)
     {
         // Constructor
-        setUnaryOperator(_unaryOperator_);
-
         setOperand(_operand_);
 
     }
@@ -29,39 +25,13 @@ public final class AUnaryExpression extends PExpression
     @Override
     public Object clone()
     {
-        return new AUnaryExpression(
-            cloneNode(this._unaryOperator_),
+        return new AOperandExpressionP1(
             cloneNode(this._operand_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAUnaryExpression(this);
-    }
-
-    public PUnaryOperator getUnaryOperator()
-    {
-        return this._unaryOperator_;
-    }
-
-    public void setUnaryOperator(PUnaryOperator node)
-    {
-        if(this._unaryOperator_ != null)
-        {
-            this._unaryOperator_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._unaryOperator_ = node;
+        ((Analysis) sw).caseAOperandExpressionP1(this);
     }
 
     public POperand getOperand()
@@ -93,7 +63,6 @@ public final class AUnaryExpression extends PExpression
     public String toString()
     {
         return ""
-            + toString(this._unaryOperator_)
             + toString(this._operand_);
     }
 
@@ -101,12 +70,6 @@ public final class AUnaryExpression extends PExpression
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._unaryOperator_ == child)
-        {
-            this._unaryOperator_ = null;
-            return;
-        }
-
         if(this._operand_ == child)
         {
             this._operand_ = null;
@@ -120,12 +83,6 @@ public final class AUnaryExpression extends PExpression
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._unaryOperator_ == oldChild)
-        {
-            setUnaryOperator((PUnaryOperator) newChild);
-            return;
-        }
-
         if(this._operand_ == oldChild)
         {
             setOperand((POperand) newChild);

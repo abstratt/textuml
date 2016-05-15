@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AMultArithmeticBinaryOperator extends PArithmeticBinaryOperator
+public final class AOrLogicalBinaryOperatorP2 extends PLogicalBinaryOperatorP2
 {
-    private TMult _mult_;
+    private TOr _or_;
 
-    public AMultArithmeticBinaryOperator()
+    public AOrLogicalBinaryOperatorP2()
     {
         // Constructor
     }
 
-    public AMultArithmeticBinaryOperator(
-        @SuppressWarnings("hiding") TMult _mult_)
+    public AOrLogicalBinaryOperatorP2(
+        @SuppressWarnings("hiding") TOr _or_)
     {
         // Constructor
-        setMult(_mult_);
+        setOr(_or_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AMultArithmeticBinaryOperator(
-            cloneNode(this._mult_));
+        return new AOrLogicalBinaryOperatorP2(
+            cloneNode(this._or_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAMultArithmeticBinaryOperator(this);
+        ((Analysis) sw).caseAOrLogicalBinaryOperatorP2(this);
     }
 
-    public TMult getMult()
+    public TOr getOr()
     {
-        return this._mult_;
+        return this._or_;
     }
 
-    public void setMult(TMult node)
+    public void setOr(TOr node)
     {
-        if(this._mult_ != null)
+        if(this._or_ != null)
         {
-            this._mult_.parent(null);
+            this._or_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AMultArithmeticBinaryOperator extends PArithmeticBinaryOperat
             node.parent(this);
         }
 
-        this._mult_ = node;
+        this._or_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._mult_);
+            + toString(this._or_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._mult_ == child)
+        if(this._or_ == child)
         {
-            this._mult_ = null;
+            this._or_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AMultArithmeticBinaryOperator extends PArithmeticBinaryOperat
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._mult_ == oldChild)
+        if(this._or_ == oldChild)
         {
-            setMult((TMult) newChild);
+            setOr((TOr) newChild);
             return;
         }
 

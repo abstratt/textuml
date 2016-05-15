@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AGreaterThanComparisonBinaryOperator extends PComparisonBinaryOperator
+public final class AAndLogicalBinaryOperatorP1 extends PLogicalBinaryOperatorP1
 {
-    private TRab _rab_;
+    private TAnd _and_;
 
-    public AGreaterThanComparisonBinaryOperator()
+    public AAndLogicalBinaryOperatorP1()
     {
         // Constructor
     }
 
-    public AGreaterThanComparisonBinaryOperator(
-        @SuppressWarnings("hiding") TRab _rab_)
+    public AAndLogicalBinaryOperatorP1(
+        @SuppressWarnings("hiding") TAnd _and_)
     {
         // Constructor
-        setRab(_rab_);
+        setAnd(_and_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AGreaterThanComparisonBinaryOperator(
-            cloneNode(this._rab_));
+        return new AAndLogicalBinaryOperatorP1(
+            cloneNode(this._and_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAGreaterThanComparisonBinaryOperator(this);
+        ((Analysis) sw).caseAAndLogicalBinaryOperatorP1(this);
     }
 
-    public TRab getRab()
+    public TAnd getAnd()
     {
-        return this._rab_;
+        return this._and_;
     }
 
-    public void setRab(TRab node)
+    public void setAnd(TAnd node)
     {
-        if(this._rab_ != null)
+        if(this._and_ != null)
         {
-            this._rab_.parent(null);
+            this._and_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AGreaterThanComparisonBinaryOperator extends PComparisonBinar
             node.parent(this);
         }
 
-        this._rab_ = node;
+        this._and_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._rab_);
+            + toString(this._and_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._rab_ == child)
+        if(this._and_ == child)
         {
-            this._rab_ = null;
+            this._and_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AGreaterThanComparisonBinaryOperator extends PComparisonBinar
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._rab_ == oldChild)
+        if(this._and_ == oldChild)
         {
-            setRab((TRab) newChild);
+            setAnd((TAnd) newChild);
             return;
         }
 

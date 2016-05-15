@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ALogicalBinaryOperator extends PBinaryOperator
+public final class ADivArithmeticBinaryOperatorP1 extends PArithmeticBinaryOperatorP1
 {
-    private PLogicalBinaryOperator _logicalBinaryOperator_;
+    private TDiv _div_;
 
-    public ALogicalBinaryOperator()
+    public ADivArithmeticBinaryOperatorP1()
     {
         // Constructor
     }
 
-    public ALogicalBinaryOperator(
-        @SuppressWarnings("hiding") PLogicalBinaryOperator _logicalBinaryOperator_)
+    public ADivArithmeticBinaryOperatorP1(
+        @SuppressWarnings("hiding") TDiv _div_)
     {
         // Constructor
-        setLogicalBinaryOperator(_logicalBinaryOperator_);
+        setDiv(_div_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ALogicalBinaryOperator(
-            cloneNode(this._logicalBinaryOperator_));
+        return new ADivArithmeticBinaryOperatorP1(
+            cloneNode(this._div_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseALogicalBinaryOperator(this);
+        ((Analysis) sw).caseADivArithmeticBinaryOperatorP1(this);
     }
 
-    public PLogicalBinaryOperator getLogicalBinaryOperator()
+    public TDiv getDiv()
     {
-        return this._logicalBinaryOperator_;
+        return this._div_;
     }
 
-    public void setLogicalBinaryOperator(PLogicalBinaryOperator node)
+    public void setDiv(TDiv node)
     {
-        if(this._logicalBinaryOperator_ != null)
+        if(this._div_ != null)
         {
-            this._logicalBinaryOperator_.parent(null);
+            this._div_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ALogicalBinaryOperator extends PBinaryOperator
             node.parent(this);
         }
 
-        this._logicalBinaryOperator_ = node;
+        this._div_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._logicalBinaryOperator_);
+            + toString(this._div_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._logicalBinaryOperator_ == child)
+        if(this._div_ == child)
         {
-            this._logicalBinaryOperator_ = null;
+            this._div_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ALogicalBinaryOperator extends PBinaryOperator
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._logicalBinaryOperator_ == oldChild)
+        if(this._div_ == oldChild)
         {
-            setLogicalBinaryOperator((PLogicalBinaryOperator) newChild);
+            setDiv((TDiv) newChild);
             return;
         }
 

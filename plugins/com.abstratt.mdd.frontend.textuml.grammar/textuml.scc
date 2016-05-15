@@ -164,8 +164,11 @@ Tokens
 
   // relational symbols
   equals = '=';
+  equals_equals = '=' '=';
   lab = '<' ;
+  lab_equals = '<' '=' ;
   rab = '>' ;
+  rab_equals = '>' '=' ;
   not_equals = '!' '=' ;
   
   // separator symbols
@@ -727,6 +730,7 @@ Productions
   
   repeat_loop_body = statement_sequence ;
   
+  
   identifier_expression = 
    	{variable} variable_access |
     {class_attribute} minimal_type_identifier hash identifier |
@@ -775,11 +779,20 @@ Productions
   root_expression = expression ;        
         
   expression = 
-    {unary} unary_operator operand |  
-    {binary} expression binary_operator operand |
-    {is_classified} expression is qualified_identifier |
+    {p1} expression_p1 |
+    {p2} expression_p2 ;
+    
+  expression_p2 = 
+    {binary} [left]: expression_p1 [operator]: binary_operator_p2 [right]: expression;
+    
+  expression_p1 = 
+    {unary} unary_operator operand |
+    {binary} [left]: operand [operator]: binary_operator_p1 [right]: expression_p1 |
     {operand} operand |
-    {closure} closure ;
+    {closure} closure |
+    {is_class} is_class_expression;
+    
+  is_class_expression = [left]: operand [operator]: is [right]: minimal_type_identifier ;    
     
   operand = 
     {identifier_expression} identifier_expression |
@@ -792,33 +805,41 @@ Productions
     
   cast = as single_type_identifier ;
     
-  binary_operator = 
-    {logical} logical_binary_operator | 
-    {arithmetic} arithmetic_binary_operator |
-    {comparison} comparison_binary_operator |
-    {identity} [equals1]: equals [equals2]: equals ;
+  binary_operator_p1 = 
+    {logical} logical_binary_operator_p1 | 
+    {arithmetic} arithmetic_binary_operator_p1;    
     
-  logical_binary_operator = 
-    {or} or | 
+  binary_operator_p2 = 
+    {logical} logical_binary_operator_p2 | 
+    {arithmetic} arithmetic_binary_operator_p2 |
+    {comparison} comparison_binary_operator_p2 ;
+    
+  logical_binary_operator_p1 = 
     {and} and ;
+    
+  logical_binary_operator_p2 = 
+    {or} or ;    
   
-  arithmetic_binary_operator =     
+  arithmetic_binary_operator_p1 =     
     {mult} mult | 
-    {div} div | 
+    {div} div ;
+    
+  arithmetic_binary_operator_p2 =     
     {plus} plus | 
     {minus} minus;
-  
-  comparison_binary_operator =
+
+  comparison_binary_operator_p2 =
+    {identity} equals_equals |
     {equals} equals  |
     {not_equals} not_equals  |    
     {lower_than} lab | 
     {greater_than} rab |
-    {greater_or_equals} rab equals |
-    {lower_or_equals} lab equals; 
+    {greater_or_equals} rab_equals |
+    {lower_or_equals} lab_equals;
       
   unary_operator = {not} not | {minus} minus | {not_null} not_null;
   
-  literal = {boolean} boolean | {number} number | {string} string | {null} null | {symbol} hash identifier ;
+  literal = {boolean} boolean | {number} number | {string} string | {null} null | {symbol} hash identifier;
   
   tuple_constructor = l_curly_bracket tuple_component_value tuple_component_value_tail* r_curly_bracket ;
   

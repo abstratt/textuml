@@ -2,7 +2,7 @@
 
 package com.abstratt.mdd.frontend.textuml.grammar.node;
 
-public abstract class PComparisonBinaryOperator extends Node
+public abstract class PArithmeticBinaryOperatorP1 extends Node
 {
     // Empty body
 }

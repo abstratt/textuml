@@ -31,7 +31,8 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationDef;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationRoleDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAttributeInvariant;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABehavioralFeatureBody;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ABinaryExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ABinaryExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ABinaryExpressionP2;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABlockNonIfStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ACast;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ACatchSection;
@@ -44,7 +45,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AFeatureDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AGlobalDirectiveSection;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIfClause;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIfStatement;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AIsClassifiedExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANamedArgument;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANoIfStatementResolved;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANonBlockNonIfStatement;
@@ -73,7 +73,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ATryStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleComponentValue;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleComponentValueTail;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleConstructor;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AUnaryExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AUnaryExpressionP1;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AVarDeclSection;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWhileStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWithIfStatementResolved;
@@ -165,21 +165,21 @@ public class TextUMLFormatter {
         newLine(output);
         newLine(output);
     }
-
-    public void format(ABinaryExpression node, StringBuilder output, int indentation) {
-        format(node.getExpression(), output, indentation);
-        addWhitespace(output);
-        format(node.getBinaryOperator(), output, indentation);
-        addWhitespace(output);
-        format(node.getOperand(), output, indentation);
+    
+    public void format(ABinaryExpressionP1 node, StringBuilder output, int indentation) {
+    	format(node.getLeft(), node.getOperator(), node.getRight(), output, indentation);
     }
 
-    public void format(AIsClassifiedExpression node, StringBuilder output, int indentation) {
-        format(node.getExpression(), output, indentation);
+    public void format(ABinaryExpressionP2 node, StringBuilder output, int indentation) {
+    	format(node.getLeft(), node.getOperator(), node.getRight(), output, indentation);
+    }
+    
+    public void format(Node left, Node operator, Node right, StringBuilder output, int indentation) {
+        format(left, output, indentation);
         addWhitespace(output);
-        format(node.getIs(), output, indentation);
+        format(operator, output, indentation);
         addWhitespace(output);
-        format(node.getQualifiedIdentifier(), output, indentation);
+        format(right, output, indentation);
     }
 
     public void format(ARootExpression node, StringBuilder output, int indentation) {
@@ -407,7 +407,7 @@ public class TextUMLFormatter {
         format(node.getSemicolon(), output, indentation);
     }
 
-    public void format(AUnaryExpression node, StringBuilder output, int indentation) {
+    public void format(AUnaryExpressionP1 node, StringBuilder output, int indentation) {
         format(node.getUnaryOperator(), output, indentation);
         addWhitespace(output);
         format(node.getOperand(), output, indentation);

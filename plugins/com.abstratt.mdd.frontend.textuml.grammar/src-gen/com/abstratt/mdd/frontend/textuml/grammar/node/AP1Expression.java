@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AEqualsComparisonBinaryOperator extends PComparisonBinaryOperator
+public final class AP1Expression extends PExpression
 {
-    private TEquals _equals_;
+    private PExpressionP1 _expressionP1_;
 
-    public AEqualsComparisonBinaryOperator()
+    public AP1Expression()
     {
         // Constructor
     }
 
-    public AEqualsComparisonBinaryOperator(
-        @SuppressWarnings("hiding") TEquals _equals_)
+    public AP1Expression(
+        @SuppressWarnings("hiding") PExpressionP1 _expressionP1_)
     {
         // Constructor
-        setEquals(_equals_);
+        setExpressionP1(_expressionP1_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AEqualsComparisonBinaryOperator(
-            cloneNode(this._equals_));
+        return new AP1Expression(
+            cloneNode(this._expressionP1_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAEqualsComparisonBinaryOperator(this);
+        ((Analysis) sw).caseAP1Expression(this);
     }
 
-    public TEquals getEquals()
+    public PExpressionP1 getExpressionP1()
     {
-        return this._equals_;
+        return this._expressionP1_;
     }
 
-    public void setEquals(TEquals node)
+    public void setExpressionP1(PExpressionP1 node)
     {
-        if(this._equals_ != null)
+        if(this._expressionP1_ != null)
         {
-            this._equals_.parent(null);
+            this._expressionP1_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AEqualsComparisonBinaryOperator extends PComparisonBinaryOper
             node.parent(this);
         }
 
-        this._equals_ = node;
+        this._expressionP1_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._equals_);
+            + toString(this._expressionP1_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._equals_ == child)
+        if(this._expressionP1_ == child)
         {
-            this._equals_ = null;
+            this._expressionP1_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AEqualsComparisonBinaryOperator extends PComparisonBinaryOper
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._equals_ == oldChild)
+        if(this._expressionP1_ == oldChild)
         {
-            setEquals((TEquals) newChild);
+            setExpressionP1((PExpressionP1) newChild);
             return;
         }
 

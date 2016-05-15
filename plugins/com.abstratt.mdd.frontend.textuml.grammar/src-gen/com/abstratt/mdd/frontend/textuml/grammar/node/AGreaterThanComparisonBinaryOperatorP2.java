@@ -5,38 +5,33 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AGreaterOrEqualsComparisonBinaryOperator extends PComparisonBinaryOperator
+public final class AGreaterThanComparisonBinaryOperatorP2 extends PComparisonBinaryOperatorP2
 {
     private TRab _rab_;
-    private TEquals _equals_;
 
-    public AGreaterOrEqualsComparisonBinaryOperator()
+    public AGreaterThanComparisonBinaryOperatorP2()
     {
         // Constructor
     }
 
-    public AGreaterOrEqualsComparisonBinaryOperator(
-        @SuppressWarnings("hiding") TRab _rab_,
-        @SuppressWarnings("hiding") TEquals _equals_)
+    public AGreaterThanComparisonBinaryOperatorP2(
+        @SuppressWarnings("hiding") TRab _rab_)
     {
         // Constructor
         setRab(_rab_);
-
-        setEquals(_equals_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AGreaterOrEqualsComparisonBinaryOperator(
-            cloneNode(this._rab_),
-            cloneNode(this._equals_));
+        return new AGreaterThanComparisonBinaryOperatorP2(
+            cloneNode(this._rab_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAGreaterOrEqualsComparisonBinaryOperator(this);
+        ((Analysis) sw).caseAGreaterThanComparisonBinaryOperatorP2(this);
     }
 
     public TRab getRab()
@@ -64,37 +59,11 @@ public final class AGreaterOrEqualsComparisonBinaryOperator extends PComparisonB
         this._rab_ = node;
     }
 
-    public TEquals getEquals()
-    {
-        return this._equals_;
-    }
-
-    public void setEquals(TEquals node)
-    {
-        if(this._equals_ != null)
-        {
-            this._equals_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._equals_ = node;
-    }
-
     @Override
     public String toString()
     {
         return ""
-            + toString(this._rab_)
-            + toString(this._equals_);
+            + toString(this._rab_);
     }
 
     @Override
@@ -104,12 +73,6 @@ public final class AGreaterOrEqualsComparisonBinaryOperator extends PComparisonB
         if(this._rab_ == child)
         {
             this._rab_ = null;
-            return;
-        }
-
-        if(this._equals_ == child)
-        {
-            this._equals_ = null;
             return;
         }
 
@@ -123,12 +86,6 @@ public final class AGreaterOrEqualsComparisonBinaryOperator extends PComparisonB
         if(this._rab_ == oldChild)
         {
             setRab((TRab) newChild);
-            return;
-        }
-
-        if(this._equals_ == oldChild)
-        {
-            setEquals((TEquals) newChild);
             return;
         }
 

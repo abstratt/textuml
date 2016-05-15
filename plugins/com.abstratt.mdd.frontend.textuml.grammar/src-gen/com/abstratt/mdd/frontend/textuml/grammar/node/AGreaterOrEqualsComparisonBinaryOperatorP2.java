@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AClosureExpression extends PExpression
+public final class AGreaterOrEqualsComparisonBinaryOperatorP2 extends PComparisonBinaryOperatorP2
 {
-    private PClosure _closure_;
+    private TRabEquals _rabEquals_;
 
-    public AClosureExpression()
+    public AGreaterOrEqualsComparisonBinaryOperatorP2()
     {
         // Constructor
     }
 
-    public AClosureExpression(
-        @SuppressWarnings("hiding") PClosure _closure_)
+    public AGreaterOrEqualsComparisonBinaryOperatorP2(
+        @SuppressWarnings("hiding") TRabEquals _rabEquals_)
     {
         // Constructor
-        setClosure(_closure_);
+        setRabEquals(_rabEquals_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AClosureExpression(
-            cloneNode(this._closure_));
+        return new AGreaterOrEqualsComparisonBinaryOperatorP2(
+            cloneNode(this._rabEquals_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAClosureExpression(this);
+        ((Analysis) sw).caseAGreaterOrEqualsComparisonBinaryOperatorP2(this);
     }
 
-    public PClosure getClosure()
+    public TRabEquals getRabEquals()
     {
-        return this._closure_;
+        return this._rabEquals_;
     }
 
-    public void setClosure(PClosure node)
+    public void setRabEquals(TRabEquals node)
     {
-        if(this._closure_ != null)
+        if(this._rabEquals_ != null)
         {
-            this._closure_.parent(null);
+            this._rabEquals_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AClosureExpression extends PExpression
             node.parent(this);
         }
 
-        this._closure_ = node;
+        this._rabEquals_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._closure_);
+            + toString(this._rabEquals_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._closure_ == child)
+        if(this._rabEquals_ == child)
         {
-            this._closure_ = null;
+            this._rabEquals_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AClosureExpression extends PExpression
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._closure_ == oldChild)
+        if(this._rabEquals_ == oldChild)
         {
-            setClosure((PClosure) newChild);
+            setRabEquals((TRabEquals) newChild);
             return;
         }
 

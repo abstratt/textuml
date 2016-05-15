@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAndLogicalBinaryOperator extends PLogicalBinaryOperator
+public final class AEqualsComparisonBinaryOperatorP2 extends PComparisonBinaryOperatorP2
 {
-    private TAnd _and_;
+    private TEquals _equals_;
 
-    public AAndLogicalBinaryOperator()
+    public AEqualsComparisonBinaryOperatorP2()
     {
         // Constructor
     }
 
-    public AAndLogicalBinaryOperator(
-        @SuppressWarnings("hiding") TAnd _and_)
+    public AEqualsComparisonBinaryOperatorP2(
+        @SuppressWarnings("hiding") TEquals _equals_)
     {
         // Constructor
-        setAnd(_and_);
+        setEquals(_equals_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AAndLogicalBinaryOperator(
-            cloneNode(this._and_));
+        return new AEqualsComparisonBinaryOperatorP2(
+            cloneNode(this._equals_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAndLogicalBinaryOperator(this);
+        ((Analysis) sw).caseAEqualsComparisonBinaryOperatorP2(this);
     }
 
-    public TAnd getAnd()
+    public TEquals getEquals()
     {
-        return this._and_;
+        return this._equals_;
     }
 
-    public void setAnd(TAnd node)
+    public void setEquals(TEquals node)
     {
-        if(this._and_ != null)
+        if(this._equals_ != null)
         {
-            this._and_.parent(null);
+            this._equals_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AAndLogicalBinaryOperator extends PLogicalBinaryOperator
             node.parent(this);
         }
 
-        this._and_ = node;
+        this._equals_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._and_);
+            + toString(this._equals_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._and_ == child)
+        if(this._equals_ == child)
         {
-            this._and_ = null;
+            this._equals_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AAndLogicalBinaryOperator extends PLogicalBinaryOperator
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._and_ == oldChild)
+        if(this._equals_ == oldChild)
         {
-            setAnd((TAnd) newChild);
+            setEquals((TEquals) newChild);
             return;
         }
 

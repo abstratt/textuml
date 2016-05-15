@@ -2,7 +2,7 @@
 
 package com.abstratt.mdd.frontend.textuml.grammar.node;
 
-public abstract class PLogicalBinaryOperator extends Node
+public abstract class PExpressionP1 extends Node
 {
     // Empty body
 }

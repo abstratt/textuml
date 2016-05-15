@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ADivArithmeticBinaryOperator extends PArithmeticBinaryOperator
+public final class ALogicalBinaryOperatorP1 extends PBinaryOperatorP1
 {
-    private TDiv _div_;
+    private PLogicalBinaryOperatorP1 _logicalBinaryOperatorP1_;
 
-    public ADivArithmeticBinaryOperator()
+    public ALogicalBinaryOperatorP1()
     {
         // Constructor
     }
 
-    public ADivArithmeticBinaryOperator(
-        @SuppressWarnings("hiding") TDiv _div_)
+    public ALogicalBinaryOperatorP1(
+        @SuppressWarnings("hiding") PLogicalBinaryOperatorP1 _logicalBinaryOperatorP1_)
     {
         // Constructor
-        setDiv(_div_);
+        setLogicalBinaryOperatorP1(_logicalBinaryOperatorP1_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ADivArithmeticBinaryOperator(
-            cloneNode(this._div_));
+        return new ALogicalBinaryOperatorP1(
+            cloneNode(this._logicalBinaryOperatorP1_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseADivArithmeticBinaryOperator(this);
+        ((Analysis) sw).caseALogicalBinaryOperatorP1(this);
     }
 
-    public TDiv getDiv()
+    public PLogicalBinaryOperatorP1 getLogicalBinaryOperatorP1()
     {
-        return this._div_;
+        return this._logicalBinaryOperatorP1_;
     }
 
-    public void setDiv(TDiv node)
+    public void setLogicalBinaryOperatorP1(PLogicalBinaryOperatorP1 node)
     {
-        if(this._div_ != null)
+        if(this._logicalBinaryOperatorP1_ != null)
         {
-            this._div_.parent(null);
+            this._logicalBinaryOperatorP1_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ADivArithmeticBinaryOperator extends PArithmeticBinaryOperato
             node.parent(this);
         }
 
-        this._div_ = node;
+        this._logicalBinaryOperatorP1_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._div_);
+            + toString(this._logicalBinaryOperatorP1_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._div_ == child)
+        if(this._logicalBinaryOperatorP1_ == child)
         {
-            this._div_ = null;
+            this._logicalBinaryOperatorP1_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ADivArithmeticBinaryOperator extends PArithmeticBinaryOperato
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._div_ == oldChild)
+        if(this._logicalBinaryOperatorP1_ == oldChild)
         {
-            setDiv((TDiv) newChild);
+            setLogicalBinaryOperatorP1((PLogicalBinaryOperatorP1) newChild);
             return;
         }
 

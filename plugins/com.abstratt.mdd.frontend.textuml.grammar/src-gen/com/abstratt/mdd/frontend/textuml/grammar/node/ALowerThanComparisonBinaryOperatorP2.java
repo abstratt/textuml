@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AOrLogicalBinaryOperator extends PLogicalBinaryOperator
+public final class ALowerThanComparisonBinaryOperatorP2 extends PComparisonBinaryOperatorP2
 {
-    private TOr _or_;
+    private TLab _lab_;
 
-    public AOrLogicalBinaryOperator()
+    public ALowerThanComparisonBinaryOperatorP2()
     {
         // Constructor
     }
 
-    public AOrLogicalBinaryOperator(
-        @SuppressWarnings("hiding") TOr _or_)
+    public ALowerThanComparisonBinaryOperatorP2(
+        @SuppressWarnings("hiding") TLab _lab_)
     {
         // Constructor
-        setOr(_or_);
+        setLab(_lab_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AOrLogicalBinaryOperator(
-            cloneNode(this._or_));
+        return new ALowerThanComparisonBinaryOperatorP2(
+            cloneNode(this._lab_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAOrLogicalBinaryOperator(this);
+        ((Analysis) sw).caseALowerThanComparisonBinaryOperatorP2(this);
     }
 
-    public TOr getOr()
+    public TLab getLab()
     {
-        return this._or_;
+        return this._lab_;
     }
 
-    public void setOr(TOr node)
+    public void setLab(TLab node)
     {
-        if(this._or_ != null)
+        if(this._lab_ != null)
         {
-            this._or_.parent(null);
+            this._lab_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AOrLogicalBinaryOperator extends PLogicalBinaryOperator
             node.parent(this);
         }
 
-        this._or_ = node;
+        this._lab_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._or_);
+            + toString(this._lab_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._or_ == child)
+        if(this._lab_ == child)
         {
-            this._or_ = null;
+            this._lab_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AOrLogicalBinaryOperator extends PLogicalBinaryOperator
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._or_ == oldChild)
+        if(this._lab_ == oldChild)
         {
-            setOr((TOr) newChild);
+            setLab((TLab) newChild);
             return;
         }
 
