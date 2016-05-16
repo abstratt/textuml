@@ -5,21 +5,21 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AIsClassExpression extends PIsClassExpression
+public final class AAlt0ExpressionP5 extends PExpressionP5
 {
-    private POperand _operand1_;
-    private TIs _operator_;
-    private PMinimalTypeIdentifier _operand2_;
+    private PExpressionP4 _operand1_;
+    private TOr _operator_;
+    private PExpressionP5 _operand2_;
 
-    public AIsClassExpression()
+    public AAlt0ExpressionP5()
     {
         // Constructor
     }
 
-    public AIsClassExpression(
-        @SuppressWarnings("hiding") POperand _operand1_,
-        @SuppressWarnings("hiding") TIs _operator_,
-        @SuppressWarnings("hiding") PMinimalTypeIdentifier _operand2_)
+    public AAlt0ExpressionP5(
+        @SuppressWarnings("hiding") PExpressionP4 _operand1_,
+        @SuppressWarnings("hiding") TOr _operator_,
+        @SuppressWarnings("hiding") PExpressionP5 _operand2_)
     {
         // Constructor
         setOperand1(_operand1_);
@@ -33,7 +33,7 @@ public final class AIsClassExpression extends PIsClassExpression
     @Override
     public Object clone()
     {
-        return new AIsClassExpression(
+        return new AAlt0ExpressionP5(
             cloneNode(this._operand1_),
             cloneNode(this._operator_),
             cloneNode(this._operand2_));
@@ -41,15 +41,15 @@ public final class AIsClassExpression extends PIsClassExpression
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAIsClassExpression(this);
+        ((Analysis) sw).caseAAlt0ExpressionP5(this);
     }
 
-    public POperand getOperand1()
+    public PExpressionP4 getOperand1()
     {
         return this._operand1_;
     }
 
-    public void setOperand1(POperand node)
+    public void setOperand1(PExpressionP4 node)
     {
         if(this._operand1_ != null)
         {
@@ -69,12 +69,12 @@ public final class AIsClassExpression extends PIsClassExpression
         this._operand1_ = node;
     }
 
-    public TIs getOperator()
+    public TOr getOperator()
     {
         return this._operator_;
     }
 
-    public void setOperator(TIs node)
+    public void setOperator(TOr node)
     {
         if(this._operator_ != null)
         {
@@ -94,12 +94,12 @@ public final class AIsClassExpression extends PIsClassExpression
         this._operator_ = node;
     }
 
-    public PMinimalTypeIdentifier getOperand2()
+    public PExpressionP5 getOperand2()
     {
         return this._operand2_;
     }
 
-    public void setOperand2(PMinimalTypeIdentifier node)
+    public void setOperand2(PExpressionP5 node)
     {
         if(this._operand2_ != null)
         {
@@ -159,19 +159,19 @@ public final class AIsClassExpression extends PIsClassExpression
         // Replace child
         if(this._operand1_ == oldChild)
         {
-            setOperand1((POperand) newChild);
+            setOperand1((PExpressionP4) newChild);
             return;
         }
 
         if(this._operator_ == oldChild)
         {
-            setOperator((TIs) newChild);
+            setOperator((TOr) newChild);
             return;
         }
 
         if(this._operand2_ == oldChild)
         {
-            setOperand2((PMinimalTypeIdentifier) newChild);
+            setOperand2((PExpressionP5) newChild);
             return;
         }
 

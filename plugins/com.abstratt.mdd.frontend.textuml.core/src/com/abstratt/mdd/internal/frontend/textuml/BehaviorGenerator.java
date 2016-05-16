@@ -11,6 +11,7 @@
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -115,11 +116,20 @@ import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AArithmeticBinaryOperatorP1;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AArithmeticBinaryOperatorP2;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP0;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP2;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP3;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP4;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP5;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP2;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP3;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP4;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP5;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt2ExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt2ExpressionP4;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAttributeIdentifierExpression;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ABinaryExpressionP1;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ABinaryExpressionP2;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABlockKernel;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABooleanLiteral;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABroadcastSpecificStatement;
@@ -127,21 +137,17 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ACatchSection;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassAttributeIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassOperationIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClosure;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AClosureExpressionP1;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AComparisonBinaryOperatorP2;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AClosureOperand;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ADestroySpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AElseRestIf;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AEmptyExpressionList;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AEmptyReturnSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AEmptySet;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AEqualsComparisonBinaryOperatorP2;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AExpressionListElement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AExpressionSimpleBlockResolved;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AExtentIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AFunctionIdentifierExpression;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AGreaterOrEqualsComparisonBinaryOperatorP2;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AGreaterThanComparisonBinaryOperatorP2;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AIdentityComparisonBinaryOperatorP2;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIfClause;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIfStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIsClassExpression;
@@ -149,25 +155,14 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ALinkIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ALinkRole;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ALinkSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ALiteralOperand;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ALogicalBinaryOperatorP1;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ALogicalBinaryOperatorP2;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ALoopSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ALoopTest;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ALowerOrEqualsComparisonBinaryOperatorP2;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ALowerThanComparisonBinaryOperatorP2;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AMinimalTypeIdentifier;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AMinusUnaryOperator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANamedArgument;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANewIdentifierExpression;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ANotEqualsComparisonBinaryOperatorP2;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ANotNullUnaryOperator;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ANotUnaryOperator;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AOperandExpressionP1;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationIdentifierExpression;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AP1Expression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AParenthesisOperand;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedAssociationTraversal;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARaiseSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARepeatLoopBody;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARootExpression;
@@ -181,7 +176,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ATrueBoolean;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATryStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleComponentValue;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleConstructor;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AUnaryExpressionP1;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AUnlinkSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AValuedReturnSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AVarDecl;
@@ -206,7 +200,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.TMinus;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TMult;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TNot;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TNotEquals;
-import com.abstratt.mdd.frontend.textuml.grammar.node.TNotNull;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TOr;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TPlus;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TRab;
@@ -320,17 +313,58 @@ public class BehaviorGenerator extends AbstractGenerator {
     
     @Override
     public void caseAIsClassExpression(AIsClassExpression expressionNode) {
-    	handleBinaryExpression(expressionNode.getLeft(), expressionNode.getOperator(), expressionNode.getRight());
-    }
-
-    @Override
-    public void caseABinaryExpressionP1(ABinaryExpressionP1 expressionNode) {
-    	handleBinaryExpression(expressionNode.getLeft(), expressionNode.getOperator(), expressionNode.getRight());
+    	handleBinaryExpression(expressionNode.getOperand1(), expressionNode.getOperator(), expressionNode.getOperand2());
     }
     
     @Override
-    public void caseABinaryExpressionP2(ABinaryExpressionP2 expressionNode) {
-    	handleBinaryExpression(expressionNode.getLeft(), expressionNode.getOperator(), expressionNode.getRight());
+    public void caseAAlt1ExpressionP1(AAlt1ExpressionP1 node) {
+    	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
+    }
+    
+    @Override
+    public void caseAAlt0ExpressionP2(AAlt0ExpressionP2 node) {
+    	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
+    }
+    
+    @Override
+    public void caseAAlt0ExpressionP3(AAlt0ExpressionP3 node) {
+    	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
+    }
+    
+    @Override
+    public void caseAAlt1ExpressionP4(AAlt1ExpressionP4 node) {
+    	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
+    }
+    
+    @Override
+    public void caseAAlt0ExpressionP5(AAlt0ExpressionP5 node) {
+    	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
+    }
+    
+    @Override
+    public void caseAAlt0ExpressionP1(AAlt0ExpressionP1 node) {
+    	handleUnaryExpression(node.getOperator(), node.getOperand());
+    }
+    
+    @Override
+    public void caseAAlt0ExpressionP4(AAlt0ExpressionP4 node) {
+    	handleUnaryExpression(node.getOperator(), node.getOperand());
+    }
+    
+    private void handleUnaryExpression(Node operator, Node operand) {
+    	final String[] operationName = { null };
+		operator.apply(new DepthFirstAdapter() {
+			@Override
+			public void caseTMinus(TMinus node) {
+				operationName[0] = "subtract";
+			}
+			@Override
+			public void caseTNot(TNot node) {
+				operationName[0] = "not";
+			}
+		});
+		if (operationName[0] != null) 
+			handleUnaryExpressionAsOperation(operator, operand, operationName[0]);
     }
     
 	private void handleBinaryExpression(Node left, Node operator, Node right) {
@@ -433,23 +467,9 @@ public class BehaviorGenerator extends AbstractGenerator {
             List<TypedElement> argumentList = Collections.singletonList((TypedElement) argument);
             Operation operation = FeatureUtils.findOperation(getRepository(), (Classifier) targetType, operationName,
                     argumentList, false, true);
-            if (operation == null) {
-                if (context.getRepositoryProperties().containsKey(IRepository.EXTEND_BASE_OBJECT)) {
-					Classifier baseObjectClass = (Classifier) findBuiltInType("Object", node);
-                    if (baseObjectClass != null)
-                        operation = FeatureUtils.findOperation(getRepository(), baseObjectClass, operationName,
-                                argumentList, false, true);
-                }
-                if (operation == null) {
-                    Classifier baseBasicClass = (Classifier) findBuiltInType("Basic", node);
-                    if (baseBasicClass != null)
-                        operation = FeatureUtils.findOperation(getRepository(), baseBasicClass, operationName,
-                                argumentList, false, true);
-                    if (operation == null)
-                        missingOperation(true, operator, (Classifier) targetType, operationName,
-                                argumentList, false);
-                }
-            }
+            if (operation == null)
+                missingOperation(true, operator, (Classifier) targetType, operationName,
+                        argumentList, false);
             if (operation.isStatic())
                 missingOperation(true, operator, (Classifier) targetType, operationName, argumentList,
                         false);
@@ -746,7 +766,7 @@ public class BehaviorGenerator extends AbstractGenerator {
     }
 
     @Override
-    public void caseAClosureExpressionP1(AClosureExpressionP1 node) {
+    public void caseAClosureOperand(AClosureOperand node) {
         BehavioredClassifier parent = builder.getCurrentActivity();
         StructuredActivityNode closureContext = builder.getCurrentBlock();
         Activity closure = buildClosure(parent, closureContext, (AClosure) node.getClosure());
@@ -1516,33 +1536,35 @@ public class BehaviorGenerator extends AbstractGenerator {
     }
 
     
-    @Override
-    public void caseAUnaryExpressionP1(AUnaryExpressionP1 node) {
-        OperationInfo operationInfo = parseOperationInfo(node.getUnaryOperator(), 2);
-        Operation operation = findOperation(node.getUnaryOperator(), operationInfo.types[0],
-                operationInfo.operationName, Collections.<TypedElement> emptyList(), false, true);
-        List<Parameter> parameters = operation.getOwnedParameters();
-        if (parameters.size() != 1 && parameters.get(0).getDirection() != ParameterDirectionKind.RETURN_LITERAL) {
-            problemBuilder.addError("Unexpected signature: '" + operationInfo.operationName + "' in '"
-                    + operationInfo.types[0].getName() + "'", node.getUnaryOperator());
-            throw new AbortedStatementCompilationException();
-        }
-        CallOperationAction action = (CallOperationAction) builder.createAction(IRepository.PACKAGE
-                .getCallOperationAction());
+    public void handleUnaryExpressionAsOperation(Node operator, Node operand, String operationName) {
+    	Node parent = operator.parent();
+    	CallOperationAction action = (CallOperationAction) builder.createAction(IRepository.PACKAGE
+    			.getCallOperationAction());
         try {
             // register the target input pin
-            builder.registerInput(action.createTarget(null, operationInfo.types[0]));
+            builder.registerInput(action.createTarget(null, null));
             // process the target expression - this will connect its output pin
             // to the input pin we just created
-            super.caseAUnaryExpressionP1(node);
+            operand.apply(this);
+            
+            InputPin target = action.getTarget();
+            Type targetType = ActivityUtils.getSource(target).getType();
+            TypeUtils.copyType(ActivityUtils.getSource(target), target);
+            
+            Operation operation = FeatureUtils.findOperation(getRepository(), (Classifier) targetType, operationName, Arrays.asList(), false, true);
+            if (operation == null) {
+                missingOperation(true, operator, (Classifier) targetType, operationName,
+                        Arrays.asList(), false);
+            }
+            
             // register the result output pin
-            builder.registerOutput(action.createResult(null, operationInfo.types[1]));
+            builder.registerOutput(action.createResult(null, operation.getType()));
             action.setOperation(operation);
-            fillDebugInfo(action, node);
+            fillDebugInfo(action, parent);
         } finally {
             builder.closeAction();
         }
-        checkIncomings(action, node.getUnaryOperator(), getBoundElement());
+        checkIncomings(action, operator, getBoundElement());
     }
 
     @Override
@@ -1887,155 +1909,155 @@ public class BehaviorGenerator extends AbstractGenerator {
         throw new AbortedStatementCompilationException();
     }
 
-    OperationInfo parseOperationInfo(Node operatorNode, int infoCount) {
-        final OperationInfo info = new OperationInfo(infoCount);
-        operatorNode.apply(new DepthFirstAdapter() {
-
-            @Override
-            public void caseAArithmeticBinaryOperatorP1(AArithmeticBinaryOperatorP1 node) {
-                super.caseAArithmeticBinaryOperatorP1(node);
-                handleArithmeticOperator(info);
-            }
-            
-            @Override
-            public void caseAArithmeticBinaryOperatorP2(AArithmeticBinaryOperatorP2 node) {
-                super.caseAArithmeticBinaryOperatorP2(node);
-                handleArithmeticOperator(info);
-            }
-
-			private void handleArithmeticOperator(final OperationInfo info) {
-				info.types[0] = info.types[1] = info.types[2] = (Classifier) getRepository().findNamedElement(
-                        "base::Integer", IRepository.PACKAGE.getType(), null);
-			}
-
-            @Override
-            public void caseAComparisonBinaryOperatorP2(AComparisonBinaryOperatorP2 node) {
-                super.caseAComparisonBinaryOperatorP2(node);
-                handleComparisonOperator(info);
-            }
-
-			private void handleComparisonOperator(final OperationInfo info) {
-				info.types[0] = info.types[1] = (Classifier) getRepository().findNamedElement("base::Comparable",
-                        IRepository.PACKAGE.getType(), null);
-                info.types[2] = (Classifier) getRepository().findNamedElement("base::Boolean",
-                        IRepository.PACKAGE.getType(), null);
-			}
-
-            @Override
-            public void caseAEqualsComparisonBinaryOperatorP2(AEqualsComparisonBinaryOperatorP2 node) {
-                info.operationName = "equals";
-            }
-
-            @Override
-            public void caseANotEqualsComparisonBinaryOperatorP2(ANotEqualsComparisonBinaryOperatorP2 node) {
-                info.operationName = "not";
-            }
-
-            @Override
-            public void caseAGreaterOrEqualsComparisonBinaryOperatorP2(AGreaterOrEqualsComparisonBinaryOperatorP2 node) {
-                info.operationName = "greaterOrEquals";
-            }
-
-            @Override
-            public void caseAGreaterThanComparisonBinaryOperatorP2(AGreaterThanComparisonBinaryOperatorP2 node) {
-                info.operationName = "greater";
-            }
-            
-            @Override
-            public void caseAIdentityComparisonBinaryOperatorP2(AIdentityComparisonBinaryOperatorP2 node) {
-            	super.caseAIdentityComparisonBinaryOperatorP2(node);
-                info.operationName = "same";
-                info.types[0] = info.types[1] = (Classifier) getRepository().findNamedElement("base::Any",
-                        IRepository.PACKAGE.getClass_(), null);
-                info.types[2] = (Classifier) getRepository().findNamedElement("base::Boolean",
-                        IRepository.PACKAGE.getType(), null);
-            }
-
-            @Override
-            public void caseALogicalBinaryOperatorP2(ALogicalBinaryOperatorP2 node) {
-                super.caseALogicalBinaryOperatorP2(node);
-                handleLogicalBinaryOperator();
-            }
-            
-            @Override
-            public void caseALogicalBinaryOperatorP1(ALogicalBinaryOperatorP1 node) {
-                super.caseALogicalBinaryOperatorP1(node);
-                handleLogicalBinaryOperator();
-            }
-            
-            private void handleLogicalBinaryOperator() {
-                info.types[0] = info.types[1] = info.types[2] = (Classifier) getRepository().findNamedElement(
-                        "base::Boolean", IRepository.PACKAGE.getType(), null);
-            }
-            
-            @Override
-            public void caseALowerOrEqualsComparisonBinaryOperatorP2(ALowerOrEqualsComparisonBinaryOperatorP2 node) {
-                info.operationName = "lowerOrEquals";
-            }
-
-            @Override
-            public void caseALowerThanComparisonBinaryOperatorP2(ALowerThanComparisonBinaryOperatorP2 node) {
-                info.operationName = "lowerThan";
-            }
-
-            @Override
-            public void caseAMinusUnaryOperator(AMinusUnaryOperator node) {
-                super.caseAMinusUnaryOperator(node);
-                info.types[0] = info.types[1] = (Classifier) getRepository().findNamedElement("base::Integer",
-                        IRepository.PACKAGE.getType(), null);
-            }
-
-            @Override
-            public void caseANotUnaryOperator(ANotUnaryOperator node) {
-                super.caseANotUnaryOperator(node);
-                info.types[0] = info.types[1] = (Classifier) getRepository().findNamedElement("base::Boolean",
-                        IRepository.PACKAGE.getType(), null);
-            }
-
-            @Override
-            public void caseANotNullUnaryOperator(ANotNullUnaryOperator node) {
-                super.caseANotNullUnaryOperator(node);
-                info.types[0] = (Classifier) getRepository().findNamedElement("base::Basic",
-                        IRepository.PACKAGE.getType(), null);
-                info.types[1] = (Classifier) getRepository().findNamedElement("base::Boolean",
-                        IRepository.PACKAGE.getType(), null);
-            }
-
-            public void caseTAnd(TAnd node) {
-                info.operationName = "and";
-            }
-
-            public void caseTDiv(TDiv node) {
-                info.operationName = "divide";
-            }
-
-            public void caseTMinus(TMinus node) {
-                info.operationName = "subtract";
-            }
-
-            public void caseTMult(TMult node) {
-                info.operationName = "multiply";
-            }
-
-            @Override
-            public void caseTNot(TNot node) {
-                info.operationName = "not";
-            }
-
-            public void caseTNotNull(TNotNull node) {
-                info.operationName = "notNull";
-            }
-
-            public void caseTOr(TOr node) {
-                info.operationName = "or";
-            }
-
-            public void caseTPlus(TPlus node) {
-                info.operationName = "add";
-            }
-        });
-        return info;
-    }
+//    OperationInfo parseOperationInfo(Node operatorNode, int infoCount) {
+//        final OperationInfo info = new OperationInfo(infoCount);
+//        operatorNode.apply(new DepthFirstAdapter() {
+//
+//            @Override
+//            public void caseAArithmeticBinaryOperatorP1(AArithmeticBinaryOperatorP1 node) {
+//                super.caseAArithmeticBinaryOperatorP1(node);
+//                handleArithmeticOperator(info);
+//            }
+//            
+//            @Override
+//            public void caseAArithmeticBinaryOperatorP2(AArithmeticBinaryOperatorP2 node) {
+//                super.caseAArithmeticBinaryOperatorP2(node);
+//                handleArithmeticOperator(info);
+//            }
+//
+//			private void handleArithmeticOperator(final OperationInfo info) {
+//				info.types[0] = info.types[1] = info.types[2] = (Classifier) getRepository().findNamedElement(
+//                        "base::Integer", IRepository.PACKAGE.getType(), null);
+//			}
+//
+//            @Override
+//            public void caseAComparisonBinaryOperatorP2(AComparisonBinaryOperatorP2 node) {
+//                super.caseAComparisonBinaryOperatorP2(node);
+//                handleComparisonOperator(info);
+//            }
+//
+//			private void handleComparisonOperator(final OperationInfo info) {
+//				info.types[0] = info.types[1] = (Classifier) getRepository().findNamedElement("base::Comparable",
+//                        IRepository.PACKAGE.getType(), null);
+//                info.types[2] = (Classifier) getRepository().findNamedElement("base::Boolean",
+//                        IRepository.PACKAGE.getType(), null);
+//			}
+//
+//            @Override
+//            public void caseAEqualsComparisonBinaryOperatorP2(AEqualsComparisonBinaryOperatorP2 node) {
+//                info.operationName = "equals";
+//            }
+//
+//            @Override
+//            public void caseANotEqualsComparisonBinaryOperatorP2(ANotEqualsComparisonBinaryOperatorP2 node) {
+//                info.operationName = "not";
+//            }
+//
+//            @Override
+//            public void caseAGreaterOrEqualsComparisonBinaryOperatorP2(AGreaterOrEqualsComparisonBinaryOperatorP2 node) {
+//                info.operationName = "greaterOrEquals";
+//            }
+//
+//            @Override
+//            public void caseAGreaterThanComparisonBinaryOperatorP2(AGreaterThanComparisonBinaryOperatorP2 node) {
+//                info.operationName = "greater";
+//            }
+//            
+//            @Override
+//            public void caseAIdentityComparisonBinaryOperatorP2(AIdentityComparisonBinaryOperatorP2 node) {
+//            	super.caseAIdentityComparisonBinaryOperatorP2(node);
+//                info.operationName = "same";
+//                info.types[0] = info.types[1] = (Classifier) getRepository().findNamedElement("base::Any",
+//                        IRepository.PACKAGE.getClass_(), null);
+//                info.types[2] = (Classifier) getRepository().findNamedElement("base::Boolean",
+//                        IRepository.PACKAGE.getType(), null);
+//            }
+//
+//            @Override
+//            public void caseALogicalBinaryOperatorP2(ALogicalBinaryOperatorP2 node) {
+//                super.caseALogicalBinaryOperatorP2(node);
+//                handleLogicalBinaryOperator();
+//            }
+//            
+//            @Override
+//            public void caseALogicalBinaryOperatorP1(ALogicalBinaryOperatorP1 node) {
+//                super.caseALogicalBinaryOperatorP1(node);
+//                handleLogicalBinaryOperator();
+//            }
+//            
+//            private void handleLogicalBinaryOperator() {
+//                info.types[0] = info.types[1] = info.types[2] = (Classifier) getRepository().findNamedElement(
+//                        "base::Boolean", IRepository.PACKAGE.getType(), null);
+//            }
+//            
+//            @Override
+//            public void caseALowerOrEqualsComparisonBinaryOperatorP2(ALowerOrEqualsComparisonBinaryOperatorP2 node) {
+//                info.operationName = "lowerOrEquals";
+//            }
+//
+//            @Override
+//            public void caseALowerThanComparisonBinaryOperatorP2(ALowerThanComparisonBinaryOperatorP2 node) {
+//                info.operationName = "lowerThan";
+//            }
+//
+//            @Override
+//            public void caseAMinusUnaryOperator(AMinusUnaryOperator node) {
+//                super.caseAMinusUnaryOperator(node);
+//                info.types[0] = info.types[1] = (Classifier) getRepository().findNamedElement("base::Integer",
+//                        IRepository.PACKAGE.getType(), null);
+//            }
+//
+//            @Override
+//            public void caseANotUnaryOperator(ANotUnaryOperator node) {
+//                super.caseANotUnaryOperator(node);
+//                info.types[0] = info.types[1] = (Classifier) getRepository().findNamedElement("base::Boolean",
+//                        IRepository.PACKAGE.getType(), null);
+//            }
+//
+//            @Override
+//            public void caseANotNullUnaryOperator(ANotNullUnaryOperator node) {
+//                super.caseANotNullUnaryOperator(node);
+//                info.types[0] = (Classifier) getRepository().findNamedElement("base::Basic",
+//                        IRepository.PACKAGE.getType(), null);
+//                info.types[1] = (Classifier) getRepository().findNamedElement("base::Boolean",
+//                        IRepository.PACKAGE.getType(), null);
+//            }
+//
+//            public void caseTAnd(TAnd node) {
+//                info.operationName = "and";
+//            }
+//
+//            public void caseTDiv(TDiv node) {
+//                info.operationName = "divide";
+//            }
+//
+//            public void caseTMinus(TMinus node) {
+//                info.operationName = "subtract";
+//            }
+//
+//            public void caseTMult(TMult node) {
+//                info.operationName = "multiply";
+//            }
+//
+//            @Override
+//            public void caseTNot(TNot node) {
+//                info.operationName = "not";
+//            }
+//
+//            public void caseTNotNull(TNotNull node) {
+//                info.operationName = "notNull";
+//            }
+//
+//            public void caseTOr(TOr node) {
+//                info.operationName = "or";
+//            }
+//
+//            public void caseTPlus(TPlus node) {
+//                info.operationName = "add";
+//            }
+//        });
+//        return info;
+//    }
 
     @Override
     public void caseATupleConstructor(ATupleConstructor node) {
@@ -2104,19 +2126,29 @@ public class BehaviorGenerator extends AbstractGenerator {
         	// an always true block: { true } 
         	constraintBlock = new AExpressionSimpleBlockResolved(
         		new ASimpleExpressionBlock(
-    					null, 
-    					new ARootExpression(
-    							new AP1Expression(
-    									new AOperandExpressionP1(
-    											new ALiteralOperand(
+					null, 
+					new ARootExpression(
+						new AExpression(
+							new AAlt1ExpressionP5(
+								new AAlt2ExpressionP4(
+									new AAlt1ExpressionP3(
+										new AAlt1ExpressionP2(
+											new AAlt2ExpressionP1(
+												new AAlt0ExpressionP0(
+													new ALiteralOperand(
     													new ABooleanLiteral(
-    															new ATrueBoolean(new TTrue())
+															new ATrueBoolean(new TTrue())
 														)
+													)
 												)
+											)
 										)
+									)
 								)
-						), 
-						null
+							)
+						)
+					), 
+					null
 				)
 			);
         createBody(constraintBlock, activity);

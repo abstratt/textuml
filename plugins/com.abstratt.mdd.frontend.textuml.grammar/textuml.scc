@@ -778,57 +778,56 @@ Productions
         
   root_expression = expression ;        
         
-  expression = 
-    {p1} expression_p1 |
-    {p2} expression_p2 ;
+  expression = expression_p5 ;
     
-  expression_p2 = 
-    {binary} [left]: expression_p1 [operator]: binary_operator_p2 [right]: expression;
-    
+  expression_p0 = {alt0} operand ;
+  
   expression_p1 = 
-    {unary} unary_operator operand |
-    {binary} [left]: operand [operator]: binary_operator_p1 [right]: expression_p1 |
-    {operand} operand |
-    {closure} closure |
-    {is_class} is_class_expression;
+      {alt0} [operator]: minus [operand]: expression_p1 |
+      {alt1} [operand1]: expression_p0 [operator]: mult_div [operand2]: expression_p1 |
+      {alt2} expression_p0;
+      
+  expression_p2 =
+      {alt0} [operand1]: expression_p1 [operator]: add_sub [operand2]: expression_p2 |
+      {alt1} expression_p1 ;
+      
+  expression_p3 = 
+    {alt0} [operand1]: expression_p2 [operator]: comparison_operator [operand2]: expression_p2 |
+    {alt1} expression_p2;
     
-  is_class_expression = [left]: operand [operator]: is [right]: minimal_type_identifier ;    
+  expression_p4 = 
+      {alt0} [operator]: not [operand]: expression_p4 |
+      {alt1} [operand1]: expression_p3 [operator]: and [operand2]: expression_p4 |
+      {alt2} expression_p3 ;
+      
+  expression_p5 =    
+      {alt0} [operand1]: expression_p4 [operator]: or [operand2]: expression_p5 |
+      {alt1} expression_p4;
+      
+  is_class_expression = [operand1]: operand [operator]: is [operand2]: minimal_type_identifier ;    
     
   operand = 
     {identifier_expression} identifier_expression |
     {literal} literal |
     {empty_set} empty_set |
     {tuple} tuple_constructor |
-    {parenthesis} l_paren expression cast? r_paren ;
+    {parenthesis} l_paren expression cast? r_paren | 
+    {is_class} is_class_expression |
+    {closure} closure;
     
   empty_set = minimal_type_identifier l_bracket r_bracket ; 
     
   cast = as single_type_identifier ;
     
-  binary_operator_p1 = 
-    {logical} logical_binary_operator_p1 | 
-    {arithmetic} arithmetic_binary_operator_p1;    
-    
-  binary_operator_p2 = 
-    {logical} logical_binary_operator_p2 | 
-    {arithmetic} arithmetic_binary_operator_p2 |
-    {comparison} comparison_binary_operator_p2 ;
-    
-  logical_binary_operator_p1 = 
-    {and} and ;
-    
-  logical_binary_operator_p2 = 
-    {or} or ;    
-  
-  arithmetic_binary_operator_p1 =     
+  mult_div =     
     {mult} mult | 
     {div} div ;
     
-  arithmetic_binary_operator_p2 =     
+  add_sub =     
     {plus} plus | 
     {minus} minus;
 
-  comparison_binary_operator_p2 =
+  comparison_operator =
     {identity} equals_equals |
     {equals} equals  |
     {not_equals} not_equals  |    
@@ -839,7 +838,7 @@ Productions
       
   unary_operator = {not} not | {minus} minus | {not_null} not_null;
   
-  literal = {boolean} boolean | {number} number | {string} string | {null} null | {symbol} hash identifier;
+  literal = {boolean} boolean | {number} number | {string} string | {null} null;
   
   tuple_constructor = l_curly_bracket tuple_component_value tuple_component_value_tail* r_curly_bracket ;
   

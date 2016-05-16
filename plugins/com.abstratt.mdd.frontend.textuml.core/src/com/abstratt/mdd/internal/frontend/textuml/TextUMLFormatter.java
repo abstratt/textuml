@@ -26,13 +26,17 @@ import com.abstratt.mdd.frontend.core.ASTNode;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.Analysis;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP2;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP3;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP4;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP4;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAnnotations;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationDef;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationRoleDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAttributeInvariant;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABehavioralFeatureBody;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ABinaryExpressionP1;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ABinaryExpressionP2;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABlockNonIfStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ACast;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ACatchSection;
@@ -73,7 +77,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ATryStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleComponentValue;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleComponentValueTail;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleConstructor;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AUnaryExpressionP1;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AVarDeclSection;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWhileStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWithIfStatementResolved;
@@ -166,14 +169,22 @@ public class TextUMLFormatter {
         newLine(output);
     }
     
-    public void format(ABinaryExpressionP1 node, StringBuilder output, int indentation) {
-    	format(node.getLeft(), node.getOperator(), node.getRight(), output, indentation);
-    }
-
-    public void format(ABinaryExpressionP2 node, StringBuilder output, int indentation) {
-    	format(node.getLeft(), node.getOperator(), node.getRight(), output, indentation);
+    public void format(AAlt1ExpressionP1 node, StringBuilder output, int indentation) {
+    	format(node.getOperand1(), node.getOperator(), node.getOperand2(), output, indentation);
     }
     
+    public void format(AAlt0ExpressionP2 node, StringBuilder output, int indentation) {
+    	format(node.getOperand1(), node.getOperator(), node.getOperand2(), output, indentation);
+    }
+    
+    public void format(AAlt0ExpressionP3 node, StringBuilder output, int indentation) {
+    	format(node.getOperand1(), node.getOperator(), node.getOperand2(), output, indentation);
+    }
+    
+    public void format(AAlt1ExpressionP4 node, StringBuilder output, int indentation) {
+    	format(node.getOperand1(), node.getOperator(), node.getOperand2(), output, indentation);
+    }
+
     public void format(Node left, Node operator, Node right, StringBuilder output, int indentation) {
         format(left, output, indentation);
         addWhitespace(output);
@@ -407,8 +418,14 @@ public class TextUMLFormatter {
         format(node.getSemicolon(), output, indentation);
     }
 
-    public void format(AUnaryExpressionP1 node, StringBuilder output, int indentation) {
-        format(node.getUnaryOperator(), output, indentation);
+    public void format(AAlt0ExpressionP1 node, StringBuilder output, int indentation) {
+        format(node.getOperator(), output, indentation);
+        addWhitespace(output);
+        format(node.getOperand(), output, indentation);
+    }
+    
+    public void format(AAlt0ExpressionP4 node, StringBuilder output, int indentation) {
+        format(node.getOperator(), output, indentation);
         addWhitespace(output);
         format(node.getOperand(), output, indentation);
     }

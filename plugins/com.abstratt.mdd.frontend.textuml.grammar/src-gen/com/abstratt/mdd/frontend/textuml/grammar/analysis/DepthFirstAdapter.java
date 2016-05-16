@@ -8917,192 +8917,346 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outARootExpression(node);
     }
 
-    public void inAP1Expression(AP1Expression node)
+    public void inAExpression(AExpression node)
     {
         defaultIn(node);
     }
 
-    public void outAP1Expression(AP1Expression node)
+    public void outAExpression(AExpression node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAP1Expression(AP1Expression node)
+    public void caseAExpression(AExpression node)
     {
-        inAP1Expression(node);
+        inAExpression(node);
+        if(node.getExpressionP5() != null)
+        {
+            node.getExpressionP5().apply(this);
+        }
+        outAExpression(node);
+    }
+
+    public void inAAlt0ExpressionP0(AAlt0ExpressionP0 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAlt0ExpressionP0(AAlt0ExpressionP0 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAlt0ExpressionP0(AAlt0ExpressionP0 node)
+    {
+        inAAlt0ExpressionP0(node);
+        if(node.getOperand() != null)
+        {
+            node.getOperand().apply(this);
+        }
+        outAAlt0ExpressionP0(node);
+    }
+
+    public void inAAlt0ExpressionP1(AAlt0ExpressionP1 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAlt0ExpressionP1(AAlt0ExpressionP1 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAlt0ExpressionP1(AAlt0ExpressionP1 node)
+    {
+        inAAlt0ExpressionP1(node);
+        if(node.getOperator() != null)
+        {
+            node.getOperator().apply(this);
+        }
+        if(node.getOperand() != null)
+        {
+            node.getOperand().apply(this);
+        }
+        outAAlt0ExpressionP1(node);
+    }
+
+    public void inAAlt1ExpressionP1(AAlt1ExpressionP1 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAlt1ExpressionP1(AAlt1ExpressionP1 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAlt1ExpressionP1(AAlt1ExpressionP1 node)
+    {
+        inAAlt1ExpressionP1(node);
+        if(node.getOperand1() != null)
+        {
+            node.getOperand1().apply(this);
+        }
+        if(node.getOperator() != null)
+        {
+            node.getOperator().apply(this);
+        }
+        if(node.getOperand2() != null)
+        {
+            node.getOperand2().apply(this);
+        }
+        outAAlt1ExpressionP1(node);
+    }
+
+    public void inAAlt2ExpressionP1(AAlt2ExpressionP1 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAlt2ExpressionP1(AAlt2ExpressionP1 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAlt2ExpressionP1(AAlt2ExpressionP1 node)
+    {
+        inAAlt2ExpressionP1(node);
+        if(node.getExpressionP0() != null)
+        {
+            node.getExpressionP0().apply(this);
+        }
+        outAAlt2ExpressionP1(node);
+    }
+
+    public void inAAlt0ExpressionP2(AAlt0ExpressionP2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAlt0ExpressionP2(AAlt0ExpressionP2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAlt0ExpressionP2(AAlt0ExpressionP2 node)
+    {
+        inAAlt0ExpressionP2(node);
+        if(node.getOperand1() != null)
+        {
+            node.getOperand1().apply(this);
+        }
+        if(node.getOperator() != null)
+        {
+            node.getOperator().apply(this);
+        }
+        if(node.getOperand2() != null)
+        {
+            node.getOperand2().apply(this);
+        }
+        outAAlt0ExpressionP2(node);
+    }
+
+    public void inAAlt1ExpressionP2(AAlt1ExpressionP2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAlt1ExpressionP2(AAlt1ExpressionP2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAlt1ExpressionP2(AAlt1ExpressionP2 node)
+    {
+        inAAlt1ExpressionP2(node);
         if(node.getExpressionP1() != null)
         {
             node.getExpressionP1().apply(this);
         }
-        outAP1Expression(node);
+        outAAlt1ExpressionP2(node);
     }
 
-    public void inAP2Expression(AP2Expression node)
+    public void inAAlt0ExpressionP3(AAlt0ExpressionP3 node)
     {
         defaultIn(node);
     }
 
-    public void outAP2Expression(AP2Expression node)
+    public void outAAlt0ExpressionP3(AAlt0ExpressionP3 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAP2Expression(AP2Expression node)
+    public void caseAAlt0ExpressionP3(AAlt0ExpressionP3 node)
     {
-        inAP2Expression(node);
+        inAAlt0ExpressionP3(node);
+        if(node.getOperand1() != null)
+        {
+            node.getOperand1().apply(this);
+        }
+        if(node.getOperator() != null)
+        {
+            node.getOperator().apply(this);
+        }
+        if(node.getOperand2() != null)
+        {
+            node.getOperand2().apply(this);
+        }
+        outAAlt0ExpressionP3(node);
+    }
+
+    public void inAAlt1ExpressionP3(AAlt1ExpressionP3 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAlt1ExpressionP3(AAlt1ExpressionP3 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAlt1ExpressionP3(AAlt1ExpressionP3 node)
+    {
+        inAAlt1ExpressionP3(node);
         if(node.getExpressionP2() != null)
         {
             node.getExpressionP2().apply(this);
         }
-        outAP2Expression(node);
+        outAAlt1ExpressionP3(node);
     }
 
-    public void inABinaryExpressionP2(ABinaryExpressionP2 node)
+    public void inAAlt0ExpressionP4(AAlt0ExpressionP4 node)
     {
         defaultIn(node);
     }
 
-    public void outABinaryExpressionP2(ABinaryExpressionP2 node)
+    public void outAAlt0ExpressionP4(AAlt0ExpressionP4 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseABinaryExpressionP2(ABinaryExpressionP2 node)
+    public void caseAAlt0ExpressionP4(AAlt0ExpressionP4 node)
     {
-        inABinaryExpressionP2(node);
-        if(node.getLeft() != null)
-        {
-            node.getLeft().apply(this);
-        }
+        inAAlt0ExpressionP4(node);
         if(node.getOperator() != null)
         {
             node.getOperator().apply(this);
-        }
-        if(node.getRight() != null)
-        {
-            node.getRight().apply(this);
-        }
-        outABinaryExpressionP2(node);
-    }
-
-    public void inAUnaryExpressionP1(AUnaryExpressionP1 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAUnaryExpressionP1(AUnaryExpressionP1 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAUnaryExpressionP1(AUnaryExpressionP1 node)
-    {
-        inAUnaryExpressionP1(node);
-        if(node.getUnaryOperator() != null)
-        {
-            node.getUnaryOperator().apply(this);
         }
         if(node.getOperand() != null)
         {
             node.getOperand().apply(this);
         }
-        outAUnaryExpressionP1(node);
+        outAAlt0ExpressionP4(node);
     }
 
-    public void inABinaryExpressionP1(ABinaryExpressionP1 node)
+    public void inAAlt1ExpressionP4(AAlt1ExpressionP4 node)
     {
         defaultIn(node);
     }
 
-    public void outABinaryExpressionP1(ABinaryExpressionP1 node)
+    public void outAAlt1ExpressionP4(AAlt1ExpressionP4 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseABinaryExpressionP1(ABinaryExpressionP1 node)
+    public void caseAAlt1ExpressionP4(AAlt1ExpressionP4 node)
     {
-        inABinaryExpressionP1(node);
-        if(node.getLeft() != null)
+        inAAlt1ExpressionP4(node);
+        if(node.getOperand1() != null)
         {
-            node.getLeft().apply(this);
+            node.getOperand1().apply(this);
         }
         if(node.getOperator() != null)
         {
             node.getOperator().apply(this);
         }
-        if(node.getRight() != null)
+        if(node.getOperand2() != null)
         {
-            node.getRight().apply(this);
+            node.getOperand2().apply(this);
         }
-        outABinaryExpressionP1(node);
+        outAAlt1ExpressionP4(node);
     }
 
-    public void inAOperandExpressionP1(AOperandExpressionP1 node)
+    public void inAAlt2ExpressionP4(AAlt2ExpressionP4 node)
     {
         defaultIn(node);
     }
 
-    public void outAOperandExpressionP1(AOperandExpressionP1 node)
+    public void outAAlt2ExpressionP4(AAlt2ExpressionP4 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAOperandExpressionP1(AOperandExpressionP1 node)
+    public void caseAAlt2ExpressionP4(AAlt2ExpressionP4 node)
     {
-        inAOperandExpressionP1(node);
-        if(node.getOperand() != null)
+        inAAlt2ExpressionP4(node);
+        if(node.getExpressionP3() != null)
         {
-            node.getOperand().apply(this);
+            node.getExpressionP3().apply(this);
         }
-        outAOperandExpressionP1(node);
+        outAAlt2ExpressionP4(node);
     }
 
-    public void inAClosureExpressionP1(AClosureExpressionP1 node)
+    public void inAAlt0ExpressionP5(AAlt0ExpressionP5 node)
     {
         defaultIn(node);
     }
 
-    public void outAClosureExpressionP1(AClosureExpressionP1 node)
+    public void outAAlt0ExpressionP5(AAlt0ExpressionP5 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAClosureExpressionP1(AClosureExpressionP1 node)
+    public void caseAAlt0ExpressionP5(AAlt0ExpressionP5 node)
     {
-        inAClosureExpressionP1(node);
-        if(node.getClosure() != null)
+        inAAlt0ExpressionP5(node);
+        if(node.getOperand1() != null)
         {
-            node.getClosure().apply(this);
+            node.getOperand1().apply(this);
         }
-        outAClosureExpressionP1(node);
+        if(node.getOperator() != null)
+        {
+            node.getOperator().apply(this);
+        }
+        if(node.getOperand2() != null)
+        {
+            node.getOperand2().apply(this);
+        }
+        outAAlt0ExpressionP5(node);
     }
 
-    public void inAIsClassExpressionP1(AIsClassExpressionP1 node)
+    public void inAAlt1ExpressionP5(AAlt1ExpressionP5 node)
     {
         defaultIn(node);
     }
 
-    public void outAIsClassExpressionP1(AIsClassExpressionP1 node)
+    public void outAAlt1ExpressionP5(AAlt1ExpressionP5 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAIsClassExpressionP1(AIsClassExpressionP1 node)
+    public void caseAAlt1ExpressionP5(AAlt1ExpressionP5 node)
     {
-        inAIsClassExpressionP1(node);
-        if(node.getIsClassExpression() != null)
+        inAAlt1ExpressionP5(node);
+        if(node.getExpressionP4() != null)
         {
-            node.getIsClassExpression().apply(this);
+            node.getExpressionP4().apply(this);
         }
-        outAIsClassExpressionP1(node);
+        outAAlt1ExpressionP5(node);
     }
 
     public void inAIsClassExpression(AIsClassExpression node)
@@ -9119,17 +9273,17 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAIsClassExpression(AIsClassExpression node)
     {
         inAIsClassExpression(node);
-        if(node.getLeft() != null)
+        if(node.getOperand1() != null)
         {
-            node.getLeft().apply(this);
+            node.getOperand1().apply(this);
         }
         if(node.getOperator() != null)
         {
             node.getOperator().apply(this);
         }
-        if(node.getRight() != null)
+        if(node.getOperand2() != null)
         {
-            node.getRight().apply(this);
+            node.getOperand2().apply(this);
         }
         outAIsClassExpression(node);
     }
@@ -9251,6 +9405,48 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAParenthesisOperand(node);
     }
 
+    public void inAIsClassOperand(AIsClassOperand node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAIsClassOperand(AIsClassOperand node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAIsClassOperand(AIsClassOperand node)
+    {
+        inAIsClassOperand(node);
+        if(node.getIsClassExpression() != null)
+        {
+            node.getIsClassExpression().apply(this);
+        }
+        outAIsClassOperand(node);
+    }
+
+    public void inAClosureOperand(AClosureOperand node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAClosureOperand(AClosureOperand node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAClosureOperand(AClosureOperand node)
+    {
+        inAClosureOperand(node);
+        if(node.getClosure() != null)
+        {
+            node.getClosure().apply(this);
+        }
+        outAClosureOperand(node);
+    }
+
     public void inAEmptySet(AEmptySet node)
     {
         defaultIn(node);
@@ -9305,382 +9501,235 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outACast(node);
     }
 
-    public void inALogicalBinaryOperatorP1(ALogicalBinaryOperatorP1 node)
+    public void inAMultMultDiv(AMultMultDiv node)
     {
         defaultIn(node);
     }
 
-    public void outALogicalBinaryOperatorP1(ALogicalBinaryOperatorP1 node)
+    public void outAMultMultDiv(AMultMultDiv node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseALogicalBinaryOperatorP1(ALogicalBinaryOperatorP1 node)
+    public void caseAMultMultDiv(AMultMultDiv node)
     {
-        inALogicalBinaryOperatorP1(node);
-        if(node.getLogicalBinaryOperatorP1() != null)
-        {
-            node.getLogicalBinaryOperatorP1().apply(this);
-        }
-        outALogicalBinaryOperatorP1(node);
-    }
-
-    public void inAArithmeticBinaryOperatorP1(AArithmeticBinaryOperatorP1 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAArithmeticBinaryOperatorP1(AArithmeticBinaryOperatorP1 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAArithmeticBinaryOperatorP1(AArithmeticBinaryOperatorP1 node)
-    {
-        inAArithmeticBinaryOperatorP1(node);
-        if(node.getArithmeticBinaryOperatorP1() != null)
-        {
-            node.getArithmeticBinaryOperatorP1().apply(this);
-        }
-        outAArithmeticBinaryOperatorP1(node);
-    }
-
-    public void inALogicalBinaryOperatorP2(ALogicalBinaryOperatorP2 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outALogicalBinaryOperatorP2(ALogicalBinaryOperatorP2 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseALogicalBinaryOperatorP2(ALogicalBinaryOperatorP2 node)
-    {
-        inALogicalBinaryOperatorP2(node);
-        if(node.getLogicalBinaryOperatorP2() != null)
-        {
-            node.getLogicalBinaryOperatorP2().apply(this);
-        }
-        outALogicalBinaryOperatorP2(node);
-    }
-
-    public void inAArithmeticBinaryOperatorP2(AArithmeticBinaryOperatorP2 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAArithmeticBinaryOperatorP2(AArithmeticBinaryOperatorP2 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAArithmeticBinaryOperatorP2(AArithmeticBinaryOperatorP2 node)
-    {
-        inAArithmeticBinaryOperatorP2(node);
-        if(node.getArithmeticBinaryOperatorP2() != null)
-        {
-            node.getArithmeticBinaryOperatorP2().apply(this);
-        }
-        outAArithmeticBinaryOperatorP2(node);
-    }
-
-    public void inAComparisonBinaryOperatorP2(AComparisonBinaryOperatorP2 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAComparisonBinaryOperatorP2(AComparisonBinaryOperatorP2 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAComparisonBinaryOperatorP2(AComparisonBinaryOperatorP2 node)
-    {
-        inAComparisonBinaryOperatorP2(node);
-        if(node.getComparisonBinaryOperatorP2() != null)
-        {
-            node.getComparisonBinaryOperatorP2().apply(this);
-        }
-        outAComparisonBinaryOperatorP2(node);
-    }
-
-    public void inAAndLogicalBinaryOperatorP1(AAndLogicalBinaryOperatorP1 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAAndLogicalBinaryOperatorP1(AAndLogicalBinaryOperatorP1 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAAndLogicalBinaryOperatorP1(AAndLogicalBinaryOperatorP1 node)
-    {
-        inAAndLogicalBinaryOperatorP1(node);
-        if(node.getAnd() != null)
-        {
-            node.getAnd().apply(this);
-        }
-        outAAndLogicalBinaryOperatorP1(node);
-    }
-
-    public void inAOrLogicalBinaryOperatorP2(AOrLogicalBinaryOperatorP2 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAOrLogicalBinaryOperatorP2(AOrLogicalBinaryOperatorP2 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAOrLogicalBinaryOperatorP2(AOrLogicalBinaryOperatorP2 node)
-    {
-        inAOrLogicalBinaryOperatorP2(node);
-        if(node.getOr() != null)
-        {
-            node.getOr().apply(this);
-        }
-        outAOrLogicalBinaryOperatorP2(node);
-    }
-
-    public void inAMultArithmeticBinaryOperatorP1(AMultArithmeticBinaryOperatorP1 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAMultArithmeticBinaryOperatorP1(AMultArithmeticBinaryOperatorP1 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAMultArithmeticBinaryOperatorP1(AMultArithmeticBinaryOperatorP1 node)
-    {
-        inAMultArithmeticBinaryOperatorP1(node);
+        inAMultMultDiv(node);
         if(node.getMult() != null)
         {
             node.getMult().apply(this);
         }
-        outAMultArithmeticBinaryOperatorP1(node);
+        outAMultMultDiv(node);
     }
 
-    public void inADivArithmeticBinaryOperatorP1(ADivArithmeticBinaryOperatorP1 node)
+    public void inADivMultDiv(ADivMultDiv node)
     {
         defaultIn(node);
     }
 
-    public void outADivArithmeticBinaryOperatorP1(ADivArithmeticBinaryOperatorP1 node)
+    public void outADivMultDiv(ADivMultDiv node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseADivArithmeticBinaryOperatorP1(ADivArithmeticBinaryOperatorP1 node)
+    public void caseADivMultDiv(ADivMultDiv node)
     {
-        inADivArithmeticBinaryOperatorP1(node);
+        inADivMultDiv(node);
         if(node.getDiv() != null)
         {
             node.getDiv().apply(this);
         }
-        outADivArithmeticBinaryOperatorP1(node);
+        outADivMultDiv(node);
     }
 
-    public void inAPlusArithmeticBinaryOperatorP2(APlusArithmeticBinaryOperatorP2 node)
+    public void inAPlusAddSub(APlusAddSub node)
     {
         defaultIn(node);
     }
 
-    public void outAPlusArithmeticBinaryOperatorP2(APlusArithmeticBinaryOperatorP2 node)
+    public void outAPlusAddSub(APlusAddSub node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAPlusArithmeticBinaryOperatorP2(APlusArithmeticBinaryOperatorP2 node)
+    public void caseAPlusAddSub(APlusAddSub node)
     {
-        inAPlusArithmeticBinaryOperatorP2(node);
+        inAPlusAddSub(node);
         if(node.getPlus() != null)
         {
             node.getPlus().apply(this);
         }
-        outAPlusArithmeticBinaryOperatorP2(node);
+        outAPlusAddSub(node);
     }
 
-    public void inAMinusArithmeticBinaryOperatorP2(AMinusArithmeticBinaryOperatorP2 node)
+    public void inAMinusAddSub(AMinusAddSub node)
     {
         defaultIn(node);
     }
 
-    public void outAMinusArithmeticBinaryOperatorP2(AMinusArithmeticBinaryOperatorP2 node)
+    public void outAMinusAddSub(AMinusAddSub node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMinusArithmeticBinaryOperatorP2(AMinusArithmeticBinaryOperatorP2 node)
+    public void caseAMinusAddSub(AMinusAddSub node)
     {
-        inAMinusArithmeticBinaryOperatorP2(node);
+        inAMinusAddSub(node);
         if(node.getMinus() != null)
         {
             node.getMinus().apply(this);
         }
-        outAMinusArithmeticBinaryOperatorP2(node);
+        outAMinusAddSub(node);
     }
 
-    public void inAIdentityComparisonBinaryOperatorP2(AIdentityComparisonBinaryOperatorP2 node)
+    public void inAIdentityComparisonOperator(AIdentityComparisonOperator node)
     {
         defaultIn(node);
     }
 
-    public void outAIdentityComparisonBinaryOperatorP2(AIdentityComparisonBinaryOperatorP2 node)
+    public void outAIdentityComparisonOperator(AIdentityComparisonOperator node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAIdentityComparisonBinaryOperatorP2(AIdentityComparisonBinaryOperatorP2 node)
+    public void caseAIdentityComparisonOperator(AIdentityComparisonOperator node)
     {
-        inAIdentityComparisonBinaryOperatorP2(node);
+        inAIdentityComparisonOperator(node);
         if(node.getEqualsEquals() != null)
         {
             node.getEqualsEquals().apply(this);
         }
-        outAIdentityComparisonBinaryOperatorP2(node);
+        outAIdentityComparisonOperator(node);
     }
 
-    public void inAEqualsComparisonBinaryOperatorP2(AEqualsComparisonBinaryOperatorP2 node)
+    public void inAEqualsComparisonOperator(AEqualsComparisonOperator node)
     {
         defaultIn(node);
     }
 
-    public void outAEqualsComparisonBinaryOperatorP2(AEqualsComparisonBinaryOperatorP2 node)
+    public void outAEqualsComparisonOperator(AEqualsComparisonOperator node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAEqualsComparisonBinaryOperatorP2(AEqualsComparisonBinaryOperatorP2 node)
+    public void caseAEqualsComparisonOperator(AEqualsComparisonOperator node)
     {
-        inAEqualsComparisonBinaryOperatorP2(node);
+        inAEqualsComparisonOperator(node);
         if(node.getEquals() != null)
         {
             node.getEquals().apply(this);
         }
-        outAEqualsComparisonBinaryOperatorP2(node);
+        outAEqualsComparisonOperator(node);
     }
 
-    public void inANotEqualsComparisonBinaryOperatorP2(ANotEqualsComparisonBinaryOperatorP2 node)
+    public void inANotEqualsComparisonOperator(ANotEqualsComparisonOperator node)
     {
         defaultIn(node);
     }
 
-    public void outANotEqualsComparisonBinaryOperatorP2(ANotEqualsComparisonBinaryOperatorP2 node)
+    public void outANotEqualsComparisonOperator(ANotEqualsComparisonOperator node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseANotEqualsComparisonBinaryOperatorP2(ANotEqualsComparisonBinaryOperatorP2 node)
+    public void caseANotEqualsComparisonOperator(ANotEqualsComparisonOperator node)
     {
-        inANotEqualsComparisonBinaryOperatorP2(node);
+        inANotEqualsComparisonOperator(node);
         if(node.getNotEquals() != null)
         {
             node.getNotEquals().apply(this);
         }
-        outANotEqualsComparisonBinaryOperatorP2(node);
+        outANotEqualsComparisonOperator(node);
     }
 
-    public void inALowerThanComparisonBinaryOperatorP2(ALowerThanComparisonBinaryOperatorP2 node)
+    public void inALowerThanComparisonOperator(ALowerThanComparisonOperator node)
     {
         defaultIn(node);
     }
 
-    public void outALowerThanComparisonBinaryOperatorP2(ALowerThanComparisonBinaryOperatorP2 node)
+    public void outALowerThanComparisonOperator(ALowerThanComparisonOperator node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseALowerThanComparisonBinaryOperatorP2(ALowerThanComparisonBinaryOperatorP2 node)
+    public void caseALowerThanComparisonOperator(ALowerThanComparisonOperator node)
     {
-        inALowerThanComparisonBinaryOperatorP2(node);
+        inALowerThanComparisonOperator(node);
         if(node.getLab() != null)
         {
             node.getLab().apply(this);
         }
-        outALowerThanComparisonBinaryOperatorP2(node);
+        outALowerThanComparisonOperator(node);
     }
 
-    public void inAGreaterThanComparisonBinaryOperatorP2(AGreaterThanComparisonBinaryOperatorP2 node)
+    public void inAGreaterThanComparisonOperator(AGreaterThanComparisonOperator node)
     {
         defaultIn(node);
     }
 
-    public void outAGreaterThanComparisonBinaryOperatorP2(AGreaterThanComparisonBinaryOperatorP2 node)
+    public void outAGreaterThanComparisonOperator(AGreaterThanComparisonOperator node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAGreaterThanComparisonBinaryOperatorP2(AGreaterThanComparisonBinaryOperatorP2 node)
+    public void caseAGreaterThanComparisonOperator(AGreaterThanComparisonOperator node)
     {
-        inAGreaterThanComparisonBinaryOperatorP2(node);
+        inAGreaterThanComparisonOperator(node);
         if(node.getRab() != null)
         {
             node.getRab().apply(this);
         }
-        outAGreaterThanComparisonBinaryOperatorP2(node);
+        outAGreaterThanComparisonOperator(node);
     }
 
-    public void inAGreaterOrEqualsComparisonBinaryOperatorP2(AGreaterOrEqualsComparisonBinaryOperatorP2 node)
+    public void inAGreaterOrEqualsComparisonOperator(AGreaterOrEqualsComparisonOperator node)
     {
         defaultIn(node);
     }
 
-    public void outAGreaterOrEqualsComparisonBinaryOperatorP2(AGreaterOrEqualsComparisonBinaryOperatorP2 node)
+    public void outAGreaterOrEqualsComparisonOperator(AGreaterOrEqualsComparisonOperator node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAGreaterOrEqualsComparisonBinaryOperatorP2(AGreaterOrEqualsComparisonBinaryOperatorP2 node)
+    public void caseAGreaterOrEqualsComparisonOperator(AGreaterOrEqualsComparisonOperator node)
     {
-        inAGreaterOrEqualsComparisonBinaryOperatorP2(node);
+        inAGreaterOrEqualsComparisonOperator(node);
         if(node.getRabEquals() != null)
         {
             node.getRabEquals().apply(this);
         }
-        outAGreaterOrEqualsComparisonBinaryOperatorP2(node);
+        outAGreaterOrEqualsComparisonOperator(node);
     }
 
-    public void inALowerOrEqualsComparisonBinaryOperatorP2(ALowerOrEqualsComparisonBinaryOperatorP2 node)
+    public void inALowerOrEqualsComparisonOperator(ALowerOrEqualsComparisonOperator node)
     {
         defaultIn(node);
     }
 
-    public void outALowerOrEqualsComparisonBinaryOperatorP2(ALowerOrEqualsComparisonBinaryOperatorP2 node)
+    public void outALowerOrEqualsComparisonOperator(ALowerOrEqualsComparisonOperator node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseALowerOrEqualsComparisonBinaryOperatorP2(ALowerOrEqualsComparisonBinaryOperatorP2 node)
+    public void caseALowerOrEqualsComparisonOperator(ALowerOrEqualsComparisonOperator node)
     {
-        inALowerOrEqualsComparisonBinaryOperatorP2(node);
+        inALowerOrEqualsComparisonOperator(node);
         if(node.getLabEquals() != null)
         {
             node.getLabEquals().apply(this);
         }
-        outALowerOrEqualsComparisonBinaryOperatorP2(node);
+        outALowerOrEqualsComparisonOperator(node);
     }
 
     public void inANotUnaryOperator(ANotUnaryOperator node)
@@ -9828,31 +9877,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getNull().apply(this);
         }
         outANullLiteral(node);
-    }
-
-    public void inASymbolLiteral(ASymbolLiteral node)
-    {
-        defaultIn(node);
-    }
-
-    public void outASymbolLiteral(ASymbolLiteral node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseASymbolLiteral(ASymbolLiteral node)
-    {
-        inASymbolLiteral(node);
-        if(node.getHash() != null)
-        {
-            node.getHash().apply(this);
-        }
-        if(node.getIdentifier() != null)
-        {
-            node.getIdentifier().apply(this);
-        }
-        outASymbolLiteral(node);
     }
 
     public void inATupleConstructor(ATupleConstructor node)

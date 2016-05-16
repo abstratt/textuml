@@ -1829,42 +1829,72 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAP1Expression(AP1Expression node)
+    public void caseAExpression(AExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAP2Expression(AP2Expression node)
+    public void caseAAlt0ExpressionP0(AAlt0ExpressionP0 node)
     {
         defaultCase(node);
     }
 
-    public void caseABinaryExpressionP2(ABinaryExpressionP2 node)
+    public void caseAAlt0ExpressionP1(AAlt0ExpressionP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAUnaryExpressionP1(AUnaryExpressionP1 node)
+    public void caseAAlt1ExpressionP1(AAlt1ExpressionP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseABinaryExpressionP1(ABinaryExpressionP1 node)
+    public void caseAAlt2ExpressionP1(AAlt2ExpressionP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAOperandExpressionP1(AOperandExpressionP1 node)
+    public void caseAAlt0ExpressionP2(AAlt0ExpressionP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAClosureExpressionP1(AClosureExpressionP1 node)
+    public void caseAAlt1ExpressionP2(AAlt1ExpressionP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAIsClassExpressionP1(AIsClassExpressionP1 node)
+    public void caseAAlt0ExpressionP3(AAlt0ExpressionP3 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAlt1ExpressionP3(AAlt1ExpressionP3 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAlt0ExpressionP4(AAlt0ExpressionP4 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAlt1ExpressionP4(AAlt1ExpressionP4 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAlt2ExpressionP4(AAlt2ExpressionP4 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAlt0ExpressionP5(AAlt0ExpressionP5 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAAlt1ExpressionP5(AAlt1ExpressionP5 node)
     {
         defaultCase(node);
     }
@@ -1899,6 +1929,16 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAIsClassOperand(AIsClassOperand node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAClosureOperand(AClosureOperand node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAEmptySet(AEmptySet node)
     {
         defaultCase(node);
@@ -1909,92 +1949,57 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseALogicalBinaryOperatorP1(ALogicalBinaryOperatorP1 node)
+    public void caseAMultMultDiv(AMultMultDiv node)
     {
         defaultCase(node);
     }
 
-    public void caseAArithmeticBinaryOperatorP1(AArithmeticBinaryOperatorP1 node)
+    public void caseADivMultDiv(ADivMultDiv node)
     {
         defaultCase(node);
     }
 
-    public void caseALogicalBinaryOperatorP2(ALogicalBinaryOperatorP2 node)
+    public void caseAPlusAddSub(APlusAddSub node)
     {
         defaultCase(node);
     }
 
-    public void caseAArithmeticBinaryOperatorP2(AArithmeticBinaryOperatorP2 node)
+    public void caseAMinusAddSub(AMinusAddSub node)
     {
         defaultCase(node);
     }
 
-    public void caseAComparisonBinaryOperatorP2(AComparisonBinaryOperatorP2 node)
+    public void caseAIdentityComparisonOperator(AIdentityComparisonOperator node)
     {
         defaultCase(node);
     }
 
-    public void caseAAndLogicalBinaryOperatorP1(AAndLogicalBinaryOperatorP1 node)
+    public void caseAEqualsComparisonOperator(AEqualsComparisonOperator node)
     {
         defaultCase(node);
     }
 
-    public void caseAOrLogicalBinaryOperatorP2(AOrLogicalBinaryOperatorP2 node)
+    public void caseANotEqualsComparisonOperator(ANotEqualsComparisonOperator node)
     {
         defaultCase(node);
     }
 
-    public void caseAMultArithmeticBinaryOperatorP1(AMultArithmeticBinaryOperatorP1 node)
+    public void caseALowerThanComparisonOperator(ALowerThanComparisonOperator node)
     {
         defaultCase(node);
     }
 
-    public void caseADivArithmeticBinaryOperatorP1(ADivArithmeticBinaryOperatorP1 node)
+    public void caseAGreaterThanComparisonOperator(AGreaterThanComparisonOperator node)
     {
         defaultCase(node);
     }
 
-    public void caseAPlusArithmeticBinaryOperatorP2(APlusArithmeticBinaryOperatorP2 node)
+    public void caseAGreaterOrEqualsComparisonOperator(AGreaterOrEqualsComparisonOperator node)
     {
         defaultCase(node);
     }
 
-    public void caseAMinusArithmeticBinaryOperatorP2(AMinusArithmeticBinaryOperatorP2 node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAIdentityComparisonBinaryOperatorP2(AIdentityComparisonBinaryOperatorP2 node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAEqualsComparisonBinaryOperatorP2(AEqualsComparisonBinaryOperatorP2 node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseANotEqualsComparisonBinaryOperatorP2(ANotEqualsComparisonBinaryOperatorP2 node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseALowerThanComparisonBinaryOperatorP2(ALowerThanComparisonBinaryOperatorP2 node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAGreaterThanComparisonBinaryOperatorP2(AGreaterThanComparisonBinaryOperatorP2 node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAGreaterOrEqualsComparisonBinaryOperatorP2(AGreaterOrEqualsComparisonBinaryOperatorP2 node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseALowerOrEqualsComparisonBinaryOperatorP2(ALowerOrEqualsComparisonBinaryOperatorP2 node)
+    public void caseALowerOrEqualsComparisonOperator(ALowerOrEqualsComparisonOperator node)
     {
         defaultCase(node);
     }
@@ -2030,11 +2035,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseANullLiteral(ANullLiteral node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseASymbolLiteral(ASymbolLiteral node)
     {
         defaultCase(node);
     }
