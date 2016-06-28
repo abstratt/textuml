@@ -137,6 +137,8 @@ end;
 class Email specializes String
 end;
 
+class Blob specializes Primitive
+end;
 
 class Violation
 end;

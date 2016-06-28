@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MDD TextUML Core
 Bundle-SymbolicName: com.abstratt.mdd.frontend.textuml.core;singleton:=true
-Bundle-Version: 2.1.201501.qualifier
+Bundle-Version: 2.2.201606.qualifier
 Require-Bundle: org.eclipse.core.contenttype,
  com.abstratt.mdd.core,
  com.abstratt.mdd.frontend.core,

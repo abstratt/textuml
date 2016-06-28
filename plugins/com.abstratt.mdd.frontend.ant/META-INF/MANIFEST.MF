@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ant Tasks
 Bundle-SymbolicName: com.abstratt.mdd.frontend.ant;singleton:=true
-Bundle-Version: 2.1.201501.qualifier
+Bundle-Version: 2.2.201606.qualifier
 Bundle-Vendor: TextUML Toolkit contributors
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.ant.core;bundle-version="3.2.0",

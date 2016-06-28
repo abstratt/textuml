@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt</groupId>
 	<artifactId>com.abstratt.standalone</artifactId>
-	<version>2.1.201501-SNAPSHOT</version>
+	<version>2.2.201606-SNAPSHOT</version>
 
 	<properties>
 		<maven.compiler.source>1.6</maven.compiler.source>

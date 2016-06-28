@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature id="com.abstratt.mdd.frontend.core.feature.source" version="2.1.201501.qualifier"/>   
-   <feature id="com.abstratt.mdd.frontend.ui.feature.source" version="2.1.201501.qualifier"/>
-   <feature id="com.abstratt.mdd.frontend.ui.diagram.feature.source" version="2.1.201501.qualifier"/>   
-   <feature id="com.abstratt.mdd.tests.feature.source" version="2.1.201501.qualifier"/>   
+   <feature id="com.abstratt.mdd.frontend.core.feature.source" version="2.2.201606.qualifier"/>   
+   <feature id="com.abstratt.mdd.frontend.ui.feature.source" version="2.2.201606.qualifier"/>
+   <feature id="com.abstratt.mdd.frontend.ui.diagram.feature.source" version="2.2.201606.qualifier"/>   
+   <feature id="com.abstratt.mdd.tests.feature.source" version="2.2.201606.qualifier"/>   
 </site>
