@@ -464,8 +464,11 @@ public class MDDExtensionUtils {
 		class_.createGeneralization(userClass);
 	}
 
-	public static boolean isRoleClass(Classifier toCheck) {
+	public static boolean isRoleClass(Type toCheck) {
 		return StereotypeUtils.hasStereotype(toCheck, ROLE_CLASS_STEREOTYPE);
 	}
 
+	public static boolean isSystemUserClass(Type toCheck) {
+		return toCheck.getQualifiedName().equals(SYSTEM_USER_CLASS);
+	}
 }

@@ -14,6 +14,10 @@ import org.eclipse.uml2.uml.Classifier;
 import static com.abstratt.mdd.core.util.MDDExtensionUtils.*;
 
 public class AccessControlUtils {
+	
+	public static boolean hasAnyAccessConstraints(List<NamedElement> scopes) {
+		return !scopes.stream().allMatch(it -> findAccessConstraints(it).isEmpty());
+	}
 	/**
 	 * Finds the first access constraint in the given scopes that match the required capability and/or role class.
 	 *    
