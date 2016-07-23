@@ -51,6 +51,7 @@
     <module>com.abstratt.mdd.frontend.core.feature</module>
     <module>com.abstratt.mdd.frontend.ui.feature</module>
     <module>com.abstratt.mdd.frontend.ui.diagram.feature</module>
+    <module>com.abstratt.mdd.importer.jdbc.feature</module>
     <module>com.abstratt.mdd.frontend.toolkit.feature</module>
     <module>com.abstratt.mdd.tests.feature</module>
 </modules>

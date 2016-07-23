@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -538,7 +540,15 @@ public class MDDUtil {
     }
 
     public static Properties loadRepositoryProperties(URI baseRepositoryURI) {
-        URI propertiesURI = baseRepositoryURI.appendSegment(IRepository.MDD_PROPERTIES);
+        Properties allProperties = loadRepositoryProperties(baseRepositoryURI, null);
+        String[] features = StringUtils.split(allProperties.getProperty("mdd.features", ""));
+        Arrays.stream(features).forEach(it -> allProperties.putAll(loadRepositoryProperties(baseRepositoryURI, it)));
+        return allProperties;
+    }
+    
+	private static Properties loadRepositoryProperties(URI baseRepositoryURI, String feature) {
+		String prefix = feature == null ? "" : (feature + ".");
+        URI propertiesURI = baseRepositoryURI.appendSegment(prefix + IRepository.MDD_PROPERTIES);
         URL asURL;
         try {
             asURL = new URL(propertiesURI.toString());
