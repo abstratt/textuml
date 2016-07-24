@@ -45,4 +45,12 @@
          version="0.0.0"
          optional="true"/>         
 
+
+   <requires>
+      <import feature="com.abstratt.mdd.frontend.core.feature" version="2.2.201606.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.ui.feature" version="2.2.201606.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.ui.diagram.feature" version="2.2.201606.qualifier"/>
+      <import feature="com.abstratt.mdd.importer.jdbc.feature" version="2.2.201606.qualifier"/>
+   </requires>
+
 </feature>

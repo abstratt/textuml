@@ -8,7 +8,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.emf.ecore,
  com.abstratt.pluginutils,
  com.abstratt.wrapped.schemacrawler,
- com.thoughtworks.xstream,
  org.eclipse.xtext.xbase.lib;bundle-version="2.7.0"
 Export-Package: com.abstratt.mdd.importer.jdbc
 Import-Package: com.abstratt.mdd.core,

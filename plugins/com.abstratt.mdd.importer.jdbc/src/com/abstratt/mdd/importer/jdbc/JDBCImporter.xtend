@@ -30,9 +30,6 @@ import schemacrawler.tools.integration.serialization.XmlSerializedCatalog
 import schemacrawler.utility.SchemaCrawlerUtility
 import java.nio.file.Files
 import java.io.Reader
-import com.thoughtworks.xstream.XStream
-import com.thoughtworks.xstream.converters.SingleValueConverterWrapper
-import com.thoughtworks.xstream.converters.SingleValueConverter
 
 class JDBCImporter {
 
