@@ -29,6 +29,10 @@ import schemacrawler.schemacrawler.SchemaInfoLevelBuilder
 import schemacrawler.tools.integration.serialization.XmlSerializedCatalog
 import schemacrawler.utility.SchemaCrawlerUtility
 import java.nio.file.Files
+import java.io.Reader
+import com.thoughtworks.xstream.XStream
+import com.thoughtworks.xstream.converters.SingleValueConverterWrapper
+import com.thoughtworks.xstream.converters.SingleValueConverter
 
 class JDBCImporter {
 
@@ -92,17 +96,29 @@ class JDBCImporter {
 		]
 	}
 	
+	def Map<String, CharSequence> importModelFromSnapshot(Reader snapshotContents) {
+		val options = new SchemaCrawlerOptions
+		options.schemaInfoLevel = SchemaInfoLevelBuilder.standard()
+		
+		val previousClassloader = Thread.currentThread.contextClassLoader
+		Thread.currentThread.contextClassLoader = class.classLoader
+		var XmlSerializedCatalog catalog
+		try {
+			catalog = new XmlSerializedCatalog(snapshotContents)
+		} finally {
+    		Thread.currentThread.contextClassLoader = previousClassloader
+		}
+	    return importModel(catalog)
+    }
+	
 	def Map<String, CharSequence> importModelFromSnapshot(File snapshotFile) {
 		val asJarURL = URI.create("jar:" + snapshotFile.toURI)
 		val zipContents = FileSystems.newFileSystem(asJarURL, Collections.emptyMap)
 		try {
 			val entry = zipContents.getPath("schemacrawler.data")
-			val options = new SchemaCrawlerOptions
-			options.schemaInfoLevel = SchemaInfoLevelBuilder.standard()
 			val fileContents = Files.newBufferedReader(entry)
 			try {
-				val catalog = new XmlSerializedCatalog(fileContents)
-			    return importModel(catalog)	
+				return importModelFromSnapshot(fileContents)	
 		    } finally {
 		    	fileContents.close()
 		    }
