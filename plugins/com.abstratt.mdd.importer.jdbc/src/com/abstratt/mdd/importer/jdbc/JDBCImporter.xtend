@@ -6,10 +6,10 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
+import java.io.Reader
 import java.net.URI
-import java.nio.file.FileSystem
 import java.nio.file.FileSystems
-import java.nio.file.Paths
+import java.nio.file.Files
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.Collection
@@ -28,22 +28,24 @@ import schemacrawler.schemacrawler.SchemaCrawlerOptions
 import schemacrawler.schemacrawler.SchemaInfoLevelBuilder
 import schemacrawler.tools.integration.serialization.XmlSerializedCatalog
 import schemacrawler.utility.SchemaCrawlerUtility
-import java.nio.file.Files
-import java.io.Reader
+
+import static extension org.apache.commons.lang.StringUtils.*
 
 class JDBCImporter {
 
 	Map<String, String> specialColumns
 	Map<String, String> constantColumns
 	Map<String, String> tableRenames
+	String selectedSchemaName
 	List<String> fragments
 
 	new(Properties properties) {
 		this.specialColumns = filterProperties(properties, 'mdd.importer.jdbc.specialColumns.')
 		this.constantColumns = filterProperties(properties, 'mdd.importer.jdbc.constantColumns.')
 		this.tableRenames = filterProperties(properties, 'mdd.importer.jdbc.table.rename.')
-		this.fragments = properties.getOrDefault("mdd.importer.jdbc.table.fixcase.fragments", "").toString().split(',').map[trim].
+		this.fragments = properties.getOrDefault("mdd.importer.jdbc.table.fixcase.fragments", "").toString().split(',').filter[!blank].map[trim].
 			toList
+		this.selectedSchemaName = properties.get("mdd.importer.jdbc.schema") as String
 		println(this.constantColumns.keySet.join('\n'))
 	}
 
@@ -75,8 +77,8 @@ class JDBCImporter {
 		val options = new SchemaCrawlerOptions
 		options.schemaInfoLevel = SchemaInfoLevelBuilder.standard()
 		val catalog = SchemaCrawlerUtility.getCatalog(connection, options)
-		catalog.schemas.forEach [ schema |
-			println(schema)
+		val schemas = catalog.schemas.filter[selectedSchemaName == null || selectedSchemaName == it.name] 
+		schemas.forEach [ schema |
 			catalog.getTables(schema).forEach [ table |
 				println("o--> " + table)
 				println("pk--> " + table.primaryKey)
@@ -126,19 +128,26 @@ class JDBCImporter {
 
 	def Map<String, CharSequence> importModel(Catalog catalog) {
 		val generated = newLinkedHashMap()
-		catalog.schemas.forEach [ schema |
+		val schemas = catalog.schemas.filter[selectedSchemaName == null || selectedSchemaName == it.name] 
+		schemas.forEach [ schema |
 			val tables = catalog.getTables(schema)
 			if (!tables.empty)
-				generated.put(schema.name, generatePackage(catalog, schema, tables))
+				generated.put(toPackageName(schema.name), generatePackage(catalog, schema, tables))
 		]
 		return generated
+	}
+	
+	def String toPackageName(String schemaName) {
+		fromSchemaToModel(schemaName).toLowerCase
 	}
 
 	def CharSequence generatePackage(Catalog catalog, Schema schema, Collection<Table> tables) {
 		val classTables = tables.filter[it.columns.exists[!it.partOfForeignKey]]
 		val associationTables = tables.filter[!it.columns.exists[!it.partOfForeignKey]]
 		'''
-			package «schema.fullName»;
+			package «schema.name.toPackageName»;
+			
+			import mdd_types;
 			
 			«classTables.map[table | generateClass(catalog, schema, table)].join()»
 			«associationTables.map[table | generateAssociation(catalog, schema, table)].join()»
@@ -179,19 +188,25 @@ class JDBCImporter {
 	}
 
 	def CharSequence toClassName(Table table) {
-		val tableName = (tableRenames.get(table.name) ?: table.name)
+		return toClassName(table.name)
+	}
+	
+	def CharSequence toClassName(String originalTableName) {
+		val tableName = (tableRenames.get(originalTableName) ?: originalTableName)
 		val className = fromSchemaToModel(tableName)
 		if (TextUMLConstants.KEYWORDS.contains(className))
 			return ('\\' + className)
 		return className
 	}
 
-	def fromSchemaToModel(String schemaName) {
+	def fromSchemaToModel(String originalSchemaName) {
+		val schemaName = originalSchemaName.toLowerCase.replaceAll(" ", "_").removeStart("\"").removeEnd("\"")
 		val modelNameBuffer = new StringBuffer()
-		while (modelNameBuffer.length < schemaName.length && fragments.exists [
+		while (modelNameBuffer.length < schemaName.length && !fragments.empty && fragments.exists [ 
 			schemaName.startsWith(it, modelNameBuffer.length)
-		])
-		modelNameBuffer.append(fragments.findFirst[schemaName.startsWith(it, modelNameBuffer.length)].toFirstUpper)
+		]) {
+			modelNameBuffer.append(fragments.findFirst[schemaName.startsWith(it, modelNameBuffer.length)].toFirstUpper)
+		}
 		val modelName = modelNameBuffer +
 			schemaName.substring(modelNameBuffer.length).split('_').map[toFirstUpper].join()
 		return modelName
@@ -269,7 +284,7 @@ class JDBCImporter {
 			modifiers.add("private")
 		if (column.constantColumn)
 			modifiers.add("readonly")
-		if (column.partOfUniqueIndex)
+		if (column.partOfUniqueIndex && !column.nullable)
 			modifiers.add("id")
 		return modifiers
 	}

@@ -23,7 +23,7 @@ public interface TextUMLConstants {
     String[] KEYWORDS = new String[] { "abstract", "aggregation", "alias", "and", "any", "apply", "association", "as",
             "attribute", "begin", "broadcast", "by", "call", "catch", "class", "create", "composition", "constant",
             "datatype", "delete", "dependency", "derived", "destroy", "do", "else", "elseif", "end", "enumeration",
-            "entry", "exit", "extends", "extent", "false", "finally", "function", "if", "implements", "import", "in",
+            "entry", "exit", "extends", "extent", "false", "finally", "function", "id", "if", "implements", "import", "in",
             "initial", "inout", "interface", "invariant", "link", "load", "model", "navigable", "new", "nonunique",
             "not", "null", "on", "operation", "or", "ordered", "out", "package", "port", "postcondition",
             "precondition", "primitive", "private", "profile", "property", "protected", "provided", "public", "raise",
