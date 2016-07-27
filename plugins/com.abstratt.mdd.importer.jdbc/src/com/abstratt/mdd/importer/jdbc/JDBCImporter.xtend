@@ -7,16 +7,18 @@ import java.io.FileInputStream
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.io.Reader
+import java.io.StringWriter
 import java.net.URI
 import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.sql.Connection
 import java.sql.DriverManager
-import java.util.Collection
 import java.util.Collections
 import java.util.List
 import java.util.Map
 import java.util.Properties
+import java.util.Set
+import java.util.regex.Pattern
 import org.apache.commons.io.FileUtils
 import schemacrawler.schema.Catalog
 import schemacrawler.schema.Column
@@ -30,23 +32,33 @@ import schemacrawler.tools.integration.serialization.XmlSerializedCatalog
 import schemacrawler.utility.SchemaCrawlerUtility
 
 import static extension org.apache.commons.lang.StringUtils.*
+import java.nio.charset.StandardCharsets
 
 class JDBCImporter {
 
 	Map<String, String> specialColumns
 	Map<String, String> constantColumns
 	Map<String, String> tableRenames
+	Map<String, String> schemaRenames
 	String selectedSchemaName
+	String selectedCatalogName
 	List<String> fragments
+	List<Pattern> inclusionPatterns
+	List<Pattern> exclusionPatterns
+	
+	Properties jpaProperties
 
 	new(Properties properties) {
 		this.specialColumns = filterProperties(properties, 'mdd.importer.jdbc.specialColumns.')
 		this.constantColumns = filterProperties(properties, 'mdd.importer.jdbc.constantColumns.')
 		this.tableRenames = filterProperties(properties, 'mdd.importer.jdbc.table.rename.')
+		this.schemaRenames = filterProperties(properties, 'mdd.importer.jdbc.schema.rename.')
 		this.fragments = properties.getOrDefault("mdd.importer.jdbc.table.fixcase.fragments", "").toString().split(',').filter[!blank].map[trim].
 			toList
 		this.selectedSchemaName = properties.get("mdd.importer.jdbc.schema") as String
-		println(this.constantColumns.keySet.join('\n'))
+		this.selectedCatalogName = properties.get("mdd.importer.jdbc.catalog") as String
+		this.inclusionPatterns = (properties.getOrDefault("mdd.importer.jdbc.table.filter.inclusion", "") as String).split(",").filter[!empty].map[Pattern.compile(it)].toList
+		this.exclusionPatterns = (properties.getOrDefault("mdd.importer.jdbc.table.filter.exclusion", "") as String).split(",").map[Pattern.compile(it)].toList
 	}
 
 	private def Map<String, String> filterProperties(Properties properties, String prefix) {
@@ -77,22 +89,7 @@ class JDBCImporter {
 		val options = new SchemaCrawlerOptions
 		options.schemaInfoLevel = SchemaInfoLevelBuilder.standard()
 		val catalog = SchemaCrawlerUtility.getCatalog(connection, options)
-		val schemas = catalog.schemas.filter[selectedSchemaName == null || selectedSchemaName == it.name] 
-		schemas.forEach [ schema |
-			catalog.getTables(schema).forEach [ table |
-				println("o--> " + table)
-				println("pk--> " + table.primaryKey)
-				println("fk--> " + table.foreignKeys.map [
-					it.columnReferences.map[it.foreignKeyColumn + "=>" + it.primaryKeyColumn].join(", ")
-				])
-				table.columns.forEach [ column |
-					println("column: " + column)
-					if (column.isPartOfForeignKey) {
-					}
-
-				]
-			]
-		]
+		importModel(catalog)
 	}
 	
 	def Map<String, CharSequence> importModelFromSnapshot(Reader snapshotContents) {
@@ -128,48 +125,77 @@ class JDBCImporter {
 
 	def Map<String, CharSequence> importModel(Catalog catalog) {
 		val generated = newLinkedHashMap()
-		val schemas = catalog.schemas.filter[selectedSchemaName == null || selectedSchemaName == it.name] 
+		
+		jpaProperties = new Properties()
+		
+		jpaProperties.put("mdd.generator.jpa.preserveSchema", "true")
+		jpaProperties.put("mdd.generator.jpa.preserveData", "true")
+		
+		val schemas = catalog.schemas.filter[
+			(selectedSchemaName == null || selectedSchemaName == it.name)
+			&&
+			(selectedCatalogName == null || selectedCatalogName == it.catalogName)
+		] 
 		schemas.forEach [ schema |
-			val tables = catalog.getTables(schema)
+			val tables = catalog.getTables(schema).filter[table | table.name.tableIncluded].toMap[name]
+			
 			if (!tables.empty)
-				generated.put(toPackageName(schema.name), generatePackage(catalog, schema, tables))
+				generated.put(toPackageName(schema.name) + ".tuml", generatePackage(catalog, schema, tables))
 		]
+		generated.put('generator-jpa.mdd.properties', generateProperties(jpaProperties, "Generated from a reverse engineered database"))
 		return generated
 	}
 	
-	def String toPackageName(String schemaName) {
+	def CharSequence generateProperties(Properties properties, String description) {
+		val writer = new StringWriter()
+		properties.store(writer, description)
+		return writer.toString
+	}
+	
+	def String toPackageName(String originalSchemaName) {
+		val schemaName = (schemaRenames.get(originalSchemaName) ?: originalSchemaName)
 		fromSchemaToModel(schemaName).toLowerCase
 	}
 
-	def CharSequence generatePackage(Catalog catalog, Schema schema, Collection<Table> tables) {
-		val classTables = tables.filter[it.columns.exists[!it.partOfForeignKey]]
-		val associationTables = tables.filter[!it.columns.exists[!it.partOfForeignKey]]
+	def CharSequence generatePackage(Catalog catalog, Schema schema, Map<String, Table> tables) {
+		val packageName = schema.name.toPackageName
+		jpaProperties.put("mdd.generator.jpa.mapping." + packageName, schema.name)
+		
+		val classTables = tables.values.filter[it.importedForeignKeys.empty || it.importedForeignKeys.size < it.columns.size]
+		val associationTables = tables.values.filter[!it.importedForeignKeys.empty && it.importedForeignKeys.size == it.columns.size]
 		'''
-			package «schema.name.toPackageName»;
+		    /* Generated from a reverse engineered database */
+			package «packageName»;
 			
 			import mdd_types;
 			
-			«classTables.map[table | generateClass(catalog, schema, table)].join()»
-			«associationTables.map[table | generateAssociation(catalog, schema, table)].join()»
+			«classTables.map[table | generateClass(catalog, schema, table, tables.keySet)].join()»
+			«associationTables.map[table | generateAssociation(catalog, schema, table, tables.keySet)].join()»
 			
 			end.
 		'''
 	}
 
-	def CharSequence generateClass(Catalog catalog, Schema schema, Table table) {
-		val ordinaryColumns = table.columns.filter[!partOfForeignKey && !partOfPrimaryKey]
-		val foreignKeys = table.foreignKeys.filter[it.columnReferences.exists[it.foreignKeyColumn.parent == table]]
+	def CharSequence generateClass(Catalog catalog, Schema schema, Table table, Set<String> tableNames) {
+		val className = table.name.toClassName()
+		val packageName = schema.name.toPackageName
+		jpaProperties.put("mdd.generator.jpa.mapping." + packageName + "." + className, table.name)
+		
+		val foreignKeys = table.importedForeignKeys.filter[tableNames.contains(columnReferences.head.foreignKeyColumn.referencedColumn.parent.name)].toMap[columnReferences.head.foreignKeyColumn.toReferenceName]
+		val foreignKeyColumns = foreignKeys.values.map[it.columnReferences.map[foreignKeyColumn]].flatten.toMap[name]
+		val nonPkColumns = table.columns.filter[!partOfPrimaryKey]
+		val ordinaryColumns = nonPkColumns.filter[!foreignKeyColumns.containsKey(it.name)].toMap[name]
 
 		'''
-			class «table.toClassName()»
-				«ordinaryColumns.map[column | generateAttribute(catalog, schema, table, column)].join()»
-				«foreignKeys.map[fk | generateReference(catalog, schema, table, fk)].join()»
+			class «className»
+				«ordinaryColumns.values.map[column | generateAttribute(catalog, schema, table, column)].join()»
+				«foreignKeys.values.map[fk | generateReference(catalog, schema, table, fk)].join()»
 			end;
 		'''
 	}
 
-	def CharSequence generateAssociation(Catalog catalog, Schema schema, Table table) {
-		val foreignKeys = table.foreignKeys.filter[it.columnReferences.exists[it.foreignKeyColumn.parent == table]]
+	def CharSequence generateAssociation(Catalog catalog, Schema schema, Table table, Set<String> tableNames) {
+		val foreignKeys = table.importedForeignKeys
 
 		'''
 			association «table.toClassName()»
@@ -200,7 +226,7 @@ class JDBCImporter {
 	}
 
 	def fromSchemaToModel(String originalSchemaName) {
-		val schemaName = originalSchemaName.toLowerCase.replaceAll(" ", "_").removeStart("\"").removeEnd("\"")
+		val schemaName = originalSchemaName.toLowerCase.replaceAll("[\\s-]", "_").removeStart("\"").removeEnd("\"")
 		val modelNameBuffer = new StringBuffer()
 		while (modelNameBuffer.length < schemaName.length && !fragments.empty && fragments.exists [ 
 			schemaName.startsWith(it, modelNameBuffer.length)
@@ -225,18 +251,26 @@ class JDBCImporter {
 	}
 
 	def CharSequence toAttributeName(Column column) {
-		val attributeName = fromSchemaToModel(column.name).toLowerCase
-		if (TextUMLConstants.KEYWORDS.contains(attributeName))
+	    return column.name.toAttributeName	
+	}
+	def CharSequence toAttributeName(String columnName) {
+		val attributeName = fromSchemaToModel(columnName).toFirstLower
+		if (TextUMLConstants.KEYWORDS.contains(attributeName.toLowerCase))
 			return ('\\' + attributeName)
 		return attributeName
 	}
 
 	def CharSequence generateAttribute(Catalog catalog, Schema schema, Table table, Column column) {
+		val className = table.name.toClassName
+		val packageName = schema.name.toPackageName
+		val attributeName = column.name.toAttributeName
+		jpaProperties.put("mdd.generator.jpa.mapping." + packageName + "." + className + "." + attributeName, column.name)
+		
 		val modifiers = getAttributeModifiers(column).map['''«it» '''].
 			join()
 		// «column.name» «column.columnDataType» («column.columnDataType.javaSqlType.javaSqlTypeGroup»)
 		'''
-			«modifiers»attribute «column.toAttributeName» : «generateAttributeType(column.columnDataType)»«column.generateMultiplicity»«column.generateDefaultValue»;
+			«modifiers»attribute «attributeName» : «generateAttributeType(column.columnDataType)»«column.generateMultiplicity»«column.generateDefaultValue»;
 		'''
 	}
 
@@ -257,9 +291,13 @@ class JDBCImporter {
 	def CharSequence generateReference(Catalog catalog, Schema schema, Table table, ForeignKey fk) {
 		val columnReference = fk.columnReferences.
 			head
-		// «fk.columnReferences.join('\\n')»
+		val referenceName = columnReference.foreignKeyColumn.toReferenceName
+		val className = table.name.toClassName
+		val packageName = schema.name.toPackageName
+		jpaProperties.put("mdd.generator.jpa.mapping." + packageName + "." + className + "." + referenceName, columnReference.foreignKeyColumn.name)
+		
 		'''
-			reference «columnReference.foreignKeyColumn.toReferenceName» : «columnReference.primaryKeyColumn.parent.toClassName»«columnReference.foreignKeyColumn.generateMultiplicity»;
+			reference «referenceName» : «columnReference.primaryKeyColumn.parent.toClassName»«columnReference.foreignKeyColumn.generateMultiplicity»;
 		'''
 	}
 
@@ -367,4 +405,13 @@ class JDBCImporter {
 			println(p2)
 		]
 	}
+	
+	def boolean isTableIncluded(String tableName) {
+		if (inclusionPatterns.exists[matcher(tableName).matches])
+			return true
+		if (exclusionPatterns.exists[matcher(tableName).matches])
+			return false
+		return inclusionPatterns.empty
+	}
+	
 }
