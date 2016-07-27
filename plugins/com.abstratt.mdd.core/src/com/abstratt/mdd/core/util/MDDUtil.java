@@ -542,10 +542,19 @@ public class MDDUtil {
     public static Properties loadRepositoryProperties(URI baseRepositoryURI) {
         Properties allProperties = loadRepositoryProperties(baseRepositoryURI, null);
         String[] features = StringUtils.split(allProperties.getProperty("mdd.features", ""));
-        Arrays.stream(features).forEach(it -> allProperties.putAll(loadRepositoryProperties(baseRepositoryURI, it)));
+        Arrays.stream(features)
+        	.filter(it -> !isFeatureLoaded(allProperties, it))
+        	.forEach(it -> allProperties.putAll(loadRepositoryProperties(baseRepositoryURI, it)));
         return allProperties;
     }
     
+	private static boolean isFeatureLoaded(Properties allProperties, String it) {
+		return Boolean.parseBoolean(allProperties.getProperty("mdd.features." + it + ".loaded", Boolean.FALSE.toString()));
+	}
+
+	private static void markFeatureLoaded(Properties properties, String feature) {
+		properties.setProperty("mdd.features." + feature + ".loaded", Boolean.TRUE.toString());
+	}
 	private static Properties loadRepositoryProperties(URI baseRepositoryURI, String feature) {
 		String prefix = feature == null ? "" : (feature + ".");
         URI propertiesURI = baseRepositoryURI.appendSegment(prefix + IRepository.MDD_PROPERTIES);
@@ -563,6 +572,8 @@ public class MDDUtil {
             contents = new BufferedInputStream(asURL.openStream());
             Properties properties = new Properties();
             properties.load(contents);
+            if (feature != null)
+            	markFeatureLoaded(properties, feature);
             return properties;
         } catch (FileNotFoundException e) {
             return new Properties();
@@ -574,6 +585,7 @@ public class MDDUtil {
             IOUtils.closeQuietly(contents);
         }
     }
+
 
     public static boolean doesRepositoryExist(URI repositoryURI) {
         if (!repositoryURI.isFile())
