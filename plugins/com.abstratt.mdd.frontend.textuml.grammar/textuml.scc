@@ -784,16 +784,17 @@ Productions
   
   expression_p1 = 
       {alt0} [operator]: minus [operand]: expression_p1 |
-      {alt1} [operand1]: expression_p0 [operator]: mult_div [operand2]: expression_p1 |
-      {alt2} expression_p0;
+      {alt1} [operator]: not_null [operand]: expression_p1 |
+      {alt2} [operand1]: expression_p0 [operator]: mult_div [operand2]: expression_p1 |
+      {alt3} expression_p0;
       
   expression_p2 =
       {alt0} [operand1]: expression_p1 [operator]: add_sub [operand2]: expression_p2 |
       {alt1} expression_p1 ;
       
   expression_p3 = 
-    {alt0} [operand1]: expression_p2 [operator]: comparison_operator [operand2]: expression_p2 |
-    {alt1} expression_p2;
+      {alt0} [operand1]: expression_p2 [operator]: comparison_operator [operand2]: expression_p2 |
+      {alt1} expression_p2;
     
   expression_p4 = 
       {alt0} [operator]: not [operand]: expression_p4 |
@@ -804,8 +805,8 @@ Productions
       {alt0} [operand1]: expression_p4 [operator]: or [operand2]: expression_p5 |
       {alt1} expression_p4;
       
-  is_class_expression = [operand1]: operand [operator]: is [operand2]: minimal_type_identifier ;    
-    
+  is_class_expression = [operand1]: operand [operator]: is [operand2]: minimal_type_identifier ;
+  
   operand = 
     {identifier_expression} identifier_expression |
     {literal} literal |
@@ -836,8 +837,6 @@ Productions
     {greater_or_equals} rab_equals |
     {lower_or_equals} lab_equals;
       
-  unary_operator = {not} not | {minus} minus | {not_null} not_null;
-  
   literal = {boolean} boolean | {number} number | {string} string | {null} null;
   
   tuple_constructor = l_curly_bracket tuple_component_value tuple_component_value_tail* r_curly_bracket ;

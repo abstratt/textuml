@@ -201,6 +201,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.TMinus;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TMult;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TNot;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TNotEquals;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TNotNull;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TOr;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TPlus;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TRab;
@@ -367,6 +368,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 			@Override
 			public void caseTNot(TNot node) {
 				operationName[0] = "not";
+			}
+			@Override
+			public void caseTNotNull(TNotNull node) {
+				operationName[0] = "notNull";
 			}
 		});
 		if (operationName[0] != null) 
