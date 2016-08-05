@@ -6,6 +6,7 @@ import junit.framework.TestSuite;
 public class AllFrontEndTextUMLTests {
     public static Test suite() {
         TestSuite suite = new TestSuite(AllFrontEndTextUMLTests.class.getName());
+        suite.addTest(ExpressionTests.suite());
         suite.addTest(ActivityTests.suite());
         suite.addTest(ReceptionTests.suite());
         suite.addTest(SignalTests.suite());

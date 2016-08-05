@@ -369,6 +369,7 @@ public interface Analysis extends Switch
     void caseAAlt0ExpressionP1(AAlt0ExpressionP1 node);
     void caseAAlt1ExpressionP1(AAlt1ExpressionP1 node);
     void caseAAlt2ExpressionP1(AAlt2ExpressionP1 node);
+    void caseAAlt3ExpressionP1(AAlt3ExpressionP1 node);
     void caseAAlt0ExpressionP2(AAlt0ExpressionP2 node);
     void caseAAlt1ExpressionP2(AAlt1ExpressionP2 node);
     void caseAAlt0ExpressionP3(AAlt0ExpressionP3 node);
@@ -399,9 +400,6 @@ public interface Analysis extends Switch
     void caseAGreaterThanComparisonOperator(AGreaterThanComparisonOperator node);
     void caseAGreaterOrEqualsComparisonOperator(AGreaterOrEqualsComparisonOperator node);
     void caseALowerOrEqualsComparisonOperator(ALowerOrEqualsComparisonOperator node);
-    void caseANotUnaryOperator(ANotUnaryOperator node);
-    void caseAMinusUnaryOperator(AMinusUnaryOperator node);
-    void caseANotNullUnaryOperator(ANotNullUnaryOperator node);
     void caseABooleanLiteral(ABooleanLiteral node);
     void caseANumberLiteral(ANumberLiteral node);
     void caseAStringLiteral(AStringLiteral node);

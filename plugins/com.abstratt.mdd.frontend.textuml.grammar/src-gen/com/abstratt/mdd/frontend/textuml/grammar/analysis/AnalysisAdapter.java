@@ -1854,6 +1854,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAAlt3ExpressionP1(AAlt3ExpressionP1 node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAAlt0ExpressionP2(AAlt0ExpressionP2 node)
     {
         defaultCase(node);
@@ -2000,21 +2005,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseALowerOrEqualsComparisonOperator(ALowerOrEqualsComparisonOperator node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseANotUnaryOperator(ANotUnaryOperator node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAMinusUnaryOperator(AMinusUnaryOperator node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseANotNullUnaryOperator(ANotNullUnaryOperator node)
     {
         defaultCase(node);
     }

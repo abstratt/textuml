@@ -7,7 +7,9 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 @SuppressWarnings("nls")
 public final class AAlt2ExpressionP1 extends PExpressionP1
 {
-    private PExpressionP0 _expressionP0_;
+    private PExpressionP0 _operand1_;
+    private PMultDiv _operator_;
+    private PExpressionP1 _operand2_;
 
     public AAlt2ExpressionP1()
     {
@@ -15,10 +17,16 @@ public final class AAlt2ExpressionP1 extends PExpressionP1
     }
 
     public AAlt2ExpressionP1(
-        @SuppressWarnings("hiding") PExpressionP0 _expressionP0_)
+        @SuppressWarnings("hiding") PExpressionP0 _operand1_,
+        @SuppressWarnings("hiding") PMultDiv _operator_,
+        @SuppressWarnings("hiding") PExpressionP1 _operand2_)
     {
         // Constructor
-        setExpressionP0(_expressionP0_);
+        setOperand1(_operand1_);
+
+        setOperator(_operator_);
+
+        setOperand2(_operand2_);
 
     }
 
@@ -26,7 +34,9 @@ public final class AAlt2ExpressionP1 extends PExpressionP1
     public Object clone()
     {
         return new AAlt2ExpressionP1(
-            cloneNode(this._expressionP0_));
+            cloneNode(this._operand1_),
+            cloneNode(this._operator_),
+            cloneNode(this._operand2_));
     }
 
     public void apply(Switch sw)
@@ -34,16 +44,16 @@ public final class AAlt2ExpressionP1 extends PExpressionP1
         ((Analysis) sw).caseAAlt2ExpressionP1(this);
     }
 
-    public PExpressionP0 getExpressionP0()
+    public PExpressionP0 getOperand1()
     {
-        return this._expressionP0_;
+        return this._operand1_;
     }
 
-    public void setExpressionP0(PExpressionP0 node)
+    public void setOperand1(PExpressionP0 node)
     {
-        if(this._expressionP0_ != null)
+        if(this._operand1_ != null)
         {
-            this._expressionP0_.parent(null);
+            this._operand1_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +66,87 @@ public final class AAlt2ExpressionP1 extends PExpressionP1
             node.parent(this);
         }
 
-        this._expressionP0_ = node;
+        this._operand1_ = node;
+    }
+
+    public PMultDiv getOperator()
+    {
+        return this._operator_;
+    }
+
+    public void setOperator(PMultDiv node)
+    {
+        if(this._operator_ != null)
+        {
+            this._operator_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._operator_ = node;
+    }
+
+    public PExpressionP1 getOperand2()
+    {
+        return this._operand2_;
+    }
+
+    public void setOperand2(PExpressionP1 node)
+    {
+        if(this._operand2_ != null)
+        {
+            this._operand2_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._operand2_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expressionP0_);
+            + toString(this._operand1_)
+            + toString(this._operator_)
+            + toString(this._operand2_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expressionP0_ == child)
+        if(this._operand1_ == child)
         {
-            this._expressionP0_ = null;
+            this._operand1_ = null;
+            return;
+        }
+
+        if(this._operator_ == child)
+        {
+            this._operator_ = null;
+            return;
+        }
+
+        if(this._operand2_ == child)
+        {
+            this._operand2_ = null;
             return;
         }
 
@@ -83,9 +157,21 @@ public final class AAlt2ExpressionP1 extends PExpressionP1
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expressionP0_ == oldChild)
+        if(this._operand1_ == oldChild)
         {
-            setExpressionP0((PExpressionP0) newChild);
+            setOperand1((PExpressionP0) newChild);
+            return;
+        }
+
+        if(this._operator_ == oldChild)
+        {
+            setOperator((PMultDiv) newChild);
+            return;
+        }
+
+        if(this._operand2_ == oldChild)
+        {
+            setOperand2((PExpressionP1) newChild);
             return;
         }
 

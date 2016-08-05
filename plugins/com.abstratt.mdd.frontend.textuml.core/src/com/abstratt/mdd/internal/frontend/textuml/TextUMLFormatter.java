@@ -30,8 +30,8 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP1;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP2;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP3;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP4;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP1;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP4;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt2ExpressionP1;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAnnotations;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationDef;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationRoleDecl;
@@ -169,7 +169,7 @@ public class TextUMLFormatter {
         newLine(output);
     }
     
-    public void format(AAlt1ExpressionP1 node, StringBuilder output, int indentation) {
+    public void format(AAlt2ExpressionP1 node, StringBuilder output, int indentation) {
     	format(node.getOperand1(), node.getOperator(), node.getOperand2(), output, indentation);
     }
     

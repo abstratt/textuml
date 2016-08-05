@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ANotUnaryOperator extends PUnaryOperator
+public final class AAlt3ExpressionP1 extends PExpressionP1
 {
-    private TNot _not_;
+    private PExpressionP0 _expressionP0_;
 
-    public ANotUnaryOperator()
+    public AAlt3ExpressionP1()
     {
         // Constructor
     }
 
-    public ANotUnaryOperator(
-        @SuppressWarnings("hiding") TNot _not_)
+    public AAlt3ExpressionP1(
+        @SuppressWarnings("hiding") PExpressionP0 _expressionP0_)
     {
         // Constructor
-        setNot(_not_);
+        setExpressionP0(_expressionP0_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ANotUnaryOperator(
-            cloneNode(this._not_));
+        return new AAlt3ExpressionP1(
+            cloneNode(this._expressionP0_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseANotUnaryOperator(this);
+        ((Analysis) sw).caseAAlt3ExpressionP1(this);
     }
 
-    public TNot getNot()
+    public PExpressionP0 getExpressionP0()
     {
-        return this._not_;
+        return this._expressionP0_;
     }
 
-    public void setNot(TNot node)
+    public void setExpressionP0(PExpressionP0 node)
     {
-        if(this._not_ != null)
+        if(this._expressionP0_ != null)
         {
-            this._not_.parent(null);
+            this._expressionP0_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ANotUnaryOperator extends PUnaryOperator
             node.parent(this);
         }
 
-        this._not_ = node;
+        this._expressionP0_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._not_);
+            + toString(this._expressionP0_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._not_ == child)
+        if(this._expressionP0_ == child)
         {
-            this._not_ = null;
+            this._expressionP0_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ANotUnaryOperator extends PUnaryOperator
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._not_ == oldChild)
+        if(this._expressionP0_ == oldChild)
         {
-            setNot((TNot) newChild);
+            setExpressionP0((PExpressionP0) newChild);
             return;
         }
 

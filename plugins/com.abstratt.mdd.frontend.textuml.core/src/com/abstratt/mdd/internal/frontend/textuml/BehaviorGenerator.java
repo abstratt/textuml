@@ -129,6 +129,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP4;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP5;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt2ExpressionP1;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt2ExpressionP4;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt3ExpressionP1;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAttributeIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABlockKernel;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABooleanLiteral;
@@ -317,8 +318,18 @@ public class BehaviorGenerator extends AbstractGenerator {
     }
     
     @Override
-    public void caseAAlt1ExpressionP1(AAlt1ExpressionP1 node) {
+    public void caseAAlt2ExpressionP1(AAlt2ExpressionP1 node) {
     	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
+    }
+    
+    @Override
+    public void caseAAlt0ExpressionP1(AAlt0ExpressionP1 node) {
+    	handleUnaryExpression(node.getOperator(), node.getOperand());
+    }
+    
+    @Override
+    public void caseAAlt1ExpressionP1(AAlt1ExpressionP1 node) {
+    	handleUnaryExpression(node.getOperator(), node.getOperand());
     }
     
     @Override
@@ -339,11 +350,6 @@ public class BehaviorGenerator extends AbstractGenerator {
     @Override
     public void caseAAlt0ExpressionP5(AAlt0ExpressionP5 node) {
     	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
-    }
-    
-    @Override
-    public void caseAAlt0ExpressionP1(AAlt0ExpressionP1 node) {
-    	handleUnaryExpression(node.getOperator(), node.getOperand());
     }
     
     @Override
@@ -2133,7 +2139,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 								new AAlt2ExpressionP4(
 									new AAlt1ExpressionP3(
 										new AAlt1ExpressionP2(
-											new AAlt2ExpressionP1(
+											new AAlt3ExpressionP1(
 												new AAlt0ExpressionP0(
 													new ALiteralOperand(
     													new ABooleanLiteral(

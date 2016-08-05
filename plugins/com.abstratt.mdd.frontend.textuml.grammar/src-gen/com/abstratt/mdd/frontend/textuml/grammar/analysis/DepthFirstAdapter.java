@@ -8998,17 +8998,13 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAAlt1ExpressionP1(AAlt1ExpressionP1 node)
     {
         inAAlt1ExpressionP1(node);
-        if(node.getOperand1() != null)
-        {
-            node.getOperand1().apply(this);
-        }
         if(node.getOperator() != null)
         {
             node.getOperator().apply(this);
         }
-        if(node.getOperand2() != null)
+        if(node.getOperand() != null)
         {
-            node.getOperand2().apply(this);
+            node.getOperand().apply(this);
         }
         outAAlt1ExpressionP1(node);
     }
@@ -9027,11 +9023,40 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAAlt2ExpressionP1(AAlt2ExpressionP1 node)
     {
         inAAlt2ExpressionP1(node);
+        if(node.getOperand1() != null)
+        {
+            node.getOperand1().apply(this);
+        }
+        if(node.getOperator() != null)
+        {
+            node.getOperator().apply(this);
+        }
+        if(node.getOperand2() != null)
+        {
+            node.getOperand2().apply(this);
+        }
+        outAAlt2ExpressionP1(node);
+    }
+
+    public void inAAlt3ExpressionP1(AAlt3ExpressionP1 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAlt3ExpressionP1(AAlt3ExpressionP1 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAlt3ExpressionP1(AAlt3ExpressionP1 node)
+    {
+        inAAlt3ExpressionP1(node);
         if(node.getExpressionP0() != null)
         {
             node.getExpressionP0().apply(this);
         }
-        outAAlt2ExpressionP1(node);
+        outAAlt3ExpressionP1(node);
     }
 
     public void inAAlt0ExpressionP2(AAlt0ExpressionP2 node)
@@ -9730,69 +9755,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getLabEquals().apply(this);
         }
         outALowerOrEqualsComparisonOperator(node);
-    }
-
-    public void inANotUnaryOperator(ANotUnaryOperator node)
-    {
-        defaultIn(node);
-    }
-
-    public void outANotUnaryOperator(ANotUnaryOperator node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseANotUnaryOperator(ANotUnaryOperator node)
-    {
-        inANotUnaryOperator(node);
-        if(node.getNot() != null)
-        {
-            node.getNot().apply(this);
-        }
-        outANotUnaryOperator(node);
-    }
-
-    public void inAMinusUnaryOperator(AMinusUnaryOperator node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAMinusUnaryOperator(AMinusUnaryOperator node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAMinusUnaryOperator(AMinusUnaryOperator node)
-    {
-        inAMinusUnaryOperator(node);
-        if(node.getMinus() != null)
-        {
-            node.getMinus().apply(this);
-        }
-        outAMinusUnaryOperator(node);
-    }
-
-    public void inANotNullUnaryOperator(ANotNullUnaryOperator node)
-    {
-        defaultIn(node);
-    }
-
-    public void outANotNullUnaryOperator(ANotNullUnaryOperator node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseANotNullUnaryOperator(ANotNullUnaryOperator node)
-    {
-        inANotNullUnaryOperator(node);
-        if(node.getNotNull() != null)
-        {
-            node.getNotNull().apply(this);
-        }
-        outANotNullUnaryOperator(node);
     }
 
     public void inABooleanLiteral(ABooleanLiteral node)
