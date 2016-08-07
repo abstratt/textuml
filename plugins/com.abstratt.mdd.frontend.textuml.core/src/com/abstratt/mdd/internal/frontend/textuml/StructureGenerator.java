@@ -792,8 +792,13 @@ public class StructureGenerator extends AbstractGenerator {
         StateMachine newStateMachine = new StateMachineProcessor(sourceContext,
                 (BehavioredClassifier) namespaceTracker.currentNamespace(UMLPackage.Literals.BEHAVIORED_CLASSIFIER))
                 .processAndProduce(node);
-        if (newStateMachine != null)
+        if (newStateMachine != null) {
         	applyCurrentComment(newStateMachine);
+            boolean typesEnabled = Boolean.TRUE.toString().equals(
+                    context.getRepositoryProperties().get(IRepository.ENABLE_TYPES));
+            if (typesEnabled)
+            	createGeneralization(TypeUtils.makeTypeName("ComparableBasic"), newStateMachine, Literals.CLASS, node);
+        }
     }
 
     @Override
