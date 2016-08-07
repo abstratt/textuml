@@ -52,13 +52,17 @@ datatype Value
   query toString() : String;
 end;
 
-class Primitive specializes Basic
+class ComparableBasic specializes Basic
+  query greaterThan(r : any) : Boolean;
+  query lowerThan(r : any) : Boolean;
+  query greaterOrEquals(r : any) : Boolean;
+  query lowerOrEquals(r : any) : Boolean;
   query notEquals(other : any) : Boolean;
-  query greaterThan(r : Primitive) : Boolean;
-  query lowerThan(r : Primitive) : Boolean;
-  query greaterOrEquals(r : Primitive) : Boolean;
-  query lowerOrEquals(r : Primitive) : Boolean;
   query equals(other : any) : Boolean;
+end;
+
+
+class Primitive specializes ComparableBasic
   attribute value : PrimitiveTypes::String;
 end;
 
