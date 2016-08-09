@@ -6,6 +6,7 @@ package com.abstratt.resman;
  */
 public interface TaskModeSelector {
     Mode getMode();
+    String getEnvironment();
 
     enum Mode {
         ReadOnly, ReadWrite
