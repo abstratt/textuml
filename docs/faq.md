@@ -101,7 +101,7 @@ are possible.
 
 #### Can I write a TextUML parser in TextUML?
 
-Hell no. Well, unless you are not insane. TextUML should be used for real-world problem domains, in information centric applications, not for problems in the computer science domain (for that, most 3GLs would do).
+Hell no. Well, assuming you are not insane. TextUML should be used for real-world problem domains, in information centric applications, not for problems in the computer science domain (for that, most 3GLs would do).
 
 #### Still have a question?
 
