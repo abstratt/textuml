@@ -99,6 +99,10 @@ that is part of
 an open source project that integrates Graphviz into Eclipse. But others
 are possible.
 
+#### Can I write a TextUML parser in TextUML?
+
+Hell no. Well, unless you are not insane. TextUML should be used for real-world problem domains, in information centric applications, not for problems in the computer science domain (for that, most 3GLs would do).
+
 #### Still have a question?
 
 Head to the
