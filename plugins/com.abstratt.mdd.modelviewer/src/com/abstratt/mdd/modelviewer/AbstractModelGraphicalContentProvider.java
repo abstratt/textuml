@@ -46,7 +46,7 @@ public abstract class AbstractModelGraphicalContentProvider extends DOTGraphical
     }
 
     @Override
-    public void saveImage(Display display, Point suggestedSize, Object input, IPath outputLocation, int fileFormat)
+    public void saveImage(Display display, Point suggestedSize, Object input, IPath outputLocation, GraphicFileFormat fileFormat)
             throws CoreException {
         byte[] dotContents = DOTRendering.generateDOTFromModel((URI) input, getRendererSelector(), getSettings());
         if (dotContents == null)

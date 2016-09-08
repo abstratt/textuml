@@ -2,7 +2,7 @@
 <feature
       id="com.abstratt.mdd.frontend.ui.diagram.feature"
       label="%featureName"
-      version="2.1.201501.qualifier"
+      version="2.2.201606.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -23,7 +23,7 @@
    </url>
 
    <requires>
-      <import feature="com.abstratt.mdd.frontend.core.feature" version="2.1.201501.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.core.feature" version="2.2.201606.qualifier"/>
    </requires>
 
    <plugin

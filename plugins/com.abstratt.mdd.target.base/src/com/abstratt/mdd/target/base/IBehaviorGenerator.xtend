@@ -30,7 +30,7 @@ public interface IBehaviorGenerator extends IBasicBehaviorGenerator {
         public def CharSequence generateCurrentReference();
         public def IBasicBehaviorGenerator getDelegate() {
             currentContextStack.get().findLast[it.delegate != null].delegate
-        }        
+        }
     }
     
     public def Action getCurrentAction() {

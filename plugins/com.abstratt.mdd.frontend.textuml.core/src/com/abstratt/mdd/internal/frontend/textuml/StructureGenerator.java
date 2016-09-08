@@ -12,6 +12,7 @@
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Set;
 
@@ -52,6 +53,7 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Reception;
 import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.Slot;
+import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -170,6 +172,8 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.TExternal;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TModelComment;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TRole;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TUri;
+
+import static com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step.*;
 
 /**
  * This tree visitor will generate the structural model for a given input.
@@ -785,9 +789,16 @@ public class StructureGenerator extends AbstractGenerator {
 
     @Override
     public void caseAStateMachineDecl(AStateMachineDecl node) {
-        new StateMachineProcessor(sourceContext,
+        StateMachine newStateMachine = new StateMachineProcessor(sourceContext,
                 (BehavioredClassifier) namespaceTracker.currentNamespace(UMLPackage.Literals.BEHAVIORED_CLASSIFIER))
-                .process(node);
+                .processAndProduce(node);
+        if (newStateMachine != null) {
+        	applyCurrentComment(newStateMachine);
+            boolean typesEnabled = Boolean.TRUE.toString().equals(
+                    context.getRepositoryProperties().get(IRepository.ENABLE_TYPES));
+            if (typesEnabled)
+            	createGeneralization(TypeUtils.makeTypeName("ComparableBasic"), newStateMachine, Literals.CLASS, node);
+        }
     }
 
     @Override
@@ -812,7 +823,7 @@ public class StructureGenerator extends AbstractGenerator {
             @Override
             public void caseTRole(TRole node) {
             	if (currentClassifier.eClass() == UMLPackage.Literals.CLASS)
-            		MDDExtensionUtils.makeRole((Class) currentClassifier);
+            		getRefTracker().add(repo -> MDDExtensionUtils.makeRole((Class) currentClassifier), STEREOTYPE_APPLICATIONS); 
             	else
 					problemBuilder.addError("Only classes can be roles", node);
             }

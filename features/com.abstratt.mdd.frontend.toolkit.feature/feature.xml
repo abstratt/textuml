@@ -2,7 +2,7 @@
 <feature
       id="com.abstratt.mdd.frontend.toolkit.feature"
       label="%featureName"
-      version="2.1.201501.qualifier"
+      version="2.2.201606.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -23,13 +23,17 @@
    </url>
 
    <includes
+         id="com.abstratt.mdd.frontend.core.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="com.abstratt.mdd.frontend.ui.feature"
+         version="0.0.0"/>
+         
+   <includes
          id="com.abstratt.eclipsegraphviz.feature"
          version="0.0.0"
          optional="true"/>
-
-   <includes
-         id="com.abstratt.mdd.frontend.core.feature"
-         version="0.0.0"/>
 
    <includes
          id="com.abstratt.mdd.frontend.ui.diagram.feature"
@@ -37,13 +41,16 @@
          optional="true"/>
 
    <includes
-         id="com.abstratt.mdd.frontend.ui.feature"
-         version="0.0.0"/>
+         id="com.abstratt.mdd.importer.jdbc.feature"
+         version="0.0.0"
+         optional="true"/>         
+
 
    <requires>
-      <import feature="com.abstratt.mdd.frontend.core.feature" version="2.1.201501.qualifier"/>
-      <import feature="com.abstratt.mdd.frontend.ui.feature" version="2.1.201501.qualifier"/>
-      <import feature="com.abstratt.mdd.frontend.ui.diagram.feature" version="2.1.201501.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.core.feature" version="2.2.201606.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.ui.feature" version="2.2.201606.qualifier"/>
+      <import feature="com.abstratt.mdd.frontend.ui.diagram.feature" version="2.2.201606.qualifier"/>
+      <import feature="com.abstratt.mdd.importer.jdbc.feature" version="2.2.201606.qualifier"/>
    </requires>
 
 </feature>

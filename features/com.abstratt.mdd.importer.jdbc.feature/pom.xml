@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.abstratt.mdd</groupId>
+	<version>2.2.201606-SNAPSHOT</version>
+	<packaging>eclipse-feature</packaging>
+	<parent>
+		<artifactId>com.abstratt.mdd.feature</artifactId>
+		<groupId>com.abstratt.mdd</groupId>
+		<version>2.2.201606-SNAPSHOT</version>
+	</parent>
+	<artifactId>com.abstratt.mdd.importer.jdbc.feature</artifactId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-source-feature-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>source-feature</id>
+						<phase>package</phase>
+						<goals>
+							<goal>source-feature</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<plugin id="com.abstratt.wrapped.schemacrawler" />
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

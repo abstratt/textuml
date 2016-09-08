@@ -58,11 +58,11 @@ stereotype VertexLiteral extends UML::LiteralNull
     property vertex : UML::Vertex;
 end;
 
-stereotype Rule extends UML::Constraint
+stereotype Rule specializes ContextualizedConstraint
     property violation : UML::Classifier;
 end;
 
-stereotype Invariant extends UML::Constraint
+stereotype Invariant specializes ContextualizedConstraint
 end;
 
 stereotype Derivation extends UML::Activity
@@ -73,11 +73,13 @@ enumeration AccessCapability
     /* Objects */
     Create;
     Delete;
+    List;
     /* Attributes/links */
     Read;
     Update;
     /* Operations */
     Call;
+    StaticCall;
 end;
 
 (* You can declare access constraints on any element. *)
@@ -90,7 +92,11 @@ end;
 (* A role class is a class that represents the role for a user. *)
 stereotype Role extends UML::Class end;
 
-stereotype PropertyDerivation extends UML::Constraint
+stereotype PropertyDerivation specializes ContextualizedConstraint
+end;
+
+abstract stereotype ContextualizedConstraint extends UML::Constraint
+    property isStatic : Boolean;
 end;
 
 stereotype WildcardType extends UML::Type

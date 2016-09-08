@@ -1,9 +1,13 @@
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.Collections;
+import java.util.EnumSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -13,6 +17,7 @@ import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
+import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Operation;
@@ -26,12 +31,12 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
 
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.OneRoleAllowedForConstraintWithCondition;
 import com.abstratt.mdd.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.util.AccessCapability;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
-import com.abstratt.mdd.core.util.MDDExtensionUtils.AccessCapability;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.ReceptionUtils;
-import com.abstratt.mdd.core.util.StereotypeUtils;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
@@ -39,6 +44,8 @@ import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAccessCapabilities;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAllAccessCapabilities;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAttributeDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAttributeInvariant;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABehavioralFeatureBody;
@@ -48,7 +55,9 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AClassInvariantDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AConstraintException;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ADetachedOperationDef;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ADetachedOperationHeader;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AEmptyAccessCapabilities;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AFeatureDecl;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ANoneAccessCapabilities;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationConstraint;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationHeader;
@@ -321,20 +330,46 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 			}
 			roleClasses.add(roleClass);
 		});
+		
+		if (roleClasses.size() != 1 && constraintNode.getPermissionExpression() != null) {
+			problemBuilder.addProblem(new OneRoleAllowedForConstraintWithCondition(), constraintNode.getPermissionExpression());
+			throw new AbortedCompilationException();
+		}
 
-		List<PAccessCapability> capabilityNodes = sourceMiner.findChildren(constraintNode.getAccessCapabilities(),
-				PAccessCapability.class);
-		List<AccessCapability> allowed = capabilityNodes.stream()
-				.map(it -> AccessCapability.valueOf(StringUtils.capitalize(sourceMiner.getText(it))))
-				.collect(Collectors.toList());
+		Set<AccessCapability> allowed = new LinkedHashSet<>();
+		constraintNode.apply(new DepthFirstAdapter() {
+			@Override
+			public void caseAAccessCapabilities(AAccessCapabilities node) {
+				List<PAccessCapability> selectedCapabilities = sourceMiner.findChildren(node, PAccessCapability.class);
+				selectedCapabilities.forEach(it -> 
+				    allowed.add(AccessCapability.byName(StringUtils.capitalize(sourceMiner.getText(it))))
+				);
+			}
+			@Override
+			public void caseANoneAccessCapabilities(ANoneAccessCapabilities node) {
+				// none
+			}
+			@Override
+			public void caseAAllAccessCapabilities(AAllAccessCapabilities node) {
+				addAllCapabilities();
+			}
+			private void addAllCapabilities() {
+				allowed.addAll(EnumSet.allOf(AccessCapability.class));
+			}
+			
+			@Override
+			public void caseAEmptyAccessCapabilities(AEmptyAccessCapabilities node) {
+				addAllCapabilities();
+			}
+		});
+		
 
 		Constraint constraint = MDDExtensionUtils.createAccessConstraint(constrainedElement, null, roleClasses,
 				allowed);
 		fillDebugInfo(constraint, constraintNode);
-
-		if (constraintNode.getPermissionExpression() != null)
-			behaviorGenerator.createConstraintBehavior(currentBehavioredClassifier, constraint,
-					constraintNode.getPermissionExpression(), Collections.<Parameter> emptyList());
+		
+		behaviorGenerator.createConstraintBehavior(currentBehavioredClassifier, constraint,
+			constraintNode.getPermissionExpression(), Collections.<Parameter> emptyList());
 		return constraint;
 	}
 

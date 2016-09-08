@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model Renderer
+Bundle-SymbolicName: com.abstratt.mdd.importer.jdbc
+Bundle-Version: 2.2.201606.qualifier
+Bundle-Vendor: Abstratt Technologies and others
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.emf.ecore,
+ com.abstratt.pluginutils,
+ com.abstratt.wrapped.schemacrawler,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.7.0"
+Export-Package: com.abstratt.mdd.importer.jdbc
+Import-Package: com.abstratt.mdd.core,
+ com.abstratt.mdd.frontend.textuml.core,
+ org.apache.commons.io,
+ org.apache.commons.lang

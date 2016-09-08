@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.Assert;
 
+import com.abstratt.resman.impl.BasicResourceManager;
+
 public abstract class Resource<K extends ResourceKey> {
     public static class InvalidResourceException extends IllegalStateException {
         private static final long serialVersionUID = 1L;
@@ -17,9 +19,11 @@ public abstract class Resource<K extends ResourceKey> {
     private K id;
     protected Map<Class<?>, Object> features = new HashMap<Class<?>, Object>();
     protected Map<Class<?>, Map<String, Object>> context = new HashMap<Class<?>, Map<String, Object>>();
+	private ResourceManager<K> manager;
 
-    protected Resource(K resourceId) {
+    protected Resource(ResourceManager<K> manager, K resourceId) {
         this.id = resourceId;
+        this.manager = manager;
     }
 
     public <F> F getFeature(Class<F> featureClass) {
@@ -57,4 +61,9 @@ public abstract class Resource<K extends ResourceKey> {
     public boolean isValid() {
         return features != null;
     }
+    
+    public ResourceManager<K> getManager() {
+		return manager;
+	}
+
 }

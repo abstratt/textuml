@@ -6,8 +6,11 @@ apply StandardProfile;
 actor Anyone end;
 
 class System
-    static query user() : any;
+    static query user() : SystemUser;
 end;
+
+abstract class SystemUser
+end; 
 
 class Assert
     static operation isTrue(condition : Boolean);
@@ -40,18 +43,27 @@ end;
 
 (* The implicit super datatype for all datatypes *)
 datatype Value
-    query equals(other : Value) : Boolean;
-    query toString() : String;
+  query notEquals(other : Value) : Boolean;
+  query greaterThan(r : Value) : Boolean;
+  query lowerThan(r : Value) : Boolean;
+  query greaterOrEquals(r : Value) : Boolean;
+  query lowerOrEquals(r : Value) : Boolean;
+  query equals(other : Value) : Boolean;
+  query toString() : String;
 end;
 
-class Primitive specializes Basic
-  attribute value : PrimitiveTypes::String;
+class ComparableBasic specializes Basic
+  query greaterThan(r : any) : Boolean;
+  query lowerThan(r : any) : Boolean;
+  query greaterOrEquals(r : any) : Boolean;
+  query lowerOrEquals(r : any) : Boolean;
   query notEquals(other : any) : Boolean;
-  query greaterThan(r : Primitive) : Boolean;
-  query lowerThan(r : Primitive) : Boolean;
-  query greaterOrEquals(r : Primitive) : Boolean;
-  query lowerOrEquals(r : Primitive) : Boolean;
   query equals(other : any) : Boolean;
+end;
+
+
+class Primitive specializes ComparableBasic
+  attribute value : PrimitiveTypes::String;
 end;
 
 class Boolean specializes Primitive 
@@ -133,7 +145,6 @@ end;
 
 class Email specializes String
 end;
-
 
 class Violation
 end;

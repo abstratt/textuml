@@ -11,6 +11,7 @@
 package com.abstratt.mdd.core;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -84,6 +85,8 @@ public interface IRepository extends IBasicRepository {
     public String LIBRARY_PROJECT = "mdd.isLibrary";
 
     public String APPLICATION_NAME = "mdd.application.name";
+    
+    public String APPLICATION_TITLE = "mdd.application.title";
 
     /**
      * Accepts the given visitor.
@@ -130,6 +133,8 @@ public interface IRepository extends IBasicRepository {
      * @return the package found or created
      */
     public Package createPackage(String qualifiedName);
+    
+    public void addTopLevelPackage(Package toAdd, String name, URI resourceURI);
 
     /**
      * Creates a new top-level package from the given qualified name. If a
@@ -201,6 +206,10 @@ public interface IRepository extends IBasicRepository {
      * @return an array of top level packages, never <code>null</code>
      */
     public Package[] getTopLevelPackages(EClass packageClass);
+    
+    public default Package[] getOwnPackages(EClass packageClass) {
+    	return Arrays.stream(getTopLevelPackages(packageClass)).filter(it -> isOwnPackage(it)).toArray(size -> new Package[size]);
+    }
 
     /**
      * Loads an existing package with the given qualified name. If a package
@@ -271,4 +280,8 @@ public interface IRepository extends IBasicRepository {
     public NamedElementLookupCache getLookupCache();
 
     public String getBuild();
+
+	boolean isSystemPackage(Package toCheck);
+	
+	boolean isOwnPackage(Package toCheck);
 }

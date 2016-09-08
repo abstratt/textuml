@@ -53,7 +53,7 @@ public interface IBasicBehaviorGenerator {
 
 public class DelegatingBehaviorGenerator implements IBasicBehaviorGenerator {
     
-    IBasicBehaviorGenerator target
+    protected IBasicBehaviorGenerator target
     
     new(IBasicBehaviorGenerator target) {
         this.target = target

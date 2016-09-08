@@ -19,7 +19,7 @@ public abstract class Problem implements IProblem, Comparable<IProblem> {
 
     private Map<String, Object> attributes = Collections.emptyMap();
     private Severity severity;
-
+ 
     public Problem(Severity severity) {
         this.severity = severity;
     }

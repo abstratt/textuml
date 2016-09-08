@@ -83,6 +83,7 @@ import com.abstratt.mdd.core.RepositoryService;
 import com.abstratt.mdd.core.isv.IModelWeaver;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
+import com.abstratt.mdd.core.util.StereotypeUtils;
 import com.abstratt.pluginutils.ISharedContextRunnable;
 import com.abstratt.pluginutils.LogUtils;
 
@@ -107,8 +108,10 @@ public class Repository implements IRepository {
         for (PackageImport packageImport : package_.getPackageImports())
             if (packageImport.getVisibility() == VisibilityKind.PUBLIC_LITERAL) {
                 Package importedPackage = packageImport.getImportedPackage();
-                if (importedPackage != null && allImportedPackages.add(importedPackage))
+                if (importedPackage != null && !allImportedPackages.contains(importedPackage)) {
+                	allImportedPackages.add(importedPackage);
                     getAllImportedPackages(importedPackage, allImportedPackages);
+                }
             }
         return allImportedPackages;
     }
@@ -242,8 +245,14 @@ public class Repository implements IRepository {
             addSystemPackage(current.getImportedPackage());
     }
 
-    private boolean isSystemPackage(Package toCheck) {
+    @Override
+    public boolean isSystemPackage(Package toCheck) {
         return systemResources.contains(toCheck.eResource());
+    }
+    
+    @Override
+    public boolean isOwnPackage(Package toCheck) {
+    	return isManaged(toCheck.eResource());
     }
 
     private void basicSaveResource(Resource resource) throws IOException {
@@ -301,10 +310,16 @@ public class Repository implements IRepository {
             }
             return existing;
         }
+        Package newPackage = (Package) FACTORY.create(packageClass);
+        addTopLevelPackage(newPackage, packageName, packageURI);
+        return newPackage;
+    }
+
+    @Override
+	public void addTopLevelPackage(Package newPackage, String packageName, URI packageURI) {
         if (packageURI == null)
             packageURI = computePackageURI(packageName);
-        Resource resource = resourceSet.createResource(packageURI);
-        Package newPackage = (Package) FACTORY.create(packageClass);
+		Resource resource = resourceSet.createResource(packageURI);
         addPackage(resource, newPackage);
         MDDUtil.markGenerated(newPackage);
         newPackage.setName(packageName);
@@ -313,13 +328,12 @@ public class Repository implements IRepository {
                 System.getProperty(ENABLE_EXTENSIONS, Boolean.FALSE.toString())))) {
             Profile extensions = (Profile) findPackage(EXTENSIONS_NAMESPACE, Literals.PROFILE);
             if (extensions != null && extensions.isDefined())
-                newPackage.applyProfile(extensions);
+                StereotypeUtils.safeApplyProfile(newPackage, extensions);
         }
         if (getWeaver() != null)
             getWeaver().packageCreated(this, newPackage);
-        return newPackage;
-    }
-
+	}
+    
     @Override
     public void dispose() {
         systemResources.clear();
@@ -364,6 +378,8 @@ public class Repository implements IRepository {
      * Package)
      */
     public <T extends NamedElement> T findNamedElement(String name, EClass class_, Namespace namespace) {
+    	if (class_ == null)
+			class_ = UMLPackage.Literals.NAMED_ELEMENT;
         if (namespace == null) {
             T cached = lookup.findInCache(name, class_);
             if (cached != null)

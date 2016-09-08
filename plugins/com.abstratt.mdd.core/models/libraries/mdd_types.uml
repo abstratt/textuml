@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_types" URI="libraries/mdd_types">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2016/02/13 07:01:11 001 -0200"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2016/08/06 12:14:50 529 -0300"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0" visibility="private">
       <importedPackage xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
@@ -17,11 +17,16 @@
         <details xmi:id="System-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
       </eAnnotations>
       <ownedOperation xmi:id="System-user" name="user" visibility="public" isStatic="true" isQuery="true">
-        <ownedParameter xmi:id="System-user-_ownedParameter.0" type="AnyType" direction="return">
+        <ownedParameter xmi:id="System-user-_ownedParameter.0" type="SystemUser" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="System-user-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="System-user-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
         </ownedParameter>
       </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="SystemUser" name="SystemUser" isAbstract="true">
+      <eAnnotations xmi:id="SystemUser-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="SystemUser-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Assert" name="Assert">
       <eAnnotations xmi:id="Assert-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
@@ -136,6 +141,56 @@
       <ownedComment xmi:id="Value-_ownedComment.0" annotatedElement="Value">
         <body> The implicit super datatype for all datatypes </body>
       </ownedComment>
+      <ownedOperation xmi:id="Value-notEquals" name="notEquals" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="Value-notEquals-other" name="other" type="Value" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-notEquals-other-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-notEquals-other-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Value-notEquals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-notEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-notEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Value-greaterThan" name="greaterThan" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="Value-greaterThan-r" name="r" type="Value" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterThan-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterThan-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Value-greaterThan-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterThan-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Value-lowerThan" name="lowerThan" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="Value-lowerThan-r" name="r" type="Value" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerThan-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerThan-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Value-lowerThan-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerThan-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Value-greaterOrEquals" name="greaterOrEquals" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="Value-greaterOrEquals-r" name="r" type="Value" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterOrEquals-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterOrEquals-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Value-greaterOrEquals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterOrEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Value-lowerOrEquals" name="lowerOrEquals" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="Value-lowerOrEquals-r" name="r" type="Value" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerOrEquals-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerOrEquals-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Value-lowerOrEquals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerOrEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
       <ownedOperation xmi:id="Value-equals" name="equals" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Value-equals-other" name="other" type="Value" effect="create">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-equals-other-_lowerValue" type="Integer" value="1"/>
@@ -153,76 +208,82 @@
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="ComparableBasic" name="ComparableBasic">
+      <eAnnotations xmi:id="ComparableBasic-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="ComparableBasic-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+      </eAnnotations>
+      <generalization xmi:id="ComparableBasic-_generalization.0" general="Basic"/>
+      <ownedOperation xmi:id="ComparableBasic-greaterThan" name="greaterThan" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="ComparableBasic-greaterThan-r" name="r" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterThan-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterThan-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="ComparableBasic-greaterThan-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterThan-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="ComparableBasic-lowerThan" name="lowerThan" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="ComparableBasic-lowerThan-r" name="r" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerThan-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerThan-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="ComparableBasic-lowerThan-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerThan-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="ComparableBasic-greaterOrEquals" name="greaterOrEquals" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="ComparableBasic-greaterOrEquals-r" name="r" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterOrEquals-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterOrEquals-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="ComparableBasic-greaterOrEquals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterOrEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="ComparableBasic-lowerOrEquals" name="lowerOrEquals" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="ComparableBasic-lowerOrEquals-r" name="r" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerOrEquals-r-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerOrEquals-r-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="ComparableBasic-lowerOrEquals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerOrEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="ComparableBasic-notEquals" name="notEquals" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="ComparableBasic-notEquals-other" name="other" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-notEquals-other-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-notEquals-other-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="ComparableBasic-notEquals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-notEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-notEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="ComparableBasic-equals" name="equals" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="ComparableBasic-equals-other" name="other" type="AnyType" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-equals-other-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-equals-other-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="ComparableBasic-equals-_ownedParameter.1" type="Boolean" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-equals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-equals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Primitive" name="Primitive">
       <eAnnotations xmi:id="Primitive-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
         <details xmi:id="Primitive-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
       </eAnnotations>
-      <generalization xmi:id="Primitive-_generalization.0" general="Basic"/>
+      <generalization xmi:id="Primitive-_generalization.0" general="ComparableBasic"/>
       <ownedAttribute xmi:id="Primitive-value" name="value" visibility="public">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-value-_lowerValue" type="Integer" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-value-_upperValue" type="Integer" value="1"/>
       </ownedAttribute>
-      <ownedOperation xmi:id="Primitive-notEquals" name="notEquals" visibility="public" isQuery="true">
-        <ownedParameter xmi:id="Primitive-notEquals-other" name="other" type="AnyType" effect="create">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-notEquals-other-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-notEquals-other-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="Primitive-notEquals-_ownedParameter.1" type="Boolean" direction="return">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-notEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-notEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:id="Primitive-greaterThan" name="greaterThan" visibility="public" isQuery="true">
-        <ownedParameter xmi:id="Primitive-greaterThan-r" name="r" type="Primitive" effect="create">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterThan-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterThan-r-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="Primitive-greaterThan-_ownedParameter.1" type="Boolean" direction="return">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterThan-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:id="Primitive-lowerThan" name="lowerThan" visibility="public" isQuery="true">
-        <ownedParameter xmi:id="Primitive-lowerThan-r" name="r" type="Primitive" effect="create">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerThan-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerThan-r-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="Primitive-lowerThan-_ownedParameter.1" type="Boolean" direction="return">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerThan-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:id="Primitive-greaterOrEquals" name="greaterOrEquals" visibility="public" isQuery="true">
-        <ownedParameter xmi:id="Primitive-greaterOrEquals-r" name="r" type="Primitive" effect="create">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterOrEquals-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterOrEquals-r-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="Primitive-greaterOrEquals-_ownedParameter.1" type="Boolean" direction="return">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-greaterOrEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:id="Primitive-lowerOrEquals" name="lowerOrEquals" visibility="public" isQuery="true">
-        <ownedParameter xmi:id="Primitive-lowerOrEquals-r" name="r" type="Primitive" effect="create">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerOrEquals-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerOrEquals-r-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="Primitive-lowerOrEquals-_ownedParameter.1" type="Boolean" direction="return">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-lowerOrEquals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-      </ownedOperation>
-      <ownedOperation xmi:id="Primitive-equals" name="equals" visibility="public" isQuery="true">
-        <ownedParameter xmi:id="Primitive-equals-other" name="other" type="AnyType" effect="create">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-equals-other-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-equals-other-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-        <ownedParameter xmi:id="Primitive-equals-_ownedParameter.1" type="Boolean" direction="return">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-equals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Primitive-equals-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
-        </ownedParameter>
-      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Boolean" name="Boolean">
       <eAnnotations xmi:id="Boolean-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
@@ -744,91 +805,98 @@
   <mdd_extensions:Debuggable xmi:id="_2" lineNumber="6" source="mdd_types.tuml" base_Element="Anyone"/>
   <mdd_extensions:Debuggable xmi:id="_3" lineNumber="8" source="mdd_types.tuml" base_Element="System"/>
   <mdd_extensions:Debuggable xmi:id="_4" lineNumber="9" source="mdd_types.tuml" base_Element="System-user"/>
-  <mdd_extensions:Debuggable xmi:id="_5" lineNumber="12" source="mdd_types.tuml" base_Element="Assert"/>
-  <mdd_extensions:Debuggable xmi:id="_6" lineNumber="13" source="mdd_types.tuml" base_Element="Assert-isTrue"/>
-  <mdd_extensions:Debuggable xmi:id="_7" lineNumber="14" source="mdd_types.tuml" base_Element="Assert-areEqual"/>
-  <mdd_extensions:Debuggable xmi:id="_8" lineNumber="15" source="mdd_types.tuml" base_Element="Assert-areSame"/>
-  <mdd_extensions:Debuggable xmi:id="_9" lineNumber="16" source="mdd_types.tuml" base_Element="Assert-isNull"/>
-  <mdd_extensions:Debuggable xmi:id="_10" lineNumber="17" source="mdd_types.tuml" base_Element="Assert-isNotNull"/>
-  <mdd_extensions:Debuggable xmi:id="_11" lineNumber="20" source="mdd_types.tuml" base_Element="Basic"/>
-  <mdd_extensions:Debuggable xmi:id="_12" lineNumber="21" source="mdd_types.tuml" base_Element="Basic-same"/>
-  <mdd_extensions:Debuggable xmi:id="_13" lineNumber="22" source="mdd_types.tuml" base_Element="Basic-notNull"/>
-  <mdd_extensions:Debuggable xmi:id="_14" lineNumber="23" source="mdd_types.tuml" base_Element="Basic-toString"/>
-  <mdd_extensions:Debuggable xmi:id="_15" lineNumber="27" source="mdd_types.tuml" base_Element="AnyType"/>
-  <mdd_extensions:Debuggable xmi:id="_16" lineNumber="31" source="mdd_types.tuml" base_Element="NullType"/>
-  <mdd_extensions:Debuggable xmi:id="_17" lineNumber="34" source="mdd_types.tuml" base_Element="Blob"/>
-  <mdd_extensions:Debuggable xmi:id="_18" lineNumber="38" source="mdd_types.tuml" base_Element="Object"/>
-  <mdd_extensions:Debuggable xmi:id="_19" lineNumber="42" source="mdd_types.tuml" base_Element="Value"/>
-  <mdd_extensions:Debuggable xmi:id="_20" lineNumber="43" source="mdd_types.tuml" base_Element="Value-equals"/>
-  <mdd_extensions:Debuggable xmi:id="_21" lineNumber="44" source="mdd_types.tuml" base_Element="Value-toString"/>
-  <mdd_extensions:Debuggable xmi:id="_22" lineNumber="47" source="mdd_types.tuml" base_Element="Primitive"/>
-  <mdd_extensions:Debuggable xmi:id="_23" lineNumber="48" source="mdd_types.tuml" base_Element="Primitive-value"/>
-  <mdd_extensions:Debuggable xmi:id="_24" lineNumber="49" source="mdd_types.tuml" base_Element="Primitive-notEquals"/>
-  <mdd_extensions:Debuggable xmi:id="_25" lineNumber="50" source="mdd_types.tuml" base_Element="Primitive-greaterThan"/>
-  <mdd_extensions:Debuggable xmi:id="_26" lineNumber="51" source="mdd_types.tuml" base_Element="Primitive-lowerThan"/>
-  <mdd_extensions:Debuggable xmi:id="_27" lineNumber="52" source="mdd_types.tuml" base_Element="Primitive-greaterOrEquals"/>
-  <mdd_extensions:Debuggable xmi:id="_28" lineNumber="53" source="mdd_types.tuml" base_Element="Primitive-lowerOrEquals"/>
-  <mdd_extensions:Debuggable xmi:id="_29" lineNumber="54" source="mdd_types.tuml" base_Element="Primitive-equals"/>
-  <mdd_extensions:Debuggable xmi:id="_30" lineNumber="57" source="mdd_types.tuml" base_Element="Boolean"/>
-  <mdd_extensions:Debuggable xmi:id="_31" lineNumber="58" source="mdd_types.tuml" base_Element="Boolean-not"/>
-  <mdd_extensions:Debuggable xmi:id="_32" lineNumber="59" source="mdd_types.tuml" base_Element="Boolean-and"/>
-  <mdd_extensions:Debuggable xmi:id="_33" lineNumber="60" source="mdd_types.tuml" base_Element="Boolean-or"/>
-  <mdd_extensions:Debuggable xmi:id="_34" lineNumber="61" source="mdd_types.tuml" base_Element="Boolean-xor"/>
-  <mdd_extensions:Debuggable xmi:id="_35" lineNumber="62" source="mdd_types.tuml" base_Element="Boolean-implies"/>
-  <mdd_extensions:Debuggable xmi:id="_36" lineNumber="65" source="mdd_types.tuml" base_Element="Number"/>
-  <mdd_extensions:Debuggable xmi:id="_37" lineNumber="66" source="mdd_types.tuml" base_Element="Number-add"/>
-  <mdd_extensions:Debuggable xmi:id="_38" lineNumber="67" source="mdd_types.tuml" base_Element="Number-subtract"/>
-  <mdd_extensions:Debuggable xmi:id="_39" lineNumber="68" source="mdd_types.tuml" base_Element="Number-subtract.1"/>
-  <mdd_extensions:Debuggable xmi:id="_40" lineNumber="69" source="mdd_types.tuml" base_Element="Number-multiply"/>
-  <mdd_extensions:Debuggable xmi:id="_41" lineNumber="70" source="mdd_types.tuml" base_Element="Number-divide"/>
-  <mdd_extensions:Debuggable xmi:id="_42" lineNumber="71" source="mdd_types.tuml" base_Element="Number-asInteger"/>
-  <mdd_extensions:Debuggable xmi:id="_43" lineNumber="72" source="mdd_types.tuml" base_Element="Number-asDouble"/>
-  <mdd_extensions:Debuggable xmi:id="_44" lineNumber="75" source="mdd_types.tuml" base_Element="Integer"/>
-  <mdd_extensions:Debuggable xmi:id="_45" lineNumber="76" source="mdd_types.tuml" base_Element="Integer-add"/>
-  <mdd_extensions:Debuggable xmi:id="_46" lineNumber="77" source="mdd_types.tuml" base_Element="Integer-subtract"/>
-  <mdd_extensions:Debuggable xmi:id="_47" lineNumber="78" source="mdd_types.tuml" base_Element="Integer-subtract.1"/>
-  <mdd_extensions:Debuggable xmi:id="_48" lineNumber="79" source="mdd_types.tuml" base_Element="Integer-multiply"/>
-  <mdd_extensions:Debuggable xmi:id="_49" lineNumber="80" source="mdd_types.tuml" base_Element="Integer-divide"/>
-  <mdd_extensions:Debuggable xmi:id="_50" lineNumber="83" source="mdd_types.tuml" base_Element="Double"/>
-  <mdd_extensions:Debuggable xmi:id="_51" lineNumber="84" source="mdd_types.tuml" base_Element="Double-add"/>
-  <mdd_extensions:Debuggable xmi:id="_52" lineNumber="85" source="mdd_types.tuml" base_Element="Double-subtract"/>
-  <mdd_extensions:Debuggable xmi:id="_53" lineNumber="86" source="mdd_types.tuml" base_Element="Double-multiply"/>
-  <mdd_extensions:Debuggable xmi:id="_54" lineNumber="87" source="mdd_types.tuml" base_Element="Double-divide"/>
-  <mdd_extensions:Debuggable xmi:id="_55" lineNumber="88" source="mdd_types.tuml" base_Element="Double-subtract.1"/>
-  <mdd_extensions:Debuggable xmi:id="_56" lineNumber="91" source="mdd_types.tuml" base_Element="Date"/>
-  <mdd_extensions:Debuggable xmi:id="_57" lineNumber="92" source="mdd_types.tuml" base_Element="Date-today"/>
-  <mdd_extensions:Debuggable xmi:id="_58" lineNumber="93" source="mdd_types.tuml" base_Element="Date-now"/>
-  <mdd_extensions:Debuggable xmi:id="_59" lineNumber="94" source="mdd_types.tuml" base_Element="Date-make"/>
-  <mdd_extensions:Debuggable xmi:id="_60" lineNumber="95" source="mdd_types.tuml" base_Element="Date-fromString"/>
-  <mdd_extensions:Debuggable xmi:id="_61" lineNumber="96" source="mdd_types.tuml" base_Element="Date-difference"/>
-  <mdd_extensions:Debuggable xmi:id="_62" lineNumber="97" source="mdd_types.tuml" base_Element="Date-day"/>
-  <mdd_extensions:Debuggable xmi:id="_63" lineNumber="98" source="mdd_types.tuml" base_Element="Date-month"/>
-  <mdd_extensions:Debuggable xmi:id="_64" lineNumber="99" source="mdd_types.tuml" base_Element="Date-year"/>
-  <mdd_extensions:Debuggable xmi:id="_65" lineNumber="100" source="mdd_types.tuml" base_Element="Date-transpose"/>
-  <mdd_extensions:Debuggable xmi:id="_66" lineNumber="103" source="mdd_types.tuml" base_Element="Duration"/>
-  <mdd_extensions:Debuggable xmi:id="_67" lineNumber="104" source="mdd_types.tuml" base_Element="Duration-toYears"/>
-  <mdd_extensions:Debuggable xmi:id="_68" lineNumber="105" source="mdd_types.tuml" base_Element="Duration-toMonths"/>
-  <mdd_extensions:Debuggable xmi:id="_69" lineNumber="106" source="mdd_types.tuml" base_Element="Duration-toDays"/>
-  <mdd_extensions:Debuggable xmi:id="_70" lineNumber="107" source="mdd_types.tuml" base_Element="Duration-toHour"/>
-  <mdd_extensions:Debuggable xmi:id="_71" lineNumber="108" source="mdd_types.tuml" base_Element="Duration-toMinutes"/>
-  <mdd_extensions:Debuggable xmi:id="_72" lineNumber="109" source="mdd_types.tuml" base_Element="Duration-toSeconds"/>
-  <mdd_extensions:Debuggable xmi:id="_73" lineNumber="111" source="mdd_types.tuml" base_Element="Duration-milliseconds"/>
-  <mdd_extensions:Debuggable xmi:id="_74" lineNumber="112" source="mdd_types.tuml" base_Element="Duration-seconds"/>
-  <mdd_extensions:Debuggable xmi:id="_75" lineNumber="113" source="mdd_types.tuml" base_Element="Duration-minutes"/>
-  <mdd_extensions:Debuggable xmi:id="_76" lineNumber="114" source="mdd_types.tuml" base_Element="Duration-hours"/>
-  <mdd_extensions:Debuggable xmi:id="_77" lineNumber="115" source="mdd_types.tuml" base_Element="Duration-days"/>
-  <mdd_extensions:Debuggable xmi:id="_78" lineNumber="118" source="mdd_types.tuml" base_Element="String"/>
-  <mdd_extensions:Debuggable xmi:id="_79" lineNumber="119" source="mdd_types.tuml" base_Element="String-isEmpty"/>
-  <mdd_extensions:Debuggable xmi:id="_80" lineNumber="120" source="mdd_types.tuml" base_Element="String-size"/>
-  <mdd_extensions:Debuggable xmi:id="_81" lineNumber="121" source="mdd_types.tuml" base_Element="String-add"/>
-  <mdd_extensions:Debuggable xmi:id="_82" lineNumber="122" source="mdd_types.tuml" base_Element="String-add.1"/>
-  <mdd_extensions:Debuggable xmi:id="_83" lineNumber="123" source="mdd_types.tuml" base_Element="String-substring"/>
-  <mdd_extensions:Debuggable xmi:id="_84" lineNumber="124" source="mdd_types.tuml" base_Element="String-toLower"/>
-  <mdd_extensions:Debuggable xmi:id="_85" lineNumber="125" source="mdd_types.tuml" base_Element="String-toUpper"/>
-  <mdd_extensions:Debuggable xmi:id="_86" lineNumber="126" source="mdd_types.tuml" base_Element="String-contains"/>
-  <mdd_extensions:Debuggable xmi:id="_87" lineNumber="129" source="mdd_types.tuml" base_Element="Memo"/>
-  <mdd_extensions:Debuggable xmi:id="_88" lineNumber="130" source="mdd_types.tuml" base_Element="Memo-lineCount"/>
-  <mdd_extensions:Debuggable xmi:id="_89" lineNumber="131" source="mdd_types.tuml" base_Element="Memo-fromString"/>
-  <mdd_extensions:Debuggable xmi:id="_90" lineNumber="134" source="mdd_types.tuml" base_Element="Email"/>
-  <mdd_extensions:Debuggable xmi:id="_91" lineNumber="138" source="mdd_types.tuml" base_Element="Violation"/>
+  <mdd_extensions:Debuggable xmi:id="_5" lineNumber="12" source="mdd_types.tuml" base_Element="SystemUser"/>
+  <mdd_extensions:Debuggable xmi:id="_6" lineNumber="15" source="mdd_types.tuml" base_Element="Assert"/>
+  <mdd_extensions:Debuggable xmi:id="_7" lineNumber="16" source="mdd_types.tuml" base_Element="Assert-isTrue"/>
+  <mdd_extensions:Debuggable xmi:id="_8" lineNumber="17" source="mdd_types.tuml" base_Element="Assert-areEqual"/>
+  <mdd_extensions:Debuggable xmi:id="_9" lineNumber="18" source="mdd_types.tuml" base_Element="Assert-areSame"/>
+  <mdd_extensions:Debuggable xmi:id="_10" lineNumber="19" source="mdd_types.tuml" base_Element="Assert-isNull"/>
+  <mdd_extensions:Debuggable xmi:id="_11" lineNumber="20" source="mdd_types.tuml" base_Element="Assert-isNotNull"/>
+  <mdd_extensions:Debuggable xmi:id="_12" lineNumber="23" source="mdd_types.tuml" base_Element="Basic"/>
+  <mdd_extensions:Debuggable xmi:id="_13" lineNumber="24" source="mdd_types.tuml" base_Element="Basic-same"/>
+  <mdd_extensions:Debuggable xmi:id="_14" lineNumber="25" source="mdd_types.tuml" base_Element="Basic-notNull"/>
+  <mdd_extensions:Debuggable xmi:id="_15" lineNumber="26" source="mdd_types.tuml" base_Element="Basic-toString"/>
+  <mdd_extensions:Debuggable xmi:id="_16" lineNumber="30" source="mdd_types.tuml" base_Element="AnyType"/>
+  <mdd_extensions:Debuggable xmi:id="_17" lineNumber="34" source="mdd_types.tuml" base_Element="NullType"/>
+  <mdd_extensions:Debuggable xmi:id="_18" lineNumber="37" source="mdd_types.tuml" base_Element="Blob"/>
+  <mdd_extensions:Debuggable xmi:id="_19" lineNumber="41" source="mdd_types.tuml" base_Element="Object"/>
+  <mdd_extensions:Debuggable xmi:id="_20" lineNumber="45" source="mdd_types.tuml" base_Element="Value"/>
+  <mdd_extensions:Debuggable xmi:id="_21" lineNumber="46" source="mdd_types.tuml" base_Element="Value-notEquals"/>
+  <mdd_extensions:Debuggable xmi:id="_22" lineNumber="47" source="mdd_types.tuml" base_Element="Value-greaterThan"/>
+  <mdd_extensions:Debuggable xmi:id="_23" lineNumber="48" source="mdd_types.tuml" base_Element="Value-lowerThan"/>
+  <mdd_extensions:Debuggable xmi:id="_24" lineNumber="49" source="mdd_types.tuml" base_Element="Value-greaterOrEquals"/>
+  <mdd_extensions:Debuggable xmi:id="_25" lineNumber="50" source="mdd_types.tuml" base_Element="Value-lowerOrEquals"/>
+  <mdd_extensions:Debuggable xmi:id="_26" lineNumber="51" source="mdd_types.tuml" base_Element="Value-equals"/>
+  <mdd_extensions:Debuggable xmi:id="_27" lineNumber="52" source="mdd_types.tuml" base_Element="Value-toString"/>
+  <mdd_extensions:Debuggable xmi:id="_28" lineNumber="55" source="mdd_types.tuml" base_Element="ComparableBasic"/>
+  <mdd_extensions:Debuggable xmi:id="_29" lineNumber="56" source="mdd_types.tuml" base_Element="ComparableBasic-greaterThan"/>
+  <mdd_extensions:Debuggable xmi:id="_30" lineNumber="57" source="mdd_types.tuml" base_Element="ComparableBasic-lowerThan"/>
+  <mdd_extensions:Debuggable xmi:id="_31" lineNumber="58" source="mdd_types.tuml" base_Element="ComparableBasic-greaterOrEquals"/>
+  <mdd_extensions:Debuggable xmi:id="_32" lineNumber="59" source="mdd_types.tuml" base_Element="ComparableBasic-lowerOrEquals"/>
+  <mdd_extensions:Debuggable xmi:id="_33" lineNumber="60" source="mdd_types.tuml" base_Element="ComparableBasic-notEquals"/>
+  <mdd_extensions:Debuggable xmi:id="_34" lineNumber="61" source="mdd_types.tuml" base_Element="ComparableBasic-equals"/>
+  <mdd_extensions:Debuggable xmi:id="_35" lineNumber="65" source="mdd_types.tuml" base_Element="Primitive"/>
+  <mdd_extensions:Debuggable xmi:id="_36" lineNumber="66" source="mdd_types.tuml" base_Element="Primitive-value"/>
+  <mdd_extensions:Debuggable xmi:id="_37" lineNumber="69" source="mdd_types.tuml" base_Element="Boolean"/>
+  <mdd_extensions:Debuggable xmi:id="_38" lineNumber="70" source="mdd_types.tuml" base_Element="Boolean-not"/>
+  <mdd_extensions:Debuggable xmi:id="_39" lineNumber="71" source="mdd_types.tuml" base_Element="Boolean-and"/>
+  <mdd_extensions:Debuggable xmi:id="_40" lineNumber="72" source="mdd_types.tuml" base_Element="Boolean-or"/>
+  <mdd_extensions:Debuggable xmi:id="_41" lineNumber="73" source="mdd_types.tuml" base_Element="Boolean-xor"/>
+  <mdd_extensions:Debuggable xmi:id="_42" lineNumber="74" source="mdd_types.tuml" base_Element="Boolean-implies"/>
+  <mdd_extensions:Debuggable xmi:id="_43" lineNumber="77" source="mdd_types.tuml" base_Element="Number"/>
+  <mdd_extensions:Debuggable xmi:id="_44" lineNumber="78" source="mdd_types.tuml" base_Element="Number-add"/>
+  <mdd_extensions:Debuggable xmi:id="_45" lineNumber="79" source="mdd_types.tuml" base_Element="Number-subtract"/>
+  <mdd_extensions:Debuggable xmi:id="_46" lineNumber="80" source="mdd_types.tuml" base_Element="Number-subtract.1"/>
+  <mdd_extensions:Debuggable xmi:id="_47" lineNumber="81" source="mdd_types.tuml" base_Element="Number-multiply"/>
+  <mdd_extensions:Debuggable xmi:id="_48" lineNumber="82" source="mdd_types.tuml" base_Element="Number-divide"/>
+  <mdd_extensions:Debuggable xmi:id="_49" lineNumber="83" source="mdd_types.tuml" base_Element="Number-asInteger"/>
+  <mdd_extensions:Debuggable xmi:id="_50" lineNumber="84" source="mdd_types.tuml" base_Element="Number-asDouble"/>
+  <mdd_extensions:Debuggable xmi:id="_51" lineNumber="87" source="mdd_types.tuml" base_Element="Integer"/>
+  <mdd_extensions:Debuggable xmi:id="_52" lineNumber="88" source="mdd_types.tuml" base_Element="Integer-add"/>
+  <mdd_extensions:Debuggable xmi:id="_53" lineNumber="89" source="mdd_types.tuml" base_Element="Integer-subtract"/>
+  <mdd_extensions:Debuggable xmi:id="_54" lineNumber="90" source="mdd_types.tuml" base_Element="Integer-subtract.1"/>
+  <mdd_extensions:Debuggable xmi:id="_55" lineNumber="91" source="mdd_types.tuml" base_Element="Integer-multiply"/>
+  <mdd_extensions:Debuggable xmi:id="_56" lineNumber="92" source="mdd_types.tuml" base_Element="Integer-divide"/>
+  <mdd_extensions:Debuggable xmi:id="_57" lineNumber="95" source="mdd_types.tuml" base_Element="Double"/>
+  <mdd_extensions:Debuggable xmi:id="_58" lineNumber="96" source="mdd_types.tuml" base_Element="Double-add"/>
+  <mdd_extensions:Debuggable xmi:id="_59" lineNumber="97" source="mdd_types.tuml" base_Element="Double-subtract"/>
+  <mdd_extensions:Debuggable xmi:id="_60" lineNumber="98" source="mdd_types.tuml" base_Element="Double-multiply"/>
+  <mdd_extensions:Debuggable xmi:id="_61" lineNumber="99" source="mdd_types.tuml" base_Element="Double-divide"/>
+  <mdd_extensions:Debuggable xmi:id="_62" lineNumber="100" source="mdd_types.tuml" base_Element="Double-subtract.1"/>
+  <mdd_extensions:Debuggable xmi:id="_63" lineNumber="103" source="mdd_types.tuml" base_Element="Date"/>
+  <mdd_extensions:Debuggable xmi:id="_64" lineNumber="104" source="mdd_types.tuml" base_Element="Date-today"/>
+  <mdd_extensions:Debuggable xmi:id="_65" lineNumber="105" source="mdd_types.tuml" base_Element="Date-now"/>
+  <mdd_extensions:Debuggable xmi:id="_66" lineNumber="106" source="mdd_types.tuml" base_Element="Date-make"/>
+  <mdd_extensions:Debuggable xmi:id="_67" lineNumber="107" source="mdd_types.tuml" base_Element="Date-fromString"/>
+  <mdd_extensions:Debuggable xmi:id="_68" lineNumber="108" source="mdd_types.tuml" base_Element="Date-difference"/>
+  <mdd_extensions:Debuggable xmi:id="_69" lineNumber="109" source="mdd_types.tuml" base_Element="Date-day"/>
+  <mdd_extensions:Debuggable xmi:id="_70" lineNumber="110" source="mdd_types.tuml" base_Element="Date-month"/>
+  <mdd_extensions:Debuggable xmi:id="_71" lineNumber="111" source="mdd_types.tuml" base_Element="Date-year"/>
+  <mdd_extensions:Debuggable xmi:id="_72" lineNumber="112" source="mdd_types.tuml" base_Element="Date-transpose"/>
+  <mdd_extensions:Debuggable xmi:id="_73" lineNumber="115" source="mdd_types.tuml" base_Element="Duration"/>
+  <mdd_extensions:Debuggable xmi:id="_74" lineNumber="116" source="mdd_types.tuml" base_Element="Duration-toYears"/>
+  <mdd_extensions:Debuggable xmi:id="_75" lineNumber="117" source="mdd_types.tuml" base_Element="Duration-toMonths"/>
+  <mdd_extensions:Debuggable xmi:id="_76" lineNumber="118" source="mdd_types.tuml" base_Element="Duration-toDays"/>
+  <mdd_extensions:Debuggable xmi:id="_77" lineNumber="119" source="mdd_types.tuml" base_Element="Duration-toHour"/>
+  <mdd_extensions:Debuggable xmi:id="_78" lineNumber="120" source="mdd_types.tuml" base_Element="Duration-toMinutes"/>
+  <mdd_extensions:Debuggable xmi:id="_79" lineNumber="121" source="mdd_types.tuml" base_Element="Duration-toSeconds"/>
+  <mdd_extensions:Debuggable xmi:id="_80" lineNumber="123" source="mdd_types.tuml" base_Element="Duration-milliseconds"/>
+  <mdd_extensions:Debuggable xmi:id="_81" lineNumber="124" source="mdd_types.tuml" base_Element="Duration-seconds"/>
+  <mdd_extensions:Debuggable xmi:id="_82" lineNumber="125" source="mdd_types.tuml" base_Element="Duration-minutes"/>
+  <mdd_extensions:Debuggable xmi:id="_83" lineNumber="126" source="mdd_types.tuml" base_Element="Duration-hours"/>
+  <mdd_extensions:Debuggable xmi:id="_84" lineNumber="127" source="mdd_types.tuml" base_Element="Duration-days"/>
+  <mdd_extensions:Debuggable xmi:id="_85" lineNumber="130" source="mdd_types.tuml" base_Element="String"/>
+  <mdd_extensions:Debuggable xmi:id="_86" lineNumber="131" source="mdd_types.tuml" base_Element="String-isEmpty"/>
+  <mdd_extensions:Debuggable xmi:id="_87" lineNumber="132" source="mdd_types.tuml" base_Element="String-size"/>
+  <mdd_extensions:Debuggable xmi:id="_88" lineNumber="133" source="mdd_types.tuml" base_Element="String-add"/>
+  <mdd_extensions:Debuggable xmi:id="_89" lineNumber="134" source="mdd_types.tuml" base_Element="String-add.1"/>
+  <mdd_extensions:Debuggable xmi:id="_90" lineNumber="135" source="mdd_types.tuml" base_Element="String-substring"/>
+  <mdd_extensions:Debuggable xmi:id="_91" lineNumber="136" source="mdd_types.tuml" base_Element="String-toLower"/>
+  <mdd_extensions:Debuggable xmi:id="_92" lineNumber="137" source="mdd_types.tuml" base_Element="String-toUpper"/>
+  <mdd_extensions:Debuggable xmi:id="_93" lineNumber="138" source="mdd_types.tuml" base_Element="String-contains"/>
+  <mdd_extensions:Debuggable xmi:id="_94" lineNumber="141" source="mdd_types.tuml" base_Element="Memo"/>
+  <mdd_extensions:Debuggable xmi:id="_95" lineNumber="142" source="mdd_types.tuml" base_Element="Memo-lineCount"/>
+  <mdd_extensions:Debuggable xmi:id="_96" lineNumber="143" source="mdd_types.tuml" base_Element="Memo-fromString"/>
+  <mdd_extensions:Debuggable xmi:id="_97" lineNumber="146" source="mdd_types.tuml" base_Element="Email"/>
+  <mdd_extensions:Debuggable xmi:id="_98" lineNumber="149" source="mdd_types.tuml" base_Element="Violation"/>
 </xmi:XMI>

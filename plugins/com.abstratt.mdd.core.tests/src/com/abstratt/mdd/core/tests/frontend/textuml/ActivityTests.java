@@ -268,21 +268,6 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
         parseAndCheck(structure, source);
     }
 
-    public void testIntegerBinaryOperands() throws CoreException {
-        String source;
-        source = "model simple;\n";
-        source += "operation SimpleClass.foo;\n";
-        source += "begin\n";
-        source += "var x : Integer, y : Integer;";
-        source += "y := x + 1;";
-        source += "y := x - 1;";
-        source += "y := x * 2;";
-        source += "y := x / 2;";
-        source += "end;\n";
-        source += "end.";
-        parseAndCheck(structure, source);
-    }
-
     public void testIntegerLiteralValue() throws CoreException {
         String source;
         source = "model simple;\n";

@@ -46,6 +46,7 @@ Tokens
   all = 'all' ;
   and = 'and' ;
   any = 'any';
+  anyone = 'anyone';  
   apply = 'apply';
   association = 'association' ;
   as = 'as' ;
@@ -56,10 +57,10 @@ Tokens
   call = 'call';
   catch = 'catch' ;
   clazz = 'class' ;
-  create = 'create';
   component = 'component' ;
   composition = 'composition' ;
   connector = 'connector';
+  create = 'create';
   datatype = 'datatype' ;
   delete = 'delete';
   deny = 'deny' ;
@@ -70,8 +71,8 @@ Tokens
   else = 'else' ;
   elseif = 'elseif' ;
   end = 'end' ;
-  enumeration = 'enumeration' ;
   entry = 'entry' ;
+  enumeration = 'enumeration' ;
   exit = 'exit' ;
   extends = 'extends' ;
   extent = 'extent' ;
@@ -107,7 +108,6 @@ Tokens
   ordered = 'ordered' ;
   out = 'out' ; 
   package = 'package' ;
-  permission = 'permission' ;
   port = 'port' ;
   postcondition = 'postcondition' ;
   precondition = 'precondition' ;
@@ -164,8 +164,11 @@ Tokens
 
   // relational symbols
   equals = '=';
+  equals_equals = '=' '=';
   lab = '<' ;
+  lab_equals = '<' '=' ;
   rab = '>' ;
+  rab_equals = '>' '=' ;
   not_equals = '!' '=' ;
   
   // separator symbols
@@ -440,15 +443,15 @@ Productions
   
   permission_expression = expression_block ;
   
-  permission_roles = qualified_identifier_list ;
+  permission_roles = qualified_identifier_list | {empty};
   
-  access_capabilities = access_capability_list  | {empty};
+  access_capabilities = access_capability_list  | {all} all | {none} none | {empty};
   
   access_capability_list = access_capability access_capability_tail*;
   
   access_capability_tail = comma access_capability ;
   
-  access_capability = {read} read | {create} create | {update} update | {delete} delete | {call} call | {none} none;
+  access_capability = {read} read | {create} create | {update} update | {delete} delete | {static_call} static call| {instance_call} call | {extent} extent;
   
   precondition_signature = l_paren identifier_list r_paren ;
   
@@ -727,6 +730,7 @@ Productions
   
   repeat_loop_body = statement_sequence ;
   
+  
   identifier_expression = 
    	{variable} variable_access |
     {class_attribute} minimal_type_identifier hash identifier |
@@ -774,51 +778,66 @@ Productions
         
   root_expression = expression ;        
         
-  expression = 
-    {unary} unary_operator operand |  
-    {binary} expression binary_operator operand |
-    {is_classified} expression is qualified_identifier |
-    {operand} operand |
-    {closure} closure ;
+  expression = expression_p5 ;
     
+  expression_p0 = {alt0} operand ;
+  
+  expression_p1 = 
+      {alt0} [operator]: minus [operand]: expression_p1 |
+      {alt1} [operator]: not_null [operand]: expression_p1 |
+      {alt2} [operand1]: expression_p0 [operator]: mult_div [operand2]: expression_p1 |
+      {alt3} expression_p0;
+      
+  expression_p2 =
+      {alt0} [operand1]: expression_p1 [operator]: add_sub [operand2]: expression_p2 |
+      {alt1} expression_p1 ;
+      
+  expression_p3 = 
+      {alt0} [operand1]: expression_p2 [operator]: comparison_operator [operand2]: expression_p2 |
+      {alt1} expression_p2;
+    
+  expression_p4 = 
+      {alt0} [operator]: not [operand]: expression_p4 |
+      {alt1} [operand1]: expression_p3 [operator]: and [operand2]: expression_p4 |
+      {alt2} expression_p3 ;
+      
+  expression_p5 =    
+      {alt0} [operand1]: expression_p4 [operator]: or [operand2]: expression_p5 |
+      {alt1} expression_p4;
+      
+  is_class_expression = [operand1]: operand [operator]: is [operand2]: minimal_type_identifier ;
+  
   operand = 
     {identifier_expression} identifier_expression |
     {literal} literal |
     {empty_set} empty_set |
     {tuple} tuple_constructor |
-    {parenthesis} l_paren expression cast? r_paren ;
+    {parenthesis} l_paren expression cast? r_paren | 
+    {is_class} is_class_expression |
+    {closure} closure;
     
   empty_set = minimal_type_identifier l_bracket r_bracket ; 
     
   cast = as single_type_identifier ;
     
-  binary_operator = 
-    {logical} logical_binary_operator | 
-    {arithmetic} arithmetic_binary_operator |
-    {comparison} comparison_binary_operator |
-    {identity} [equals1]: equals [equals2]: equals ;
-    
-  logical_binary_operator = 
-    {or} or | 
-    {and} and ;
-  
-  arithmetic_binary_operator =     
+  mult_div =     
     {mult} mult | 
-    {div} div | 
+    {div} div ;
+    
+  add_sub =     
     {plus} plus | 
     {minus} minus;
-  
-  comparison_binary_operator =
+
+  comparison_operator =
+    {identity} equals_equals |
     {equals} equals  |
     {not_equals} not_equals  |    
     {lower_than} lab | 
     {greater_than} rab |
-    {greater_or_equals} rab equals |
-    {lower_or_equals} lab equals; 
+    {greater_or_equals} rab_equals |
+    {lower_or_equals} lab_equals;
       
-  unary_operator = {not} not | {minus} minus | {not_null} not_null;
-  
-  literal = {boolean} boolean | {number} number | {string} string | {null} null | {symbol} hash identifier ;
+  literal = {boolean} boolean | {number} number | {string} string | {null} null;
   
   tuple_constructor = l_curly_bracket tuple_component_value tuple_component_value_tail* r_curly_bracket ;
   

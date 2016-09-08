@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -538,7 +540,24 @@ public class MDDUtil {
     }
 
     public static Properties loadRepositoryProperties(URI baseRepositoryURI) {
-        URI propertiesURI = baseRepositoryURI.appendSegment(IRepository.MDD_PROPERTIES);
+        Properties allProperties = loadRepositoryProperties(baseRepositoryURI, null);
+        String[] features = StringUtils.split(allProperties.getProperty("mdd.features", ""));
+        Arrays.stream(features)
+        	.filter(it -> !isFeatureLoaded(allProperties, it))
+        	.forEach(it -> allProperties.putAll(loadRepositoryProperties(baseRepositoryURI, it)));
+        return allProperties;
+    }
+    
+	private static boolean isFeatureLoaded(Properties allProperties, String it) {
+		return Boolean.parseBoolean(allProperties.getProperty("mdd.features." + it + ".loaded", Boolean.FALSE.toString()));
+	}
+
+	private static void markFeatureLoaded(Properties properties, String feature) {
+		properties.setProperty("mdd.features." + feature + ".loaded", Boolean.TRUE.toString());
+	}
+	private static Properties loadRepositoryProperties(URI baseRepositoryURI, String feature) {
+		String prefix = feature == null ? "" : (feature + ".");
+        URI propertiesURI = baseRepositoryURI.appendSegment(prefix + IRepository.MDD_PROPERTIES);
         URL asURL;
         try {
             asURL = new URL(propertiesURI.toString());
@@ -553,6 +572,8 @@ public class MDDUtil {
             contents = new BufferedInputStream(asURL.openStream());
             Properties properties = new Properties();
             properties.load(contents);
+            if (feature != null)
+            	markFeatureLoaded(properties, feature);
             return properties;
         } catch (FileNotFoundException e) {
             return new Properties();
@@ -564,6 +585,7 @@ public class MDDUtil {
             IOUtils.closeQuietly(contents);
         }
     }
+
 
     public static boolean doesRepositoryExist(URI repositoryURI) {
         if (!repositoryURI.isFile())

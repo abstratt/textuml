@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
@@ -35,8 +36,6 @@ import com.abstratt.resman.impl.ReferencePool.ReferenceDisposer;
 public class BasicResourceManager<K extends ResourceKey> extends ResourceManager<K> {
 
     private static final String PLUGIN_ID = ResourceManager.class.getPackage().getName();
-
-    private static ThreadLocal<Resource<?>> currentResource = new ThreadLocal<Resource<?>>();
 
     private final ReferencePool<K, BasicResource<K>> pool;
 
@@ -75,7 +74,7 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
 
     protected BasicResourceManager(int bucketCap, ResourceProvider<K> provider,
             Collection<FeatureProvider> featureProviders) {
-        this.pool = initPool(bucketCap);
+    	this.pool = initPool(bucketCap);
         this.resourceProvider = provider;
         this.featureProviders = new HashSet<FeatureProvider>(featureProviders);
     }
@@ -210,7 +209,7 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
                 }
             }
         }
-        BasicResource<K> newResource = new BasicResource<K>(resourceId);
+        BasicResource<K> newResource = new BasicResource<K>(this, resourceId);
         initResource(newResource);
         pool.add(resourceId, newResource);
         activateContext(newResource);
@@ -274,6 +273,8 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
             try {
                 FeatureProvider currentFeatureProvider = (FeatureProvider) configurationElements[i]
                         .createExecutableExtension("provider");
+                if (!currentFeatureProvider.isEnabled())
+                	continue;
                 Set<Class<?>> provided = new HashSet<Class<?>>(Arrays.asList(currentFeatureProvider
                         .getProvidedFeatureTypes()));
                 provided.retainAll(knownFeatures);
@@ -295,21 +296,8 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
     }
 
     @Override
-    public Resource<K> getCurrentResource() {
-        final Resource<K> resource = (Resource<K>) currentResource.get();
-        Assert.isTrue(resource != null, "No current resource");
-        Assert.isTrue(resource.isValid());
-        return resource;
-    }
-
-    @Override
-    public boolean inTask() {
-        return (Resource<K>) currentResource.get() != null;
-    }
-
-    @Override
     public void clear() {
-        currentResource.remove();
+        super.clear();
         this.pool.clear();
     }
 
