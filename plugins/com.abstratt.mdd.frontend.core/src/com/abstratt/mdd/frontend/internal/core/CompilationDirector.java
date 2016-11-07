@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 
 import org.eclipse.core.filesystem.EFS;
@@ -49,6 +51,7 @@ import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.core.spi.ISourceAnalyzer;
 import com.abstratt.pluginutils.ISharedContextRunnable;
 import com.abstratt.pluginutils.LogUtils;
+import com.sun.javafx.collections.IntegerArraySyncer;
 
 public class CompilationDirector implements ICompilationDirector {
 
@@ -177,7 +180,15 @@ public class CompilationDirector implements ICompilationDirector {
             return new IProblem[0];
         }
         if (repository == null) {
-            repository = MDDCore.createRepository(MDDUtil.fromJavaToEMF(context.getDefaultOutputPath().toURI()));
+            IRepository actualRepository = repository = MDDCore.createRepository(MDDUtil.fromJavaToEMF(context.getDefaultOutputPath().toURI()));
+            Optional<String> loadedPackages = Optional.ofNullable(repository.getProperties().getProperty(IRepository.LOADED_PACKAGES));
+            loadedPackages
+            	.ifPresent(it -> 
+            		Arrays.stream(it.split(","))
+            			.forEach(it2 -> 
+            				actualRepository.loadPackage(MDDUtil.fromJavaToEMF(URI.create(it2)))
+        				)
+    			);
             for (IFileStore relatedRootPath : context.getRelatedPaths())
                 for (IFileStore relatedEntry : relatedRootPath.childStores(EFS.NONE, null))
                     if (isUMLFile(relatedEntry))

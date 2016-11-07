@@ -1,6 +1,9 @@
 package com.abstratt.mdd.core.tests.frontend.textuml;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Properties;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -8,6 +11,7 @@ import junit.framework.TestSuite;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Package;
@@ -230,6 +234,46 @@ public class PackageTests extends AbstractRepositoryBuildingTests {
         assertNotNull(getRepository().findNamedElement("UML", IRepository.PACKAGE.getPackage(), null));
     }
 
+    public void testModelPath() throws CoreException, IOException {
+
+        String librarySource = "";
+        librarySource += "model library;\n";
+        librarySource += "class BaseClass end;\n";
+        librarySource += "end.";
+        parseAndCheck(librarySource);
+
+        IFileStore originalLocation = getRepositoryDir();
+        IFileStore destination = originalLocation.getParent().getChild(getName() + "_library");
+        originalLocation.move(destination, EFS.NONE, null);
+        
+        IFileStore loadedModelLocation = destination.getChild("library.uml");
+		assertTrue(loadedModelLocation.fetchInfo().exists());
+        
+        IFileStore projectRoot = originalLocation;
+
+        Properties settings = createDefaultSettings();
+        settings.put(IRepository.LOADED_PACKAGES, loadedModelLocation.toURI().toString());
+		saveSettings(projectRoot, settings);
+        String source = "";
+        source += "model someModel;\n";
+        source += "import  library;\n";
+        source += "class MyClass specializes library::BaseClass end;\n";
+        source += "end.";
+        parseAndCheck(source);
+
+        assertTrue(originalLocation.getChild("someModel.uml").fetchInfo().exists());
+        assertFalse(originalLocation.getChild("library.uml").fetchInfo().exists());
+
+        assertNotNull(getRepository().findPackage("someModel", IRepository.PACKAGE.getModel()));
+        assertNotNull(getRepository().findNamedElement("library::BaseClass", IRepository.PACKAGE.getClass_(), null));
+
+        Package someModel = getRepository().findPackage("someModel", null);
+        Package library = getRepository().findPackage("library", null);
+
+        assertTrue(someModel.getImportedPackages().contains(library));
+
+    }
+
     public void testLoadAnotherPackage() throws CoreException {
 
         String librarySource = "";
@@ -264,6 +308,7 @@ public class PackageTests extends AbstractRepositoryBuildingTests {
 
     }
 
+    
     public void testLoadPackageNonExistingLocation() throws CoreException {
         String source = "";
         source += "model someModel;\n";

@@ -77,6 +77,8 @@ public interface IRepository extends IBasicRepository {
     public String DEFAULT_LANGUAGE = "mdd.defaultLanguage";
 
     public String IMPORTED_PROJECTS = "mdd.importedProjects";
+    
+    public String LOADED_PACKAGES = "mdd.loadedPackages";
 
     public String TARGET_ENGINE = "mdd.target.engine";
 
