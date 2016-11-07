@@ -356,16 +356,16 @@ association, or by the members of the association.
     association | composition | aggregation [<association-name>] 
 
       // association-owned ends
-      [ [navigable] role <role-name> : <associated-class-name>; ]
+      [ [!]navigable] role <role-name> : <associated-class-name>; ]
       ...
 
       // member-owned ends
-      [ [navigable] role <member-class-name>.<role-name>; ]
+      [ [!]navigable] role <member-class-name>.<role-name>; ]
       ...   
      
     end;
 
-Note that at least one of the ends must be navigable.
+Note that at least one of the ends must be navigable, which is the default. Navigability can be avoided by prepending the navigable modifier with '!'. 
 
 **Note**: currently, the TextUML Toolkit supports binary associations
 only.
