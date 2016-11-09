@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.pde.ui.RuntimeWorkbench">
 <booleanAttribute key="append.args" value="true"/>
-<stringAttribute key="application" value="com.abstratt.mdd.frontend.cli.compiler"/>
+<stringAttribute key="application" value="com.abstratt.mdd.frontend.cli.compilerApplication"/>
 <booleanAttribute key="askclear" value="true"/>
 <booleanAttribute key="automaticAdd" value="true"/>
 <booleanAttribute key="automaticValidate" value="false"/>

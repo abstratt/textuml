@@ -740,8 +740,10 @@ public class Repository implements IRepository {
                             break;
                         }
                     }
-                    if (!satisfied)
+                    if (!satisfied) {
+                    	LogUtils.logInfo(MDDCore.PLUGIN_ID, "System package skipped: " + uri, null);
                         continue;
+                    }
                 }
             }
             try {
@@ -750,6 +752,8 @@ public class Repository implements IRepository {
                 if (systemPackage != null) {
                     addSystemPackage(systemPackage);
                     LogUtils.debug(MDDCore.PLUGIN_ID, "Loading system package: " + uri);
+                } else {
+                	LogUtils.logError(MDDCore.PLUGIN_ID, "System package not found: " + uri, null);
                 }
             } catch (WrappedException e) {
                 if (!(e instanceof Diagnostic))

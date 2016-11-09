@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: MDD Core
 Bundle-SymbolicName: com.abstratt.mdd.core;singleton:=true
 Bundle-Version: 2.2.201606.qualifier
-Bundle-Localization: plugin
 Require-Bundle: org.eclipse.equinox.common;visibility:=reexport,
  com.abstratt.resman;bundle-version="2.2.201606";visibility:=reexport,
  org.eclipse.uml2.uml;visibility:=reexport;bundle-version="[5.0.1,6)",
