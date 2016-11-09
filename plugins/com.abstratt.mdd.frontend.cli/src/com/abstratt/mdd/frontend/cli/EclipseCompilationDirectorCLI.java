@@ -10,9 +10,10 @@
  *******************************************************************************/
 package com.abstratt.mdd.frontend.cli;
 
+import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
-public class EclipseCompilationDirectorCLI  {
+public class EclipseCompilationDirectorCLI implements IApplication {
 	public Object start(IApplicationContext appContext) throws Exception {
 		new CompilationDirectorCLI().doIt(null);
 		return null;

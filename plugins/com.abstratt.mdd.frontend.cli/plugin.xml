@@ -3,7 +3,7 @@
          id="compilerApplication"
          point="org.eclipse.core.runtime.applications">
       <application>
-         <run class="com.abstratt.mdd.frontend.cli.CompilationDirectorCLI"/>
+         <run class="com.abstratt.mdd.frontend.cli.EclipseCompilationDirectorCLI"/>
       </application>
    </extension>
    <extension
