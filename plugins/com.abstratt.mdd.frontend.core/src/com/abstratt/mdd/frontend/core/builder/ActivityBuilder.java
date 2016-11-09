@@ -65,7 +65,7 @@ public class ActivityBuilder extends DefaultParentBuilder<Activity> {
                 try {
                     ActivityBuilder.super.enhance();
                 } finally {
-                    getContext().getActivityBuilder().leaveBlock();
+                    getContext().getActivityBuilder().closeRootBlock();
                 }
             }
         }, IReferenceTracker.Step.LAST);

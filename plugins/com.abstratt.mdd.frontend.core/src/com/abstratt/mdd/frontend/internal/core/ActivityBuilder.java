@@ -1,6 +1,5 @@
 package com.abstratt.mdd.frontend.internal.core;
 
-import java.util.Collection;
 import java.util.Stack;
 
 import org.eclipse.core.runtime.Assert;
@@ -88,8 +87,8 @@ public class ActivityBuilder implements IActivityBuilder {
         leaveBlock();
         // main
         leaveBlock();
-        // assert activityNodes.isEmpty() : activityNodes;
-        // assert currentActivity == null;
+        assert activityNodes.isEmpty() : activityNodes;
+        assert currentActivity == null;
     }
 
     @Override
@@ -135,7 +134,6 @@ public class ActivityBuilder implements IActivityBuilder {
         // another block level so we can always go back and insert more blocks
         // before the current code
         StructuredActivityNode wrapper = createBlock(UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE);
-        enterBlock(wrapper);
         return wrapper;
     }
 
@@ -240,15 +238,6 @@ public class ActivityBuilder implements IActivityBuilder {
         Assert.isLegal(output != null);
         currentAction.registerOutput(output);
         return output;
-    }
-
-    @SuppressWarnings("unused")
-    private void validateTypes(Collection typedElements) {
-        // for (Iterator i = typedElements.iterator(); i.hasNext();) {
-        // TypedElement current = (TypedElement) i.next();
-        // Assert.isTrue(current.getType() != null, "Missing type info: " +
-        // current);
-        // }
     }
 
     @Override
