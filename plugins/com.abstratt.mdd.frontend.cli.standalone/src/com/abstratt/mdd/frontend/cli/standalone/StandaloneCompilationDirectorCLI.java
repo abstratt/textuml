@@ -1,4 +1,4 @@
-package com.abstratt.mdd.frontend.cli;
+package com.abstratt.mdd.frontend.cli.standalone;
 
 import static com.abstratt.mdd.frontend.cli.Helper.buildStatus;
 
@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.uml2.uml.resources.util.UMLResourcesUtil;
 
 import com.abstratt.mdd.core.util.MDDUtil;
-import com.abstratt.mdd.frontend.core.FrontEnd;
+import com.abstratt.mdd.frontend.cli.CompilationDirectorCLI;
 import com.abstratt.pluginutils.LogUtils;
 import com.abstratt.standalone.StandaloneRegistryLoader;
 

@@ -3,27 +3,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>com.abstratt.mdd.frontend.cli</artifactId>
+	<groupId>com.abstratt.mdd</groupId>
+	<artifactId>com.abstratt.mdd.frontend.cli.standalone</artifactId>
+	<version>2.2.201606-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<parent>
-		<artifactId>com.abstratt.mdd.plugins</artifactId>
+		<artifactId>com.abstratt.mdd.standalone</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
 		<version>2.2.201606-SNAPSHOT</version>
-		<relativePath>..</relativePath>
+		<relativePath>../standalone-pom.xml</relativePath>
 	</parent>
-	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
-	<repositories>
-		<repository>
-			<id>wso2</id>
-			<url>http://dist.wso2.org/maven2/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -101,6 +90,11 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
+            <groupId>com.abstratt.mdd</groupId>
+            <artifactId>com.abstratt.mdd.frontend.cli</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore</artifactId>
 			<version>2.11.1-v20150805-0538</version>
@@ -233,7 +227,7 @@
 							<archive>
 								<manifest>
 									<mainClass>
-										com.abstratt.mdd.frontend.cli.StandaloneCompilationDirectorCLI
+										com.abstratt.mdd.frontend.cli.standalone.StandaloneCompilationDirectorCLI
 									</mainClass>
 									<addClasspath>true</addClasspath>
 								</manifest>

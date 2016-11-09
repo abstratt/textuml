@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.abstratt.mdd</groupId>
+	<artifactId>com.abstratt.mdd.standalone</artifactId>
+	<version>2.2.201606-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<artifactId>com.abstratt.mdd.parent</artifactId>
+		<groupId>com.abstratt.mdd</groupId>
+		<version>2.2.201606-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	<repositories>
+		<repository>
+			<id>wso2</id>
+			<url>http://dist.wso2.org/maven2/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<modules>
+		<module>com.abstratt.standalone</module>
+		<module>com.abstratt.mdd.frontend.cli.standalone</module>
+	</modules>
+
+</project>
+

@@ -1,14 +1,39 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.abstratt</groupId>
+	<groupId>com.abstratt.mdd</groupId>
 	<artifactId>com.abstratt.standalone</artifactId>
 	<version>2.2.201606-SNAPSHOT</version>
-	<packaging>eclipse-plugin</packaging>
+	<packaging>jar</packaging>
 	<parent>
-		<artifactId>com.abstratt.mdd.plugins</artifactId>
+		<artifactId>com.abstratt.mdd.standalone</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
 		<version>2.2.201606-SNAPSHOT</version>
-		<relativePath>..</relativePath>
+		<relativePath>../standalone-pom.xml</relativePath>
 	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse</groupId>
+			<artifactId>osgi</artifactId>
+			<version>3.9.1-v20140110-1610</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.equinox</groupId>
+			<artifactId>common</artifactId>
+			<version>3.6.200-v20130402-1505</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.equinox</groupId>
+			<artifactId>registry</artifactId>
+			<version>3.5.400-v20140428-1507</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.core</groupId>
+			<artifactId>runtime</artifactId>
+			<version>3.9.100-v20131218-1515</version>
+		</dependency>
+	</dependencies>   
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+        </build>
 </project>
