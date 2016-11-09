@@ -46,10 +46,10 @@ public class StandaloneCompilationDirectorCLI {
 		});
 		registryLoader.makeDefault(registry);
 		EcorePlugin.ExtensionProcessor.process(null);
-		registerURIMapping(URIConverter.URI_MAP, "pathmap://MDD_LIBRARIES/", "libraries/", "base.uml", classLoader);
-		registerURIMapping(URIConverter.URI_MAP, "pathmap://MDD_LIBRARIES/", "libraries/", "mdd_types.uml", classLoader);
-		registerURIMapping(URIConverter.URI_MAP, "pathmap://MDD_LIBRARIES/", "libraries/", "mdd_collections.uml", classLoader);
-		registerURIMapping(URIConverter.URI_MAP, "pathmap://MDD_PROFILES/", "profiles/", "mdd_extensions.uml", classLoader);		
+		registerURIMapping(URIConverter.URI_MAP, "pathmap://MDD_LIBRARIES/", "models/", "libraries/base.uml", classLoader);
+		registerURIMapping(URIConverter.URI_MAP, "pathmap://MDD_LIBRARIES/", "models/", "libraries/mdd_types.uml", classLoader);
+		registerURIMapping(URIConverter.URI_MAP, "pathmap://MDD_LIBRARIES/", "models/", "libraries/mdd_collections.uml", classLoader);
+		registerURIMapping(URIConverter.URI_MAP, "pathmap://MDD_PROFILES/", "models/", "profiles/mdd_extensions.uml", classLoader);		
 		UMLResourcesUtil.initGlobalRegistries();
 		
 		URIConverter.URI_MAP.forEach((key, value) -> System.out.println(MessageFormat.format("\t{0} -> \t{1}", key, value)));

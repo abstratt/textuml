@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.abstratt.mdd</groupId>
-  <artifactId>com.abstratt.mdd.core</artifactId>
-  <version>2.2.201606-SNAPSHOT</version>
-  <packaging>eclipse-plugin</packaging>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.abstratt.mdd</groupId>
+	<artifactId>com.abstratt.mdd.core</artifactId>
+	<version>2.2.201606-SNAPSHOT</version>
+	<packaging>eclipse-plugin</packaging>
 	<parent>
 		<artifactId>com.abstratt.mdd.plugins</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
 		<version>2.2.201606-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
+	<build>
+	</build>
 </project>
