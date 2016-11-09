@@ -12,6 +12,5 @@ Require-Bundle: com.abstratt.mdd.frontend.core,
  org.eclipse.emf.ecore,
  org.eclipse.uml2.uml,
  org.eclipse.uml2.uml.resources,
- com.abstratt.mdd.core,
- com.abstratt.standalone
+ com.abstratt.mdd.core
 Export-Package: com.abstratt.mdd.frontend.cli
