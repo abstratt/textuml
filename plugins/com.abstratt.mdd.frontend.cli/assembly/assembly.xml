@@ -1,0 +1,17 @@
+<assembly>
+	<id>deployment-bundle</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<!-- all our dependencies will be copied into libs -->
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>plugins</outputDirectory>
+			<useProjectArtifact>true</useProjectArtifact>
+			<useTransitiveDependencies>false</useTransitiveDependencies>
+		</dependencySet>
+	</dependencySets>
+
+
+</assembly>
