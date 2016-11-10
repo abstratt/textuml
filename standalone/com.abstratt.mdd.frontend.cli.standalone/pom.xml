@@ -112,7 +112,7 @@
 		<dependency>
 			<groupId>org.eclipse.uml2</groupId>
 			<artifactId>common</artifactId>
-			<version>5.0.0-v20140602-0749</version>
+			<version>5.0.1-v20140602-0749</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.eclipse.emf</groupId>
