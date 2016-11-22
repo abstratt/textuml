@@ -4,10 +4,15 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.StructuredActivityNode;
+import org.eclipse.uml2.uml.Variable;
 
 import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
+import com.abstratt.mdd.core.util.ActivityUtils;
+import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
 
 public class TypeTests extends AbstractRepositoryBuildingTests {
@@ -18,8 +23,8 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         structure += "model tests;\n";
         structure += "import base;\n";
         structure += "class Struct\n";
-        structure += "  attribute attrib1 :  Integer;\n";
-        structure += "  attribute attrib2 :  Boolean;\n";
+        structure += "  attribute attrib1 :  Integer[0,1];\n";
+        structure += "  attribute attrib2 :  Boolean[0,1];\n";
         structure += "  attribute attrib3 :  any;\n";
         structure += "  operation op1();\n";
         structure += "end;\n";
@@ -38,6 +43,28 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         super(name);
     }
 
+    public void testTypeInference() throws CoreException {
+        String behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "  var tmp1, tmp2;\n";
+        behavior += "  tmp1 := true;\n";
+        behavior += "  tmp2 := self.attrib1;\n";
+        behavior += "end;\n";
+        behavior += "end.\n";
+        parseAndCheck(structure, behavior);
+        Activity op1Activity = getActivity("tests::Struct::op1");
+        StructuredActivityNode singleBlock = (StructuredActivityNode) ActivityUtils.getRootAction(op1Activity).getNodes().get(0);
+		Variable tmp1Var = ActivityUtils.findVariable(singleBlock, "tmp1");
+		Variable tmp2Var = ActivityUtils.findVariable(singleBlock, "tmp2");
+        assertNotNull(tmp1Var);
+        assertNotNull(tmp2Var);
+        assertEquals("Boolean", tmp1Var.getType().getName());
+        assertEquals(1, tmp1Var.getLower());
+        assertEquals("Integer", tmp2Var.getType().getName());
+        assertEquals(0, tmp2Var.getLower());
+    }
+    
     public void testAssignAnyToBoolean() throws CoreException {
         String behavior = "model tests;\n";
         behavior += "operation Struct.op1;\n";

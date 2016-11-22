@@ -332,6 +332,10 @@ public class ActivityUtils {
         Assert.isLegal(sourceAction != null, "No source action");
         return (Activity) resolveBehaviorReference(sourceAction);
     }
+    
+    public static InputPin getTargetInput(ObjectNode source) {
+    	return (InputPin) getTarget(source);
+    }
 
     public static ObjectNode getTarget(ObjectNode source) {
         final List<ActivityEdge> outgoings = source.getOutgoings();
