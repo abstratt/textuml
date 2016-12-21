@@ -18,6 +18,7 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.InterfaceRealization;
 
+import com.abstratt.mdd.core.util.ElementUtils;
 import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
@@ -26,7 +27,7 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 public class ClassRenderer implements IEObjectRenderer<Class> {
 
     public boolean renderObject(Class clazz, IndentedPrintWriter writer, IRenderingSession context) {
-        RenderingUtils.renderAll(context, clazz.getOwnedComments());
+        RenderingUtils.renderAll(context, ElementUtils.getComments(clazz));
         TextUMLRenderingUtils.renderStereotypeApplications(writer, clazz);
         if (clazz.isAbstract())
             writer.print("abstract ");

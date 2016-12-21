@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.Generalization;
 
+import com.abstratt.mdd.core.util.ElementUtils;
 import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
@@ -25,7 +26,7 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 public class DataTypeRenderer implements IEObjectRenderer<DataType> {
 
     public boolean renderObject(DataType dataType, IndentedPrintWriter writer, IRenderingSession context) {
-        RenderingUtils.renderAll(context, dataType.getOwnedComments());
+        RenderingUtils.renderAll(context, ElementUtils.getComments(dataType));
         TextUMLRenderingUtils.renderStereotypeApplications(writer, dataType);
         if (dataType.isAbstract())
             writer.print("abstract ");

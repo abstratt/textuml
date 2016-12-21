@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Enumeration;
 import org.eclipse.uml2.uml.EnumerationLiteral;
 
+import com.abstratt.mdd.core.util.ElementUtils;
 import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
@@ -23,7 +24,7 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class EnumerationRenderer implements IEObjectRenderer<Enumeration> {
     public boolean renderObject(Enumeration enumeration, IndentedPrintWriter writer, IRenderingSession context) {
-        RenderingUtils.renderAll(context, enumeration.getOwnedComments());
+        RenderingUtils.renderAll(context, ElementUtils.getComments(enumeration));
         TextUMLRenderingUtils.renderStereotypeApplications(writer, enumeration);
         writer.println("enumeration " + name(enumeration));
         writer.enterLevel();

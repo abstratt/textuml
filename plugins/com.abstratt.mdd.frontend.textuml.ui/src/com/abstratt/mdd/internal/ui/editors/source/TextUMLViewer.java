@@ -15,11 +15,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -34,6 +37,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPersistableElement;
@@ -73,9 +77,8 @@ public class TextUMLViewer extends SourceEditor {
         }
 
         public Object getAdapter(Class adapter) {
-            return null;
+            return storage.getAdapter(adapter);
         }
-
     }
 
     private static class InMemoryStorageEditorInput implements IStorageEditorInput {
@@ -101,7 +104,7 @@ public class TextUMLViewer extends SourceEditor {
         }
 
         public IPersistableElement getPersistable() {
-            return null;
+            return wrappedEditorInput.getPersistable();
         }
 
         public String getToolTipText() {
@@ -109,7 +112,7 @@ public class TextUMLViewer extends SourceEditor {
         }
 
         public Object getAdapter(Class adapter) {
-            return null;
+            return wrappedEditorInput.getAdapter(adapter);
         }
 
         public InMemoryStorageEditorInput(IFileEditorInput wrapped, InputStream inoutStream) throws CoreException {
@@ -118,20 +121,41 @@ public class TextUMLViewer extends SourceEditor {
         }
 
     }
+    
+    private class LoadJob extends Job {
+		public LoadJob() {
+			super("Rendering UML model");
+		}
 
-    private IFile modelFile;
+		@Override
+		protected IStatus run(IProgressMonitor monitor) {
+			safeDoSetInput(originalInput);
+			return Status.OK_STATUS;
+		}
+    	
+    }
+    
+    private LoadJob loadJob = new LoadJob();
+	private IEditorInput originalInput;
 
     @Override
     protected void doSetInput(IEditorInput input) throws CoreException {
-        this.modelFile = null;
-        if (!(input instanceof IFileEditorInput))
+    	this.originalInput = input;
+    	loadJob.schedule();
+    }
+
+	private void safeDoSetInput(IEditorInput input) {
+		if (input instanceof InMemoryStorageEditorInput)
+			input = ((InMemoryStorageEditorInput) input).wrappedEditorInput;
+		if (!(input instanceof IFileEditorInput))
             return;
-        this.modelFile = ((IFileEditorInput) input).getFile();
         FileEditorInput storageInput = (FileEditorInput) input;
-        final ResourceSet resourceSet = new ResourceSetImpl();
+        registerChangeListener(storageInput.getFile());
         java.net.URI editorInputURI = storageInput.getURI();
+        final ResourceSet resourceSet = new ResourceSetImpl();
         Resource resource = resourceSet.createResource(URI.createURI(editorInputURI.toASCIIString()));
         InputStream stream = null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(8192);
         try {
             stream = new URL(editorInputURI.toASCIIString()).openStream();
             Map<String, Object> options = new HashMap<String, Object>();
@@ -139,17 +163,12 @@ public class TextUMLViewer extends SourceEditor {
             options.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_DISCARD);
             options.put(XMLResource.OPTION_EXTENDED_META_DATA, new BasicExtendedMetaData());
             resource.load(stream, options);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream(8192);
             TextUMLRenderer renderer = new TextUMLRenderer();
             renderer.render(resource, baos);
-            ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-            super.doSetInput(new InMemoryStorageEditorInput(storageInput, bais));
-            return;
-        } catch (CoreException e) {
-            LogUtils.logError(TextUMLEditor.PLUGIN_ID, "Error loading contents", e);
         } catch (FileNotFoundException e) {
-            LogUtils.logError(TextUMLEditor.PLUGIN_ID, "Error loading contents", e);
+        	new PrintStream(baos).println("No file found at: " + editorInputURI);
         } catch (IOException e) {
+        	e.printStackTrace(new PrintStream(baos));
             LogUtils.logError(TextUMLEditor.PLUGIN_ID, "Error loading contents", e);
         } finally {
             try {
@@ -158,26 +177,31 @@ public class TextUMLViewer extends SourceEditor {
             } catch (IOException e) {
                 // so what...
             }
-            // unloading resources can be time consuming
-            new Job("Unloading UML model after rendering") {
-                @Override
-                protected IStatus run(IProgressMonitor monitor) {
-                    MDDUtil.unloadResources(resourceSet);
-                    return Status.OK_STATUS;
-                }
-            }.schedule();
+            MDDUtil.unloadResources(resourceSet);
         }
-        // only get here if we failed
-        super.doSetInput(null);
-    }
+		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+		Display.getDefault().asyncExec(() -> { 
+			try {
+				super.doSetInput(new InMemoryStorageEditorInput(storageInput, bais));
+			} catch (CoreException e) {
+	            LogUtils.logError(TextUMLEditor.PLUGIN_ID, "Error loading contents", e);
+			}
+		});
+	}
 
-    @Override
-    public IFile getModelFile() {
-        return modelFile;
-    }
+    private void registerChangeListener(IFile modelFile) {
+		modelFile.getWorkspace().addResourceChangeListener((IResourceChangeEvent event) -> {
+	        if (event.getDelta() == null)
+	            return;
+	        IResourceDelta interestingChange = event.getDelta().findMember(modelFile.getFullPath());
+	        if (interestingChange != null)
+	        	loadJob.schedule();
+		}, IResourceChangeEvent.POST_CHANGE);
+	}
 
     @Override
     protected void createActions() {
         // disable any actions
     }
+    
 }

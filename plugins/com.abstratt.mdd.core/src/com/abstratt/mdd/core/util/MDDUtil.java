@@ -299,7 +299,7 @@ public class MDDUtil {
     }
 
     public static String getDescription(Element element) {
-        return ElementUtils.getComments(element);
+        return ElementUtils.getCommentText(element);
     }
 
     public static String getTypeName(Type type) {

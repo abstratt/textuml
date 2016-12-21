@@ -18,6 +18,7 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.ValueSpecification;
 
+import com.abstratt.mdd.core.util.ElementUtils;
 import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
@@ -28,7 +29,7 @@ public class PropertyRenderer implements IEObjectRenderer<Property> {
         if (property.getAssociation() instanceof Extension)
             // association of a stereotype with an extended metaclass
             return false;
-        RenderingUtils.renderAll(context, property.getOwnedComments());
+        RenderingUtils.renderAll(context, ElementUtils.getComments(property));
         TextUMLRenderingUtils.renderStereotypeApplications(writer, property);
         writer.print(TextUMLRenderingUtils.renderVisibility(property.getVisibility()));
         if (property.isReadOnly())

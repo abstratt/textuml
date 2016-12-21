@@ -14,6 +14,7 @@ import static com.abstratt.mdd.frontend.textuml.renderer.TextUMLRenderingUtils.n
 
 import org.eclipse.uml2.uml.PrimitiveType;
 
+import com.abstratt.mdd.core.util.ElementUtils;
 import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
@@ -21,7 +22,7 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 
 public class PrimitiveTypeRenderer implements IEObjectRenderer<PrimitiveType> {
     public boolean renderObject(PrimitiveType toRender, IndentedPrintWriter writer, IRenderingSession context) {
-        RenderingUtils.renderAll(context, toRender.getOwnedComments());
+        RenderingUtils.renderAll(context, ElementUtils.getComments(toRender));
         TextUMLRenderingUtils.renderStereotypeApplications(writer, toRender);
         writer.println("primitive " + name(toRender) + ";");
         writer.println();

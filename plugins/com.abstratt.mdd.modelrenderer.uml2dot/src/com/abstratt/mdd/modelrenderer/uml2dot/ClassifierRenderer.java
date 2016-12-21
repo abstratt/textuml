@@ -158,7 +158,7 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
         RenderingUtils.renderAll(context, generalizations);
         EList<Association> associations = element.getAssociations();
         RenderingUtils.renderAll(context, associations);
-        RenderingUtils.renderAll(context, element.getOwnedComments());
+        RenderingUtils.renderAll(context, ElementUtils.getComments(element));
     }
 
     private boolean showCompartments(IRenderingSession<Element> context, boolean isEmpty) {

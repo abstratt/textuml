@@ -21,6 +21,7 @@ import org.eclipse.uml2.uml.Extension;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Property;
 
+import com.abstratt.mdd.core.util.ElementUtils;
 import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
@@ -31,7 +32,7 @@ public class AssociationRenderer implements IEObjectRenderer<Association> {
     public boolean renderObject(Association association, IndentedPrintWriter writer, IRenderingSession context) {
         if (association instanceof Extension)
             return false;
-        RenderingUtils.renderAll(context, association.getOwnedComments());
+        RenderingUtils.renderAll(context, ElementUtils.getComments(association));
         AggregationKind aggregationKind = AggregationKind.NONE_LITERAL;
         List<Property> memberEnds = association.getMemberEnds();
         for (Property property : memberEnds)
@@ -57,7 +58,7 @@ public class AssociationRenderer implements IEObjectRenderer<Association> {
         for (Property property : memberEnds) {
             if (property.getClass_() == null)
                 continue;
-            RenderingUtils.renderAll(context, property.getOwnedComments());
+            RenderingUtils.renderAll(context, ElementUtils.getComments(property));
             writer.write("role ");
             writer.write(TextUMLRenderingUtils.getQualifiedNameIfNeeded((NamedElement) property.getClass_(),
                     association.getNamespace()));
@@ -67,7 +68,7 @@ public class AssociationRenderer implements IEObjectRenderer<Association> {
         }
         List<Property> ownedEnds = association.getOwnedEnds();
         for (Property property : ownedEnds) {
-            RenderingUtils.renderAll(context, property.getOwnedComments());
+            RenderingUtils.renderAll(context, ElementUtils.getComments(property));
             TextUMLRenderingUtils.renderStereotypeApplications(writer, property, true);
             if (property.isNavigable())
                 writer.write("navigable ");

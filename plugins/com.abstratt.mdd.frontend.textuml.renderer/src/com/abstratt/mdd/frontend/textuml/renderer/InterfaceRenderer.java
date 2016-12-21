@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 
+import com.abstratt.mdd.core.util.ElementUtils;
 import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
@@ -25,7 +26,7 @@ import com.abstratt.mdd.modelrenderer.RenderingUtils;
 public class InterfaceRenderer implements IEObjectRenderer<Interface> {
 
     public boolean renderObject(Interface interface_, IndentedPrintWriter writer, IRenderingSession context) {
-        RenderingUtils.renderAll(context, interface_.getOwnedComments());
+        RenderingUtils.renderAll(context, ElementUtils.getComments(interface_));
         TextUMLRenderingUtils.renderStereotypeApplications(writer, interface_);
         writer.print("interface " + name(interface_));
         List<Generalization> generalizations = interface_.getGeneralizations();

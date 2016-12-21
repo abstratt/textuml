@@ -24,6 +24,7 @@ import org.eclipse.uml2.uml.PackageImport;
 import org.eclipse.uml2.uml.ProfileApplication;
 import org.eclipse.uml2.uml.UMLPackage;
 
+import com.abstratt.mdd.core.util.ElementUtils;
 import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
@@ -69,7 +70,7 @@ public class PackageRenderer implements IEObjectRenderer<Package> {
 
     public void renderPrologue(Package package_, IndentedPrintWriter pw, IRenderingSession context) {
         TextUMLRenderingUtils.renderStereotypeApplications(pw, package_);
-        RenderingUtils.renderAll(context, package_.getOwnedComments());
+        RenderingUtils.renderAll(context, ElementUtils.getComments(package_));
         if (package_.getOwner() != null) {
             pw.println(getPackageTypeName(package_) + " " + name(package_) + ";");
             pw.enterLevel();
