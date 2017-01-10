@@ -1,6 +1,7 @@
 package com.abstratt.mdd.core.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.uml2.uml.Association;
@@ -13,11 +14,15 @@ public class AssociationUtils {
         List<Classifier> allLevels = new ArrayList<Classifier>(classifier.allParents());
         allLevels.add(classifier);
         for (Classifier level : allLevels)
-            result.addAll(level.getAssociations());
+            result.addAll(getOwnAssociations(level));
         return result;
     }
 
-    /**
+    public static Collection<? extends Association> getOwnAssociations(Classifier level) {
+		return level.getAssociations();
+	}
+
+	/**
      * Returns the member end with the given name.
      * 
      * @param level
