@@ -10,9 +10,6 @@ TextUML Toolkit
 
 [![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=textuml-toolkit)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
 
-[![Krihelimeter](http://www.krihelinator.xyz/badge/abstratt/textuml)](http://www.krihelinator.xyz)
-
-
 TextUML Toolkit is an **open-source IDE for UML** that lets you create
 models at the same speed you write code. By adopting **a textual
 notation**, the TextUML Toolkit provides benefits you will not get
