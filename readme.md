@@ -10,8 +10,6 @@ TextUML Toolkit
 
 [![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=textuml-toolkit)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
 
-[![Join the chat at https://gitter.im/abstratt/textuml](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/abstratt/textuml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 [![Krihelimeter](http://www.krihelinator.xyz/badge/abstratt/textuml)](http://www.krihelinator.xyz)
 
 
