@@ -12,6 +12,8 @@ TextUML Toolkit
 
 [![Join the chat at https://gitter.im/abstratt/textuml](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/abstratt/textuml?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+[![Krihelimeter](http://www.krihelinator.xyz/badge/abstratt/textuml)](http://www.krihelinator.xyz)
+
 
 TextUML Toolkit is an **open-source IDE for UML** that lets you create
 models at the same speed you write code. By adopting **a textual
