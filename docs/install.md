@@ -60,4 +60,9 @@ be compiled by the TextUML compiler. You are ready now to try the
 TextUML
 Tutorial.
 
+Would you like to run the TextUML compiler as a regular Java application? 
+---------------------------------
+
+Check out the [standalone-textuml](http://github.com/abstratt/standalone-textuml) project.
+
 {% include footer.md %}
