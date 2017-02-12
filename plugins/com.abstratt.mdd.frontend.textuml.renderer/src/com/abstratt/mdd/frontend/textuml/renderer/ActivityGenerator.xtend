@@ -128,7 +128,10 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     		
     	} else switch (valueSpec) {
             LiteralNull : 'null'
-            LiteralString : '''"«valueSpec.value»"'''
+            LiteralString : switch (valueSpec.type.name) {
+                case 'String': '''"«valueSpec.value»"'''
+                default: valueSpec.value    
+            }
             default: valueSpec.stringValue
         }
     }
