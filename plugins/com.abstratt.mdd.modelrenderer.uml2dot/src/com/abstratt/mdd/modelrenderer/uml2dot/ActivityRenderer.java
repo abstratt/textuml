@@ -3,6 +3,7 @@ package com.abstratt.mdd.modelrenderer.uml2dot;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.StructuredActivityNode;
@@ -24,7 +25,7 @@ public class ActivityRenderer implements IElementRenderer<Activity> {
         List<Action> statements = ActivityUtils.findStatements(rootAction);
         ActivityGenerator activityGenerator = new ActivityGenerator();
         List<String> textumlStatements = statements.stream()
-                .map(statement -> activityGenerator.generateAction(statement).toString()).collect(Collectors.toList());
+                .map(statement -> escapeFoDot(activityGenerator.generateAction(statement).toString())).collect(Collectors.toList());
         for (String line : textumlStatements) {
             out.print("                    ");
             out.print(line);
@@ -32,4 +33,8 @@ public class ActivityRenderer implements IElementRenderer<Activity> {
             out.print("\\l");
         }
     }
+
+	private static String escapeFoDot(String labelText) {
+		return StringUtils.replace(labelText, "\"", "\\\"");
+	}
 }
