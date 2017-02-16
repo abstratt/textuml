@@ -10,7 +10,7 @@
  *******************************************************************************/
 package com.abstratt.mdd.frontend.textuml.renderer;
 
-import org.eclipse.uml2.uml.LiteralString;
+import org.eclipse.uml2.uml.LiteralString;	
 
 import com.abstratt.mdd.modelrenderer.IEObjectRenderer;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
@@ -19,7 +19,11 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 public class LiteralStringRenderer implements IEObjectRenderer<LiteralString> {
 
     public boolean renderObject(LiteralString element, IndentedPrintWriter out, IRenderingSession context) {
-        out.print('"' + element.stringValue() + '"');
+    	String typeName = element.getType().getName();
+    	String rendered = element.stringValue();
+    	if ("String".equals(typeName))
+			rendered = '"' + rendered + '"';
+    	out.print(rendered);
         return true;
     }
 
