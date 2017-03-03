@@ -7,6 +7,9 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -15,15 +18,16 @@ import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.CallEvent;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Event;
-import org.eclipse.uml2.uml.LiteralNull;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Pseudostate;
 import org.eclipse.uml2.uml.PseudostateKind;
+import org.eclipse.uml2.uml.Region;
 import org.eclipse.uml2.uml.State;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Transition;
 import org.eclipse.uml2.uml.Trigger;
+import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.Vertex;
 
@@ -33,32 +37,57 @@ public class StateMachineUtils {
         return stateMachine.getContext();
     }
 
-    public static Vertex getVertex(StateMachine stateMachine, String name) {
-        return stateMachine.getRegions().get(0).getSubvertex(name);
-    }
-    
-	public static boolean isVertexLiteral(ValueSpecification specification) {
+    public static boolean isVertexLiteral(ValueSpecification specification) {
 		return MDDExtensionUtils.isVertexLiteral(specification);
 	}
 	
 	public static Vertex resolveVertexLiteral(ValueSpecification specification) {
 		return MDDExtensionUtils.resolveVertexLiteral(specification);
 	}
+	
+	public static Vertex createPseudoState(Region region, PseudostateKind kind) {
+        Pseudostate pseudoState = (Pseudostate) region.createSubvertex(null,
+                UMLPackage.Literals.PSEUDOSTATE);
+        pseudoState.setKind(kind);
+		return pseudoState;
+	}
+	
+	public static void connectVertices(List<Vertex> sources, List<Vertex> destinations) {
+		sources.forEach((source) -> {
+			destinations.forEach((destination) -> {
+				Transition transition = source.getContainer().createTransition(null);
+	            source.getOutgoings().add(transition);
+	            transition.setTarget(destination);
+			});
+		});
+	}
+	
 
     public static Vertex getInitialVertex(StateMachine stateMachine) {
         EList<Vertex> subvertices = stateMachine.getRegions().get(0).getSubvertices();
         for (Vertex vertex : subvertices)
-            if (isMarkedInitial(vertex))
-                return vertex;
+            if (isPseudoState(vertex, PseudostateKind.INITIAL_LITERAL)) {
+                Optional<Vertex> found = vertex.getOutgoings().stream().findAny().map(t -> t.getTarget());
+                if (found.isPresent())
+                	return found.get();
+            }
         // fall back to first orphan vertex
         for (Vertex vertex : subvertices)
             if (vertex.getIncomings().isEmpty())
                 return vertex;
         return null;
     }
+    
+    public static boolean isPseudoState(Vertex vertex, PseudostateKind kind) {
+    	return vertex instanceof Pseudostate && ((Pseudostate) vertex).getKind() == kind;
+    }
 
     public static boolean isMarkedInitial(Vertex vertex) {
-        return vertex instanceof Pseudostate && ((Pseudostate) vertex).getKind() == PseudostateKind.INITIAL_LITERAL;
+    	return vertex.getIncomings().stream().anyMatch(v -> isPseudoState(v.getSource(), PseudostateKind.INITIAL_LITERAL));
+    }
+    
+    public static boolean isMarkedTerminate(Vertex vertex) {
+    	return vertex.getOutgoings().size() == 1 && isPseudoState(vertex.getOutgoings().get(0).getTarget(), PseudostateKind.TERMINATE_LITERAL);
     }
 
     public static boolean isInitial(Vertex vertex) {
@@ -135,7 +164,7 @@ public class StateMachineUtils {
         EList<Behavior> behaviors = classifier.getOwnedBehaviors();
         for (Behavior behavior : behaviors)
             if (behavior instanceof StateMachine)
-                for (Vertex state : ((StateMachine) behavior).getRegions().get(0).getSubvertices())
+                for (Vertex state : getStates((StateMachine) behavior))
                     for (Transition transition : state.getOutgoings())
                         for (Trigger trigger : transition.getTriggers())
                             if (trigger.getEvent() instanceof CallEvent) {
@@ -148,7 +177,21 @@ public class StateMachineUtils {
         return result;
     }
 
-    public static List<Vertex> getVertices(StateMachine umlEnum) {
-        return umlEnum.getRegions().get(0).getSubvertices();
-    }
+	public static List<State> getStates(StateMachine stateMachine) {
+		return streamStates(stateMachine).collect(Collectors.toList());
+	}
+
+	public static State getState(StateMachine stateMachine, String stateName) {
+		return streamStates(stateMachine)
+				.filter(v -> stateName.equals(v.getName()))
+				.findAny()
+				.orElse(null);
+	}
+
+	private static Stream<State> streamStates(StateMachine stateMachine) {
+		return stateMachine.getRegions().stream()
+				.flatMap(r -> r.getSubvertices().stream())
+				.filter(v -> v instanceof State)
+				.map(v -> (State) v);
+	}
 }

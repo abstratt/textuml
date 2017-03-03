@@ -12,15 +12,15 @@ package com.abstratt.mdd.frontend.core;
 
 import com.abstratt.mdd.core.Problem;
 
-public class NonInitialStatesMustBeNamed extends Problem {
+public class StatesMustBeNamed extends Problem {
 
-    public NonInitialStatesMustBeNamed() {
+    public StatesMustBeNamed() {
         super(Severity.ERROR);
     }
 
     @Override
     public String getMessage() {
-        return "Non-initial states must be named";
+        return "States must be named";
     }
 
 }

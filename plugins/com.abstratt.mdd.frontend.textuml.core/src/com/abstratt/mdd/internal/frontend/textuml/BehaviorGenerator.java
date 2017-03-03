@@ -621,7 +621,7 @@ public class BehaviorGenerator extends AbstractGenerator {
             }
         }
         if (targetClassifier instanceof StateMachine) {
-            Vertex state = StateMachineUtils.getVertex((StateMachine) targetClassifier, attributeIdentifier);
+            Vertex state = StateMachineUtils.getState((StateMachine) targetClassifier, attributeIdentifier);
             if (state != null) {
                 ValueSpecification stateReference = MDDExtensionUtils.buildVertexLiteral(
                         namespaceTracker.currentPackage(), state);

@@ -1,5 +1,6 @@
 package com.abstratt.mdd.internal.frontend.textuml;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 
@@ -28,7 +29,8 @@ import org.eclipse.uml2.uml.Vertex;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.UnclassifiedProblem;
-import com.abstratt.mdd.frontend.core.NonInitialStatesMustBeNamed;
+import com.abstratt.mdd.core.util.StateMachineUtils;
+import com.abstratt.mdd.frontend.core.StatesMustBeNamed;
 import com.abstratt.mdd.frontend.core.QueryOperationsMustBeSideEffectFree;
 import com.abstratt.mdd.frontend.core.StateMachineMustHaveOneInitialState;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
@@ -106,16 +108,19 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
         @Override
         public void process(AStateDecl node) {
             String stateName = sourceMiner.getText(node.getIdentifier());
+            if (stateName == null) {
+            	problemBuilder.addProblem(new StatesMustBeNamed(), node.getState());
+            	return;
+            }
+            
             Region region = (Region) namespaceTracker.currentNamespace(null);
 
-            if (stateName != null && region.getSubvertex(stateName) != null) {
+            if (region.getSubvertex(stateName) != null) {
                 problemBuilder.addProblem(new UnclassifiedProblem("A state with this name already exists"),
                         node.getState());
                 return;
             }
 
-            Vertex vertex;
-            State asState = null;
 
             ModifierProcessor modifierProcessor = new ModifierProcessor((SCCTextUMLSourceMiner) sourceMiner);
             modifierProcessor.process(node.getStateModifierList());
@@ -123,27 +128,17 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
 
             boolean isInitial = modifiers.contains(Modifier.INITIAL);
             boolean isTerminate = modifiers.contains(Modifier.TERMINATE);
-            if (isInitial && isTerminate) {
-                problemBuilder.addProblem(new UnclassifiedProblem("Can't be both initial and terminate"),
-                        node.getState());
-                return;
+            State state = (State) region.createSubvertex(stateName, UMLPackage.Literals.STATE);
+            if (isInitial) {
+            	Vertex initial = StateMachineUtils.createPseudoState(region, PseudostateKind.INITIAL_LITERAL);
+            	StateMachineUtils.connectVertices(Arrays.asList(initial), Arrays.asList(state));
             }
-            if (isInitial || isTerminate) {
-                Pseudostate pseudoState = (Pseudostate) region.createSubvertex(stateName,
-                        UMLPackage.Literals.PSEUDOSTATE);
-                pseudoState.setKind(isInitial ? PseudostateKind.INITIAL_LITERAL : PseudostateKind.TERMINATE_LITERAL);
-                vertex = pseudoState;
-            } else {
-                vertex = asState = (State) region.createSubvertex(stateName, UMLPackage.Literals.STATE);
-            }
-
-            if (stateName == null && !isInitial) {
-                problemBuilder.addProblem(new NonInitialStatesMustBeNamed(), node.getState());
-                return;
+            if (isTerminate) {
+            	Vertex terminate = StateMachineUtils.createPseudoState(region, PseudostateKind.TERMINATE_LITERAL);
+            	StateMachineUtils.connectVertices(Arrays.asList(state), Arrays.asList(terminate));
             }
 
             if (!node.getStateBehavior().isEmpty()) {
-                problemBuilder.ensure(asState != null, "Pseudo states can't have behavior", node.getState());
                 for (PStateBehavior pStateBehavior : node.getStateBehavior()) {
                     final AStateBehavior aStateBehavior = (AStateBehavior) pStateBehavior;
                     problemBuilder.ensure(
@@ -152,17 +147,17 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
                     PStateBehaviorModifier modifier = aStateBehavior.getStateBehaviorModifier();
                     Activity activity = (Activity) EcoreUtil.create(UMLPackage.Literals.ACTIVITY);
                     if (modifier instanceof AEntryStateBehaviorModifier) {
-                        problemBuilder.ensure(asState.getEntry() == null, "Only one entry activity allowed",
+                        problemBuilder.ensure(state.getEntry() == null, "Only one entry activity allowed",
                                 pStateBehavior);
-                        asState.setEntry(activity);
+                        state.setEntry(activity);
                     } else if (modifier instanceof AExitStateBehaviorModifier) {
-                        problemBuilder.ensure(asState.getExit() == null, "Only one exit activity allowed",
+                        problemBuilder.ensure(state.getExit() == null, "Only one exit activity allowed",
                                 pStateBehavior);
-                        asState.setExit(activity);
+                        state.setExit(activity);
                     } else {
-                        problemBuilder.ensure(asState.getDoActivity() == null, "Only one do activity allowed",
+                        problemBuilder.ensure(state.getDoActivity() == null, "Only one do activity allowed",
                                 pStateBehavior);
-                        asState.setDoActivity(activity);
+                        state.setDoActivity(activity);
                     }
                     behaviorGenerator.createBodyLater(aStateBehavior.getStateBehaviorDefinition(), activity);
                 }
@@ -170,7 +165,7 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
 
             if (node.getTransitionDecl() != null)
                 for (PTransitionDecl transitionDecl : node.getTransitionDecl())
-                    new TransitionProcessor(vertex).process((ATransitionDecl) transitionDecl);
+                    new TransitionProcessor(state).process((ATransitionDecl) transitionDecl);
         }
     }
 
