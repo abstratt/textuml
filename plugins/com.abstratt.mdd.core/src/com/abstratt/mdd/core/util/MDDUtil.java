@@ -541,7 +541,7 @@ public class MDDUtil {
 
     public static Properties loadRepositoryProperties(URI baseRepositoryURI) {
         Properties allProperties = loadRepositoryProperties(baseRepositoryURI, null);
-        String[] features = StringUtils.split(allProperties.getProperty("mdd.features", ""));
+        String[] features = StringUtils.split(allProperties.getProperty("mdd.features", ""),",");
         Arrays.stream(features)
         	.filter(it -> !isFeatureLoaded(allProperties, it))
         	.forEach(it -> allProperties.putAll(loadRepositoryProperties(baseRepositoryURI, it)));
