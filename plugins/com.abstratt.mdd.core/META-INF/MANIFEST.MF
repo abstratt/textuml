@@ -15,9 +15,14 @@ Require-Bundle: org.eclipse.equinox.common;visibility:=reexport,
  org.eclipse.emf.query;visibility:=reexport,
  org.apache.commons.io;bundle-version="2.2.0",
  org.apache.commons.lang;bundle-version="2.6.0",
- org.apache.commons.collections;bundle-version="3.2.0"
+ org.apache.commons.collections;bundle-version="3.2.0",
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro
 Export-Package: com.abstratt.mdd.core,
  com.abstratt.mdd.core.isv,
  com.abstratt.mdd.core.util
 Bundle-Vendor: Abstratt Technologies
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+

@@ -5,6 +5,7 @@ import org.eclipse.uml2.uml.NamedElement;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -13,7 +14,7 @@ import org.eclipse.uml2.uml.Classifier;
 
 import static com.abstratt.mdd.core.util.MDDExtensionUtils.*;
 
-public class AccessControlUtils {
+public class AccessControlUtils extends AccessControlUtilsBase {
 	
 	public static boolean hasAnyAccessConstraints(List<NamedElement> scopes) {
 		return !scopes.stream().allMatch(it -> findAccessConstraints(it).isEmpty());
@@ -26,11 +27,15 @@ public class AccessControlUtils {
 	 * @param roleClass optional role class to match
 	 * @return the constraint found, or null
 	 */
-	public static Constraint findAccessConstraint(List<NamedElement> scopes, AccessCapability capability, Class roleClass) {
+	public static Constraint findAccessConstraint(List<? extends NamedElement> scopes, AccessCapability capability, Class roleClass) {
 		return scopes.stream().map(it -> findAccessConstraint(it, capability, roleClass)).filter(it -> it != null).findFirst().orElse(null);
 	}
 	public static Constraint findAccessConstraint(NamedElement scope, AccessCapability capability, Class roleClass) {
 		List<Constraint> accessConstraints = findAccessConstraints(scope);
+		return chooseAccessConstraint(accessConstraints, capability, roleClass);
+	}
+	
+	public static Constraint chooseAccessConstraint(List<Constraint> accessConstraints, AccessCapability capability, Class roleClass) {
 		Stream<Constraint> matching = accessConstraints.stream().filter((it) -> {
 			List<AccessCapability> allowedCapabilities = getAllowedCapabilities(it);
 			List<Classifier> accessRoles = getAccessRoles(it);
@@ -58,7 +63,7 @@ public class AccessControlUtils {
 			// choose the last one otherwise
 			return b;
 		}).orElse(null);
-	}
+	}	
 	
 	public static Set<AccessCapability> allImplied(Set<AccessCapability> base) {
 		Set<AccessCapability> result = new LinkedHashSet<>(base);
