@@ -9,6 +9,7 @@ TextUML Toolkit
 
 
 [![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=textuml-toolkit)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
+https://travis-ci.org/abstratt/textuml.svg?branch=master
 
 TextUML Toolkit is an **open-source IDE for UML** that lets you create
 models at the same speed you write code. By adopting **a textual
