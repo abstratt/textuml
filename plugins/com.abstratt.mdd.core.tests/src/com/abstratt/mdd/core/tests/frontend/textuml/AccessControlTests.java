@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EEnumLiteral;
@@ -162,10 +163,12 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     	Map<AccessCapability, Constraint> tellerConstraints = computed.get(teller);
     	Map<AccessCapability, Constraint> anonymousConstraints = computed.get(null);
     	
-    	assertEquals(new LinkedHashSet<>(Arrays.asList(AccessCapability.Call, AccessCapability.Delete, AccessCapability.Create)), branchManagerConstraints.keySet());
-    	assertEquals(new LinkedHashSet<>(Arrays.asList(AccessCapability.Call, AccessCapability.Delete, AccessCapability.Create)), accountManagerConstraints.keySet());
-    	assertEquals(new LinkedHashSet<>(Arrays.asList(AccessCapability.Read, AccessCapability.List)), tellerConstraints.keySet());
-    	assertEquals(new LinkedHashSet<>(Arrays.asList(AccessCapability.Create)), anonymousConstraints.keySet());
+    	Set<AccessCapability> allCapabilities = new LinkedHashSet<>(Arrays.asList(AccessCapability.values()));
+    	
+    	assertEquals(allCapabilities, branchManagerConstraints.keySet());
+    	assertEquals(allCapabilities, accountManagerConstraints.keySet());
+    	assertEquals(allCapabilities, tellerConstraints.keySet());
+    	assertEquals(Collections.singleton(AccessCapability.Create), anonymousConstraints.keySet());
     }
     
     
