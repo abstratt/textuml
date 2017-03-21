@@ -53,6 +53,8 @@ public interface IRepository extends IBasicRepository {
     public String TYPES_NAMESPACE = "mdd_types";
 
     public String COLLECTIONS_NAMESPACE = "mdd_collections";
+    
+    public String MEDIA_NAMESPACE = "mdd_media";
 
     public String EXTENSIONS_NAMESPACE = "mdd_extensions";
 

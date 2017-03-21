@@ -26,6 +26,10 @@
 		    name="mdd_types"
     		uri="pathmap://MDD_LIBRARIES/mdd_types.uml"
     		requires="mdd.enableTypes,mdd.enableLibraries"/>
+        <systemPackage
+            name="mdd_media"
+            uri="pathmap://MDD_LIBRARIES/mdd_media.uml"
+            requires="mdd.enableMedia,mdd.enableLibraries"/>    		
 		<systemPackage
 		    name="base"
     		uri="pathmap://MDD_LIBRARIES/base.uml"

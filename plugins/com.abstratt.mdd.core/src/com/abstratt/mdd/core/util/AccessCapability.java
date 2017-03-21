@@ -11,7 +11,13 @@ import org.apache.commons.lang.WordUtils;
 
 /** Matches the enumeration of same name in the mdd_extensions profile */
 public enum AccessCapability {
-	Create(null, null, false), Delete("Create", null, true), List("Read", "Extent", false), Read(null, null, true), Update("Read", null, true), StaticCall(null, null, false), Call(null, null, true);
+	Create(null, null, false), 
+	Delete("Create", null, true), 
+	List("Read", "Extent", false), 
+	Read(null, null, true), 
+	Update("Read", null, true), 
+	StaticCall(null, null, false), 
+	Call(null, null, true);
 	private Collection<String> implied;
 	private Collection<String> aliases;
 	private boolean instance;

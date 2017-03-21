@@ -1,0 +1,29 @@
+package mdd_media;
+
+import mdd_types::Primitive;
+
+
+(* A common super type for unstructured content. *)
+class Blob specializes Primitive
+end;
+
+class Picture specializes Blob
+end;
+
+class Video specializes Blob 
+end;
+
+class Audio specializes Blob 
+end;
+
+class Document specializes Blob 
+end;
+
+class Spreadsheet specializes Blob 
+end;
+
+class Presentation specializes Blob 
+end;
+
+
+end.

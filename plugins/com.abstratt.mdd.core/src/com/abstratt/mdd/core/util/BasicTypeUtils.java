@@ -23,9 +23,10 @@ public class BasicTypeUtils {
         converters.put("Double", value -> Double.valueOf(value));
         converters.put("Boolean", value -> Boolean.valueOf(value));
         converters.put("Date", value -> new Date(Long.valueOf(value)));
-        converters.put("Blob", value -> {
-            throw new UnsupportedOperationException();
-        });
+        converters.put("Blob", NOOP_CONVERTER);
+        converters.put("Picture", NOOP_CONVERTER);
+        converters.put("Video", NOOP_CONVERTER);
+        converters.put("Sound", NOOP_CONVERTER);
         converters.put("Memo", NOOP_CONVERTER);
         converters.put("String", NOOP_CONVERTER);
     }
@@ -41,7 +42,12 @@ public class BasicTypeUtils {
 
     public static boolean isBasicType(Type toCheck) {
         String typeKey = toCheck.getName();
-        return converters.containsKey(typeKey);
+        return converters.containsKey(typeKey) && IRepository.TYPES_NAMESPACE.equals(toCheck.getPackage().getName());
+    }
+    
+    public static boolean isBlobType(Type toCheck) {
+        String typeKey = toCheck.getName();
+        return converters.containsKey(typeKey) && IRepository.MEDIA_NAMESPACE.equals(toCheck.getPackage().getName());
     }
 
     public static Classifier findBuiltInType(String typeName) {
