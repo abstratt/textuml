@@ -8,7 +8,10 @@ TextUML Toolkit
 > Note: This documentation is meant to be viewed in HTML ([via this URL](http://abstratt.github.io/textuml/readme.html)). Relative links below will work via the HTML version, but not via the Markdown viewer.
 
 
-[![Build Status](https://textuml.ci.cloudbees.com/buildStatus/icon?job=textuml-toolkit)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
+[![Build Status on Cloudbees](https://textuml.ci.cloudbees.com/buildStatus/icon?job=textuml-toolkit)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
+[![Build Status on Travis CI](https://travis-ci.org/abstratt/textuml.svg?branch=master)](https://travis-ci.org/abstratt/textuml.svg?branch=master)
+
+
 
 TextUML Toolkit is an **open-source IDE for UML** that lets you create
 models at the same speed you write code. By adopting **a textual
