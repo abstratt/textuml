@@ -28,11 +28,11 @@ public class VertexRenderer<V extends Vertex> implements IElementRenderer<V> {
         out.println("label = \"" + getVertexLabel(element) + "\"");
     }
 
-    protected String getVertexSymbol(V element) {
-        return element.getName();
+    public static String getVertexSymbol(Vertex element) {
+        return element.getName() == null ? UML2DOTRenderingUtils.getXMIID(element) : element.getName();
     }
 
-    protected String getVertexLabel(V element) {
+    protected String getVertexLabel(Vertex element) {
         return element.getName();
     }
 

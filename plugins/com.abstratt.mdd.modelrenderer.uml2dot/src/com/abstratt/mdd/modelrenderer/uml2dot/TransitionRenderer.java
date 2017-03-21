@@ -34,7 +34,7 @@ public class TransitionRenderer implements IElementRenderer<Transition> {
         boolean mutual = target.getOutgoings().stream().anyMatch(it -> it.getTarget() == source);
         boolean constraint = mutual || (target instanceof Pseudostate);
 
-        out.print("\"" + source.getName() + "\":out -- " + "\"" + target.getName() + "\":in ");
+        out.print("\"" + VertexRenderer.getVertexSymbol(source) + "\":out -- " + "\"" + VertexRenderer.getVertexSymbol(target) + "\":in ");
         out.println("[");
         out.enterLevel();
         DOTRenderingUtils.addAttribute(out, "label", getTransitionLabel(transition));
