@@ -87,6 +87,7 @@ class Integer specializes Double
   query subtract() : Integer;
   query multiply(r : Integer) : Integer;
   query divide(r : Integer) : Integer;
+  query modulo(r : Integer) : Integer;
 end;
 
 class Double specializes Number
@@ -144,6 +145,12 @@ class Email specializes String
 end;
 
 class Violation
+end;
+
+class GlobalPosition
+    query latitude() : Double;
+    query longitude() : Double;
+    static query current() : GlobalPosition;
 end;
 
 end.
