@@ -147,10 +147,10 @@ end;
 class Violation
 end;
 
-class GlobalPosition
-    query latitude() : Double;
-    query longitude() : Double;
-    static query current() : GlobalPosition;
+class Geolocation
+    query latitude() : String;
+    query longitude() : String;
+    static query current() : Geolocation;
 end;
 
 end.

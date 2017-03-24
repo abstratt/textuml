@@ -29,6 +29,7 @@ public class BasicTypeUtils {
         converters.put("Sound", NOOP_CONVERTER);
         converters.put("Memo", NOOP_CONVERTER);
         converters.put("String", NOOP_CONVERTER);
+        converters.put("Geolocation", NOOP_CONVERTER);
     }
 
     public static Object buildBasicValue(Type basicType, String value) {

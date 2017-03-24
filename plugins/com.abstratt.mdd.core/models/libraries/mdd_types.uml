@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_types" URI="libraries/mdd_types">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/03/23 01:14:50 141 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/03/24 12:30:07 196 -0300"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0" visibility="private">
       <importedPackage xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
@@ -789,26 +789,26 @@
         <details xmi:id="Violation-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
       </eAnnotations>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="GlobalPosition" name="GlobalPosition">
-      <eAnnotations xmi:id="GlobalPosition-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
-        <details xmi:id="GlobalPosition-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="Geolocation" name="Geolocation">
+      <eAnnotations xmi:id="Geolocation-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
+        <details xmi:id="Geolocation-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
       </eAnnotations>
-      <ownedOperation xmi:id="GlobalPosition-latitude" name="latitude" visibility="public" isQuery="true">
-        <ownedParameter xmi:id="GlobalPosition-latitude-_ownedParameter.0" type="Double" direction="return">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="GlobalPosition-latitude-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="GlobalPosition-latitude-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+      <ownedOperation xmi:id="Geolocation-latitude" name="latitude" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="Geolocation-latitude-_ownedParameter.0" type="String" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Geolocation-latitude-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Geolocation-latitude-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="GlobalPosition-longitude" name="longitude" visibility="public" isQuery="true">
-        <ownedParameter xmi:id="GlobalPosition-longitude-_ownedParameter.0" type="Double" direction="return">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="GlobalPosition-longitude-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="GlobalPosition-longitude-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+      <ownedOperation xmi:id="Geolocation-longitude" name="longitude" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="Geolocation-longitude-_ownedParameter.0" type="String" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Geolocation-longitude-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Geolocation-longitude-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="GlobalPosition-current" name="current" visibility="public" isStatic="true" isQuery="true">
-        <ownedParameter xmi:id="GlobalPosition-current-_ownedParameter.0" type="GlobalPosition" direction="return">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="GlobalPosition-current-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="GlobalPosition-current-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
+      <ownedOperation xmi:id="Geolocation-current" name="current" visibility="public" isStatic="true" isQuery="true">
+        <ownedParameter xmi:id="Geolocation-current-_ownedParameter.0" type="Geolocation" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Geolocation-current-_ownedParameter.0-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Geolocation-current-_ownedParameter.0-_upperValue" type="Integer" value="1"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
@@ -923,8 +923,8 @@
   <mdd_extensions:Debuggable xmi:id="_96" lineNumber="141" source="mdd_types.tuml" base_Element="Memo-fromString"/>
   <mdd_extensions:Debuggable xmi:id="_97" lineNumber="144" source="mdd_types.tuml" base_Element="Email"/>
   <mdd_extensions:Debuggable xmi:id="_98" lineNumber="147" source="mdd_types.tuml" base_Element="Violation"/>
-  <mdd_extensions:Debuggable xmi:id="_99" lineNumber="150" source="mdd_types.tuml" base_Element="GlobalPosition"/>
-  <mdd_extensions:Debuggable xmi:id="_100" lineNumber="151" source="mdd_types.tuml" base_Element="GlobalPosition-latitude"/>
-  <mdd_extensions:Debuggable xmi:id="_101" lineNumber="152" source="mdd_types.tuml" base_Element="GlobalPosition-longitude"/>
-  <mdd_extensions:Debuggable xmi:id="_102" lineNumber="153" source="mdd_types.tuml" base_Element="GlobalPosition-current"/>
+  <mdd_extensions:Debuggable xmi:id="_99" lineNumber="150" source="mdd_types.tuml" base_Element="Geolocation"/>
+  <mdd_extensions:Debuggable xmi:id="_100" lineNumber="151" source="mdd_types.tuml" base_Element="Geolocation-latitude"/>
+  <mdd_extensions:Debuggable xmi:id="_101" lineNumber="152" source="mdd_types.tuml" base_Element="Geolocation-longitude"/>
+  <mdd_extensions:Debuggable xmi:id="_102" lineNumber="153" source="mdd_types.tuml" base_Element="Geolocation-current"/>
 </xmi:XMI>
