@@ -6825,6 +6825,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getPrimitive().apply(this);
         }
+        if(node.getVisibilityModifier() != null)
+        {
+            node.getVisibilityModifier().apply(this);
+        }
         if(node.getAnnotations() != null)
         {
             node.getAnnotations().apply(this);

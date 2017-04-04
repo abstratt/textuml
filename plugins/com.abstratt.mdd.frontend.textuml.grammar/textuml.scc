@@ -625,10 +625,8 @@ Productions
 //  enumeration_literal_decl_list = enumeration_literal_decl enumeration_literal_decl_list_tail ;
   
 //  enumeration_literal_decl_list_tail = comma enumeration_literal_decl_list | {empty} ;
-  
-//  enumeration_literal_decl = model_comment? identifier;
-  
-  primitive_def = annotations? primitive identifier semicolon ;
+    
+  primitive_def = annotations? visibility_modifier? primitive identifier semicolon ;
   
 // detached operations
   

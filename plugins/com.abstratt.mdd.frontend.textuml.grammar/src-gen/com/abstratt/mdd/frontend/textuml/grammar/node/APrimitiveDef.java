@@ -8,6 +8,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 public final class APrimitiveDef extends PPrimitiveDef
 {
     private PAnnotations _annotations_;
+    private PVisibilityModifier _visibilityModifier_;
     private TPrimitive _primitive_;
     private TIdentifier _identifier_;
     private TSemicolon _semicolon_;
@@ -19,12 +20,15 @@ public final class APrimitiveDef extends PPrimitiveDef
 
     public APrimitiveDef(
         @SuppressWarnings("hiding") PAnnotations _annotations_,
+        @SuppressWarnings("hiding") PVisibilityModifier _visibilityModifier_,
         @SuppressWarnings("hiding") TPrimitive _primitive_,
         @SuppressWarnings("hiding") TIdentifier _identifier_,
         @SuppressWarnings("hiding") TSemicolon _semicolon_)
     {
         // Constructor
         setAnnotations(_annotations_);
+
+        setVisibilityModifier(_visibilityModifier_);
 
         setPrimitive(_primitive_);
 
@@ -39,6 +43,7 @@ public final class APrimitiveDef extends PPrimitiveDef
     {
         return new APrimitiveDef(
             cloneNode(this._annotations_),
+            cloneNode(this._visibilityModifier_),
             cloneNode(this._primitive_),
             cloneNode(this._identifier_),
             cloneNode(this._semicolon_));
@@ -72,6 +77,31 @@ public final class APrimitiveDef extends PPrimitiveDef
         }
 
         this._annotations_ = node;
+    }
+
+    public PVisibilityModifier getVisibilityModifier()
+    {
+        return this._visibilityModifier_;
+    }
+
+    public void setVisibilityModifier(PVisibilityModifier node)
+    {
+        if(this._visibilityModifier_ != null)
+        {
+            this._visibilityModifier_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._visibilityModifier_ = node;
     }
 
     public TPrimitive getPrimitive()
@@ -154,6 +184,7 @@ public final class APrimitiveDef extends PPrimitiveDef
     {
         return ""
             + toString(this._annotations_)
+            + toString(this._visibilityModifier_)
             + toString(this._primitive_)
             + toString(this._identifier_)
             + toString(this._semicolon_);
@@ -166,6 +197,12 @@ public final class APrimitiveDef extends PPrimitiveDef
         if(this._annotations_ == child)
         {
             this._annotations_ = null;
+            return;
+        }
+
+        if(this._visibilityModifier_ == child)
+        {
+            this._visibilityModifier_ = null;
             return;
         }
 
@@ -197,6 +234,12 @@ public final class APrimitiveDef extends PPrimitiveDef
         if(this._annotations_ == oldChild)
         {
             setAnnotations((PAnnotations) newChild);
+            return;
+        }
+
+        if(this._visibilityModifier_ == oldChild)
+        {
+            setVisibilityModifier((PVisibilityModifier) newChild);
             return;
         }
 

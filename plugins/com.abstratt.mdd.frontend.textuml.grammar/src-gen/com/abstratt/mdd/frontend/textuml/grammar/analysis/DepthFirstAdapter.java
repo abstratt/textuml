@@ -6795,6 +6795,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getAnnotations().apply(this);
         }
+        if(node.getVisibilityModifier() != null)
+        {
+            node.getVisibilityModifier().apply(this);
+        }
         if(node.getPrimitive() != null)
         {
             node.getPrimitive().apply(this);
