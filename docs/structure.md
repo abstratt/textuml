@@ -155,13 +155,13 @@ any features nor can specialize other types or realize interfaces.
 You can specify enumerations using the following syntax.
 
     enumeration <enumeration-name>
-      <literal-1> [, ... <literal-n>]  
+      <literal-1>; [... <literal-n>;]  
     end;
 
 For example:
 
     enumeration UserStatus
-      registered, active, inactive
+      Registered; Active; Inactive;
     end;
 
 There is no support at this time for specifying explicit values for
