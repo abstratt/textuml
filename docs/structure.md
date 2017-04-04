@@ -145,7 +145,7 @@ not supported either.
 
 Primitive types have the simplest syntax of all classifiers:
 
-    primitive <primitive-type-name>;
+    [<visibility-modifier>] primitive <primitive-type-name>;
 
 Differently from all other classifiers, primitive types cannot declare
 any features nor can specialize other types or realize interfaces.
@@ -155,13 +155,33 @@ any features nor can specialize other types or realize interfaces.
 You can specify enumerations using the following syntax.
 
     enumeration <enumeration-name>
-      <literal-1>; [... <literal-n>;]  
+      [literal] <literal-1>; 
+      ... 
+      [[literal] <literal-1> [(<attribute-name> := <literal-value>, [...<attribute-name> := <literal-value>])];] 
     end;
 
 For example:
 
     enumeration UserStatus
       Registered; Active; Inactive;
+    end;
+
+Enumerations may have operations, and more interesting, attributes:
+
+    enumeration <enumeration-name>
+      // enumeration features (operations, attributes, etc)    
+      
+      [literal] <literal-1> [(<attribute-name> := <literal-value>, [...<attribute-name> := <literal-value>])]; 
+      ... 
+      [literal] <literal-N> [(<attribute-name> := <literal-value>, [...<attribute-name> := <literal-value>])]; 
+    end;
+
+For example:
+
+    enumeration AccountType
+        literal Debit(symbol := "D"); 
+        literal Credit(symbol := "C");
+        attribute symbol : String;
     end;
 
 There is no support at this time for specifying explicit values for
