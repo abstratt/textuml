@@ -961,6 +961,9 @@ public class StructureGenerator extends AbstractGenerator {
         PrimitiveType newPrimitiveType = (PrimitiveType) namespaceTracker.currentPackage().createPackagedElement(
                 primitiveName, IRepository.PACKAGE.getPrimitiveType());
         newPrimitiveType.setName(primitiveName);
+    	Modifier modifier = Modifier.fromToken(sourceMiner.getText(node.getVisibilityModifier()));
+    	VisibilityKind toApply = getVisibility(modifier, VisibilityKind.PUBLIC_LITERAL);
+    	newPrimitiveType.setVisibility(toApply);
         annotationProcessor.process(node.getAnnotations());
         annotationProcessor.applyAnnotations(newPrimitiveType, node);
         applyCurrentComment(newPrimitiveType);
@@ -1472,6 +1475,8 @@ public class StructureGenerator extends AbstractGenerator {
     }
 
     private VisibilityKind getVisibility(Modifier modifier, VisibilityKind defaultVisibility) {
+    	if (modifier == null)
+    		return defaultVisibility;
         VisibilityKind found = VisibilityKind.getByName(modifier.name().toLowerCase());
         return found != null ? found : defaultVisibility;
     }

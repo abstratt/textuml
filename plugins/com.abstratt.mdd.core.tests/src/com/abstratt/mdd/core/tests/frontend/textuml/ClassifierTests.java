@@ -442,11 +442,15 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         String source = "";
         source += "model someModel;\n";
         source += "primitive Primitive1;\n";
+        source += "private primitive Primitive2;\n";        
         source += "end.";
         parseAndCheck(source);
-        PrimitiveType found = (PrimitiveType) getRepository().findNamedElement("someModel::Primitive1",
-                IRepository.PACKAGE.getPrimitiveType(), null);
-        assertNotNull(found);
+        PrimitiveType found1 = get("someModel::Primitive1", IRepository.PACKAGE.getPrimitiveType());
+        assertNotNull(found1);
+        assertEquals(VisibilityKind.PUBLIC_LITERAL, found1.getVisibility());
+        PrimitiveType found2 = get("someModel::Primitive2", IRepository.PACKAGE.getPrimitiveType());
+        assertNotNull(found2);
+        assertEquals(VisibilityKind.PRIVATE_LITERAL, found2.getVisibility());
     }
 
     public void testActor() throws CoreException {

@@ -14,6 +14,8 @@ public enum Modifier {
     ABSTRACT, STATIC, PUBLIC, PRIVATE, PROTECTED, PACKAGE, DERIVED, READONLY, ROLE, ID, IN, OUT, INOUT, READ, CREATE, UPDATE, DELETE, TERMINATE, INITIAL;
 
     public static Modifier fromToken(String token) {
+    	if (token == null)
+			return null;
         return Modifier.valueOf(token.toUpperCase());
     }
 }
