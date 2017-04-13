@@ -616,16 +616,6 @@ Productions
   
   optional_default = assignop literal | {empty};
   
-// enumeration definition
-
-//  enumeration_def = annotations? enumeration_def_header enumeration_literal_decl_list end semicolon ;
-
-//  enumeration_def_header = enumeration identifier ;
-
-//  enumeration_literal_decl_list = enumeration_literal_decl enumeration_literal_decl_list_tail ;
-  
-//  enumeration_literal_decl_list_tail = comma enumeration_literal_decl_list | {empty} ;
-    
   primitive_def = annotations? visibility_modifier? primitive identifier semicolon ;
   
 // detached operations
