@@ -96,6 +96,7 @@ class Double specializes Number
   query multiply(r : Number) : Double;
   query divide(r : Number) : Double;
   query subtract() : Double;
+  query fractionalPart() : Double;
 end;
 
 class Date specializes Primitive
