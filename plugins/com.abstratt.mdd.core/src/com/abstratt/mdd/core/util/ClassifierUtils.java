@@ -102,6 +102,12 @@ public class ClassifierUtils {
             return (C) ((Class) namespace).createNestedClassifier(name, eClass);
 
     }
+    
+    public static boolean isKindOf(Classifier toTest, String generalCandidate) {
+        if (generalCandidate.equals(toTest.getQualifiedName()))
+            return true;
+        return toTest.getGeneralizations().stream().anyMatch(g -> isKindOf(g.getGeneral(), generalCandidate));
+    }
 
     public static boolean isKindOf(Classifier toTest, Classifier generalCandidate) {
         if (toTest == generalCandidate)

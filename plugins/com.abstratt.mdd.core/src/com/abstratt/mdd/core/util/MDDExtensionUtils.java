@@ -469,6 +469,6 @@ public class MDDExtensionUtils {
 	}
 
 	public static boolean isSystemUserClass(Type toCheck) {
-		return toCheck.getQualifiedName().equals(SYSTEM_USER_CLASS);
+		return ClassifierUtils.isKindOf((Classifier) toCheck, SYSTEM_USER_CLASS);
 	}
 }
