@@ -41,8 +41,9 @@ class AccessControlUtils {
                 ]
             ]
         ]
-        if (constraintsPerRole.containsKey(null) && constraintsPerRole.get(null).empty)
-            constraintsPerRole.remove(null)
+        if (constraintsPerRole.containsKey(null))
+            if (constraintsPerRole.get(null).empty)
+                constraintsPerRole.remove(null)
         return constraintsPerRole
     }
     

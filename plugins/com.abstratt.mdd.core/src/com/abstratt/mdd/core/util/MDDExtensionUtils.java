@@ -458,10 +458,8 @@ public class MDDExtensionUtils {
     }
 
 	public static void makeRole(Class class_) {
-		Class userClass = MDDCore.getInProgressRepository().findNamedElement(SYSTEM_USER_CLASS, Literals.CLASS, null);
 		Stereotype roleClassStereotype = StereotypeUtils.findStereotype(ROLE_CLASS_STEREOTYPE);
 		StereotypeUtils.safeApplyStereotype(class_, roleClassStereotype);
-		class_.createGeneralization(userClass);
 	}
 
 	public static boolean isRoleClass(Type toCheck) {
