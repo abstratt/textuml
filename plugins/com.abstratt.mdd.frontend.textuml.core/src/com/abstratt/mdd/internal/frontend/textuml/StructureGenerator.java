@@ -63,7 +63,9 @@ import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.MDDCore;
 import com.abstratt.mdd.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.util.ClassifierUtils;
 import com.abstratt.mdd.core.util.ConnectorUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
@@ -823,7 +825,7 @@ public class StructureGenerator extends AbstractGenerator {
             @Override
             public void caseTRole(TRole node) {
             	if (currentClassifier.eClass() == UMLPackage.Literals.CLASS)
-            		getRefTracker().add(repo -> MDDExtensionUtils.makeRole((Class) currentClassifier), STEREOTYPE_APPLICATIONS); 
+            		getRefTracker().add(repo -> MDDExtensionUtils.makeRole((Class) currentClassifier), STEREOTYPE_APPLICATIONS);
             	else
 					problemBuilder.addError("Only classes can be roles", node);
             }
@@ -1358,15 +1360,18 @@ public class StructureGenerator extends AbstractGenerator {
         if (currentNamespace == null)
             return;
         if (currentNamespace.eClass() == IRepository.PACKAGE.getProfile())
-            getRefTracker().add(new IDeferredReference() {
-                public void resolve(IBasicRepository repository) {
-                    // defining must be the last thing to be done to the
-                    // profile, hence must be deferred
-                    Profile asProfile = (Profile) currentNamespace;
-                    asProfile.define();
-                }
-            }, IReferenceTracker.Step.DEFINE_PROFILES);
+			defineProfile((Profile) currentNamespace);
     }
+
+	private void defineProfile(final Profile currentProfile) {
+		// defining must be the last thing to be done to the
+		// profile, hence must be deferred
+		getRefTracker().add(new IDeferredReference() {
+		    public void resolve(IBasicRepository repository) {
+		    	currentProfile.define();
+		    }
+		}, IReferenceTracker.Step.DEFINE_PROFILES);
+	}
 
     @Override
     public final void caseAStereotypeDef(AStereotypeDef node) {
