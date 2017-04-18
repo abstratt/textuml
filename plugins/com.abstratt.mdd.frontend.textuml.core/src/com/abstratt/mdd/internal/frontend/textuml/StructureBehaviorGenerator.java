@@ -162,7 +162,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 		// include selected operation parameters
 		for (TIdentifier paramNameToken : sourceMiner.findChildren(node.getPreconditionSignature(),
 				TIdentifier.class)) {
-			String paramName = sourceMiner.getText(paramNameToken);
+			String paramName = sourceMiner.getIdentifier(paramNameToken);
 			Parameter found = operation.getOwnedParameter(paramName, null);
 			if (found == null) {
 				problemBuilder.addProblem(new UnresolvedSymbol(paramName, IRepository.PACKAGE.getParameter()),
