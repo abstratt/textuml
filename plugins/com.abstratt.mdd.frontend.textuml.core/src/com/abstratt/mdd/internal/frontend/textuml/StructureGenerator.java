@@ -43,6 +43,7 @@ import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.OperationOwner;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.PackageImport;
 import org.eclipse.uml2.uml.PackageableElement;
@@ -1244,8 +1245,14 @@ public class StructureGenerator extends AbstractGenerator {
             problemBuilder.addError("A query operation must have a return type", operationHeader);
             throw new AbortedScopeCompilationException();
         }
-
+        
         Classifier parent = (Classifier) this.namespaceTracker.currentNamespace(null);
+        
+        if (!(parent instanceof OperationOwner)) {
+        	problemBuilder.addError(parent.eClass().getName() + " is a classifier that cannot own operations", operationHeader);
+            throw new AbortedScopeCompilationException();
+        }
+        
         Operation operation = FeatureUtils.createOperation(parent, operationName);
         fillDebugInfo(operation, operationHeader);
         applyCurrentComment(operation);

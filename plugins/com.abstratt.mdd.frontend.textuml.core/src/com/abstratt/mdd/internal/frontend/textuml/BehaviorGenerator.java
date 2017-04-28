@@ -1205,7 +1205,9 @@ public class BehaviorGenerator extends AbstractGenerator {
                                     node.getIdentifier());
                             throw new AbortedStatementCompilationException();
                         }
-                        builder.registerInput(action.createArgument(attribute.getName(), attribute.getType()));
+                        InputPin signalArgument = action.createArgument(attribute.getName(), null);
+                        TypeUtils.copyType(attribute, signalArgument);
+						builder.registerInput(signalArgument);
                         node.getExpression().apply(BehaviorGenerator.this);
                     }
                 });
