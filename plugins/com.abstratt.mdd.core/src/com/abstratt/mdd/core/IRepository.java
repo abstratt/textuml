@@ -91,6 +91,8 @@ public interface IRepository extends IBasicRepository {
     public String APPLICATION_NAME = "mdd.application.name";
     
     public String APPLICATION_TITLE = "mdd.application.title";
+    
+    public String APPLICATION_LOGO = "mdd.application.logo";
 
     /**
      * Accepts the given visitor.
