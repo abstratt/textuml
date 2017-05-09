@@ -1,5 +1,6 @@
 package com.abstratt.mdd.core.util;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class BasicTypeUtils {
         converters.put("Double", value -> Double.valueOf(value));
         converters.put("Boolean", value -> Boolean.valueOf(value));
         converters.put("Date", value -> new Date(Long.valueOf(value)));
+        converters.put("Time", value -> LocalTime.parse(value));
         converters.put("Blob", NOOP_CONVERTER);
         converters.put("Picture", NOOP_CONVERTER);
         converters.put("Video", NOOP_CONVERTER);

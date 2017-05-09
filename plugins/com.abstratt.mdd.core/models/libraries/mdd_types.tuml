@@ -101,7 +101,6 @@ end;
 
 class Date specializes Primitive
   static query today() : Date;
-  static query now() : Date;
   static query make(year : Integer, month : Integer, day : Integer) : Date;
   static query fromString(string : String) : Date;
   query difference(another : Date) : Duration;
@@ -111,13 +110,39 @@ class Date specializes Primitive
   query transpose(delta : Duration) : Date;
 end;
 
+class Time specializes Primitive
+  static query now() : Time;
+  static query make(hour : Integer, minute : Integer, second : Integer, millisecond : Integer) : Time;
+  query difference(another : Time) : Duration;    
+  query hour() : Integer;
+  query minute() : Integer;
+  query second() : Integer;
+  query millisecond() : Integer;  
+  query transpose(delta : Duration) : Time;
+end;
+
+class DateTime specializes Primitive
+  static query now() : DateTime;
+  static query fromString(string : String) : DateTime;
+  query difference(another : DateTime) : Duration;
+  query day() : Integer;
+  query month() : Integer;
+  query year() : Integer;
+  query hour() : Integer;
+  query minute() : Integer;
+  query second() : Integer;
+  query millisecond() : Integer;  
+  query transpose(delta : Duration) : DateTime;
+end;
+
 class Duration specializes Primitive
   query toYears() : Integer;
   query toMonths() : Integer;
   query toDays() : Integer;
-  query toHour() : Integer;
+  query toHours() : Integer;
   query toMinutes() : Integer;
-  query toSeconds() : Integer;  
+  query toSeconds() : Integer;
+  query toMilliseconds() : Integer;  
 
   static query milliseconds(value : Number) : Duration;
   static query seconds(value : Number) : Duration;
