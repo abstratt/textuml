@@ -133,6 +133,8 @@ class DateTime specializes Primitive
   query second() : Integer;
   query millisecond() : Integer;  
   query transpose(delta : Duration) : DateTime;
+  query date() : Date;
+  query time() : Time;
 end;
 
 class Duration specializes Primitive
