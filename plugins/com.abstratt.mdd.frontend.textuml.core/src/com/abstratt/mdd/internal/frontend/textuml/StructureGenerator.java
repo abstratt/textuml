@@ -148,6 +148,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.APortDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.APrimitiveDef;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AProvidedPortModifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AQueryOperationKeyword;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AReadonlyAssociationModifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AReceptionDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AReferenceDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASignalClassType;
@@ -543,10 +544,15 @@ public class StructureGenerator extends AbstractGenerator {
     public void caseAAssociationRoleDecl(final AAssociationRoleDecl node) {
         super.caseAAssociationRoleDecl(node);
         final boolean[] navigable = { true };
+        final boolean[] readOnly = { false};
         node.getAssociationModifiers().apply(new DepthFirstAdapter() {
             @Override
             public void caseANavigableAssociationModifier(ANavigableAssociationModifier node) {
                 navigable[0] = node.getNot() == null;
+            }
+            @Override
+            public void caseAReadonlyAssociationModifier(AReadonlyAssociationModifier node) {
+            	readOnly[0] = true;
             }
         });
         final Association association = (Association) namespaceTracker.currentNamespace(null);
@@ -596,6 +602,7 @@ public class StructureGenerator extends AbstractGenerator {
                             ownedEnd = association.createNavigableOwnedEnd(endIdentifier, null);
                         else
                             ownedEnd = association.createOwnedEnd(endIdentifier, null);
+                        ownedEnd.setIsReadOnly(readOnly[0]);
                         new TypeSetter(sourceContext, association, ownedEnd).process(ownedEndNode.getTypeIdentifier());
                         AAssociationRoleDecl roleDeclaration = sourceMiner.findParent(ownedEndNode,
                                 AAssociationRoleDecl.class);
