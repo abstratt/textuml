@@ -84,6 +84,7 @@ public interface Analysis extends Switch
     void caseAAssociationModifierList(AAssociationModifierList node);
     void caseAEmptyAssociationModifierList(AEmptyAssociationModifierList node);
     void caseANavigableAssociationModifier(ANavigableAssociationModifier node);
+    void caseAReadonlyAssociationModifier(AReadonlyAssociationModifier node);
     void caseAClassDef(AClassDef node);
     void caseAClassHeader(AClassHeader node);
     void caseAClassModifiers(AClassModifiers node);

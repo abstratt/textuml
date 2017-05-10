@@ -1821,6 +1821,27 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outANavigableAssociationModifier(node);
     }
 
+    public void inAReadonlyAssociationModifier(AReadonlyAssociationModifier node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAReadonlyAssociationModifier(AReadonlyAssociationModifier node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAReadonlyAssociationModifier(AReadonlyAssociationModifier node)
+    {
+        inAReadonlyAssociationModifier(node);
+        if(node.getReadonly() != null)
+        {
+            node.getReadonly().apply(this);
+        }
+        outAReadonlyAssociationModifier(node);
+    }
+
     public void inAClassDef(AClassDef node)
     {
         defaultIn(node);

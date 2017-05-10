@@ -429,6 +429,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAReadonlyAssociationModifier(AReadonlyAssociationModifier node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAClassDef(AClassDef node)
     {
         defaultCase(node);
