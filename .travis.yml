@@ -3,3 +3,7 @@ jdk:
   - oraclejdk8
 install: 
     - mvn clean install
+notifications:
+  email:
+    on_success: change
+    on_failure: change
