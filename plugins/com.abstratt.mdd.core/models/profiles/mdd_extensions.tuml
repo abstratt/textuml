@@ -7,6 +7,9 @@ private import PrimitiveTypes::String;
 stereotype Test extends UML::Class
 end;
 
+stereotype Application extends UML::Package
+end; 
+
 stereotype Failure extends UML::Operation
     property context : PrimitiveTypes::String;
     property constraint : PrimitiveTypes::String;

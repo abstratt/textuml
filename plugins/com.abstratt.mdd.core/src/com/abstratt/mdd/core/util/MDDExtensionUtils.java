@@ -45,35 +45,38 @@ import org.eclipse.uml2.uml.VisibilityKind;
 import com.abstratt.mdd.core.MDDCore;
 
 public class MDDExtensionUtils {
+	public static final String EXTENSIONS_PROFILE = "mdd_extensions";
 	private static final String CONSTRAINT_BEHAVIOR_CONSTRAINT_PROPERTY = "constraint";
 	public static final String SYSTEM_USER_CLASS = "mdd_types::SystemUser";
-	private static final String CONTEXTUALIZED_CONSTRAINT_STEREOTYPE = "mdd_extensions::ContextualizedConstraint";
+	private static final String CONTEXTUALIZED_CONSTRAINT_STEREOTYPE = EXTENSIONS_PROFILE + "::ContextualizedConstraint";
 	private static final String CONTEXTUALIZED_CONSTRAINT_IS_STATIC_PROPERTY = "isStatic";
-	private static final String DERIVATION_STEREOTYPE = "mdd_extensions::Derivation";
+	private static final String DERIVATION_STEREOTYPE = EXTENSIONS_PROFILE + "::Derivation";
 	private static final String DERIVATION_CONTEXT = "context";
-	private static final String BASIC_VALUE_STEREOTYPE = "mdd_extensions::BasicValue";
-	private static final String VERTEX_LITERAL_STEREOTYPE = "mdd_extensions::VertexLiteral";
-	private static final String CLOSURE_STEREOTYPE = "mdd_extensions::Closure";
-	private static final String CONSTRAINT_BEHAVIOR_STEREOTYPE = "mdd_extensions::ConstraintBehavior";
-	private static final String WILDCARD_TYPE_STEREOTYPE = "mdd_extensions::WildcardType";
+	private static final String BASIC_VALUE_STEREOTYPE = EXTENSIONS_PROFILE + "::BasicValue";
+	private static final String VERTEX_LITERAL_STEREOTYPE = EXTENSIONS_PROFILE + "::VertexLiteral";
+	private static final String CLOSURE_STEREOTYPE = EXTENSIONS_PROFILE + "::Closure";
+	private static final String APPLICATION_STEREOTYPE = EXTENSIONS_PROFILE + "::Application";
+	private static final String CONSTRAINT_BEHAVIOR_STEREOTYPE = EXTENSIONS_PROFILE + "::ConstraintBehavior";
+	private static final String WILDCARD_TYPE_STEREOTYPE = EXTENSIONS_PROFILE + "::WildcardType";
 	private static final String WILDCARD_TYPE_CONTEXT = "context";
-	public static final String WILDCARD_TYPE_CONTEXT_STEREOTYPE = "mdd_extensions::WildcardTypeContext";
+	public static final String WILDCARD_TYPE_CONTEXT_STEREOTYPE = EXTENSIONS_PROFILE + "::WildcardTypeContext";
 	public static final String WILDCARD_TYPE_CONTEXT_TYPES = "wildcardTypes";
-	public static final String DEBUGGABLE_STEREOTYPE = "mdd_extensions::Debuggable";
-	private static final String ENTRY_POINT_STEREOTYPE = "mdd_extensions::EntryPoint";
-	private static final String EXTERNAL_CLASS_STEREOTYPE = "mdd_extensions::External";
-	public static final String ROLE_CLASS_STEREOTYPE = "mdd_extensions::Role";
-	private static final String OBJECT_INITIALIZATION_STEREOTYPE = "mdd_extensions::ObjectInitialization";
-	private static final String CAST_STEREOTYPE = "mdd_extensions::Cast";
-	private static final String SIGNATURE_STEREOTYPE = "mdd_extensions::Signature";
+	public static final String DEBUGGABLE_STEREOTYPE = EXTENSIONS_PROFILE + "::Debuggable";
+	private static final String ENTRY_POINT_STEREOTYPE = EXTENSIONS_PROFILE + "::EntryPoint";
+	private static final String EXTERNAL_CLASS_STEREOTYPE = EXTENSIONS_PROFILE + "::External";
+	public static final String ROLE_CLASS_STEREOTYPE = EXTENSIONS_PROFILE + "::Role";
+	private static final String OBJECT_INITIALIZATION_STEREOTYPE = EXTENSIONS_PROFILE + "::ObjectInitialization";
+	private static final String CAST_STEREOTYPE = EXTENSIONS_PROFILE + "::Cast";
+	private static final String SIGNATURE_STEREOTYPE = EXTENSIONS_PROFILE + "::Signature";
 	private static final String SIGNATURE_CONTEXT = "context";
-	private static final String RULE_STEREOTYPE = "mdd_extensions::Rule";
-	public static final String INVARIANT_STEREOTYPE = "mdd_extensions::Invariant";
-	public static final String ACCESS_STEREOTYPE = "mdd_extensions::Access";
+	private static final String RULE_STEREOTYPE = EXTENSIONS_PROFILE + "::Rule";
+	public static final String INVARIANT_STEREOTYPE = EXTENSIONS_PROFILE + "::Invariant";
+	public static final String ACCESS_STEREOTYPE = EXTENSIONS_PROFILE + "::Access";
+	private static final String ACCESS_CAPABILITY_ENUMERATION = EXTENSIONS_PROFILE + "::AccessCapability";
 	public static final String ACCESS_ALLOWED = "allowed";
 	public static final String ACCESS_DENIED = "denied";
 	public static final String ACCESS_ROLES = "roles";
-	private static final String META_REFERENCE_STEREOTYPE = "mdd_extensions::MetaReference";
+	private static final String META_REFERENCE_STEREOTYPE = EXTENSIONS_PROFILE + "::MetaReference";
 
 	public static void addDebugInfo(Element toEnhance, String source, int lineNumber) {
 		Stereotype debuggableStereotype = StereotypeUtils.findStereotype(DEBUGGABLE_STEREOTYPE);
@@ -371,7 +374,7 @@ public class MDDExtensionUtils {
 			Collection<Class> roles, Collection<AccessCapability> allowed) {
 		Stereotype accessStereotype = StereotypeUtils.findStereotype(ACCESS_STEREOTYPE);
 		Enumeration accessCapabilityEnum = MDDCore.getInProgressRepository()
-				.findNamedElement("mdd_extensions::AccessCapability", Literals.ENUMERATION, null);
+				.findNamedElement(ACCESS_CAPABILITY_ENUMERATION, Literals.ENUMERATION, null);
 		boolean isStatic = allowed.stream().filter(it -> !it.isInstance()).findAny().isPresent();
 		Constraint constraint = createConstraint(constrainedElement, name, accessStereotype, isStatic);
 		constraint.setValue(accessStereotype, ACCESS_ALLOWED, toEnumerationLiterals(accessCapabilityEnum, allowed));
@@ -429,6 +432,7 @@ public class MDDExtensionUtils {
 	public static boolean isDerivation(Activity toCheck) {
 		return StereotypeUtils.hasStereotype(toCheck, DERIVATION_STEREOTYPE);
 	}
+	
 
 	public static TypedElement getDerivationContext(Activity toCheck) {
 		return (TypedElement) StereotypeUtils.getValue(toCheck, DERIVATION_STEREOTYPE, DERIVATION_CONTEXT);
@@ -455,6 +459,10 @@ public class MDDExtensionUtils {
     	if (op.isStatic())
     		return false;
         return op.getClass_() != null && isTestClass(op.getClass_());
+    }
+
+    public static boolean isApplication(Package toCheck) {
+    	return StereotypeUtils.hasStereotype(toCheck, APPLICATION_STEREOTYPE);
     }
 
 	public static void makeRole(Class class_) {
