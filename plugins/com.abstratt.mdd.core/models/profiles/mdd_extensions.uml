@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.0">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/05/18 12:43:34 178 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/05/19 01:04:43 118 -0300"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -14,6 +14,12 @@
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Application" name="Application">
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Application-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Application"/>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Application-base_Package" name="base_Package" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Library" name="Library">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Library-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Library"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Library-base_Package" name="base_Package" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Package"/>
         </eStructuralFeatures>
       </eClassifiers>
@@ -218,6 +224,11 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="Application" name="Application">
     <ownedAttribute xmi:id="Application-base_Package" name="base_Package" association="Package_Application">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="Library" name="Library">
+    <ownedAttribute xmi:id="Library-base_Package" name="base_Package" association="Package_Library">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Package"/>
     </ownedAttribute>
   </packagedElement>
@@ -443,6 +454,9 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Package_Application" name="Package_Application" memberEnd="Package_Application-extension_Application Application-base_Package">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Package_Application-extension_Application" name="extension_Application" type="Application" aggregation="composite" association="Package_Application"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Package_Library" name="Package_Library" memberEnd="Package_Library-extension_Library Library-base_Package">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Package_Library-extension_Library" name="extension_Library" type="Library" aggregation="composite" association="Package_Library"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Operation_Failure" name="Operation_Failure" memberEnd="Operation_Failure-extension_Failure Failure-base_Operation">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Operation_Failure-extension_Failure" name="extension_Failure" type="Failure" aggregation="composite" association="Operation_Failure"/>

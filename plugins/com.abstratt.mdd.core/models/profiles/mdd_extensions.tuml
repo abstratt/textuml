@@ -8,6 +8,9 @@ stereotype Test extends UML::Class
 end;
 
 stereotype Application extends UML::Package
+end;
+
+stereotype Library extends UML::Package
 end; 
 
 stereotype Failure extends UML::Operation

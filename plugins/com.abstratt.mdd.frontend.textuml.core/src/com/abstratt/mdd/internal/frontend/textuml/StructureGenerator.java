@@ -63,6 +63,7 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.MDDCore;
 import com.abstratt.mdd.core.UnclassifiedProblem;
@@ -73,6 +74,7 @@ import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.ProjectPropertyHelper;
 import com.abstratt.mdd.core.util.ReceptionUtils;
+import com.abstratt.mdd.core.util.StereotypeUtils;
 import com.abstratt.mdd.core.util.TemplateUtils;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.AnonymousDisconnectedPort;
@@ -1334,6 +1336,11 @@ public class StructureGenerator extends AbstractGenerator {
                 }, IReferenceTracker.Step.PACKAGE_STRUCTURE);
             }
         }
+        getRefTracker().add(it -> {
+        	if (MDDExtensionUtils.hasExtensionsApplied(newPackage) && !(newPackage instanceof Profile) && (newPackage.getNestingPackage() == null) && !MDDExtensionUtils.isApplication(newPackage) && !MDDExtensionUtils.isLibrary(newPackage)) {
+        		MDDExtensionUtils.makeApplication(newPackage);
+        	}
+        }, IReferenceTracker.Step.LAST);
         annotationProcessor.process(node.getAnnotations());
         annotationProcessor.applyAnnotations(newPackage, node.getQualifiedIdentifier());
         if (node.getModelComment() != null)

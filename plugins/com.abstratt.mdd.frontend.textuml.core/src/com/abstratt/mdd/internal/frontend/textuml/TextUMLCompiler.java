@@ -134,30 +134,6 @@ public class TextUMLCompiler implements ICompiler, ISourceAnalyzer {
                                 tree.apply(behaviorGenerator);
                             }
                         }, IReferenceTracker.Step.LAST);
-                        boolean extensionsEnabled = context.getRepository().findPackage(MDDExtensionUtils.EXTENSIONS_PROFILE, UMLPackage.Literals.PROFILE) != null;
-						if (extensionsEnabled)
-	                        context.getReferenceTracker().add(new IDeferredReference() {
-	                            public void resolve(IBasicRepository repository) {
-	                            	Package[] ownPackages = context.getRepository().getOwnPackages(null);
-	                            	List<Package> regularPackages = Arrays.stream(ownPackages).filter(it -> !it.isModelLibrary() && !(it instanceof Profile)).collect(Collectors.toList());
-	                            	if (regularPackages.size() >= 2) {
-	                            		List<Package> applications = regularPackages.stream().filter(it -> MDDExtensionUtils.isApplication(it)).collect(Collectors.toList());
-	                            		if (applications.isEmpty()) {
-	                            			tree.apply(new DepthFirstAdapter() {
-	                            				public void caseAPackageHeading(APackageHeading node) {
-	                            					context.getProblemTracker().add(new UnclassifiedProblem("At least one package should be declared as 'Application'"));
-	                            				};
-	                            			});
-	                            		} else if (applications.size() > 1) {
-	                            			tree.apply(new DepthFirstAdapter() {
-	                            				public void caseAPackageHeading(APackageHeading node) {
-	                            					context.getProblemTracker().add(new UnclassifiedProblem("At most one package can be declared as 'Application'"));
-	                            				};
-	                            			});
-	                            		}
-	                            	}
-	                            }
-	                        }, IReferenceTracker.Step.LAST);
                     }
                 }
             }, IReferenceTracker.Step.GENERAL_RESOLUTION);

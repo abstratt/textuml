@@ -477,17 +477,6 @@ public class Repository implements IRepository {
         return (T) internalFindNamedElement(name, class_, (Namespace) namespace.getOwner(), deep, visited);
     }
 
-    /*
-     * @see com.abstratt.mdd.core.IRepository#findPackage(java.lang.String,
-     * org.eclipse.emf.ecore.EClass)
-     */
-    public Package findPackage(String name, EClass packageClass) {
-        if (packageClass == null)
-            packageClass = PACKAGE.getPackage();
-        final Package found = (Package) internalFindNamedElement(name, packageClass);
-        return found;
-    }
-
     public String resolveAlias(String qualifiedName) {
         return resolveAlias(qualifiedName, "");
     }

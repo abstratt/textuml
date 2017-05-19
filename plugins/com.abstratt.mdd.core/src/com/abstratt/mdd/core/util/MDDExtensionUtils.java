@@ -32,6 +32,7 @@ import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.Parameter;
+import org.eclipse.uml2.uml.Profile;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Type;
@@ -56,6 +57,7 @@ public class MDDExtensionUtils {
 	private static final String VERTEX_LITERAL_STEREOTYPE = EXTENSIONS_PROFILE + "::VertexLiteral";
 	private static final String CLOSURE_STEREOTYPE = EXTENSIONS_PROFILE + "::Closure";
 	private static final String APPLICATION_STEREOTYPE = EXTENSIONS_PROFILE + "::Application";
+	private static final String LIBRARY_STEREOTYPE = EXTENSIONS_PROFILE + "::Library";
 	private static final String CONSTRAINT_BEHAVIOR_STEREOTYPE = EXTENSIONS_PROFILE + "::ConstraintBehavior";
 	private static final String WILDCARD_TYPE_STEREOTYPE = EXTENSIONS_PROFILE + "::WildcardType";
 	private static final String WILDCARD_TYPE_CONTEXT = "context";
@@ -460,14 +462,22 @@ public class MDDExtensionUtils {
     		return false;
         return op.getClass_() != null && isTestClass(op.getClass_());
     }
-
-    public static boolean isApplication(Package toCheck) {
-    	return StereotypeUtils.hasStereotype(toCheck, APPLICATION_STEREOTYPE);
+    public static boolean isLibrary(Package toCheck) {
+    	return StereotypeUtils.hasStereotype(toCheck, LIBRARY_STEREOTYPE) || toCheck.isModelLibrary();
     }
 
+    public static boolean isApplication(Package toCheck) {
+    	return StereotypeUtils.hasStereotype(toCheck, APPLICATION_STEREOTYPE) && !(toCheck instanceof Profile);
+    }
+
+	public static void makeApplication(Package package_) {
+		Stereotype applicationStereotype = StereotypeUtils.findStereotype(APPLICATION_STEREOTYPE); 
+		StereotypeUtils.safeApplyStereotype(package_, applicationStereotype);
+	}
+    
 	public static void makeRole(Class class_) {
-		Stereotype roleClassStereotype = StereotypeUtils.findStereotype(ROLE_CLASS_STEREOTYPE);
-		StereotypeUtils.safeApplyStereotype(class_, roleClassStereotype);
+		Stereotype applicationStereotype = StereotypeUtils.findStereotype(ROLE_CLASS_STEREOTYPE);
+		StereotypeUtils.safeApplyStereotype(class_, applicationStereotype);
 	}
 
 	public static boolean isRoleClass(Type toCheck) {
@@ -476,5 +486,9 @@ public class MDDExtensionUtils {
 
 	public static boolean isSystemUserClass(Type toCheck) {
 		return ClassifierUtils.isKindOf((Classifier) toCheck, SYSTEM_USER_CLASS);
+	}
+
+	public static boolean hasExtensionsApplied(Package toCheck) {
+		return StereotypeUtils.hasProfile(toCheck, EXTENSIONS_PROFILE);
 	}
 }

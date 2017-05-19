@@ -4,6 +4,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.UMLPackage;
 
 public interface IBasicRepository {
     /**
@@ -21,6 +22,27 @@ public interface IBasicRepository {
      * @return
      */
     public <T extends NamedElement> T findNamedElement(String qualifiedName, EClass class_, Namespace scope);
+    
+
+    /**
+     * Returns the package with the given qualified name and package type. This
+     * is a convenience method, equivalent to: <code>
+     * {@link #findNamedElement(qualifiedName, packageClass, scope)}
+     * </code>
+     * 
+     * @param qualifiedName
+     *            the qualified name for the package
+     * @param packageClass
+     *            the package type or <code>null</code> if any
+     * @return the package found, or <code>null</code> if none
+     * @see #findNamedElement(String, EClass, Namespace)
+     */
+    public default Package findPackage(String qualifiedName, EClass packageClass) {
+        if (packageClass == null)
+            packageClass = UMLPackage.Literals.PACKAGE;
+        final Package found = (Package) findNamedElement(qualifiedName, packageClass, null);
+        return found;
+    }    
 
     /**
      * Creates a new top-level package from the given qualified name. If a

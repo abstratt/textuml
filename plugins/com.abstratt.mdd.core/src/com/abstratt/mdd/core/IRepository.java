@@ -171,21 +171,6 @@ public interface IRepository extends IBasicRepository {
     public boolean isOpen();
 
     /**
-     * Returns the package with the given qualified name and package type. This
-     * is a convenience method, equivalent to: <code>
-     * {@link #findNamedElement(qualifiedName, packageClass, scope)}
-     * </code>
-     * 
-     * @param qualifiedName
-     *            the qualified name for the package
-     * @param packageClass
-     *            the package type or <code>null</code> if any
-     * @return the package found, or <code>null</code> if none
-     * @see #findNamedElement(String, EClass, Namespace)
-     */
-    public Package findPackage(String qualifiedName, EClass packageClass);
-
-    /**
      * Returns the base URI for this repository. The base URI is the base all
      * relative URIs are resolved against.
      * 

@@ -82,5 +82,9 @@ public class StereotypeUtils {
     public static void safeApplyProfile(org.eclipse.uml2.uml.Package package_, Profile profile) {
     	PackageUtils.safeApplyProfile(package_, profile);
     }
+    
+    public static Profile findProfile(String profileName) {
+        return (Profile) MDDCore.getInProgressRepository().findPackage(profileName, Literals.PROFILE);
+    }
 
 }
