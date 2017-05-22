@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.EList;
@@ -79,6 +80,7 @@ import org.eclipse.uml2.uml.Vertex;
 import org.eclipse.uml2.uml.WriteLinkAction;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.UnclassifiedProblem;
@@ -472,6 +474,9 @@ public class BehaviorGenerator extends AbstractGenerator {
             InputPin target = action.getTarget();
             InputPin argument = action.getArguments().get(0);
             Type targetType = ActivityUtils.getSource(target).getType();
+            
+            ensure(targetType != null, operator, () -> new UnclassifiedProblem("No type information for " + operand1));
+            
             TypeUtils.copyType(ActivityUtils.getSource(target), target);
             TypeUtils.copyType(ActivityUtils.getSource(argument), argument);
             
@@ -501,7 +506,14 @@ public class BehaviorGenerator extends AbstractGenerator {
         checkIncomings(action, operator, getBoundElement());
     }
 
-    private void handleIdentityBinaryOperator(Node left, Node right) {
+    private void ensure(Boolean condition, Node node, Supplier<IProblem> problem) {
+    	if (!condition) {
+    		problemBuilder.addProblem(problem.get(), node);
+    		throw new AbortedStatementCompilationException();    	
+    	}
+	}
+
+	private void handleIdentityBinaryOperator(Node left, Node right) {
         TestIdentityAction action = (TestIdentityAction) builder.createAction(IRepository.PACKAGE
                 .getTestIdentityAction());
         try {
@@ -533,11 +545,9 @@ public class BehaviorGenerator extends AbstractGenerator {
             String qualifiedIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(right);
             Classifier classifier = (Classifier) getRepository().findNamedElement(qualifiedIdentifier,
                     IRepository.PACKAGE.getClassifier(), namespaceTracker.currentPackage());
-            if (classifier == null) {
-                problemBuilder.addError("Unknown classifier '" + qualifiedIdentifier + "'",
-                        right);
-                throw new AbortedStatementCompilationException();
-            }
+            
+            ensure(classifier != null, right, () -> new UnknownType(qualifiedIdentifier));
+
             builder.registerInput(action.createObject(null, null));
             left.apply(this);
             Classifier expressionType = BasicTypeUtils.findBuiltInType("Boolean");
@@ -1562,6 +1572,9 @@ public class BehaviorGenerator extends AbstractGenerator {
             
             InputPin target = action.getTarget();
             Type targetType = ActivityUtils.getSource(target).getType();
+            
+            ensure(targetType != null, operator, () -> new UnclassifiedProblem("No type information for " + operand));
+            
             TypeUtils.copyType(ActivityUtils.getSource(target), target);
             
             Operation operation = FeatureUtils.findOperation(getRepository(), (Classifier) targetType, operationName, Arrays.asList(), false, true);
