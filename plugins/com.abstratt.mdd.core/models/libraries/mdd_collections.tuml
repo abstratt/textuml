@@ -113,7 +113,11 @@ class Sequence<T>specializes Collection<T>
 
     (* Returns the element at the given position in this sequence. *)
     query at(i : Integer) : T;
+    
+    query indexWhere(predicate : {( : T) : Boolean}) : Integer;
 
+    query indexOf(i : T) : Integer;
+    
     (* Returns the first element in this sequence, if not empty *)
     query head() : T[0, 1];
 

@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_collections" URI="libraries/mdd_collections">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/05/10 10:50:26 993 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/05/25 12:44:17 146 -0300"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0">
       <importedPackage xmi:type="uml:Model" href="mdd_types.uml#_0"/>
@@ -627,6 +627,44 @@
           </upperValue>
         </ownedParameter>
       </ownedOperation>
+      <ownedOperation xmi:id="Sequence-indexWhere" name="indexWhere" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="Sequence-indexWhere-predicate" name="predicate" type="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-indexWhere-predicate-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-indexWhere-predicate-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
+        </ownedParameter>
+        <ownedParameter xmi:id="Sequence-indexWhere-_ownedParameter.1" direction="return">
+          <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-indexWhere-_ownedParameter.1-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-indexWhere-_ownedParameter.1-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="Sequence-indexOf" name="indexOf" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="Sequence-indexOf-i" name="i" type="Sequence-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-indexOf-i-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-indexOf-i-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
+        </ownedParameter>
+        <ownedParameter xmi:id="Sequence-indexOf-_ownedParameter.1" direction="return">
+          <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-indexOf-_ownedParameter.1-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-indexOf-_ownedParameter.1-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
+        </ownedParameter>
+      </ownedOperation>
       <ownedOperation xmi:id="Sequence-head" name="head" visibility="public" isQuery="true">
         <ownedComment xmi:id="Sequence-head-_ownedComment.0" annotatedElement="Sequence-head">
           <body> Returns the first element in this sequence, if not empty </body>
@@ -1143,6 +1181,27 @@
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D" name="{(: mdd_collections::Sequence::T) : mdd_types::Boolean}">
+      <ownedOperation xmi:id="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D-signatureOperation" name="signatureOperation">
+        <ownedParameter xmi:id="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D-signatureOperation-_ownedParameter.0" type="Sequence-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D-signatureOperation-_ownedParameter.0-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D-signatureOperation-_ownedParameter.0-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
+        </ownedParameter>
+        <ownedParameter xmi:id="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D-signatureOperation-_ownedParameter.1" direction="return">
+          <type xmi:type="uml:Class" href="mdd_types.uml#Boolean"/>
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D-signatureOperation-_ownedParameter.1-_lowerValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </lowerValue>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D-signatureOperation-_ownedParameter.1-_upperValue" value="1">
+            <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
+          </upperValue>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
     <packagedElement xmi:type="uml:Interface" xmi:id="_7B20mdd_collectionsGroupingT5B0205D2020null7D" name="{(: mdd_collections::Grouping::T[0, *]) : null}">
       <ownedOperation xmi:id="_7B20mdd_collectionsGroupingT5B0205D2020null7D-signatureOperation" name="signatureOperation">
         <ownedParameter xmi:id="_7B20mdd_collectionsGroupingT5B0205D2020null7D-signatureOperation-_ownedParameter.0" type="Grouping-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
@@ -1249,56 +1308,59 @@
   <mdd_extensions:Signature xmi:id="_37" context="_0" base_Interface="_7B20mdd_collectionsCollectionT2020null7D.5"/>
   <mdd_extensions:Signature xmi:id="_38" context="_0" base_Interface="_7B20mdd_collectionsCollectionT2020null7D.6"/>
   <mdd_extensions:Signature xmi:id="_39" context="_0" base_Interface="_7B20mdd_collectionsCollectionT2020null7D.7"/>
-  <mdd_extensions:Signature xmi:id="_40" context="_0" base_Interface="_7B20mdd_collectionsGroupingT5B0205D2020null7D"/>
-  <mdd_extensions:Signature xmi:id="_41" context="_0" base_Interface="_7B20mdd_collectionsGroupingT5B0205D2020null7D.1"/>
-  <mdd_extensions:Signature xmi:id="_42" context="_0" base_Interface="_7B20mdd_collectionsGroupingT5B0205D2020mdd_typesBoolean7D"/>
-  <mdd_extensions:BasicValue xmi:id="_43" base_LiteralString="Collection-join-delimiter-_defaultValue">
+  <mdd_extensions:Signature xmi:id="_40" context="_0" base_Interface="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D"/>
+  <mdd_extensions:Signature xmi:id="_41" context="_0" base_Interface="_7B20mdd_collectionsGroupingT5B0205D2020null7D"/>
+  <mdd_extensions:Signature xmi:id="_42" context="_0" base_Interface="_7B20mdd_collectionsGroupingT5B0205D2020null7D.1"/>
+  <mdd_extensions:Signature xmi:id="_43" context="_0" base_Interface="_7B20mdd_collectionsGroupingT5B0205D2020mdd_typesBoolean7D"/>
+  <mdd_extensions:BasicValue xmi:id="_44" base_LiteralString="Collection-join-delimiter-_defaultValue">
     <basicType xmi:type="uml:Class" href="mdd_types.uml#String"/>
   </mdd_extensions:BasicValue>
-  <standard:ModelLibrary xmi:id="_44" base_Package="_0"/>
-  <mdd_extensions:Debuggable xmi:id="_45" lineNumber="9" source="mdd_collections.tuml" base_Element="Collection"/>
-  <mdd_extensions:Debuggable xmi:id="_46" lineNumber="12" source="mdd_collections.tuml" base_Element="Collection-add"/>
-  <mdd_extensions:Debuggable xmi:id="_47" lineNumber="15" source="mdd_collections.tuml" base_Element="Collection-count"/>
-  <mdd_extensions:Debuggable xmi:id="_48" lineNumber="18" source="mdd_collections.tuml" base_Element="Collection-includes"/>
-  <mdd_extensions:Debuggable xmi:id="_49" lineNumber="21" source="mdd_collections.tuml" base_Element="Collection-includesAll"/>
-  <mdd_extensions:Debuggable xmi:id="_50" lineNumber="24" source="mdd_collections.tuml" base_Element="Collection-includesAny"/>
-  <mdd_extensions:Debuggable xmi:id="_51" lineNumber="27" source="mdd_collections.tuml" base_Element="Collection-isEmpty"/>
-  <mdd_extensions:Debuggable xmi:id="_52" lineNumber="30" source="mdd_collections.tuml" base_Element="Collection-size"/>
-  <mdd_extensions:Debuggable xmi:id="_53" lineNumber="33" source="mdd_collections.tuml" base_Element="Collection-exists"/>
-  <mdd_extensions:Debuggable xmi:id="_54" lineNumber="36" source="mdd_collections.tuml" base_Element="Collection-forAll"/>
-  <mdd_extensions:Debuggable xmi:id="_55" lineNumber="39" source="mdd_collections.tuml" base_Element="Collection-any"/>
-  <mdd_extensions:Debuggable xmi:id="_56" lineNumber="42" source="mdd_collections.tuml" base_Element="Collection-one"/>
-  <mdd_extensions:Debuggable xmi:id="_57" lineNumber="45" source="mdd_collections.tuml" base_Element="Collection-select"/>
-  <mdd_extensions:Debuggable xmi:id="_58" lineNumber="48" source="mdd_collections.tuml" base_Element="Collection-collect"/>
-  <mdd_extensions:Debuggable xmi:id="_59" lineNumber="51" source="mdd_collections.tuml" base_Element="Collection-forEach"/>
-  <mdd_extensions:Debuggable xmi:id="_60" lineNumber="54" source="mdd_collections.tuml" base_Element="Collection-sortedBy"/>
-  <mdd_extensions:Debuggable xmi:id="_61" lineNumber="57" source="mdd_collections.tuml" base_Element="Collection-asOrderedSet"/>
-  <mdd_extensions:Debuggable xmi:id="_62" lineNumber="60" source="mdd_collections.tuml" base_Element="Collection-asSequence"/>
-  <mdd_extensions:Debuggable xmi:id="_63" lineNumber="63" source="mdd_collections.tuml" base_Element="Collection-asSet"/>
-  <mdd_extensions:Debuggable xmi:id="_64" lineNumber="66" source="mdd_collections.tuml" base_Element="Collection-asBag"/>
-  <mdd_extensions:Debuggable xmi:id="_65" lineNumber="69" source="mdd_collections.tuml" base_Element="Collection-union"/>
-  <mdd_extensions:Debuggable xmi:id="_66" lineNumber="75" source="mdd_collections.tuml" base_Element="Collection-collectMany"/>
-  <mdd_extensions:Debuggable xmi:id="_67" lineNumber="78" source="mdd_collections.tuml" base_Element="Collection-groupBy"/>
-  <mdd_extensions:Debuggable xmi:id="_68" lineNumber="81" source="mdd_collections.tuml" base_Element="Collection-reduce"/>
-  <mdd_extensions:Debuggable xmi:id="_69" lineNumber="84" source="mdd_collections.tuml" base_Element="Collection-sum"/>
-  <mdd_extensions:Debuggable xmi:id="_70" lineNumber="87" source="mdd_collections.tuml" base_Element="Collection-max"/>
-  <mdd_extensions:Debuggable xmi:id="_71" lineNumber="90" source="mdd_collections.tuml" base_Element="Collection-min"/>
-  <mdd_extensions:Debuggable xmi:id="_72" lineNumber="93" source="mdd_collections.tuml" base_Element="Collection-mode"/>
-  <mdd_extensions:Debuggable xmi:id="_73" lineNumber="96" source="mdd_collections.tuml" base_Element="Collection-median"/>
-  <mdd_extensions:Debuggable xmi:id="_74" lineNumber="99" source="mdd_collections.tuml" base_Element="Collection-average"/>
-  <mdd_extensions:Debuggable xmi:id="_75" lineNumber="102" source="mdd_collections.tuml" base_Element="Collection-maxElement"/>
-  <mdd_extensions:Debuggable xmi:id="_76" lineNumber="105" source="mdd_collections.tuml" base_Element="Collection-minElement"/>
-  <mdd_extensions:Debuggable xmi:id="_77" lineNumber="108" source="mdd_collections.tuml" base_Element="Collection-join"/>
-  <mdd_extensions:Debuggable xmi:id="_78" lineNumber="112" source="mdd_collections.tuml" base_Element="Sequence"/>
-  <mdd_extensions:Debuggable xmi:id="_79" lineNumber="115" source="mdd_collections.tuml" base_Element="Sequence-at"/>
-  <mdd_extensions:Debuggable xmi:id="_80" lineNumber="118" source="mdd_collections.tuml" base_Element="Sequence-head"/>
-  <mdd_extensions:Debuggable xmi:id="_81" lineNumber="121" source="mdd_collections.tuml" base_Element="Sequence-tail"/>
-  <mdd_extensions:Debuggable xmi:id="_82" lineNumber="125" source="mdd_collections.tuml" base_Element="Set"/>
-  <mdd_extensions:Debuggable xmi:id="_83" lineNumber="129" source="mdd_collections.tuml" base_Element="Bag"/>
-  <mdd_extensions:Debuggable xmi:id="_84" lineNumber="132" source="mdd_collections.tuml" base_Element="Bag-count"/>
-  <mdd_extensions:Debuggable xmi:id="_85" lineNumber="136" source="mdd_collections.tuml" base_Element="OrderedSet"/>
-  <mdd_extensions:Debuggable xmi:id="_86" lineNumber="140" source="mdd_collections.tuml" base_Element="Grouping"/>
-  <mdd_extensions:Debuggable xmi:id="_87" lineNumber="143" source="mdd_collections.tuml" base_Element="Grouping-groupCollect"/>
-  <mdd_extensions:Debuggable xmi:id="_88" lineNumber="146" source="mdd_collections.tuml" base_Element="Grouping-groupReduce"/>
-  <mdd_extensions:Debuggable xmi:id="_89" lineNumber="149" source="mdd_collections.tuml" base_Element="Grouping-groupSelect"/>
+  <standard:ModelLibrary xmi:id="_45" base_Package="_0"/>
+  <mdd_extensions:Debuggable xmi:id="_46" lineNumber="9" source="mdd_collections.tuml" base_Element="Collection"/>
+  <mdd_extensions:Debuggable xmi:id="_47" lineNumber="12" source="mdd_collections.tuml" base_Element="Collection-add"/>
+  <mdd_extensions:Debuggable xmi:id="_48" lineNumber="15" source="mdd_collections.tuml" base_Element="Collection-count"/>
+  <mdd_extensions:Debuggable xmi:id="_49" lineNumber="18" source="mdd_collections.tuml" base_Element="Collection-includes"/>
+  <mdd_extensions:Debuggable xmi:id="_50" lineNumber="21" source="mdd_collections.tuml" base_Element="Collection-includesAll"/>
+  <mdd_extensions:Debuggable xmi:id="_51" lineNumber="24" source="mdd_collections.tuml" base_Element="Collection-includesAny"/>
+  <mdd_extensions:Debuggable xmi:id="_52" lineNumber="27" source="mdd_collections.tuml" base_Element="Collection-isEmpty"/>
+  <mdd_extensions:Debuggable xmi:id="_53" lineNumber="30" source="mdd_collections.tuml" base_Element="Collection-size"/>
+  <mdd_extensions:Debuggable xmi:id="_54" lineNumber="33" source="mdd_collections.tuml" base_Element="Collection-exists"/>
+  <mdd_extensions:Debuggable xmi:id="_55" lineNumber="36" source="mdd_collections.tuml" base_Element="Collection-forAll"/>
+  <mdd_extensions:Debuggable xmi:id="_56" lineNumber="39" source="mdd_collections.tuml" base_Element="Collection-any"/>
+  <mdd_extensions:Debuggable xmi:id="_57" lineNumber="42" source="mdd_collections.tuml" base_Element="Collection-one"/>
+  <mdd_extensions:Debuggable xmi:id="_58" lineNumber="45" source="mdd_collections.tuml" base_Element="Collection-select"/>
+  <mdd_extensions:Debuggable xmi:id="_59" lineNumber="48" source="mdd_collections.tuml" base_Element="Collection-collect"/>
+  <mdd_extensions:Debuggable xmi:id="_60" lineNumber="51" source="mdd_collections.tuml" base_Element="Collection-forEach"/>
+  <mdd_extensions:Debuggable xmi:id="_61" lineNumber="54" source="mdd_collections.tuml" base_Element="Collection-sortedBy"/>
+  <mdd_extensions:Debuggable xmi:id="_62" lineNumber="57" source="mdd_collections.tuml" base_Element="Collection-asOrderedSet"/>
+  <mdd_extensions:Debuggable xmi:id="_63" lineNumber="60" source="mdd_collections.tuml" base_Element="Collection-asSequence"/>
+  <mdd_extensions:Debuggable xmi:id="_64" lineNumber="63" source="mdd_collections.tuml" base_Element="Collection-asSet"/>
+  <mdd_extensions:Debuggable xmi:id="_65" lineNumber="66" source="mdd_collections.tuml" base_Element="Collection-asBag"/>
+  <mdd_extensions:Debuggable xmi:id="_66" lineNumber="69" source="mdd_collections.tuml" base_Element="Collection-union"/>
+  <mdd_extensions:Debuggable xmi:id="_67" lineNumber="75" source="mdd_collections.tuml" base_Element="Collection-collectMany"/>
+  <mdd_extensions:Debuggable xmi:id="_68" lineNumber="78" source="mdd_collections.tuml" base_Element="Collection-groupBy"/>
+  <mdd_extensions:Debuggable xmi:id="_69" lineNumber="81" source="mdd_collections.tuml" base_Element="Collection-reduce"/>
+  <mdd_extensions:Debuggable xmi:id="_70" lineNumber="84" source="mdd_collections.tuml" base_Element="Collection-sum"/>
+  <mdd_extensions:Debuggable xmi:id="_71" lineNumber="87" source="mdd_collections.tuml" base_Element="Collection-max"/>
+  <mdd_extensions:Debuggable xmi:id="_72" lineNumber="90" source="mdd_collections.tuml" base_Element="Collection-min"/>
+  <mdd_extensions:Debuggable xmi:id="_73" lineNumber="93" source="mdd_collections.tuml" base_Element="Collection-mode"/>
+  <mdd_extensions:Debuggable xmi:id="_74" lineNumber="96" source="mdd_collections.tuml" base_Element="Collection-median"/>
+  <mdd_extensions:Debuggable xmi:id="_75" lineNumber="99" source="mdd_collections.tuml" base_Element="Collection-average"/>
+  <mdd_extensions:Debuggable xmi:id="_76" lineNumber="102" source="mdd_collections.tuml" base_Element="Collection-maxElement"/>
+  <mdd_extensions:Debuggable xmi:id="_77" lineNumber="105" source="mdd_collections.tuml" base_Element="Collection-minElement"/>
+  <mdd_extensions:Debuggable xmi:id="_78" lineNumber="108" source="mdd_collections.tuml" base_Element="Collection-join"/>
+  <mdd_extensions:Debuggable xmi:id="_79" lineNumber="112" source="mdd_collections.tuml" base_Element="Sequence"/>
+  <mdd_extensions:Debuggable xmi:id="_80" lineNumber="115" source="mdd_collections.tuml" base_Element="Sequence-at"/>
+  <mdd_extensions:Debuggable xmi:id="_81" lineNumber="117" source="mdd_collections.tuml" base_Element="Sequence-indexWhere"/>
+  <mdd_extensions:Debuggable xmi:id="_82" lineNumber="119" source="mdd_collections.tuml" base_Element="Sequence-indexOf"/>
+  <mdd_extensions:Debuggable xmi:id="_83" lineNumber="122" source="mdd_collections.tuml" base_Element="Sequence-head"/>
+  <mdd_extensions:Debuggable xmi:id="_84" lineNumber="125" source="mdd_collections.tuml" base_Element="Sequence-tail"/>
+  <mdd_extensions:Debuggable xmi:id="_85" lineNumber="129" source="mdd_collections.tuml" base_Element="Set"/>
+  <mdd_extensions:Debuggable xmi:id="_86" lineNumber="133" source="mdd_collections.tuml" base_Element="Bag"/>
+  <mdd_extensions:Debuggable xmi:id="_87" lineNumber="136" source="mdd_collections.tuml" base_Element="Bag-count"/>
+  <mdd_extensions:Debuggable xmi:id="_88" lineNumber="140" source="mdd_collections.tuml" base_Element="OrderedSet"/>
+  <mdd_extensions:Debuggable xmi:id="_89" lineNumber="144" source="mdd_collections.tuml" base_Element="Grouping"/>
+  <mdd_extensions:Debuggable xmi:id="_90" lineNumber="147" source="mdd_collections.tuml" base_Element="Grouping-groupCollect"/>
+  <mdd_extensions:Debuggable xmi:id="_91" lineNumber="150" source="mdd_collections.tuml" base_Element="Grouping-groupReduce"/>
+  <mdd_extensions:Debuggable xmi:id="_92" lineNumber="153" source="mdd_collections.tuml" base_Element="Grouping-groupSelect"/>
 </xmi:XMI>
