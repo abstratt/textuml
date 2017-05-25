@@ -107,7 +107,7 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
     private class StateProcessor implements NodeProcessor<AStateDecl> {
         @Override
         public void process(AStateDecl node) {
-            String stateName = sourceMiner.getText(node.getIdentifier());
+            String stateName = sourceMiner.getIdentifier(node.getIdentifier());
             if (stateName == null) {
             	problemBuilder.addProblem(new StatesMustBeNamed(), node.getState());
             	return;
