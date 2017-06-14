@@ -310,10 +310,6 @@ class JDBCImporter {
 		return isConstant
 	}
 
-	def String gerConstantColumnValue(Column toCheck) {
-		return constantColumns.get(toCheck.shortName) ?: constantColumns.get(toCheck.name)
-	}
-
 	def List<String> getAttributeModifiers(Column column) {
 		val modifiers = newLinkedList()
 		if (column.specialColumn)
