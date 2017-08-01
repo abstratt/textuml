@@ -503,6 +503,7 @@ public class StructureGenerator extends AbstractGenerator {
 				    	return;
 				    }
 				    Type otherType = referrent.getType();
+				    // ensure exact same metaclass
 					if (otherType.eClass() != referringClassifier.eClass()) {
 			            problemBuilder.addError("Cannot create association between '" + referringClassifier.eClass().getName() + "' and '" + otherType.eClass().getName(),
 			                    node.getIdentifier());
@@ -523,6 +524,11 @@ public class StructureGenerator extends AbstractGenerator {
 			            throw new AbortedScopeCompilationException();
 					}
 					newAssociation.getMemberEnds().add(otherEnd);
+					getRefTracker().add(repo -> {
+					    if (otherEnd.getType() != null && otherEnd.getType() != referringClassifier) {
+					        problemBuilder.addError("The opposite end " + otherEnd.getQualifiedName() + " should be typed as " + referringClassifier.getQualifiedName() + " but is " + otherEnd.getType().getQualifiedName(), node.getOptionalOpposite());    
+					    }
+					}, IReferenceTracker.Step.GENERAL_RESOLUTION);
 				}
         		
         	}, IReferenceTracker.Step.GENERAL_RESOLUTION);
