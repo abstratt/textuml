@@ -2,7 +2,7 @@
 ---
 {% include header.md %}
 
-#Installing the TextUML Toolkit
+# Installing the TextUML Toolkit
 
 Requirements
 ------------
