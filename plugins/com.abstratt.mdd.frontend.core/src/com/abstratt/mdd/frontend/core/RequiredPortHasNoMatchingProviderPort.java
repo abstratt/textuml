@@ -7,7 +7,7 @@ public class RequiredPortHasNoMatchingProviderPort extends Problem {
     private String portName;
 
     public RequiredPortHasNoMatchingProviderPort(String symbolName) {
-        super(Severity.ERROR);
+        super(Severity.WARNING);
         this.portName = symbolName;
     }
 
