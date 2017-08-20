@@ -9,6 +9,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnumLiteral;
@@ -58,7 +60,7 @@ public class ClassifierUtils {
                     Classifier classifier = (Classifier) object;
                     if (classifier.conformsTo(general))
                     	return true;
-                    if (isInterface  && object instanceof BehavioredClassifier)
+                    if (isInterface && object instanceof BehavioredClassifier)
                     	return doesImplement((BehavioredClassifier) object, (Interface) general);
                 }
                 return false;
@@ -70,16 +72,31 @@ public class ClassifierUtils {
     public static <T> T collectFromHierarchy(IRepository repository, final Classifier baseClass, boolean includeSubclasses, T collected, BiConsumer<Classifier, T> consumer) {
         Consumer<Classifier> collector = c -> consumer.accept(c, collected);
         if (!includeSubclasses) 
-            collector.accept(baseClass);
+            runOnClasses(Stream.of(baseClass), collector);
         else
-            runOnHierarchy(repository, baseClass, collector);
+            runOnClasses(streamHierarchy(repository, baseClass), collector);
         return collected;
     }
+    
+    private static Stream<Classifier> streamHierarchy(IRepository repository, Classifier general) {
+        return ClassifierUtils.streamHierarchy(repository, general);
+    }
+
+    public static <T> T collectFromClasses(Stream<Classifier> classes, T collected, BiConsumer<Classifier, T> consumer) {
+        Consumer<Classifier> collector = c -> consumer.accept(c, collected);
+        runOnClasses(classes, collector);
+        return collected;
+    }
+
     
     public static void runOnHierarchy(IRepository repository, Classifier general, Consumer<Classifier> visitor) {
     	visitor.accept(general);
         List<Classifier> specifics = ClassifierUtils.findAllSpecifics(repository, general);
         specifics.forEach(visitor);
+    }
+    
+    public static void runOnClasses(Stream<Classifier> classes, Consumer<Classifier> visitor) {
+        classes.forEach(visitor);
     }
     
     public static <T> T findUpHierarchy(IRepository repository, Classifier current, Function<Classifier, T> visitor) {
