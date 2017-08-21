@@ -32,6 +32,10 @@ public class TextUMLCompilerTests extends TestCase {
         toParse += "    class class21\n";
         toParse += "    end;\n";
         toParse += "end;\n";
+        toParse += "package pacoteComAcentuação;\n";
+        toParse += "    class ClasseComAcentuação\n";
+        toParse += "    end;\n";
+        toParse += "end;\n";
         toParse += "end.\n";
     }
 
@@ -50,6 +54,8 @@ public class TextUMLCompilerTests extends TestCase {
         assertEquals("mymodel::package1::class12", compiler.findNamespace(toParse, 6, 100));
         assertEquals("mymodel::package1::class12", compiler.findNamespace(toParse, 7, 100));
         assertEquals("mymodel::package2::class21", compiler.findNamespace(toParse, 10, 100));
+        assertEquals("mymodel::package2::class21", compiler.findNamespace(toParse, 10, 100));
+        
     }
 
     public void testFindToken() {

@@ -27,6 +27,7 @@ public class AllFrontEndTextUMLTests {
         suite.addTest(TemplateTests.suite());
         suite.addTest(TypeTests.suite());
         suite.addTest(WildcardTypeTests.suite());
+        suite.addTest(UnicodeTests.suite());
         return suite;
     }
 }
