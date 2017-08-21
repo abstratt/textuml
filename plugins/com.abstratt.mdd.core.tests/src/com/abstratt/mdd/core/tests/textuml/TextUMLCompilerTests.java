@@ -32,10 +32,6 @@ public class TextUMLCompilerTests extends TestCase {
         toParse += "    class class21\n";
         toParse += "    end;\n";
         toParse += "end;\n";
-        toParse += "package pacoteComAcentuação;\n";
-        toParse += "    class ClasseComAcentuação\n";
-        toParse += "    end;\n";
-        toParse += "end;\n";
         toParse += "end.\n";
     }
 
