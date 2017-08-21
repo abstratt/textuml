@@ -1,4 +1,4 @@
-Package com.abstratt.mdd.frontend.textuml.grammar;
+Package com.abstratt.mdd.frontend.textuml.grammar;  
 
 Helpers
 
@@ -10,20 +10,27 @@ Helpers
     cr  = 0x000d; 
     sp  = ' ';
 
-    line_terminator = lf | cr | cr lf; 
-    input_character = [unicode_input_character - [cr + lf]];
     
-    escape_character = '\';
-
-    not_star =    [input_character - '*'] | line_terminator;
+    line_terminator = lf | cr | cr lf; 
+    
+    input_character = [unicode_input_character - [cr + lf]];    
+    
+    escape_character = '\';    
+    
+    not_star =  [input_character - '*'] | line_terminator;
     not_star_not_slash = [input_character - ['*' + '/']] | line_terminator;
     not_star_not_rbracket = [input_character - ['*' + ')']] | line_terminator;
 
   ascii_char = [0..255] ;
 
-  any_letter = ['A' .. 'Z'] | ['a' .. 'z'] | '_';
+  symbols = [0x20..0x2F] | [0x3A..0x40] | 0x5B | [0x5D..0x5E] | 0x60 | [0x7B..0x7E]  ;
+   //- '+' - '.' - '(' - ')' - '[' - ']' - '{' - '}'
+  unicode_input_character_minus_symbols = [[[[[[unicode_input_character - [0x20..0x2F]] - [0x3A..0x40]] - 0x5B] - [0x5D..0x5E]] - 0x60] - [0x7B..0x7E]];
   
   digit = ['0' .. '9'] ;
+  
+  identifier_first_character = [[unicode_input_character_minus_symbols - [cr + lf]] - digit];
+  identifier_following_character = [unicode_input_character_minus_symbols - [cr + lf]];
 
   // un-printable characters
 //  tab = 9 ;
@@ -34,6 +41,43 @@ Helpers
   single_quote = ''' ;  
   
   quote = '"';
+  
+  underscore = '_';
+    plus = '+' ;
+  minus = '-' ;
+  mult = '*' ;
+  div = '/';
+  assignop = ':=' ;
+
+  // relational symbols
+  equals = '=';
+  equals_equals = '=' '=';
+  lab = '<' ;
+  lab_equals = '<' '=' ;
+  rab = '>' ;
+  rab_equals = '>' '=' ;
+  not_equals = '!' '=' ;
+  
+  // separator symbols
+  comma = ',' ;
+  colon = ':' ;
+  semicolon = ';' ;
+  dot = '.' ;
+  namespace_separator = '::' ;
+  hash = '#' ;
+  l_paren = '(' ;
+  r_paren = ')' ;
+  l_bracket = '[';
+  r_bracket = ']';
+  l_curly_bracket = '{' ;
+  r_curly_bracket = '}' ;
+  right_arrow = '-' '>';
+  left_arrow = '<' '-';
+  l_guillemot = '«' ;
+  r_guillemot = '»' ;
+ // bar = '|';
+  not_null = '?' ;
+  
   
 Tokens
   // reserved words
@@ -192,14 +236,14 @@ Tokens
   not_null = '?' ;
   
   // identifiers
-  identifier = ((escape_character ascii_char) | any_letter) ((escape_character ascii_char) | any_letter | digit)* ;    
+  identifier = (identifier_first_character | (escape_character input_character)) (identifier_following_character | (escape_character input_character))* ;
   
   // numbers
   integer = digit+ ;  
   real = digit+ '.' digit+ ; 
   
   // strings
-  string = quote [ascii_char - quote]* quote; 
+  string = quote [unicode_input_character - quote]* quote; 
   
   // uris
   uri = '<' '<'  [ascii_char - '>']* '>' '>' ;
