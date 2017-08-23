@@ -10,6 +10,8 @@
  *******************************************************************************/
 package com.abstratt.mdd.frontend.core.spi;
 
+import java.util.function.Supplier;
+
 import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.UnclassifiedProblem;
@@ -48,5 +50,18 @@ public class ProblemBuilder<N> {
             addError(message, node);
             throw new AbortedScopeCompilationException();
         }
+    }
+    
+    public void ensure(boolean condition, N node, Supplier<IProblem> errorReporter) {
+        if (!condition) {
+            IProblem problem = errorReporter.get();
+            addProblem(problem , node);
+            if (problem.getSeverity() == Severity.ERROR) 
+                throw new AbortedScopeCompilationException();
+        }
+    }
+    
+    public void ensure(boolean condition, N node, Severity severity, Supplier<String> messageProvider) {
+        ensure(condition, node, () -> new UnclassifiedProblem(severity, messageProvider.get()));
     }
 }

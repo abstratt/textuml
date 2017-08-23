@@ -10,6 +10,8 @@
  *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
+import java.util.function.Supplier;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioralFeature;
@@ -19,7 +21,10 @@ import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
@@ -139,4 +144,17 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
             return UMLPackage.Literals.PROFILE;
         return null;
     }
+    
+    protected void defer(Step step, IDeferredReference ref) {
+        context.getReferenceTracker().defer(step, ref);
+    }
+    
+    protected void ensure(boolean condition, Node node, Severity severity, Supplier<String> messageProvider) {
+        problemBuilder.ensure(condition, node, severity, messageProvider);
+    }
+    
+    protected void ensure(boolean condition, Node node, Supplier<IProblem> errorReporter) {
+        problemBuilder.ensure(condition, node, errorReporter);
+    }
+
 }

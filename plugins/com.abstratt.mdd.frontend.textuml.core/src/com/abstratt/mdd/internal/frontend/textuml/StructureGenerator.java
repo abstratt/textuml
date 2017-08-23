@@ -11,10 +11,12 @@
  *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
-import java.util.ArrayList;
+import static com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step.STEREOTYPE_APPLICATIONS;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.URI;
@@ -47,6 +49,7 @@ import org.eclipse.uml2.uml.OperationOwner;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.PackageImport;
 import org.eclipse.uml2.uml.PackageableElement;
+import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.Port;
 import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Profile;
@@ -63,11 +66,10 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.IRepository;
-import com.abstratt.mdd.core.MDDCore;
 import com.abstratt.mdd.core.UnclassifiedProblem;
-import com.abstratt.mdd.core.util.ClassifierUtils;
 import com.abstratt.mdd.core.util.ConnectorUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
@@ -75,6 +77,7 @@ import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.ProjectPropertyHelper;
 import com.abstratt.mdd.core.util.ReceptionUtils;
 import com.abstratt.mdd.core.util.StereotypeUtils;
+import com.abstratt.mdd.core.util.StereotypeUtils.Standard;
 import com.abstratt.mdd.core.util.TemplateUtils;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.AnonymousDisconnectedPort;
@@ -125,6 +128,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ACompositionAssociationKin
 import com.abstratt.mdd.frontend.textuml.grammar.node.ACompositionReferenceType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AConnectorDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AConnectorEndList;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ACreateOperationKeyword;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ADatatypeClassType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ADependencyDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AEmptyClassSpecializesSection;
@@ -172,14 +176,13 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AWordyBlock;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PAnnotations;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PInitializationExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.POperationKeyword;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PQualifiedIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TAbstract;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TExternal;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TModelComment;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TRole;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TUri;
-
-import static com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step.*;
 
 /**
  * This tree visitor will generate the structural model for a given input.
@@ -1254,24 +1257,31 @@ public class StructureGenerator extends AbstractGenerator {
     public final void caseAOperationDecl(AOperationDecl node) {
         AOperationHeader operationHeader = (AOperationHeader) node.getOperationHeader();
         final String operationName = TextUMLCore.getSourceMiner().getIdentifier(operationHeader.getIdentifier());
-        boolean isQuery = operationHeader.getOperationKeyword() instanceof AQueryOperationKeyword;
-        boolean hasReturn = sourceMiner.findChild(operationHeader, AOptionalReturnType.class, true) != null;
-        if (isQuery && !hasReturn) {
-            problemBuilder.addError("A query operation must have a return type", operationHeader);
-            throw new AbortedScopeCompilationException();
-        }
         
+        POperationKeyword operationKeyword = operationHeader.getOperationKeyword();
+        boolean isQuery = operationKeyword instanceof AQueryOperationKeyword;
+        boolean isCreate = operationKeyword instanceof ACreateOperationKeyword;
+        boolean hasReturn = sourceMiner.findChild(operationHeader, AOptionalReturnType.class, true) != null;
+        ensure(!isQuery || hasReturn, operationHeader, Severity.ERROR, () -> "A query operation must have a return type");
         Classifier parent = (Classifier) this.namespaceTracker.currentNamespace(null);
         
-        if (!(parent instanceof OperationOwner)) {
-        	problemBuilder.addError(parent.eClass().getName() + " is a classifier that cannot own operations", operationHeader);
-            throw new AbortedScopeCompilationException();
-        }
+        ensure(parent instanceof OperationOwner, operationHeader, Severity.ERROR, () -> parent.eClass().getName() + " is a classifier that cannot own operations");
         
         Operation operation = FeatureUtils.createOperation(parent, operationName);
         fillDebugInfo(operation, operationHeader);
         applyCurrentComment(operation);
         operation.setIsQuery(isQuery);
+        if (isCreate) {
+            Stereotype createStereotype = StereotypeUtils.findStereotype(Standard.Create.qualifiedName());
+            ensure(createStereotype != null, operationKeyword, Severity.ERROR, () -> Standard.Create.qualifiedName() + " stereotype not found");
+            defer(Step.STEREOTYPE_APPLICATIONS, r -> StereotypeUtils.safeApplyStereotype(operation, createStereotype));
+            defer(Step.GENERAL_RESOLUTION, (r) -> {
+                Parameter existingResult = operation.getReturnResult();
+                ensure(existingResult == null || existingResult.getType() == parent, operationKeyword, () -> new TypeMismatch(Severity.WARNING, parent.getName(), existingResult.getType().getName()));
+                if (existingResult == null) 
+                    operation.createReturnResult(null, parent);
+            });
+        }
         namespaceTracker.enterNamespace(operation);
         try {
             super.caseAOperationDecl(node);

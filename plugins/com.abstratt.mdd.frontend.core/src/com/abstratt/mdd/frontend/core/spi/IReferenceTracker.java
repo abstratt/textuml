@@ -36,6 +36,10 @@ public interface IReferenceTracker {
             this.ordered = ordered;
         }
     }
+    
+    public default void defer(Step step, IDeferredReference ref) {
+        add(ref, step);
+    }
 
     public void add(IDeferredReference ref, Step step);
 

@@ -1,6 +1,7 @@
 package com.abstratt.mdd.core.tests.frontend.textuml;
 
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EAnnotation;
@@ -36,6 +37,8 @@ import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
+import com.abstratt.mdd.core.util.StereotypeUtils;
+import com.abstratt.mdd.core.util.StructuralFeatureUtils;
 import com.abstratt.mdd.frontend.core.CannotModifyADerivedAttribute;
 import com.abstratt.mdd.frontend.core.CannotSpecializeClassifier;
 import com.abstratt.mdd.frontend.core.DuplicateSymbol;
@@ -799,6 +802,54 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         assertNotNull(param1);
         assertEquals(ParameterDirectionKind.OUT_LITERAL, param1.getDirection());
         assertEquals(ParameterEffectKind.READ_LITERAL, param1.getEffect());
+    }
+
+    public void testCreateOperation(String source, Consumer<IProblem[]> validation) throws CoreException {
+        parseAndCheck(source);
+        Operation op1 = get("someModel::SomeClass::op1", UMLPackage.Literals.OPERATION);
+        assertNotNull(op1);
+        assertNotNull(op1.getClass_());
+        assertNotNull(op1.getReturnResult());
+        assertEquals(op1.getClass_(), op1.getReturnResult().getType());
+        assertTrue(StereotypeUtils.hasStereotype(op1, "StandardProfile::Create"));
+    }
+
+    
+    public void testCreateOperation() throws CoreException {
+        String source = "";
+        source += "model someModel;\n";
+        source += "apply StandardProfile;\n";
+        source += "import base;\n";
+        source += "class SomeClass\n";
+        source += "create op1(param1 : Integer);\n";
+        source += "end;\n";
+        source += "end.";
+        testCreateOperation(source, it -> {});
+    }
+    
+    public void testCreateOperation_ExplicitReturnType() throws CoreException {
+        String source = "";
+        source += "model someModel;\n";
+        source += "apply StandardProfile;\n";
+        source += "import base;\n";
+        source += "class SomeClass\n";
+        source += "create op1(param1 : Integer) : SomeClass;\n";
+        source += "end;\n";
+        source += "end.";
+        testCreateOperation(source, it -> {});
+    }
+    public void testCreateOperation_InvalidReturnType() throws CoreException {
+        String source = "";
+        source += "model someModel;\n";
+        source += "apply StandardProfile;\n";
+        source += "import base;\n";
+        source += "class SomeClass\n";
+        source += "create op1(param1 : Integer) : Integer;\n";
+        source += "end;\n";
+        source += "end.";
+        testCreateOperation(source, results -> {
+            FixtureHelper.assertTrue(results, Arrays.stream(results).anyMatch(it -> it.getSeverity() == Severity.WARNING && it instanceof TypeMismatch));
+        });
     }
 
 }

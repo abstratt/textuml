@@ -19,6 +19,21 @@ import org.eclipse.uml2.uml.UMLPackage.Literals;
 import com.abstratt.mdd.core.MDDCore;
 
 public class StereotypeUtils {
+    
+    public enum Standard {
+        Create("StandardProfile::Create");
+        
+        private String qualifiedName;
+
+        Standard(String qName) {
+            this.qualifiedName = qName;
+        }
+        
+        public String qualifiedName() {
+            return qualifiedName;
+        }
+    }
+    
     public static boolean hasStereotype(Element element, String stereotypeQName) {
         for (Stereotype s : element.getAppliedStereotypes())
             if (stereotypeQName.equals(s.getName()) || stereotypeQName.equals(s.getQualifiedName()))

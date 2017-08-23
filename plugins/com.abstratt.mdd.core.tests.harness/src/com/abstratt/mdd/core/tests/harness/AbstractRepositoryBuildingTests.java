@@ -44,8 +44,10 @@ public class AbstractRepositoryBuildingTests extends AbstractRepositoryTests {
             throw collected[0];
     }
 
-    public void parseAndCheck(String... sources) throws CoreException {
-        FixtureHelper.assertCompilationSuccessful(parse(sources));
+    public IProblem[] parseAndCheck(String... sources) throws CoreException {
+        IProblem[] results = parse(sources);
+        FixtureHelper.assertCompilationSuccessful(results);
+        return results;
     }
 
     protected void parseAndCheckInContext(final String... toBuild) throws Exception {

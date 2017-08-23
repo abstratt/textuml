@@ -18,7 +18,11 @@ public class TypeMismatch extends Problem {
     private String found;
 
     public TypeMismatch(String expected, String found) {
-        super(Severity.ERROR);
+        this(Severity.ERROR, expected, found);
+    }
+    
+    public TypeMismatch(Severity severity, String expected, String found) {
+        super(severity);
         this.expected = expected;
         this.found = found;
     }

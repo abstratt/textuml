@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.eclipse.uml2.uml.Package;
 
 import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.ICompilationDirector;
 import com.abstratt.mdd.frontend.core.LocationContext;
 import com.abstratt.mdd.frontend.internal.core.CompilationDirector;
@@ -35,7 +37,8 @@ public class FixtureHelper {
     }
 
     public static void assertCompilationSuccessful(IProblem[] result) {
-        assertTrue(result, result.length == 0);
+        boolean anyErrors = Arrays.stream(result).anyMatch(it -> it.getSeverity() == Severity.ERROR);
+        assertTrue(result, !anyErrors);
     }
 
     public static void assertTrue(IProblem[] result, boolean condition) {
