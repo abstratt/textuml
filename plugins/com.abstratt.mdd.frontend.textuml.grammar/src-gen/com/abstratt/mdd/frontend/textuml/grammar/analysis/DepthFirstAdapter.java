@@ -4332,6 +4332,27 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAQueryOperationKeyword(node);
     }
 
+    public void inACreateOperationKeyword(ACreateOperationKeyword node)
+    {
+        defaultIn(node);
+    }
+
+    public void outACreateOperationKeyword(ACreateOperationKeyword node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseACreateOperationKeyword(ACreateOperationKeyword node)
+    {
+        inACreateOperationKeyword(node);
+        if(node.getCreate() != null)
+        {
+            node.getCreate().apply(this);
+        }
+        outACreateOperationKeyword(node);
+    }
+
     public void inAWildcardTypes(AWildcardTypes node)
     {
         defaultIn(node);

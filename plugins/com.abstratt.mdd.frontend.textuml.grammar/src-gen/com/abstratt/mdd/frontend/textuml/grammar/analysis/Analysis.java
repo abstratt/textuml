@@ -188,6 +188,7 @@ public interface Analysis extends Switch
     void caseAOperationHeader(AOperationHeader node);
     void caseAOperationOperationKeyword(AOperationOperationKeyword node);
     void caseAQueryOperationKeyword(AQueryOperationKeyword node);
+    void caseACreateOperationKeyword(ACreateOperationKeyword node);
     void caseAWildcardTypes(AWildcardTypes node);
     void caseAEmptyWildcardTypeTail(AEmptyWildcardTypeTail node);
     void caseAWildcardTypeTail(AWildcardTypeTail node);

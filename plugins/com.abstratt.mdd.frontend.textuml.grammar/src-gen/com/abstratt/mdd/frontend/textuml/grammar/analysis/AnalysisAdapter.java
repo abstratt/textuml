@@ -949,6 +949,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseACreateOperationKeyword(ACreateOperationKeyword node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAWildcardTypes(AWildcardTypes node)
     {
         defaultCase(node);
