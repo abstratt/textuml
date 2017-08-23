@@ -805,13 +805,14 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
     }
 
     public void testCreateOperation(String source, Consumer<IProblem[]> validation) throws CoreException {
-        parseAndCheck(source);
+        IProblem[] results = parseAndCheck(source);
         Operation op1 = get("someModel::SomeClass::op1", UMLPackage.Literals.OPERATION);
         assertNotNull(op1);
         assertNotNull(op1.getClass_());
         assertNotNull(op1.getReturnResult());
         assertEquals(op1.getClass_(), op1.getReturnResult().getType());
         assertTrue(StereotypeUtils.hasStereotype(op1, "StandardProfile::Create"));
+        validation.accept(results);
     }
 
     

@@ -1275,11 +1275,13 @@ public class StructureGenerator extends AbstractGenerator {
             Stereotype createStereotype = StereotypeUtils.findStereotype(Standard.Create.qualifiedName());
             ensure(createStereotype != null, operationKeyword, Severity.ERROR, () -> Standard.Create.qualifiedName() + " stereotype not found");
             defer(Step.STEREOTYPE_APPLICATIONS, r -> StereotypeUtils.safeApplyStereotype(operation, createStereotype));
-            defer(Step.GENERAL_RESOLUTION, (r) -> {
+            defer(Step.LAST, r -> {
                 Parameter existingResult = operation.getReturnResult();
                 ensure(existingResult == null || existingResult.getType() == parent, operationKeyword, () -> new TypeMismatch(Severity.WARNING, parent.getName(), existingResult.getType().getName()));
                 if (existingResult == null) 
                     operation.createReturnResult(null, parent);
+                else
+                    existingResult.setType(parent);
             });
         }
         namespaceTracker.enterNamespace(operation);
