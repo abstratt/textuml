@@ -259,6 +259,10 @@ public class FeatureUtils {
     public static boolean isChild(Property property) {
         return property.getAggregation() != AggregationKind.NONE_LITERAL;
     }
+    
+    public static boolean isConstructor(Operation operation) {
+        return StereotypeUtils.hasStereotype(operation, StereotypeUtils.Standard.Create.qualifiedName());
+    }
 
     public static List<Parameter> getInputParameters(List<Parameter> ownedParameters) {
         return filterParameters(ownedParameters, ParameterDirectionKind.IN_LITERAL,

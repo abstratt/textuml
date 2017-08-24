@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.AttributeOwner;
@@ -58,6 +59,7 @@ import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.Slot;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Stereotype;
+import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
@@ -68,6 +70,7 @@ import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.ConnectorUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
@@ -1272,8 +1275,9 @@ public class StructureGenerator extends AbstractGenerator {
         if (isConstructor) {
             Stereotype createStereotype = StereotypeUtils.findStereotype(Standard.Create.qualifiedName());
             ensure(createStereotype != null, operationKeyword, Severity.ERROR, () -> Standard.Create.qualifiedName() + " stereotype not found");
+            defer(Step.PROFILE_APPLICATIONS, r -> StereotypeUtils.safeApplyProfile(parent.getNearestPackage(), createStereotype.getProfile()));
             defer(Step.STEREOTYPE_APPLICATIONS, r -> StereotypeUtils.safeApplyStereotype(operation, createStereotype));
-            defer(Step.LAST, r -> {
+            defer(Step.AFTER_GENERAL_RESOLUTION, r -> {
                 Parameter existingResult = operation.getReturnResult();
                 ensure(existingResult == null || existingResult.getType() == parent, operationKeyword, () -> new TypeMismatch(Severity.WARNING, parent.getName(), existingResult.getType().getName()));
                 if (existingResult == null) 

@@ -159,10 +159,9 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
     public void testCreateObject_constructor() throws CoreException {
         String source2 = "";
         source2 += "package simple::pack1;\n";
-        source2 += "apply StandardProfile;\n";
         source2 += "  class SimpleClass2\n";
         source2 += "    attribute zoo : Integer;\n";
-        source2 += "    constructor \\create(value : Integer);\n";
+        source2 += "    constructor createSimple(value : Integer);\n";
         source2 += "  end;\n";
         source2 += "end.\n";
         String source;
@@ -171,7 +170,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
         source += "operation SimpleClass.bar;\n";
         source += "begin\n";
         source += "var ref : SimpleClass2, value : Integer;";
-        source += "ref := new SimpleClass2.\\create(1);";
+        source += "ref := new SimpleClass2.createSimple(1);";
         source += "end;\n";
         source += "end.";
         parseAndCheck(structure, source, source2);

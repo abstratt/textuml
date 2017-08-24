@@ -3,11 +3,15 @@ package com.abstratt.mdd.core.tests.frontend.textuml;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import javax.swing.SingleSelectionModel;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Actor;
+import org.eclipse.uml2.uml.AddVariableValueAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
@@ -22,6 +26,8 @@ import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.ParameterEffectKind;
 import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.ReadSelfAction;
+import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
@@ -819,7 +825,6 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
     public void testCreateOperation() throws CoreException {
         String source = "";
         source += "model someModel;\n";
-        source += "apply StandardProfile;\n";
         source += "import base;\n";
         source += "class SomeClass\n";
         source += "constructor op1(param1 : Integer);\n";
@@ -828,10 +833,31 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         testCreateOperation(source, it -> {});
     }
     
+    public void testCreateOperation_ImplicitReturn() throws CoreException {
+        String source = "";
+        source += "model someModel;\n";
+        source += "import base;\n";
+        source += "class SomeClass\n";
+        source += "constructor op1(param1 : Integer);\n";
+        source += "begin\n";
+        source += "    return self;\n";
+        source += "end;\n";
+        source += "end;\n";
+        source += "end.";
+        testCreateOperation(source, it -> {
+            Operation op1 = getOperation("someModel::SomeClass::op1");
+            StructuredActivityNode rootAction = ActivityUtils.getRootAction(op1);
+            assertNotNull(rootAction);
+            Action singleStatement = ActivityUtils.findSingleStatement(rootAction);
+            assertNotNull(singleStatement);
+            assertTrue(ActivityUtils.isReturnAction(singleStatement));
+            assertTrue(ActivityUtils.getSourceAction(singleStatement) instanceof ReadSelfAction);
+        });
+    }
+    
     public void testCreateOperation_ExplicitReturnType() throws CoreException {
         String source = "";
         source += "model someModel;\n";
-        source += "apply StandardProfile;\n";
         source += "import base;\n";
         source += "class SomeClass\n";
         source += "constructor op1(param1 : Integer) : SomeClass;\n";
@@ -842,7 +868,6 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
     public void testCreateOperation_InvalidReturnType() throws CoreException {
         String source = "";
         source += "model someModel;\n";
-        source += "apply StandardProfile;\n";
         source += "import base;\n";
         source += "class SomeClass\n";
         source += "constructor op1(param1 : Integer) : Integer;\n";

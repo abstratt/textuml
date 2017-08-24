@@ -1648,14 +1648,9 @@ public class BehaviorGenerator extends AbstractGenerator {
             new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), var).process(node.getOptionalType());
         else {
             // ensure a type is eventually inferred
-            sourceContext.getContext().getReferenceTracker().add(new IDeferredReference() {
-                @Override
-                public void resolve(IBasicRepository repository) {
-                    if (var.getType() == null)
-                        problemBuilder.addError("Could not infer a type for variable '" + var.getName() + "'",
-                                node.getIdentifier());
-                }
-            }, Step.LAST);
+            defer(Step.LAST, r -> {
+                ensure(var.getType() != null, node.getIdentifier(), Severity.ERROR, () -> "Could not infer a type for variable '" + var.getName() + "'");
+            });
         }
     }
 
@@ -1669,10 +1664,7 @@ public class BehaviorGenerator extends AbstractGenerator {
             builder.registerOutput(result);
             String variableName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
             Variable variable = builder.getVariable(variableName);
-            if (variable == null) {
-                problemBuilder.addError("Unknown local variable '" + variableName + "'", node.getIdentifier());
-                throw new AbortedStatementCompilationException();
-            }
+            ensure(variable != null, node.getIdentifier(), Severity.ERROR, () -> "Unknown local variable '" + variableName + "'");
             action.setVariable(variable);
             TypeUtils.copyType(variable, result, getBoundElement());
             fillDebugInfo(action, node);
@@ -1853,7 +1845,8 @@ public class BehaviorGenerator extends AbstractGenerator {
         } finally {
             namespaceTracker.leaveNamespace();
         }
-        validateReturnStatement(bodyNode, activity);
+        
+        defer(Step.LAST, r -> validateReturnStatement(bodyNode, activity));
         // process any deferred activities
         while (!deferredActivities.isEmpty()) {
             DeferredActivity next = deferredActivities.remove(0);
@@ -1862,12 +1855,10 @@ public class BehaviorGenerator extends AbstractGenerator {
     }
 
     public void validateReturnStatement(Node bodyNode, Activity activity) {
-        if (!problemBuilder.hasErrors() && ActivityUtils.getFinalAction(ActivityUtils.getBodyNode(activity)) == null) {
+        boolean hasReturnWithValue = ActivityUtils.getFinalAction(ActivityUtils.getBodyNode(activity)) == null;
+        if (!problemBuilder.hasErrors() && hasReturnWithValue) {
             boolean returnValueRequired = FeatureUtils.findReturnParameter(activity.getOwnedParameters()) != null;
-            if (returnValueRequired) {
-                problemBuilder.addProblem(new ReturnStatementRequired(), bodyNode);
-                throw new AbortedScopeCompilationException();
-            }
+            ensure(!returnValueRequired, bodyNode, () -> new ReturnStatementRequired());
         }
     }
 
@@ -2120,22 +2111,12 @@ public class BehaviorGenerator extends AbstractGenerator {
     }
 
     public void createBodyLater(final Node bodyNode, final Activity body) {
-        sourceContext.getContext().getReferenceTracker().add(new IDeferredReference() {
-            @Override
-            public void resolve(IBasicRepository repository) {
-                createBody(bodyNode, body);
-            }
-        }, Step.LAST);
+        defer(Step.LAST, r -> createBody(bodyNode, body));
     }
 
     public void createConstraintBehaviorLater(final BehavioredClassifier parent, final Constraint constraint,
             final Node constraintBlock, final List<Parameter> parameters) {
-        sourceContext.getContext().getReferenceTracker().add(new IDeferredReference() {
-            @Override
-            public void resolve(IBasicRepository repository) {
-                createConstraintBehavior(parent, constraint, constraintBlock, parameters);
-            }
-        }, Step.LAST);
+        defer(Step.LAST, repository -> createConstraintBehavior(parent, constraint, constraintBlock, parameters));
     }
 
     public Activity createConstraintBehavior(BehavioredClassifier parent, Constraint constraint, Node constraintBlock,

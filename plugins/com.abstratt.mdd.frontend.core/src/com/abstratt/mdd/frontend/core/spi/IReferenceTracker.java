@@ -10,6 +10,7 @@ public interface IReferenceTracker {
         PACKAGE_IMPORTS(false),
         /** type references, default resolution step */
         GENERAL_RESOLUTION(false),
+        AFTER_GENERAL_RESOLUTION(false),
         /** Use sparingly, for read-only validation of the structural model. */
         STRUCTURE_VALIDATION(false),
         /** Profile definitions */
