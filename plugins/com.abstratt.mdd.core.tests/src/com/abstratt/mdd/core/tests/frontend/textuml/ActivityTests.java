@@ -155,6 +155,28 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
         source += "end.";
         parseAndCheck(structure, source, source2);
     }
+    
+    public void testCreateObject_constructor() throws CoreException {
+        String source2 = "";
+        source2 += "package simple::pack1;\n";
+        source2 += "apply StandardProfile;\n";
+        source2 += "  class SimpleClass2\n";
+        source2 += "    attribute zoo : Integer;\n";
+        source2 += "    constructor \\create(value : Integer);\n";
+        source2 += "  end;\n";
+        source2 += "end.\n";
+        String source;
+        source = "model simple;\n";
+        source += "import pack1;\n";
+        source += "operation SimpleClass.bar;\n";
+        source += "begin\n";
+        source += "var ref : SimpleClass2, value : Integer;";
+        source += "ref := new SimpleClass2.\\create(1);";
+        source += "end;\n";
+        source += "end.";
+        parseAndCheck(structure, source, source2);
+    }
+
 
     public void testDebugInfo() throws CoreException {
         String source;

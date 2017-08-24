@@ -4348,25 +4348,25 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAQueryOperationKeyword(node);
     }
 
-    public void inACreateOperationKeyword(ACreateOperationKeyword node)
+    public void inAConstructorOperationKeyword(AConstructorOperationKeyword node)
     {
         defaultIn(node);
     }
 
-    public void outACreateOperationKeyword(ACreateOperationKeyword node)
+    public void outAConstructorOperationKeyword(AConstructorOperationKeyword node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseACreateOperationKeyword(ACreateOperationKeyword node)
+    public void caseAConstructorOperationKeyword(AConstructorOperationKeyword node)
     {
-        inACreateOperationKeyword(node);
-        if(node.getCreate() != null)
+        inAConstructorOperationKeyword(node);
+        if(node.getConstructor() != null)
         {
-            node.getCreate().apply(this);
+            node.getConstructor().apply(this);
         }
-        outACreateOperationKeyword(node);
+        outAConstructorOperationKeyword(node);
     }
 
     public void inAWildcardTypes(AWildcardTypes node)

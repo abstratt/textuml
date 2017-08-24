@@ -949,7 +949,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseACreateOperationKeyword(ACreateOperationKeyword node)
+    public void caseAConstructorOperationKeyword(AConstructorOperationKeyword node)
     {
         defaultCase(node);
     }
@@ -2205,6 +2205,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTConnector(TConnector node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTConstructor(TConstructor node)
     {
         defaultCase(node);
     }

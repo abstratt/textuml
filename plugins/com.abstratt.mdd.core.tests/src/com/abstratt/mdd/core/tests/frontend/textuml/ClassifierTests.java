@@ -822,7 +822,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "apply StandardProfile;\n";
         source += "import base;\n";
         source += "class SomeClass\n";
-        source += "create op1(param1 : Integer);\n";
+        source += "constructor op1(param1 : Integer);\n";
         source += "end;\n";
         source += "end.";
         testCreateOperation(source, it -> {});
@@ -834,7 +834,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "apply StandardProfile;\n";
         source += "import base;\n";
         source += "class SomeClass\n";
-        source += "create op1(param1 : Integer) : SomeClass;\n";
+        source += "constructor op1(param1 : Integer) : SomeClass;\n";
         source += "end;\n";
         source += "end.";
         testCreateOperation(source, it -> {});
@@ -845,7 +845,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "apply StandardProfile;\n";
         source += "import base;\n";
         source += "class SomeClass\n";
-        source += "create op1(param1 : Integer) : Integer;\n";
+        source += "constructor op1(param1 : Integer) : Integer;\n";
         source += "end;\n";
         source += "end.";
         testCreateOperation(source, results -> {

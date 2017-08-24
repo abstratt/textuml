@@ -16,7 +16,6 @@ import static com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step.STEREOTY
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Supplier;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.URI;
@@ -66,7 +65,6 @@ import org.eclipse.uml2.uml.ValueSpecification;
 import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IBasicRepository;
-import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.UnclassifiedProblem;
@@ -128,7 +126,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ACompositionAssociationKin
 import com.abstratt.mdd.frontend.textuml.grammar.node.ACompositionReferenceType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AConnectorDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AConnectorEndList;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ACreateOperationKeyword;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AConstructorOperationKeyword;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ADatatypeClassType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ADependencyDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AEmptyClassSpecializesSection;
@@ -1260,7 +1258,7 @@ public class StructureGenerator extends AbstractGenerator {
         
         POperationKeyword operationKeyword = operationHeader.getOperationKeyword();
         boolean isQuery = operationKeyword instanceof AQueryOperationKeyword;
-        boolean isCreate = operationKeyword instanceof ACreateOperationKeyword;
+        boolean isConstructor = operationKeyword instanceof AConstructorOperationKeyword;
         boolean hasReturn = sourceMiner.findChild(operationHeader, AOptionalReturnType.class, true) != null;
         ensure(!isQuery || hasReturn, operationHeader, Severity.ERROR, () -> "A query operation must have a return type");
         Classifier parent = (Classifier) this.namespaceTracker.currentNamespace(null);
@@ -1271,7 +1269,7 @@ public class StructureGenerator extends AbstractGenerator {
         fillDebugInfo(operation, operationHeader);
         applyCurrentComment(operation);
         operation.setIsQuery(isQuery);
-        if (isCreate) {
+        if (isConstructor) {
             Stereotype createStereotype = StereotypeUtils.findStereotype(Standard.Create.qualifiedName());
             ensure(createStereotype != null, operationKeyword, Severity.ERROR, () -> Standard.Create.qualifiedName() + " stereotype not found");
             defer(Step.STEREOTYPE_APPLICATIONS, r -> StereotypeUtils.safeApplyStereotype(operation, createStereotype));

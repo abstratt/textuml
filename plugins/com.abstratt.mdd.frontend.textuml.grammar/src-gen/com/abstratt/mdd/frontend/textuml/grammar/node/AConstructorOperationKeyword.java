@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ACreateOperationKeyword extends POperationKeyword
+public final class AConstructorOperationKeyword extends POperationKeyword
 {
-    private TCreate _create_;
+    private TConstructor _constructor_;
 
-    public ACreateOperationKeyword()
+    public AConstructorOperationKeyword()
     {
         // Constructor
     }
 
-    public ACreateOperationKeyword(
-        @SuppressWarnings("hiding") TCreate _create_)
+    public AConstructorOperationKeyword(
+        @SuppressWarnings("hiding") TConstructor _constructor_)
     {
         // Constructor
-        setCreate(_create_);
+        setConstructor(_constructor_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ACreateOperationKeyword(
-            cloneNode(this._create_));
+        return new AConstructorOperationKeyword(
+            cloneNode(this._constructor_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseACreateOperationKeyword(this);
+        ((Analysis) sw).caseAConstructorOperationKeyword(this);
     }
 
-    public TCreate getCreate()
+    public TConstructor getConstructor()
     {
-        return this._create_;
+        return this._constructor_;
     }
 
-    public void setCreate(TCreate node)
+    public void setConstructor(TConstructor node)
     {
-        if(this._create_ != null)
+        if(this._constructor_ != null)
         {
-            this._create_.parent(null);
+            this._constructor_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ACreateOperationKeyword extends POperationKeyword
             node.parent(this);
         }
 
-        this._create_ = node;
+        this._constructor_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._create_);
+            + toString(this._constructor_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._create_ == child)
+        if(this._constructor_ == child)
         {
-            this._create_ = null;
+            this._constructor_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ACreateOperationKeyword extends POperationKeyword
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._create_ == oldChild)
+        if(this._constructor_ == oldChild)
         {
-            setCreate((TCreate) newChild);
+            setConstructor((TConstructor) newChild);
             return;
         }
 
