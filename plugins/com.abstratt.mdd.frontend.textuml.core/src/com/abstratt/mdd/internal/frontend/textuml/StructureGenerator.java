@@ -1516,22 +1516,10 @@ public class StructureGenerator extends AbstractGenerator {
         currentComment = CommentUtils.collectCommentBody(node);
     }
 
-    protected IReferenceTracker getRefTracker() {
-        return context.getReferenceTracker();
-    }
-
     private VisibilityKind getVisibility(Modifier modifier, VisibilityKind defaultVisibility) {
     	if (modifier == null)
     		return defaultVisibility;
         VisibilityKind found = VisibilityKind.getByName(modifier.name().toLowerCase());
         return found != null ? found : defaultVisibility;
-    }
-
-    private void processAnnotations(final PAnnotations annotations, Element target) {
-        if (annotations != null) {
-            AnnotationProcessor localAnnotationProcessor = new AnnotationProcessor(getRefTracker(), problemBuilder);
-            localAnnotationProcessor.process(annotations);
-            localAnnotationProcessor.applyAnnotations(target, annotations.parent());
-        }
     }
 }

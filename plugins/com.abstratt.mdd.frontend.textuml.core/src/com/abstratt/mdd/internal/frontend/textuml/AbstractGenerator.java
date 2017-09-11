@@ -33,6 +33,7 @@ import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
+import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.frontend.core.spi.NamespaceTracker;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
@@ -43,6 +44,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AProfilePackageType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AStart;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATypeIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PAnnotations;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PPackageType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 
@@ -155,6 +157,19 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
     
     protected void ensure(boolean condition, Node node, Supplier<IProblem> errorReporter) {
         problemBuilder.ensure(condition, node, errorReporter);
+    }
+    
+
+    protected IReferenceTracker getRefTracker() {
+        return context.getReferenceTracker();
+    }
+
+    protected void processAnnotations(final PAnnotations annotations, Element target) {
+        if (annotations != null) {
+            AnnotationProcessor localAnnotationProcessor = new AnnotationProcessor(getRefTracker(), problemBuilder);
+            localAnnotationProcessor.process(annotations);
+            localAnnotationProcessor.applyAnnotations(target, annotations.parent());
+        }
     }
 
 }

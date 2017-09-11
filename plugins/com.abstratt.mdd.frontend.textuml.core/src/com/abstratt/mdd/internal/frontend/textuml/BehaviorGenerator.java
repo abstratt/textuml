@@ -1507,6 +1507,7 @@ public class BehaviorGenerator extends AbstractGenerator {
     public void caseAStatement(AStatement node) {
         try {
             super.caseAStatement(node);
+            processAnnotations(node.getAnnotations(), this.builder.getLastRootAction());
         } catch (AbortedStatementCompilationException e) {
             // aborted statement compilation...
             if (builder.isDebug())
