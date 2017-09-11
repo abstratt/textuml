@@ -7,6 +7,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 @SuppressWarnings("nls")
 public final class AStatement extends PStatement
 {
+    private PAnnotations _annotations_;
     private PStatementResolved _statementResolved_;
     private TSemicolon _semicolon_;
 
@@ -16,10 +17,13 @@ public final class AStatement extends PStatement
     }
 
     public AStatement(
+        @SuppressWarnings("hiding") PAnnotations _annotations_,
         @SuppressWarnings("hiding") PStatementResolved _statementResolved_,
         @SuppressWarnings("hiding") TSemicolon _semicolon_)
     {
         // Constructor
+        setAnnotations(_annotations_);
+
         setStatementResolved(_statementResolved_);
 
         setSemicolon(_semicolon_);
@@ -30,6 +34,7 @@ public final class AStatement extends PStatement
     public Object clone()
     {
         return new AStatement(
+            cloneNode(this._annotations_),
             cloneNode(this._statementResolved_),
             cloneNode(this._semicolon_));
     }
@@ -37,6 +42,31 @@ public final class AStatement extends PStatement
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAStatement(this);
+    }
+
+    public PAnnotations getAnnotations()
+    {
+        return this._annotations_;
+    }
+
+    public void setAnnotations(PAnnotations node)
+    {
+        if(this._annotations_ != null)
+        {
+            this._annotations_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._annotations_ = node;
     }
 
     public PStatementResolved getStatementResolved()
@@ -93,6 +123,7 @@ public final class AStatement extends PStatement
     public String toString()
     {
         return ""
+            + toString(this._annotations_)
             + toString(this._statementResolved_)
             + toString(this._semicolon_);
     }
@@ -101,6 +132,12 @@ public final class AStatement extends PStatement
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._annotations_ == child)
+        {
+            this._annotations_ = null;
+            return;
+        }
+
         if(this._statementResolved_ == child)
         {
             this._statementResolved_ = null;
@@ -120,6 +157,12 @@ public final class AStatement extends PStatement
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._annotations_ == oldChild)
+        {
+            setAnnotations((PAnnotations) newChild);
+            return;
+        }
+
         if(this._statementResolved_ == oldChild)
         {
             setStatementResolved((PStatementResolved) newChild);

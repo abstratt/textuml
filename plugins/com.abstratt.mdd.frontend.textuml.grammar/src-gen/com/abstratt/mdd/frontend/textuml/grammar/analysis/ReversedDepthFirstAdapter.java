@@ -7312,6 +7312,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getStatementResolved().apply(this);
         }
+        if(node.getAnnotations() != null)
+        {
+            node.getAnnotations().apply(this);
+        }
         outAStatement(node);
     }
 

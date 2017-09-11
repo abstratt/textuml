@@ -7280,6 +7280,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAStatement(AStatement node)
     {
         inAStatement(node);
+        if(node.getAnnotations() != null)
+        {
+            node.getAnnotations().apply(this);
+        }
         if(node.getStatementResolved() != null)
         {
             node.getStatementResolved().apply(this);

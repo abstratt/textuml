@@ -703,7 +703,7 @@ Productions
     
   statement_sequence = statement*;
   
-  statement = statement_resolved semicolon ;
+  statement = annotations? statement_resolved semicolon ;
     
   statement_resolved = {no_if} non_if_statement | {with_if} if_statement ;
   
