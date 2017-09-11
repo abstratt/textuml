@@ -13,7 +13,7 @@ end;
 stereotype Library extends UML::Package
 end; 
 
-stereotype Failure extends UML::Operation
+stereotype Failure extends UML::Operation, UML::Action
     property context : PrimitiveTypes::String;
     property constraint : PrimitiveTypes::String;
 end;

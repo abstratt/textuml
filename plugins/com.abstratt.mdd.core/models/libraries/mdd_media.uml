@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Package xmi:id="_0" name="mdd_media" URI="libraries/mdd_media">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/05/10 10:50:27 101 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/09/05 04:56:34 441 -0300"/>
     </eAnnotations>
     <elementImport xmi:id="_elementImport.0">
       <importedElement xmi:type="uml:Class" href="mdd_types.uml#Primitive"/>
@@ -68,4 +68,5 @@
   <mdd_extensions:Debuggable xmi:id="_5" lineNumber="19" source="mdd_media.tuml" base_Element="Document"/>
   <mdd_extensions:Debuggable xmi:id="_6" lineNumber="22" source="mdd_media.tuml" base_Element="Spreadsheet"/>
   <mdd_extensions:Debuggable xmi:id="_7" lineNumber="25" source="mdd_media.tuml" base_Element="Presentation"/>
+  <mdd_extensions:Application xmi:id="_8" base_Package="_0"/>
 </xmi:XMI>

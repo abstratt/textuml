@@ -173,6 +173,7 @@ class Email specializes String
 end;
 
 class Violation
+    attribute constraint : UML::Constraint;
 end;
 
 class Geolocation

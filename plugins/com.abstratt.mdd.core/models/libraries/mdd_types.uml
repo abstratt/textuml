@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_types" URI="libraries/mdd_types">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/05/10 10:50:27 120 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/09/05 04:56:34 459 -0300"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0" visibility="private">
       <importedPackage xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
@@ -968,6 +968,11 @@
       <eAnnotations xmi:id="Violation-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
         <details xmi:id="Violation-_com.abstratt2Fmdd2Funit-_details.0" key="name" value="mdd_types.tuml"/>
       </eAnnotations>
+      <ownedAttribute xmi:id="Violation-constraint" name="constraint" visibility="public">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Constraint"/>
+        <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Violation-constraint-_lowerValue" type="Integer" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Violation-constraint-_upperValue" type="Integer" value="1"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Geolocation" name="Geolocation">
       <eAnnotations xmi:id="Geolocation-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
@@ -1127,8 +1132,9 @@
   <mdd_extensions:Debuggable xmi:id="_120" lineNumber="169" source="mdd_types.tuml" base_Element="Memo-fromString"/>
   <mdd_extensions:Debuggable xmi:id="_121" lineNumber="172" source="mdd_types.tuml" base_Element="Email"/>
   <mdd_extensions:Debuggable xmi:id="_122" lineNumber="175" source="mdd_types.tuml" base_Element="Violation"/>
-  <mdd_extensions:Debuggable xmi:id="_123" lineNumber="178" source="mdd_types.tuml" base_Element="Geolocation"/>
-  <mdd_extensions:Debuggable xmi:id="_124" lineNumber="179" source="mdd_types.tuml" base_Element="Geolocation-latitude"/>
-  <mdd_extensions:Debuggable xmi:id="_125" lineNumber="180" source="mdd_types.tuml" base_Element="Geolocation-longitude"/>
-  <mdd_extensions:Debuggable xmi:id="_126" lineNumber="181" source="mdd_types.tuml" base_Element="Geolocation-current"/>
+  <mdd_extensions:Debuggable xmi:id="_123" lineNumber="176" source="mdd_types.tuml" base_Element="Violation-constraint"/>
+  <mdd_extensions:Debuggable xmi:id="_124" lineNumber="179" source="mdd_types.tuml" base_Element="Geolocation"/>
+  <mdd_extensions:Debuggable xmi:id="_125" lineNumber="180" source="mdd_types.tuml" base_Element="Geolocation-latitude"/>
+  <mdd_extensions:Debuggable xmi:id="_126" lineNumber="181" source="mdd_types.tuml" base_Element="Geolocation-longitude"/>
+  <mdd_extensions:Debuggable xmi:id="_127" lineNumber="182" source="mdd_types.tuml" base_Element="Geolocation-current"/>
 </xmi:XMI>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.0">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/05/19 01:04:43 118 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/09/05 04:46:47 137 -0300"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -33,6 +33,9 @@
         </eStructuralFeatures>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Failure-base_Operation" name="base_Operation" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Operation"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Failure-base_Action" name="base_Action" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Action"/>
         </eStructuralFeatures>
       </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-External" name="External">
@@ -245,6 +248,9 @@
     </ownedAttribute>
     <ownedAttribute xmi:id="Failure-base_Operation" name="base_Operation" association="Operation_Failure">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="Failure-base_Action" name="base_Action" association="Action_Failure">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Action"/>
     </ownedAttribute>
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="External" name="External">
@@ -460,6 +466,9 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Operation_Failure" name="Operation_Failure" memberEnd="Operation_Failure-extension_Failure Failure-base_Operation">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Operation_Failure-extension_Failure" name="extension_Failure" type="Failure" aggregation="composite" association="Operation_Failure"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="Action_Failure" name="Action_Failure" memberEnd="Action_Failure-extension_Failure Failure-base_Action">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Action_Failure-extension_Failure" name="extension_Failure" type="Failure" aggregation="composite" association="Action_Failure"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Class_External" name="Class_External" memberEnd="Class_External-extension_External External-base_Class">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Class_External-extension_External" name="extension_External" type="External" aggregation="composite" association="Class_External"/>
