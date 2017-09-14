@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
@@ -307,6 +308,7 @@ public class CompilationDirector implements ICompilationDirector {
             throw new OperationCanceledException();
         if (!source.fetchInfo().exists())
             return false;
+        LogUtils.log(IStatus.INFO, MDDCore.PLUGIN_ID, ()-> "Compiling " + source.getName(), null);
         Assert.isLegal(!source.fetchInfo().isDirectory());
         monitor.beginTask("Compiling " + source.toURI().getPath(), 1);
         LocalProblemTracker localProblemTracker = new LocalProblemTracker(problemTracker, source);
