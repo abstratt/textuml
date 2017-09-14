@@ -392,6 +392,9 @@ public class MDDExtensionUtils {
 	public static List<AccessCapability> getAllowedCapabilities(Constraint accessConstraint) {
 		List<EEnumLiteral> value = (List<EEnumLiteral>) StereotypeUtils.getValue(accessConstraint, ACCESS_STEREOTYPE,
 				ACCESS_ALLOWED);
+		if (value.isEmpty())
+		    // there is a constraint, but no capabilities were granted (as opposed to no constraints)
+		    return Collections.singletonList(AccessCapability.None);
 		return ClassifierUtils.fromEnumerationLiterals(AccessCapability.class, value);
 	}
 

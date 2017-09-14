@@ -86,6 +86,8 @@ enumeration AccessCapability
     /* Operations */
     Call;
     StaticCall;
+    /* No access */
+    None;
 end;
 
 (* You can declare access constraints on any element. *)

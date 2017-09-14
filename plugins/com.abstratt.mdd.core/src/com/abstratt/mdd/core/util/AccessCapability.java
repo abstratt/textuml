@@ -17,7 +17,9 @@ public enum AccessCapability {
 	Read(null, null, true), 
 	Update("Read", null, true), 
 	StaticCall(null, null, false), 
-	Call(null, null, true);
+	Call(null, null, true),
+	// helper value to represent the existence of a constraint that gives no capabilities
+	None(null, null, false);
 	private Collection<String> implied;
 	private Collection<String> aliases;
 	private boolean instance;
