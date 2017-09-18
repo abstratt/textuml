@@ -219,7 +219,8 @@ public class MDDExtensionUtils {
 	public static Parameter createSignatureParameter(Type signature, String name, Type type) {
 		Assert.isLegal(isSignature(signature));
 		Operation signatureOperation = getSignatureOperation((Interface) signature);
-		return signatureOperation.createOwnedParameter(name, type);
+		Parameter created = signatureOperation.createOwnedParameter(name, type);
+        return created;
 	}
 
 	/**

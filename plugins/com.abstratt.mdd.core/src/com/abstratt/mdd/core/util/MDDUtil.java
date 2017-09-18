@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,6 +35,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
@@ -270,10 +272,17 @@ public class MDDUtil {
      * @return any enclosing element of the given class
      */
     public static <T extends Element> T getNearest(Element reference, EClass eClass) {
+        Optional<T> result = findNearest(reference, eClass);
+        return result.orElseThrow(() -> new AssertionFailedException("No '" + eClass.getName() + "' around "));
+    }
+    
+    public static <T extends Element> Optional<T> findNearest(Element reference, EClass eClass) {
         if (eClass.isInstance(reference))
-            return (T) reference;
-        Assert.isTrue(reference.getOwner() != null, "No '" + eClass.getName() + "' around ");
-        return getNearest(reference.getOwner(), eClass);
+            return Optional.of((T) reference);
+        Element owner = reference.getOwner();
+        if (owner == null)
+            return Optional.empty();
+        return findNearest(owner, eClass);
     }
 
     /**
@@ -316,8 +325,7 @@ public class MDDUtil {
 
     public static String computeSignatureName(List<Parameter> signature) {
         StringBuffer name = new StringBuffer("{(");
-        final List<Parameter> inputParameters = FeatureUtils.filterParameters(signature,
-                ParameterDirectionKind.IN_LITERAL);
+        final List<Parameter> inputParameters = FeatureUtils.getInputParameters(signature);
         for (Parameter parameter : inputParameters) {
             if (parameter.getName() != null) {
                 name.append(parameter.getName());

@@ -744,9 +744,10 @@ public class StructureGenerator extends AbstractGenerator {
                 @Override
                 public void resolve(IBasicRepository repository) {
                     // required for resolving behavior
-                    Class nearestClass = (Class) MDDUtil.getNearest(newProperty, UMLPackage.Literals.CLASS);
+                    BehavioredClassifier nearestClassifier = (BehavioredClassifier) MDDUtil.findNearest(newProperty, UMLPackage.Literals.BEHAVIORED_CLASSIFIER).orElse(null);
+                    ensure(nearestClassifier != null, node, () -> new UnclassifiedProblem("Only behaviored classifiers may use complex initialization expressions"));
                     ComplexInitializationExpressionProcessor expressionProcessor = new ComplexInitializationExpressionProcessor(
-                            sourceContext, nearestClass);
+                            sourceContext, nearestClassifier);
                     expressionProcessor.process(newProperty,
                             (AComplexInitializationExpression) initializationExpression);
                 }

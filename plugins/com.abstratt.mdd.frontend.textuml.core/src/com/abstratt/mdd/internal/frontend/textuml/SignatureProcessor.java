@@ -156,7 +156,9 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
             }
         }
         parameter.setDirection(directionKind);
-        parameter.setEffect(effectKind);
+        if (effectKind != null)
+            // workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=522336
+            parameter.setEffect(effectKind);
     }
 
     @Override

@@ -61,14 +61,13 @@ public class ConstraintUtils {
         List<Constraint> result = new LinkedList<>();
 		for (Constraint constraint : operationConstraints) {
             Behavior constraintBehavior = ActivityUtils.resolveBehaviorReference(constraint.getSpecification());
-            List<Parameter> constraintInputParameters = FeatureUtils.filterParameters(constraintBehavior.getOwnedParameters(),
-                    ParameterDirectionKind.IN_LITERAL);
+            List<Parameter> constraintInputParameters = FeatureUtils.getInputParameters(constraintBehavior.getOwnedParameters());
             if (constraintInputParameters.size() == 1) {
             	// we can't handle constraints on multiple parameters
             	Optional<Parameter> matchingParameter = constraintInputParameters.stream().filter(it -> 
             		constraintBehavior.getOwnedParameter(parameter.getName(), parameter.getType()) != null
     			).findAny();
-            	if (matchingParameter.isPresent() && matchingParameter.get().getDirection() == ParameterDirectionKind.IN_LITERAL) {
+            	if (matchingParameter.isPresent()) {
             		result.add(constraint);
             	}
             }
@@ -79,14 +78,13 @@ public class ConstraintUtils {
         List<Constraint> operationConstraints = parameter.getOperation().getPreconditions();
 		for (Constraint constraint : operationConstraints) {
             Behavior constraintBehavior = ActivityUtils.resolveBehaviorReference(constraint.getSpecification());
-            List<Parameter> constraintInputParameters = FeatureUtils.filterParameters(constraintBehavior.getOwnedParameters(),
-                    ParameterDirectionKind.IN_LITERAL);
+            List<Parameter> constraintInputParameters = FeatureUtils.getInputParameters(constraintBehavior.getOwnedParameters());
             if (constraintInputParameters.size() == 1) {
             	// we can't handle constraints on multiple parameters
             	Optional<Parameter> matchingParameter = constraintInputParameters.stream().filter(it -> 
             		constraintBehavior.getOwnedParameter(parameter.getName(), parameter.getType()) != null
     			).findAny();
-            	if (matchingParameter.isPresent() && matchingParameter.get().getDirection() == ParameterDirectionKind.IN_LITERAL)
+            	if (matchingParameter.isPresent())
             		return true;
             }
 		}

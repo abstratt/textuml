@@ -94,8 +94,7 @@ public class FeatureUtils {
     public static BehavioralFeature findCompatibleOperation(IRepository repository, Classifier classifier,
             Operation operation) {
         List<TypedElement> parameters = new ArrayList<TypedElement>();
-        for (Parameter parameter : FeatureUtils.filterParameters(operation.getOwnedParameters(),
-                ParameterDirectionKind.IN_LITERAL))
+        for (Parameter parameter : FeatureUtils.getInputParameters(operation.getOwnedParameters()))
             parameters.add(parameter);
         return findOperation(repository, classifier, operation.getName(), parameters, null, false, true);
     }
@@ -195,8 +194,7 @@ public class FeatureUtils {
             ParameterSubstitutionMap substitutions) {
         if (arguments == null)
             return true;
-        List<Parameter> operationParameters = filterParameters(operation.getOwnedParameters(),
-                ParameterDirectionKind.IN_LITERAL);
+        List<Parameter> operationParameters = getInputParameters(operation.getOwnedParameters());
         if (arguments.size() != operationParameters.size())
             return false;
         Map<Type, Type> wildcardSubstitutions = new HashMap<Type, Type>();

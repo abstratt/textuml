@@ -1,7 +1,9 @@
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.Property;
@@ -20,9 +22,9 @@ public class ComplexInitializationExpressionProcessor {
 
     private ProblemBuilder<Node> problemBuilder;
     private SourceCompilationContext<Node> sourceContext;
-    private Class currentClass;
+    private BehavioredClassifier currentClass;
 
-    ComplexInitializationExpressionProcessor(SourceCompilationContext<Node> sourceContext, Class currentClass) {
+    ComplexInitializationExpressionProcessor(SourceCompilationContext<Node> sourceContext, BehavioredClassifier currentClass) {
         this.problemBuilder = sourceContext.getProblemBuilder();
         this.sourceContext = sourceContext;
         this.currentClass = currentClass;

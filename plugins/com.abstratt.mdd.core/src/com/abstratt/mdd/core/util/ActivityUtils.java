@@ -161,7 +161,7 @@ public class ActivityUtils {
     }
 
     public static List<Parameter> getActivityInputParameters(Activity closure) {
-        return FeatureUtils.filterParameters(closure.getOwnedParameters(), ParameterDirectionKind.IN_LITERAL);
+        return FeatureUtils.getInputParameters(closure.getOwnedParameters());
     }
 
     public static Parameter getClosureInputParameter(Activity closure) {
