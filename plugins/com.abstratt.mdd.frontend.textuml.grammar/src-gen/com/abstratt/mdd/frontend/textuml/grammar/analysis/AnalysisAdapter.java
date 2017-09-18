@@ -1984,7 +1984,12 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAIdentityComparisonOperator(AIdentityComparisonOperator node)
+    public void caseASameComparisonOperator(ASameComparisonOperator node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseANotSameComparisonOperator(ANotSameComparisonOperator node)
     {
         defaultCase(node);
     }
@@ -2715,6 +2720,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTEqualsEquals(TEqualsEquals node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTNotEqualsEquals(TNotEqualsEquals node)
     {
         defaultCase(node);
     }

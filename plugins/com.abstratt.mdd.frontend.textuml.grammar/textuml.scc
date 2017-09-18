@@ -51,12 +51,14 @@ Helpers
 
   // relational symbols
   equals = '=';
-  equals_equals = '=' '=';
+  not_equals = '!' '=';
+  same_helper = '=' '=';
+  not_same_helper = '!' '=' '=';
+  xxx = '!' '=' '=';
   lab = '<' ;
   lab_equals = '<' '=' ;
   rab = '>' ;
   rab_equals = '>' '=' ;
-  not_equals = '!' '=' ;
   
   // separator symbols
   comma = ',' ;
@@ -210,6 +212,7 @@ Tokens
   // relational symbols
   equals = '=';
   equals_equals = '=' '=';
+  not_equals_equals = '!' '=' '=';
   lab = '<' ;
   lab_equals = '<' '=' ;
   rab = '>' ;
@@ -862,7 +865,8 @@ Productions
     {minus} minus;
 
   comparison_operator =
-    {identity} equals_equals |
+    {same} equals_equals |
+    {not_same} not_equals_equals |
     {equals} equals  |
     {not_equals} not_equals  |    
     {lower_than} lab | 

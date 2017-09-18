@@ -395,7 +395,8 @@ public interface Analysis extends Switch
     void caseADivMultDiv(ADivMultDiv node);
     void caseAPlusAddSub(APlusAddSub node);
     void caseAMinusAddSub(AMinusAddSub node);
-    void caseAIdentityComparisonOperator(AIdentityComparisonOperator node);
+    void caseASameComparisonOperator(ASameComparisonOperator node);
+    void caseANotSameComparisonOperator(ANotSameComparisonOperator node);
     void caseAEqualsComparisonOperator(AEqualsComparisonOperator node);
     void caseANotEqualsComparisonOperator(ANotEqualsComparisonOperator node);
     void caseALowerThanComparisonOperator(ALowerThanComparisonOperator node);
@@ -543,6 +544,7 @@ public interface Analysis extends Switch
     void caseTAssignop(TAssignop node);
     void caseTEquals(TEquals node);
     void caseTEqualsEquals(TEqualsEquals node);
+    void caseTNotEqualsEquals(TNotEqualsEquals node);
     void caseTLab(TLab node);
     void caseTLabEquals(TLabEquals node);
     void caseTRab(TRab node);

@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AIdentityComparisonOperator extends PComparisonOperator
+public final class ANotSameComparisonOperator extends PComparisonOperator
 {
-    private TEqualsEquals _equalsEquals_;
+    private TNotEqualsEquals _notEqualsEquals_;
 
-    public AIdentityComparisonOperator()
+    public ANotSameComparisonOperator()
     {
         // Constructor
     }
 
-    public AIdentityComparisonOperator(
-        @SuppressWarnings("hiding") TEqualsEquals _equalsEquals_)
+    public ANotSameComparisonOperator(
+        @SuppressWarnings("hiding") TNotEqualsEquals _notEqualsEquals_)
     {
         // Constructor
-        setEqualsEquals(_equalsEquals_);
+        setNotEqualsEquals(_notEqualsEquals_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AIdentityComparisonOperator(
-            cloneNode(this._equalsEquals_));
+        return new ANotSameComparisonOperator(
+            cloneNode(this._notEqualsEquals_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAIdentityComparisonOperator(this);
+        ((Analysis) sw).caseANotSameComparisonOperator(this);
     }
 
-    public TEqualsEquals getEqualsEquals()
+    public TNotEqualsEquals getNotEqualsEquals()
     {
-        return this._equalsEquals_;
+        return this._notEqualsEquals_;
     }
 
-    public void setEqualsEquals(TEqualsEquals node)
+    public void setNotEqualsEquals(TNotEqualsEquals node)
     {
-        if(this._equalsEquals_ != null)
+        if(this._notEqualsEquals_ != null)
         {
-            this._equalsEquals_.parent(null);
+            this._notEqualsEquals_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AIdentityComparisonOperator extends PComparisonOperator
             node.parent(this);
         }
 
-        this._equalsEquals_ = node;
+        this._notEqualsEquals_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._equalsEquals_);
+            + toString(this._notEqualsEquals_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._equalsEquals_ == child)
+        if(this._notEqualsEquals_ == child)
         {
-            this._equalsEquals_ = null;
+            this._notEqualsEquals_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AIdentityComparisonOperator extends PComparisonOperator
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._equalsEquals_ == oldChild)
+        if(this._notEqualsEquals_ == oldChild)
         {
-            setEqualsEquals((TEqualsEquals) newChild);
+            setNotEqualsEquals((TNotEqualsEquals) newChild);
             return;
         }
 

@@ -9660,25 +9660,46 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAMinusAddSub(node);
     }
 
-    public void inAIdentityComparisonOperator(AIdentityComparisonOperator node)
+    public void inASameComparisonOperator(ASameComparisonOperator node)
     {
         defaultIn(node);
     }
 
-    public void outAIdentityComparisonOperator(AIdentityComparisonOperator node)
+    public void outASameComparisonOperator(ASameComparisonOperator node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAIdentityComparisonOperator(AIdentityComparisonOperator node)
+    public void caseASameComparisonOperator(ASameComparisonOperator node)
     {
-        inAIdentityComparisonOperator(node);
+        inASameComparisonOperator(node);
         if(node.getEqualsEquals() != null)
         {
             node.getEqualsEquals().apply(this);
         }
-        outAIdentityComparisonOperator(node);
+        outASameComparisonOperator(node);
+    }
+
+    public void inANotSameComparisonOperator(ANotSameComparisonOperator node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANotSameComparisonOperator(ANotSameComparisonOperator node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANotSameComparisonOperator(ANotSameComparisonOperator node)
+    {
+        inANotSameComparisonOperator(node);
+        if(node.getNotEqualsEquals() != null)
+        {
+            node.getNotEqualsEquals().apply(this);
+        }
+        outANotSameComparisonOperator(node);
     }
 
     public void inAEqualsComparisonOperator(AEqualsComparisonOperator node)
