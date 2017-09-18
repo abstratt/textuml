@@ -146,11 +146,14 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AElseRestIf;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AEmptyExpressionList;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AEmptyReturnSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AEmptySet;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AEqualsComparisonOperator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AExpressionListElement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AExpressionSimpleBlockResolved;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AExtentIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AFunctionIdentifierExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AGreaterOrEqualsComparisonOperator;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AGreaterThanComparisonOperator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIfClause;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIfStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIsClassExpression;
@@ -163,12 +166,15 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ALoopTest;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AMinimalTypeIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANamedArgument;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANewIdentifierExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ANotEqualsComparisonOperator;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ANotSameComparisonOperator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AParenthesisOperand;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedAssociationTraversal;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARaiseSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARepeatLoopBody;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARootExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ASameComparisonOperator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASelfIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASendSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleAssociationTraversal;
@@ -376,41 +382,52 @@ public class BehaviorGenerator extends AbstractGenerator {
 				operationName[0] = "notNull";
 			}
 		});
-		if (operationName[0] != null) 
-			handleUnaryExpressionAsOperation(operator, operand, operationName[0]);
+		ensure(operationName[0] != null, operator, () -> new UnclassifiedProblem("Unknown unary operator: " + operator.toString()));
+		handleUnaryExpressionAsOperation(operator, operand, operationName[0]);
     }
     
 	private void handleBinaryExpression(Node left, Node operator, Node right) {
-		final String[] operationName = { null };
+		String[] operationName = { null };
+		boolean[] specialHandling = { false };
 		operator.apply(new DepthFirstAdapter() {
-			@Override
-			public void caseTNotEquals(TNotEquals node) {
+		    @Override
+		    public void caseANotEqualsComparisonOperator(ANotEqualsComparisonOperator node) {
 				operationName[0] = "notEquals";
+			}
+			@Override
+			public void caseASameComparisonOperator(ASameComparisonOperator node) {
+			    handleSameBinaryOperator(left, right);
+			    specialHandling[0] = true;
+			}
+			
+			@Override
+			public void caseANotSameComparisonOperator(ANotSameComparisonOperator node) {
+			    handleUnaryExpressionAsOperation(node, "not", () -> {
+			        handleSameBinaryOperator(left, right);
+			        return node;
+			    });
+			    specialHandling[0] = true;
 			}
 
 			@Override
-			public void caseTEquals(TEquals node) {
+			public void caseAEqualsComparisonOperator(AEqualsComparisonOperator node) {
 				operationName[0] = "equals";
 			}
 
 			@Override
-			public void caseTRabEquals(TRabEquals node) {
+			public void caseAGreaterOrEqualsComparisonOperator(AGreaterOrEqualsComparisonOperator node) {
 				operationName[0] = "greaterOrEquals";
 			}
 
 			@Override
-			public void caseTRab(TRab node) {
+			public void caseAGreaterThanComparisonOperator(AGreaterThanComparisonOperator node) {
 				operationName[0] = "greaterThan";
-			}
-
-			@Override
-			public void caseTEqualsEquals(TEqualsEquals node) {
-				handleIdentityBinaryOperator(left, right);
 			}
 
 			@Override
 			public void caseTIs(TIs node) {
 				handleIsClassifiedOperator(left, right);
+				specialHandling[0] = true;
 			}
 
 			@Override
@@ -453,12 +470,22 @@ public class BehaviorGenerator extends AbstractGenerator {
 				operationName[0] = "add";
 			}
 		});
-		if (operationName[0] != null) 
-			handleBinaryExpressionAsOperation(left, operator, right, operationName[0]);
+		ensure(specialHandling[0] || operationName[0] != null, operator, () -> new UnclassifiedProblem("Unknown binary operator: " + operator.toString()));
+		if (!specialHandling[0])
+		    handleBinaryExpressionAsOperation(left, operator, right, operationName[0]);
 	}
-    
+	
     public void handleBinaryExpressionAsOperation(Node operand1, Node operator, Node operand2, String operationName) {
-        Node node = operator.parent();
+        handleBinaryExpressionAsOperation(operator, () -> {
+            operand1.apply(this);
+            return operand1;
+        }, () -> {
+            operand2.apply(this);
+            return operand2;
+        }, operationName);
+    }
+    
+    public void handleBinaryExpressionAsOperation(Node contextNode, Supplier<Node> operand1, Supplier<Node> operand2, String operationName) {
         CallOperationAction action = (CallOperationAction) builder.createAction(IRepository.PACKAGE
                 .getCallOperationAction());
         try {
@@ -468,14 +495,16 @@ public class BehaviorGenerator extends AbstractGenerator {
             builder.registerInput(action.createArgument(null, null));
             // process the target and argument expressions - this will connect
             // their output pins to the input pins we just created
-            operand1.apply(this);
-            operand2.apply(this);
+            Node targetNode = operand1.get();
+            Node argumentNode = operand2.get();
             
             InputPin target = action.getTarget();
             InputPin argument = action.getArguments().get(0);
             Type targetType = ActivityUtils.getSource(target).getType();
+            Type argumentType = ActivityUtils.getSource(argument).getType();
             
-            ensure(targetType != null, operator, () -> new UnclassifiedProblem("No type information for " + operand1));
+            ensure(targetType != null, targetNode, () -> new UnclassifiedProblem("No type information for " + operand1));
+            ensure(argumentType != null, argumentNode, () -> new UnclassifiedProblem("No type information for " + operand2));
             
             TypeUtils.copyType(ActivityUtils.getSource(target), target);
             TypeUtils.copyType(ActivityUtils.getSource(argument), argument);
@@ -484,36 +513,30 @@ public class BehaviorGenerator extends AbstractGenerator {
             Operation operation = FeatureUtils.findOperation(getRepository(), (Classifier) targetType, operationName,
                     argumentList, false, true);
             if (operation == null)
-                missingOperation(true, operator, (Classifier) targetType, operationName,
+                missingOperation(true, contextNode, (Classifier) targetType, operationName,
                         argumentList, false);
             if (operation.isStatic())
-                missingOperation(true, operator, (Classifier) targetType, operationName, argumentList,
+                missingOperation(true, contextNode, (Classifier) targetType, operationName, argumentList,
                         false);
             List<Parameter> parameters = operation.getOwnedParameters();
             if (parameters.size() != 2 && parameters.get(0).getDirection() != ParameterDirectionKind.IN_LITERAL
                     && parameters.get(1).getDirection() != ParameterDirectionKind.RETURN_LITERAL) {
                 problemBuilder.addError("Unexpected signature: '" + operationName + "' in '"
-                        + target.getType().getQualifiedName() + "'", operator);
+                        + target.getType().getQualifiedName() + "'", contextNode);
                 throw new AbortedStatementCompilationException();
             }
             // register the result output pin
             builder.registerOutput(action.createResult(null, operation.getType()));
             action.setOperation(operation);
-            fillDebugInfo(action, node);
+            fillDebugInfo(action, contextNode.parent());
         } finally {
             builder.closeAction();
         }
-        checkIncomings(action, operator, getBoundElement());
+        checkIncomings(action, contextNode, getBoundElement());
     }
 
-    private void ensure(Boolean condition, Node node, Supplier<IProblem> problem) {
-    	if (!condition) {
-    		problemBuilder.addProblem(problem.get(), node);
-    		throw new AbortedStatementCompilationException();    	
-    	}
-	}
 
-	private void handleIdentityBinaryOperator(Node left, Node right) {
+	private void handleSameBinaryOperator(Node left, Node right) {
         TestIdentityAction action = (TestIdentityAction) builder.createAction(IRepository.PACKAGE
                 .getTestIdentityAction());
         try {
@@ -1561,38 +1584,45 @@ public class BehaviorGenerator extends AbstractGenerator {
 
     
     public void handleUnaryExpressionAsOperation(Node operator, Node operand, String operationName) {
-    	Node parent = operator.parent();
-    	CallOperationAction action = (CallOperationAction) builder.createAction(IRepository.PACKAGE
-    			.getCallOperationAction());
+        handleUnaryExpressionAsOperation(operator, operationName, () -> {
+            operand.apply(BehaviorGenerator.this);
+            return operand;
+        });
+    }
+    
+    public void handleUnaryExpressionAsOperation(Node contextNode, String operationName, Supplier<Node> childProcessor) {
+        CallOperationAction action = (CallOperationAction) builder.createAction(IRepository.PACKAGE
+                .getCallOperationAction());
         try {
             // register the target input pin
             builder.registerInput(action.createTarget(null, null));
             // process the target expression - this will connect its output pin
             // to the input pin we just created
-            operand.apply(this);
+            Node childNode = childProcessor.get();
             
             InputPin target = action.getTarget();
             Type targetType = ActivityUtils.getSource(target).getType();
             
-            ensure(targetType != null, operator, () -> new UnclassifiedProblem("No type information for " + operand));
+            ensure(targetType != null, childNode, () -> new UnclassifiedProblem("No type information for " + childNode));
             
             TypeUtils.copyType(ActivityUtils.getSource(target), target);
             
             Operation operation = FeatureUtils.findOperation(getRepository(), (Classifier) targetType, operationName, Arrays.asList(), false, true);
             if (operation == null) {
-                missingOperation(true, operator, (Classifier) targetType, operationName,
+                missingOperation(true, contextNode, (Classifier) targetType, operationName,
                         Arrays.asList(), false);
             }
             
             // register the result output pin
             builder.registerOutput(action.createResult(null, operation.getType()));
             action.setOperation(operation);
-            fillDebugInfo(action, parent);
+            fillDebugInfo(action, contextNode.parent());
         } finally {
             builder.closeAction();
         }
-        checkIncomings(action, operator, getBoundElement());
+        checkIncomings(action, contextNode, getBoundElement());
     }
+
 
     @Override
     public void caseAUnlinkSpecificStatement(AUnlinkSpecificStatement node) {

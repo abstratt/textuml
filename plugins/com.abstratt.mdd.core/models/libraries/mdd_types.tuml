@@ -21,7 +21,6 @@ class Assert
 end;
 
 class Basic
-    query same(other : Object) : Boolean;
     query notNull() : Boolean;
     query toString() : String;
 end;
