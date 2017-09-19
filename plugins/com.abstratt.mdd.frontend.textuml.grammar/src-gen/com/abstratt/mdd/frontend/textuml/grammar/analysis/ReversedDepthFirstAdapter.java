@@ -3684,6 +3684,43 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAOperationDecl(node);
     }
 
+    public void inAParametersetDecl(AParametersetDecl node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAParametersetDecl(AParametersetDecl node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAParametersetDecl(AParametersetDecl node)
+    {
+        inAParametersetDecl(node);
+        if(node.getRParen() != null)
+        {
+            node.getRParen().apply(this);
+        }
+        if(node.getParameters() != null)
+        {
+            node.getParameters().apply(this);
+        }
+        if(node.getLParen() != null)
+        {
+            node.getLParen().apply(this);
+        }
+        if(node.getName() != null)
+        {
+            node.getName().apply(this);
+        }
+        if(node.getParameterset() != null)
+        {
+            node.getParameterset().apply(this);
+        }
+        outAParametersetDecl(node);
+    }
+
     public void inAOperationConstraint(AOperationConstraint node)
     {
         defaultIn(node);
@@ -5560,6 +5597,14 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseASignature(ASignature node)
     {
         inASignature(node);
+        {
+            List<PParametersetDecl> copy = new ArrayList<PParametersetDecl>(node.getParametersetDecl());
+            Collections.reverse(copy);
+            for(PParametersetDecl e : copy)
+            {
+                e.apply(this);
+            }
+        }
         if(node.getOptionalRaisesSection() != null)
         {
             node.getOptionalRaisesSection().apply(this);

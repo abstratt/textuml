@@ -3670,6 +3670,43 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAOperationDecl(node);
     }
 
+    public void inAParametersetDecl(AParametersetDecl node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAParametersetDecl(AParametersetDecl node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAParametersetDecl(AParametersetDecl node)
+    {
+        inAParametersetDecl(node);
+        if(node.getParameterset() != null)
+        {
+            node.getParameterset().apply(this);
+        }
+        if(node.getName() != null)
+        {
+            node.getName().apply(this);
+        }
+        if(node.getLParen() != null)
+        {
+            node.getLParen().apply(this);
+        }
+        if(node.getParameters() != null)
+        {
+            node.getParameters().apply(this);
+        }
+        if(node.getRParen() != null)
+        {
+            node.getRParen().apply(this);
+        }
+        outAParametersetDecl(node);
+    }
+
     public void inAOperationConstraint(AOperationConstraint node)
     {
         defaultIn(node);
@@ -5562,6 +5599,13 @@ public class DepthFirstAdapter extends AnalysisAdapter
         if(node.getOptionalRaisesSection() != null)
         {
             node.getOptionalRaisesSection().apply(this);
+        }
+        {
+            List<PParametersetDecl> copy = new ArrayList<PParametersetDecl>(node.getParametersetDecl());
+            for(PParametersetDecl e : copy)
+            {
+                e.apply(this);
+            }
         }
         outASignature(node);
     }

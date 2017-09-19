@@ -809,6 +809,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAParametersetDecl(AParametersetDecl node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAOperationConstraint(AOperationConstraint node)
     {
         defaultCase(node);
@@ -2455,6 +2460,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTPackage(TPackage node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTParameterset(TParameterset node)
     {
         defaultCase(node);
     }

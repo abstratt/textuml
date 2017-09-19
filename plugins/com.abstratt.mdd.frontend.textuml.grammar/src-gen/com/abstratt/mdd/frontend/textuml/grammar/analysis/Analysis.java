@@ -160,6 +160,7 @@ public interface Analysis extends Switch
     void caseAAnyTransitionTrigger(AAnyTransitionTrigger node);
     void caseAReceptionDecl(AReceptionDecl node);
     void caseAOperationDecl(AOperationDecl node);
+    void caseAParametersetDecl(AParametersetDecl node);
     void caseAOperationConstraint(AOperationConstraint node);
     void caseAPreconditionOperationConstraintKernel(APreconditionOperationConstraintKernel node);
     void caseAPermissionOperationConstraintKernel(APermissionOperationConstraintKernel node);
@@ -491,6 +492,7 @@ public interface Analysis extends Switch
     void caseTOrdered(TOrdered node);
     void caseTOut(TOut node);
     void caseTPackage(TPackage node);
+    void caseTParameterset(TParameterset node);
     void caseTPort(TPort node);
     void caseTPostcondition(TPostcondition node);
     void caseTPrecondition(TPrecondition node);

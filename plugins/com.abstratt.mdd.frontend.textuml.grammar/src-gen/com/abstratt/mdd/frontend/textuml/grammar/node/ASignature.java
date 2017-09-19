@@ -2,6 +2,7 @@
 
 package com.abstratt.mdd.frontend.textuml.grammar.node;
 
+import java.util.*;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
@@ -12,6 +13,7 @@ public final class ASignature extends PSignature
     private TRParen _rParen_;
     private POptionalReturnType _optionalReturnType_;
     private POptionalRaisesSection _optionalRaisesSection_;
+    private final LinkedList<PParametersetDecl> _parametersetDecl_ = new LinkedList<PParametersetDecl>();
 
     public ASignature()
     {
@@ -23,7 +25,8 @@ public final class ASignature extends PSignature
         @SuppressWarnings("hiding") PParamDeclList _paramDeclList_,
         @SuppressWarnings("hiding") TRParen _rParen_,
         @SuppressWarnings("hiding") POptionalReturnType _optionalReturnType_,
-        @SuppressWarnings("hiding") POptionalRaisesSection _optionalRaisesSection_)
+        @SuppressWarnings("hiding") POptionalRaisesSection _optionalRaisesSection_,
+        @SuppressWarnings("hiding") List<PParametersetDecl> _parametersetDecl_)
     {
         // Constructor
         setLParen(_lParen_);
@@ -36,6 +39,8 @@ public final class ASignature extends PSignature
 
         setOptionalRaisesSection(_optionalRaisesSection_);
 
+        setParametersetDecl(_parametersetDecl_);
+
     }
 
     @Override
@@ -46,7 +51,8 @@ public final class ASignature extends PSignature
             cloneNode(this._paramDeclList_),
             cloneNode(this._rParen_),
             cloneNode(this._optionalReturnType_),
-            cloneNode(this._optionalRaisesSection_));
+            cloneNode(this._optionalRaisesSection_),
+            cloneList(this._parametersetDecl_));
     }
 
     public void apply(Switch sw)
@@ -179,6 +185,26 @@ public final class ASignature extends PSignature
         this._optionalRaisesSection_ = node;
     }
 
+    public LinkedList<PParametersetDecl> getParametersetDecl()
+    {
+        return this._parametersetDecl_;
+    }
+
+    public void setParametersetDecl(List<PParametersetDecl> list)
+    {
+        this._parametersetDecl_.clear();
+        this._parametersetDecl_.addAll(list);
+        for(PParametersetDecl e : list)
+        {
+            if(e.parent() != null)
+            {
+                e.parent().removeChild(e);
+            }
+
+            e.parent(this);
+        }
+    }
+
     @Override
     public String toString()
     {
@@ -187,7 +213,8 @@ public final class ASignature extends PSignature
             + toString(this._paramDeclList_)
             + toString(this._rParen_)
             + toString(this._optionalReturnType_)
-            + toString(this._optionalRaisesSection_);
+            + toString(this._optionalRaisesSection_)
+            + toString(this._parametersetDecl_);
     }
 
     @Override
@@ -221,6 +248,11 @@ public final class ASignature extends PSignature
         if(this._optionalRaisesSection_ == child)
         {
             this._optionalRaisesSection_ = null;
+            return;
+        }
+
+        if(this._parametersetDecl_.remove(child))
+        {
             return;
         }
 
@@ -259,6 +291,24 @@ public final class ASignature extends PSignature
         {
             setOptionalRaisesSection((POptionalRaisesSection) newChild);
             return;
+        }
+
+        for(ListIterator<PParametersetDecl> i = this._parametersetDecl_.listIterator(); i.hasNext();)
+        {
+            if(i.next() == oldChild)
+            {
+                if(newChild != null)
+                {
+                    i.set((PParametersetDecl) newChild);
+                    newChild.parent(this);
+                    oldChild.parent(null);
+                    return;
+                }
+
+                i.remove();
+                oldChild.parent(null);
+                return;
+            }
         }
 
         throw new RuntimeException("Not a child.");
