@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.Assert;
 
+import com.abstratt.mdd.frontend.core.spi.ISourceMiner;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 
@@ -16,9 +17,9 @@ public class ModifierProcessor implements NodeProcessor<Node> {
 
     private Set<Modifier> modifiers = new LinkedHashSet<Modifier>();
 
-    private SCCTextUMLSourceMiner sourceMiner;
+    private ISourceMiner<Node> sourceMiner;
 
-    public ModifierProcessor(SCCTextUMLSourceMiner sourceMiner) {
+    public ModifierProcessor(ISourceMiner<Node> sourceMiner) {
         this.sourceMiner = sourceMiner;
     }
 
@@ -33,7 +34,7 @@ public class ModifierProcessor implements NodeProcessor<Node> {
     public void collectModifierToken(Node modifierNode) {
         if (modifierNode == null)
             return;
-        Token modifierToken = sourceMiner.findToken(modifierNode);
+        Token modifierToken = sourceMiner.findChild(modifierNode, Token.class, false);
         modifiers.add(Modifier.fromToken(modifierToken.getText()));
     }
 

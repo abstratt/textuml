@@ -63,6 +63,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationHeader;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationPrecondition;
 import com.abstratt.mdd.frontend.textuml.grammar.node.APackageHeading;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AParametersetDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.APermissionConstraint;
 import com.abstratt.mdd.frontend.textuml.grammar.node.APermissionOperationConstraintKernel;
 import com.abstratt.mdd.frontend.textuml.grammar.node.APreconditionOperationConstraintKernel;
@@ -139,7 +140,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 		});
 		CommentUtils.applyComment(node.getModelComment(), created[0]);
 	}
-
+	
 	public Constraint buildOperationPreconditionConstraint(AOperationPrecondition node, Operation operation) {
 		final String preconditionName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
 		if (operation.isAbstract()) {

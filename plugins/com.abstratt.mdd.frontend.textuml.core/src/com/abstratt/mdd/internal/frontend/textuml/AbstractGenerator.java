@@ -22,9 +22,8 @@ import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IProblem;
-import com.abstratt.mdd.core.IRepository;
-import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.IProblem.Severity;
+import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
@@ -101,7 +100,7 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
             return;
         Token token = null;
         while (token == null && node != null) {
-            token = sourceMiner.findToken(node);
+            token = sourceMiner.findLastChild(node, Token.class).orElse(null);
             node = node.parent();
         }
         if (token == null)

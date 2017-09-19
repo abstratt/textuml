@@ -35,6 +35,10 @@ public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
 
     private RuntimeException trap = new NodeFoundTrap();
 
+    public Token findToken(Node node) {
+        return findLastChild(node, Token.class).orElse(null);
+    }
+    
     @Override
     public <P extends Node, C extends Node> C findChild(P node, final Class<C> required, final boolean first) {
         if (node == null)
@@ -107,16 +111,6 @@ public class SCCTextUMLSourceMiner implements ISourceMiner<Node> {
     @Override
     public String getText(Node node) {
         return node == null ? null : node.toString().trim();
-    }
-
-    /**
-     * Returns the last token found in the given tree or <code>null</code> if
-     * none is found (an empty production).
-     * 
-     * @return a token, or <code>null</code>
-     */
-    public Token findToken(Node node) {
-        return (Token) findChild(node, Token.class, false);
     }
 
     @Override

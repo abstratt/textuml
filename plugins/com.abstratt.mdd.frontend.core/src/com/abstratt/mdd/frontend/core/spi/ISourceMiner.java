@@ -11,6 +11,7 @@
 package com.abstratt.mdd.frontend.core.spi;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * An object that knows how to extract source information for a given compiler.
@@ -23,9 +24,17 @@ public interface ISourceMiner<N> {
     <P extends N, C extends N> P findParent(C start, Class<P> nodeType);
 
     <P extends N, C extends N> C findChild(P start, Class<C> nodeType, boolean first);
+    
+    default <P extends N, C extends N> Optional<C> findFirstChild(P start, Class<C> nodeType) {
+        return Optional.ofNullable(findChild(start, nodeType, true));
+    }
+    
+    default <P extends N, C extends N> Optional<C> findLastChild(P start, Class<C> nodeType) {
+        return Optional.ofNullable(findChild(start, nodeType, false));
+    }
 
     <P extends N, C extends N> List<C> findChildren(P start, Class<C> nodeType);
-
+    
     String getQualifiedIdentifier(N node);
 
     String getIdentifier(N node);

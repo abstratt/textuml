@@ -122,7 +122,7 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
             }
 
 
-            ModifierProcessor modifierProcessor = new ModifierProcessor((SCCTextUMLSourceMiner) sourceMiner);
+            ModifierProcessor modifierProcessor = new ModifierProcessor(sourceMiner);
             modifierProcessor.process(node.getStateModifierList());
             Set<Modifier> modifiers = modifierProcessor.getModifiers(true);
 
