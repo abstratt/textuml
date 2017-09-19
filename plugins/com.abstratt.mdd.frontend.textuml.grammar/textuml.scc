@@ -155,6 +155,7 @@ Tokens
   ordered = 'ordered' ;
   out = 'out' ; 
   package = 'package' ;
+  parameterset = 'parameterset' ;
   port = 'port' ;
   postcondition = 'postcondition' ;
   precondition = 'precondition' ;
@@ -481,9 +482,11 @@ Productions
   
   operation_decl = operation_header operation_constraint* semicolon optional_behavioral_feature_body ;
   
+  parameterset_decl = parameterset [name]: identifier? l_paren [parameters]: identifier_list r_paren ;
+  
   operation_constraint = model_comment? operation_constraint_kernel ;
   
-  operation_constraint_kernel = {precondition} operation_precondition | {permission} permission_constraint ;
+  operation_constraint_kernel = {precondition} operation_precondition | {permission} permission_constraint;
   
   operation_precondition = precondition identifier? precondition_signature? constraint_exception? expression_block ;
   
@@ -505,7 +508,7 @@ Productions
   
   constraint_exception = raises [exception]: qualified_identifier ;
   
-  identifier_list = identifier identifier_list_tail*;
+  identifier_list = identifier identifier_list_tail* ;
   
   identifier_list_tail = comma identifier ;
   
@@ -586,7 +589,7 @@ Productions
 
   function_signature = l_curly_bracket simple_signature r_curly_bracket ;
   
-  signature = l_paren param_decl_list r_paren optional_return_type? optional_raises_section? ;
+  signature = l_paren param_decl_list r_paren optional_return_type? optional_raises_section? parameterset_decl* ;
   
   simple_signature = l_paren simple_param_decl_list r_paren simple_optional_return_type? ;
   

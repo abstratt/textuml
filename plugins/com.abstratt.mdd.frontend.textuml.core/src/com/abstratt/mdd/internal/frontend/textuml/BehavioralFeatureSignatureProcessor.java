@@ -14,6 +14,8 @@ import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Parameter;
+import org.eclipse.uml2.uml.ParameterDirectionKind;
+import org.eclipse.uml2.uml.ParameterSet;
 
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
@@ -29,15 +31,30 @@ public class BehavioralFeatureSignatureProcessor extends SignatureProcessor {
 
     @Override
     protected void addRaisedException(Classifier exceptionClass) {
-        ((BehavioralFeature) parent).getRaisedExceptions().add(exceptionClass);
+        getBehavioralFeature().getRaisedExceptions().add(exceptionClass);
     }
 
     @Override
     protected Parameter createParameter(String name) {
-        Parameter parameter = ((BehavioralFeature) parent).createOwnedParameter(name, null);
+        Parameter parameter = getBehavioralFeature().createOwnedParameter(name, null);
         return parameter;
     }
+    
+    private BehavioralFeature getBehavioralFeature() {
+        return (BehavioralFeature) parent;
+    }
+    
+    @Override
+    protected Parameter getParameter(String name) {
+        return getBehavioralFeature().getOwnedParameter(name, null);
+    }    
 
+    
+    @Override
+    protected ParameterSet createParameterSet(String name) {
+        return getBehavioralFeature().createOwnedParameterSet(name);
+    }
+    
     @Override
     protected Namespace getBaseLookupNamespace() {
         return parent;

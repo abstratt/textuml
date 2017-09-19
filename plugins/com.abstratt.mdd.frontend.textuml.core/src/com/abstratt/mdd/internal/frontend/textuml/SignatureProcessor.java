@@ -11,24 +11,29 @@
 package com.abstratt.mdd.internal.frontend.textuml;
 
 import java.util.Set;
+import java.util.stream.Stream;
 
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.ParameterEffectKind;
+import org.eclipse.uml2.uml.ParameterSet;
 import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.util.MDDUtil;
+import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
+import com.abstratt.mdd.frontend.core.spi.ISourceMiner;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AComplexInitializationExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalReturnType;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AParamDecl;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AParametersetDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARaisedExceptionItem;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleInitialization;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleInitializationExpression;
@@ -37,18 +42,22 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleParamDecl;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.POptionalParameterName;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Token;
 
 public abstract class SignatureProcessor extends AbstractSignatureProcessor {
-
-    private ModifierProcessor modifierProcessor = new ModifierProcessor(new SCCTextUMLSourceMiner());
+    
+    final private ModifierProcessor modifierProcessor;
 
     public SignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent, boolean supportExceptions) {
         super(sourceContext, parent, supportExceptions);
+        modifierProcessor = new ModifierProcessor(sourceContext.getSourceMiner());
     }
 
     public SignatureProcessor(SourceCompilationContext<Node> sourceContext, Namespace parent,
             boolean supportExceptions, boolean unnamedParameters) {
         super(sourceContext, parent, supportExceptions, unnamedParameters);
+        modifierProcessor = new ModifierProcessor(sourceContext.getSourceMiner());
     }
 
     @Override
@@ -56,6 +65,15 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
         createReturnFromNode(node);
     }
 
+    @Override
+    protected Parameter getParameter(String name) {
+        throw new UnsupportedOperationException();
+    }
+    @Override
+    protected ParameterSet createParameterSet(String name) {
+        throw new UnsupportedOperationException();
+    }
+    
     private Parameter createReturnFromNode(ASimpleOptionalReturnType node) {
         PTypeIdentifier typeIdentifier = node.getTypeIdentifier();
         return createParameter(null, typeIdentifier, ParameterDirectionKind.RETURN_LITERAL);
@@ -125,6 +143,23 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
             annotationProcessor.process(node.getAnnotations());
             annotationProcessor.applyAnnotations(parameter, node.getAnnotations());
         }
+    }
+    
+    @Override
+    public void caseAParametersetDecl(AParametersetDecl node) {
+        String setName = getSourceMiner().findFirstChild(node.getName(), Token.class).map(it -> it.getText()).orElse(null);
+        ParameterSet newParameterSet = createParameterSet(setName);
+        Stream<TIdentifier> parameterRefs = getSourceMiner().findChildren(node.getParameters(), TIdentifier.class).stream();
+        parameterRefs.forEach(parameterRef-> {
+            String parameterName = parameterRef.getText();
+            Parameter parameter = getParameter(parameterName);
+            problemBuilder.ensure(parameter != null, parameterRef, () -> new UnresolvedSymbol(parameterName, UMLPackage.Literals.PARAMETER));
+            parameter.getParameterSets().add(newParameterSet);
+        });
+    }
+
+    private ISourceMiner<Node> getSourceMiner() {
+        return sourceContext.getSourceMiner();
     }
 
     private void applyModifiers(Set<Modifier> modifiers, Parameter parameter) {

@@ -14,6 +14,7 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
+import org.eclipse.uml2.uml.ParameterSet;
 import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.core.util.MDDUtil;
@@ -42,7 +43,7 @@ public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
         this.supportExceptions = supportExceptions;
         this.sourceContext = sourceContext;
         this.context = sourceContext.getContext();
-        this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), new SCCTextUMLSourceMiner());
+        this.problemBuilder = new ProblemBuilder<Node>(context.getProblemTracker(), sourceContext.getSourceMiner());
         this.unnamedParameters = unnamedParameters;
     }
 
@@ -60,8 +61,11 @@ public abstract class AbstractSignatureProcessor extends DepthFirstAdapter {
         addRaisedException(exceptionClass);
     }
 
+    protected abstract Parameter getParameter(String name);
+    
     protected abstract Parameter createParameter(String name);
-
+    protected abstract ParameterSet createParameterSet(String name);
+    
     protected Parameter createParameter(String name, PTypeIdentifier typeNode, ParameterDirectionKind direction) {
         if (name == null && direction != ParameterDirectionKind.RETURN_LITERAL && !unnamedParameters) {
             problemBuilder.addError("Parameter names are required in this context", typeNode.parent());

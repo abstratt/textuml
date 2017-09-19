@@ -1,17 +1,19 @@
 package com.abstratt.mdd.core.tests.frontend.textuml;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
-
-import javax.swing.SingleSelectionModel;
+import java.util.function.Function;
+import static java.util.stream.Collectors.toList;
+import static java.util.Arrays.asList;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Actor;
-import org.eclipse.uml2.uml.AddVariableValueAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
@@ -24,6 +26,7 @@ import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.ParameterEffectKind;
+import org.eclipse.uml2.uml.ParameterSet;
 import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.ReadSelfAction;
@@ -44,7 +47,6 @@ import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.core.util.StereotypeUtils;
-import com.abstratt.mdd.core.util.StructuralFeatureUtils;
 import com.abstratt.mdd.frontend.core.CannotModifyADerivedAttribute;
 import com.abstratt.mdd.frontend.core.CannotSpecializeClassifier;
 import com.abstratt.mdd.frontend.core.DuplicateSymbol;
@@ -546,6 +548,31 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         assertNotNull(operation);
         assertEquals(1, operation.getMethods().size());
     }
+    
+    public void testOperationParameterSet() throws CoreException {
+        String source = "";
+        source += "model someModel;\n";
+        source += "import base;\n";
+        source += "class SomeClass\n";
+        source += "operation op1(par1 : Boolean, par2 : Integer, par3 : String)\n";
+        source += "  parameterset set1 (par1, par2)\n";
+        source += "  parameterset set2 (par1, par3)\n";
+        source += "  parameterset (par2);\n";
+        source += "end;\n";
+        source += "end.";
+        parseAndCheck(source);
+        Operation operation = getOperation("someModel::SomeClass::op1");
+        EList<ParameterSet> sets = operation.getOwnedParameterSets();
+        Function<ParameterSet, List<String>> collectParameterNames = set -> set.getParameters().stream().map(it -> it.getName()).collect(toList());
+        assertEquals(3, sets.size());
+        assertEquals("set1", sets.get(0).getName());
+        assertEquals(asList("par1", "par2"), collectParameterNames.apply(sets.get(0)));
+        assertEquals("set2", sets.get(1).getName());
+        assertEquals(asList("par1", "par3"), collectParameterNames.apply(sets.get(1)));
+        assertNull(sets.get(2).getName());
+        assertEquals(asList("par2"), collectParameterNames.apply(sets.get(2)));
+    }
+
 
     public void testOperationWithPreConditions() throws CoreException {
         String source = "";

@@ -13,6 +13,7 @@ package com.abstratt.mdd.internal.frontend.textuml;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Parameter;
+import org.eclipse.uml2.uml.ParameterSet;
 
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
@@ -22,10 +23,24 @@ class BehaviorSignatureProcessor extends SignatureProcessor {
     }
 
     protected Parameter createParameter(String name) {
-        Parameter parameter = ((Behavior) parent).createOwnedParameter(name, null);
+        Parameter parameter = getBehavior().createOwnedParameter(name, null);
         return parameter;
     }
+    
+    @Override
+    protected ParameterSet createParameterSet(String name) {
+        return getBehavior().createOwnedParameterSet(name);
+    }
+    
+    @Override
+    protected Parameter getParameter(String name) {
+        return getBehavior().getOwnedParameter(name, null);
+    }
 
+    private Behavior getBehavior() {
+        return (Behavior) parent;
+    }
+    
     @Override
     protected Namespace getBaseLookupNamespace() {
         return parent;
