@@ -3684,6 +3684,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAParametersetDecl(AParametersetDecl node)
     {
         inAParametersetDecl(node);
+        if(node.getModelComment() != null)
+        {
+            node.getModelComment().apply(this);
+        }
         if(node.getParameterset() != null)
         {
             node.getParameterset().apply(this);
@@ -5883,6 +5887,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAParamDecl(AParamDecl node)
     {
         inAParamDecl(node);
+        if(node.getModelComment() != null)
+        {
+            node.getModelComment().apply(this);
+        }
         if(node.getAnnotations() != null)
         {
             node.getAnnotations().apply(this);

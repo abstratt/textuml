@@ -3718,6 +3718,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getParameterset().apply(this);
         }
+        if(node.getModelComment() != null)
+        {
+            node.getModelComment().apply(this);
+        }
         outAParametersetDecl(node);
     }
 
@@ -5912,6 +5916,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         if(node.getAnnotations() != null)
         {
             node.getAnnotations().apply(this);
+        }
+        if(node.getModelComment() != null)
+        {
+            node.getModelComment().apply(this);
         }
         outAParamDecl(node);
     }

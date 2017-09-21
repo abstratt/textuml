@@ -7,6 +7,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 @SuppressWarnings("nls")
 public final class AParametersetDecl extends PParametersetDecl
 {
+    private TModelComment _modelComment_;
     private TParameterset _parameterset_;
     private TIdentifier _name_;
     private TLParen _lParen_;
@@ -19,6 +20,7 @@ public final class AParametersetDecl extends PParametersetDecl
     }
 
     public AParametersetDecl(
+        @SuppressWarnings("hiding") TModelComment _modelComment_,
         @SuppressWarnings("hiding") TParameterset _parameterset_,
         @SuppressWarnings("hiding") TIdentifier _name_,
         @SuppressWarnings("hiding") TLParen _lParen_,
@@ -26,6 +28,8 @@ public final class AParametersetDecl extends PParametersetDecl
         @SuppressWarnings("hiding") TRParen _rParen_)
     {
         // Constructor
+        setModelComment(_modelComment_);
+
         setParameterset(_parameterset_);
 
         setName(_name_);
@@ -42,6 +46,7 @@ public final class AParametersetDecl extends PParametersetDecl
     public Object clone()
     {
         return new AParametersetDecl(
+            cloneNode(this._modelComment_),
             cloneNode(this._parameterset_),
             cloneNode(this._name_),
             cloneNode(this._lParen_),
@@ -52,6 +57,31 @@ public final class AParametersetDecl extends PParametersetDecl
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAParametersetDecl(this);
+    }
+
+    public TModelComment getModelComment()
+    {
+        return this._modelComment_;
+    }
+
+    public void setModelComment(TModelComment node)
+    {
+        if(this._modelComment_ != null)
+        {
+            this._modelComment_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._modelComment_ = node;
     }
 
     public TParameterset getParameterset()
@@ -183,6 +213,7 @@ public final class AParametersetDecl extends PParametersetDecl
     public String toString()
     {
         return ""
+            + toString(this._modelComment_)
             + toString(this._parameterset_)
             + toString(this._name_)
             + toString(this._lParen_)
@@ -194,6 +225,12 @@ public final class AParametersetDecl extends PParametersetDecl
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._modelComment_ == child)
+        {
+            this._modelComment_ = null;
+            return;
+        }
+
         if(this._parameterset_ == child)
         {
             this._parameterset_ = null;
@@ -231,6 +268,12 @@ public final class AParametersetDecl extends PParametersetDecl
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._modelComment_ == oldChild)
+        {
+            setModelComment((TModelComment) newChild);
+            return;
+        }
+
         if(this._parameterset_ == oldChild)
         {
             setParameterset((TParameterset) newChild);

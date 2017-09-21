@@ -7,6 +7,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 @SuppressWarnings("nls")
 public final class AParamDecl extends PParamDecl
 {
+    private TModelComment _modelComment_;
     private PAnnotations _annotations_;
     private PParameterModifiers _parameterModifiers_;
     private PSimpleParamDecl _simpleParamDecl_;
@@ -17,11 +18,14 @@ public final class AParamDecl extends PParamDecl
     }
 
     public AParamDecl(
+        @SuppressWarnings("hiding") TModelComment _modelComment_,
         @SuppressWarnings("hiding") PAnnotations _annotations_,
         @SuppressWarnings("hiding") PParameterModifiers _parameterModifiers_,
         @SuppressWarnings("hiding") PSimpleParamDecl _simpleParamDecl_)
     {
         // Constructor
+        setModelComment(_modelComment_);
+
         setAnnotations(_annotations_);
 
         setParameterModifiers(_parameterModifiers_);
@@ -34,6 +38,7 @@ public final class AParamDecl extends PParamDecl
     public Object clone()
     {
         return new AParamDecl(
+            cloneNode(this._modelComment_),
             cloneNode(this._annotations_),
             cloneNode(this._parameterModifiers_),
             cloneNode(this._simpleParamDecl_));
@@ -42,6 +47,31 @@ public final class AParamDecl extends PParamDecl
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAParamDecl(this);
+    }
+
+    public TModelComment getModelComment()
+    {
+        return this._modelComment_;
+    }
+
+    public void setModelComment(TModelComment node)
+    {
+        if(this._modelComment_ != null)
+        {
+            this._modelComment_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._modelComment_ = node;
     }
 
     public PAnnotations getAnnotations()
@@ -123,6 +153,7 @@ public final class AParamDecl extends PParamDecl
     public String toString()
     {
         return ""
+            + toString(this._modelComment_)
             + toString(this._annotations_)
             + toString(this._parameterModifiers_)
             + toString(this._simpleParamDecl_);
@@ -132,6 +163,12 @@ public final class AParamDecl extends PParamDecl
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._modelComment_ == child)
+        {
+            this._modelComment_ = null;
+            return;
+        }
+
         if(this._annotations_ == child)
         {
             this._annotations_ = null;
@@ -157,6 +194,12 @@ public final class AParamDecl extends PParamDecl
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._modelComment_ == oldChild)
+        {
+            setModelComment((TModelComment) newChild);
+            return;
+        }
+
         if(this._annotations_ == oldChild)
         {
             setAnnotations((PAnnotations) newChild);
