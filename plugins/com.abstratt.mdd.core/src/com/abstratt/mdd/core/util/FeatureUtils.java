@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -39,6 +40,7 @@ import org.eclipse.uml2.uml.OperationOwner;
 import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
+import org.eclipse.uml2.uml.ParameterSet;
 import org.eclipse.uml2.uml.Port;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Reception;
@@ -265,6 +267,11 @@ public class FeatureUtils {
     public static List<Parameter> getInputParameters(List<Parameter> ownedParameters) {
         return filterParameters(ownedParameters, ParameterDirectionKind.IN_LITERAL,
                 ParameterDirectionKind.INOUT_LITERAL);
+    }
+    
+    public static List<Parameter> filterByParameterSet(ParameterSet parameterSet, List<Parameter> ownedParameters) {
+        List<Parameter> result = ownedParameters.stream().filter(it -> parameterSet == null || parameterSet.getParameters().contains(it)).collect(Collectors.toList());
+        return result;
     }
 
     public static Parameter getReturnParameter(List<Parameter> ownedParameters) {

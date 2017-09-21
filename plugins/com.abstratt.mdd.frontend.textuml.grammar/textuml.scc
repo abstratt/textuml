@@ -482,7 +482,7 @@ Productions
   
   operation_decl = operation_header operation_constraint* semicolon optional_behavioral_feature_body ;
   
-  parameterset_decl = parameterset [name]: identifier? l_paren [parameters]: identifier_list r_paren ;
+  parameterset_decl = model_comment? parameterset [name]: identifier l_paren [parameters]: identifier_list r_paren ;
   
   operation_constraint = model_comment? operation_constraint_kernel ;
   
@@ -605,7 +605,7 @@ Productions
   
   simple_param_decl_list_tail = comma simple_param_decl simple_param_decl_list_tail | {empty} ;
   
-  param_decl = annotations? parameter_modifiers simple_param_decl ;
+  param_decl = model_comment? annotations? parameter_modifiers simple_param_decl ;
   
   simple_param_decl = optional_parameter_name? colon type_identifier initialization_expression? ;
   

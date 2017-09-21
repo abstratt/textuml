@@ -69,6 +69,7 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
     protected Parameter getParameter(String name) {
         throw new UnsupportedOperationException();
     }
+    
     @Override
     protected ParameterSet createParameterSet(String name) {
         throw new UnsupportedOperationException();
@@ -136,6 +137,7 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
         ASimpleParamDecl asSimpleParam = (ASimpleParamDecl) node.getSimpleParamDecl();
         Parameter parameter = createParameterFromNode(asSimpleParam);
         modifierProcessor.process(node.getParameterModifiers());
+        CommentUtils.applyComment(node.getModelComment(), parameter);
         applyModifiers(modifierProcessor.getModifiers(true), parameter);
         if (node.getAnnotations() != null) {
             AnnotationProcessor annotationProcessor = new AnnotationProcessor(this.context.getReferenceTracker(),
@@ -156,6 +158,7 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
             problemBuilder.ensure(parameter != null, parameterRef, () -> new UnresolvedSymbol(parameterName, UMLPackage.Literals.PARAMETER));
             parameter.getParameterSets().add(newParameterSet);
         });
+        CommentUtils.applyComment(node.getModelComment(), newParameterSet);
     }
 
     private ISourceMiner<Node> getSourceMiner() {
