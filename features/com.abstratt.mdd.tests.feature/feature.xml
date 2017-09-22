@@ -2,7 +2,7 @@
 <feature
       id="com.abstratt.mdd.tests.feature"
       label="%featureName"
-      version="2.2.201606.qualifier"
+      version="2.2.201709.qualifier"
       provider-name="%providerName">
 
    <description>

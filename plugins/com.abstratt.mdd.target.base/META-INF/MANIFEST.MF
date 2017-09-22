@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Vendor: Abstratt Technologies
-Bundle-Version: 2.2.201606.qualifier
+Bundle-Version: 2.2.201709.qualifier
 Bundle-SymbolicName: com.abstratt.mdd.target.base;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: 
