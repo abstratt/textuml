@@ -100,9 +100,6 @@ end;
 (* A role class is a class that represents the role for a user. *)
 stereotype Role extends UML::Class end;
 
-stereotype PropertyDerivation specializes ContextualizedConstraint
-end;
-
 abstract stereotype ContextualizedConstraint extends UML::Constraint
     property isStatic : Boolean;
 end;

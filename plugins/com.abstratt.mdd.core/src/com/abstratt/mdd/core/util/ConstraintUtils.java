@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.Constraint;
+import org.eclipse.uml2.uml.Feature;
 import org.eclipse.uml2.uml.LiteralSpecification;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;

@@ -331,7 +331,11 @@ public class MDDExtensionUtils {
 	}
 	
 	public static boolean isStaticConstraint(Constraint constraint) {
-		return Boolean.TRUE.equals(StereotypeUtils.getValue(constraint, CONTEXTUALIZED_CONSTRAINT_STEREOTYPE, CONTEXTUALIZED_CONSTRAINT_IS_STATIC_PROPERTY));
+        if (constraint.getContext() instanceof Feature && ((Feature) constraint.getContext()).isStatic())
+            return true;
+        if (Boolean.TRUE.equals(StereotypeUtils.getValue(constraint, CONTEXTUALIZED_CONSTRAINT_STEREOTYPE, CONTEXTUALIZED_CONSTRAINT_IS_STATIC_PROPERTY)))
+            return true;
+        return constraint.getConstrainedElements().stream().filter(it -> it instanceof Feature).map(it -> (Feature) it).anyMatch(it -> it.isStatic());
 	}
 	
 	public static Constraint createConstraint(NamedElement constrainedElement, String constraintName, String stereotype) {
