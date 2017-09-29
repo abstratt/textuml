@@ -129,6 +129,7 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
             boolean isInitial = modifiers.contains(Modifier.INITIAL);
             boolean isTerminate = modifiers.contains(Modifier.TERMINATE);
             State state = (State) region.createSubvertex(stateName, UMLPackage.Literals.STATE);
+            CommentUtils.applyComment(node.getModelComment(), state);
             if (isInitial) {
             	Vertex initial = StateMachineUtils.createPseudoState(region, PseudostateKind.INITIAL_LITERAL);
             	StateMachineUtils.connectVertices(Arrays.asList(initial), Arrays.asList(state));
