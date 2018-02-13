@@ -26,7 +26,7 @@ elsewhere:
     syntax highlighting, outline view, textual comparison**
 -   **live graphical visualization** of your model as class diagrams
 
-The TextUML Toolkit can be used both as a set of plug-ins for the Eclipse IDE, and as a part of a multi-tenant server-side application - as seen in [Cloudfier](http://github.com/abstratt/cloudfier/). 
+The TextUML Toolkit can be used as a plug-in for the Eclipse IDE, as an [independent command-line tool](https://github.com/abstratt/standalone-textuml), and as a part of a multi-tenant server-side application - as seen in [Cloudfier](http://github.com/abstratt/cloudfier/). 
 
 Using the Toolkit
 ------------------------
