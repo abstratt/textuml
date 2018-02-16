@@ -8,7 +8,7 @@
 	<parent>
 		<artifactId>master</artifactId>
 		<groupId>com.abstratt</groupId>
-		<version>1.6</version>
+		<version>1.7</version>
 	</parent>
 
 	<properties>
