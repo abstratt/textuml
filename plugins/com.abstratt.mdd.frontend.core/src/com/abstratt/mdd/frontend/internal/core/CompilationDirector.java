@@ -221,7 +221,7 @@ public class CompilationDirector implements ICompilationDirector {
                                 problemTracker
                                         .add(new UnclassifiedProblem(IProblem.Severity.INFO, "Nothing to compile"));
                         }
-                        Optional<IModelWeaver> modelWeaver = Optional.of(repository.getWeaver());
+                        Optional<IModelWeaver> modelWeaver = Optional.ofNullable(repository.getWeaver());
                         refTracker.resolve(repository, problemTracker, new IStepListener() {
                         	@Override
                         	public void before(Step step) {
