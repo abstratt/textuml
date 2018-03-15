@@ -28,16 +28,16 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.Vertex;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.util.StateMachineUtils;
-import com.abstratt.mdd.frontend.core.StatesMustBeNamed;
 import com.abstratt.mdd.frontend.core.QueryOperationsMustBeSideEffectFree;
 import com.abstratt.mdd.frontend.core.StateMachineMustHaveOneInitialState;
+import com.abstratt.mdd.frontend.core.StatesMustBeNamed;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.DeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAnyTransitionTrigger;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABehaviorStateBehaviorDefinition;
@@ -193,7 +193,7 @@ public class StateMachineProcessor extends AbstractProcessor<AStateMachineDecl, 
                     }
                     transition.setTarget(target);
                 }
-            }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+            }, Step.GENERAL_RESOLUTION);
             if (node.getTransitionTriggers() != null)
                 node.getTransitionTriggers().apply(new DepthFirstAdapter() {
                     @Override

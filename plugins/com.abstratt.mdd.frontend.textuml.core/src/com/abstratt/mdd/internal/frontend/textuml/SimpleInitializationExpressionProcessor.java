@@ -12,6 +12,7 @@ import org.eclipse.uml2.uml.UMLPackage.Literals;
 import org.eclipse.uml2.uml.ValueSpecification;
 
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
 import com.abstratt.mdd.frontend.core.UnknownType;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
@@ -98,7 +99,7 @@ public class SimpleInitializationExpressionProcessor {
                     }
                 }
             }
-        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }, Step.GENERAL_RESOLUTION);
     }
 
 }

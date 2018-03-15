@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileInfo;
@@ -36,7 +37,9 @@ import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.MDDCore;
 import com.abstratt.mdd.core.ModelException;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.UnclassifiedProblem;
+import com.abstratt.mdd.core.isv.IModelWeaver;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.BasicProblemTracker;
 import com.abstratt.mdd.frontend.core.FrontEnd;
@@ -49,6 +52,7 @@ import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.ICompiler;
 import com.abstratt.mdd.frontend.core.spi.IProblemTracker;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
+import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.IStepListener;
 import com.abstratt.mdd.frontend.core.spi.ISourceAnalyzer;
 import com.abstratt.pluginutils.ISharedContextRunnable;
 import com.abstratt.pluginutils.LogUtils;
@@ -217,9 +221,16 @@ public class CompilationDirector implements ICompilationDirector {
                                 problemTracker
                                         .add(new UnclassifiedProblem(IProblem.Severity.INFO, "Nothing to compile"));
                         }
-                        refTracker.resolve(repository, problemTracker);
-                        if (repository.getWeaver() != null)
-                            repository.getWeaver().repositoryComplete(repository);
+                        Optional<IModelWeaver> modelWeaver = Optional.of(repository.getWeaver());
+                        refTracker.resolve(repository, problemTracker, new IStepListener() {
+                        	@Override
+                        	public void before(Step step) {
+                        		modelWeaver.ifPresent(w -> w.beforeStep(repository, step));
+                        	}
+                        	public void after(Step step) {
+                        		modelWeaver.ifPresent(w -> w.afterStep(repository, step));
+                        	}
+						});
                         if (!problemTracker.hasProblems(Severity.ERROR)) {
                             Set<Entry<IFileStore, ICompiler>> entries = auxiliaryUnits.entrySet();
                             for (Entry<IFileStore, ICompiler> postponed : entries) {

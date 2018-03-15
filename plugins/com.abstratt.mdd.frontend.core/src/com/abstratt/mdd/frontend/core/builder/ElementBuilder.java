@@ -10,12 +10,12 @@ import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Stereotype;
 
 import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.InternalProblem;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 
 public abstract class ElementBuilder<E extends Element> implements IElementBuilder<E> {
     private String comment;
@@ -98,7 +98,7 @@ public abstract class ElementBuilder<E extends Element> implements IElementBuild
     private void applyStereotypes() {
         for (NameReference stereotypeName : this.stereotypesApplied)
             new ReferenceSetter<Stereotype>(stereotypeName, getParentProduct(), getContext(),
-                    IReferenceTracker.Step.STEREOTYPE_APPLICATIONS) {
+                    Step.STEREOTYPE_APPLICATIONS) {
                 @Override
                 protected void link(Stereotype stereotype) {
                     if (!getProduct().isStereotypeApplicable(stereotype))

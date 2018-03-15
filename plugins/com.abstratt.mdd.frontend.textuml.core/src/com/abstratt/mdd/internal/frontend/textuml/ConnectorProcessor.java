@@ -25,6 +25,7 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.util.UMLValidator;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.util.StructuralFeatureUtils;
 import com.abstratt.mdd.frontend.core.InvalidConnector;
@@ -32,7 +33,6 @@ import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AConnectorEndList;
 import com.abstratt.mdd.frontend.textuml.grammar.node.APathConnectorEnd;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleConnectorEnd;
@@ -78,7 +78,7 @@ public class ConnectorProcessor extends AbstractProcessor<AConnectorEndList, Str
                 if (partOrPort instanceof Port)
                     newEnd.setPartWithPort(pathPart);
             }
-        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }, Step.GENERAL_RESOLUTION);
         super.caseAPathConnectorEnd(node);
     }
 
@@ -96,7 +96,7 @@ public class ConnectorProcessor extends AbstractProcessor<AConnectorEndList, Str
                 }
                 addEnd(partOrPort);
             }
-        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }, Step.GENERAL_RESOLUTION);
     }
 
     private void validateProduct(final Node node) {
@@ -116,7 +116,7 @@ public class ConnectorProcessor extends AbstractProcessor<AConnectorEndList, Str
             public void resolve(IBasicRepository repository) {
                 validateProduct(node);
             }
-        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }, Step.GENERAL_RESOLUTION);
     }
 
     public ConnectorEnd addEnd(Property newPort) {

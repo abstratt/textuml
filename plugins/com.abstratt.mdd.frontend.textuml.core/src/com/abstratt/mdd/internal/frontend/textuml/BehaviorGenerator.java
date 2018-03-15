@@ -79,10 +79,9 @@ import org.eclipse.uml2.uml.Variable;
 import org.eclipse.uml2.uml.Vertex;
 import org.eclipse.uml2.uml.WriteLinkAction;
 
-import com.abstratt.mdd.core.IBasicRepository;
-import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
@@ -114,8 +113,6 @@ import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 import com.abstratt.mdd.frontend.core.spi.IActivityBuilder;
-import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP0;
@@ -200,20 +197,15 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.PExpressionList;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PRootExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TAnd;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TDiv;
-import com.abstratt.mdd.frontend.textuml.grammar.node.TEquals;
-import com.abstratt.mdd.frontend.textuml.grammar.node.TEqualsEquals;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TIs;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TLab;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TLabEquals;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TMinus;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TMult;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TNot;
-import com.abstratt.mdd.frontend.textuml.grammar.node.TNotEquals;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TNotNull;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TOr;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TPlus;
-import com.abstratt.mdd.frontend.textuml.grammar.node.TRab;
-import com.abstratt.mdd.frontend.textuml.grammar.node.TRabEquals;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TTrue;
 import com.abstratt.pluginutils.LogUtils;
 
@@ -1331,6 +1323,7 @@ public class BehaviorGenerator extends AbstractGenerator {
                 InputPin argument;
                 switch (current.getDirection().getValue()) {
                 case ParameterDirectionKind.IN:
+                case ParameterDirectionKind.INOUT:
                     if (argumentPos == argumentCount) {
                         problemBuilder.addError("Wrong number of arguments", node.getLParen());
                         throw new AbortedStatementCompilationException();
@@ -1347,7 +1340,6 @@ public class BehaviorGenerator extends AbstractGenerator {
                     resolveWildcardTypes(wildcardSubstitutions, current, result);
                     break;
                 case ParameterDirectionKind.OUT:
-                case ParameterDirectionKind.INOUT:
                     Assert.isTrue(false);
                 }
             }
@@ -1679,7 +1671,7 @@ public class BehaviorGenerator extends AbstractGenerator {
             new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), var).process(node.getOptionalType());
         else {
             // ensure a type is eventually inferred
-            defer(Step.LAST, r -> {
+            defer(Step.BEHAVIOR, r -> {
                 ensure(var.getType() != null, node.getIdentifier(), Severity.ERROR, () -> "Could not infer a type for variable '" + var.getName() + "'");
             });
         }
@@ -1877,7 +1869,7 @@ public class BehaviorGenerator extends AbstractGenerator {
             namespaceTracker.leaveNamespace();
         }
         
-        defer(Step.LAST, r -> validateReturnStatement(bodyNode, activity));
+        defer(Step.BEHAVIOR, r -> validateReturnStatement(bodyNode, activity));
         // process any deferred activities
         while (!deferredActivities.isEmpty()) {
             DeferredActivity next = deferredActivities.remove(0);
@@ -2142,12 +2134,12 @@ public class BehaviorGenerator extends AbstractGenerator {
     }
 
     public void createBodyLater(final Node bodyNode, final Activity body) {
-        defer(Step.LAST, r -> createBody(bodyNode, body));
+        defer(Step.BEHAVIOR, r -> createBody(bodyNode, body));
     }
 
     public void createConstraintBehaviorLater(final BehavioredClassifier parent, final Constraint constraint,
             final Node constraintBlock, final List<Parameter> parameters) {
-        defer(Step.LAST, repository -> createConstraintBehavior(parent, constraint, constraintBlock, parameters));
+        defer(Step.BEHAVIOR, repository -> createConstraintBehavior(parent, constraint, constraintBlock, parameters));
     }
 
     public Activity createConstraintBehavior(BehavioredClassifier parent, Constraint constraint, Node constraintBlock,

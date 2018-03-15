@@ -22,11 +22,11 @@ import org.eclipse.uml2.uml.ParameterSet;
 import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.core.spi.ISourceMiner;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
@@ -126,7 +126,7 @@ public abstract class SignatureProcessor extends AbstractSignatureProcessor {
                                 sourceContext, nearestClass);
                         expressionProcessor.process(createdParameter, node);
                     }
-                }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+                }, Step.GENERAL_RESOLUTION);
             }
         });
         return createdParameter;

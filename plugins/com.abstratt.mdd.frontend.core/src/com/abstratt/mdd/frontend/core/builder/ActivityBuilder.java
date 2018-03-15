@@ -6,11 +6,11 @@ import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.Class;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.mdd.frontend.core.builder.actions.StructuredActivityNodeBuilder;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 
 public class ActivityBuilder extends DefaultParentBuilder<Activity> {
 
@@ -68,7 +68,7 @@ public class ActivityBuilder extends DefaultParentBuilder<Activity> {
                     getContext().getActivityBuilder().closeRootBlock();
                 }
             }
-        }, IReferenceTracker.Step.LAST);
+        }, Step.BEHAVIOR);
     }
 
     private void setSpecification(BehavioralFeature specification) {

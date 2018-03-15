@@ -20,11 +20,11 @@ import org.eclipse.uml2.uml.Type;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAnySingleTypeIdentifier;
@@ -90,6 +90,6 @@ public class DeferredCollectionFiller extends AbstractTypeResolver implements No
             public void resolve(IBasicRepository repository) {
                 node.apply(new Visitor());
             }
-        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }, Step.GENERAL_RESOLUTION);
     }
 }

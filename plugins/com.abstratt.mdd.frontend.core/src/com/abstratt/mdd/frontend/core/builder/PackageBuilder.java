@@ -10,10 +10,10 @@ import org.eclipse.uml2.uml.VisibilityKind;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.frontend.core.InternalProblem;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 
 public class PackageBuilder extends DefaultParentBuilder<Package> {
 
@@ -64,14 +64,14 @@ public class PackageBuilder extends DefaultParentBuilder<Package> {
                         getContext().getProblemTracker().add(
                                 new UnclassifiedProblem("Could not load URI: '" + packageURI + "')"));
                 }
-            }, IReferenceTracker.Step.PACKAGE_IMPORTS);
+            }, Step.PACKAGE_IMPORTS);
         }
     }
 
     private void importPackages() {
         for (NameReference packageName : this.packagesImported)
             new ReferenceSetter<Package>(packageName, getParentProduct(), getContext(),
-                    IReferenceTracker.Step.PACKAGE_IMPORTS) {
+                    Step.PACKAGE_IMPORTS) {
                 @Override
                 protected void link(Package package_) {
                     if (!getProduct().getImportedPackages().contains(package_))
@@ -87,13 +87,13 @@ public class PackageBuilder extends DefaultParentBuilder<Package> {
                 public void resolve(IBasicRepository repository) {
                     ((Profile) getProduct()).define();
                 }
-            }, IReferenceTracker.Step.DEFINE_PROFILES);
+            }, Step.DEFINE_PROFILES);
     }
 
     private void applyProfiles() {
         for (NameReference profileName : this.profilesApplied)
             new ReferenceSetter<Profile>(profileName, getParentProduct(), getContext(),
-                    IReferenceTracker.Step.PROFILE_APPLICATIONS) {
+                    Step.PROFILE_APPLICATIONS) {
                 @Override
                 protected void link(Profile profile) {
                     if (!profile.isDefined())

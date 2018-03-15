@@ -26,11 +26,11 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.util.StructuralFeatureUtils;
 import com.abstratt.mdd.frontend.core.NotAConcreteClassifier;
 import com.abstratt.mdd.frontend.core.spi.DeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
@@ -169,7 +169,7 @@ public class AnnotationProcessor implements NodeProcessor<PAnnotations> {
      *            the node to get the text position from in case of error
      */
     protected void applyAnnotations(final Element targetElement, final Node referenceNode) {
-        Step linkStep = IReferenceTracker.Step.STEREOTYPE_APPLICATIONS;
+        Step linkStep = Step.STEREOTYPE_APPLICATIONS;
         Package currentPackage = targetElement.getNearestPackage();
         for (Iterator<Annotation> i = annotations.iterator(); i.hasNext();) {
             final Annotation annotation = i.next();

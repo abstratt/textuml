@@ -1,6 +1,7 @@
 package com.abstratt.mdd.core.isv;
 
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.Step;
 
 /**
  * Things one can do from a model weaver:
@@ -12,7 +13,7 @@ import com.abstratt.mdd.core.IRepository;
  *
  */
 public interface IModelWeaver {
-    public void packageCreated(IRepository repository, org.eclipse.uml2.uml.Package created);
-
-    public void repositoryComplete(IRepository repository);
+    public default void packageCreated(IRepository repository, org.eclipse.uml2.uml.Package created) {}
+    public default void afterStep(IRepository repository, Step step) {}
+    public default void beforeStep(IRepository repository, Step step) {}
 }

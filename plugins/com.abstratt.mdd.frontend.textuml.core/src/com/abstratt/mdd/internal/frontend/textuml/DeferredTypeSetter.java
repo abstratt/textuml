@@ -14,8 +14,8 @@ import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.TypedElement;
 
 import com.abstratt.mdd.core.IBasicRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 
 /**
@@ -33,7 +33,7 @@ public class DeferredTypeSetter extends TypeSetter {
             public void resolve(IBasicRepository repository) {
                 doProcess(node);
             }
-        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }, Step.GENERAL_RESOLUTION);
     }
 
     public void doProcess(final Node node) {

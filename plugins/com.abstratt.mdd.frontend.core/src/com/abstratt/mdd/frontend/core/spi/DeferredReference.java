@@ -6,7 +6,6 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 
 import com.abstratt.mdd.core.IBasicRepository;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 
 /**
  * A deferred reference allows cross-references to be resolved at a later
@@ -20,7 +19,7 @@ import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
  * @see Step#isOrdered()
  */
 public abstract class DeferredReference<E extends NamedElement> implements IDeferredReference,
-        Comparable<DeferredReference> {
+        Comparable<DeferredReference<E>> {
     private static int seed = 0;
     /**
      * Used as tie-breaker when sorting references to the same name.

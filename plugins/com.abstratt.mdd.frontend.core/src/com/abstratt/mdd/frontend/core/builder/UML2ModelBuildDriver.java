@@ -20,7 +20,7 @@ public class UML2ModelBuildDriver {
         try {
             for (ElementBuilder<?> topBuilder : builderBuilder.buildRootBuilders())
                 topBuilder.build();
-            context.getReferenceTracker().resolve(getContext().getRepository(), getContext().getProblemTracker());
+            context.getReferenceTracker().resolve(getContext().getRepository(), getContext().getProblemTracker(), null);
         } finally {
             setContext(null);
         }

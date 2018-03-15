@@ -4,10 +4,9 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.Namespace;
 
 import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.DeferredReference;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 
 public abstract class ReferenceSetter<N extends NamedElement> extends DeferredReference<N> {
 
@@ -19,7 +18,7 @@ public abstract class ReferenceSetter<N extends NamedElement> extends DeferredRe
     }
 
     public ReferenceSetter(NameReference reference, Namespace currentNamespace, UML2BuildContext context,
-            IReferenceTracker.Step step) {
+            Step step) {
         super(reference.getName(), reference.getElementType().getMetaClass(), currentNamespace);
         this.context = context;
         this.nameReference = reference;

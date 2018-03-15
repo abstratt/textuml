@@ -11,8 +11,6 @@
  *******************************************************************************/
 package com.abstratt.mdd.internal.frontend.textuml;
 
-import static com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step.STEREOTYPE_APPLICATIONS;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -21,7 +19,6 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.AggregationKind;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.AttributeOwner;
@@ -59,7 +56,6 @@ import org.eclipse.uml2.uml.Signal;
 import org.eclipse.uml2.uml.Slot;
 import org.eclipse.uml2.uml.StateMachine;
 import org.eclipse.uml2.uml.Stereotype;
-import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
@@ -69,8 +65,8 @@ import org.eclipse.uml2.uml.VisibilityKind;
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.UnclassifiedProblem;
-import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.ConnectorUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
@@ -103,8 +99,6 @@ import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.CompilationContext;
 import com.abstratt.mdd.frontend.core.spi.DeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IDeferredReference;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
-import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.Step;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AActorClassType;
@@ -313,7 +307,7 @@ public class StructureGenerator extends AbstractGenerator {
                         if (!currentPackageSnapshot.getImportedPackages().contains(appliedProfile))
                             currentPackageSnapshot.createPackageImport(appliedProfile, VisibilityKind.PRIVATE_LITERAL);
                     }
-                }, IReferenceTracker.Step.PROFILE_APPLICATIONS);
+                }, Step.PROFILE_APPLICATIONS);
     }
 
     private boolean ensureNameAvailable(String name, Node node, EClass... eClasses) {
@@ -358,7 +352,7 @@ public class StructureGenerator extends AbstractGenerator {
                                 new UnclassifiedProblem("At least one of the ends must be navigable"),
                                 node.getAssociationHeader());
                 }
-            }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+            }, Step.GENERAL_RESOLUTION);
             node.getAssociationHeader().apply(this);
         } finally {
             namespaceTracker.leaveNamespace();
@@ -390,7 +384,7 @@ public class StructureGenerator extends AbstractGenerator {
                     }
                 });
             }
-        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }, Step.GENERAL_RESOLUTION);
     }
 
     /**
@@ -532,10 +526,10 @@ public class StructureGenerator extends AbstractGenerator {
 					    if (otherEnd.getType() != null && otherEnd.getType() != referringClassifier) {
 					        problemBuilder.addError("The opposite end " + otherEnd.getQualifiedName() + " should be typed as " + referringClassifier.getQualifiedName() + " but is " + otherEnd.getType().getQualifiedName(), node.getOptionalOpposite());    
 					    }
-					}, IReferenceTracker.Step.GENERAL_RESOLUTION);
+					}, Step.GENERAL_RESOLUTION);
 				}
         		
-        	}, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        	}, Step.GENERAL_RESOLUTION);
         }
         
         
@@ -596,7 +590,7 @@ public class StructureGenerator extends AbstractGenerator {
                                 }
                                 property.setAssociation(association);
                             }
-                        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+                        }, Step.GENERAL_RESOLUTION);
             }
 
             @Override
@@ -627,9 +621,9 @@ public class StructureGenerator extends AbstractGenerator {
 	                        		problemBuilder.addProblem(new AssociationMemberClashesWithMemberEnd(ownedEnd.getName(), otherType.getName()),
 	                        				ownedEndNode);
 	                        }
-                        }, IReferenceTracker.Step.LAST);
+                        }, Step.AFTER_STRUCTURE);
                     }
-                }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+                }, Step.GENERAL_RESOLUTION);
             }
         });
     }
@@ -685,7 +679,7 @@ public class StructureGenerator extends AbstractGenerator {
                                 }
                             }, Step.STRUCTURE_VALIDATION);
                     }
-                }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+                }, Step.GENERAL_RESOLUTION);
         applyModifiers(newPort, VisibilityKind.PUBLIC_LITERAL, node);
         annotationProcessor.applyAnnotations(newPort, node.getIdentifier());
     }
@@ -751,7 +745,7 @@ public class StructureGenerator extends AbstractGenerator {
                     expressionProcessor.process(newProperty,
                             (AComplexInitializationExpression) initializationExpression);
                 }
-            }, IReferenceTracker.Step.LAST);
+            }, Step.BEHAVIOR);
         }
         annotationProcessor.applyAnnotations(newProperty, node.getIdentifier());
         applyOptionalSubsetting(newProperty, node);
@@ -792,7 +786,7 @@ public class StructureGenerator extends AbstractGenerator {
                         newProperty.getSubsettedProperties().add(subsettedProperty);
                     }
 
-                }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+                }, Step.GENERAL_RESOLUTION);
             }
         });
     }
@@ -846,7 +840,7 @@ public class StructureGenerator extends AbstractGenerator {
             @Override
             public void caseTRole(TRole node) {
             	if (currentClassifier.eClass() == UMLPackage.Literals.CLASS)
-            		getRefTracker().add(repo -> MDDExtensionUtils.makeRole((Class) currentClassifier), STEREOTYPE_APPLICATIONS);
+            		getRefTracker().add(repo -> MDDExtensionUtils.makeRole((Class) currentClassifier), Step.STEREOTYPE_APPLICATIONS);
             	else
 					problemBuilder.addError("Only classes can be roles", node);
             }
@@ -897,7 +891,7 @@ public class StructureGenerator extends AbstractGenerator {
                                 interface_);
                         processAnnotations(node.getAnnotations(), realization);
                     }
-                }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+                }, Step.GENERAL_RESOLUTION);
     }
 
     @Override
@@ -963,7 +957,7 @@ public class StructureGenerator extends AbstractGenerator {
                         Generalization generalization = currentClassSnapshot.createGeneralization(superClass);
                         processAnnotations(node.getAnnotations(), generalization);
                     }
-                }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+                }, Step.GENERAL_RESOLUTION);
     }
 
     @Override
@@ -1011,7 +1005,7 @@ public class StructureGenerator extends AbstractGenerator {
                         else
                             classifier.createGeneralization(valueClass);
                     }
-                }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+                }, Step.GENERAL_RESOLUTION);
     }
 
     @Override
@@ -1134,7 +1128,7 @@ public class StructureGenerator extends AbstractGenerator {
                                 elementImport.setAlias(alias);
                         }
                     }
-                }, IReferenceTracker.Step.PACKAGE_IMPORTS);
+                }, Step.PACKAGE_IMPORTS);
     }
 
     private <T extends Classifier> T createClassifier(EClass typeClass) {
@@ -1211,7 +1205,7 @@ public class StructureGenerator extends AbstractGenerator {
                 else
                     problemBuilder.addProblem(new CannotLoadFromLocation(uri), uriNode);
             }
-        }, IReferenceTracker.Step.PACKAGE_IMPORTS);
+        }, Step.PACKAGE_IMPORTS);
     }
 
     @Override
@@ -1247,7 +1241,7 @@ public class StructureGenerator extends AbstractGenerator {
                     }
                     reception.setSignal((Signal) signal);
                 }
-            }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+            }, Step.GENERAL_RESOLUTION);
 
         } finally {
             namespaceTracker.leaveNamespace();
@@ -1354,14 +1348,14 @@ public class StructureGenerator extends AbstractGenerator {
                         }
                         parentPackage.getNestedPackages().add(orphanPackage);
                     }
-                }, IReferenceTracker.Step.PACKAGE_STRUCTURE);
+                }, Step.PACKAGE_STRUCTURE);
             }
         }
         getRefTracker().add(it -> {
         	if (MDDExtensionUtils.hasExtensionsApplied(newPackage) && !(newPackage instanceof Profile) && (newPackage.getNestingPackage() == null) && !MDDExtensionUtils.isApplication(newPackage) && !MDDExtensionUtils.isLibrary(newPackage)) {
         		MDDExtensionUtils.makeApplication(newPackage);
         	}
-        }, IReferenceTracker.Step.LAST);
+        }, Step.AFTER_STRUCTURE);
         annotationProcessor.process(node.getAnnotations());
         annotationProcessor.applyAnnotations(newPackage, node.getQualifiedIdentifier());
         if (node.getModelComment() != null)
@@ -1377,7 +1371,7 @@ public class StructureGenerator extends AbstractGenerator {
             public void resolve(IBasicRepository repository) {
                 node.apply(newSignatureProcessor(parentSnapshot));
             }
-        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }, Step.GENERAL_RESOLUTION);
     }
 
     @Override
@@ -1387,7 +1381,7 @@ public class StructureGenerator extends AbstractGenerator {
             public void resolve(IBasicRepository repository) {
                 node.apply(newSignatureProcessor(parentSnapshot));
             }
-        }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+        }, Step.GENERAL_RESOLUTION);
     }
 
     @Override
@@ -1412,7 +1406,7 @@ public class StructureGenerator extends AbstractGenerator {
 		    public void resolve(IBasicRepository repository) {
 		    	currentProfile.define();
 		    }
-		}, IReferenceTracker.Step.DEFINE_PROFILES);
+		}, Step.DEFINE_PROFILES);
 	}
 
     @Override
@@ -1477,7 +1471,7 @@ public class StructureGenerator extends AbstractGenerator {
                             profile.getPackageImports().removeIf(
                                     imp -> imp.getImportedPackage() == metaClass.getModel());
                     }
-                }, IReferenceTracker.Step.GENERAL_RESOLUTION);
+                }, Step.GENERAL_RESOLUTION);
     }
 
     @Override

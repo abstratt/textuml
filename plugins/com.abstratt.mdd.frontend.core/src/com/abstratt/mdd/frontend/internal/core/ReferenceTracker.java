@@ -9,9 +9,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.Consumer;
 
 import com.abstratt.mdd.core.IBasicRepository;
 import com.abstratt.mdd.core.MDDCore;
+import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.frontend.core.InternalProblem;
 import com.abstratt.mdd.frontend.core.spi.AbortedCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
@@ -89,13 +91,17 @@ public class ReferenceTracker implements IReferenceTracker {
     }
 
     @Override
-    public void resolve(IBasicRepository repository, IProblemTracker problemTracker) {
+    public void resolve(IBasicRepository repository, IProblemTracker problemTracker, IStepListener stepListener) {
+    	if (stepListener == null) {
+    		stepListener = new IStepListener() {};
+    	}
         if (this.repository != null)
             throw new IllegalStateException("Already resolving");
         this.repository = repository;
         try {
             while (!stages.isEmpty()) {
                 Stage currentStage = firstStage();
+            	stepListener.before(currentStage.getSequence());
                 for (IDeferredReference ref; (ref = currentStage.nextReference()) != null;) {
                     try {
                         ref.resolve(repository);
@@ -114,10 +120,13 @@ public class ReferenceTracker implements IReferenceTracker {
                     if (firstStage().compareTo(currentStage) < 0)
                         break;
                 }
-                // once we are done with the current stage, remove it from the
-                // list (but might pop-up back later)
-                if (currentStage.references.isEmpty())
+                if (currentStage.references.isEmpty()) {
+                	// once we are done with the current stage, remove it from the
+                	// list (but might pop-up back later)
                     stages.remove(currentStage);
+                    
+                	stepListener.after(currentStage.getSequence());
+                }
             }
         } finally {
             this.repository = null;
