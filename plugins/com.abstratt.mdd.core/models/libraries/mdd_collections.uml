@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_collections" URI="libraries/mdd_collections">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/09/05 04:56:34 354 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2018/04/02 01:02:25 458 -0300"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0">
       <importedPackage xmi:type="uml:Model" href="mdd_types.uml#_0"/>
@@ -26,7 +26,7 @@
         <ownedComment xmi:id="Collection-add-_ownedComment.0" annotatedElement="Collection-add">
           <body> Adds the given object to a collection, returning a collection that now includes the given object. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-add-toAdd" name="toAdd" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
+        <ownedParameter xmi:id="Collection-add-toAdd" name="toAdd" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-add-toAdd-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -43,7 +43,7 @@
         <ownedComment xmi:id="Collection-count-_ownedComment.0" annotatedElement="Collection-count">
           <body> Counts the number of elements in the collection that satisfy the given predicate. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-count-predicate" name="predicate" type="_7B20mdd_collectionsCollectionT2020mdd_typesBoolean7D" effect="create">
+        <ownedParameter xmi:id="Collection-count-predicate" name="predicate" type="_7B20mdd_collectionsCollectionT2020mdd_typesBoolean7D">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-count-predicate-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -65,7 +65,7 @@
         <ownedComment xmi:id="Collection-includes-_ownedComment.0" annotatedElement="Collection-includes">
           <body> Determines whether the collection includes the given element. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-includes-object" name="object" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
+        <ownedParameter xmi:id="Collection-includes-object" name="object" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-includes-object-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -87,7 +87,7 @@
         <ownedComment xmi:id="Collection-includesAll-_ownedComment.0" annotatedElement="Collection-includesAll">
           <body> Determines whether the collection includes all the elements in the given second collection. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-includesAll-c2" name="c2" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
+        <ownedParameter xmi:id="Collection-includesAll-c2" name="c2" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-includesAll-c2-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-includesAll-c2-_upperValue" value="*"/>
         </ownedParameter>
@@ -105,7 +105,7 @@
         <ownedComment xmi:id="Collection-includesAny-_ownedComment.0" annotatedElement="Collection-includesAny">
           <body> Determines whether the collection includes any of the elements in the given second collection. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-includesAny-c2" name="c2" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
+        <ownedParameter xmi:id="Collection-includesAny-c2" name="c2" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-includesAny-c2-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-includesAny-c2-_upperValue" value="*"/>
         </ownedParameter>
@@ -151,7 +151,7 @@
         <ownedComment xmi:id="Collection-exists-_ownedComment.0" annotatedElement="Collection-exists">
           <body> Determines whether any of the elements of the collection satisfies the given predicate. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-exists-predicate" name="predicate" type="_7B20mdd_collectionsCollectionT2020mdd_typesBoolean7D.1" effect="create">
+        <ownedParameter xmi:id="Collection-exists-predicate" name="predicate" type="_7B20mdd_collectionsCollectionT2020mdd_typesBoolean7D.1">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-exists-predicate-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -173,7 +173,7 @@
         <ownedComment xmi:id="Collection-forAll-_ownedComment.0" annotatedElement="Collection-forAll">
           <body> Determines whether all elements in this collection satisfy the given predicate. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-forAll-predicate" name="predicate" type="_7B20mdd_collectionsCollectionT2020mdd_typesBoolean7D.2" effect="create">
+        <ownedParameter xmi:id="Collection-forAll-predicate" name="predicate" type="_7B20mdd_collectionsCollectionT2020mdd_typesBoolean7D.2">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-forAll-predicate-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -195,7 +195,7 @@
         <ownedComment xmi:id="Collection-any-_ownedComment.0" annotatedElement="Collection-any">
           <body> Returns an element of the collection that satisfies the given predicate, if any. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-any-predicate" name="predicate" type="_7B20mdd_collectionsCollectionT2020mdd_typesBoolean7D.3" effect="create">
+        <ownedParameter xmi:id="Collection-any-predicate" name="predicate" type="_7B20mdd_collectionsCollectionT2020mdd_typesBoolean7D.3">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-any-predicate-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -221,7 +221,7 @@
         <ownedComment xmi:id="Collection-select-_ownedComment.0" annotatedElement="Collection-select">
           <body> Returns a new collection containing the subset of this collection that satisfy the given predicate. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-select-filter" name="filter" type="_7B20mdd_collectionsCollectionT2020mdd_typesBoolean7D.4" effect="create">
+        <ownedParameter xmi:id="Collection-select-filter" name="filter" type="_7B20mdd_collectionsCollectionT2020mdd_typesBoolean7D.4">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-select-filter-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -239,7 +239,7 @@
           <body> Returns a new collection containing an element that is determined for every element in this collection by applying the given mapping. </body>
         </ownedComment>
         <elementImport xmi:id="Collection-collect-_elementImport.0" alias="R" importedElement="Collection-_nestedClassifier.0"/>
-        <ownedParameter xmi:id="Collection-collect-mapping" name="mapping" type="_7B20mdd_collectionsCollectionT2020null7D" effect="create">
+        <ownedParameter xmi:id="Collection-collect-mapping" name="mapping" type="_7B20mdd_collectionsCollectionT2020null7D">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-collect-mapping-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -256,7 +256,7 @@
         <ownedComment xmi:id="Collection-forEach-_ownedComment.0" annotatedElement="Collection-forEach">
           <body> Applies the given mutator to every element of this collection. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-forEach-mutator" name="mutator" type="_7B20mdd_collectionsCollectionT7D" effect="create">
+        <ownedParameter xmi:id="Collection-forEach-mutator" name="mutator" type="_7B20mdd_collectionsCollectionT7D">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-forEach-mutator-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -269,7 +269,7 @@
         <ownedComment xmi:id="Collection-sortedBy-_ownedComment.0" annotatedElement="Collection-sortedBy">
           <body> Returns a new collection containing the elements of this collection sorted by the given criteria. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-sortedBy-criteria" name="criteria" type="_7B20mdd_collectionsCollectionT2020mdd_collectionsCollectionT2020mdd_typesInteger7D" effect="create">
+        <ownedParameter xmi:id="Collection-sortedBy-criteria" name="criteria" type="_7B20mdd_collectionsCollectionT2020mdd_collectionsCollectionT2020mdd_typesInteger7D">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-sortedBy-criteria-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -322,7 +322,7 @@
         <ownedComment xmi:id="Collection-union-_ownedComment.0" annotatedElement="Collection-union">
           <body> Returns a new collection containing all the elements of this collection plus the elements of the given collection. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-union-another" name="another" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
+        <ownedParameter xmi:id="Collection-union-another" name="another" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-union-another-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-union-another-_upperValue" value="*"/>
         </ownedParameter>
@@ -339,7 +339,7 @@
     </body>
         </ownedComment>
         <elementImport xmi:id="Collection-collectMany-_elementImport.0" alias="M" importedElement="Collection-_nestedClassifier.1"/>
-        <ownedParameter xmi:id="Collection-collectMany-p" name="p" type="_7B20mdd_collectionsCollectionT2020null7D.1" effect="create">
+        <ownedParameter xmi:id="Collection-collectMany-p" name="p" type="_7B20mdd_collectionsCollectionT2020null7D.1">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-collectMany-p-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -356,7 +356,7 @@
         <ownedComment xmi:id="Collection-groupBy-_ownedComment.0" annotatedElement="Collection-groupBy">
           <body> Groups the elements of this collection using the given grouping criteria. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-groupBy-grouper" name="grouper" type="_7B20mdd_collectionsCollectionT2020mdd_typesAnyType7D" effect="create">
+        <ownedParameter xmi:id="Collection-groupBy-grouper" name="grouper" type="_7B20mdd_collectionsCollectionT2020mdd_typesAnyType7D">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-groupBy-grouper-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -378,7 +378,7 @@
           <body> Produces a single value by applying the given reductor to every element of the collection. </body>
         </ownedComment>
         <elementImport xmi:id="Collection-reduce-_elementImport.0" alias="R" importedElement="Collection-_nestedClassifier.2"/>
-        <ownedParameter xmi:id="Collection-reduce-reductor" name="reductor" type="_7B20mdd_collectionsCollectionT2020null5B1205D2020null7D" effect="create">
+        <ownedParameter xmi:id="Collection-reduce-reductor" name="reductor" type="_7B20mdd_collectionsCollectionT2020null5B1205D2020null7D">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reduce-reductor-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -386,7 +386,7 @@
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </upperValue>
         </ownedParameter>
-        <ownedParameter xmi:id="Collection-reduce-initial" name="initial" type="Collection-_nestedClassifier.2" effect="create">
+        <ownedParameter xmi:id="Collection-reduce-initial" name="initial" type="Collection-_nestedClassifier.2">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reduce-initial-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -408,7 +408,7 @@
           <body> Sums all values the collection using the given quantifier to map an element to a number. </body>
         </ownedComment>
         <elementImport xmi:id="Collection-sum-_elementImport.0" alias="N" importedElement="Collection-_nestedClassifier.3"/>
-        <ownedParameter xmi:id="Collection-sum-quantifier" name="quantifier" type="_7B20mdd_collectionsCollectionT2020null7D.2" effect="create">
+        <ownedParameter xmi:id="Collection-sum-quantifier" name="quantifier" type="_7B20mdd_collectionsCollectionT2020null7D.2">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-sum-quantifier-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -430,7 +430,7 @@
           <body> Determines the maximum quantified value for any element in the collection. </body>
         </ownedComment>
         <elementImport xmi:id="Collection-max-_elementImport.0" alias="N" importedElement="Collection-_nestedClassifier.4"/>
-        <ownedParameter xmi:id="Collection-max-transformer" name="transformer" type="_7B20mdd_collectionsCollectionT2020null7D.3" effect="create">
+        <ownedParameter xmi:id="Collection-max-transformer" name="transformer" type="_7B20mdd_collectionsCollectionT2020null7D.3">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-max-transformer-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -452,7 +452,7 @@
           <body> Determines the minimum quantified value for any element in the collection. </body>
         </ownedComment>
         <elementImport xmi:id="Collection-min-_elementImport.0" alias="N" importedElement="Collection-_nestedClassifier.5"/>
-        <ownedParameter xmi:id="Collection-min-transformer" name="transformer" type="_7B20mdd_collectionsCollectionT2020null7D.4" effect="create">
+        <ownedParameter xmi:id="Collection-min-transformer" name="transformer" type="_7B20mdd_collectionsCollectionT2020null7D.4">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-min-transformer-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -500,7 +500,7 @@
           <body> Determines the average of the quantified values for all elements in the collection. </body>
         </ownedComment>
         <elementImport xmi:id="Collection-average-_elementImport.0" alias="N" importedElement="Collection-_nestedClassifier.6"/>
-        <ownedParameter xmi:id="Collection-average-transformer" name="transformer" type="_7B20mdd_collectionsCollectionT2020null7D.5" effect="create">
+        <ownedParameter xmi:id="Collection-average-transformer" name="transformer" type="_7B20mdd_collectionsCollectionT2020null7D.5">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-average-transformer-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -522,7 +522,7 @@
           <body> Determines the element with the maximum quantified value for any element in the collection. </body>
         </ownedComment>
         <elementImport xmi:id="Collection-maxElement-_elementImport.0" alias="N" importedElement="Collection-_nestedClassifier.7"/>
-        <ownedParameter xmi:id="Collection-maxElement-transformer" name="transformer" type="_7B20mdd_collectionsCollectionT2020null7D.6" effect="create">
+        <ownedParameter xmi:id="Collection-maxElement-transformer" name="transformer" type="_7B20mdd_collectionsCollectionT2020null7D.6">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-maxElement-transformer-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -540,7 +540,7 @@
           <body> Determines the element with the minimum quantified value for any element in the collection. </body>
         </ownedComment>
         <elementImport xmi:id="Collection-minElement-_elementImport.0" alias="N" importedElement="Collection-_nestedClassifier.8"/>
-        <ownedParameter xmi:id="Collection-minElement-transformer" name="transformer" type="_7B20mdd_collectionsCollectionT2020null7D.7" effect="create">
+        <ownedParameter xmi:id="Collection-minElement-transformer" name="transformer" type="_7B20mdd_collectionsCollectionT2020null7D.7">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-minElement-transformer-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -557,7 +557,7 @@
         <ownedComment xmi:id="Collection-join-_ownedComment.0" annotatedElement="Collection-join">
           <body> Concatenates the values of all elements in the collection using the given separator. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-join-delimiter" name="delimiter" effect="create">
+        <ownedParameter xmi:id="Collection-join-delimiter" name="delimiter">
           <type xmi:type="uml:Class" href="mdd_types.uml#String"/>
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-join-delimiter-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -609,7 +609,7 @@
         <ownedComment xmi:id="Sequence-at-_ownedComment.0" annotatedElement="Sequence-at">
           <body> Returns the element at the given position in this sequence. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Sequence-at-i" name="i" effect="create">
+        <ownedParameter xmi:id="Sequence-at-i" name="i">
           <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-at-i-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
@@ -628,7 +628,7 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Sequence-indexWhere" name="indexWhere" visibility="public" isQuery="true">
-        <ownedParameter xmi:id="Sequence-indexWhere-predicate" name="predicate" type="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D" effect="create">
+        <ownedParameter xmi:id="Sequence-indexWhere-predicate" name="predicate" type="_7B20mdd_collectionsSequenceT2020mdd_typesBoolean7D">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-indexWhere-predicate-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -647,7 +647,7 @@
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Sequence-indexOf" name="indexOf" visibility="public" isQuery="true">
-        <ownedParameter xmi:id="Sequence-indexOf-i" name="i" type="Sequence-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
+        <ownedParameter xmi:id="Sequence-indexOf-i" name="i" type="Sequence-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Sequence-indexOf-i-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -721,7 +721,7 @@
         <ownedComment xmi:id="Bag-count-_ownedComment.0" annotatedElement="Bag-count">
           <body> Computes the number of times the given element appears in this bag. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Bag-count-element" name="element" type="Bag-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" effect="create">
+        <ownedParameter xmi:id="Bag-count-element" name="element" type="Bag-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Bag-count-element-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -774,7 +774,7 @@
           <body> Produces a collection whose elements are obtained by applying the given collector to each group. </body>
         </ownedComment>
         <elementImport xmi:id="Grouping-groupCollect-_elementImport.0" alias="R" importedElement="Grouping-_nestedClassifier.0"/>
-        <ownedParameter xmi:id="Grouping-groupCollect-collector" name="collector" type="_7B20mdd_collectionsGroupingT5B0205D2020null7D" effect="create">
+        <ownedParameter xmi:id="Grouping-groupCollect-collector" name="collector" type="_7B20mdd_collectionsGroupingT5B0205D2020null7D">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Grouping-groupCollect-collector-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -792,7 +792,7 @@
           <body> Produces one value by applying the given reductor to every group. </body>
         </ownedComment>
         <elementImport xmi:id="Grouping-groupReduce-_elementImport.0" alias="R" importedElement="Grouping-_nestedClassifier.1"/>
-        <ownedParameter xmi:id="Grouping-groupReduce-reducer" name="reducer" type="_7B20mdd_collectionsGroupingT5B0205D2020null7D.1" effect="create">
+        <ownedParameter xmi:id="Grouping-groupReduce-reducer" name="reducer" type="_7B20mdd_collectionsGroupingT5B0205D2020null7D.1">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Grouping-groupReduce-reducer-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
@@ -809,7 +809,7 @@
         <ownedComment xmi:id="Grouping-groupSelect-_ownedComment.0" annotatedElement="Grouping-groupSelect">
           <body> Produces a new grouping that contains only the groups that satisfy the given group criteria. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Grouping-groupSelect-filter" name="filter" type="_7B20mdd_collectionsGroupingT5B0205D2020mdd_typesBoolean7D" effect="create">
+        <ownedParameter xmi:id="Grouping-groupSelect-filter" name="filter" type="_7B20mdd_collectionsGroupingT5B0205D2020mdd_typesBoolean7D">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Grouping-groupSelect-filter-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>

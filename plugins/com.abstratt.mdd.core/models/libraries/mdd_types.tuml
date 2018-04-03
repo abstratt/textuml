@@ -87,6 +87,7 @@ class Integer specializes Double
   query multiply(r : Integer) : Integer;
   query divide(r : Integer) : Integer;
   query modulo(r : Integer) : Integer;
+  query absolute() : Integer;
 end;
 
 class Double specializes Number
@@ -96,6 +97,7 @@ class Double specializes Number
   query divide(r : Number) : Double;
   query subtract() : Double;
   query fractionalPart() : Double;
+  query absolute() : Double;
 end;
 
 class Date specializes Primitive
