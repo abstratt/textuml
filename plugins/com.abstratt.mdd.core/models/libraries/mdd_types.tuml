@@ -169,6 +169,7 @@ class Memo specializes String
 end;
 
 class Email specializes String
+  static query fromString(string : String) : Email;
 end;
 
 class Violation
