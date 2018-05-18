@@ -348,7 +348,7 @@ public class StructureBehaviorGenerator extends AbstractGenerator {
 			}
 			@Override
 			public void caseANoneAccessCapabilities(ANoneAccessCapabilities node) {
-				// none
+				// none results in no allowed capabilities, where as specifying no capability allows all capabilities
 			}
 			@Override
 			public void caseAAllAccessCapabilities(AAllAccessCapabilities node) {

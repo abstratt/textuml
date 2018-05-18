@@ -3,30 +3,34 @@ package com.abstratt.mdd.core.util;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang.WordUtils;
 
+
+enum Target { Instance, Class }
+
 /** Matches the enumeration of same name in the mdd_extensions profile */
 public enum AccessCapability {
-	Create(null, null, false), 
-	Delete("Create", null, true), 
-	List("Read", "Extent", false), 
-	Read(null, null, true), 
-	Update("Read", null, true), 
-	StaticCall(null, null, false), 
-	Call(null, null, true),
+	
+	Create(null, null, EnumSet.of(Target.Class)), 
+	Delete("Create", null, EnumSet.of(Target.Instance)), 
+	List("Read", "Extent", EnumSet.of(Target.Class)), 
+	Read(null, null, EnumSet.of(Target.Instance)), 
+	Update("Read", null, EnumSet.of(Target.Instance)), 
+	Call(null, null, EnumSet.of(Target.Instance, Target.Class)),
 	// helper value to represent the existence of a constraint that gives no capabilities
-	None(null, null, false);
+	None(null, null, EnumSet.noneOf(Target.class));
 	private Collection<String> implied;
 	private Collection<String> aliases;
-	private boolean instance;
-	private AccessCapability(String implied, String alias, boolean instance) {
+	private EnumSet<Target> targets;
+	private AccessCapability(String implied, String alias, EnumSet<Target> targets) {
 		this.implied = implied == null ? Collections.emptyList() : Arrays.asList(implied);
 		this.aliases = alias == null ? Collections.emptyList() : Arrays.asList(alias);
-		this.instance = instance;
+		this.targets = targets;
 	}
 	
 	public static Set<AccessCapability> impliedByName(String name) {
@@ -44,7 +48,11 @@ public enum AccessCapability {
 	}
 	
 	public boolean isInstance() {
-		return instance;
+		return targets.contains(Target.Instance);
+	}
+	
+	public boolean isClass() {
+		return targets.contains(Target.Class);
 	}
 	
 	public Set<AccessCapability> getImplied(boolean includeSelf) {

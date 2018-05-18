@@ -904,12 +904,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAStaticCallAccessCapability(AStaticCallAccessCapability node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAInstanceCallAccessCapability(AInstanceCallAccessCapability node)
+    public void caseACallAccessCapability(ACallAccessCapability node)
     {
         defaultCase(node);
     }

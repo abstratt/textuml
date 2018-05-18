@@ -4124,50 +4124,25 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outADeleteAccessCapability(node);
     }
 
-    public void inAStaticCallAccessCapability(AStaticCallAccessCapability node)
+    public void inACallAccessCapability(ACallAccessCapability node)
     {
         defaultIn(node);
     }
 
-    public void outAStaticCallAccessCapability(AStaticCallAccessCapability node)
+    public void outACallAccessCapability(ACallAccessCapability node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAStaticCallAccessCapability(AStaticCallAccessCapability node)
+    public void caseACallAccessCapability(ACallAccessCapability node)
     {
-        inAStaticCallAccessCapability(node);
-        if(node.getStatic() != null)
-        {
-            node.getStatic().apply(this);
-        }
+        inACallAccessCapability(node);
         if(node.getCall() != null)
         {
             node.getCall().apply(this);
         }
-        outAStaticCallAccessCapability(node);
-    }
-
-    public void inAInstanceCallAccessCapability(AInstanceCallAccessCapability node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAInstanceCallAccessCapability(AInstanceCallAccessCapability node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAInstanceCallAccessCapability(AInstanceCallAccessCapability node)
-    {
-        inAInstanceCallAccessCapability(node);
-        if(node.getCall() != null)
-        {
-            node.getCall().apply(this);
-        }
-        outAInstanceCallAccessCapability(node);
+        outACallAccessCapability(node);
     }
 
     public void inAExtentAccessCapability(AExtentAccessCapability node)

@@ -19,32 +19,82 @@ class AccessControlUtils {
     static def Map<Classifier, Map<AccessCapability, Constraint>> computeConstraintsPerRoleClass(Collection<Class> allRoleClasses, Collection<NamedElement> accessConstraintContexts) {
         return computeConstraintsPerRoleClass(allRoleClasses, AccessCapability.values.toList, accessConstraintContexts)
     }
-    static def Map<Classifier, Map<AccessCapability, Constraint>> computeConstraintsPerRoleClass(Collection<Class> allRoleClasses, Collection<AccessCapability> relevantCapabilities, Iterable<NamedElement> accessConstraintContexts) {
+    
+    /**
+     * Computes the actual constraints in effect for each role/capability at the given context hierarchy.
+     * 
+     * @param allRoleClasses the role classes to consider (use a null element for anonymous users)
+     * @param relevantCapabilities the capabilities to consider
+     * @param accessConstraintContexts the constraint contexts, from wider to narrower (example: [class, operation])
+     * @return a constraint per capability per role
+     */
+    static def Map<Classifier, Map<AccessCapability, Constraint>> computeConstraintsPerRoleClass(
+    	Collection<Class> allRoleClasses, 
+    	Collection<AccessCapability> relevantCapabilities, 
+    	Iterable<NamedElement> accessConstraintContexts
+    ) {
+    	val canonicalCapabilities = AccessCapability.values.filter[relevantCapabilities.contains(it)].toSet
         val accessConstraintLayers = accessConstraintContexts.map[it.findConstraints.filter[access]]
-        val Map<Classifier, Map<AccessCapability, Constraint>> constraintsPerRole = newLinkedHashMap()
+        val Map<Classifier, Map<AccessCapability, Constraint>> result = newLinkedHashMap()
         val concreteRoleClasses = allRoleClasses.filter[!it.abstract]
+        // loop through every layer (outer to inner), composing the final set of constraints per role
         accessConstraintLayers.forEach [ layer |
+        	val Map<Classifier, Map<AccessCapability, Constraint>> layerConstraintsPerRole = 
+        		newLinkedHashMap()
             layer.forEach [ constraint |
+            	// note that multiple constraints may apply to the same role (but with different capabilities)
                 val constraintAccessRoles = constraint.accessRoles
-                val applicableRoles = if (constraintAccessRoles.empty) (allRoleClasses + #[null]) else concreteRoleClasses.filter[specific | specific.isKindOfAnyOf(constraintAccessRoles, true)]
+                val applicableRoles = if (constraintAccessRoles.empty) 
+                	// the constraint specifies no roles, consider all roles
+                	(allRoleClasses + #[null]) 
+            	else 
+            	    // consider only concrete roles - those specified in the constraint, and any subclasses
+            		concreteRoleClasses.filter[specific | specific.isKindOfAnyOf(constraintAccessRoles, true)]
+                // for each applicable role, compute the constraint per capability at this layer)
+                // (note that multiple constraints may apply to a role/capability (due to role inheritance)
                 applicableRoles.forEach [ roleClass |
-                    val previousConstraints = constraintsPerRole.remove(roleClass)
+                	// we want to keep track of all constraints in the current layer
+                	// at the capability level, but preserve those already defined in the current layer
+                    val previousConstraints = layerConstraintsPerRole.remove(roleClass)
                     val constraintsByCapabilities = if (previousConstraints == null) newLinkedHashMap() else previousConstraints
-                    constraintsPerRole.put(roleClass, constraintsByCapabilities)
+                    layerConstraintsPerRole.put(roleClass, constraintsByCapabilities)
                     val allowedCapabilities = constraint.allowedCapabilities
-                    allowedCapabilities.filter[relevantCapabilities.contains(it)].forEach [ capability |
-                        constraintsByCapabilities.put(capability, constraint)
-                        capability.getImplied(false).forEach[ implied |
-                            constraintsByCapabilities.putIfAbsent(implied, constraint)
-                        ]
+                    allowedCapabilities.forEach [ capability |
+                    	if (canonicalCapabilities.contains(capability))
+                    		constraintsByCapabilities.put(capability, constraint)
                     ]
                 ]
             ]
+            // now merge the constraints obtained for this layer with the ones found for outer layers
+            // replacing any constraints we found before on a role/capability basis 
+            layerConstraintsPerRole.forEach[roleClass, constraintsPerCapability |
+            	val merged = result.computeIfAbsent(roleClass, [ newLinkedHashMap() ])
+            	if (constraintsPerCapability.isEmpty) {
+            		// an inner layer constraint may define no capabilities, overriding any previous layers
+            		merged.clear
+            	} else {
+            		// let's combine the new capabilities with any previous ones
+	            	constraintsPerCapability.forEach[capability, constraint |
+	            		// replace any existing constraint defined by an outer layer
+    	        		merged.put(capability, constraint)
+        	    	]
+            	}
+            ]
         ]
-        if (constraintsPerRole.containsKey(null))
-            if (constraintsPerRole.get(null).empty)
-                constraintsPerRole.remove(null)
-        return constraintsPerRole
+        if (result.containsKey(null))
+            if (result.get(null).empty)
+                result.remove(null)
+        // finally, apply implied capabilities
+        result.forEach[roleClass, capabilityConstraints |
+        	val explicitCapabilities = capabilityConstraints.keySet.toList
+        	explicitCapabilities.forEach[ capability |
+        		val explicitConstraint = capabilityConstraints.get(capability)
+            	capability.getImplied(false).forEach[ implied |
+                    capabilityConstraints.putIfAbsent(implied, explicitConstraint)
+                ]	
+        	]
+        ]
+        return result
     }
     
         

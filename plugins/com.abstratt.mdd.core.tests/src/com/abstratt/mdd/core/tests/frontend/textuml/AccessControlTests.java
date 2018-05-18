@@ -81,7 +81,7 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
         source += "        allow AccountOwner { System#user() == self.owner }; \n";
         source += "    operation harmlessAction() allow call;\n";
         source += "    static operation open(accountOwner : AccountOwner) : BankAccount\n";
-        source += "        allow BranchOfficer static call; \n";        
+        source += "        allow BranchManager none;\n";
         source += "  end;\n";
         source += "  class AccountApplication\n";
         source += "      allow Employee all;\n";
@@ -143,9 +143,12 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     	Map<AccessCapability, Constraint> accountManagerConstraints = computed.get(accountManager);
     	Map<AccessCapability, Constraint> tellerConstraints = computed.get(teller);
     	
-    	assertEquals(branchManagerConstraints.keySet(), new LinkedHashSet<>(Arrays.asList(AccessCapability.Call, AccessCapability.Delete, AccessCapability.Create)));
-    	assertEquals(accountManagerConstraints.keySet(), new LinkedHashSet<>(Arrays.asList(AccessCapability.Call, AccessCapability.Delete, AccessCapability.Create)));
-    	assertEquals(tellerConstraints.keySet(), new LinkedHashSet<>(Arrays.asList(AccessCapability.Read, AccessCapability.List)));
+    	assertEquals(new LinkedHashSet<>(Arrays.asList(AccessCapability.Call, AccessCapability.Delete, AccessCapability.Create, AccessCapability.Call)),
+    			branchManagerConstraints.keySet());
+    	assertEquals(new LinkedHashSet<>(Arrays.asList(AccessCapability.Call, AccessCapability.Delete, AccessCapability.Create, AccessCapability.Call)),
+    			accountManagerConstraints.keySet());
+    	assertEquals(new LinkedHashSet<>(Arrays.asList(AccessCapability.Read, AccessCapability.List)),
+    			tellerConstraints.keySet());
     }
     
     public void testConstraintsPerRole_AccountApplication() throws CoreException {
@@ -190,6 +193,25 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     	assertEquals(Collections.singleton(AccessCapability.Call), computed.get(accountManager).keySet());
     	assertEquals(Collections.singleton(AccessCapability.Call), computed.get(teller).keySet());
     }
+    
+    
+    public void testConstraintsPerRole_BankAccount_open() throws CoreException {
+    	parseAndCheck(source);
+    	Class bankAccount = getClass("banking::BankAccount");
+    	Operation openAction = getOperation("banking::BankAccount::open");
+    	
+    	Class branchManager = getClass("banking::BranchManager");
+    	Class accountManager = getClass("banking::AccountManager");
+    	Class teller = getClass("banking::Teller");
+    	
+    	Map<Classifier, Map<AccessCapability, Constraint>> computed = AccessControlUtils.computeConstraintsPerRoleClass(Arrays.asList(branchManager, teller, accountManager), Arrays.asList(AccessCapability.Call), Arrays.asList(bankAccount, openAction));
+		assertEquals(3, computed.size());
+    	assertSameClasses(Arrays.asList(branchManager, accountManager, teller), computed.keySet());
+    	
+    	assertEquals(Collections.emptySet(), computed.get(branchManager).keySet());
+    	assertEquals(Collections.emptySet(), computed.get(teller).keySet());
+    	assertEquals(Collections.singleton(AccessCapability.Call), computed.get(accountManager).keySet());
+    }
 
     
     private void assertSameClasses(Collection<? extends Type> expected, Collection<? extends Type> actual) {
@@ -205,7 +227,7 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
 		assertEquals(3, accessConstraints.size());
     	Constraint permission1 = accessConstraints.get(0);
     	List<AccessCapability> allowed1 = MDDExtensionUtils.getAllowedCapabilities(permission1);
-    	assertEquals(new LinkedHashSet<>(Arrays.asList(AccessCapability.Call, AccessCapability.Create, AccessCapability.Delete)), new LinkedHashSet<>(allowed1));
+    	assertEquals(new LinkedHashSet<>(Arrays.asList(AccessCapability.Call, AccessCapability.Create, AccessCapability.Delete, AccessCapability.Call)), new LinkedHashSet<>(allowed1));
     	
     	List<Class> allowedRoles1 = (List<Class>) permission1.getValue(accessStereotype, "roles");
     	assertEquals(2, allowedRoles1.size());
@@ -278,8 +300,8 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     	assertNotNull(permission.getSpecification());
     	assertTrue(ConstraintUtils.isTautology(permission));
     	List<Classifier> accessRoles = MDDExtensionUtils.getAccessRoles(permission);
-    	Assert.assertEquals(Arrays.asList(getClass("banking::BranchOfficer")), accessRoles);
-    	Assert.assertEquals(Arrays.asList(AccessCapability.StaticCall), MDDExtensionUtils.getAllowedCapabilities(permission));
+    	Assert.assertEquals(Arrays.asList(getClass("banking::BranchManager")), accessRoles);
+    	Assert.assertEquals(Arrays.asList(), MDDExtensionUtils.getAllowedCapabilities(permission));
     }
     
     public void testRoleClassSpecializesUser() throws CoreException {

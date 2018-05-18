@@ -85,7 +85,6 @@ enumeration AccessCapability
     Update;
     /* Operations */
     Call;
-    StaticCall;
     /* No access */
     None;
 end;
