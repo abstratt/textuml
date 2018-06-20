@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.uml2.uml,
  com.abstratt.mdd.modelrenderer.dot,
  org.eclipse.core.contenttype,
  org.eclipse.core.runtime,
- org.apache.commons.lang,
+ org.apache.commons.lang3,
  com.abstratt.mdd.frontend.textuml.renderer,
  com.abstratt.mdd.core
 Export-Package: com.abstratt.mdd.modelrenderer.uml2dot

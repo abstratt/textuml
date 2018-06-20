@@ -3,7 +3,7 @@ package com.abstratt.mdd.modelrenderer.uml2dot;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;

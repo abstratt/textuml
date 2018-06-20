@@ -1355,6 +1355,12 @@ public class StructureGenerator extends AbstractGenerator {
         	if (MDDExtensionUtils.hasExtensionsApplied(newPackage) && !(newPackage instanceof Profile) && (newPackage.getNestingPackage() == null) && !MDDExtensionUtils.isApplication(newPackage) && !MDDExtensionUtils.isLibrary(newPackage)) {
         		MDDExtensionUtils.makeApplication(newPackage);
         	}
+        	if (newPackage.eContainer() instanceof Package) {
+        		Package parentPackage = (Package) newPackage.eContainer();
+				String childPackageURI = parentPackage.getURI()+ "#" + newPackage.getQualifiedName();
+				newPackage.setURI(childPackageURI);
+        	}
+
         }, Step.AFTER_STRUCTURE);
         annotationProcessor.process(node.getAnnotations());
         annotationProcessor.applyAnnotations(newPackage, node.getQualifiedIdentifier());

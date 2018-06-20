@@ -47,7 +47,7 @@ public class UML2DOTRenderingUtils {
     private static String wrapInBrackets(String original, boolean useBrackets) {
         return useBrackets ? "[" + original + "]" : " " + original;
     }
-
+    
     public static String getXMIID(Element element) {
         return ((XMLResource) element.eResource()).getID(element);
     }
