@@ -40,7 +40,7 @@ public class CommentRenderer implements IElementRenderer<Comment> {
 		            addAttribute(out, "constraint", Boolean.TRUE.toString());
 		            addAttribute(out, "arrowtail", "none");
 		            addAttribute(out, "arrowhead", "none");
-		            addAttribute(out, "style", "solid");
+		            addAttribute(out, "style", "dashed");
 	            });
 	            out.println("]");
         	}
@@ -53,7 +53,7 @@ public class CommentRenderer implements IElementRenderer<Comment> {
 		int periodIndex = body.indexOf(".");
 		int end = periodIndex == -1 ? body.length() : periodIndex;
 		String wrapped = WordUtils.wrap(StringUtils.abbreviate(body.substring(0, end), 200), 30);
-		return StringUtils.trimToNull(wrapped);
+		return StringUtils.trimToNull(wrapped.replaceAll("\n", "\\\\n"));
 	}
 
 }

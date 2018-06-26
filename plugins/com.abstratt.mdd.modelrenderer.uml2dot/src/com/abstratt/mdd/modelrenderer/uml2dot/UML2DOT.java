@@ -43,7 +43,7 @@ public class UML2DOT {
         edgeSettings.put("arrowtail", "");
         edgeSettings.put("taillabel", "");
         edgeSettings.put("style", "none");
-        dotDefaults.put(DOTRendering.NODE_SETTINGS_KEY, edgeSettings);
+        dotDefaults.put(DOTRendering.EDGE_SETTINGS_KEY, edgeSettings);
         return dotDefaults;
     }
 }
