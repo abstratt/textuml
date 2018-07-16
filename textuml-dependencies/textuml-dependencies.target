@@ -46,7 +46,7 @@
 			<unit id="com.abstratt.wrapped.schemacrawler"
 				version="0.0.0" />
 			<repository
-				location="jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/wrapped/com.abstratt.wrapped.repository/3.0/com.abstratt.wrapped.repository-3.0.zip!/" />
+				location="jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/wrapped/com.abstratt.wrapped.repository/3.0/com.abstratt.wrapped.repository-3.2.zip!/" />
 		</location>
 </locations>	
 </target>
