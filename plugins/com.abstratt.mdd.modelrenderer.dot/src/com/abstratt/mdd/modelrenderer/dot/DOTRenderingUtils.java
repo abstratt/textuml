@@ -9,6 +9,11 @@ public class DOTRenderingUtils {
         pw.println(attribute + " = " + value);
     }
 
+    public static void addAttribute(PrintWriter pw, String attribute, boolean value) {
+        pw.println(attribute + " = " + value);
+    }
+
+    
     public static void addAttribute(PrintWriter pw, String attribute, String value) {
         pw.println(attribute + " = \"" + value + "\"");
     }

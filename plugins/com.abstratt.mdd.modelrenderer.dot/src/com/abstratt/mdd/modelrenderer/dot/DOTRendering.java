@@ -102,9 +102,11 @@ public class DOTRendering implements DOTRenderingConstants {
             IndentedPrintWriter w) {
         w.println("graph " + modelName + " {"); //$NON-NLS-1$ //$NON-NLS-2$
         w.enterLevel();
-        DOTRenderingUtils.addAttribute(w, "ranksep", "0.8");
-        DOTRenderingUtils.addAttribute(w, "nodesep", "0.85");
-        DOTRenderingUtils.addAttribute(w, "nojustify", "true");
+        DOTRenderingUtils.addAttribute(w, "layout", "fdp");
+        DOTRenderingUtils.addAttribute(w, "splines", "curved");
+        DOTRenderingUtils.addAttribute(w, "sep", "+0,15");
+    	DOTRenderingUtils.addAttribute(w, "K", "0.9");
+    	DOTRenderingUtils.addAttribute(w, "overlap", false);
         dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.GLOBAL_SETTINGS_KEY));
         w.println("graph [");
         
@@ -121,7 +123,8 @@ public class DOTRendering implements DOTRenderingConstants {
         // TODO provide choice
         w.println("node [");
         w.runInNewLevel(() -> {
-	        DOTRenderingUtils.addAttribute(w, "fontsize", 12);
+            DOTRenderingUtils.addAttribute(w, "width", "1.5");
+	        DOTRenderingUtils.addAttribute(w, "fontsize", 11);
 	        DOTRenderingUtils.addAttribute(w, "shape", "plaintext");
 	        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.NODE_SETTINGS_KEY));
         });
@@ -130,7 +133,6 @@ public class DOTRendering implements DOTRenderingConstants {
         w.runInNewLevel(() -> {
         	DOTRenderingUtils.addAttribute(w, "fontsize", 9);
         	DOTRenderingUtils.addAttribute(w, "dir", "both");
-        	// DOTRenderingUtils.addAttribute(w, "splines", "polyline");
         	dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.EDGE_SETTINGS_KEY));
         });
         w.println("]");
