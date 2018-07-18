@@ -30,5 +30,5 @@ public interface IRenderer<A extends EObject> {
      * @return <code>true</code> if the object was actually rendered,
      *         <code>false</code> otherwise
      */
-    public boolean renderObject(A element, IndentedPrintWriter out, IRenderingSession session);
+    public boolean renderObject(A element, IndentedPrintWriter out, IRenderingSession<?> session);
 }

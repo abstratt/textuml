@@ -29,18 +29,21 @@ public class CommentRenderer implements IElementRenderer<Comment> {
         if (commentText == null)
         	return false;
         String commentNodeId = "comment_" + getXMIID(element);
-		out.println('"' + commentNodeId + "\" [shape=note,label=\"" + escapeForDot(commentText) + "\"]");
+		out.println('"' + commentNodeId + "\" [shape=note,width=2,height=1,label=\"" + escapeForDot(commentText) + "\"]");
         for (Element commented : annotatedElements) {
         	if (commented != element.getNearestPackage()) {
-	            out.print("\"" + ((NamedElement) commented).getName() + "\":port" + " -- \"" + commentNodeId + "\"");
+	            String from = "\"" + ((NamedElement) commented).getName() + "\":port";
+				String to = "\"" + commentNodeId + "\"";
+				out.print(from + " -- " + to);
 	            out.println("[");
 	            out.runInNewLevel(() -> {
 		            addAttribute(out, "head", "none");
 		            addAttribute(out, "tail", "none");
-		            addAttribute(out, "constraint", Boolean.TRUE.toString());
+		            addAttribute(out, "constraint", Boolean.toString(false));
 		            addAttribute(out, "arrowtail", "none");
 		            addAttribute(out, "arrowhead", "none");
 		            addAttribute(out, "style", "dashed");
+		            addAttribute(out, "rank", "-1");
 	            });
 	            out.println("]");
         	}

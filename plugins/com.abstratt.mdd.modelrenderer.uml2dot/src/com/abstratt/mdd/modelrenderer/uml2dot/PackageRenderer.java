@@ -22,17 +22,23 @@ public class PackageRenderer implements IElementRenderer<Package> {
     public boolean renderObject(Package element, IndentedPrintWriter out, IRenderingSession session) {
     	
         out.println("compound = true;");
+        out.println("pack = false;");
         out.println("subgraph \"cluster_" + element.getName() + "\" {");
         out.enterLevel();
         out.println("graph[");
         out.enterLevel();
-        out.println("style=\"rounded\"; color=\"grey\";");
         out.exitLevel();
         out.println("];");
         out.println("label = \"" + element.getQualifiedName() + "\";");
         out.println("labeljust = \"l\";");
         boolean rendered = RenderingUtils.renderAll(session, element.getOwnedElements());
         out.exitLevel();
+        if (rendered) {
+        	out.println("style=\"rounded\"; color=\"grey\";");
+        } else {
+        	out.println("style=\"invis\";");
+        }
+        
         out.println("}");
 
         return rendered;

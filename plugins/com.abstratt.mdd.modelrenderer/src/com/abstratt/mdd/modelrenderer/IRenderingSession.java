@@ -32,4 +32,6 @@ public interface IRenderingSession<E extends EObject> {
     public IRenderingSettings getSettings();
     
     public boolean isRendered(E toRender);
+
+	IRendererSelector<E> getSelector();
 }

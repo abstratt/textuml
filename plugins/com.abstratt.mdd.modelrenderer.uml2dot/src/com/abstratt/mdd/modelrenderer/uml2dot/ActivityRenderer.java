@@ -3,7 +3,6 @@ package com.abstratt.mdd.modelrenderer.uml2dot;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang3.StringUtils;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.StructuredActivityNode;
@@ -15,6 +14,8 @@ import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 import com.abstratt.mdd.modelrenderer.dot.DOTRenderingUtils;
 
 public class ActivityRenderer implements IElementRenderer<Activity> {
+	private ActivityGenerator activityGenerator = new ActivityGenerator();
+	
     @Override
     public boolean renderObject(Activity element, IndentedPrintWriter out, IRenderingSession session) {
         generateActivity(element, out);

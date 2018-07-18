@@ -46,13 +46,13 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 			        renderClassifierTypeAdornment(element, w, context);
 			        renderStereotypeAdornments(element, w, context);
 			        w.runInNewLevel(() -> {
-				        w.print("<TR><TD>");
+				        w.print("<TR><TD  width=\"80\"><b>");
 				        if (element.isAbstract())
 				        	w.println("<i>");
 				        w.print(element.getName());
 				        if (element.isAbstract())
 				        	w.println("</i>");
-				        w.println("</TD></TR>");
+				        w.println("</b></TD></TR>");
 			        });
 			        if (!EcoreUtil.isAncestor(context.getRoot(), element)) {
 			        	w.runInNewLevel(() -> {

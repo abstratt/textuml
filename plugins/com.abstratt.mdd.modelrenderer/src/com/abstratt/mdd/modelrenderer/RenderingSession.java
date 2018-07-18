@@ -93,5 +93,14 @@ public class RenderingSession<E extends EObject> implements IRenderingSession<E>
         }
         return null;
     }
+    
+    @Override
+	public IRendererSelector<E> getSelector() {
+		return selector;
+	}
+
+	public Map<EObject, Object> getRendered() {
+		return rendered;
+	}
 
 }
