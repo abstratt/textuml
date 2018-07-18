@@ -9,7 +9,7 @@ import com.abstratt.mdd.core.util.MDDUtil;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-public class UnicodeTests  extends AbstractRepositoryBuildingTests {
+public class UnicodeTests extends AbstractRepositoryBuildingTests {
 
     public static Test suite() {
         return new TestSuite(UnicodeTests.class);

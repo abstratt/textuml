@@ -14,6 +14,7 @@ import java.io.OutputStream;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.uml2.uml.Element;
 
 import com.abstratt.mdd.modelrenderer.IRendererSelector;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
@@ -26,10 +27,18 @@ public class TextUMLRenderer {
     public static final String PLUGIN_ID = TextUMLRenderer.class.getPackage().getName();
 
     public void render(Resource resource, OutputStream stream) {
-        IRendererSelector<EObject> selector = new TextUMLRendererSelector();
+        IRendererSelector<Element> selector = new TextUMLRendererSelector();
         IndentedPrintWriter out = new IndentedPrintWriter(stream);
         IRenderingSession session = new RenderingSession(selector, IRenderingSettings.NO_SETTINGS, out);
         RenderingUtils.renderAll(session, resource.getContents());
+        out.close();
+    }
+    
+    public void render(Element toRender, OutputStream stream) {
+        IRendererSelector<Element> selector = new TextUMLRendererSelector();
+        IndentedPrintWriter out = new IndentedPrintWriter(stream);
+        IRenderingSession session = new RenderingSession(selector, IRenderingSettings.NO_SETTINGS, out);
+        session.render(toRender);
         out.close();
     }
 }

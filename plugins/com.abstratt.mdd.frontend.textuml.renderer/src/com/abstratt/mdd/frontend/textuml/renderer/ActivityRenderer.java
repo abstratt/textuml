@@ -9,13 +9,9 @@ import com.abstratt.mdd.modelrenderer.IRenderingSession;
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter;
 
 public class ActivityRenderer implements IEObjectRenderer<Activity> {
-
     @Override
     public boolean renderObject(Activity element, IndentedPrintWriter out, IRenderingSession session) {
-        StructuredActivityNode rootAction = ActivityUtils.getRootAction(element);
-        if (rootAction != null) {
-            session.render(rootAction);
-        }
+    	out.append(TextUMLRenderingUtils.generateActivity(element));
         return true;
     }
 

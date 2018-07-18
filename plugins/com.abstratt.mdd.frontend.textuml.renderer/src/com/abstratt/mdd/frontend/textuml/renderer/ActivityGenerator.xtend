@@ -7,6 +7,9 @@ import org.eclipse.uml2.uml.Activity
 import org.eclipse.uml2.uml.AddStructuralFeatureValueAction
 import org.eclipse.uml2.uml.AddVariableValueAction
 import org.eclipse.uml2.uml.CallOperationAction
+import org.eclipse.uml2.uml.Clause
+import org.eclipse.uml2.uml.ConditionalNode
+import org.eclipse.uml2.uml.CreateLinkAction
 import org.eclipse.uml2.uml.CreateObjectAction
 import org.eclipse.uml2.uml.DataType
 import org.eclipse.uml2.uml.DestroyObjectAction
@@ -20,12 +23,15 @@ import org.eclipse.uml2.uml.ReadSelfAction
 import org.eclipse.uml2.uml.ReadStructuralFeatureAction
 import org.eclipse.uml2.uml.ReadVariableAction
 import org.eclipse.uml2.uml.StructuredActivityNode
+import org.eclipse.uml2.uml.TestIdentityAction
 import org.eclipse.uml2.uml.Type
 import org.eclipse.uml2.uml.ValueSpecification
 import org.eclipse.uml2.uml.ValueSpecificationAction
 
 import static extension com.abstratt.mdd.core.util.ActivityUtils.*
 import static extension com.abstratt.mdd.core.util.FeatureUtils.*
+import static extension com.abstratt.mdd.target.base.GeneratorUtils.*
+import org.eclipse.uml2.uml.SendSignalAction
 
 class ActivityGenerator implements IBasicBehaviorGenerator {
     
@@ -66,12 +72,42 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     }
     
     def dispatch generateProperAction(CreateObjectAction action) {
-        '''new «action.classifier.name»()'''
+        '''new «action.classifier.name»'''
+    }
+    
+    def dispatch generateProperAction(CreateLinkAction action) {
+    	val end0 = action.endData.get(0)
+    	val end1 = action.endData.get(1)
+        '''link «action.association.name»(«end0.end.name» := «end0.value.generateAction», «end1.end.name» := «end1.value.generateAction»)'''
+    }
+    
+    
+    def dispatch generateProperAction(SendSignalAction action) {
+        '''send «action.signal.name»(«action.arguments.generateMany(', ', ['''«it.name» := «it.generateAction»'''])») to «action.target.generateAction»'''
     }
     
     def dispatch generateProperAction(DestroyObjectAction action) {
         '''delete «action.target.generateAction»'''
     }
+    
+    def dispatch generateProperAction(ConditionalNode action) {
+    	val clauses = action.clauses
+    	clauses.generateMany(false, '''
+    	
+    	else
+    		''' )[generateClause(it)]
+    }
+	
+	def CharSequence generateClause(Clause clause) {
+		val test = clause.decider.owningAction.generateAction
+		'''
+		«IF test != 'true'»
+		if («test») then
+		«ENDIF»
+		    «clause.bodies.generateMany('\\n')[generateAction(it as Action)]»
+		'''
+	}
+    
     
     def dispatch generateProperAction(AddVariableValueAction action) {
     	val sourceExpression = action.sourceAction.generateAction
@@ -84,6 +120,11 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     def dispatch generateProperAction(ReadVariableAction action) {
         action.variable.name
     }
+    
+    def dispatch generateProperAction(TestIdentityAction action) {
+        '''«action.first.generateAction» == «action.second.generateAction»'''
+    }
+    
     
     
     def dispatch generateProperAction(AddStructuralFeatureValueAction action) {
@@ -121,19 +162,8 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
         action.value.generateValue
     }
     
-    def generateValue(ValueSpecification valueSpec) {
-    	if (valueSpec.behaviorReference) {
-    		val closure = valueSpec.resolveBehaviorReference as Activity
-    		'''(«closure.closureInputParameters.map[name].join(", ")») {«closure.generateActivity.toString().trim()»}'''
-    		
-    	} else switch (valueSpec) {
-            LiteralNull : 'null'
-            LiteralString : switch (valueSpec.type.name) {
-                case 'String': '''"«valueSpec.value»"'''
-                default: valueSpec.value    
-            }
-            default: valueSpec.stringValue
-        }
+    def CharSequence generateValue(ValueSpecification valueSpec) {
+    	return TextUMLRenderingUtils.renderValue(valueSpec)
     }
     
     def boolean needsParenthesis(Action action) {
