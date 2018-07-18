@@ -2,6 +2,7 @@ package com.abstratt.mdd.core;
 public enum Step {
     /** Package structuring */
     PACKAGE_STRUCTURE(true),
+    AFTER_PACKAGE_STRUCTURE(false),
     /** Import packages, profile definitions. */
     PACKAGE_IMPORTS(false),
     /** type references, default resolution step */

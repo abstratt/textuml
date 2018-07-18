@@ -20,7 +20,7 @@ public interface TextUMLConstants {
     /**
      * Alphabetically ordered list of keywords.
      */
-    String[] KEYWORDS = new String[] { "abstract", "aggregation", "alias", "and", "any", "apply", "association", "as",
+    String[] KEYWORDS = new String[] { "abstract", "actor", "aggregation", "alias", "and", "any", "apply", "association", "as",
             "attribute", "begin", "broadcast", "by", "call", "catch", "class", "create", "composition", "constant",
             "datatype", "delete", "dependency", "derived", "destroy", "do", "else", "elseif", "end", "enumeration",
             "entry", "exit", "extends", "extent", "false", "final", "finally", "function", "id", "if", "implements", "import", "in",

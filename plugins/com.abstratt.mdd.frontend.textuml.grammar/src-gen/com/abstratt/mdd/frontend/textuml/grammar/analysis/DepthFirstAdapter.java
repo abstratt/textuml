@@ -588,6 +588,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getPackageHeading().apply(this);
         }
+        if(node.getGlobalDirectiveSection() != null)
+        {
+            node.getGlobalDirectiveSection().apply(this);
+        }
         if(node.getNamespaceContents() != null)
         {
             node.getNamespaceContents().apply(this);

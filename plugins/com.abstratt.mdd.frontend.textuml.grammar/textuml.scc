@@ -275,7 +275,7 @@ Productions
 //
 //******************************************************************************
 
-  start = package_heading global_directive_section? namespace_contents end dot;
+  start = package_heading global_directive_section namespace_contents end dot;
   
   package_heading = 
     model_comment? annotations? package_type qualified_identifier semicolon ;
@@ -314,7 +314,7 @@ Productions
   
   namespace_contents = top_level_element*;
   
-  sub_namespace = package_heading namespace_contents end semicolon;  
+  sub_namespace = package_heading global_directive_section namespace_contents end semicolon;  
   
 // top-level elements  
   

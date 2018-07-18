@@ -599,6 +599,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getNamespaceContents().apply(this);
         }
+        if(node.getGlobalDirectiveSection() != null)
+        {
+            node.getGlobalDirectiveSection().apply(this);
+        }
         if(node.getPackageHeading() != null)
         {
             node.getPackageHeading().apply(this);

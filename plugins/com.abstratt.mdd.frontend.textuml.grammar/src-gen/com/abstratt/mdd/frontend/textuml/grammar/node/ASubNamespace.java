@@ -8,6 +8,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 public final class ASubNamespace extends PSubNamespace
 {
     private PPackageHeading _packageHeading_;
+    private PGlobalDirectiveSection _globalDirectiveSection_;
     private PNamespaceContents _namespaceContents_;
     private TEnd _end_;
     private TSemicolon _semicolon_;
@@ -19,12 +20,15 @@ public final class ASubNamespace extends PSubNamespace
 
     public ASubNamespace(
         @SuppressWarnings("hiding") PPackageHeading _packageHeading_,
+        @SuppressWarnings("hiding") PGlobalDirectiveSection _globalDirectiveSection_,
         @SuppressWarnings("hiding") PNamespaceContents _namespaceContents_,
         @SuppressWarnings("hiding") TEnd _end_,
         @SuppressWarnings("hiding") TSemicolon _semicolon_)
     {
         // Constructor
         setPackageHeading(_packageHeading_);
+
+        setGlobalDirectiveSection(_globalDirectiveSection_);
 
         setNamespaceContents(_namespaceContents_);
 
@@ -39,6 +43,7 @@ public final class ASubNamespace extends PSubNamespace
     {
         return new ASubNamespace(
             cloneNode(this._packageHeading_),
+            cloneNode(this._globalDirectiveSection_),
             cloneNode(this._namespaceContents_),
             cloneNode(this._end_),
             cloneNode(this._semicolon_));
@@ -72,6 +77,31 @@ public final class ASubNamespace extends PSubNamespace
         }
 
         this._packageHeading_ = node;
+    }
+
+    public PGlobalDirectiveSection getGlobalDirectiveSection()
+    {
+        return this._globalDirectiveSection_;
+    }
+
+    public void setGlobalDirectiveSection(PGlobalDirectiveSection node)
+    {
+        if(this._globalDirectiveSection_ != null)
+        {
+            this._globalDirectiveSection_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._globalDirectiveSection_ = node;
     }
 
     public PNamespaceContents getNamespaceContents()
@@ -154,6 +184,7 @@ public final class ASubNamespace extends PSubNamespace
     {
         return ""
             + toString(this._packageHeading_)
+            + toString(this._globalDirectiveSection_)
             + toString(this._namespaceContents_)
             + toString(this._end_)
             + toString(this._semicolon_);
@@ -166,6 +197,12 @@ public final class ASubNamespace extends PSubNamespace
         if(this._packageHeading_ == child)
         {
             this._packageHeading_ = null;
+            return;
+        }
+
+        if(this._globalDirectiveSection_ == child)
+        {
+            this._globalDirectiveSection_ = null;
             return;
         }
 
@@ -197,6 +234,12 @@ public final class ASubNamespace extends PSubNamespace
         if(this._packageHeading_ == oldChild)
         {
             setPackageHeading((PPackageHeading) newChild);
+            return;
+        }
+
+        if(this._globalDirectiveSection_ == oldChild)
+        {
+            setGlobalDirectiveSection((PGlobalDirectiveSection) newChild);
             return;
         }
 

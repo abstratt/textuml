@@ -686,7 +686,13 @@ public class Repository implements IRepository {
         return loadPackage(computePackageURI(packageName));
     }
 
-    /*
+    private Package getRootPackage(Package current) {
+    	if (current.eContainer() instanceof Package)
+    		return getRootPackage((Package) current.eContainer());
+		return current;
+	}
+
+	/*
      * (non-Javadoc)
      * 
      * @see

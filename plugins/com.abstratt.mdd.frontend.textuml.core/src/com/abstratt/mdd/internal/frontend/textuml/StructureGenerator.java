@@ -83,6 +83,7 @@ import com.abstratt.mdd.frontend.core.CannotLoadFromLocation;
 import com.abstratt.mdd.frontend.core.CannotSpecializeClassifier;
 import com.abstratt.mdd.frontend.core.DuplicateSymbol;
 import com.abstratt.mdd.frontend.core.IdsShouldBeRequiredSingle;
+import com.abstratt.mdd.frontend.core.InternalProblem;
 import com.abstratt.mdd.frontend.core.InvalidPackageNesting;
 import com.abstratt.mdd.frontend.core.MissingDefaultValue;
 import com.abstratt.mdd.frontend.core.NonQualifiedIdentifierExpected;
@@ -1352,16 +1353,23 @@ public class StructureGenerator extends AbstractGenerator {
             }
         }
         getRefTracker().add(it -> {
+        	if (newPackage.eContainer() instanceof Package) {
+        		Package parentPackage = (Package) MDDUtil.getRootPackage(newPackage);
+				String parentPackageUri = parentPackage.getURI();
+				if (parentPackageUri != null) {
+					String childPackageURI = parentPackageUri+ "#" + newPackage.getQualifiedName();
+					newPackage.setURI(childPackageURI);
+				} else {
+					problemBuilder.addProblem(new InternalProblem("Parent package " + parentPackage.getName() + " has no URI"), node.getQualifiedIdentifier());	
+				}
+        	}
+        }, /* package tree is in place */ Step.AFTER_PACKAGE_STRUCTURE);
+        getRefTracker().add(it -> {
         	if (MDDExtensionUtils.hasExtensionsApplied(newPackage) && !(newPackage instanceof Profile) && (newPackage.getNestingPackage() == null) && !MDDExtensionUtils.isApplication(newPackage) && !MDDExtensionUtils.isLibrary(newPackage)) {
         		MDDExtensionUtils.makeApplication(newPackage);
         	}
-        	if (newPackage.eContainer() instanceof Package) {
-        		Package parentPackage = (Package) newPackage.eContainer();
-				String childPackageURI = parentPackage.getURI()+ "#" + newPackage.getQualifiedName();
-				newPackage.setURI(childPackageURI);
-        	}
-
         }, Step.AFTER_STRUCTURE);
+        
         annotationProcessor.process(node.getAnnotations());
         annotationProcessor.applyAnnotations(newPackage, node.getQualifiedIdentifier());
         if (node.getModelComment() != null)
@@ -1501,6 +1509,7 @@ public class StructureGenerator extends AbstractGenerator {
         // the compilation
         node.getPackageHeading().apply(this);
         try {
+        	node.getGlobalDirectiveSection().apply(this);
             node.getNamespaceContents().apply(this);
         } finally {
             namespaceTracker.leaveNamespace();
