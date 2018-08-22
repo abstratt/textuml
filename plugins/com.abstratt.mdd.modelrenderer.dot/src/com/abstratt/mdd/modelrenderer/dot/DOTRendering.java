@@ -100,27 +100,18 @@ public class DOTRendering implements DOTRenderingConstants {
 
     private static void printPrologue(String modelName, Map<String, Map<String, Object>> defaultDotSettings,
             IndentedPrintWriter w) {
-        w.println("graph " + modelName + " {"); //$NON-NLS-1$ //$NON-NLS-2$
+        w.println("graph " + modelName + " {");
         w.enterLevel();
-        DOTRenderingUtils.addAttribute(w, "layout", "fdp");
-        DOTRenderingUtils.addAttribute(w, "splines", "curved");
-        DOTRenderingUtils.addAttribute(w, "sep", "+0,15");
-    	DOTRenderingUtils.addAttribute(w, "K", "0.9");
+        DOTRenderingUtils.addAttribute(w, "sep", "+0.15");
+    	DOTRenderingUtils.addAttribute(w, "K", "0.2");
     	DOTRenderingUtils.addAttribute(w, "overlap", false);
         dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.GLOBAL_SETTINGS_KEY));
         w.println("graph [");
         
         w.runInNewLevel(() -> {
-	        // DOTRenderingUtils.addAttribute(w, "outputorder", "edgesfirst");
-	        // DOTRenderingUtils.addAttribute(w, "packmode", "graph");
-	        // DOTRenderingUtils.addAttribute(w, "pack", 40);
-	        // DOTRenderingUtils.addAttribute(w, "ratio", "auto");
-	        // DOTRenderingUtils.addAttribute(w, "rank", "sink");
-	        // DOTRenderingUtils.addAttribute(w, "overlap", "ipsep");
 	        dumpDotSettings(w, defaultDotSettings.get(DOTRenderingConstants.GRAPH_SETTINGS_KEY));
         });
         w.println("]");
-        // TODO provide choice
         w.println("node [");
         w.runInNewLevel(() -> {
             DOTRenderingUtils.addAttribute(w, "width", "1.5");

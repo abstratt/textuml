@@ -49,6 +49,7 @@ public class UML2DOTPreferences {
     public static final String SHOW_ELEMENTS_IN_LIBRARIES = "showLibraries";
     public static final String SHOW_PRIMITIVES = "showPrimitives";
     public static final String SHOW_CLASSES = "showClasses";
+    public static final String SHOW_ABSTRACT_CLASSES = "showAbstractClasses";
     public static final String SHOW_INTERFACES = "showInterfaces";
     public static final String SHOW_STATEMACHINES = "showStateMachines";
     public static final String SHOW_ATTRIBUTES = "showAttributes";

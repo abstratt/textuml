@@ -7,7 +7,7 @@ Bundle-Vendor: Abstratt Technologies and others
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.emf.ecore,
  com.abstratt.pluginutils,
- com.abstratt.wrapped.schemacrawler,
+ com.abstratt.wrapped.schemacrawler;bundle-version="3.2.0",
  org.eclipse.xtext.xbase.lib;bundle-version="2.7.0"
 Export-Package: com.abstratt.mdd.importer.jdbc
 Import-Package: com.abstratt.mdd.core,

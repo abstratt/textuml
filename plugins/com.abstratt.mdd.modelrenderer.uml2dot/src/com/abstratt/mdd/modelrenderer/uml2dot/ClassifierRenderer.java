@@ -1,6 +1,8 @@
 package com.abstratt.mdd.modelrenderer.uml2dot;
 
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ATTRIBUTES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_CLASSES;
+import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_ABSTRACT_CLASSES;
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_OPERATIONS;
 
 import java.util.Arrays;
@@ -17,6 +19,7 @@ import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.VisibilityKind;
 
@@ -35,6 +38,8 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
             return false;
         if (element.getVisibility() == VisibilityKind.PRIVATE_LITERAL)
             return false;
+        if (element.isAbstract() && !context.getSettings().getBoolean(UML2DOTPreferences.SHOW_ABSTRACT_CLASSES))
+        	return false;
         w.print('"' + element.getName() + "\" [");
         w.println("label=<");
         w.runInNewLevel(() -> {
@@ -66,15 +71,16 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 			        w.println("</TABLE>");
 		        });
 		        w.println("</TD></TR>");
-		        boolean attributesEmpty = !context.getSettings().getBoolean(SHOW_ATTRIBUTES)
-		                || element.getAttributes().isEmpty();
+		        EList<Property> attributes = getAttributes(context.getSettings().getBoolean(SHOW_ABSTRACT_CLASSES), element);
+				boolean attributesEmpty = !context.getSettings().getBoolean(SHOW_ATTRIBUTES)
+		                || attributes.isEmpty();
 		        if (showCompartments(context, attributesEmpty)) {
 		        	w.println("<TR><TD>");
 		        	w.runInNewLevel(() -> {
 			            if (!attributesEmpty) {
 			                w.println("<TABLE border=\"1\" cellborder=\"0\" CELLPADDING=\"0\" CELLSPACING=\"5\" ALIGN=\"LEFT\">");
 			                w.runInNewLevel(() -> {
-				                boolean renderedAny = RenderingUtils.renderAll(context, element.getAttributes());
+				                boolean renderedAny = RenderingUtils.renderAll(context, attributes);
 				                if (!renderedAny) {
 				                	w.runInNewLevel(() -> {
 				                		w.println("<TR><TD> </TD></TR>");
@@ -119,6 +125,12 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
         });
         return true;
     }
+
+	private EList<Property> getAttributes(boolean excludeInheritedAttributes, T element) {
+		if (excludeInheritedAttributes)
+			return element.getAttributes();
+		return element.getAllAttributes();
+	}
 
     protected List<? extends BehavioralFeature> getBehavioralFeatures(T element) {
         return FeatureUtils.getBehavioralFeatures(element);

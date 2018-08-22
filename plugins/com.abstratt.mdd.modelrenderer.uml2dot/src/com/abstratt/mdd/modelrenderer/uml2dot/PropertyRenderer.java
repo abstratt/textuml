@@ -62,6 +62,8 @@ public class PropertyRenderer implements IElementRenderer<Property> {
             w.print(" = " + property.getDefault());
         }
         w.println("</TD></TR>");
-        return true;
+        // HACK: always return false so if the same property is rendered for a subclass 
+        // (when abstract classes are not shown) it still shown for other subclasses
+        return false;
     }
 }

@@ -18,7 +18,9 @@ public class GeneralizationRenderer extends AbstractRelationshipRenderer<General
     protected boolean basicRenderObject(Generalization element, IndentedPrintWriter pw, IRenderingSession context) {
         if (!shouldRender(context, element.getSpecific(), element.getGeneral()))
             return true;
-        context.render(element.getGeneral(), element.getGeneral().eResource() != element.eResource());
+        boolean generalRendered = context.render(element.getGeneral(), element.getGeneral().eResource() != element.eResource());
+        if (!generalRendered)
+        	return false;
         pw.print("edge ");
         // if (element.getName() != null)
         // pw.print("\"" + element.getName() + "\" ");
