@@ -67,6 +67,9 @@ class Collection<T>
 
     (* Returns a new collection containing all the elements of this collection plus the elements of the given collection. *)
     query union(another : T[*]) : T[*];
+    
+    (* Returns a new collection containing only the elements of this collection that are also in the given collection. *)
+    query intersection(another : T[*]) : T[*];
 
     (* 
       Maps each element of this collection to a collection of objects of the given type 
