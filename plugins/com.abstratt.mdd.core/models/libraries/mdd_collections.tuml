@@ -70,6 +70,9 @@ class Collection<T>
     
     (* Returns a new collection containing only the elements of this collection that are also in the given collection. *)
     query intersection(another : T[*]) : T[*];
+    
+    (* Returns a new collection containing only the elements of this collection that are NOT in the given collection. *)
+    query subtract(another : T[*]) : T[*];
 
     (* 
       Maps each element of this collection to a collection of objects of the given type 
