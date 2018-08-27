@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_collections" URI="libraries/mdd_collections">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2018/08/23 02:31:19 712 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2018/08/27 10:50:20 601 -0300"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0">
       <importedPackage xmi:type="uml:Model" href="mdd_types.uml#_0"/>
@@ -22,21 +22,21 @@
           <ownedParameteredElement xmi:type="uml:Class" xmi:id="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" name="T" templateParameter="Collection-_ownedTemplateSignature-_ownedParameter.0"/>
         </ownedParameter>
       </ownedTemplateSignature>
-      <ownedOperation xmi:id="Collection-add" name="add" visibility="public" isQuery="true">
-        <ownedComment xmi:id="Collection-add-_ownedComment.0" annotatedElement="Collection-add">
+      <ownedOperation xmi:id="Collection-extend" name="extend" visibility="public" isQuery="true">
+        <ownedComment xmi:id="Collection-extend-_ownedComment.0" annotatedElement="Collection-extend">
           <body> Adds the given object to a collection, returning a collection that now includes the given object. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-add-toAdd" name="toAdd" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-add-toAdd-_lowerValue" value="1">
+        <ownedParameter xmi:id="Collection-extend-toAdd" name="toAdd" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-extend-toAdd-_lowerValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </lowerValue>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-add-toAdd-_upperValue" value="1">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-extend-toAdd-_upperValue" value="1">
             <type xmi:type="uml:Class" href="mdd_types.uml#Integer"/>
           </upperValue>
         </ownedParameter>
-        <ownedParameter xmi:id="Collection-add-_ownedParameter.1" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-add-_ownedParameter.1-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-add-_ownedParameter.1-_upperValue" value="*"/>
+        <ownedParameter xmi:id="Collection-extend-_ownedParameter.1" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-extend-_ownedParameter.1-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-extend-_ownedParameter.1-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-count" name="count" visibility="public" isQuery="true">
@@ -344,17 +344,17 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-intersection-_ownedParameter.1-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
-      <ownedOperation xmi:id="Collection-subtract" name="subtract" visibility="public" isQuery="true">
-        <ownedComment xmi:id="Collection-subtract-_ownedComment.0" annotatedElement="Collection-subtract">
+      <ownedOperation xmi:id="Collection-reject" name="reject" visibility="public" isQuery="true">
+        <ownedComment xmi:id="Collection-reject-_ownedComment.0" annotatedElement="Collection-reject">
           <body> Returns a new collection containing only the elements of this collection that are NOT in the given collection. </body>
         </ownedComment>
-        <ownedParameter xmi:id="Collection-subtract-another" name="another" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-subtract-another-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-subtract-another-_upperValue" value="*"/>
+        <ownedParameter xmi:id="Collection-reject-another" name="another" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-reject-another-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reject-another-_upperValue" value="*"/>
         </ownedParameter>
-        <ownedParameter xmi:id="Collection-subtract-_ownedParameter.1" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" direction="return">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-subtract-_ownedParameter.1-_lowerValue"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-subtract-_ownedParameter.1-_upperValue" value="*"/>
+        <ownedParameter xmi:id="Collection-reject-_ownedParameter.1" type="Collection-_ownedTemplateSignature-_ownedParameter.0-_ownedParameteredElement" direction="return">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Collection-reject-_ownedParameter.1-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Collection-reject-_ownedParameter.1-_upperValue" value="*"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Collection-collectMany" name="collectMany" visibility="public" isQuery="true">
@@ -1343,7 +1343,7 @@
   </mdd_extensions:BasicValue>
   <standard:ModelLibrary xmi:id="_45" base_Package="_0"/>
   <mdd_extensions:Debuggable xmi:id="_46" lineNumber="9" source="mdd_collections.tuml" base_Element="Collection"/>
-  <mdd_extensions:Debuggable xmi:id="_47" lineNumber="12" source="mdd_collections.tuml" base_Element="Collection-add"/>
+  <mdd_extensions:Debuggable xmi:id="_47" lineNumber="12" source="mdd_collections.tuml" base_Element="Collection-extend"/>
   <mdd_extensions:Debuggable xmi:id="_48" lineNumber="15" source="mdd_collections.tuml" base_Element="Collection-count"/>
   <mdd_extensions:Debuggable xmi:id="_49" lineNumber="18" source="mdd_collections.tuml" base_Element="Collection-includes"/>
   <mdd_extensions:Debuggable xmi:id="_50" lineNumber="21" source="mdd_collections.tuml" base_Element="Collection-includesAll"/>
@@ -1364,7 +1364,7 @@
   <mdd_extensions:Debuggable xmi:id="_65" lineNumber="66" source="mdd_collections.tuml" base_Element="Collection-asBag"/>
   <mdd_extensions:Debuggable xmi:id="_66" lineNumber="69" source="mdd_collections.tuml" base_Element="Collection-union"/>
   <mdd_extensions:Debuggable xmi:id="_67" lineNumber="72" source="mdd_collections.tuml" base_Element="Collection-intersection"/>
-  <mdd_extensions:Debuggable xmi:id="_68" lineNumber="75" source="mdd_collections.tuml" base_Element="Collection-subtract"/>
+  <mdd_extensions:Debuggable xmi:id="_68" lineNumber="75" source="mdd_collections.tuml" base_Element="Collection-reject"/>
   <mdd_extensions:Debuggable xmi:id="_69" lineNumber="81" source="mdd_collections.tuml" base_Element="Collection-collectMany"/>
   <mdd_extensions:Debuggable xmi:id="_70" lineNumber="84" source="mdd_collections.tuml" base_Element="Collection-groupBy"/>
   <mdd_extensions:Debuggable xmi:id="_71" lineNumber="87" source="mdd_collections.tuml" base_Element="Collection-reduce"/>

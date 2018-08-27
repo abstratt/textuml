@@ -9,7 +9,7 @@ import mdd_types;
 class Collection<T>
 
     (* Adds the given object to a collection, returning a collection that now includes the given object. *)
-    query add(toAdd : T) : T[*];
+    query extend(toAdd : T) : T[*];
 
     (* Counts the number of elements in the collection that satisfy the given predicate. *)
     query count(predicate : {( : T) : Boolean}) : Integer;
@@ -72,7 +72,7 @@ class Collection<T>
     query intersection(another : T[*]) : T[*];
     
     (* Returns a new collection containing only the elements of this collection that are NOT in the given collection. *)
-    query subtract(another : T[*]) : T[*];
+    query reject(another : T[*]) : T[*];
 
     (* 
       Maps each element of this collection to a collection of objects of the given type 

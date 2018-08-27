@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.0">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2017/09/26 03:52:02 482 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2018/08/25 05:48:20 731 -0300"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -134,6 +134,12 @@
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralNull"/>
         </eStructuralFeatures>
       </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-EmptySetLiteral" name="EmptySetLiteral">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-EmptySetLiteral-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="EmptySetLiteral"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-EmptySetLiteral-base_LiteralNull" name="base_LiteralNull" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//LiteralNull"/>
+        </eStructuralFeatures>
+      </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Rule" name="Rule" eSuperTypes="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-ContextualizedConstraint">
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Rule-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Rule"/>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Rule-violation" name="violation" ordered="false" lowerBound="1">
@@ -169,8 +175,7 @@
         <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Read" name="Read" value="3"/>
         <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Update" name="Update" value="4"/>
         <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-Call" name="Call" value="5"/>
-        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-StaticCall" name="StaticCall" value="6"/>
-        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-None" name="None" value="7"/>
+        <eLiterals xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-AccessCapability-None" name="None" value="6"/>
       </eClassifiers>
       <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access" name="Access" eSuperTypes="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Invariant">
         <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Access-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Access"/>
@@ -360,6 +365,11 @@
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralNull"/>
     </ownedAttribute>
   </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="EmptySetLiteral" name="EmptySetLiteral">
+    <ownedAttribute xmi:id="EmptySetLiteral-base_LiteralNull" name="base_LiteralNull" association="LiteralNull_EmptySetLiteral">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#LiteralNull"/>
+    </ownedAttribute>
+  </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="Rule" name="Rule">
     <generalization xmi:id="Rule-_generalization.0" general="ContextualizedConstraint"/>
     <ownedAttribute xmi:id="Rule-violation" name="violation">
@@ -391,7 +401,6 @@
     <ownedLiteral xmi:id="AccessCapability-Read" name="Read"/>
     <ownedLiteral xmi:id="AccessCapability-Update" name="Update"/>
     <ownedLiteral xmi:id="AccessCapability-Call" name="Call"/>
-    <ownedLiteral xmi:id="AccessCapability-StaticCall" name="StaticCall"/>
     <ownedLiteral xmi:id="AccessCapability-None" name="None"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="Access" name="Access">
@@ -501,6 +510,9 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="LiteralNull_VertexLiteral" name="LiteralNull_VertexLiteral" memberEnd="LiteralNull_VertexLiteral-extension_VertexLiteral VertexLiteral-base_LiteralNull">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="LiteralNull_VertexLiteral-extension_VertexLiteral" name="extension_VertexLiteral" type="VertexLiteral" aggregation="composite" association="LiteralNull_VertexLiteral"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="LiteralNull_EmptySetLiteral" name="LiteralNull_EmptySetLiteral" memberEnd="LiteralNull_EmptySetLiteral-extension_EmptySetLiteral EmptySetLiteral-base_LiteralNull">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="LiteralNull_EmptySetLiteral-extension_EmptySetLiteral" name="extension_EmptySetLiteral" type="EmptySetLiteral" aggregation="composite" association="LiteralNull_EmptySetLiteral"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Activity_Derivation" name="Activity_Derivation" memberEnd="Activity_Derivation-extension_Derivation Derivation-base_Activity">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Activity_Derivation-extension_Derivation" name="extension_Derivation" type="Derivation" aggregation="composite" association="Activity_Derivation"/>

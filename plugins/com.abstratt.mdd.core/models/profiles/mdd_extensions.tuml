@@ -64,6 +64,9 @@ stereotype VertexLiteral extends UML::LiteralNull
     property vertex : UML::Vertex;
 end;
 
+stereotype EmptySetLiteral extends UML::LiteralNull
+end;
+
 stereotype Rule specializes ContextualizedConstraint
     property violation : UML::Classifier;
 end;
