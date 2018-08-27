@@ -18,10 +18,7 @@ public class ClassRenderer extends ClassifierRenderer<Class> {
 
     @Override
     public boolean renderObject(Class element, IndentedPrintWriter w, IRenderingSession session) {
-        boolean shouldRender = session.getSettings().getBoolean(SHOW_CLASSES);
-        if (!shouldRender)
-        	return false;
-		boolean renderedClass = shouldRender
+        boolean renderedClass = session.getSettings().getBoolean(SHOW_CLASSES)
                 && super.renderObject(element, w, session);
         List<Behavior> stateMachines = element.getOwnedBehaviors().stream().filter(it -> it instanceof StateMachine)
                 .collect(Collectors.toList());
