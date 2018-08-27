@@ -31,6 +31,7 @@ import com.abstratt.mdd.frontend.textuml.core.TextUMLConstants
 import static extension com.abstratt.mdd.core.util.StateMachineUtils.* 
 import org.eclipse.uml2.uml.StateMachine
 import static extension com.abstratt.mdd.core.util.ActivityUtils.*
+import static extension com.abstratt.mdd.core.util.MDDExtensionUtils.*
 import org.eclipse.uml2.uml.Enumeration
 import org.eclipse.uml2.uml.ValueSpecification
 import org.eclipse.uml2.uml.Activity
@@ -39,6 +40,8 @@ import org.eclipse.uml2.uml.LiteralString
 import com.abstratt.mdd.core.util.ActivityUtils
 import org.eclipse.uml2.uml.Action
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter
+import org.eclipse.uml2.uml.ValueSpecificationAction
+import org.eclipse.uml2.uml.LiteralUnlimitedNatural
 
 class TextUMLRenderingUtils {
 	def static String renderMultiplicity(MultiplicityElement multiple, boolean brackets) {
@@ -236,13 +239,17 @@ class TextUMLRenderingUtils {
     	new ActivityGenerator().generateActivity(activity)
     }
 	
+	def static CharSequence renderValue(ValueSpecificationAction valueSpec) {
+	    valueSpec.value.renderValue()
+    }
+	
 	def static CharSequence renderValue(ValueSpecification valueSpec) {
     	if (valueSpec.behaviorReference) {
     		val closure = valueSpec.resolveBehaviorReference as Activity
     		'''(«closure.closureInputParameters.map[name].join(", ")») {«closure.generateActivity.toString().trim()»}'''
     		
     	} else switch (valueSpec) {
-            LiteralNull : 'null'
+            LiteralNull : if (valueSpec.emptySet) '''«valueSpec.type.name»[]''' else null
             LiteralString : switch (valueSpec.type.name) {
                 case 'String': '''"«valueSpec.value»"'''
                 default: valueSpec.value    

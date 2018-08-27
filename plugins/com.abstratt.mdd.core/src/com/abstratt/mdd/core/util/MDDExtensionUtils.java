@@ -79,6 +79,7 @@ public class MDDExtensionUtils {
 	public static final String ACCESS_DENIED = "denied";
 	public static final String ACCESS_ROLES = "roles";
 	private static final String META_REFERENCE_STEREOTYPE = EXTENSIONS_PROFILE + "::MetaReference";
+	private static final String EMPTY_SET_STEREOTYPE = EXTENSIONS_PROFILE + "::EmptySetLiteral";
 
 	public static void addDebugInfo(Element toEnhance, String source, int lineNumber) {
 		Stereotype debuggableStereotype = StereotypeUtils.findStereotype(DEBUGGABLE_STEREOTYPE);
@@ -99,7 +100,7 @@ public class MDDExtensionUtils {
 		nullLiteral.setType(type);
 		return nullLiteral;
 	}
-
+	
 	@Deprecated
 	public static boolean isMetaReference(ValueSpecification specification) {
 		return specification instanceof LiteralNull
@@ -113,7 +114,20 @@ public class MDDExtensionUtils {
 		Stereotype referenceStereotype = nullLiteral.getAppliedStereotype(META_REFERENCE_STEREOTYPE);
 		return (Type) nullLiteral.getValue(referenceStereotype, "target");
 	}
+	
+	public static ValueSpecification buildEmptySet(Package parent, Type type) {
+		LiteralNull emptySetLiteral = MDDUtil.createLiteralNull(parent);
+		Stereotype referenceStereotype = StereotypeUtils.findStereotype(EMPTY_SET_STEREOTYPE);
+		emptySetLiteral.applyStereotype(referenceStereotype);
+		emptySetLiteral.setType(type);
+		return emptySetLiteral;
+	}
 
+	public static boolean isEmptySet(ValueSpecification specification) {
+		return specification instanceof LiteralNull
+				&& StereotypeUtils.hasStereotype(specification, EMPTY_SET_STEREOTYPE);
+	}
+	
 	public static ValueSpecification buildBasicValue(Package parent, Classifier type, String value) {
 		LiteralString valueSpec = MDDUtil.createLiteralString(parent, value);
 		Stereotype basicValueStereotype = StereotypeUtils.findStereotype(BASIC_VALUE_STEREOTYPE);

@@ -15,8 +15,6 @@ import org.eclipse.uml2.uml.DataType
 import org.eclipse.uml2.uml.DestroyObjectAction
 import org.eclipse.uml2.uml.Feature
 import org.eclipse.uml2.uml.InputPin
-import org.eclipse.uml2.uml.LiteralNull
-import org.eclipse.uml2.uml.LiteralString
 import org.eclipse.uml2.uml.Operation
 import org.eclipse.uml2.uml.Parameter
 import org.eclipse.uml2.uml.ReadSelfAction
@@ -27,15 +25,19 @@ import org.eclipse.uml2.uml.TestIdentityAction
 import org.eclipse.uml2.uml.Type
 import org.eclipse.uml2.uml.ValueSpecification
 import org.eclipse.uml2.uml.ValueSpecificationAction
-
+import static extension com.abstratt.mdd.core.util.MDDExtensionUtils.*
 import static extension com.abstratt.mdd.core.util.ActivityUtils.*
 import static extension com.abstratt.mdd.core.util.FeatureUtils.*
 import static extension com.abstratt.mdd.target.base.GeneratorUtils.*
 import org.eclipse.uml2.uml.SendSignalAction
+import com.abstratt.mdd.core.util.MDDExtensionUtils
 
 class ActivityGenerator implements IBasicBehaviorGenerator {
     
     override generateActivity(Activity activity) {
+    	if (activity.isClosure) {
+    		return activity.rootAction.findSingleStatement.inputs.get(0).sourceAction.generateAction
+		}
         val generated = activity.rootAction.generateAction
         return generated
     }
@@ -57,7 +59,7 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     def dispatch generateProperAction(StructuredActivityNode action) {
         val statements = action.findStatements
         val isRoot = action.rootAction
-        val isCast = action.isCast
+        val isCast = MDDExtensionUtils.isCast(action)
         if (isCast)
         	'''(«action.inputs.get(0).sourceAction.generateAction» as «action.outputs.get(0).type.name»)'''
         else 
@@ -159,10 +161,10 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     }
     
     def dispatch generateProperAction(ValueSpecificationAction action) {
-        action.value.generateValue
+        action.generateValue
     }
     
-    def CharSequence generateValue(ValueSpecification valueSpec) {
+    def CharSequence generateValue(ValueSpecificationAction valueSpec) {
     	return TextUMLRenderingUtils.renderValue(valueSpec)
     }
     
