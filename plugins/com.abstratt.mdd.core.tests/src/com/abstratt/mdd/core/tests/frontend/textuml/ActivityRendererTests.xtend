@@ -134,7 +134,24 @@ class ActivityRendererTests extends AbstractRepositoryBuildingTests {
 		end;
 		''')
 	}
-		
+
+	def testCallOperation_Collection_emptySet() {
+		check('''
+			query templateOp() : MyClass[*];
+			''',
+			'''
+			return MyClass[];
+			''')
+	}
+
+	def testCallOperation_Collection_extend() {
+		check('''
+			query templateOp() : MyClass[*];
+			''',
+			'''
+			return MyClass[].extend(self);
+			''')
+	}
 	
 	def testReadAttribute() {
 		check('''

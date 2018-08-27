@@ -246,10 +246,13 @@ class TextUMLRenderingUtils {
 	def static CharSequence renderValue(ValueSpecification valueSpec) {
     	if (valueSpec.behaviorReference) {
     		val closure = valueSpec.resolveBehaviorReference as Activity
-    		'''(«closure.closureInputParameters.map[name].join(", ")») {«closure.generateActivity.toString().trim()»}'''
+    		'''
+    		(«closure.closureInputParameters.map[name].join(", ")») {
+    			«closure.generateActivity.toString().trim()»
+    		}'''
     		
     	} else switch (valueSpec) {
-            LiteralNull : if (valueSpec.emptySet) '''«valueSpec.type.name»[]''' else null
+            LiteralNull : if (valueSpec.emptySet) '''«valueSpec.type.name»[]''' else 'null'
             LiteralString : switch (valueSpec.type.name) {
                 case 'String': '''"«valueSpec.value»"'''
                 default: valueSpec.value    

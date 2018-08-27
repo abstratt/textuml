@@ -36,7 +36,12 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     
     override generateActivity(Activity activity) {
     	if (activity.isClosure) {
-    		return activity.rootAction.findSingleStatement.inputs.get(0).sourceAction.generateAction
+    		if (!activity.outputParameters.isEmpty) {
+    			val singleStatement = activity.rootAction.findStatements.size == 1
+    			if (singleStatement) {
+					return activity.rootAction.findSingleStatement.inputs.get(0).sourceAction.generateAction
+    			}
+			}
 		}
         val generated = activity.rootAction.generateAction
         return generated
@@ -161,10 +166,10 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     }
     
     def dispatch generateProperAction(ValueSpecificationAction action) {
-        action.generateValue
+        action.value.generateValue
     }
     
-    def CharSequence generateValue(ValueSpecificationAction valueSpec) {
+    def CharSequence generateValue(ValueSpecification valueSpec) {
     	return TextUMLRenderingUtils.renderValue(valueSpec)
     }
     
@@ -229,6 +234,10 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
                 '<='
             case 'greaterOrEquals':
                 '>='
+            case 'notEquals':
+                '!='
+            case 'equals':
+                '='
             case 'same':
                 '=='
             default:
