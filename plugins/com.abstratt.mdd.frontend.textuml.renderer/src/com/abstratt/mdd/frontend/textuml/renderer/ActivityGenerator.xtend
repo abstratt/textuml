@@ -67,11 +67,14 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
         val isCast = MDDExtensionUtils.isCast(action)
         if (isCast)
         	'''(«action.inputs.get(0).sourceAction.generateAction» as «action.outputs.get(0).type.name»)'''
-        else 
+        else if (isRoot) 
+            statements.map[generateStatement].join('\n')
+        else
         '''
-        «IF !isRoot»begin«ENDIF»
-        «statements.map[generateStatement].join('\n')»
-        «IF !isRoot»end«ENDIF»'''
+        begin
+            «statements.map[generateStatement].join('\n')»
+        end
+        '''
     }
     
     def dispatch generateProperAction(ReadSelfAction action) {
