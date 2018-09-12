@@ -10,7 +10,7 @@ import org.eclipse.uml2.uml.Operation
 
 import static extension com.abstratt.mdd.core.util.ActivityUtils.*
 
-class ActivityRendererTests extends AbstractRepositoryBuildingTests {
+class ActivityGeneratorTests extends AbstractRepositoryBuildingTests {
 	
 	String source
 	val generator = new ActivityGenerator()
@@ -20,7 +20,7 @@ class ActivityRendererTests extends AbstractRepositoryBuildingTests {
 	}
 	
     def public static Test suite() {
-        return new TestSuite(ActivityRendererTests)
+        return new TestSuite(ActivityGeneratorTests)
     }
     
 	def compileModel(String header, String behavior) throws Exception {
