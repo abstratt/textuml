@@ -47,6 +47,14 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
         return generated
     }
     
+    def CharSequence generateActivityAsExpressionIfPossible(Activity toGenerate) {
+        val statements = toGenerate.rootAction.findStatements
+        return if (statements.size == 1 && statements.get(0).inputs.size == 1)
+        	generateActivityAsExpression(toGenerate)
+    	else
+    	    generateActivity(toGenerate)
+    }
+    
     override generateActivityAsExpression(Activity toGenerate, boolean asClosure, List<Parameter> parameters) {
         val singleStatement = toGenerate.rootAction.findSingleStatement
 		val sourceAction = singleStatement.sourceAction
