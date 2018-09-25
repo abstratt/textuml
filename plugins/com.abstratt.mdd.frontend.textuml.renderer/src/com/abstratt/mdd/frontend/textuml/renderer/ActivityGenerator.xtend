@@ -80,9 +80,16 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
         else
         '''
         begin
-            «statements.map[generateStatement].join('\n')»
-        end
+        «IF !action.ownedComments.isEmpty»
+        «action.ownedComments.generateMany('\n')[
         '''
+            (* 
+                «it.body»
+            *)
+	    ''']»
+        «ENDIF»
+            «statements.map[generateStatement].join('\n')»
+        end'''
     }
     
     def dispatch generateProperAction(ReadSelfAction action) {

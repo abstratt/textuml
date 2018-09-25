@@ -171,13 +171,15 @@ class ActivityGeneratorTests extends AbstractRepositoryBuildingTests {
 			''')
 	}
 	
-	def testBlocks() {
+	def testTransactionalBlocks() {
 		check(
 			'''
 			begin
+			    (* Transaction #1 *)
 			    self.attr1 := "foo";
 			end;
 			begin
+			    (* Transaction #2 *)
 			    self.attr1 := "bar";
 			end;
 			''')

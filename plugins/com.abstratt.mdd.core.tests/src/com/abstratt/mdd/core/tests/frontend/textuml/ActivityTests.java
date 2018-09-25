@@ -215,6 +215,23 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
         source += "end.";
         parseAndCheck(structure, source);
     }
+    
+    public void testTransactionalBlocks() throws CoreException {
+        String source;
+        source = "model simple;\n";
+        source += "operation SimpleClass.foo;\n";
+        source += "begin\n";
+        source += "  begin\n";
+        source += "  (* Step 1*)\n";
+        source += "  end;\n";
+        source += "  begin\n";
+        source += "  (* Step 2*)\n";
+        source += "  end;\n";
+        source += "end;\n";
+        source += "end.";
+        parseAndCheck(structure, source);
+    }
+
 
     public void testCannotReturnWithoutReturnType() throws CoreException {
         String source;

@@ -581,7 +581,7 @@ public class BehaviorGenerator extends AbstractGenerator {
      */
     @Override
     public void caseABlockKernel(ABlockKernel node) {
-        builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
+        StructuredActivityNode block = builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
         try {
             fillDebugInfo(builder.getCurrentBlock(), node);
             BehaviorGenerator.super.caseABlockKernel(node);
@@ -602,6 +602,7 @@ public class BehaviorGenerator extends AbstractGenerator {
         } finally {
             builder.closeBlock();
         }
+        CommentUtils.applyComment(node.getModelComment(), block);
     }
 
     @Override
