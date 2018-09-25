@@ -693,7 +693,7 @@ Productions
   
   expression_block = simple_block ;
   
-  block_kernel = var_decl_section statement_sequence ;
+  block_kernel = model_comment? var_decl_section statement_sequence ;
   
 // local variable declaration  
   

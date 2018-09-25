@@ -7,6 +7,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 @SuppressWarnings("nls")
 public final class ABlockKernel extends PBlockKernel
 {
+    private TModelComment _modelComment_;
     private PVarDeclSection _varDeclSection_;
     private PStatementSequence _statementSequence_;
 
@@ -16,10 +17,13 @@ public final class ABlockKernel extends PBlockKernel
     }
 
     public ABlockKernel(
+        @SuppressWarnings("hiding") TModelComment _modelComment_,
         @SuppressWarnings("hiding") PVarDeclSection _varDeclSection_,
         @SuppressWarnings("hiding") PStatementSequence _statementSequence_)
     {
         // Constructor
+        setModelComment(_modelComment_);
+
         setVarDeclSection(_varDeclSection_);
 
         setStatementSequence(_statementSequence_);
@@ -30,6 +34,7 @@ public final class ABlockKernel extends PBlockKernel
     public Object clone()
     {
         return new ABlockKernel(
+            cloneNode(this._modelComment_),
             cloneNode(this._varDeclSection_),
             cloneNode(this._statementSequence_));
     }
@@ -37,6 +42,31 @@ public final class ABlockKernel extends PBlockKernel
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseABlockKernel(this);
+    }
+
+    public TModelComment getModelComment()
+    {
+        return this._modelComment_;
+    }
+
+    public void setModelComment(TModelComment node)
+    {
+        if(this._modelComment_ != null)
+        {
+            this._modelComment_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._modelComment_ = node;
     }
 
     public PVarDeclSection getVarDeclSection()
@@ -93,6 +123,7 @@ public final class ABlockKernel extends PBlockKernel
     public String toString()
     {
         return ""
+            + toString(this._modelComment_)
             + toString(this._varDeclSection_)
             + toString(this._statementSequence_);
     }
@@ -101,6 +132,12 @@ public final class ABlockKernel extends PBlockKernel
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
+        if(this._modelComment_ == child)
+        {
+            this._modelComment_ = null;
+            return;
+        }
+
         if(this._varDeclSection_ == child)
         {
             this._varDeclSection_ = null;
@@ -120,6 +157,12 @@ public final class ABlockKernel extends PBlockKernel
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
+        if(this._modelComment_ == oldChild)
+        {
+            setModelComment((TModelComment) newChild);
+            return;
+        }
+
         if(this._varDeclSection_ == oldChild)
         {
             setVarDeclSection((PVarDeclSection) newChild);

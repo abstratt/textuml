@@ -7165,6 +7165,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getVarDeclSection().apply(this);
         }
+        if(node.getModelComment() != null)
+        {
+            node.getModelComment().apply(this);
+        }
         outABlockKernel(node);
     }
 

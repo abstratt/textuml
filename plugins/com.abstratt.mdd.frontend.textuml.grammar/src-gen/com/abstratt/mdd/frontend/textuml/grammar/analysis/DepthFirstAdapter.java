@@ -7134,6 +7134,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseABlockKernel(ABlockKernel node)
     {
         inABlockKernel(node);
+        if(node.getModelComment() != null)
+        {
+            node.getModelComment().apply(this);
+        }
         if(node.getVarDeclSection() != null)
         {
             node.getVarDeclSection().apply(this);
