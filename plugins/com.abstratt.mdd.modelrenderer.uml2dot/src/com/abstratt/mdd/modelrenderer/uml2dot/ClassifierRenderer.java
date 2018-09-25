@@ -23,6 +23,7 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.VisibilityKind;
 
+import com.abstratt.mdd.core.util.AssociationUtils;
 import com.abstratt.mdd.core.util.ElementUtils;
 import com.abstratt.mdd.core.util.FeatureUtils;
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
@@ -71,7 +72,7 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
 			        w.println("</TABLE>");
 		        });
 		        w.println("</TD></TR>");
-		        EList<Property> attributes = getAttributes(context.getSettings().getBoolean(SHOW_ABSTRACT_CLASSES), element);
+		        EList<Property> attributes = getAttributes(shouldShowAbstractClasses(context), element);
 				boolean attributesEmpty = !context.getSettings().getBoolean(SHOW_ATTRIBUTES)
 		                || attributes.isEmpty();
 		        if (showCompartments(context, attributesEmpty)) {
@@ -126,6 +127,10 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
         return true;
     }
 
+	private boolean shouldShowAbstractClasses(IRenderingSession context) {
+		return context.getSettings().getBoolean(SHOW_ABSTRACT_CLASSES);
+	}
+
 	private EList<Property> getAttributes(boolean excludeInheritedAttributes, T element) {
 		if (excludeInheritedAttributes)
 			return element.getAttributes();
@@ -168,7 +173,7 @@ public class ClassifierRenderer<T extends Classifier> implements IElementRendere
     protected void renderRelationships(T element, IRenderingSession context) {
         List<Generalization> generalizations = element.getGeneralizations();
         RenderingUtils.renderAll(context, generalizations);
-        EList<Association> associations = element.getAssociations();
+        List<Association> associations = shouldShowAbstractClasses(context) ? element.getAssociations() : AssociationUtils.allAssociations(element);
         RenderingUtils.renderAll(context, associations);
         RenderingUtils.renderAll(context, ElementUtils.getComments(element));
     }
