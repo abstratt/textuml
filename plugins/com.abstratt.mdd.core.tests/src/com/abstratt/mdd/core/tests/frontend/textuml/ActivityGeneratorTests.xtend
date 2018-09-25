@@ -171,6 +171,18 @@ class ActivityGeneratorTests extends AbstractRepositoryBuildingTests {
 			''')
 	}
 	
+	def testBlocks() {
+		check(
+			'''
+			begin
+			    self.attr1 := "foo";
+			end;
+			begin
+			    self.attr1 := "bar";
+			end;
+			''')
+	}
+	
 	protected def CharSequence generate(String fixtureName) {
 		val fixture = getOperation('''someModel::MyClass::«fixtureName»''')
 		generator.generateActivity(fixture.activity)

@@ -70,12 +70,12 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     }
     
     def dispatch generateProperAction(StructuredActivityNode action) {
-        val statements = action.findStatements
         val isRoot = action.rootAction
+        val statements = action.findStatements
         val isCast = MDDExtensionUtils.isCast(action)
         if (isCast)
         	'''(«action.inputs.get(0).sourceAction.generateAction» as «action.outputs.get(0).type.name»)'''
-        else if (isRoot) 
+        else if (isRoot && !action.transactionalBlock) 
             statements.map[generateStatement].join('\n')
         else
         '''

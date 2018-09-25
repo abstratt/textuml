@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.0">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2018/08/25 05:48:20 731 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2018/09/20 10:50:27 762 -0300"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
     <contents xmi:type="ecore:EPackage" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions" name="mdd_extensions" nsURI="profiles/mdd_extensions" nsPrefix="mdd_extensions">
@@ -207,6 +207,12 @@
         </eStructuralFeatures>
         <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WildcardTypeContext-base_Namespace" name="base_Namespace" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Namespace"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WrapperBlock" name="WrapperBlock">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WrapperBlock-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="WrapperBlock"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-WrapperBlock-base_StructuredActivityNode" name="base_StructuredActivityNode" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuredActivityNode"/>
         </eStructuralFeatures>
       </eClassifiers>
     </contents>
@@ -460,6 +466,11 @@
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Namespace"/>
     </ownedAttribute>
   </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="WrapperBlock" name="WrapperBlock">
+    <ownedAttribute xmi:id="WrapperBlock-base_StructuredActivityNode" name="base_StructuredActivityNode" association="StructuredActivityNode_WrapperBlock">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#StructuredActivityNode"/>
+    </ownedAttribute>
+  </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Class_Test" name="Class_Test" memberEnd="Class_Test-extension_Test Test-base_Class">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Class_Test-extension_Test" name="extension_Test" type="Test" aggregation="composite" association="Class_Test"/>
   </packagedElement>
@@ -528,5 +539,8 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Namespace_WildcardTypeContext" name="Namespace_WildcardTypeContext" memberEnd="Namespace_WildcardTypeContext-extension_WildcardTypeContext WildcardTypeContext-base_Namespace">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Namespace_WildcardTypeContext-extension_WildcardTypeContext" name="extension_WildcardTypeContext" type="WildcardTypeContext" aggregation="composite" association="Namespace_WildcardTypeContext"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="StructuredActivityNode_WrapperBlock" name="StructuredActivityNode_WrapperBlock" memberEnd="StructuredActivityNode_WrapperBlock-extension_WrapperBlock WrapperBlock-base_StructuredActivityNode">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="StructuredActivityNode_WrapperBlock-extension_WrapperBlock" name="extension_WrapperBlock" type="WrapperBlock" aggregation="composite" association="StructuredActivityNode_WrapperBlock"/>
   </packagedElement>
 </uml:Profile>

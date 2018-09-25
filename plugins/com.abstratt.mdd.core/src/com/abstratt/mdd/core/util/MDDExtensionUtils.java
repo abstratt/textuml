@@ -80,6 +80,7 @@ public class MDDExtensionUtils {
 	public static final String ACCESS_ROLES = "roles";
 	private static final String META_REFERENCE_STEREOTYPE = EXTENSIONS_PROFILE + "::MetaReference";
 	private static final String EMPTY_SET_STEREOTYPE = EXTENSIONS_PROFILE + "::EmptySetLiteral";
+	private static final String WRAPPER_BLOCK_STEREOTYPE = EXTENSIONS_PROFILE + "::WrapperBlock";
 
 	public static void addDebugInfo(Element toEnhance, String source, int lineNumber) {
 		Stereotype debuggableStereotype = StereotypeUtils.findStereotype(DEBUGGABLE_STEREOTYPE);
@@ -509,5 +510,14 @@ public class MDDExtensionUtils {
 
 	public static boolean hasExtensionsApplied(Package toCheck) {
 		return StereotypeUtils.hasProfile(toCheck, EXTENSIONS_PROFILE);
+	}
+
+	public static void makeWrapper(StructuredActivityNode wrapper) {
+		Stereotype applicationStereotype = StereotypeUtils.findStereotype(WRAPPER_BLOCK_STEREOTYPE);
+		StereotypeUtils.safeApplyStereotype(wrapper, applicationStereotype);
+	}
+
+	public static boolean isWrapperBlock(StructuredActivityNode toCheck) {
+		return StereotypeUtils.hasStereotype(toCheck, WRAPPER_BLOCK_STEREOTYPE);
 	}
 }

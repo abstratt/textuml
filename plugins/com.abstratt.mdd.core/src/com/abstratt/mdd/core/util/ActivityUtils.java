@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.common.util.UML2Util.EObjectMatcher;
@@ -31,6 +32,7 @@ import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.ControlFlow;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ExceptionHandler;
 import org.eclipse.uml2.uml.ExecutableNode;
 import org.eclipse.uml2.uml.InputPin;
@@ -215,6 +217,10 @@ public class ActivityUtils {
         return (StructuredActivityNode) body.getNodes().get(0);
     }
 
+    public static boolean isWrapperBlock(Action action) {
+		return action instanceof StructuredActivityNode && MDDExtensionUtils.isWrapperBlock((StructuredActivityNode) action);
+    }
+    
     public static boolean isRootAction(Action action) {
         if (!(action instanceof StructuredActivityNode))
             return false;
@@ -405,15 +411,37 @@ public class ActivityUtils {
     public static List<Action> findStatements(StructuredActivityNode target) {
         List<Action> terminalActions = new ArrayList<Action>();
         for (ActivityNode node : target.getNodes()) {
-            if (node.eClass() == UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE) {
-                terminalActions.addAll(findStatements((StructuredActivityNode) node));
-            } else if (node instanceof Action && isTerminal((Action) node))
-                terminalActions.add((Action) node);
+        	if (node instanceof Action) {
+        		Action asAction = (Action) node;
+        		if (isTerminal(asAction)) {
+        			if (isStructuralActivityNode(node) &&
+        					!isTransactionalBlock((Action) node))
+        				terminalActions.addAll(findStatements((StructuredActivityNode) node));
+        			else 
+        				terminalActions.add((Action) node);
+        		}
+        	}
         }
         return terminalActions;
     }
+
+	private static boolean isStructuralActivityNode(Element node) {
+		return node.eClass() == UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE;
+	}
     
-    public static List<Action> findStatements(Activity activity) {
+    public static boolean isTransactionalBlock(Action node) {
+    	// we do not consider the root block of an activity as a transactional block
+    	// as transactional blocks are additional blocks created for the sake of 
+    	// having multiple transactions within an activity
+		boolean isRoot = isRootAction(node);
+		boolean mustIsolate = ((StructuredActivityNode) node).isMustIsolate();
+		boolean isTransactionalBlock = isStructuralActivityNode(node)
+    			&& !isRoot
+    			&& mustIsolate;
+		return isTransactionalBlock;
+	}
+
+	public static List<Action> findStatements(Activity activity) {
         return findStatements(getRootAction(activity));
     }
     public static Action findSingleStatement(StructuredActivityNode rootAction) {

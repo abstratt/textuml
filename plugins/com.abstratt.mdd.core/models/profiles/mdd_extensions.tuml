@@ -114,5 +114,7 @@ stereotype WildcardTypeContext extends UML::Namespace
     property wildcardTypes : UML::Type[*];
 end;
 
+stereotype WrapperBlock extends UML::StructuredActivityNode
+end;
 
 end.

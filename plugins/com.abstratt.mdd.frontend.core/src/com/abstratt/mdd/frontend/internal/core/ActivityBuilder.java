@@ -14,6 +14,7 @@ import org.eclipse.uml2.uml.Variable;
 
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.util.ActivityUtils;
+import com.abstratt.mdd.core.util.MDDExtensionUtils;
 import com.abstratt.mdd.frontend.core.spi.IActivityBuilder;
 
 public class ActivityBuilder implements IActivityBuilder {
@@ -134,6 +135,7 @@ public class ActivityBuilder implements IActivityBuilder {
         // another block level so we can always go back and insert more blocks
         // before the current code
         StructuredActivityNode wrapper = createBlock(UMLPackage.Literals.STRUCTURED_ACTIVITY_NODE);
+        MDDExtensionUtils.makeWrapper(wrapper);
         return wrapper;
     }
 
