@@ -12,7 +12,7 @@
 	</parent>
 
 	<properties>
-		<xtext.version>2.15.0</xtext.version>
+		<xtext.version>2.10.0</xtext.version>
 	</properties>
 
 	<repositories>
