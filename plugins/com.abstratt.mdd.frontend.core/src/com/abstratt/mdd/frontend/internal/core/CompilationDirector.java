@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
 
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileInfo;
@@ -56,7 +55,6 @@ import com.abstratt.mdd.frontend.core.spi.IReferenceTracker.IStepListener;
 import com.abstratt.mdd.frontend.core.spi.ISourceAnalyzer;
 import com.abstratt.pluginutils.ISharedContextRunnable;
 import com.abstratt.pluginutils.LogUtils;
-import com.sun.javafx.collections.IntegerArraySyncer;
 
 public class CompilationDirector implements ICompilationDirector {
 
