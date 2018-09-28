@@ -98,6 +98,14 @@
 						</execution>
 					</executions>
 				</plugin>
+		    		<plugin>
+		    			<groupId>org.eclipse.tycho</groupId>
+		    			<artifactId>tycho-p2-repository-plugin</artifactId>
+		    			<configuration>
+		    	    		<!--  Avoid OOMs when running with small heaps -->
+		    				<xzCompress>false</xzCompress>
+		    			</configuration>
+		    		</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
