@@ -3,16 +3,15 @@ package com.abstratt.mdd.core.tests.frontend.textuml
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests
 import com.abstratt.mdd.core.tests.harness.AssertHelper
 import com.abstratt.mdd.frontend.textuml.renderer.ActivityGenerator
-import com.abstratt.mdd.frontend.textuml.renderer.ActivityRenderer
 import junit.framework.Test
 import junit.framework.TestSuite
-import org.eclipse.uml2.uml.Operation
 
 import static extension com.abstratt.mdd.core.util.ActivityUtils.*
 
 class ActivityGeneratorTests extends AbstractRepositoryBuildingTests {
 	
 	String source
+	
 	val generator = new ActivityGenerator()
 	
 	new(String name) {

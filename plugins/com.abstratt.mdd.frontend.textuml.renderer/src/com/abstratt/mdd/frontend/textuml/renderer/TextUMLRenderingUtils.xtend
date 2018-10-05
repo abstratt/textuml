@@ -236,21 +236,29 @@ class TextUMLRenderingUtils {
     }
     
     def static CharSequence generateActivity(Activity activity) {
-    	new ActivityGenerator().generateActivity(activity)
+    	generateActivity(activity, new ActivityGenerator)
+	}
+	
+	def static CharSequence generateActivity(Activity activity, ActivityGenerator activityGenerator) {
+    	activityGenerator.generateActivity(activity)
     }
 	
 	def static CharSequence renderValue(ValueSpecificationAction valueSpec) {
 	    valueSpec.value.renderValue()
     }
-	
 	def static CharSequence renderValue(ValueSpecification valueSpec) {
+		renderValue(valueSpec, new ActivityGenerator)    
+    }
+    
+    def static CharSequence renderValue(ValueSpecification valueSpec, ActivityGenerator activityGenerator) {
+    	
+	
     	if (valueSpec.behaviorReference) {
     		val closure = valueSpec.resolveBehaviorReference as Activity
     		'''
     		(«closure.closureInputParameters.map[name].join(", ")») {
-    			«closure.generateActivity.toString().trim()»
+    			«closure.generateActivity(activityGenerator).toString().trim()»
     		}'''
-    		
     	} else switch (valueSpec) {
             LiteralNull : if (valueSpec.emptySet) '''«valueSpec.type.name»[]''' else 'null'
             LiteralString : switch (valueSpec.type.name) {

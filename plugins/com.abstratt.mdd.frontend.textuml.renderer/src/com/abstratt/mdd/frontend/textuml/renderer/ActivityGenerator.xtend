@@ -31,8 +31,35 @@ import static extension com.abstratt.mdd.core.util.FeatureUtils.*
 import static extension com.abstratt.mdd.target.base.GeneratorUtils.*
 import org.eclipse.uml2.uml.SendSignalAction
 import com.abstratt.mdd.core.util.MDDExtensionUtils
+import org.eclipse.uml2.uml.NamedElement
+import org.eclipse.uml2.uml.Element
 
 class ActivityGenerator implements IBasicBehaviorGenerator {
+	
+   
+    interface ElementFormatter {
+    	def CharSequence generateLink(NamedElement element, CharSequence referenceText) {
+    	    generateText(referenceText)
+    	}
+    	
+    	def CharSequence formatElement(Element element, CharSequence referenceText) {
+    	    generateText(referenceText)
+    	}
+    	
+    	def CharSequence generateText(CharSequence referenceText) {
+    	    referenceText	
+    	} 
+    }
+    
+    val ActivityGenerator.ElementFormatter linkGenerator
+    
+    new(ActivityGenerator.ElementFormatter linkGenerator) {
+    	this.linkGenerator = linkGenerator
+    }
+    
+    new() {
+    	this.linkGenerator = new ElementFormatter() {}
+    }
     
     override generateActivity(Activity activity) {
     	if (activity.isClosure) {
@@ -82,11 +109,11 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
         begin
         «IF !action.ownedComments.isEmpty»
         «action.ownedComments.generateMany('\n')[
-        '''
+        formatElement(it, '''
             (* 
                 «it.body»
             *)
-	    ''']»
+	    ''')]»
         «ENDIF»
             «statements.map[generateStatement].join('\n')»
         end'''
@@ -97,13 +124,13 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     }
     
     def dispatch generateProperAction(CreateObjectAction action) {
-        '''new «action.classifier.name»'''
+        '''new «generateLink(action.classifier, action.classifier.name)»'''
     }
     
     def dispatch generateProperAction(CreateLinkAction action) {
     	val end0 = action.endData.get(0)
     	val end1 = action.endData.get(1)
-        '''link «action.association.name»(«end0.end.name» := «end0.value.generateAction», «end1.end.name» := «end1.value.generateAction»)'''
+        '''link «generateLink(action.association, action.association.name)»(«end0.end.name» := «end0.value.generateAction», «end1.end.name» := «end1.value.generateAction»)'''
     }
     
     
@@ -169,26 +196,34 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     
     def generateFeatureActionBase(Feature feature, InputPin targetPin) {
         val target = if (feature.static)
-            '''«feature.owningClassifier.name»#'''
+            '''«generateLink(feature.owningClassifier, feature.owningClassifier.name)»#'''
         else
             '''«targetPin.generateAction».'''
-        return '''«target»«feature.name»'''
+        return '''«target»«generateLink(feature, feature.name)»'''
     }
+	
+	def CharSequence generateLink(NamedElement element, CharSequence referenceText) {
+		linkGenerator.generateLink(element, referenceText)
+	}
+	
+	def CharSequence formatElement(Element element, CharSequence referenceText) {
+		linkGenerator.formatElement(element, referenceText)
+	}
     
     def dispatch generateProperAction(CallOperationAction action) {
         val asSpecialAction = generateAsSpecialAction(action)
-        if (asSpecialAction != null)
+        if (asSpecialAction !== null)
             return asSpecialAction
         val base = generateFeatureActionBase(action.operation, action.target)
         '''«base»(«action.arguments.map[generateAction].join(', ')»)'''
     }
     
     def dispatch generateProperAction(ValueSpecificationAction action) {
-        action.value.generateValue
+        generateLink(action.value, action.value.generateValue())
     }
     
     def CharSequence generateValue(ValueSpecification valueSpec) {
-    	return TextUMLRenderingUtils.renderValue(valueSpec)
+    	return TextUMLRenderingUtils.renderValue(valueSpec, this)
     }
     
     def boolean needsParenthesis(Action action) {
