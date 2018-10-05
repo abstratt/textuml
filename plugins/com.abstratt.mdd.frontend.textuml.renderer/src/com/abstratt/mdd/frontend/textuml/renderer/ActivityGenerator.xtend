@@ -33,6 +33,7 @@ import org.eclipse.uml2.uml.SendSignalAction
 import com.abstratt.mdd.core.util.MDDExtensionUtils
 import org.eclipse.uml2.uml.NamedElement
 import org.eclipse.uml2.uml.Element
+import org.eclipse.uml2.uml.ReadExtentAction
 
 class ActivityGenerator implements IBasicBehaviorGenerator {
 	
@@ -135,12 +136,17 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     
     
     def dispatch generateProperAction(SendSignalAction action) {
-        '''send «action.signal.name»(«action.arguments.generateMany(', ', ['''«it.name» := «it.generateAction»'''])») to «action.target.generateAction»'''
+        '''send «generateLink(action.signal, action.signal.name)»(«action.arguments.generateMany(', ', ['''«it.name» := «it.generateAction»'''])») to «action.target.generateAction»'''
+    }
+    
+    def dispatch generateProperAction(ReadExtentAction action) {
+        '''«generateLink(action.classifier, action.classifier.name)» extent'''
     }
     
     def dispatch generateProperAction(DestroyObjectAction action) {
         '''delete «action.target.generateAction»'''
     }
+    
     
     def dispatch generateProperAction(ConditionalNode action) {
     	val clauses = action.clauses

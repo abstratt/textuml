@@ -74,16 +74,18 @@ class ActivityGeneratorTests extends AbstractRepositoryBuildingTests {
         check('''send MySignal(value1 := "foobar", value2 := 30) to new MyClass;''')
 	}
 	
-	
 	def testCreateObject() {
 		check('''new MyClass;''')
+	}
+	
+	def testReadExtent() {
+		check('''MyClass extent;''')
 	}
 	
 	def testCreateLink() {
 		check('''link MyAssociation(role1 := new MyClass, role2 := new MyClass2);''')
 	}
 	
-
 	def testWriteAttribute() {
 		check('''self.attr1 := "foobar";''')
 	}
