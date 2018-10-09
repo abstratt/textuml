@@ -1,5 +1,6 @@
 package com.abstratt.mdd.frontend.textuml.renderer;
 
+import com.abstratt.mdd.core.util.MDDExtensionUtils
 import com.abstratt.mdd.target.base.IBasicBehaviorGenerator
 import java.util.List
 import org.eclipse.uml2.uml.Action
@@ -13,27 +14,27 @@ import org.eclipse.uml2.uml.CreateLinkAction
 import org.eclipse.uml2.uml.CreateObjectAction
 import org.eclipse.uml2.uml.DataType
 import org.eclipse.uml2.uml.DestroyObjectAction
+import org.eclipse.uml2.uml.Element
 import org.eclipse.uml2.uml.Feature
 import org.eclipse.uml2.uml.InputPin
+import org.eclipse.uml2.uml.NamedElement
 import org.eclipse.uml2.uml.Operation
 import org.eclipse.uml2.uml.Parameter
+import org.eclipse.uml2.uml.ReadExtentAction
 import org.eclipse.uml2.uml.ReadSelfAction
 import org.eclipse.uml2.uml.ReadStructuralFeatureAction
 import org.eclipse.uml2.uml.ReadVariableAction
+import org.eclipse.uml2.uml.SendSignalAction
 import org.eclipse.uml2.uml.StructuredActivityNode
 import org.eclipse.uml2.uml.TestIdentityAction
 import org.eclipse.uml2.uml.Type
 import org.eclipse.uml2.uml.ValueSpecification
 import org.eclipse.uml2.uml.ValueSpecificationAction
-import static extension com.abstratt.mdd.core.util.MDDExtensionUtils.*
+
 import static extension com.abstratt.mdd.core.util.ActivityUtils.*
 import static extension com.abstratt.mdd.core.util.FeatureUtils.*
+import static extension com.abstratt.mdd.core.util.MDDExtensionUtils.*
 import static extension com.abstratt.mdd.target.base.GeneratorUtils.*
-import org.eclipse.uml2.uml.SendSignalAction
-import com.abstratt.mdd.core.util.MDDExtensionUtils
-import org.eclipse.uml2.uml.NamedElement
-import org.eclipse.uml2.uml.Element
-import org.eclipse.uml2.uml.ReadExtentAction
 
 class ActivityGenerator implements IBasicBehaviorGenerator {
 	
@@ -106,19 +107,27 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
         else if (isRoot && !action.transactionalBlock) 
             statements.map[generateStatement].join('\n')
         else
-        '''
-        begin
-        «IF !action.ownedComments.isEmpty»
-        «action.ownedComments.generateMany('\n')[
-        formatElement(it, '''
-            (* 
-                «it.body»
-            *)
-	    ''')]»
-        «ENDIF»
-            «statements.map[generateStatement].join('\n')»
-        end'''
+        '''«generateBlock(action, statements)»'''
     }
+				
+	protected def CharSequence generateBlock(StructuredActivityNode action, List<Action> statements) {
+		var localVariables = action.variables
+		'''
+		        begin
+		        «IF !action.ownedComments.isEmpty»
+		        «action.ownedComments.generateMany('\n')[
+		        formatElement(it, '''
+		            (* 
+		                «it.body»
+		            *)
+			    ''')]»
+		        «ENDIF»
+		        «IF !localVariables.isEmpty»
+		            var «action.variables.generateMany([ '''«it.name» : «it.type.name»'''], ', ')»;
+		        «ENDIF»
+		            «statements.map[generateStatement].join('\n')»
+		        end'''
+	}
     
     def dispatch generateProperAction(ReadSelfAction action) {
         'self'

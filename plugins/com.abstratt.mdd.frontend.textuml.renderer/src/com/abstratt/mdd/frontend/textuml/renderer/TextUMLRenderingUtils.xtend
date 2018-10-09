@@ -42,6 +42,8 @@ import org.eclipse.uml2.uml.Action
 import com.abstratt.mdd.modelrenderer.IndentedPrintWriter
 import org.eclipse.uml2.uml.ValueSpecificationAction
 import org.eclipse.uml2.uml.LiteralUnlimitedNatural
+import org.eclipse.uml2.uml.UMLPackage
+import org.eclipse.uml2.uml.InstanceValue
 
 class TextUMLRenderingUtils {
 	def static String renderMultiplicity(MultiplicityElement multiple, boolean brackets) {
@@ -251,8 +253,6 @@ class TextUMLRenderingUtils {
     }
     
     def static CharSequence renderValue(ValueSpecification valueSpec, ActivityGenerator activityGenerator) {
-    	
-	
     	if (valueSpec.behaviorReference) {
     		val closure = valueSpec.resolveBehaviorReference as Activity
     		'''
@@ -260,11 +260,20 @@ class TextUMLRenderingUtils {
     			«closure.generateActivity(activityGenerator).toString().trim()»
     		}'''
     	} else switch (valueSpec) {
-            LiteralNull : if (valueSpec.emptySet) '''«valueSpec.type.name»[]''' else 'null'
-            LiteralString : switch (valueSpec.type.name) {
-                case 'String': '''"«valueSpec.value»"'''
-                default: valueSpec.value    
-            }
+    		InstanceValue :
+        	    '''«valueSpec.type.name»#«valueSpec.instance.name»'''
+            LiteralNull : 
+            	if (valueSpec.emptySet) 
+            		'''«valueSpec.type.name»[]''' 
+        		else if (valueSpec.vertexLiteral)
+    		    	'''«valueSpec.type.name»#«valueSpec.resolveVertexLiteral().name»'''
+    		    else 
+    				'null'
+            LiteralString : 
+                if (valueSpec.type.name == 'String') 
+                	'''"«valueSpec.value»"'''
+            	else
+                    valueSpec.value    
             default: valueSpec.stringValue
         }
 	}
