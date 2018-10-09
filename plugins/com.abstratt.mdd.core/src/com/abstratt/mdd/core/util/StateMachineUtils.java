@@ -37,14 +37,6 @@ public class StateMachineUtils {
         return stateMachine.getContext();
     }
 
-    public static boolean isVertexLiteral(ValueSpecification specification) {
-		return MDDExtensionUtils.isVertexLiteral(specification);
-	}
-	
-	public static Vertex resolveVertexLiteral(ValueSpecification specification) {
-		return MDDExtensionUtils.resolveVertexLiteral(specification);
-	}
-	
 	public static Vertex createPseudoState(Region region, PseudostateKind kind) {
         Pseudostate pseudoState = (Pseudostate) region.createSubvertex(null,
                 UMLPackage.Literals.PSEUDOSTATE);
@@ -61,7 +53,6 @@ public class StateMachineUtils {
 			});
 		});
 	}
-	
 
     public static Vertex getInitialVertex(StateMachine stateMachine) {
         EList<Vertex> subvertices = stateMachine.getRegions().get(0).getSubvertices();
