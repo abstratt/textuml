@@ -35,6 +35,7 @@ import static extension com.abstratt.mdd.core.util.ActivityUtils.*
 import static extension com.abstratt.mdd.core.util.FeatureUtils.*
 import static extension com.abstratt.mdd.core.util.MDDExtensionUtils.*
 import static extension com.abstratt.mdd.target.base.GeneratorUtils.*
+import org.eclipse.uml2.uml.ReadLinkAction
 
 class ActivityGenerator implements IBasicBehaviorGenerator {
 	
@@ -202,6 +203,12 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     def dispatch generateProperAction(ReadStructuralFeatureAction action) {
         val base = generateFeatureActionBase(action.structuralFeature, action.object)
         '''«base»'''
+    }
+    
+    def dispatch generateProperAction(ReadLinkAction action) {
+    	'''
+    	«action.endData.get(0).value.generateAction» <- «action.association.name» -> «action.endData.get(0).end.opposite.name»
+    	'''
     }
     
     def generateStatement(Action statementAction) {

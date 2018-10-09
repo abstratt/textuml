@@ -113,6 +113,17 @@ class ActivityGeneratorTests extends AbstractRepositoryBuildingTests {
         check('''MyClass extent;''')
     }
     
+    def testReadLink() {
+        check('''
+        begin
+            var myClass1 : MyClass, myClass2 : MyClass2;
+            myClass1 := new MyClass;
+            myClass2 := myClass1 <- MyAssociation -> role2; 
+        end;
+        ''')
+    }
+    
+    
     def testCreateLink() {
         check('''link MyAssociation(role1 := new MyClass, role2 := new MyClass2);''')
     }
