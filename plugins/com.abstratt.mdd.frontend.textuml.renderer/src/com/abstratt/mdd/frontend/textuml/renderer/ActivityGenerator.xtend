@@ -114,20 +114,21 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
 	protected def CharSequence generateBlock(StructuredActivityNode action, List<Action> statements) {
 		var localVariables = action.variables
 		'''
-		        begin
-		        «IF !action.ownedComments.isEmpty»
-		        «action.ownedComments.generateMany('\n')[
-		        formatElement(it, '''
-		            (* 
-		                «it.body»
-		            *)
-			    ''')]»
-		        «ENDIF»
-		        «IF !localVariables.isEmpty»
-		            var «action.variables.generateMany([ '''«it.name» : «it.type.name»'''], ', ')»;
-		        «ENDIF»
-		            «statements.map[generateStatement].join('\n')»
-		        end'''
+	        begin
+	        «IF !action.ownedComments.isEmpty»
+	        «action.ownedComments.generateMany('\n')[
+	        formatElement(it, '''
+		        (* 
+		            «it.body»
+		        *)
+		    ''')]»
+	        «ENDIF»
+	        «IF !localVariables.isEmpty»
+	            var «action.variables.generateMany([ '''«it.name» : «it.type.name»'''], ', ')»;
+	        «ENDIF»
+	            «statements.map[generateStatement].join('\n')»
+	        end
+        '''
 	}
     
     def dispatch generateProperAction(ReadSelfAction action) {
