@@ -22,7 +22,7 @@ public class StateMachineRenderer implements IElementRenderer<StateMachine> {
         out.println("style=\"rounded, dashed\";");
         out.exitLevel();
         out.println("];");
-        out.println("label = \"" + element.getQualifiedName() + "\";");
+        out.println("label = \"" + element.getName() + "\";");
         out.println("labeljust = \"l\";");
         out.println("fontcolor = \"grey\";");
         RenderingUtils.renderAll(session, element.getRegions());
