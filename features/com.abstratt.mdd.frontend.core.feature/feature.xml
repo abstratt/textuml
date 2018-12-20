@@ -2,7 +2,7 @@
 <feature
       id="com.abstratt.mdd.frontend.core.feature"
       label="%featureName"
-      version="2.2.201709.qualifier"
+      version="2.4.201812.007"
       provider-name="%providerName">
 
    <description>
@@ -36,10 +36,10 @@
          version="3.2.0"/> 
          
    <import plugin="com.abstratt.pluginutils"
-         version="2.2.201709"/>          
+         version="2.3.201812"/>          
          
    <import plugin="com.abstratt.pluginutils"
-         version="2.2.201709"/>                   
+         version="2.3.201812"/>                   
          
    </requires>
 

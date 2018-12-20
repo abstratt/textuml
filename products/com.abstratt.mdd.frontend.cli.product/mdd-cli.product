@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="MDD Frontend CLI  Product" uid="com.abstratt.mdd-cli" id="com.abstratt.mdd-cli" application="com.abstratt.mdd.frontend.cli.compilerApplication" version="2.2.201709.latest" useFeatures="false" includeLaunchers="true">
+<product name="MDD Frontend CLI  Product" uid="com.abstratt.mdd-cli" id="com.abstratt.mdd-cli" application="com.abstratt.mdd.frontend.cli.compilerApplication" version="2.4.201812.007" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>

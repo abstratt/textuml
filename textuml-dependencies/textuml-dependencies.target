@@ -38,7 +38,7 @@
 		<location includeAllPlatforms="false" includeMode="planner"
 			includeSource="true" type="InstallableUnit">
 			<unit id="com.abstratt.eclipsegraphviz.feature.feature.group" version="0.0.0" />		
-			<repository location="jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/eclipsegraphviz/com.abstratt.eclipsegraphviz.repository/2.2.201709/com.abstratt.eclipsegraphviz.repository-2.2.201709.zip!/" />
+			<repository location="jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/eclipsegraphviz/com.abstratt.eclipsegraphviz.repository/2.4.201812.003/com.abstratt.eclipsegraphviz.repository-2.4.201812.003.zip!/" />
 		</location>
 		
         <location includeAllPlatforms="false" includeMode="planner"
@@ -46,7 +46,7 @@
 			<unit id="com.abstratt.wrapped.schemacrawler"
 				version="0.0.0" />
 			<repository
-				location="jar:http://repository-textuml.forge.cloudbees.com/snapshot/com/abstratt/wrapped/com.abstratt.wrapped.repository/3.2/com.abstratt.wrapped.repository-3.2.zip!/" />
+				location="jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/wrapped/com.abstratt.wrapped.repository/3.2/com.abstratt.wrapped.repository-3.2.zip!/" />
 		</location>
 </locations>	
 </target>

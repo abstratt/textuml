@@ -2,16 +2,16 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MDD Core
 Bundle-SymbolicName: com.abstratt.mdd.core;singleton:=true
-Bundle-Version: 2.2.201709.qualifier
+Bundle-Version: 2.4.201812.007
 Require-Bundle: org.eclipse.equinox.common;visibility:=reexport,
- com.abstratt.resman;bundle-version="2.2.201709";visibility:=reexport,
+ com.abstratt.resman;bundle-version="2.3.201812";visibility:=reexport,
  org.eclipse.uml2.uml;visibility:=reexport;bundle-version="[5.0.1,6)",
  org.eclipse.uml2.uml.resources;bundle-version="[5.0.1,6)",
  org.eclipse.osgi;bundle-version="3.10",
  org.eclipse.equinox.registry;bundle-version="3.5",
  org.eclipse.core.filesystem;bundle-version="1.4";visibility:=reexport,
  org.eclipse.core.runtime;bundle-version="3.10",
- com.abstratt.pluginutils;bundle-version="2.2.201709";visibility:=reexport,
+ com.abstratt.pluginutils;bundle-version="2.3.201812";visibility:=reexport,
  org.eclipse.emf.query;visibility:=reexport,
  org.apache.commons.io;bundle-version="2.2.0",
  org.apache.commons.lang;bundle-version="2.6.0",
