@@ -2,7 +2,7 @@
 <feature
       id="com.abstratt.mdd.importer.jdbc.feature"
       label="%featureName"
-      version="2.4.201812.007"
+      version="2.5.201812"
       provider-name="%providerName">
 
    <description>
