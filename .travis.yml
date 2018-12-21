@@ -1,9 +1,15 @@
 language: java
 jdk:
-  - oraclejdk8
-install: 
-    - mvn clean install
+- oraclejdk8
+install:
+  mvn clean install
+after_success:
+  mvn clean deploy --settings deploy.settings.xml -DdeployAtEnd=true
 notifications:
   email:
     on_success: change
     on_failure: change
+env:
+  global:
+  - secure: HwR6sIQdg/+mYnsXG1pvfyoIXIUVe+6T16fvjCm4lIAcUCofxgCt8C/rZduMzk4bCNnkGBuJ0XWAaRPGup9TvFF+fiYNgqfVAm/3LTvGodMW7G6Th3PwLyzHwpOdUEaIZEOFP1vUkrQhdPBiLz0F95gdQ/1WhK55W49/kSV+j8g=
+  - secure: C+xpd427Po1Z79Snt4gSOZYtXoRzhSlxnCG3cXeuqpEdXfdFMLXwQjHEMaMiHkSfgsMbXODNgEox2p+CIC6R15/xyafsAqCy9ryEXsCTpuFfF1oiBextbVeYG4gqtHr9TYNLBqAxEgQkY0XHnk3k0Y+/8MSt3+nPUsv5ee0YVOM=
