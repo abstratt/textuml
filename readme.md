@@ -8,7 +8,6 @@ TextUML Toolkit
 > Note: This documentation is meant to be viewed in HTML ([via this URL](http://abstratt.github.io/textuml/readme.html)). Relative links below will work via the HTML version, but not via the Markdown viewer.
 
 
-[![Build Status on Cloudbees](https://textuml.ci.cloudbees.com/buildStatus/icon?job=textuml-toolkit)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
 [![Build Status on Travis CI](https://travis-ci.org/abstratt/textuml.svg?branch=master)](https://travis-ci.org/abstratt/textuml)
 
 
@@ -72,6 +71,5 @@ Using the Toolkit
 -   **[Contributing](docs/contributing)**
     - everything you need to know to contribute as a developer or tester.
 
-[![](https://www.cloudbees.com/sites/default/files/styles/large/public/Button-Built-on-CB-1.png)](https://textuml.ci.cloudbees.com/job/textuml-toolkit/)
 
 {% include github.html %}
