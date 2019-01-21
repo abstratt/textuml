@@ -7,7 +7,6 @@ import java.util.List
 import org.eclipse.uml2.uml.Package
 import org.eclipse.uml2.uml.Class
 import org.eclipse.emf.ecore.EClass
-import org.eclipse.uml2.uml.Enumeration
 import org.eclipse.uml2.uml.StateMachine
 
 class GeneratorUtils {
@@ -25,10 +24,6 @@ class GeneratorUtils {
     	val toString = if (trim) [ it.toString.trim ] else [ it.toString.trim ] 
         return items.map[toString.apply(mapper.apply(it))].join(separator)
     }
-	
-	def static List<Enumeration> getEnumerations(Collection<Package> appPackages) {
-		return getTypes(appPackages, UMLPackage.Literals.ENUMERATION).map[it as Enumeration]
-	}
 	
 	def static List<StateMachine> getStateMachines(Collection<Package> appPackages) {
 		return getTypes(appPackages, UMLPackage.Literals.CLASS).map[it as Class].map[it.ownedBehaviors.filter(StateMachine)].flatten.toList

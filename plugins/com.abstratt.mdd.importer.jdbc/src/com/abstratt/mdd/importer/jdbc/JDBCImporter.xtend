@@ -33,6 +33,7 @@ import schemacrawler.utility.SchemaCrawlerUtility
 
 import static extension org.apache.commons.lang.StringUtils.*
 import java.nio.charset.StandardCharsets
+import com.abstratt.mdd.core.ParsedProperties
 
 class JDBCImporter {
 
@@ -62,12 +63,7 @@ class JDBCImporter {
 	}
 
 	private def Map<String, String> filterProperties(Properties properties, String prefix) {
-		val result = newLinkedHashMap()
-		val keys = properties.keySet().map[toString].filter[startsWith(prefix)]
-		keys.forEach [
-			result.put(it.replace(prefix, ''), properties.get(it).toString())
-		]
-		return result
+		return new ParsedProperties(properties).filterProperties(prefix)
 	}
 
 	def void importApplication(IRepository repository) {

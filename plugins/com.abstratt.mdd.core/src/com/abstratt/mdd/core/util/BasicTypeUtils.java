@@ -31,6 +31,7 @@ public class BasicTypeUtils {
         converters.put("Picture", NOOP_CONVERTER);
         converters.put("Video", NOOP_CONVERTER);
         converters.put("Sound", NOOP_CONVERTER);
+        converters.put("Email", NOOP_CONVERTER);
         converters.put("Memo", NOOP_CONVERTER);
         converters.put("String", NOOP_CONVERTER);
         converters.put("Geolocation", NOOP_CONVERTER);
