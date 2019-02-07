@@ -71,5 +71,4 @@ Using the Toolkit
 -   **[Contributing](docs/contributing)**
     - everything you need to know to contribute as a developer or tester.
 
-
 {% include github.html %}
