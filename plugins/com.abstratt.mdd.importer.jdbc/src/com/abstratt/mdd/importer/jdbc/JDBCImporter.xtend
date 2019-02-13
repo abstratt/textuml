@@ -32,7 +32,6 @@ import schemacrawler.tools.integration.serialization.XmlSerializedCatalog
 import schemacrawler.utility.SchemaCrawlerUtility
 
 import static extension org.apache.commons.lang.StringUtils.*
-import java.nio.charset.StandardCharsets
 import com.abstratt.mdd.core.ParsedProperties
 
 class JDBCImporter {
@@ -164,6 +163,7 @@ class JDBCImporter {
 			package «packageName»;
 			
 			import mdd_types;
+			import mdd_media;
 			
 			«classTables.map[table | generateClass(catalog, schema, table, tables.keySet)].join()»
 			«associationTables.map[table | generateAssociation(catalog, schema, table, tables.keySet)].join()»
