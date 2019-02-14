@@ -13,3 +13,7 @@ env:
   global:
   - secure: MURNfihYEAKIgQtik27ISbONBO99NPRS/Ux5Q0pg3nHhrUgAq+efocGnQBJvZiFZEMQU9DVW742QDI54GIujbrIzkY7/Y+Rqqi+Fb5ryP3yQYv1vIM1wmjkuVKZ+mG/ONlxYeoDA5Tm6/PIJeggx5al45ntCBeMWI6itzyf8PkE=
   - secure: WXXtd6hz69X3XqN5vlCQZmP55oMGgFOGeOdE8zL89PGvswjTIMDgreaHOZHLwUgSUR2/pYxutURzbLOyYiLu3F+isQNVM0gSI4TElO6GYO7WKlAmZubMN0cSLrNSiVG7i4vtasm8yHn6Mp+2DeEIh78mx3WI1ZLwBOfbwafH784=
+
+cache:
+  directories:
+  - $HOME/.m2
