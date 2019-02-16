@@ -26,6 +26,7 @@ import com.abstratt.mdd.frontend.core.NotInAssociation;
 import com.abstratt.mdd.frontend.core.ReturnStatementRequired;
 import com.abstratt.mdd.frontend.core.ReturnValueNotExpected;
 import com.abstratt.mdd.frontend.core.ReturnValueRequired;
+import com.abstratt.mdd.frontend.core.TypeMismatch;
 import com.abstratt.mdd.frontend.core.UnknownAttribute;
 import com.abstratt.mdd.frontend.core.UnknownOperation;
 import com.abstratt.mdd.frontend.core.UnknownRole;
@@ -55,6 +56,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
         structure += "    attribute zoo : Integer;\n";
         structure += "    attribute fred : Integer;\n";
         structure += "    attribute realValue : Double;\n";
+        structure += "    attribute optionalRealValue : Double[0,1];\n";
         structure += "    static attribute staticZoo : Integer;\n";
         structure += "    readonly static attribute K : Integer := 42;\n";
         structure += "  end;\n";
@@ -576,6 +578,20 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
         source += "end.";
         parseAndCheck(structure, source);
     }
+    //TODO-RC in preparation for validating required vs optional values
+    public void _testWriteRequiredAttributeWithOptionalValue() throws CoreException {
+        String source;
+        source = "model simple;\n";
+        source += "operation SimpleClass.bar;\n";
+        source += "begin\n";
+        source += "self.realValue := self.optionalRealValue;";
+        source += "end;\n";
+        source += "end.";
+        IProblem[] problems = parse(structure, source);
+        assertEquals(1, problems.length);
+        TypeMismatch typeMismatch = assertExpectedProblem(TypeMismatch.class, problems);
+    }
+
 
     public void testWriteClassAttribute() throws CoreException {
         String source;
