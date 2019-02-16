@@ -80,10 +80,10 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         String source = "";
         source += "model simple;\n";
         source += "  class ClientWithAccountAttribute\n";
-        source += "    attribute account : AccountWithClientAttribute;\n";
+        source += "    attribute account : AccountWithClientAttribute[1];\n";
         source += "  end;\n";
         source += "  class AccountWithClientAttribute\n";
-        source += "    attribute client : ClientWithAccountAttribute;\n";
+        source += "    attribute client : ClientWithAccountAttribute[1];\n";
         source += "  end;\n";
         source += keyword + " AccountClient\n";
         source += "  role ClientWithAccountAttribute.account;\n";
@@ -108,10 +108,10 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         clientEnd = association.getMemberEnd("client", clientClass);
         assertNotNull(clientEnd);
         assertEquals(AggregationKind.NONE_LITERAL, clientEnd.getAggregation());
-        assertEquals(1, ((LiteralUnlimitedNatural) accountEnd.getLowerValue()).getValue());
-        assertEquals(1, ((LiteralUnlimitedNatural) accountEnd.getUpperValue()).getValue());
-        assertEquals(1, ((LiteralUnlimitedNatural) clientEnd.getLowerValue()).getValue());
-        assertEquals(1, ((LiteralUnlimitedNatural) clientEnd.getUpperValue()).getValue());
+        assertEquals(1, accountEnd.lowerBound());
+        assertEquals(1, accountEnd.upperBound());
+        assertEquals(1, clientEnd.lowerBound());
+        assertEquals(1, clientEnd.upperBound());
     }
 
     public void testMixedMemberEnd() throws CoreException {
@@ -124,7 +124,7 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         source += "  end;\n";
         source += "  composition Hierarchy\n";
         source += "    role Parent.children;\n";
-        source += "    role parent : Parent;\n";
+        source += "    role parent : Parent[1];\n";
         source += "  end;\n";
         source += "end.";
         parseAndCheck(source);
@@ -142,11 +142,10 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         childrenEnd = association.getMemberEnd("children", childClass);
         assertNotNull(childrenEnd);
         assertEquals(AggregationKind.COMPOSITE_LITERAL, childrenEnd.getAggregation());
-        assertEquals(0, ((LiteralInteger) childrenEnd.getLowerValue()).getValue());
-        assertEquals(LiteralUnlimitedNatural.UNLIMITED,
-                ((LiteralUnlimitedNatural) childrenEnd.getUpperValue()).getValue());
-        assertEquals(1, ((LiteralUnlimitedNatural) parentEnd.getLowerValue()).getValue());
-        assertEquals(1, ((LiteralUnlimitedNatural) parentEnd.getUpperValue()).getValue());
+		assertEquals(0, childrenEnd.lowerBound());
+		assertEquals(LiteralUnlimitedNatural.UNLIMITED, childrenEnd.upperBound());
+		assertEquals(1, parentEnd.lowerBound());
+		assertEquals(1, parentEnd.upperBound());
     }
 
     public void testAssociationMemberEnd() throws CoreException {
@@ -165,8 +164,8 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         String source = "";
         source += "model simple;\n";
         source += "association AccountClient\n";
-        source += "  navigable role account : Account;\n";
-        source += "  navigable role client : Client2;\n";
+        source += "  navigable role account : Account[1];\n";
+        source += "  navigable role client : Client2[1];\n";
         source += "end;\n";
         source += "end.";
         IProblem[] problems = compile(getSimpleModelSource(), source);
@@ -179,7 +178,7 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         String source = "";
         source += "model simple;\n";
         source += "association AccountClient\n";
-        source += "  role account : Account;\n";
+        source += "  role account : Account[1];\n";
         source += "end;\n";
         source += "end.";
         IProblem[] problems = compile(getSimpleModelSource(), source);
@@ -233,11 +232,10 @@ public class AssociationTests extends AbstractRepositoryBuildingTests {
         assertTrue(!clientEnd.isNavigable());
         assertTrue(clientEnd.isReadOnly());
         assertEquals(AggregationKind.NONE_LITERAL, clientEnd.getAggregation());
-        assertEquals(0, ((LiteralInteger) accountEnd.getLowerValue()).getValue());
-        assertEquals(LiteralUnlimitedNatural.UNLIMITED,
-                ((LiteralUnlimitedNatural) accountEnd.getUpperValue()).getValue());
-        assertEquals(1, ((LiteralInteger) clientEnd.getLowerValue()).getValue());
-        assertEquals(1, ((LiteralUnlimitedNatural) clientEnd.getUpperValue()).getValue());
+        assertEquals(0, accountEnd.lowerBound());
+		assertEquals(LiteralUnlimitedNatural.UNLIMITED, accountEnd.upperBound());
+        assertEquals(1, clientEnd.lowerBound());
+        assertEquals(1, clientEnd.upperBound());
     }
 
     public void testAssociationShorthand() throws CoreException {
