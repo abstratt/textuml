@@ -214,6 +214,10 @@ public class TypeUtils {
             if (!destinationAsMultiple.isMultivalued() && sourceAsMultiple.isMultivalued())
                 // multi -> single is bad, single -> multi is ok
                 return false;
+            // TODO-RC Enable once we provide means to coerce optional values as required ones
+//            if (destinationAsMultiple.getLower() > 0 && sourceAsMultiple.getLower() == 0)
+//            	// optional -> required is bad, required -> optional is ok
+//            	return false;
         }
         return isCompatible(repository, source.getType(), destination.getType(), substitutions);
     }
