@@ -15,6 +15,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
+
 public abstract class Problem implements IProblem, Comparable<IProblem> {
 
     private Map<String, Object> attributes = Collections.emptyMap();
@@ -73,5 +76,10 @@ public abstract class Problem implements IProblem, Comparable<IProblem> {
         if (otherLine == null)
             return 1;
         return thisLine - otherLine;
+    }
+    
+    @Override
+    public String getMessage() {
+    	return StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(getClass().getSimpleName()), " ");
     }
 }
