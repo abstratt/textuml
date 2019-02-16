@@ -241,9 +241,9 @@ public class MDDUtil {
         if (!(typed instanceof MultiplicityElement))
             return baseTypeName;
         MultiplicityElement asMultiple = (MultiplicityElement) typed;
-        if (!asMultiple.isMultivalued())
-            return baseTypeName;
-        return baseTypeName + '[' + ']';
+        String lower = Integer.toString(asMultiple.getLower());
+        String upper = asMultiple.getUpper() == -1 ? "*" : Integer.toString(asMultiple.getUpper()); 
+        return baseTypeName + '[' + lower + ", " + upper + ']';
     }
 
     /** Returns the first segment in the given QName. */
