@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+import java.util.jar.Manifest;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -40,6 +41,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
@@ -71,6 +73,9 @@ import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.TypedElement;
 import org.eclipse.uml2.uml.UMLPackage.Literals;
+import org.osgi.framework.Constants;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.Version;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -91,6 +96,7 @@ public class MDDUtil {
      */
     public static final String GENERATED = "com.abstratt/mdd/";
     public static final String UNIT = "com.abstratt/mdd/unit";
+    public static final String VERSION = "com.abstratt/mdd/version";
 
     public static class EClassMatcher implements EObjectMatcher {
         private EClass eClass;
@@ -114,6 +120,8 @@ public class MDDUtil {
 
     private static SAXParserFactory cachedParserFactory;
 
+    private static String cachedVersion;
+    
     /**
      * Enhances the given qualified name with the given segment.
      */
@@ -515,11 +523,38 @@ public class MDDUtil {
         if (MDDUtil.isGenerated(package_))
             return;
         final Package root = getRootPackage(package_);
-        root.createEAnnotation(MDDUtil.GENERATED).getDetails()
-                .put("dateCreated", new SimpleDateFormat("yyyy/MM/dd hh:mm:ss SSS Z").format(new Date()));
+        EAnnotation annotation = root.createEAnnotation(MDDUtil.GENERATED);
+		EMap<String, String> details = annotation.getDetails();
+		details.put("dateCreated", new SimpleDateFormat("yyyy/MM/dd hh:mm:ss SSS Z").format(new Date()));
+		details.put("version", getMetamodelVersion());
     }
 
-    public static String getGeneratedTimestamp(Package package_) {
+    private static String getMetamodelVersion() {
+    	if (cachedVersion != null)
+    		return cachedVersion;
+    	if (Platform.isRunning()) {
+    		Version version = FrameworkUtil.getBundle(MDDUtil.class).getVersion();
+			return cachedVersion = extractMetamodelVersion(version).toString();
+    	}
+    	InputStream manifestStream = MDDUtil.class.getResourceAsStream("/META-INF/MANIFEST.MF");
+    	try {		
+    		Manifest manifest = new Manifest(manifestStream); 
+    		String readVersion = manifest.getMainAttributes().getValue(Constants.BUNDLE_VERSION);
+			return cachedVersion = extractMetamodelVersion(Version.parseVersion(StringUtils.defaultIfBlank(readVersion, "0.1"))).toString();
+    	} catch (IOException e) {
+    		// ignore
+    		cachedVersion = "";
+		} finally {
+    		IOUtils.closeQuietly(manifestStream);
+    	}
+    	return cachedVersion; 
+	}
+
+	private static Version extractMetamodelVersion(Version implementationVersion) {
+		return new Version(implementationVersion.getMajor(), implementationVersion.getMinor(), 0);
+	}
+
+	public static String getGeneratedTimestamp(Package package_) {
         final Package root = getRootPackage(package_);
         EAnnotation eAnnotation = root.getEAnnotation(MDDUtil.GENERATED);
         if (eAnnotation == null)
