@@ -23,6 +23,8 @@ class AccessControlUtils {
     /**
      * Computes the actual constraints in effect for each role/capability at the given context hierarchy.
      * 
+     * Abstract role classes are ignored.
+     * 
      * @param allRoleClasses the role classes to consider (use a null element for anonymous users)
      * @param relevantCapabilities the capabilities to consider
      * @param accessConstraintContexts the constraint contexts, from wider to narrower (example: [class, operation])
@@ -46,7 +48,7 @@ class AccessControlUtils {
                 val constraintAccessRoles = constraint.accessRoles
                 val applicableRoles = if (constraintAccessRoles.empty) 
                 	// the constraint specifies no roles, consider all roles
-                	(allRoleClasses + #[null]) 
+                	(concreteRoleClasses + #[null]) 
             	else 
             	    // consider only concrete roles - those specified in the constraint, and any subclasses
             		concreteRoleClasses.filter[specific | specific.isKindOfAnyOf(constraintAccessRoles, true)]
@@ -122,6 +124,11 @@ class AccessControlUtils {
         return chooseAccessConstraint(accessConstraints, capability, roleClass);
     }
     
+    /**
+     * 
+     * @param roleClass optional role class to match
+     * @return the constraint chosen, or null
+     */
     def static Constraint chooseAccessConstraint(List<Constraint> accessConstraints, AccessCapability capability, Class roleClass) {
         val Stream<Constraint> matching = accessConstraints.stream().filter[it | 
             val List<AccessCapability> allowedCapabilities = getAllowedCapabilities(it);
