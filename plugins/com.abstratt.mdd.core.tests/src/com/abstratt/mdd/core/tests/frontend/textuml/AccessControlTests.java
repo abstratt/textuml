@@ -9,10 +9,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Constraint;
@@ -153,12 +151,14 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
     
     public void testConstraintsPerRole_AccountApplication() throws CoreException {
     	parseAndCheck(source);
-    	Class bankAccount = getClass("banking::AccountApplication");
+    	Class accountApplication = getClass("banking::AccountApplication");
     	Class branchManager = getClass("banking::BranchManager");
     	Class accountManager = getClass("banking::AccountManager");
+    	Class employee = getClass("banking::Employee");
     	Class teller = getClass("banking::Teller");
     	
-    	Map<Classifier, Map<AccessCapability, Constraint>> computed = AccessControlUtils.computeConstraintsPerRoleClass(Arrays.asList(branchManager, teller, accountManager), Arrays.asList(AccessCapability.values()), Arrays.asList(bankAccount));
+    	Map<Classifier, Map<AccessCapability, Constraint>> computed = AccessControlUtils.computeConstraintsPerRoleClass(Arrays.asList(employee, branchManager, teller, accountManager), Arrays.asList(AccessCapability.values()), Arrays.asList(accountApplication));
+    	
     	assertSameClasses(Arrays.asList(branchManager, accountManager, teller, null), computed.keySet());
     	
     	Map<AccessCapability, Constraint> branchManagerConstraints = computed.get(branchManager);
