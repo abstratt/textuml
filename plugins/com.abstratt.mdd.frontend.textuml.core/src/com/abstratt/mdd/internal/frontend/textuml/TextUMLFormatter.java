@@ -329,7 +329,7 @@ public class TextUMLFormatter {
         addWhitespace(output);
         format(node.getAs(), output, indentation);
         addWhitespace(output);
-        format(node.getSingleTypeIdentifier(), output, indentation);
+        format(node.getTypeIdentifier(), output, indentation);
     }
 
     public void format(AClosure node, StringBuilder output, int indentation) {

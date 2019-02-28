@@ -133,6 +133,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AAttributeIdentifierExpres
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABlockKernel;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABooleanLiteral;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABroadcastSpecificStatement;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ACast;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ACatchSection;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassAttributeIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AClassOperationIdentifierExpression;
@@ -182,6 +183,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ATrueBoolean;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATryStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleComponentValue;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleConstructor;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ATypeIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AUnlinkSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AValuedReturnSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AVarDecl;
@@ -192,9 +194,11 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AWriteClassAttributeSpecif
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWriteVariableSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PAssociationTraversal;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PCast;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PClauseBody;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PExpressionList;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PRootExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TAnd;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TDiv;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TIs;
@@ -1085,6 +1089,8 @@ public class BehaviorGenerator extends AbstractGenerator {
                     LinkEndData endData = action.createEndData();
                     endData.setEnd(end);
                     InputPin input = action.createInputValue(null, end.getType());
+                    input.setLower(end.getLower());
+                    input.setUpper(end.getUpper());
                     endData.setValue(input);
                     builder.registerInput(input);
                     node.getRootExpression().apply(BehaviorGenerator.this);
@@ -1470,7 +1476,10 @@ public class BehaviorGenerator extends AbstractGenerator {
                 problemBuilder.addProblem(new InternalProblem("Could not determine context"), node);
                 throw new AbortedStatementCompilationException();
             }
-            builder.registerOutput(action.createResult(null, currentClassifier));
+            OutputPin result = action.createResult(null, currentClassifier);
+            result.setLower(1);
+            result.setUpper(1);
+			builder.registerOutput(result);
             fillDebugInfo(action, node);
         } finally {
             builder.closeAction();
@@ -1543,11 +1552,13 @@ public class BehaviorGenerator extends AbstractGenerator {
 
     @Override
     public void caseAParenthesisOperand(AParenthesisOperand node) {
-        if (node.getCast() == null) {
+        ACast cast = (ACast) node.getCast();
+		if (cast == null) {
             // no casting, just process inner expression
             node.getExpression().apply(this);
             return;
         }
+		PTypeIdentifier typeIdentifier = cast.getTypeIdentifier();
         StructuredActivityNode action = (StructuredActivityNode) builder
                 .createAction(Literals.STRUCTURED_ACTIVITY_NODE);
         MDDExtensionUtils.makeCast(action);
@@ -1563,12 +1574,8 @@ public class BehaviorGenerator extends AbstractGenerator {
             // register the result output pin
             OutputPin destinationPin = (OutputPin) action.createStructuredNodeOutput(null, null);
 
-            new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), destinationPin).process(node
-                    .getCast());
+            new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), destinationPin).process(typeIdentifier);
             builder.registerOutput(destinationPin);
-            // copy whatever multiplicity coming into the source to the
-            // destination
-            TypeUtils.copyMultiplicity(sourcePin, destinationPin);
             fillDebugInfo(action, node);
         } finally {
             builder.closeAction();

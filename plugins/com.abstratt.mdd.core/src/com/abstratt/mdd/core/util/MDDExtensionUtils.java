@@ -76,7 +76,6 @@ public class MDDExtensionUtils {
 	public static final String ACCESS_STEREOTYPE = EXTENSIONS_PROFILE + "::Access";
 	private static final String ACCESS_CAPABILITY_ENUMERATION = EXTENSIONS_PROFILE + "::AccessCapability";
 	public static final String ACCESS_ALLOWED = "allowed";
-	public static final String ACCESS_DENIED = "denied";
 	public static final String ACCESS_ROLES = "roles";
 	private static final String META_REFERENCE_STEREOTYPE = EXTENSIONS_PROFILE + "::MetaReference";
 	private static final String EMPTY_SET_STEREOTYPE = EXTENSIONS_PROFILE + "::EmptySetLiteral";

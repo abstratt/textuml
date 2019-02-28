@@ -239,6 +239,41 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         behavior += "end.\n";
         parseAndCheck(structure, behavior);
     }
+    
+    public void testCastOptionalToRequired() throws CoreException {
+        String behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "  var requiredInt : Integer[1];\n";
+        behavior += "  requiredInt := (self.attrib1 as Integer[1]);\n";
+        behavior += "end;\n";
+        behavior += "end.\n";
+        parseAndCheck(structure, behavior);
+    }
+    
+    public void testOptionalToRequired() throws CoreException {
+        String behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "  var requiredInt : Integer[1];\n";
+        behavior += "  requiredInt := (self.attrib1 as Integer[0, 1]);\n";
+        behavior += "end;\n";
+        behavior += "end.\n";
+        IProblem[] errors = parse(structure, behavior);
+        FixtureHelper.assertTrue(errors, errors.length == 1);
+        FixtureHelper.assertTrue(errors, errors[0] instanceof TypeMismatch);
+    }
+    
+    public void testOperationsOnOptionalValues() throws CoreException {
+        String behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "  var optionalInt1, optionalInt2 : Integer[0,1];\n";
+        behavior += "  optionalInt1 := self.attrib1 * optionalInt2;\n";
+        behavior += "end;\n";
+        behavior += "end.\n";
+        parseAndCheck(structure, behavior);
+    }
 
     public void testAssignCompatibleTupleToAnonymousTupleAndViceVersa() throws CoreException {
         String behavior = "model tests;\n";
