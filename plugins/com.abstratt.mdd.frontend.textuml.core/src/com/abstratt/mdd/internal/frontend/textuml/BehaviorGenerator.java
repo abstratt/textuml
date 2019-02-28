@@ -310,6 +310,9 @@ public class BehaviorGenerator extends AbstractGenerator {
             action.setStructuralFeature(attribute);
             action.getObject().setType(source.getType());
             TypeUtils.copyType(attribute, action.getResult(), targetClassifier);
+            if (!TypeUtils.isRequiredPin(source) && !TypeUtils.isMultivalued(source))
+            	// it is a tentative access, result must be optional
+            	action.getResult().setLower(0);
             fillDebugInfo(action, node);
         } finally {
             builder.closeAction();
@@ -1346,6 +1349,9 @@ public class BehaviorGenerator extends AbstractGenerator {
                     result = builder.registerOutput(action.createResult(null, null));
                     TypeUtils.copyType(current, result, targetClassifier);
                     resolveWildcardTypes(wildcardSubstitutions, current, result);
+                    if (!TypeUtils.isRequiredPin(targetSource) && !TypeUtils.isMultivalued(targetSource))
+                    	// it is a tentative call, result must be optional
+                    	result.setLower(0);
                     break;
                 case ParameterDirectionKind.OUT:
                     Assert.isTrue(false);

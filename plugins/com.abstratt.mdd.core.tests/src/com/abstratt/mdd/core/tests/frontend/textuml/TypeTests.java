@@ -5,6 +5,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Variable;
 
@@ -12,7 +13,7 @@ import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.core.util.ActivityUtils;
-import com.abstratt.mdd.core.util.FeatureUtils;
+import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
 
 public class TypeTests extends AbstractRepositoryBuildingTests {
@@ -25,8 +26,10 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         structure += "class Struct\n";
         structure += "  attribute attrib1 :  Integer[0,1];\n";
         structure += "  attribute attrib2 :  Boolean[0,1];\n";
+        structure += "  attribute requiredInteger :  Integer;\n";
         structure += "  attribute attrib3 :  any;\n";
         structure += "  operation op1();\n";
+        structure += "  operation getInteger() : Integer;\n";
         structure += "end;\n";
         structure += "class SubStruct1 specializes Struct\n";
         structure += "end;\n";
@@ -64,6 +67,45 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         assertEquals("Integer", tmp2Var.getType().getName());
         assertEquals(0, tmp2Var.getLower());
     }
+    
+    
+    public void testTypeInference_nullSafeCallOperation() throws CoreException {
+        String behavior;
+        behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "var other : Struct[0,1], optionalLocal, requiredLocal;";
+        behavior += "optionalLocal := other.getInteger();";
+        behavior += "requiredLocal := self.getInteger();";
+        behavior += "end;\n";
+        behavior += "end.";
+        parseAndCheck(structure, behavior);
+        Operation operation = getOperation("tests::Struct::op1");
+        StructuredActivityNode rootAction = (StructuredActivityNode) ActivityUtils.getWrapperBlock(operation).getNodes().get(0);
+		Variable optionalLocal = ActivityUtils.findVariable(rootAction, "optionalLocal");
+        Variable requiredLocal = ActivityUtils.findVariable(rootAction, "requiredLocal");
+        assertTrue(TypeUtils.isRequired(requiredLocal));
+        assertTrue(!TypeUtils.isRequired(optionalLocal));
+    }    
+
+    public void testTypeInference_nullSafeReadAttribute() throws CoreException {
+        String behavior;
+        behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "var other : Struct[0,1], optionalLocal, requiredLocal;";
+        behavior += "optionalLocal := other.requiredInteger;";
+        behavior += "requiredLocal := self.requiredInteger;";
+        behavior += "end;\n";
+        behavior += "end.";
+        parseAndCheck(structure, behavior);
+        Operation operation = getOperation("tests::Struct::op1");
+        StructuredActivityNode rootAction = (StructuredActivityNode) ActivityUtils.getWrapperBlock(operation).getNodes().get(0);
+		Variable optionalLocal = ActivityUtils.findVariable(rootAction, "optionalLocal");
+        Variable requiredLocal = ActivityUtils.findVariable(rootAction, "requiredLocal");
+        assertTrue(TypeUtils.isRequired(requiredLocal));
+        assertTrue(!TypeUtils.isRequired(optionalLocal));
+    }    
     
     public void testAssignAnyToBoolean() throws CoreException {
         String behavior = "model tests;\n";

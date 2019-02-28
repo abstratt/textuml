@@ -140,7 +140,7 @@ public class ActivityUtils {
 
     /**
      * Performs a variable lookup traversing the structured activity node
-     * hierarchy if necessary. Supports closures.
+     * hierarchy upwards if necessary. Supports closures.
      * 
      * @see StructuredActivityNode#getVariable(String, Type)
      */
@@ -187,6 +187,10 @@ public class ActivityUtils {
     public static StructuredActivityNode getBodyNode(Activity activity) {
         return (StructuredActivityNode) activity.getStructuredNode(BODY_NODE);
     }
+    
+    public static StructuredActivityNode getBodyNode(Operation operation) {
+    	return getBodyNode(getActivity(operation));
+    }
 
     public static StructuredActivityNode getRootAction(Operation operation) {
         Activity activity = getActivity(operation);
@@ -217,8 +221,17 @@ public class ActivityUtils {
         return (StructuredActivityNode) body.getNodes().get(0);
     }
 
-    public static boolean isWrapperBlock(Action action) {
+    public static boolean isWrapperBlock(ActivityNode action) {
 		return action instanceof StructuredActivityNode && MDDExtensionUtils.isWrapperBlock((StructuredActivityNode) action);
+    }
+    
+    public static StructuredActivityNode getWrapperBlock(Activity activity) {
+		StructuredActivityNode bodyNode = getBodyNode(activity);
+		return bodyNode.getNodes().stream().filter(it -> isWrapperBlock(it)).findFirst().map(it -> (StructuredActivityNode) it).orElse(null);
+    }
+    
+    public static StructuredActivityNode getWrapperBlock(Operation operation) {
+    	return getWrapperBlock(getActivity(operation));
     }
     
     public static boolean isRootAction(Action action) {
@@ -453,6 +466,10 @@ public class ActivityUtils {
 
     public static Action findSingleStatement(Activity activity) {
         return findSingleStatement(getRootAction(activity));
+    }
+
+    public static Action findSingleStatement(Operation operation) {
+        return findSingleStatement(getRootAction(operation));
     }
 
     public static List<Action> findMatchingActions(StructuredActivityNode target, EClass... actionClasses) {

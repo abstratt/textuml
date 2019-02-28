@@ -27,6 +27,7 @@ import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.ObjectFlow;
 import org.eclipse.uml2.uml.ObjectNode;
 import org.eclipse.uml2.uml.Parameter;
+import org.eclipse.uml2.uml.Pin;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.TemplateBinding;
 import org.eclipse.uml2.uml.TemplateableElement;
@@ -316,5 +317,24 @@ public class TypeUtils {
             return true;
         // general type conformance
         return source.conformsTo(destination);
+    }
+    
+    public static boolean isRequired(MultiplicityElement e) {
+    	return e.lowerBound() > 0;
+    }
+    
+    public static boolean isRequiredPin(ObjectNode e) {
+    	if (e instanceof MultiplicityElement)
+    		return isRequired((MultiplicityElement) e);
+    	return true;
+    }
+    public static boolean isMultivalued(MultiplicityElement e) {
+    	return e.isMultivalued();
+    }
+    
+    public static boolean isMultivalued(ObjectNode e) {
+    	if (e instanceof MultiplicityElement)
+    		return isMultivalued((MultiplicityElement) e);
+    	return false;
     }
 }

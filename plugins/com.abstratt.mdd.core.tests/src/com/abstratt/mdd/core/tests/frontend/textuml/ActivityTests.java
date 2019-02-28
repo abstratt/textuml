@@ -22,6 +22,7 @@ import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
+import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.NotInAssociation;
 import com.abstratt.mdd.frontend.core.ReturnStatementRequired;
 import com.abstratt.mdd.frontend.core.ReturnValueNotExpected;
