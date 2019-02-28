@@ -9,13 +9,13 @@ import mdd_types;
 class Collection<T>
 
     (* Adds the given object to a collection, returning a collection that now includes the given object. *)
-    query extend(toAdd : T) : T[*];
+    query extend(toAdd : T[0,1]) : T[*];
 
     (* Counts the number of elements in the collection that satisfy the given predicate. *)
     query count(predicate : {( : T) : Boolean}) : Integer;
 
     (* Determines whether the collection includes the given element. *)
-    query includes(object : T) : Boolean;
+    query includes(object : T[0,1]) : Boolean;
 
     (* Determines whether the collection includes all the elements in the given second collection. *)
     query includesAll(c2 : T[*]) : Boolean;
@@ -122,7 +122,7 @@ class Sequence<T>specializes Collection<T>
     
     query indexWhere(predicate : {( : T) : Boolean}) : Integer;
 
-    query indexOf(i : T) : Integer;
+    query indexOf(i : T[0,1]) : Integer;
     
     (* Returns the first element in this sequence, if not empty *)
     query head() : T[0, 1];
@@ -139,7 +139,7 @@ end;
 class Bag<T>specializes Collection<T>
 
     (* Computes the number of times the given element appears in this bag. *)
-    query count(element : T) : Integer;
+    query count(element : T[0,1]) : Integer;
 end;
 
 (* A set where elements have been ordered by some criteria. *)

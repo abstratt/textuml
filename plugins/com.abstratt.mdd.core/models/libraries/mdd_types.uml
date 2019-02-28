@@ -2,7 +2,8 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_types" URI="libraries/mdd_types">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2018/08/27 10:50:20 788 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2019/02/27 08:34:08 699 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.1" key="version" value="2.5.0"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0" visibility="private">
       <importedPackage xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
@@ -34,8 +35,8 @@
       </eAnnotations>
       <ownedOperation xmi:id="Assert-isTrue" name="isTrue" visibility="public" isStatic="true">
         <ownedParameter xmi:id="Assert-isTrue-condition" name="condition" type="Boolean">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isTrue-condition-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isTrue-condition-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Assert-isTrue-condition-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isTrue-condition-_upperValue" value="1"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Assert-areEqual" name="areEqual" visibility="public" isStatic="true">
@@ -60,14 +61,14 @@
       </ownedOperation>
       <ownedOperation xmi:id="Assert-isNull" name="isNull" visibility="public" isStatic="true">
         <ownedParameter xmi:id="Assert-isNull-actual" name="actual" type="AnyType">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isNull-actual-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isNull-actual-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Assert-isNull-actual-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isNull-actual-_upperValue" value="1"/>
         </ownedParameter>
       </ownedOperation>
       <ownedOperation xmi:id="Assert-isNotNull" name="isNotNull" visibility="public" isStatic="true">
         <ownedParameter xmi:id="Assert-isNotNull-actual" name="actual" type="AnyType">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isNotNull-actual-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isNotNull-actual-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Assert-isNotNull-actual-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Assert-isNotNull-actual-_upperValue" value="1"/>
         </ownedParameter>
       </ownedOperation>
     </packagedElement>
@@ -124,8 +125,8 @@
       </ownedComment>
       <ownedOperation xmi:id="Value-notEquals" name="notEquals" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Value-notEquals-other" name="other" type="Value">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-notEquals-other-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-notEquals-other-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Value-notEquals-other-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-notEquals-other-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Value-notEquals-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-notEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -134,8 +135,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Value-greaterThan" name="greaterThan" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Value-greaterThan-r" name="r" type="Value">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterThan-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterThan-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Value-greaterThan-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterThan-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Value-greaterThan-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -144,8 +145,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Value-lowerThan" name="lowerThan" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Value-lowerThan-r" name="r" type="Value">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerThan-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerThan-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Value-lowerThan-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerThan-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Value-lowerThan-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -154,8 +155,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Value-greaterOrEquals" name="greaterOrEquals" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Value-greaterOrEquals-r" name="r" type="Value">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterOrEquals-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterOrEquals-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Value-greaterOrEquals-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterOrEquals-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Value-greaterOrEquals-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-greaterOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -164,8 +165,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Value-lowerOrEquals" name="lowerOrEquals" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Value-lowerOrEquals-r" name="r" type="Value">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerOrEquals-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerOrEquals-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Value-lowerOrEquals-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerOrEquals-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Value-lowerOrEquals-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-lowerOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -174,8 +175,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Value-equals" name="equals" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Value-equals-other" name="other" type="Value">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-equals-other-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-equals-other-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Value-equals-other-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-equals-other-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Value-equals-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Value-equals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -196,8 +197,8 @@
       <generalization xmi:id="ComparableBasic-_generalization.0" general="Basic"/>
       <ownedOperation xmi:id="ComparableBasic-greaterThan" name="greaterThan" visibility="public" isQuery="true">
         <ownedParameter xmi:id="ComparableBasic-greaterThan-r" name="r" type="AnyType">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterThan-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterThan-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComparableBasic-greaterThan-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterThan-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="ComparableBasic-greaterThan-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -206,8 +207,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="ComparableBasic-lowerThan" name="lowerThan" visibility="public" isQuery="true">
         <ownedParameter xmi:id="ComparableBasic-lowerThan-r" name="r" type="AnyType">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerThan-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerThan-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComparableBasic-lowerThan-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerThan-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="ComparableBasic-lowerThan-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerThan-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -216,8 +217,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="ComparableBasic-greaterOrEquals" name="greaterOrEquals" visibility="public" isQuery="true">
         <ownedParameter xmi:id="ComparableBasic-greaterOrEquals-r" name="r" type="AnyType">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterOrEquals-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterOrEquals-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComparableBasic-greaterOrEquals-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterOrEquals-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="ComparableBasic-greaterOrEquals-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-greaterOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -226,8 +227,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="ComparableBasic-lowerOrEquals" name="lowerOrEquals" visibility="public" isQuery="true">
         <ownedParameter xmi:id="ComparableBasic-lowerOrEquals-r" name="r" type="AnyType">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerOrEquals-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerOrEquals-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComparableBasic-lowerOrEquals-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerOrEquals-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="ComparableBasic-lowerOrEquals-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-lowerOrEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -236,8 +237,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="ComparableBasic-notEquals" name="notEquals" visibility="public" isQuery="true">
         <ownedParameter xmi:id="ComparableBasic-notEquals-other" name="other" type="AnyType">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-notEquals-other-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-notEquals-other-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComparableBasic-notEquals-other-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-notEquals-other-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="ComparableBasic-notEquals-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-notEquals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -246,8 +247,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="ComparableBasic-equals" name="equals" visibility="public" isQuery="true">
         <ownedParameter xmi:id="ComparableBasic-equals-other" name="other" type="AnyType">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-equals-other-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-equals-other-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComparableBasic-equals-other-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-equals-other-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="ComparableBasic-equals-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComparableBasic-equals-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -279,8 +280,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Boolean-and" name="and" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Boolean-and-b" name="b" type="Boolean">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-and-b-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-and-b-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Boolean-and-b-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-and-b-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Boolean-and-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-and-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -289,8 +290,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Boolean-or" name="or" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Boolean-or-b" name="b" type="Boolean">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-or-b-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-or-b-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Boolean-or-b-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-or-b-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Boolean-or-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-or-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -299,8 +300,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Boolean-xor" name="xor" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Boolean-xor-b" name="b" type="Boolean">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-xor-b-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-xor-b-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Boolean-xor-b-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-xor-b-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Boolean-xor-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-xor-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -309,8 +310,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Boolean-implies" name="implies" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Boolean-implies-b" name="b" type="Boolean">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-implies-b-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-implies-b-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Boolean-implies-b-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-implies-b-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Boolean-implies-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Boolean-implies-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -325,8 +326,8 @@
       <generalization xmi:id="Number-_generalization.0" general="Primitive"/>
       <ownedOperation xmi:id="Number-add" name="add" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Number-add-r" name="r" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-add-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-add-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Number-add-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-add-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Number-add-_ownedParameter.1" type="Number" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-add-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -335,8 +336,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Number-subtract" name="subtract" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Number-subtract-r" name="r" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-subtract-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-subtract-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Number-subtract-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-subtract-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Number-subtract-_ownedParameter.1" type="Number" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-subtract-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -351,8 +352,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Number-multiply" name="multiply" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Number-multiply-r" name="r" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-multiply-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-multiply-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Number-multiply-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-multiply-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Number-multiply-_ownedParameter.1" type="Number" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-multiply-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -361,8 +362,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Number-divide" name="divide" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Number-divide-r" name="r" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-divide-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-divide-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Number-divide-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-divide-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Number-divide-_ownedParameter.1" type="Number" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Number-divide-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -389,8 +390,8 @@
       <generalization xmi:id="Integer-_generalization.0" general="Double"/>
       <ownedOperation xmi:id="Integer-add" name="add" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Integer-add-r" name="r" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-add-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-add-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Integer-add-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-add-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Integer-add-_ownedParameter.1" type="Integer" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-add-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -399,8 +400,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Integer-subtract" name="subtract" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Integer-subtract-r" name="r" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-subtract-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-subtract-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Integer-subtract-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-subtract-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Integer-subtract-_ownedParameter.1" type="Integer" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-subtract-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -415,8 +416,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Integer-multiply" name="multiply" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Integer-multiply-r" name="r" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-multiply-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-multiply-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Integer-multiply-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-multiply-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Integer-multiply-_ownedParameter.1" type="Integer" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-multiply-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -425,8 +426,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Integer-divide" name="divide" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Integer-divide-r" name="r" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-divide-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-divide-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Integer-divide-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-divide-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Integer-divide-_ownedParameter.1" type="Integer" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-divide-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -435,8 +436,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Integer-modulo" name="modulo" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Integer-modulo-r" name="r" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-modulo-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-modulo-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Integer-modulo-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-modulo-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Integer-modulo-_ownedParameter.1" type="Integer" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Integer-modulo-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -457,8 +458,8 @@
       <generalization xmi:id="Double-_generalization.0" general="Number"/>
       <ownedOperation xmi:id="Double-add" name="add" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Double-add-r" name="r" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-add-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-add-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Double-add-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-add-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Double-add-_ownedParameter.1" type="Double" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-add-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -467,8 +468,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Double-subtract" name="subtract" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Double-subtract-r" name="r" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-subtract-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-subtract-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Double-subtract-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-subtract-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Double-subtract-_ownedParameter.1" type="Double" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-subtract-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -477,8 +478,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Double-multiply" name="multiply" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Double-multiply-r" name="r" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-multiply-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-multiply-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Double-multiply-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-multiply-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Double-multiply-_ownedParameter.1" type="Double" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-multiply-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -487,8 +488,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Double-divide" name="divide" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Double-divide-r" name="r" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-divide-r-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-divide-r-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Double-divide-r-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-divide-r-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Double-divide-_ownedParameter.1" type="Double" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Double-divide-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -527,16 +528,16 @@
       </ownedOperation>
       <ownedOperation xmi:id="Date-make" name="make" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="Date-make-year" name="year" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-year-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-year-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Date-make-year-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-year-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Date-make-month" name="month" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-month-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-month-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Date-make-month-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-month-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Date-make-day" name="day" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-day-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-day-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Date-make-day-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-day-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Date-make-_ownedParameter.3" type="Date" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-make-_ownedParameter.3-_lowerValue" type="Integer" value="1"/>
@@ -545,8 +546,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Date-fromString" name="fromString" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="Date-fromString-string" name="string" type="String">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-fromString-string-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-fromString-string-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Date-fromString-string-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-fromString-string-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Date-fromString-_ownedParameter.1" type="Date" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-fromString-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -555,8 +556,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Date-difference" name="difference" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Date-difference-another" name="another" type="Date">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-difference-another-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-difference-another-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Date-difference-another-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-difference-another-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Date-difference-_ownedParameter.1" type="Duration" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-difference-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -583,8 +584,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Date-transpose" name="transpose" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Date-transpose-delta" name="delta" type="Duration">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-delta-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-delta-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Date-transpose-delta-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-delta-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Date-transpose-_ownedParameter.1" type="Date" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -605,20 +606,20 @@
       </ownedOperation>
       <ownedOperation xmi:id="Time-make" name="make" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="Time-make-hour" name="hour" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-hour-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-hour-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Time-make-hour-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-hour-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Time-make-minute" name="minute" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-minute-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-minute-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Time-make-minute-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-minute-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Time-make-second" name="second" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-second-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-second-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Time-make-second-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-second-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Time-make-millisecond" name="millisecond" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-millisecond-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-millisecond-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Time-make-millisecond-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-millisecond-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Time-make-_ownedParameter.4" type="Time" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-make-_ownedParameter.4-_lowerValue" type="Integer" value="1"/>
@@ -627,8 +628,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Time-difference" name="difference" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Time-difference-another" name="another" type="Time">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-difference-another-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-difference-another-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Time-difference-another-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-difference-another-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Time-difference-_ownedParameter.1" type="Duration" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-difference-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -661,8 +662,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Time-transpose" name="transpose" visibility="public" isQuery="true">
         <ownedParameter xmi:id="Time-transpose-delta" name="delta" type="Duration">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-transpose-delta-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-transpose-delta-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Time-transpose-delta-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-transpose-delta-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Time-transpose-_ownedParameter.1" type="Time" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Time-transpose-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -683,8 +684,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="DateTime-fromString" name="fromString" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="DateTime-fromString-string" name="string" type="String">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-fromString-string-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-fromString-string-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="DateTime-fromString-string-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-fromString-string-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="DateTime-fromString-_ownedParameter.1" type="DateTime" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-fromString-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -693,8 +694,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="DateTime-difference" name="difference" visibility="public" isQuery="true">
         <ownedParameter xmi:id="DateTime-difference-another" name="another" type="DateTime">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-difference-another-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-difference-another-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="DateTime-difference-another-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-difference-another-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="DateTime-difference-_ownedParameter.1" type="Duration" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-difference-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -745,8 +746,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="DateTime-transpose" name="transpose" visibility="public" isQuery="true">
         <ownedParameter xmi:id="DateTime-transpose-delta" name="delta" type="Duration">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-transpose-delta-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-transpose-delta-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="DateTime-transpose-delta-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-transpose-delta-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="DateTime-transpose-_ownedParameter.1" type="DateTime" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="DateTime-transpose-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -815,8 +816,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Duration-milliseconds" name="milliseconds" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="Duration-milliseconds-value" name="value" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-milliseconds-value-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-milliseconds-value-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Duration-milliseconds-value-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-milliseconds-value-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Duration-milliseconds-_ownedParameter.1" type="Duration" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-milliseconds-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -825,8 +826,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Duration-seconds" name="seconds" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="Duration-seconds-value" name="value" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-seconds-value-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-seconds-value-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Duration-seconds-value-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-seconds-value-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Duration-seconds-_ownedParameter.1" type="Duration" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-seconds-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -835,8 +836,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Duration-minutes" name="minutes" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="Duration-minutes-value" name="value" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-minutes-value-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-minutes-value-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Duration-minutes-value-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-minutes-value-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Duration-minutes-_ownedParameter.1" type="Duration" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-minutes-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -845,8 +846,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Duration-hours" name="hours" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="Duration-hours-value" name="value" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-hours-value-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-hours-value-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Duration-hours-value-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-hours-value-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Duration-hours-_ownedParameter.1" type="Duration" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-hours-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -855,8 +856,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Duration-days" name="days" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="Duration-days-value" name="value" type="Number">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-days-value-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-days-value-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Duration-days-value-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-days-value-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Duration-days-_ownedParameter.1" type="Duration" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Duration-days-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -883,8 +884,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="String-add" name="add" visibility="public" isQuery="true">
         <ownedParameter xmi:id="String-add-s" name="s" type="String">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add-s-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add-s-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="String-add-s-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add-s-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="String-add-_ownedParameter.1" type="String" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -893,8 +894,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="String-add.1" name="add" visibility="public" isQuery="true">
         <ownedParameter xmi:id="String-add.1-s" name="s" type="AnyType">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add.1-s-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add.1-s-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="String-add.1-s-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add.1-s-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="String-add.1-_ownedParameter.1" type="String" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-add.1-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -903,12 +904,12 @@
       </ownedOperation>
       <ownedOperation xmi:id="String-substring" name="substring" visibility="public" isQuery="true">
         <ownedParameter xmi:id="String-substring-start" name="start" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-start-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-start-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="String-substring-start-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-start-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="String-substring-stop" name="stop" type="Integer">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-stop-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-stop-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="String-substring-stop-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-stop-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="String-substring-_ownedParameter.2" type="String" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-substring-_ownedParameter.2-_lowerValue" type="Integer" value="1"/>
@@ -929,8 +930,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="String-contains" name="contains" visibility="public" isQuery="true">
         <ownedParameter xmi:id="String-contains-another" name="another" type="String">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-contains-another-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-contains-another-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="String-contains-another-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-contains-another-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="String-contains-_ownedParameter.1" type="Boolean" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="String-contains-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -951,8 +952,8 @@
       </ownedOperation>
       <ownedOperation xmi:id="Memo-fromString" name="fromString" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="Memo-fromString-string" name="string" type="String">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Memo-fromString-string-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Memo-fromString-string-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Memo-fromString-string-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Memo-fromString-string-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Memo-fromString-_ownedParameter.1" type="Memo" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Memo-fromString-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
@@ -967,8 +968,8 @@
       <generalization xmi:id="Email-_generalization.0" general="String"/>
       <ownedOperation xmi:id="Email-fromString" name="fromString" visibility="public" isStatic="true" isQuery="true">
         <ownedParameter xmi:id="Email-fromString-string" name="string" type="String">
-          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Email-fromString-string-_lowerValue" type="Integer" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Email-fromString-string-_upperValue" type="Integer" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Email-fromString-string-_lowerValue"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Email-fromString-string-_upperValue" value="1"/>
         </ownedParameter>
         <ownedParameter xmi:id="Email-fromString-_ownedParameter.1" type="Email" direction="return">
           <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Email-fromString-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
