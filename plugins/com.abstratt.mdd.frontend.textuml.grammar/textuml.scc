@@ -77,7 +77,6 @@ Helpers
   left_arrow = '<' '-';
   l_guillemot = '«' ;
   r_guillemot = '»' ;
- // bar = '|';
   not_null = '?' ;
   
   
@@ -110,7 +109,6 @@ Tokens
   create = 'create';
   datatype = 'datatype' ;
   delete = 'delete';
-  deny = 'deny' ;
   dependency = 'dependency' ;
   derived = 'derived' ; 
   destroy = 'destroy' ;  
@@ -237,7 +235,6 @@ Tokens
   left_arrow = '<' '-';
   l_guillemot = '«' ;
   r_guillemot = '»' ;
- // bar = '|';
   not_null = '?' ;
   
   // identifiers
@@ -857,7 +854,7 @@ Productions
     
   empty_set = minimal_type_identifier l_bracket r_bracket ; 
     
-  cast = as single_type_identifier ;
+  cast = as [type_identifier]: type_identifier ;
     
   mult_div =     
     {mult} mult | 

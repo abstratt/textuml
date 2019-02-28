@@ -9628,9 +9628,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseACast(ACast node)
     {
         inACast(node);
-        if(node.getSingleTypeIdentifier() != null)
+        if(node.getTypeIdentifier() != null)
         {
-            node.getSingleTypeIdentifier().apply(this);
+            node.getTypeIdentifier().apply(this);
         }
         if(node.getAs() != null)
         {

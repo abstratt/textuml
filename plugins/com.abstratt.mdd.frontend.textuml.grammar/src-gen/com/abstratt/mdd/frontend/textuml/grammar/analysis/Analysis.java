@@ -446,7 +446,6 @@ public interface Analysis extends Switch
     void caseTCreate(TCreate node);
     void caseTDatatype(TDatatype node);
     void caseTDelete(TDelete node);
-    void caseTDeny(TDeny node);
     void caseTDependency(TDependency node);
     void caseTDerived(TDerived node);
     void caseTDestroy(TDestroy node);

@@ -8,7 +8,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 public final class ACast extends PCast
 {
     private TAs _as_;
-    private PSingleTypeIdentifier _singleTypeIdentifier_;
+    private PTypeIdentifier _typeIdentifier_;
 
     public ACast()
     {
@@ -17,12 +17,12 @@ public final class ACast extends PCast
 
     public ACast(
         @SuppressWarnings("hiding") TAs _as_,
-        @SuppressWarnings("hiding") PSingleTypeIdentifier _singleTypeIdentifier_)
+        @SuppressWarnings("hiding") PTypeIdentifier _typeIdentifier_)
     {
         // Constructor
         setAs(_as_);
 
-        setSingleTypeIdentifier(_singleTypeIdentifier_);
+        setTypeIdentifier(_typeIdentifier_);
 
     }
 
@@ -31,7 +31,7 @@ public final class ACast extends PCast
     {
         return new ACast(
             cloneNode(this._as_),
-            cloneNode(this._singleTypeIdentifier_));
+            cloneNode(this._typeIdentifier_));
     }
 
     public void apply(Switch sw)
@@ -64,16 +64,16 @@ public final class ACast extends PCast
         this._as_ = node;
     }
 
-    public PSingleTypeIdentifier getSingleTypeIdentifier()
+    public PTypeIdentifier getTypeIdentifier()
     {
-        return this._singleTypeIdentifier_;
+        return this._typeIdentifier_;
     }
 
-    public void setSingleTypeIdentifier(PSingleTypeIdentifier node)
+    public void setTypeIdentifier(PTypeIdentifier node)
     {
-        if(this._singleTypeIdentifier_ != null)
+        if(this._typeIdentifier_ != null)
         {
-            this._singleTypeIdentifier_.parent(null);
+            this._typeIdentifier_.parent(null);
         }
 
         if(node != null)
@@ -86,7 +86,7 @@ public final class ACast extends PCast
             node.parent(this);
         }
 
-        this._singleTypeIdentifier_ = node;
+        this._typeIdentifier_ = node;
     }
 
     @Override
@@ -94,7 +94,7 @@ public final class ACast extends PCast
     {
         return ""
             + toString(this._as_)
-            + toString(this._singleTypeIdentifier_);
+            + toString(this._typeIdentifier_);
     }
 
     @Override
@@ -107,9 +107,9 @@ public final class ACast extends PCast
             return;
         }
 
-        if(this._singleTypeIdentifier_ == child)
+        if(this._typeIdentifier_ == child)
         {
-            this._singleTypeIdentifier_ = null;
+            this._typeIdentifier_ = null;
             return;
         }
 
@@ -126,9 +126,9 @@ public final class ACast extends PCast
             return;
         }
 
-        if(this._singleTypeIdentifier_ == oldChild)
+        if(this._typeIdentifier_ == oldChild)
         {
-            setSingleTypeIdentifier((PSingleTypeIdentifier) newChild);
+            setTypeIdentifier((PTypeIdentifier) newChild);
             return;
         }
 

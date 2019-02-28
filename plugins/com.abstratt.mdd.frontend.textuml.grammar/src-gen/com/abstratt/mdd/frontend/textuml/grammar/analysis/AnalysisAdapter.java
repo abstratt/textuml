@@ -2234,11 +2234,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTDeny(TDeny node)
-    {
-        defaultCase(node);
-    }
-
     public void caseTDependency(TDependency node)
     {
         defaultCase(node);
