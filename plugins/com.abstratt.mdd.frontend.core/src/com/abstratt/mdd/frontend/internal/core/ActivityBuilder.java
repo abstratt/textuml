@@ -65,7 +65,7 @@ public class ActivityBuilder implements IActivityBuilder {
     }
 
     public void closeBlock() {
-        closeBlock(false);
+        closeBlock(true);
     }
 
     /*

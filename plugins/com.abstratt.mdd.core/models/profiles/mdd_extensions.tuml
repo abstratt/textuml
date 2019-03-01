@@ -44,6 +44,10 @@ end;
 stereotype Cast extends UML::StructuredActivityNode
 end;
 
+stereotype Elvis extends UML::ConditionalNode
+end;
+
+
 stereotype ConstraintBehavior extends UML::Activity 
     property constraint : UML::Constraint;
 end;

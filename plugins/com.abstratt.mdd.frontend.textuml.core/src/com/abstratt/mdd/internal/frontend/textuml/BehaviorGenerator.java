@@ -17,8 +17,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -45,6 +47,7 @@ import org.eclipse.uml2.uml.ExceptionHandler;
 import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.InstanceValue;
 import org.eclipse.uml2.uml.LinkEndData;
+import org.eclipse.uml2.uml.LiteralBoolean;
 import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
 import org.eclipse.uml2.uml.LoopNode;
 import org.eclipse.uml2.uml.MultiplicityElement;
@@ -194,8 +197,10 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PAssociationTraversal;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PClauseBody;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PExpressionList;
+import com.abstratt.mdd.frontend.textuml.grammar.node.POperand;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PRootExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.Switch;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TAnd;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TDiv;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TElvis;
@@ -534,9 +539,30 @@ public class BehaviorGenerator extends AbstractGenerator {
     }
     
     private void handleElvisOperator(Node left, Node right) {
-    	// create conditional node where
-    	// clause 1 is: ref1 is not null, return ref1
-    	// clause 2 is: return ref2
+    	createBlock(IRepository.PACKAGE.getConditionalNode(), true, (ConditionalNode action) -> {
+        	Clause testClause = action.createClause();
+        	createClauseTest(testClause, () -> handleUnaryExpressionAsOperation(left, left, "notNull"));
+        	createClauseBody(testClause, () -> left.apply(this));
+        	
+        	Clause defaultClause = action.createClause();
+        	createClauseTest(defaultClause, () -> buildValueSpecificationAction(MDDUtil.createLiteralBoolean(namespaceTracker.currentPackage(), true), right));
+        	createClauseBody(defaultClause, () -> right.apply(this));
+        	
+        	OutputPin result = action.createResult(null, null);
+        	OutputPin optionalValueOutput = testClause.getBodyOutputs().get(0);
+        	OutputPin defaultValueOutput = defaultClause.getBodyOutputs().get(0);
+        	
+        	if (!TypeUtils.isCompatible(getRepository(), defaultValueOutput.getType(), optionalValueOutput.getType(), null)
+        			|| !TypeUtils.isMultiplicityCompatible(optionalValueOutput, defaultValueOutput, false, true)) {
+        		reportIncompatibleTypes(right, defaultValueOutput, optionalValueOutput);
+        		throw new AbortedStatementCompilationException();
+        	}
+        	
+			TypeUtils.copyType(optionalValueOutput, result);
+			result.setLower(Math.max(optionalValueOutput.getLower(),  defaultValueOutput.getLower()));
+			builder.registerOutput(result);
+            fillDebugInfo(action, left.parent());
+        });
     }
 
 	private void handleSameBinaryOperator(Node left, Node right) {
@@ -592,8 +618,8 @@ public class BehaviorGenerator extends AbstractGenerator {
      */
     @Override
     public void caseABlockKernel(ABlockKernel node) {
-        StructuredActivityNode block = builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-        try {
+        createBlock(IRepository.PACKAGE.getStructuredActivityNode(), false, block -> {
+        	CommentUtils.applyComment(node.getModelComment(), block);
             fillDebugInfo(builder.getCurrentBlock(), node);
             BehaviorGenerator.super.caseABlockKernel(node);
             // isolation determines whether the block should be treated as a
@@ -606,28 +632,14 @@ public class BehaviorGenerator extends AbstractGenerator {
                     // need isolation
                     ActivityUtils.getBodyNode(currentActivity).setMustIsolate(false);
                 }
-        } catch (AbortedScopeCompilationException e) {
-            // aborted activity block compilation...
-            if (builder.isDebug())
-                LogUtils.logWarning(TextUMLCore.PLUGIN_ID, null, e);
-        } finally {
-            builder.closeBlock();
-        }
-        CommentUtils.applyComment(node.getModelComment(), block);
+        });
     }
 
     @Override
     public void caseAExpressionSimpleBlockResolved(AExpressionSimpleBlockResolved node) {
-        builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-        try {
-            buildReturnStatement(node.getSimpleExpressionBlock());
-        } catch (AbortedScopeCompilationException e) {
-            // aborted activity block compilation...
-            if (builder.isDebug())
-                LogUtils.logWarning(TextUMLCore.PLUGIN_ID, null, e);
-        } finally {
-            builder.closeBlock();
-        }
+    	createBlock(false, () -> 
+            buildReturnStatement(node.getSimpleExpressionBlock())
+        );
     }
 
     @Override
@@ -842,20 +854,12 @@ public class BehaviorGenerator extends AbstractGenerator {
 
     @Override
     public void caseAElseRestIf(AElseRestIf node) {
-        Clause newClause = createClause();
         // all this gymnastic is to create the always-true test action
-        ValueSpecificationAction action = (ValueSpecificationAction) builder.createAction(IRepository.PACKAGE
-                .getValueSpecificationAction());
+        ValueSpecificationAction action = buildValueSpecificationAction(MDDUtil.createLiteralBoolean(namespaceTracker.currentPackage(), true), node);
+        Clause newClause = createClause();
         newClause.getTests().add(action);
-        try {
-            action.setValue(MDDUtil.createLiteralBoolean(namespaceTracker.currentPackage(), true));
-            builder.registerOutput(action.createResult(null, action.getValue().getType()));
-            newClause.setDecider(action.getResult());
-            fillDebugInfo(action, node);
-        } finally {
-            builder.closeAction();
-        }
-        createClauseBody(newClause, node.getClauseBody());
+        newClause.setDecider(action.getResult());
+        createClauseBody(newClause, () -> node.getClauseBody().apply(this));
         checkIncomings(action, node.getElse(), getBoundElement());
     }
 
@@ -967,22 +971,15 @@ public class BehaviorGenerator extends AbstractGenerator {
     @Override
     public void caseAIfClause(AIfClause node) {
         Clause newClause = createClause();
-        createClauseTest(newClause, node.getTest());
-        createClauseBody(newClause, node.getClauseBody());
+        createClauseTest(newClause, () -> node.getTest().apply(this));
+        createClauseBody(newClause, () -> node.getClauseBody().apply(this));
     }
 
     @Override
     public void caseAIfStatement(AIfStatement node) {
-        builder.createBlock(IRepository.PACKAGE.getConditionalNode());
-        try {
-            super.caseAIfStatement(node);
-        } catch (AbortedScopeCompilationException e) {
-            // aborted activity block compilation...
-            if (builder.isDebug())
-                LogUtils.logWarning(TextUMLCore.PLUGIN_ID, null, e);
-        } finally {
-            builder.closeBlock();
-        }
+    	createBlock(IRepository.PACKAGE.getConditionalNode(), false, () ->
+            super.caseAIfStatement(node)
+        );
     }
 
     @Override
@@ -1155,31 +1152,21 @@ public class BehaviorGenerator extends AbstractGenerator {
 
     @Override
     public void caseALoopSpecificStatement(ALoopSpecificStatement node) {
-        LoopNode loop = (LoopNode) builder.createBlock(IRepository.PACKAGE.getLoopNode());
+        LoopNode loop = (LoopNode) createBlock(IRepository.PACKAGE.getLoopNode(), false, () -> 
+            super.caseALoopSpecificStatement(node)
+        );
         loop.setIsTestedFirst(true);
-        try {
-            super.caseALoopSpecificStatement(node);
-        } catch (AbortedScopeCompilationException e) {
-            // aborted activity block compilation...
-            if (builder.isDebug())
-                LogUtils.logWarning(TextUMLCore.PLUGIN_ID, null, e);
-        } finally {
-            builder.closeBlock();
-        }
     }
 
     @Override
     public void caseALoopTest(ALoopTest node) {
         LoopNode currentLoop = (LoopNode) builder.getCurrentBlock();
-        builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-        try {
+        createBlock(IRepository.PACKAGE.getStructuredActivityNode(), false, () -> {
             super.caseALoopTest(node);
             currentLoop.getTests().add(builder.getCurrentBlock());
             final OutputPin decider = ActivityUtils.getActionOutputs(builder.getLastRootAction()).get(0);
             currentLoop.setDecider(decider);
-        } finally {
-            builder.closeBlock();
-        }
+        });
     }
 
     @Override
@@ -1412,13 +1399,10 @@ public class BehaviorGenerator extends AbstractGenerator {
     public void caseARepeatLoopBody(ARepeatLoopBody node) {
         LoopNode currentLoop = (LoopNode) builder.getCurrentBlock();
         currentLoop.setIsTestedFirst(false);
-        builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-        try {
+        createBlock(IRepository.PACKAGE.getStructuredActivityNode(), false, () -> {
             super.caseARepeatLoopBody(node);
             currentLoop.getBodyParts().add(builder.getCurrentBlock());
-        } finally {
-            builder.closeBlock();
-        }
+        });
     }
 
     @Override
@@ -1427,21 +1411,17 @@ public class BehaviorGenerator extends AbstractGenerator {
             problemBuilder.addError("One or both catch and finally sections are required", node.getTry());
             throw new AbortedStatementCompilationException();
         }
-        builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-        try {
+        createBlock(false, () -> {
             if (node.getCatchSection() != null)
                 node.getCatchSection().apply(this);
             node.getProtectedBlock().apply(this);
-        } finally {
-            builder.closeBlock();
-        }
+        });
     }
 
     @Override
     public void caseACatchSection(ACatchSection node) {
         StructuredActivityNode protectedBlock = builder.getCurrentBlock();
-        StructuredActivityNode handlerBlock = builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-        try {
+        createBlock(IRepository.PACKAGE.getStructuredActivityNode(), false, (handlerBlock) -> {
             // declare exception variable
             node.getVarDecl().apply(this);
             node.getHandlerBlock().apply(this);
@@ -1453,9 +1433,7 @@ public class BehaviorGenerator extends AbstractGenerator {
             exceptionInputPin.setType(exceptionVar.getType());
             exceptionHandler.setExceptionInput(exceptionInputPin);
             exceptionHandler.setHandlerBody(handlerBlock);
-        } finally {
-            builder.closeBlock();
-        }
+        });
     }
 
     @Override
@@ -1724,13 +1702,10 @@ public class BehaviorGenerator extends AbstractGenerator {
     public void caseAWhileLoopBody(AWhileLoopBody node) {
         LoopNode currentLoop = (LoopNode) builder.getCurrentBlock();
         currentLoop.setIsTestedFirst(true);
-        builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-        try {
+        createBlock(IRepository.PACKAGE.getStructuredActivityNode(), false, () -> {
             super.caseAWhileLoopBody(node);
             currentLoop.getBodyParts().add(builder.getCurrentBlock());
-        } finally {
-            builder.closeBlock();
-        }
+        });
     }
 
     @Override
@@ -1845,6 +1820,10 @@ public class BehaviorGenerator extends AbstractGenerator {
     }
 
     private void checkIncomings(final Action action, final Node node, TemplateableElement bound) {
+    	ActivityUtils.getActionInputs(action).stream().forEach(input -> {
+    		if (input.getIncomings().isEmpty())
+    			problemBuilder.addProblem(new UnclassifiedProblem("Missing incoming flow for input pin " + StringUtils.trimToEmpty(input.getName())), node);
+    	});
         ObjectFlow incompatible = TypeUtils.checkCompatibility(getRepository(), action, bound);
         if (incompatible == null)
             return;
@@ -1855,9 +1834,13 @@ public class BehaviorGenerator extends AbstractGenerator {
                 && (source.getType() == null || source.getType() == anyType))
             source.setType(target.getType());
         else
-            problemBuilder.addProblem(new TypeMismatch(MDDUtil.getDisplayName(target), MDDUtil.getDisplayName(source)),
-                    node);
+            reportIncompatibleTypes(node, target, source);
     }
+
+	private void reportIncompatibleTypes(final Node context, final ObjectNode target, final ObjectNode source) {
+		problemBuilder.addProblem(new TypeMismatch(MDDUtil.getDisplayName(target), MDDUtil.getDisplayName(source)),
+		        context);
+	}
 
     private int countElements(PExpressionList list) {
         if (list instanceof AEmptyExpressionList)
@@ -1915,27 +1898,49 @@ public class BehaviorGenerator extends AbstractGenerator {
         return newClause;
     }
 
-    private void createClauseBody(Clause clause, PClauseBody node) {
-        builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
-        try {
-            node.apply(this);
-            clause.getBodies().add(builder.getCurrentBlock());
-        } finally {
-            builder.closeBlock();
-        }
+    private <T extends StructuredActivityNode> T createBlock(boolean dataFlows, Runnable builderBehavior) {
+        return createBlock(IRepository.PACKAGE.getStructuredActivityNode(), dataFlows, builderBehavior);
     }
 
-    private void createClauseTest(Clause clause, PRootExpression node) {
-        builder.createBlock(IRepository.PACKAGE.getStructuredActivityNode());
+    private <T extends StructuredActivityNode> T createBlock(EClass activityNode, boolean dataFlows, Runnable builderBehavior) {
+        return createBlock(activityNode, dataFlows, it -> builderBehavior.run());
+    }
+    
+    private <T extends StructuredActivityNode> T createBlock(EClass activityNode, boolean dataFlows, Consumer<T> builderBehavior) {
+        T block = (T) builder.createBlock(activityNode, dataFlows);
         try {
-            node.apply(this);
-            clause.getTests().add(builder.getCurrentBlock());
-            final OutputPin decider = ActivityUtils.getActionOutputs(builder.getLastRootAction()).get(0);
-            clause.setDecider(decider);
+        	builderBehavior.accept(block);
+        } catch (AbortedScopeCompilationException e) {
+            // aborted activity block compilation...
+            if (builder.isDebug())
+                LogUtils.logWarning(TextUMLCore.PLUGIN_ID, null, e);
         } finally {
             builder.closeBlock();
         }
+        return block;
     }
+    
+    private void createClauseBody(Clause clause, Runnable builderBlock) {
+    	createBlock(false, () -> {
+        	builderBlock.run();
+            clause.getBodies().add(builder.getCurrentBlock());
+            Action lastRootAction = builder.getLastRootAction();
+            if (lastRootAction != null) {
+            	List<OutputPin> bodyOutput = ActivityUtils.getActionOutputs(lastRootAction);
+				clause.getBodyOutputs().addAll(bodyOutput);
+        	}
+        });
+    }
+
+    private void createClauseTest(Clause clause, Runnable builderBlock) {
+    	createBlock(false, () -> {
+        	builderBlock.run();
+        	clause.getTests().add(builder.getCurrentBlock());
+            OutputPin decider = ActivityUtils.getActionOutputs(builder.getLastRootAction()).get(0);
+            clause.setDecider(decider);
+        });
+    }
+    
 
     private void deferBlockCreation(Node block, Activity activity) {
         deferredActivities.add(new DeferredActivity(activity, block));
@@ -2171,35 +2176,19 @@ public class BehaviorGenerator extends AbstractGenerator {
         Classifier constraintType = BasicTypeUtils.findBuiltInType("Boolean");
         activity.createOwnedParameter(null, constraintType).setDirection(ParameterDirectionKind.RETURN_LITERAL);
         
-        if (constraintBlock == null)
-        	// an always true block: { true } 
-        	constraintBlock = new AExpressionSimpleBlockResolved(
+        if (constraintBlock == null) {
+			constraintBlock = new AExpressionSimpleBlockResolved(
         		new ASimpleExpressionBlock(
 					null, 
-					new ARootExpression(
-						new AExpression(
-							new AAltNestedExpressionP5(
-								new AAltNestedExpressionP4(
-									new AAltNestedExpressionP3(
-										new AAltNestedExpressionP2(
-											new AAltNestedExpressionP1(
-												new AAltExpressionP0(
-													new ALiteralOperand(
-    													new ABooleanLiteral(
-															new ATrueBoolean(new TTrue())
-														)
-													)
-												)
-											)
-										)
-									)
-								)
-							)
+					buildOperandExpression(new ALiteralOperand(
+						new ABooleanLiteral(
+							new ATrueBoolean(new TTrue())
 						)
-					), 
+					)), 
 					null
 				)
 			);
+		}
         createBody(constraintBlock, activity);
 
         ValueSpecification reference = ActivityUtils.buildBehaviorReference(constraint.getNearestPackage(), activity,
@@ -2208,4 +2197,27 @@ public class BehaviorGenerator extends AbstractGenerator {
         return activity;
     }
 
+	private ARootExpression buildOperandExpression(POperand operand) {
+		return buildExpression(new AAltNestedExpressionP1(new AAltExpressionP0(operand)));
+	}
+
+	private ARootExpression buildExpression(AAltNestedExpressionP1 expressionP1) {
+		return buildExpression(new AAltNestedExpressionP2(expressionP1));
+	}
+
+	private ARootExpression buildExpression(AAltNestedExpressionP2 expressionP2) {
+		return buildExpression(new AAltNestedExpressionP3(expressionP2));
+	}
+
+	private ARootExpression buildExpression(AAltNestedExpressionP3 expressionP3) {
+		return buildExpression(new AAltNestedExpressionP4(expressionP3));
+	}
+
+	private ARootExpression buildExpression(AAltNestedExpressionP4 expression4) {
+		return buildExpression(new AAltNestedExpressionP5(expression4));
+	}
+
+	private ARootExpression buildExpression(AAltNestedExpressionP5 expressionP5) {
+		return new ARootExpression(new AExpression(expressionP5));
+	}
 }

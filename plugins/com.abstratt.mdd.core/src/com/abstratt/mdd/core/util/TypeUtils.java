@@ -207,20 +207,26 @@ public class TypeUtils {
      */
     public static <T extends TypedElement> boolean isCompatible(IBasicRepository repository, T source, T destination,
             ParameterSubstitutionMap substitutions) {
-        if ((source instanceof MultiplicityElement) && !(destination instanceof MultiplicityElement))
+        if (!isMultiplicityCompatible(source, destination, true, true))
+        	return false;
+        return isCompatible(repository, source.getType(), destination.getType(), substitutions);
+    }
+
+	public static <T extends TypedElement> boolean isMultiplicityCompatible(T source, T destination, boolean checkLower, boolean checkUpper) {
+		if ((source instanceof MultiplicityElement) && !(destination instanceof MultiplicityElement))
             return false;
         if (source instanceof MultiplicityElement) {
             MultiplicityElement sourceAsMultiple = (MultiplicityElement) source;
             MultiplicityElement destinationAsMultiple = (MultiplicityElement) destination;
-            if (!destinationAsMultiple.isMultivalued() && sourceAsMultiple.isMultivalued())
+            if (checkUpper && !destinationAsMultiple.isMultivalued() && sourceAsMultiple.isMultivalued())
                 // multi -> single is bad, single -> multi is ok
                 return false;
-            if (destinationAsMultiple.getLower() > 0 && sourceAsMultiple.getLower() == 0)
+            if (checkLower && destinationAsMultiple.getLower() > 0 && sourceAsMultiple.getLower() == 0)
             	// optional -> required is bad, required -> optional is ok
             	return false;
         }
-        return isCompatible(repository, source.getType(), destination.getType(), substitutions);
-    }
+        return true;
+	}
 
     /**
      * Returns whether two types are compatible. Optionally, takes template

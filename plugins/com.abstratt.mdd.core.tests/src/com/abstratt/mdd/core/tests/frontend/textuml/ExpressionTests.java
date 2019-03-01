@@ -3,12 +3,21 @@ package com.abstratt.mdd.core.tests.frontend.textuml;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import java.util.List;
+import java.util.Properties;
+
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.uml2.uml.FunctionBehavior;
-import org.eclipse.uml2.uml.Type;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.uml2.uml.Action;
+import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.AddVariableValueAction;
+import org.eclipse.uml2.uml.Clause;
+import org.eclipse.uml2.uml.ConditionalNode;
+import org.eclipse.uml2.uml.WriteStructuralFeatureAction;
 
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
+import com.abstratt.mdd.core.util.ActivityUtils;
 
 public class ExpressionTests extends AbstractRepositoryBuildingTests {
 
@@ -30,7 +39,6 @@ public class ExpressionTests extends AbstractRepositoryBuildingTests {
         structure += "  end;\n";
         structure += "end.";
     }
-    
 
     public void testIntegerBinaryOperands() throws CoreException {
         String source;
@@ -71,6 +79,32 @@ public class ExpressionTests extends AbstractRepositoryBuildingTests {
         source += "end.";
         parseAndCheck(structure, source);
     }
-
-
+    
+    public void testElvis() throws CoreException {
+        String source;
+        source = "model simple;\n";
+        source += "operation SimpleClass.foo;\n";
+        source += "begin\n";
+        source += "var optional1 : SimpleClass[0,1], required1 : SimpleClass;";
+        source += "required1 := optional1 ?: required1;";
+        source += "end;\n";
+        source += "end.";
+        parseAndCheck(structure, source);
+        Activity activity = getActivity("simple::SimpleClass::foo");
+        List<Action> statements = ActivityUtils.findStatements(activity);
+        assertEquals(1, statements.size());
+        AddVariableValueAction writeRequired1 = (AddVariableValueAction) statements.get(0);
+        ConditionalNode elvis = (ConditionalNode) ActivityUtils.getSourceAction(writeRequired1);
+        EList<Clause> clauses = elvis.getClauses();
+        assertEquals(2, clauses.size());
+        assertEquals(1, elvis.getResults().size());
+        assertSame(getClass("simple::SimpleClass"), elvis.getResults().get(0).getType());
+        assertEquals(1, elvis.getResults().get(0).getLower());
+    }
+    
+    protected Properties createDefaultSettings() {
+        Properties creationSettings = super.createDefaultSettings();
+        creationSettings.setProperty(IRepository.EXTEND_BASE_OBJECT, Boolean.TRUE.toString());
+        return creationSettings;
+    }
 }
