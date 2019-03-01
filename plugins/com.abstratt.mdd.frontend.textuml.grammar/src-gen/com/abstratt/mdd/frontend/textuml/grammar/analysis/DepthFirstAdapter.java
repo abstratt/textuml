@@ -9407,25 +9407,46 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAUnaryOpLevel4(node);
     }
 
-    public void inABinaryOpLevel1(ABinaryOpLevel1 node)
+    public void inAMultDivBinaryOpLevel1(AMultDivBinaryOpLevel1 node)
     {
         defaultIn(node);
     }
 
-    public void outABinaryOpLevel1(ABinaryOpLevel1 node)
+    public void outAMultDivBinaryOpLevel1(AMultDivBinaryOpLevel1 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseABinaryOpLevel1(ABinaryOpLevel1 node)
+    public void caseAMultDivBinaryOpLevel1(AMultDivBinaryOpLevel1 node)
     {
-        inABinaryOpLevel1(node);
+        inAMultDivBinaryOpLevel1(node);
         if(node.getMultDiv() != null)
         {
             node.getMultDiv().apply(this);
         }
-        outABinaryOpLevel1(node);
+        outAMultDivBinaryOpLevel1(node);
+    }
+
+    public void inAElvisBinaryOpLevel1(AElvisBinaryOpLevel1 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAElvisBinaryOpLevel1(AElvisBinaryOpLevel1 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAElvisBinaryOpLevel1(AElvisBinaryOpLevel1 node)
+    {
+        inAElvisBinaryOpLevel1(node);
+        if(node.getElvis() != null)
+        {
+            node.getElvis().apply(this);
+        }
+        outAElvisBinaryOpLevel1(node);
     }
 
     public void inABinaryOpLevel2(ABinaryOpLevel2 node)

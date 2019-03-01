@@ -383,7 +383,8 @@ public interface Analysis extends Switch
     void caseAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node);
     void caseANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node);
     void caseAUnaryOpLevel4(AUnaryOpLevel4 node);
-    void caseABinaryOpLevel1(ABinaryOpLevel1 node);
+    void caseAMultDivBinaryOpLevel1(AMultDivBinaryOpLevel1 node);
+    void caseAElvisBinaryOpLevel1(AElvisBinaryOpLevel1 node);
     void caseABinaryOpLevel2(ABinaryOpLevel2 node);
     void caseABinaryOpLevel3(ABinaryOpLevel3 node);
     void caseABinaryOpLevel4(ABinaryOpLevel4 node);

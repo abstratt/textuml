@@ -1924,7 +1924,12 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseABinaryOpLevel1(ABinaryOpLevel1 node)
+    public void caseAMultDivBinaryOpLevel1(AMultDivBinaryOpLevel1 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAElvisBinaryOpLevel1(AElvisBinaryOpLevel1 node)
     {
         defaultCase(node);
     }

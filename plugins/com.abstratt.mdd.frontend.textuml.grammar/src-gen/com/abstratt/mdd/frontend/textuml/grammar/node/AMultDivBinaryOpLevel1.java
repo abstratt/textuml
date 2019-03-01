@@ -5,16 +5,16 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ABinaryOpLevel1 extends PBinaryOpLevel1
+public final class AMultDivBinaryOpLevel1 extends PBinaryOpLevel1
 {
     private PMultDiv _multDiv_;
 
-    public ABinaryOpLevel1()
+    public AMultDivBinaryOpLevel1()
     {
         // Constructor
     }
 
-    public ABinaryOpLevel1(
+    public AMultDivBinaryOpLevel1(
         @SuppressWarnings("hiding") PMultDiv _multDiv_)
     {
         // Constructor
@@ -25,13 +25,13 @@ public final class ABinaryOpLevel1 extends PBinaryOpLevel1
     @Override
     public Object clone()
     {
-        return new ABinaryOpLevel1(
+        return new AMultDivBinaryOpLevel1(
             cloneNode(this._multDiv_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseABinaryOpLevel1(this);
+        ((Analysis) sw).caseAMultDivBinaryOpLevel1(this);
     }
 
     public PMultDiv getMultDiv()

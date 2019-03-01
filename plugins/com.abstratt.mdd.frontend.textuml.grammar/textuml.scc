@@ -846,7 +846,7 @@ Productions
   
   unary_op_level1 = {minus} minus | {not_null} not_null;
   unary_op_level4 = not;     
-  binary_op_level1 = mult_div ;
+  binary_op_level1 = {mult_div} mult_div | {elvis} elvis ;
   binary_op_level2 = plus_minus;      
   binary_op_level3 = comparison_operator;
   binary_op_level4 = and;
