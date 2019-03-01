@@ -115,20 +115,19 @@ import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
 import com.abstratt.mdd.frontend.core.spi.IActivityBuilder;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP0;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP1;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP2;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP3;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP4;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP5;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP1;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP2;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP3;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP4;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP5;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt2ExpressionP1;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt2ExpressionP4;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt3ExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltBinaryExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltBinaryExpressionP2;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltBinaryExpressionP3;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltBinaryExpressionP4;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltBinaryExpressionP5;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltExpressionP0;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltNestedExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltNestedExpressionP2;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltNestedExpressionP3;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltNestedExpressionP4;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltNestedExpressionP5;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltUnaryExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltUnaryExpressionP4;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAttributeIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABlockKernel;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ABooleanLiteral;
@@ -183,7 +182,6 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ATrueBoolean;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATryStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleComponentValue;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleConstructor;
-import com.abstratt.mdd.frontend.textuml.grammar.node.ATypeIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AUnlinkSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AValuedReturnSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AVarDecl;
@@ -194,13 +192,13 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AWriteClassAttributeSpecif
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWriteVariableSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PAssociationTraversal;
-import com.abstratt.mdd.frontend.textuml.grammar.node.PCast;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PClauseBody;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PExpressionList;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PRootExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TAnd;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TDiv;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TElvis;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TIs;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TLab;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TLabEquals;
@@ -326,43 +324,38 @@ public class BehaviorGenerator extends AbstractGenerator {
     }
     
     @Override
-    public void caseAAlt2ExpressionP1(AAlt2ExpressionP1 node) {
-    	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
-    }
-    
-    @Override
-    public void caseAAlt0ExpressionP1(AAlt0ExpressionP1 node) {
+    public void caseAAltUnaryExpressionP1(AAltUnaryExpressionP1 node) {
     	handleUnaryExpression(node.getOperator(), node.getOperand());
     }
     
     @Override
-    public void caseAAlt1ExpressionP1(AAlt1ExpressionP1 node) {
+    public void caseAAltUnaryExpressionP4(AAltUnaryExpressionP4 node) {
     	handleUnaryExpression(node.getOperator(), node.getOperand());
     }
     
     @Override
-    public void caseAAlt0ExpressionP2(AAlt0ExpressionP2 node) {
+    public void caseAAltBinaryExpressionP1(AAltBinaryExpressionP1 node) {
     	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
     }
     
     @Override
-    public void caseAAlt0ExpressionP3(AAlt0ExpressionP3 node) {
+    public void caseAAltBinaryExpressionP2(AAltBinaryExpressionP2 node) {
     	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
     }
     
     @Override
-    public void caseAAlt1ExpressionP4(AAlt1ExpressionP4 node) {
+    public void caseAAltBinaryExpressionP3(AAltBinaryExpressionP3 node) {
     	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
     }
     
     @Override
-    public void caseAAlt0ExpressionP5(AAlt0ExpressionP5 node) {
+    public void caseAAltBinaryExpressionP4(AAltBinaryExpressionP4 node) {
     	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
     }
     
     @Override
-    public void caseAAlt0ExpressionP4(AAlt0ExpressionP4 node) {
-    	handleUnaryExpression(node.getOperator(), node.getOperand());
+    public void caseAAltBinaryExpressionP5(AAltBinaryExpressionP5 node) {
+    	handleBinaryExpression(node.getOperand1(), node.getOperator(), node.getOperand2());
     }
     
     private void handleUnaryExpression(Node operator, Node operand) {
@@ -426,6 +419,12 @@ public class BehaviorGenerator extends AbstractGenerator {
 			@Override
 			public void caseTIs(TIs node) {
 				handleIsClassifiedOperator(left, right);
+				specialHandling[0] = true;
+			}
+			
+			@Override
+			public void caseTElvis(TElvis node) {
+				handleElvisOperator(left, right);
 				specialHandling[0] = true;
 			}
 
@@ -533,7 +532,12 @@ public class BehaviorGenerator extends AbstractGenerator {
         }
         checkIncomings(action, contextNode, getBoundElement());
     }
-
+    
+    private void handleElvisOperator(Node left, Node right) {
+    	// create conditional node where
+    	// clause 1 is: ref1 is not null, return ref1
+    	// clause 2 is: return ref2
+    }
 
 	private void handleSameBinaryOperator(Node left, Node right) {
         TestIdentityAction action = (TestIdentityAction) builder.createAction(IRepository.PACKAGE
@@ -2174,12 +2178,12 @@ public class BehaviorGenerator extends AbstractGenerator {
 					null, 
 					new ARootExpression(
 						new AExpression(
-							new AAlt1ExpressionP5(
-								new AAlt2ExpressionP4(
-									new AAlt1ExpressionP3(
-										new AAlt1ExpressionP2(
-											new AAlt3ExpressionP1(
-												new AAlt0ExpressionP0(
+							new AAltNestedExpressionP5(
+								new AAltNestedExpressionP4(
+									new AAltNestedExpressionP3(
+										new AAltNestedExpressionP2(
+											new AAltNestedExpressionP1(
+												new AAltExpressionP0(
 													new ALiteralOperand(
     													new ABooleanLiteral(
 															new ATrueBoolean(new TTrue())

@@ -26,12 +26,13 @@ import com.abstratt.mdd.frontend.core.ASTNode;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.Analysis;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.DepthFirstAdapter;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP1;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP2;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP3;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt0ExpressionP4;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt1ExpressionP4;
-import com.abstratt.mdd.frontend.textuml.grammar.node.AAlt2ExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltBinaryExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltBinaryExpressionP2;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltBinaryExpressionP3;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltBinaryExpressionP4;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltBinaryExpressionP5;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltUnaryExpressionP1;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAltUnaryExpressionP4;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAnnotations;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationDef;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AAssociationRoleDecl;
@@ -169,19 +170,23 @@ public class TextUMLFormatter {
         newLine(output);
     }
     
-    public void format(AAlt2ExpressionP1 node, StringBuilder output, int indentation) {
+    public void format(AAltBinaryExpressionP1 node, StringBuilder output, int indentation) {
     	format(node.getOperand1(), node.getOperator(), node.getOperand2(), output, indentation);
     }
     
-    public void format(AAlt0ExpressionP2 node, StringBuilder output, int indentation) {
+    public void format(AAltBinaryExpressionP2 node, StringBuilder output, int indentation) {
     	format(node.getOperand1(), node.getOperator(), node.getOperand2(), output, indentation);
     }
     
-    public void format(AAlt0ExpressionP3 node, StringBuilder output, int indentation) {
+    public void format(AAltBinaryExpressionP3 node, StringBuilder output, int indentation) {
     	format(node.getOperand1(), node.getOperator(), node.getOperand2(), output, indentation);
     }
     
-    public void format(AAlt1ExpressionP4 node, StringBuilder output, int indentation) {
+    public void format(AAltBinaryExpressionP4 node, StringBuilder output, int indentation) {
+    	format(node.getOperand1(), node.getOperator(), node.getOperand2(), output, indentation);
+    }
+    
+    public void format(AAltBinaryExpressionP5 node, StringBuilder output, int indentation) {
     	format(node.getOperand1(), node.getOperator(), node.getOperand2(), output, indentation);
     }
 
@@ -418,13 +423,13 @@ public class TextUMLFormatter {
         format(node.getSemicolon(), output, indentation);
     }
 
-    public void format(AAlt0ExpressionP1 node, StringBuilder output, int indentation) {
+    public void format(AAltUnaryExpressionP1 node, StringBuilder output, int indentation) {
         format(node.getOperator(), output, indentation);
         addWhitespace(output);
         format(node.getOperand(), output, indentation);
     }
     
-    public void format(AAlt0ExpressionP4 node, StringBuilder output, int indentation) {
+    public void format(AAltUnaryExpressionP4 node, StringBuilder output, int indentation) {
         format(node.getOperator(), output, indentation);
         addWhitespace(output);
         format(node.getOperand(), output, indentation);
