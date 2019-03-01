@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAlt1ExpressionP3 extends PExpressionP3
+public final class ANotNullUnaryOpLevel1 extends PUnaryOpLevel1
 {
-    private PExpressionP2 _expressionP2_;
+    private TNotNull _notNull_;
 
-    public AAlt1ExpressionP3()
+    public ANotNullUnaryOpLevel1()
     {
         // Constructor
     }
 
-    public AAlt1ExpressionP3(
-        @SuppressWarnings("hiding") PExpressionP2 _expressionP2_)
+    public ANotNullUnaryOpLevel1(
+        @SuppressWarnings("hiding") TNotNull _notNull_)
     {
         // Constructor
-        setExpressionP2(_expressionP2_);
+        setNotNull(_notNull_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AAlt1ExpressionP3(
-            cloneNode(this._expressionP2_));
+        return new ANotNullUnaryOpLevel1(
+            cloneNode(this._notNull_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAlt1ExpressionP3(this);
+        ((Analysis) sw).caseANotNullUnaryOpLevel1(this);
     }
 
-    public PExpressionP2 getExpressionP2()
+    public TNotNull getNotNull()
     {
-        return this._expressionP2_;
+        return this._notNull_;
     }
 
-    public void setExpressionP2(PExpressionP2 node)
+    public void setNotNull(TNotNull node)
     {
-        if(this._expressionP2_ != null)
+        if(this._notNull_ != null)
         {
-            this._expressionP2_.parent(null);
+            this._notNull_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AAlt1ExpressionP3 extends PExpressionP3
             node.parent(this);
         }
 
-        this._expressionP2_ = node;
+        this._notNull_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expressionP2_);
+            + toString(this._notNull_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expressionP2_ == child)
+        if(this._notNull_ == child)
         {
-            this._expressionP2_ = null;
+            this._notNull_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AAlt1ExpressionP3 extends PExpressionP3
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expressionP2_ == oldChild)
+        if(this._notNull_ == oldChild)
         {
-            setExpressionP2((PExpressionP2) newChild);
+            setNotNull((TNotNull) newChild);
             return;
         }
 

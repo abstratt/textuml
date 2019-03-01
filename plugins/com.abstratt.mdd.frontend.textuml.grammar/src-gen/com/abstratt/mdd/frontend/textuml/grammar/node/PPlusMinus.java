@@ -2,7 +2,7 @@
 
 package com.abstratt.mdd.frontend.textuml.grammar.node;
 
-public abstract class PAddSub extends Node
+public abstract class PPlusMinus extends Node
 {
     // Empty body
 }

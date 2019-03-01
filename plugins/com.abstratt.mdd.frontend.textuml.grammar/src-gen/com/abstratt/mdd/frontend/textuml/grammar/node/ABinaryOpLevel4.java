@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAlt2ExpressionP4 extends PExpressionP4
+public final class ABinaryOpLevel4 extends PBinaryOpLevel4
 {
-    private PExpressionP3 _expressionP3_;
+    private TAnd _and_;
 
-    public AAlt2ExpressionP4()
+    public ABinaryOpLevel4()
     {
         // Constructor
     }
 
-    public AAlt2ExpressionP4(
-        @SuppressWarnings("hiding") PExpressionP3 _expressionP3_)
+    public ABinaryOpLevel4(
+        @SuppressWarnings("hiding") TAnd _and_)
     {
         // Constructor
-        setExpressionP3(_expressionP3_);
+        setAnd(_and_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AAlt2ExpressionP4(
-            cloneNode(this._expressionP3_));
+        return new ABinaryOpLevel4(
+            cloneNode(this._and_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAlt2ExpressionP4(this);
+        ((Analysis) sw).caseABinaryOpLevel4(this);
     }
 
-    public PExpressionP3 getExpressionP3()
+    public TAnd getAnd()
     {
-        return this._expressionP3_;
+        return this._and_;
     }
 
-    public void setExpressionP3(PExpressionP3 node)
+    public void setAnd(TAnd node)
     {
-        if(this._expressionP3_ != null)
+        if(this._and_ != null)
         {
-            this._expressionP3_.parent(null);
+            this._and_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AAlt2ExpressionP4 extends PExpressionP4
             node.parent(this);
         }
 
-        this._expressionP3_ = node;
+        this._and_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expressionP3_);
+            + toString(this._and_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expressionP3_ == child)
+        if(this._and_ == child)
         {
-            this._expressionP3_ = null;
+            this._and_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AAlt2ExpressionP4 extends PExpressionP4
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expressionP3_ == oldChild)
+        if(this._and_ == oldChild)
         {
-            setExpressionP3((PExpressionP3) newChild);
+            setAnd((TAnd) newChild);
             return;
         }
 

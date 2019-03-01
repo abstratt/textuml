@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAlt1ExpressionP2 extends PExpressionP2
+public final class ABinaryOpLevel3 extends PBinaryOpLevel3
 {
-    private PExpressionP1 _expressionP1_;
+    private PComparisonOperator _comparisonOperator_;
 
-    public AAlt1ExpressionP2()
+    public ABinaryOpLevel3()
     {
         // Constructor
     }
 
-    public AAlt1ExpressionP2(
-        @SuppressWarnings("hiding") PExpressionP1 _expressionP1_)
+    public ABinaryOpLevel3(
+        @SuppressWarnings("hiding") PComparisonOperator _comparisonOperator_)
     {
         // Constructor
-        setExpressionP1(_expressionP1_);
+        setComparisonOperator(_comparisonOperator_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AAlt1ExpressionP2(
-            cloneNode(this._expressionP1_));
+        return new ABinaryOpLevel3(
+            cloneNode(this._comparisonOperator_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAlt1ExpressionP2(this);
+        ((Analysis) sw).caseABinaryOpLevel3(this);
     }
 
-    public PExpressionP1 getExpressionP1()
+    public PComparisonOperator getComparisonOperator()
     {
-        return this._expressionP1_;
+        return this._comparisonOperator_;
     }
 
-    public void setExpressionP1(PExpressionP1 node)
+    public void setComparisonOperator(PComparisonOperator node)
     {
-        if(this._expressionP1_ != null)
+        if(this._comparisonOperator_ != null)
         {
-            this._expressionP1_.parent(null);
+            this._comparisonOperator_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AAlt1ExpressionP2 extends PExpressionP2
             node.parent(this);
         }
 
-        this._expressionP1_ = node;
+        this._comparisonOperator_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expressionP1_);
+            + toString(this._comparisonOperator_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expressionP1_ == child)
+        if(this._comparisonOperator_ == child)
         {
-            this._expressionP1_ = null;
+            this._comparisonOperator_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AAlt1ExpressionP2 extends PExpressionP2
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expressionP1_ == oldChild)
+        if(this._comparisonOperator_ == oldChild)
         {
-            setExpressionP1((PExpressionP1) newChild);
+            setComparisonOperator((PComparisonOperator) newChild);
             return;
         }
 

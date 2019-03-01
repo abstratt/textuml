@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class APlusAddSub extends PAddSub
+public final class AAltNestedExpressionP1 extends PExpressionP1
 {
-    private TPlus _plus_;
+    private PExpressionP0 _expressionP0_;
 
-    public APlusAddSub()
+    public AAltNestedExpressionP1()
     {
         // Constructor
     }
 
-    public APlusAddSub(
-        @SuppressWarnings("hiding") TPlus _plus_)
+    public AAltNestedExpressionP1(
+        @SuppressWarnings("hiding") PExpressionP0 _expressionP0_)
     {
         // Constructor
-        setPlus(_plus_);
+        setExpressionP0(_expressionP0_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new APlusAddSub(
-            cloneNode(this._plus_));
+        return new AAltNestedExpressionP1(
+            cloneNode(this._expressionP0_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAPlusAddSub(this);
+        ((Analysis) sw).caseAAltNestedExpressionP1(this);
     }
 
-    public TPlus getPlus()
+    public PExpressionP0 getExpressionP0()
     {
-        return this._plus_;
+        return this._expressionP0_;
     }
 
-    public void setPlus(TPlus node)
+    public void setExpressionP0(PExpressionP0 node)
     {
-        if(this._plus_ != null)
+        if(this._expressionP0_ != null)
         {
-            this._plus_.parent(null);
+            this._expressionP0_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class APlusAddSub extends PAddSub
             node.parent(this);
         }
 
-        this._plus_ = node;
+        this._expressionP0_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._plus_);
+            + toString(this._expressionP0_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._plus_ == child)
+        if(this._expressionP0_ == child)
         {
-            this._plus_ = null;
+            this._expressionP0_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class APlusAddSub extends PAddSub
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._plus_ == oldChild)
+        if(this._expressionP0_ == oldChild)
         {
-            setPlus((TPlus) newChild);
+            setExpressionP0((PExpressionP0) newChild);
             return;
         }
 

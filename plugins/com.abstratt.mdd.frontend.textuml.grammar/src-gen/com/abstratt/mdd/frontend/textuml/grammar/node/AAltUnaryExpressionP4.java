@@ -5,18 +5,18 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAlt0ExpressionP4 extends PExpressionP4
+public final class AAltUnaryExpressionP4 extends PExpressionP4
 {
-    private TNot _operator_;
+    private PUnaryOpLevel4 _operator_;
     private PExpressionP4 _operand_;
 
-    public AAlt0ExpressionP4()
+    public AAltUnaryExpressionP4()
     {
         // Constructor
     }
 
-    public AAlt0ExpressionP4(
-        @SuppressWarnings("hiding") TNot _operator_,
+    public AAltUnaryExpressionP4(
+        @SuppressWarnings("hiding") PUnaryOpLevel4 _operator_,
         @SuppressWarnings("hiding") PExpressionP4 _operand_)
     {
         // Constructor
@@ -29,22 +29,22 @@ public final class AAlt0ExpressionP4 extends PExpressionP4
     @Override
     public Object clone()
     {
-        return new AAlt0ExpressionP4(
+        return new AAltUnaryExpressionP4(
             cloneNode(this._operator_),
             cloneNode(this._operand_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAlt0ExpressionP4(this);
+        ((Analysis) sw).caseAAltUnaryExpressionP4(this);
     }
 
-    public TNot getOperator()
+    public PUnaryOpLevel4 getOperator()
     {
         return this._operator_;
     }
 
-    public void setOperator(TNot node)
+    public void setOperator(PUnaryOpLevel4 node)
     {
         if(this._operator_ != null)
         {
@@ -122,7 +122,7 @@ public final class AAlt0ExpressionP4 extends PExpressionP4
         // Replace child
         if(this._operator_ == oldChild)
         {
-            setOperator((TNot) newChild);
+            setOperator((PUnaryOpLevel4) newChild);
             return;
         }
 

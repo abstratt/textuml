@@ -5,16 +5,16 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AMinusAddSub extends PAddSub
+public final class AMinusPlusMinus extends PPlusMinus
 {
     private TMinus _minus_;
 
-    public AMinusAddSub()
+    public AMinusPlusMinus()
     {
         // Constructor
     }
 
-    public AMinusAddSub(
+    public AMinusPlusMinus(
         @SuppressWarnings("hiding") TMinus _minus_)
     {
         // Constructor
@@ -25,13 +25,13 @@ public final class AMinusAddSub extends PAddSub
     @Override
     public Object clone()
     {
-        return new AMinusAddSub(
+        return new AMinusPlusMinus(
             cloneNode(this._minus_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAMinusAddSub(this);
+        ((Analysis) sw).caseAMinusPlusMinus(this);
     }
 
     public TMinus getMinus()

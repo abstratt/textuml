@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAlt0ExpressionP0 extends PExpressionP0
+public final class APlusPlusMinus extends PPlusMinus
 {
-    private POperand _operand_;
+    private TPlus _plus_;
 
-    public AAlt0ExpressionP0()
+    public APlusPlusMinus()
     {
         // Constructor
     }
 
-    public AAlt0ExpressionP0(
-        @SuppressWarnings("hiding") POperand _operand_)
+    public APlusPlusMinus(
+        @SuppressWarnings("hiding") TPlus _plus_)
     {
         // Constructor
-        setOperand(_operand_);
+        setPlus(_plus_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AAlt0ExpressionP0(
-            cloneNode(this._operand_));
+        return new APlusPlusMinus(
+            cloneNode(this._plus_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAlt0ExpressionP0(this);
+        ((Analysis) sw).caseAPlusPlusMinus(this);
     }
 
-    public POperand getOperand()
+    public TPlus getPlus()
     {
-        return this._operand_;
+        return this._plus_;
     }
 
-    public void setOperand(POperand node)
+    public void setPlus(TPlus node)
     {
-        if(this._operand_ != null)
+        if(this._plus_ != null)
         {
-            this._operand_.parent(null);
+            this._plus_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AAlt0ExpressionP0 extends PExpressionP0
             node.parent(this);
         }
 
-        this._operand_ = node;
+        this._plus_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._operand_);
+            + toString(this._plus_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._operand_ == child)
+        if(this._plus_ == child)
         {
-            this._operand_ = null;
+            this._plus_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AAlt0ExpressionP0 extends PExpressionP0
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._operand_ == oldChild)
+        if(this._plus_ == oldChild)
         {
-            setOperand((POperand) newChild);
+            setPlus((TPlus) newChild);
             return;
         }
 

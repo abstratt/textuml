@@ -9023,41 +9023,41 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAExpression(node);
     }
 
-    public void inAAlt0ExpressionP0(AAlt0ExpressionP0 node)
+    public void inAAltExpressionP0(AAltExpressionP0 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt0ExpressionP0(AAlt0ExpressionP0 node)
+    public void outAAltExpressionP0(AAltExpressionP0 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt0ExpressionP0(AAlt0ExpressionP0 node)
+    public void caseAAltExpressionP0(AAltExpressionP0 node)
     {
-        inAAlt0ExpressionP0(node);
+        inAAltExpressionP0(node);
         if(node.getOperand() != null)
         {
             node.getOperand().apply(this);
         }
-        outAAlt0ExpressionP0(node);
+        outAAltExpressionP0(node);
     }
 
-    public void inAAlt0ExpressionP1(AAlt0ExpressionP1 node)
+    public void inAAltUnaryExpressionP1(AAltUnaryExpressionP1 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt0ExpressionP1(AAlt0ExpressionP1 node)
+    public void outAAltUnaryExpressionP1(AAltUnaryExpressionP1 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt0ExpressionP1(AAlt0ExpressionP1 node)
+    public void caseAAltUnaryExpressionP1(AAltUnaryExpressionP1 node)
     {
-        inAAlt0ExpressionP1(node);
+        inAAltUnaryExpressionP1(node);
         if(node.getOperator() != null)
         {
             node.getOperator().apply(this);
@@ -9066,48 +9066,23 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getOperand().apply(this);
         }
-        outAAlt0ExpressionP1(node);
+        outAAltUnaryExpressionP1(node);
     }
 
-    public void inAAlt1ExpressionP1(AAlt1ExpressionP1 node)
+    public void inAAltBinaryExpressionP1(AAltBinaryExpressionP1 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt1ExpressionP1(AAlt1ExpressionP1 node)
+    public void outAAltBinaryExpressionP1(AAltBinaryExpressionP1 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt1ExpressionP1(AAlt1ExpressionP1 node)
+    public void caseAAltBinaryExpressionP1(AAltBinaryExpressionP1 node)
     {
-        inAAlt1ExpressionP1(node);
-        if(node.getOperator() != null)
-        {
-            node.getOperator().apply(this);
-        }
-        if(node.getOperand() != null)
-        {
-            node.getOperand().apply(this);
-        }
-        outAAlt1ExpressionP1(node);
-    }
-
-    public void inAAlt2ExpressionP1(AAlt2ExpressionP1 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAAlt2ExpressionP1(AAlt2ExpressionP1 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAAlt2ExpressionP1(AAlt2ExpressionP1 node)
-    {
-        inAAlt2ExpressionP1(node);
+        inAAltBinaryExpressionP1(node);
         if(node.getOperand1() != null)
         {
             node.getOperand1().apply(this);
@@ -9120,44 +9095,44 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getOperand2().apply(this);
         }
-        outAAlt2ExpressionP1(node);
+        outAAltBinaryExpressionP1(node);
     }
 
-    public void inAAlt3ExpressionP1(AAlt3ExpressionP1 node)
+    public void inAAltNestedExpressionP1(AAltNestedExpressionP1 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt3ExpressionP1(AAlt3ExpressionP1 node)
+    public void outAAltNestedExpressionP1(AAltNestedExpressionP1 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt3ExpressionP1(AAlt3ExpressionP1 node)
+    public void caseAAltNestedExpressionP1(AAltNestedExpressionP1 node)
     {
-        inAAlt3ExpressionP1(node);
+        inAAltNestedExpressionP1(node);
         if(node.getExpressionP0() != null)
         {
             node.getExpressionP0().apply(this);
         }
-        outAAlt3ExpressionP1(node);
+        outAAltNestedExpressionP1(node);
     }
 
-    public void inAAlt0ExpressionP2(AAlt0ExpressionP2 node)
+    public void inAAltBinaryExpressionP2(AAltBinaryExpressionP2 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt0ExpressionP2(AAlt0ExpressionP2 node)
+    public void outAAltBinaryExpressionP2(AAltBinaryExpressionP2 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt0ExpressionP2(AAlt0ExpressionP2 node)
+    public void caseAAltBinaryExpressionP2(AAltBinaryExpressionP2 node)
     {
-        inAAlt0ExpressionP2(node);
+        inAAltBinaryExpressionP2(node);
         if(node.getOperand1() != null)
         {
             node.getOperand1().apply(this);
@@ -9170,44 +9145,44 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getOperand2().apply(this);
         }
-        outAAlt0ExpressionP2(node);
+        outAAltBinaryExpressionP2(node);
     }
 
-    public void inAAlt1ExpressionP2(AAlt1ExpressionP2 node)
+    public void inAAltNestedExpressionP2(AAltNestedExpressionP2 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt1ExpressionP2(AAlt1ExpressionP2 node)
+    public void outAAltNestedExpressionP2(AAltNestedExpressionP2 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt1ExpressionP2(AAlt1ExpressionP2 node)
+    public void caseAAltNestedExpressionP2(AAltNestedExpressionP2 node)
     {
-        inAAlt1ExpressionP2(node);
+        inAAltNestedExpressionP2(node);
         if(node.getExpressionP1() != null)
         {
             node.getExpressionP1().apply(this);
         }
-        outAAlt1ExpressionP2(node);
+        outAAltNestedExpressionP2(node);
     }
 
-    public void inAAlt0ExpressionP3(AAlt0ExpressionP3 node)
+    public void inAAltBinaryExpressionP3(AAltBinaryExpressionP3 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt0ExpressionP3(AAlt0ExpressionP3 node)
+    public void outAAltBinaryExpressionP3(AAltBinaryExpressionP3 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt0ExpressionP3(AAlt0ExpressionP3 node)
+    public void caseAAltBinaryExpressionP3(AAltBinaryExpressionP3 node)
     {
-        inAAlt0ExpressionP3(node);
+        inAAltBinaryExpressionP3(node);
         if(node.getOperand1() != null)
         {
             node.getOperand1().apply(this);
@@ -9220,44 +9195,44 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getOperand2().apply(this);
         }
-        outAAlt0ExpressionP3(node);
+        outAAltBinaryExpressionP3(node);
     }
 
-    public void inAAlt1ExpressionP3(AAlt1ExpressionP3 node)
+    public void inAAltNestedExpressionP3(AAltNestedExpressionP3 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt1ExpressionP3(AAlt1ExpressionP3 node)
+    public void outAAltNestedExpressionP3(AAltNestedExpressionP3 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt1ExpressionP3(AAlt1ExpressionP3 node)
+    public void caseAAltNestedExpressionP3(AAltNestedExpressionP3 node)
     {
-        inAAlt1ExpressionP3(node);
+        inAAltNestedExpressionP3(node);
         if(node.getExpressionP2() != null)
         {
             node.getExpressionP2().apply(this);
         }
-        outAAlt1ExpressionP3(node);
+        outAAltNestedExpressionP3(node);
     }
 
-    public void inAAlt0ExpressionP4(AAlt0ExpressionP4 node)
+    public void inAAltUnaryExpressionP4(AAltUnaryExpressionP4 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt0ExpressionP4(AAlt0ExpressionP4 node)
+    public void outAAltUnaryExpressionP4(AAltUnaryExpressionP4 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt0ExpressionP4(AAlt0ExpressionP4 node)
+    public void caseAAltUnaryExpressionP4(AAltUnaryExpressionP4 node)
     {
-        inAAlt0ExpressionP4(node);
+        inAAltUnaryExpressionP4(node);
         if(node.getOperator() != null)
         {
             node.getOperator().apply(this);
@@ -9266,23 +9241,23 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getOperand().apply(this);
         }
-        outAAlt0ExpressionP4(node);
+        outAAltUnaryExpressionP4(node);
     }
 
-    public void inAAlt1ExpressionP4(AAlt1ExpressionP4 node)
+    public void inAAltBinaryExpressionP4(AAltBinaryExpressionP4 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt1ExpressionP4(AAlt1ExpressionP4 node)
+    public void outAAltBinaryExpressionP4(AAltBinaryExpressionP4 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt1ExpressionP4(AAlt1ExpressionP4 node)
+    public void caseAAltBinaryExpressionP4(AAltBinaryExpressionP4 node)
     {
-        inAAlt1ExpressionP4(node);
+        inAAltBinaryExpressionP4(node);
         if(node.getOperand1() != null)
         {
             node.getOperand1().apply(this);
@@ -9295,44 +9270,44 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getOperand2().apply(this);
         }
-        outAAlt1ExpressionP4(node);
+        outAAltBinaryExpressionP4(node);
     }
 
-    public void inAAlt2ExpressionP4(AAlt2ExpressionP4 node)
+    public void inAAltNestedExpressionP4(AAltNestedExpressionP4 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt2ExpressionP4(AAlt2ExpressionP4 node)
+    public void outAAltNestedExpressionP4(AAltNestedExpressionP4 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt2ExpressionP4(AAlt2ExpressionP4 node)
+    public void caseAAltNestedExpressionP4(AAltNestedExpressionP4 node)
     {
-        inAAlt2ExpressionP4(node);
+        inAAltNestedExpressionP4(node);
         if(node.getExpressionP3() != null)
         {
             node.getExpressionP3().apply(this);
         }
-        outAAlt2ExpressionP4(node);
+        outAAltNestedExpressionP4(node);
     }
 
-    public void inAAlt0ExpressionP5(AAlt0ExpressionP5 node)
+    public void inAAltBinaryExpressionP5(AAltBinaryExpressionP5 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt0ExpressionP5(AAlt0ExpressionP5 node)
+    public void outAAltBinaryExpressionP5(AAltBinaryExpressionP5 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt0ExpressionP5(AAlt0ExpressionP5 node)
+    public void caseAAltBinaryExpressionP5(AAltBinaryExpressionP5 node)
     {
-        inAAlt0ExpressionP5(node);
+        inAAltBinaryExpressionP5(node);
         if(node.getOperand1() != null)
         {
             node.getOperand1().apply(this);
@@ -9345,28 +9320,196 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getOperand2().apply(this);
         }
-        outAAlt0ExpressionP5(node);
+        outAAltBinaryExpressionP5(node);
     }
 
-    public void inAAlt1ExpressionP5(AAlt1ExpressionP5 node)
+    public void inAAltNestedExpressionP5(AAltNestedExpressionP5 node)
     {
         defaultIn(node);
     }
 
-    public void outAAlt1ExpressionP5(AAlt1ExpressionP5 node)
+    public void outAAltNestedExpressionP5(AAltNestedExpressionP5 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAlt1ExpressionP5(AAlt1ExpressionP5 node)
+    public void caseAAltNestedExpressionP5(AAltNestedExpressionP5 node)
     {
-        inAAlt1ExpressionP5(node);
+        inAAltNestedExpressionP5(node);
         if(node.getExpressionP4() != null)
         {
             node.getExpressionP4().apply(this);
         }
-        outAAlt1ExpressionP5(node);
+        outAAltNestedExpressionP5(node);
+    }
+
+    public void inAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node)
+    {
+        inAMinusUnaryOpLevel1(node);
+        if(node.getMinus() != null)
+        {
+            node.getMinus().apply(this);
+        }
+        outAMinusUnaryOpLevel1(node);
+    }
+
+    public void inANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node)
+    {
+        inANotNullUnaryOpLevel1(node);
+        if(node.getNotNull() != null)
+        {
+            node.getNotNull().apply(this);
+        }
+        outANotNullUnaryOpLevel1(node);
+    }
+
+    public void inAUnaryOpLevel4(AUnaryOpLevel4 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAUnaryOpLevel4(AUnaryOpLevel4 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAUnaryOpLevel4(AUnaryOpLevel4 node)
+    {
+        inAUnaryOpLevel4(node);
+        if(node.getNot() != null)
+        {
+            node.getNot().apply(this);
+        }
+        outAUnaryOpLevel4(node);
+    }
+
+    public void inABinaryOpLevel1(ABinaryOpLevel1 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABinaryOpLevel1(ABinaryOpLevel1 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABinaryOpLevel1(ABinaryOpLevel1 node)
+    {
+        inABinaryOpLevel1(node);
+        if(node.getMultDiv() != null)
+        {
+            node.getMultDiv().apply(this);
+        }
+        outABinaryOpLevel1(node);
+    }
+
+    public void inABinaryOpLevel2(ABinaryOpLevel2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABinaryOpLevel2(ABinaryOpLevel2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABinaryOpLevel2(ABinaryOpLevel2 node)
+    {
+        inABinaryOpLevel2(node);
+        if(node.getPlusMinus() != null)
+        {
+            node.getPlusMinus().apply(this);
+        }
+        outABinaryOpLevel2(node);
+    }
+
+    public void inABinaryOpLevel3(ABinaryOpLevel3 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABinaryOpLevel3(ABinaryOpLevel3 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABinaryOpLevel3(ABinaryOpLevel3 node)
+    {
+        inABinaryOpLevel3(node);
+        if(node.getComparisonOperator() != null)
+        {
+            node.getComparisonOperator().apply(this);
+        }
+        outABinaryOpLevel3(node);
+    }
+
+    public void inABinaryOpLevel4(ABinaryOpLevel4 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABinaryOpLevel4(ABinaryOpLevel4 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABinaryOpLevel4(ABinaryOpLevel4 node)
+    {
+        inABinaryOpLevel4(node);
+        if(node.getAnd() != null)
+        {
+            node.getAnd().apply(this);
+        }
+        outABinaryOpLevel4(node);
+    }
+
+    public void inABinaryOpLevel5(ABinaryOpLevel5 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABinaryOpLevel5(ABinaryOpLevel5 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABinaryOpLevel5(ABinaryOpLevel5 node)
+    {
+        inABinaryOpLevel5(node);
+        if(node.getOr() != null)
+        {
+            node.getOr().apply(this);
+        }
+        outABinaryOpLevel5(node);
     }
 
     public void inAIsClassExpression(AIsClassExpression node)
@@ -9653,46 +9796,46 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outADivMultDiv(node);
     }
 
-    public void inAPlusAddSub(APlusAddSub node)
+    public void inAPlusPlusMinus(APlusPlusMinus node)
     {
         defaultIn(node);
     }
 
-    public void outAPlusAddSub(APlusAddSub node)
+    public void outAPlusPlusMinus(APlusPlusMinus node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAPlusAddSub(APlusAddSub node)
+    public void caseAPlusPlusMinus(APlusPlusMinus node)
     {
-        inAPlusAddSub(node);
+        inAPlusPlusMinus(node);
         if(node.getPlus() != null)
         {
             node.getPlus().apply(this);
         }
-        outAPlusAddSub(node);
+        outAPlusPlusMinus(node);
     }
 
-    public void inAMinusAddSub(AMinusAddSub node)
+    public void inAMinusPlusMinus(AMinusPlusMinus node)
     {
         defaultIn(node);
     }
 
-    public void outAMinusAddSub(AMinusAddSub node)
+    public void outAMinusPlusMinus(AMinusPlusMinus node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMinusAddSub(AMinusAddSub node)
+    public void caseAMinusPlusMinus(AMinusPlusMinus node)
     {
-        inAMinusAddSub(node);
+        inAMinusPlusMinus(node);
         if(node.getMinus() != null)
         {
             node.getMinus().apply(this);
         }
-        outAMinusAddSub(node);
+        outAMinusPlusMinus(node);
     }
 
     public void inASameComparisonOperator(ASameComparisonOperator node)

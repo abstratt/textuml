@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAlt1ExpressionP5 extends PExpressionP5
+public final class ABinaryOpLevel1 extends PBinaryOpLevel1
 {
-    private PExpressionP4 _expressionP4_;
+    private PMultDiv _multDiv_;
 
-    public AAlt1ExpressionP5()
+    public ABinaryOpLevel1()
     {
         // Constructor
     }
 
-    public AAlt1ExpressionP5(
-        @SuppressWarnings("hiding") PExpressionP4 _expressionP4_)
+    public ABinaryOpLevel1(
+        @SuppressWarnings("hiding") PMultDiv _multDiv_)
     {
         // Constructor
-        setExpressionP4(_expressionP4_);
+        setMultDiv(_multDiv_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AAlt1ExpressionP5(
-            cloneNode(this._expressionP4_));
+        return new ABinaryOpLevel1(
+            cloneNode(this._multDiv_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAlt1ExpressionP5(this);
+        ((Analysis) sw).caseABinaryOpLevel1(this);
     }
 
-    public PExpressionP4 getExpressionP4()
+    public PMultDiv getMultDiv()
     {
-        return this._expressionP4_;
+        return this._multDiv_;
     }
 
-    public void setExpressionP4(PExpressionP4 node)
+    public void setMultDiv(PMultDiv node)
     {
-        if(this._expressionP4_ != null)
+        if(this._multDiv_ != null)
         {
-            this._expressionP4_.parent(null);
+            this._multDiv_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AAlt1ExpressionP5 extends PExpressionP5
             node.parent(this);
         }
 
-        this._expressionP4_ = node;
+        this._multDiv_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._expressionP4_);
+            + toString(this._multDiv_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expressionP4_ == child)
+        if(this._multDiv_ == child)
         {
-            this._expressionP4_ = null;
+            this._multDiv_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AAlt1ExpressionP5 extends PExpressionP5
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expressionP4_ == oldChild)
+        if(this._multDiv_ == oldChild)
         {
-            setExpressionP4((PExpressionP4) newChild);
+            setMultDiv((PMultDiv) newChild);
             return;
         }
 

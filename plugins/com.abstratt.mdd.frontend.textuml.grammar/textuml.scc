@@ -217,6 +217,10 @@ Tokens
   rab = '>' ;
   rab_equals = '>' '=' ;
   not_equals = '!' '=' ;
+
+  elvis = '?' ':' ;
+  
+  question = '?' ':' ;
   
   // separator symbols
   comma = ',' ;
@@ -816,30 +820,38 @@ Productions
         
   expression = expression_p5 ;
     
-  expression_p0 = {alt0} operand ;
+  expression_p0 = {alt} operand ;
   
   expression_p1 = 
-      {alt0} [operator]: minus [operand]: expression_p1 |
-      {alt1} [operator]: not_null [operand]: expression_p1 |
-      {alt2} [operand1]: expression_p0 [operator]: mult_div [operand2]: expression_p1 |
-      {alt3} expression_p0;
+      {alt_unary} [operator]: unary_op_level1 [operand]: expression_p1 |
+      {alt_binary} [operand1]: expression_p0 [operator]: binary_op_level1 [operand2]: expression_p1 |
+      {alt_nested} expression_p0;
       
   expression_p2 =
-      {alt0} [operand1]: expression_p1 [operator]: add_sub [operand2]: expression_p2 |
-      {alt1} expression_p1 ;
+      {alt_binary} [operand1]: expression_p1 [operator]: binary_op_level2 [operand2]: expression_p2 |
+      {alt_nested} expression_p1 ;
       
   expression_p3 = 
-      {alt0} [operand1]: expression_p2 [operator]: comparison_operator [operand2]: expression_p2 |
-      {alt1} expression_p2;
+      {alt_binary} [operand1]: expression_p2 [operator]: binary_op_level3 [operand2]: expression_p2 |
+      {alt_nested} expression_p2;
     
   expression_p4 = 
-      {alt0} [operator]: not [operand]: expression_p4 |
-      {alt1} [operand1]: expression_p3 [operator]: and [operand2]: expression_p4 |
-      {alt2} expression_p3 ;
+      {alt_unary} [operator]: unary_op_level4 [operand]: expression_p4 |
+      {alt_binary} [operand1]: expression_p3 [operator]: binary_op_level4 [operand2]: expression_p4 |
+      {alt_nested} expression_p3 ;
       
   expression_p5 =    
-      {alt0} [operand1]: expression_p4 [operator]: or [operand2]: expression_p5 |
-      {alt1} expression_p4;
+      {alt_binary} [operand1]: expression_p4 [operator]: binary_op_level5 [operand2]: expression_p5 |
+      {alt_nested} expression_p4;
+  
+  unary_op_level1 = {minus} minus | {not_null} not_null;
+  unary_op_level4 = not;     
+  binary_op_level1 = mult_div ;
+  binary_op_level2 = plus_minus;      
+  binary_op_level3 = comparison_operator;
+  binary_op_level4 = and;
+  binary_op_level5 = or;
+        
       
   is_class_expression = [operand1]: operand [operator]: is [operand2]: minimal_type_identifier ;
   
@@ -860,7 +872,7 @@ Productions
     {mult} mult | 
     {div} div ;
     
-  add_sub =     
+  plus_minus =     
     {plus} plus | 
     {minus} minus;
 

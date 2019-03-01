@@ -1844,72 +1844,107 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAAlt0ExpressionP0(AAlt0ExpressionP0 node)
+    public void caseAAltExpressionP0(AAltExpressionP0 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt0ExpressionP1(AAlt0ExpressionP1 node)
+    public void caseAAltUnaryExpressionP1(AAltUnaryExpressionP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt1ExpressionP1(AAlt1ExpressionP1 node)
+    public void caseAAltBinaryExpressionP1(AAltBinaryExpressionP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt2ExpressionP1(AAlt2ExpressionP1 node)
+    public void caseAAltNestedExpressionP1(AAltNestedExpressionP1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt3ExpressionP1(AAlt3ExpressionP1 node)
+    public void caseAAltBinaryExpressionP2(AAltBinaryExpressionP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt0ExpressionP2(AAlt0ExpressionP2 node)
+    public void caseAAltNestedExpressionP2(AAltNestedExpressionP2 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt1ExpressionP2(AAlt1ExpressionP2 node)
+    public void caseAAltBinaryExpressionP3(AAltBinaryExpressionP3 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt0ExpressionP3(AAlt0ExpressionP3 node)
+    public void caseAAltNestedExpressionP3(AAltNestedExpressionP3 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt1ExpressionP3(AAlt1ExpressionP3 node)
+    public void caseAAltUnaryExpressionP4(AAltUnaryExpressionP4 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt0ExpressionP4(AAlt0ExpressionP4 node)
+    public void caseAAltBinaryExpressionP4(AAltBinaryExpressionP4 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt1ExpressionP4(AAlt1ExpressionP4 node)
+    public void caseAAltNestedExpressionP4(AAltNestedExpressionP4 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt2ExpressionP4(AAlt2ExpressionP4 node)
+    public void caseAAltBinaryExpressionP5(AAltBinaryExpressionP5 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt0ExpressionP5(AAlt0ExpressionP5 node)
+    public void caseAAltNestedExpressionP5(AAltNestedExpressionP5 node)
     {
         defaultCase(node);
     }
 
-    public void caseAAlt1ExpressionP5(AAlt1ExpressionP5 node)
+    public void caseAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAUnaryOpLevel4(AUnaryOpLevel4 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseABinaryOpLevel1(ABinaryOpLevel1 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseABinaryOpLevel2(ABinaryOpLevel2 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseABinaryOpLevel3(ABinaryOpLevel3 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseABinaryOpLevel4(ABinaryOpLevel4 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseABinaryOpLevel5(ABinaryOpLevel5 node)
     {
         defaultCase(node);
     }
@@ -1974,12 +2009,12 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAPlusAddSub(APlusAddSub node)
+    public void caseAPlusPlusMinus(APlusPlusMinus node)
     {
         defaultCase(node);
     }
 
-    public void caseAMinusAddSub(AMinusAddSub node)
+    public void caseAMinusPlusMinus(AMinusPlusMinus node)
     {
         defaultCase(node);
     }
@@ -2750,6 +2785,16 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTNotEquals(TNotEquals node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTElvis(TElvis node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTQuestion(TQuestion node)
     {
         defaultCase(node);
     }

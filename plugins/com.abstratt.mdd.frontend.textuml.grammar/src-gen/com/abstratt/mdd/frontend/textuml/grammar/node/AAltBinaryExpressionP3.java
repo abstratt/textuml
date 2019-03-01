@@ -5,20 +5,20 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAlt0ExpressionP2 extends PExpressionP2
+public final class AAltBinaryExpressionP3 extends PExpressionP3
 {
-    private PExpressionP1 _operand1_;
-    private PAddSub _operator_;
+    private PExpressionP2 _operand1_;
+    private PBinaryOpLevel3 _operator_;
     private PExpressionP2 _operand2_;
 
-    public AAlt0ExpressionP2()
+    public AAltBinaryExpressionP3()
     {
         // Constructor
     }
 
-    public AAlt0ExpressionP2(
-        @SuppressWarnings("hiding") PExpressionP1 _operand1_,
-        @SuppressWarnings("hiding") PAddSub _operator_,
+    public AAltBinaryExpressionP3(
+        @SuppressWarnings("hiding") PExpressionP2 _operand1_,
+        @SuppressWarnings("hiding") PBinaryOpLevel3 _operator_,
         @SuppressWarnings("hiding") PExpressionP2 _operand2_)
     {
         // Constructor
@@ -33,7 +33,7 @@ public final class AAlt0ExpressionP2 extends PExpressionP2
     @Override
     public Object clone()
     {
-        return new AAlt0ExpressionP2(
+        return new AAltBinaryExpressionP3(
             cloneNode(this._operand1_),
             cloneNode(this._operator_),
             cloneNode(this._operand2_));
@@ -41,15 +41,15 @@ public final class AAlt0ExpressionP2 extends PExpressionP2
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAlt0ExpressionP2(this);
+        ((Analysis) sw).caseAAltBinaryExpressionP3(this);
     }
 
-    public PExpressionP1 getOperand1()
+    public PExpressionP2 getOperand1()
     {
         return this._operand1_;
     }
 
-    public void setOperand1(PExpressionP1 node)
+    public void setOperand1(PExpressionP2 node)
     {
         if(this._operand1_ != null)
         {
@@ -69,12 +69,12 @@ public final class AAlt0ExpressionP2 extends PExpressionP2
         this._operand1_ = node;
     }
 
-    public PAddSub getOperator()
+    public PBinaryOpLevel3 getOperator()
     {
         return this._operator_;
     }
 
-    public void setOperator(PAddSub node)
+    public void setOperator(PBinaryOpLevel3 node)
     {
         if(this._operator_ != null)
         {
@@ -159,13 +159,13 @@ public final class AAlt0ExpressionP2 extends PExpressionP2
         // Replace child
         if(this._operand1_ == oldChild)
         {
-            setOperand1((PExpressionP1) newChild);
+            setOperand1((PExpressionP2) newChild);
             return;
         }
 
         if(this._operator_ == oldChild)
         {
-            setOperator((PAddSub) newChild);
+            setOperator((PBinaryOpLevel3) newChild);
             return;
         }
 

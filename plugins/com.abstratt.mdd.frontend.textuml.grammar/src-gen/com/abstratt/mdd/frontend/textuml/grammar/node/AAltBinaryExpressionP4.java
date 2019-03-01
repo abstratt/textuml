@@ -5,21 +5,21 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAlt2ExpressionP1 extends PExpressionP1
+public final class AAltBinaryExpressionP4 extends PExpressionP4
 {
-    private PExpressionP0 _operand1_;
-    private PMultDiv _operator_;
-    private PExpressionP1 _operand2_;
+    private PExpressionP3 _operand1_;
+    private PBinaryOpLevel4 _operator_;
+    private PExpressionP4 _operand2_;
 
-    public AAlt2ExpressionP1()
+    public AAltBinaryExpressionP4()
     {
         // Constructor
     }
 
-    public AAlt2ExpressionP1(
-        @SuppressWarnings("hiding") PExpressionP0 _operand1_,
-        @SuppressWarnings("hiding") PMultDiv _operator_,
-        @SuppressWarnings("hiding") PExpressionP1 _operand2_)
+    public AAltBinaryExpressionP4(
+        @SuppressWarnings("hiding") PExpressionP3 _operand1_,
+        @SuppressWarnings("hiding") PBinaryOpLevel4 _operator_,
+        @SuppressWarnings("hiding") PExpressionP4 _operand2_)
     {
         // Constructor
         setOperand1(_operand1_);
@@ -33,7 +33,7 @@ public final class AAlt2ExpressionP1 extends PExpressionP1
     @Override
     public Object clone()
     {
-        return new AAlt2ExpressionP1(
+        return new AAltBinaryExpressionP4(
             cloneNode(this._operand1_),
             cloneNode(this._operator_),
             cloneNode(this._operand2_));
@@ -41,15 +41,15 @@ public final class AAlt2ExpressionP1 extends PExpressionP1
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAlt2ExpressionP1(this);
+        ((Analysis) sw).caseAAltBinaryExpressionP4(this);
     }
 
-    public PExpressionP0 getOperand1()
+    public PExpressionP3 getOperand1()
     {
         return this._operand1_;
     }
 
-    public void setOperand1(PExpressionP0 node)
+    public void setOperand1(PExpressionP3 node)
     {
         if(this._operand1_ != null)
         {
@@ -69,12 +69,12 @@ public final class AAlt2ExpressionP1 extends PExpressionP1
         this._operand1_ = node;
     }
 
-    public PMultDiv getOperator()
+    public PBinaryOpLevel4 getOperator()
     {
         return this._operator_;
     }
 
-    public void setOperator(PMultDiv node)
+    public void setOperator(PBinaryOpLevel4 node)
     {
         if(this._operator_ != null)
         {
@@ -94,12 +94,12 @@ public final class AAlt2ExpressionP1 extends PExpressionP1
         this._operator_ = node;
     }
 
-    public PExpressionP1 getOperand2()
+    public PExpressionP4 getOperand2()
     {
         return this._operand2_;
     }
 
-    public void setOperand2(PExpressionP1 node)
+    public void setOperand2(PExpressionP4 node)
     {
         if(this._operand2_ != null)
         {
@@ -159,19 +159,19 @@ public final class AAlt2ExpressionP1 extends PExpressionP1
         // Replace child
         if(this._operand1_ == oldChild)
         {
-            setOperand1((PExpressionP0) newChild);
+            setOperand1((PExpressionP3) newChild);
             return;
         }
 
         if(this._operator_ == oldChild)
         {
-            setOperator((PMultDiv) newChild);
+            setOperator((PBinaryOpLevel4) newChild);
             return;
         }
 
         if(this._operand2_ == oldChild)
         {
-            setOperand2((PExpressionP1) newChild);
+            setOperand2((PExpressionP4) newChild);
             return;
         }
 

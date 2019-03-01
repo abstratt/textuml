@@ -5,21 +5,21 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAlt0ExpressionP5 extends PExpressionP5
+public final class AAltBinaryExpressionP2 extends PExpressionP2
 {
-    private PExpressionP4 _operand1_;
-    private TOr _operator_;
-    private PExpressionP5 _operand2_;
+    private PExpressionP1 _operand1_;
+    private PBinaryOpLevel2 _operator_;
+    private PExpressionP2 _operand2_;
 
-    public AAlt0ExpressionP5()
+    public AAltBinaryExpressionP2()
     {
         // Constructor
     }
 
-    public AAlt0ExpressionP5(
-        @SuppressWarnings("hiding") PExpressionP4 _operand1_,
-        @SuppressWarnings("hiding") TOr _operator_,
-        @SuppressWarnings("hiding") PExpressionP5 _operand2_)
+    public AAltBinaryExpressionP2(
+        @SuppressWarnings("hiding") PExpressionP1 _operand1_,
+        @SuppressWarnings("hiding") PBinaryOpLevel2 _operator_,
+        @SuppressWarnings("hiding") PExpressionP2 _operand2_)
     {
         // Constructor
         setOperand1(_operand1_);
@@ -33,7 +33,7 @@ public final class AAlt0ExpressionP5 extends PExpressionP5
     @Override
     public Object clone()
     {
-        return new AAlt0ExpressionP5(
+        return new AAltBinaryExpressionP2(
             cloneNode(this._operand1_),
             cloneNode(this._operator_),
             cloneNode(this._operand2_));
@@ -41,15 +41,15 @@ public final class AAlt0ExpressionP5 extends PExpressionP5
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAlt0ExpressionP5(this);
+        ((Analysis) sw).caseAAltBinaryExpressionP2(this);
     }
 
-    public PExpressionP4 getOperand1()
+    public PExpressionP1 getOperand1()
     {
         return this._operand1_;
     }
 
-    public void setOperand1(PExpressionP4 node)
+    public void setOperand1(PExpressionP1 node)
     {
         if(this._operand1_ != null)
         {
@@ -69,12 +69,12 @@ public final class AAlt0ExpressionP5 extends PExpressionP5
         this._operand1_ = node;
     }
 
-    public TOr getOperator()
+    public PBinaryOpLevel2 getOperator()
     {
         return this._operator_;
     }
 
-    public void setOperator(TOr node)
+    public void setOperator(PBinaryOpLevel2 node)
     {
         if(this._operator_ != null)
         {
@@ -94,12 +94,12 @@ public final class AAlt0ExpressionP5 extends PExpressionP5
         this._operator_ = node;
     }
 
-    public PExpressionP5 getOperand2()
+    public PExpressionP2 getOperand2()
     {
         return this._operand2_;
     }
 
-    public void setOperand2(PExpressionP5 node)
+    public void setOperand2(PExpressionP2 node)
     {
         if(this._operand2_ != null)
         {
@@ -159,19 +159,19 @@ public final class AAlt0ExpressionP5 extends PExpressionP5
         // Replace child
         if(this._operand1_ == oldChild)
         {
-            setOperand1((PExpressionP4) newChild);
+            setOperand1((PExpressionP1) newChild);
             return;
         }
 
         if(this._operator_ == oldChild)
         {
-            setOperator((TOr) newChild);
+            setOperator((PBinaryOpLevel2) newChild);
             return;
         }
 
         if(this._operand2_ == oldChild)
         {
-            setOperand2((PExpressionP5) newChild);
+            setOperand2((PExpressionP2) newChild);
             return;
         }
 
