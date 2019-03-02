@@ -77,8 +77,6 @@ Helpers
   left_arrow = '<' '-';
   l_guillemot = '«' ;
   r_guillemot = '»' ;
-  not_null = '?' ;
-  
   
 Tokens
   // reserved words
@@ -220,7 +218,7 @@ Tokens
 
   elvis = '?' ':' ;
   
-  question = '?' ':' ;
+  question = '?' ;
   
   // separator symbols
   comma = ',' ;
@@ -239,7 +237,6 @@ Tokens
   left_arrow = '<' '-';
   l_guillemot = '«' ;
   r_guillemot = '»' ;
-  not_null = '?' ;
   
   // identifiers
   identifier = (identifier_first_character | (escape_character input_character)) (identifier_following_character | (escape_character input_character))* ;
@@ -827,6 +824,7 @@ Productions
       {alt_binary} [operand1]: expression_p0 [operator]: binary_op_level1 [operand2]: expression_p1 |
       {alt_nested} expression_p0;
       
+    
   expression_p2 =
       {alt_binary} [operand1]: expression_p1 [operator]: binary_op_level2 [operand2]: expression_p2 |
       {alt_nested} expression_p1 ;
@@ -835,6 +833,7 @@ Productions
       {alt_binary} [operand1]: expression_p2 [operator]: binary_op_level3 [operand2]: expression_p2 |
       {alt_nested} expression_p2;
     
+
   expression_p4 = 
       {alt_unary} [operator]: unary_op_level4 [operand]: expression_p4 |
       {alt_binary} [operand1]: expression_p3 [operator]: binary_op_level4 [operand2]: expression_p4 |
@@ -842,9 +841,12 @@ Productions
       
   expression_p5 =    
       {alt_binary} [operand1]: expression_p4 [operator]: binary_op_level5 [operand2]: expression_p5 |
+      {alt_ternary} ternary_expression |
       {alt_nested} expression_p4;
+
+  ternary_expression = [condition]: expression_p4 question [true_expression]: expression_p5 colon [false_expression]: expression_p5 ;  
   
-  unary_op_level1 = {minus} minus | {not_null} not_null;
+  unary_op_level1 = {minus} minus | {not_null} question;
   unary_op_level4 = not;     
   binary_op_level1 = {mult_div} mult_div | {elvis} elvis ;
   binary_op_level2 = plus_minus;      
@@ -862,7 +864,7 @@ Productions
     {tuple} tuple_constructor |
     {parenthesis} l_paren expression cast? r_paren | 
     {is_class} is_class_expression |
-    {closure} closure;
+    {closure} closure ;
     
   empty_set = minimal_type_identifier l_bracket r_bracket ; 
     
