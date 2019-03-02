@@ -9323,6 +9323,27 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAAltBinaryExpressionP5(node);
     }
 
+    public void inAAltTernaryExpressionP5(AAltTernaryExpressionP5 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAAltTernaryExpressionP5(AAltTernaryExpressionP5 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAAltTernaryExpressionP5(AAltTernaryExpressionP5 node)
+    {
+        inAAltTernaryExpressionP5(node);
+        if(node.getTernaryExpression() != null)
+        {
+            node.getTernaryExpression().apply(this);
+        }
+        outAAltTernaryExpressionP5(node);
+    }
+
     public void inAAltNestedExpressionP5(AAltNestedExpressionP5 node)
     {
         defaultIn(node);
@@ -9342,6 +9363,43 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getExpressionP4().apply(this);
         }
         outAAltNestedExpressionP5(node);
+    }
+
+    public void inATernaryExpression(ATernaryExpression node)
+    {
+        defaultIn(node);
+    }
+
+    public void outATernaryExpression(ATernaryExpression node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseATernaryExpression(ATernaryExpression node)
+    {
+        inATernaryExpression(node);
+        if(node.getCondition() != null)
+        {
+            node.getCondition().apply(this);
+        }
+        if(node.getQuestion() != null)
+        {
+            node.getQuestion().apply(this);
+        }
+        if(node.getTrueExpression() != null)
+        {
+            node.getTrueExpression().apply(this);
+        }
+        if(node.getColon() != null)
+        {
+            node.getColon().apply(this);
+        }
+        if(node.getFalseExpression() != null)
+        {
+            node.getFalseExpression().apply(this);
+        }
+        outATernaryExpression(node);
     }
 
     public void inAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node)
@@ -9379,9 +9437,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node)
     {
         inANotNullUnaryOpLevel1(node);
-        if(node.getNotNull() != null)
+        if(node.getQuestion() != null)
         {
-            node.getNotNull().apply(this);
+            node.getQuestion().apply(this);
         }
         outANotNullUnaryOpLevel1(node);
     }

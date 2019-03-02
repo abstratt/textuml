@@ -1904,7 +1904,17 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAAltTernaryExpressionP5(AAltTernaryExpressionP5 node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAAltNestedExpressionP5(AAltNestedExpressionP5 node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseATernaryExpression(ATernaryExpression node)
     {
         defaultCase(node);
     }
@@ -2880,11 +2890,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTRGuillemot(TRGuillemot node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseTNotNull(TNotNull node)
     {
         defaultCase(node);
     }

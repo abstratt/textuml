@@ -7,14 +7,14 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 @SuppressWarnings("nls")
 public final class TQuestion extends Token
 {
-    public TQuestion(String text)
+    public TQuestion()
     {
-        setText(text);
+        super.setText("?");
     }
 
-    public TQuestion(String text, int line, int pos)
+    public TQuestion(int line, int pos)
     {
-        setText(text);
+        super.setText("?");
         setLine(line);
         setPos(pos);
     }
@@ -22,11 +22,17 @@ public final class TQuestion extends Token
     @Override
     public Object clone()
     {
-      return new TQuestion(getText(), getLine(), getPos());
+      return new TQuestion(getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTQuestion(this);
+    }
+
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
+    {
+        throw new RuntimeException("Cannot change TQuestion text.");
     }
 }

@@ -379,7 +379,9 @@ public interface Analysis extends Switch
     void caseAAltBinaryExpressionP4(AAltBinaryExpressionP4 node);
     void caseAAltNestedExpressionP4(AAltNestedExpressionP4 node);
     void caseAAltBinaryExpressionP5(AAltBinaryExpressionP5 node);
+    void caseAAltTernaryExpressionP5(AAltTernaryExpressionP5 node);
     void caseAAltNestedExpressionP5(AAltNestedExpressionP5 node);
+    void caseATernaryExpression(ATernaryExpression node);
     void caseAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node);
     void caseANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node);
     void caseAUnaryOpLevel4(AUnaryOpLevel4 node);
@@ -576,7 +578,6 @@ public interface Analysis extends Switch
     void caseTLeftArrow(TLeftArrow node);
     void caseTLGuillemot(TLGuillemot node);
     void caseTRGuillemot(TRGuillemot node);
-    void caseTNotNull(TNotNull node);
     void caseTIdentifier(TIdentifier node);
     void caseTInteger(TInteger node);
     void caseTReal(TReal node);

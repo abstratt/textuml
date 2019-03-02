@@ -7,7 +7,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 @SuppressWarnings("nls")
 public final class ANotNullUnaryOpLevel1 extends PUnaryOpLevel1
 {
-    private TNotNull _notNull_;
+    private TQuestion _question_;
 
     public ANotNullUnaryOpLevel1()
     {
@@ -15,10 +15,10 @@ public final class ANotNullUnaryOpLevel1 extends PUnaryOpLevel1
     }
 
     public ANotNullUnaryOpLevel1(
-        @SuppressWarnings("hiding") TNotNull _notNull_)
+        @SuppressWarnings("hiding") TQuestion _question_)
     {
         // Constructor
-        setNotNull(_notNull_);
+        setQuestion(_question_);
 
     }
 
@@ -26,7 +26,7 @@ public final class ANotNullUnaryOpLevel1 extends PUnaryOpLevel1
     public Object clone()
     {
         return new ANotNullUnaryOpLevel1(
-            cloneNode(this._notNull_));
+            cloneNode(this._question_));
     }
 
     public void apply(Switch sw)
@@ -34,16 +34,16 @@ public final class ANotNullUnaryOpLevel1 extends PUnaryOpLevel1
         ((Analysis) sw).caseANotNullUnaryOpLevel1(this);
     }
 
-    public TNotNull getNotNull()
+    public TQuestion getQuestion()
     {
-        return this._notNull_;
+        return this._question_;
     }
 
-    public void setNotNull(TNotNull node)
+    public void setQuestion(TQuestion node)
     {
-        if(this._notNull_ != null)
+        if(this._question_ != null)
         {
-            this._notNull_.parent(null);
+            this._question_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ANotNullUnaryOpLevel1 extends PUnaryOpLevel1
             node.parent(this);
         }
 
-        this._notNull_ = node;
+        this._question_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._notNull_);
+            + toString(this._question_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._notNull_ == child)
+        if(this._question_ == child)
         {
-            this._notNull_ = null;
+            this._question_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ANotNullUnaryOpLevel1 extends PUnaryOpLevel1
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._notNull_ == oldChild)
+        if(this._question_ == oldChild)
         {
-            setNotNull((TNotNull) newChild);
+            setQuestion((TQuestion) newChild);
             return;
         }
 

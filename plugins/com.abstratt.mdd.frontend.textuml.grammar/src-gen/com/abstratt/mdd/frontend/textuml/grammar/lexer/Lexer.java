@@ -1485,7 +1485,6 @@ public class Lexer
                     case 132:
                         {
                             @SuppressWarnings("hiding") Token token = new132(
-                                getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
                             pushBack(accept_length);
@@ -1658,6 +1657,7 @@ public class Lexer
                     case 149:
                         {
                             @SuppressWarnings("hiding") Token token = new149(
+                                getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
                             pushBack(accept_length);
@@ -1734,17 +1734,6 @@ public class Lexer
                     case 156:
                         {
                             @SuppressWarnings("hiding") Token token = new156(
-                                getText(accept_length),
-                                start_line + 1,
-                                start_pos + 1);
-                            pushBack(accept_length);
-                            this.pos = accept_pos;
-                            this.line = accept_line;
-                            return token;
-                        }
-                    case 157:
-                        {
-                            @SuppressWarnings("hiding") Token token = new157(
                                 getText(accept_length),
                                 start_line + 1,
                                 start_pos + 1);
@@ -1905,7 +1894,7 @@ public class Lexer
     Token new129(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TRabEquals(text, line, pos); }
     Token new130(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TNotEquals(text, line, pos); }
     Token new131(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TElvis(text, line, pos); }
-    Token new132(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TQuestion(text, line, pos); }
+    Token new132(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TQuestion(line, pos); }
     Token new133(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TComma(line, pos); }
     Token new134(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TColon(line, pos); }
     Token new135(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TSemicolon(line, pos); }
@@ -1922,15 +1911,14 @@ public class Lexer
     Token new146(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLeftArrow(text, line, pos); }
     Token new147(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TLGuillemot(line, pos); }
     Token new148(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TRGuillemot(line, pos); }
-    Token new149(@SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TNotNull(line, pos); }
-    Token new150(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TIdentifier(text, line, pos); }
-    Token new151(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TInteger(text, line, pos); }
-    Token new152(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TReal(text, line, pos); }
-    Token new153(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TString(text, line, pos); }
-    Token new154(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TUri(text, line, pos); }
-    Token new155(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TComment(text, line, pos); }
-    Token new156(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TModelComment(text, line, pos); }
-    Token new157(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TWhiteSpace(text, line, pos); }
+    Token new149(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TIdentifier(text, line, pos); }
+    Token new150(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TInteger(text, line, pos); }
+    Token new151(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TReal(text, line, pos); }
+    Token new152(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TString(text, line, pos); }
+    Token new153(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TUri(text, line, pos); }
+    Token new154(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TComment(text, line, pos); }
+    Token new155(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TModelComment(text, line, pos); }
+    Token new156(@SuppressWarnings("hiding") String text, @SuppressWarnings("hiding") int line, @SuppressWarnings("hiding") int pos) { return new TWhiteSpace(text, line, pos); }
 
     private int getChar() throws IOException
     {
@@ -2639,7 +2627,7 @@ public class Lexer
     private static int[][] accept;
 /*  {
         // INITIAL
-        {157, 150, 150, 157, 150, 157, 157, 62, -1, 138, 139, 140, 120, 118, 133, 119, 136, 121, 151, 134, 135, 126, 123, 128, 149, 141, 150, 142, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 143, 144, 147, 148, 150, 150, 150, 150, 157, 157, 157, 130, -1, 153, -1, 145, -1, -1, 137, 122, 146, -1, 127, 124, 129, 131, 150, 150, 150, 150, 150, 150, 150, 150, 150, 12, 150, 150, 150, 16, 150, 150, 150, 150, 150, 150, 30, 150, 150, 150, 150, 150, 150, 44, 45, 150, 48, 53, 150, 150, 150, 150, 150, 150, 150, 64, 150, 67, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 104, 150, 150, 150, 150, 150, 150, 150, 150, 150, 125, -1, -1, -1, -1, -1, -1, 152, -1, -1, 150, 150, 150, 150, 150, 6, 7, 8, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 33, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 59, 150, 62, 150, 150, 150, 150, 69, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 107, 150, 150, 150, 150, 150, 150, 114, 150, 150, -1, -1, -1, -1, 154, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 17, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 31, 150, 150, 36, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 54, 150, 56, 150, 150, 60, 150, 63, 150, 150, 150, 150, 150, 72, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 85, 150, 150, 150, 150, 150, 92, 93, 94, 150, 150, 150, 150, 150, 150, 103, 150, 106, 108, 150, 150, 150, 150, 150, 115, 150, 150, -1, -1, -1, 156, -1, -1, -1, 155, 150, 150, 2, 150, 4, 5, 150, 10, 150, 150, 14, 150, 18, 19, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 34, 150, 150, 150, 40, 41, 150, 150, 150, 150, 50, 150, 150, 150, 57, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 82, 83, 150, 150, 150, 150, 150, 150, 150, 150, 97, 150, 150, 150, 150, 150, 150, 150, 150, 112, 150, 116, 117, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 150, 1, 150, 9, 150, 150, 150, 150, 150, 150, 150, 24, 150, 26, 150, 150, 150, 32, 150, 150, 38, 150, 150, 150, 150, 47, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 81, 84, 150, 150, 150, 89, 150, 91, 95, 150, 150, 99, 150, 150, 150, 150, 109, 110, 150, 113, -1, -1, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 28, 29, 150, 37, 150, 42, 150, 150, 49, 150, 150, 55, 150, 150, 150, 150, 68, 70, 150, 150, 150, 150, 76, 77, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 101, 150, 150, 150, 0, 150, 150, 150, 150, 150, 150, 150, 150, 25, 150, 150, 39, 43, 150, 150, 150, 150, 150, 150, 66, 150, 150, 150, 150, 78, 150, 80, 86, 150, 150, 90, 150, 150, 150, 150, 150, 150, 150, 150, 13, 15, 20, 150, 22, 150, 150, 150, 150, 51, 52, 58, 61, 65, 150, 150, 150, 75, 79, 87, 88, 150, 150, 150, 102, 150, 111, 150, 150, 150, 150, 27, 150, 46, 150, 150, 150, 150, 150, 100, 105, 3, 11, 21, 23, 35, 150, 150, 150, 96, 150, 71, 150, 74, 98, 73, },
+        {156, 149, 149, 156, 149, 156, 156, 62, -1, 138, 139, 140, 120, 118, 133, 119, 136, 121, 150, 134, 135, 126, 123, 128, 132, 141, 149, 142, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 143, 144, 147, 148, 149, 149, 149, 149, 156, 156, 156, 130, -1, 152, -1, 145, -1, -1, 137, 122, 146, -1, 127, 124, 129, 131, 149, 149, 149, 149, 149, 149, 149, 149, 149, 12, 149, 149, 149, 16, 149, 149, 149, 149, 149, 149, 30, 149, 149, 149, 149, 149, 149, 44, 45, 149, 48, 53, 149, 149, 149, 149, 149, 149, 149, 64, 149, 67, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 104, 149, 149, 149, 149, 149, 149, 149, 149, 149, 125, -1, -1, -1, -1, -1, -1, 151, -1, -1, 149, 149, 149, 149, 149, 6, 7, 8, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 33, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 59, 149, 62, 149, 149, 149, 149, 69, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 107, 149, 149, 149, 149, 149, 149, 114, 149, 149, -1, -1, -1, -1, 153, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 17, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 31, 149, 149, 36, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 54, 149, 56, 149, 149, 60, 149, 63, 149, 149, 149, 149, 149, 72, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 85, 149, 149, 149, 149, 149, 92, 93, 94, 149, 149, 149, 149, 149, 149, 103, 149, 106, 108, 149, 149, 149, 149, 149, 115, 149, 149, -1, -1, -1, 155, -1, -1, -1, 154, 149, 149, 2, 149, 4, 5, 149, 10, 149, 149, 14, 149, 18, 19, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 34, 149, 149, 149, 40, 41, 149, 149, 149, 149, 50, 149, 149, 149, 57, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 82, 83, 149, 149, 149, 149, 149, 149, 149, 149, 97, 149, 149, 149, 149, 149, 149, 149, 149, 112, 149, 116, 117, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 149, 1, 149, 9, 149, 149, 149, 149, 149, 149, 149, 24, 149, 26, 149, 149, 149, 32, 149, 149, 38, 149, 149, 149, 149, 47, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 81, 84, 149, 149, 149, 89, 149, 91, 95, 149, 149, 99, 149, 149, 149, 149, 109, 110, 149, 113, -1, -1, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 28, 29, 149, 37, 149, 42, 149, 149, 49, 149, 149, 55, 149, 149, 149, 149, 68, 70, 149, 149, 149, 149, 76, 77, 149, 149, 149, 149, 149, 149, 149, 149, 149, 149, 101, 149, 149, 149, 0, 149, 149, 149, 149, 149, 149, 149, 149, 25, 149, 149, 39, 43, 149, 149, 149, 149, 149, 149, 66, 149, 149, 149, 149, 78, 149, 80, 86, 149, 149, 90, 149, 149, 149, 149, 149, 149, 149, 149, 13, 15, 20, 149, 22, 149, 149, 149, 149, 51, 52, 58, 61, 65, 149, 149, 149, 75, 79, 87, 88, 149, 149, 149, 102, 149, 111, 149, 149, 149, 149, 27, 149, 46, 149, 149, 149, 149, 149, 100, 105, 3, 11, 21, 23, 35, 149, 149, 149, 96, 149, 71, 149, 74, 98, 73, },
 
     };*/
 
