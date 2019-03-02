@@ -5,6 +5,7 @@ import java.net.URI;
 import org.eclipse.core.runtime.CoreException;
 
 import com.abstratt.mdd.core.util.MDDUtil;
+import com.abstratt.pluginutils.LogUtils;
 import com.abstratt.resman.Resource;
 import com.abstratt.resman.ResourceException;
 import com.abstratt.resman.ResourceProvider;
@@ -42,7 +43,7 @@ public class RepositoryProvider implements ResourceProvider<RepositoryKey> {
         } catch (CoreException e) {
             throw new ResourceException(e);
         }
-        System.out.println("Loaded " + resource.getId());
+        LogUtils.debug(MDDCore.PLUGIN_ID, () -> "Loaded " + resource.getId());
     }
 
     @Override
@@ -63,7 +64,7 @@ public class RepositoryProvider implements ResourceProvider<RepositoryKey> {
             return;
         resource.getFeature(IRepository.class).close();
         CacheAdapterManager.remove();
-        System.out.println("Disposed " + resource.getId());
+        LogUtils.debug(MDDCore.PLUGIN_ID, () -> "Disposed " + resource.getId());
     }
 
     @Override

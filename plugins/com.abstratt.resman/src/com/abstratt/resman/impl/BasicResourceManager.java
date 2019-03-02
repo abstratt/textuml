@@ -35,8 +35,6 @@ import com.abstratt.resman.impl.ReferencePool.ReferenceDisposer;
 
 public class BasicResourceManager<K extends ResourceKey> extends ResourceManager<K> {
 
-    private static final String PLUGIN_ID = ResourceManager.class.getPackage().getName();
-
     private final ReferencePool<K, BasicResource<K>> pool;
 
     private final ResourceProvider<K> resourceProvider;
@@ -264,7 +262,7 @@ public class BasicResourceManager<K extends ResourceKey> extends ResourceManager
     }
 
     protected Collection<FeatureProvider> createFeatureProviders() throws ResourceException {
-        IExtensionPoint point = RegistryFactory.getRegistry().getExtensionPoint(PLUGIN_ID, "features");
+        IExtensionPoint point = RegistryFactory.getRegistry().getExtensionPoint(BasicResource.PLUGIN_ID, "features");
         Collection<FeatureProvider> providers = new HashSet<FeatureProvider>();
         providers.add(resourceProvider);
         Set<Class<?>> knownFeatures = new HashSet<Class<?>>();

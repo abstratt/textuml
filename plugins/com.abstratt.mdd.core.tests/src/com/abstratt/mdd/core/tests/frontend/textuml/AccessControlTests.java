@@ -90,8 +90,6 @@ public class AccessControlTests extends AbstractRepositoryBuildingTests {
         source += "        allow BranchOfficer { (System#user() as BranchOfficer).branch == self.branch }; \n";
         source += "  end;\n";
         source += "end.";        
-
-        System.out.println(source);
 	}
 
     public static Test suite() {

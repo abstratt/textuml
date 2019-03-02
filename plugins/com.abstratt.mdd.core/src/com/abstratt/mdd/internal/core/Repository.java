@@ -350,7 +350,7 @@ public class Repository implements IRepository {
 
     @Override
     public void close() {
-        System.out.println("Closing " + this.hashCode());
+    	LogUtils.debug(MDDCore.PLUGIN_ID, () -> "Closing " + this.hashCode());
         // with resource management, we don't need to unload resources
         resourceSet = null;
         systemResources.clear();
@@ -736,7 +736,7 @@ public class Repository implements IRepository {
                         }
                     }
                     if (!satisfied) {
-                    	LogUtils.logInfo(MDDCore.PLUGIN_ID, "System package skipped: " + uri, null);
+                    	LogUtils.debug(MDDCore.PLUGIN_ID, () -> "System package skipped: " + uri);
                         continue;
                     }
                 }

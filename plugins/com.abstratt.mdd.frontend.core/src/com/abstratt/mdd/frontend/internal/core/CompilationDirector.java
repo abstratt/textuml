@@ -317,7 +317,7 @@ public class CompilationDirector implements ICompilationDirector {
             throw new OperationCanceledException();
         if (!source.fetchInfo().exists())
             return false;
-        LogUtils.log(IStatus.INFO, MDDCore.PLUGIN_ID, ()-> "Compiling " + source.getName(), null);
+        LogUtils.debug(MDDCore.PLUGIN_ID, ()-> "Compiling " + source.getName());
         Assert.isLegal(!source.fetchInfo().isDirectory());
         monitor.beginTask("Compiling " + source.toURI().getPath(), 1);
         LocalProblemTracker localProblemTracker = new LocalProblemTracker(problemTracker, source);

@@ -23,6 +23,7 @@ import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.frontend.core.ICompilationDirector;
 import com.abstratt.mdd.frontend.core.LocationContext;
 import com.abstratt.mdd.frontend.internal.core.CompilationDirector;
+import com.abstratt.pluginutils.LogUtils;
 
 public class FixtureHelper {
 
@@ -94,7 +95,7 @@ public class FixtureHelper {
         IProblem[] result = director.compile(sourceFiles.toArray(new IFileStore[0]), repository, context,
                 ICompilationDirector.FULL_BUILD | ICompilationDirector.DEBUG, null);
         long end = System.currentTimeMillis();
-        System.out.println((end - start) + "ms - " + baseDir);
+        LogUtils.debug(FixtureHelper.class, () -> (end - start) + "ms - " + baseDir);
         return result;
     }
 

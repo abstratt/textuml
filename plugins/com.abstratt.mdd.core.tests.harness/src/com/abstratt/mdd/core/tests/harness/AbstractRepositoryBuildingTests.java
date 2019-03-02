@@ -81,7 +81,6 @@ public class AbstractRepositoryBuildingTests extends AbstractRepositoryTests {
     }
 
     public void setUp() throws Exception {
-        System.out.println(getName() + " - setup");
         RepositoryService.DEFAULT.clear();
         Assert.assertTrue(RepositoryService.DEFAULT.isEmpty());
         if (Boolean.getBoolean("debug.memory")) {
@@ -105,7 +104,6 @@ public class AbstractRepositoryBuildingTests extends AbstractRepositoryTests {
             System.gc();
             System.out.println(getName() + " - after: " + memory());
         }
-        System.out.println(getName() + " - tearDown");
     }
 
     protected void clearLocation(IFileStore toDelete) {
