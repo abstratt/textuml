@@ -579,8 +579,7 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
         source += "end.";
         parseAndCheck(structure, source);
     }
-    //TODO-RC in preparation for validating required vs optional values
-    public void _testWriteRequiredAttributeWithOptionalValue() throws CoreException {
+    public void testWriteRequiredAttributeWithOptionalValue() throws CoreException {
         String source;
         source = "model simple;\n";
         source += "operation SimpleClass.bar;\n";
@@ -590,9 +589,8 @@ public class ActivityTests extends AbstractRepositoryBuildingTests {
         source += "end.";
         IProblem[] problems = parse(structure, source);
         assertEquals(1, problems.length);
-        TypeMismatch typeMismatch = assertExpectedProblem(TypeMismatch.class, problems);
+        assertExpectedProblem(TypeMismatch.class, problems);
     }
-
 
     public void testWriteClassAttribute() throws CoreException {
         String source;
