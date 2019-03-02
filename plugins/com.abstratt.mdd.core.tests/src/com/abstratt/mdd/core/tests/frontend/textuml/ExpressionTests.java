@@ -15,9 +15,12 @@ import org.eclipse.uml2.uml.Clause;
 import org.eclipse.uml2.uml.ConditionalNode;
 import org.eclipse.uml2.uml.WriteStructuralFeatureAction;
 
+import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.util.ActivityUtils;
+import com.abstratt.mdd.frontend.core.TypeMismatch;
 
 public class ExpressionTests extends AbstractRepositoryBuildingTests {
 
@@ -101,6 +104,34 @@ public class ExpressionTests extends AbstractRepositoryBuildingTests {
         assertSame(getClass("simple::SimpleClass"), elvis.getResults().get(0).getType());
         assertEquals(1, elvis.getResults().get(0).getLower());
     }
+    
+	
+	public void testTernary_invalidConditionType() throws CoreException {
+		String source = "";
+		source += "model simple;\n";
+		source += "operation SimpleClass.foo;\n";
+		source += "begin\n";
+		source += "  var result : Integer;\n";
+		source += "  result := (2+3) ? 1 : 0;\n";
+		source += "end;\n";
+		source += "end.";
+		IProblem[] result = parse(structure, source);
+		TypeMismatch error = assertExpectedProblem(TypeMismatch.class, result);
+        assertEquals(Severity.ERROR, error.getSeverity());
+        assertEquals(Integer.valueOf(5), result[0].getAttribute(IProblem.LINE_NUMBER));
+	}
+	
+	public void testTernary() throws CoreException {
+		String source = "";
+		source += "model simple;\n";
+		source += "operation SimpleClass.foo;\n";
+		source += "begin\n";
+		source += "  var result : Integer;\n";
+		source += "  result := true ? 1 : 0;\n";
+		source += "end;\n";
+		source += "end.";
+		parseAndCheck(structure, source);
+	}
     
     protected Properties createDefaultSettings() {
         Properties creationSettings = super.createDefaultSettings();

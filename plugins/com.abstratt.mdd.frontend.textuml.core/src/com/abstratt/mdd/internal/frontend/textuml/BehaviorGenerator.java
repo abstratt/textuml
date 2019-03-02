@@ -47,7 +47,6 @@ import org.eclipse.uml2.uml.ExceptionHandler;
 import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.InstanceValue;
 import org.eclipse.uml2.uml.LinkEndData;
-import org.eclipse.uml2.uml.LiteralBoolean;
 import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
 import org.eclipse.uml2.uml.LoopNode;
 import org.eclipse.uml2.uml.MultiplicityElement;
@@ -181,6 +180,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleAssociationTraversa
 import com.abstratt.mdd.frontend.textuml.grammar.node.ASimpleExpressionBlock;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATarget;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ATernaryExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATrueBoolean;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATryStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ATupleComponentValue;
@@ -195,12 +195,9 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.AWriteClassAttributeSpecif
 import com.abstratt.mdd.frontend.textuml.grammar.node.AWriteVariableSpecificStatement;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PAssociationTraversal;
-import com.abstratt.mdd.frontend.textuml.grammar.node.PClauseBody;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PExpressionList;
 import com.abstratt.mdd.frontend.textuml.grammar.node.POperand;
-import com.abstratt.mdd.frontend.textuml.grammar.node.PRootExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
-import com.abstratt.mdd.frontend.textuml.grammar.node.Switch;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TAnd;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TDiv;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TElvis;
@@ -210,9 +207,9 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.TLabEquals;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TMinus;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TMult;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TNot;
-import com.abstratt.mdd.frontend.textuml.grammar.node.TNotNull;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TOr;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TPlus;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TQuestion;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TTrue;
 import com.abstratt.pluginutils.LogUtils;
 
@@ -375,7 +372,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 				operationName[0] = "not";
 			}
 			@Override
-			public void caseTNotNull(TNotNull node) {
+			public void caseTQuestion(TQuestion node) {
 				operationName[0] = "notNull";
 			}
 		});
@@ -536,6 +533,39 @@ public class BehaviorGenerator extends AbstractGenerator {
             builder.closeAction();
         }
         checkIncomings(action, contextNode, getBoundElement());
+    }
+    
+    @Override
+    public void caseATernaryExpression(ATernaryExpression node) {
+    	createBlock(IRepository.PACKAGE.getConditionalNode(), true, (ConditionalNode action) -> {
+        	Clause testClause = action.createClause();
+        	createClauseTest(testClause, () -> node.getCondition().apply(this));
+        	createClauseBody(testClause, () -> node.getTrueExpression().apply(this));
+        	
+        	Clause elseClause = action.createClause();
+        	createClauseTest(elseClause, () -> buildValueSpecificationAction(MDDUtil.createLiteralBoolean(namespaceTracker.currentPackage(), true), node.getFalseExpression()));
+        	createClauseBody(elseClause, () -> node.getFalseExpression().apply(this));
+        	
+        	OutputPin result = action.createResult(null, null);
+        	OutputPin trueValueOutput = testClause.getBodyOutputs().get(0);
+        	OutputPin falseValueOutput = elseClause.getBodyOutputs().get(0);
+    		
+        	if (testClause.getDecider().getType() != elseClause.getDecider().getType()) {
+        		reportIncompatibleTypes(node.getCondition(), elseClause.getDecider(), testClause.getDecider());
+        		throw new AbortedStatementCompilationException();
+        	}
+        	
+    		if (!TypeUtils.isCompatible(getRepository(), falseValueOutput.getType(), trueValueOutput.getType(), null)
+        			|| !TypeUtils.isMultiplicityCompatible(falseValueOutput, trueValueOutput, false, true)) {
+        		reportIncompatibleTypes(node, trueValueOutput, falseValueOutput);
+        		throw new AbortedStatementCompilationException();
+        	}
+        	
+			TypeUtils.copyType(trueValueOutput, result);
+			result.setLower(Math.max(trueValueOutput.getLower(), falseValueOutput.getLower()));
+			builder.registerOutput(result);
+            fillDebugInfo(action, node);    		
+    	});
     }
     
     private void handleElvisOperator(Node left, Node right) {
@@ -1820,10 +1850,6 @@ public class BehaviorGenerator extends AbstractGenerator {
     }
 
     private void checkIncomings(final Action action, final Node node, TemplateableElement bound) {
-    	ActivityUtils.getActionInputs(action).stream().forEach(input -> {
-    		if (input.getIncomings().isEmpty())
-    			problemBuilder.addProblem(new UnclassifiedProblem("Missing incoming flow for input pin " + StringUtils.trimToEmpty(input.getName())), node);
-    	});
         ObjectFlow incompatible = TypeUtils.checkCompatibility(getRepository(), action, bound);
         if (incompatible == null)
             return;
@@ -1835,10 +1861,20 @@ public class BehaviorGenerator extends AbstractGenerator {
             source.setType(target.getType());
         else
             reportIncompatibleTypes(node, target, source);
+        checkAllInputsHaveFlows(action, node);
     }
 
-	private void reportIncompatibleTypes(final Node context, final ObjectNode target, final ObjectNode source) {
-		problemBuilder.addProblem(new TypeMismatch(MDDUtil.getDisplayName(target), MDDUtil.getDisplayName(source)),
+	private void checkAllInputsHaveFlows(Action action, Node node) {
+    	boolean alreadyReportedErrors = !problemBuilder.hasErrors();
+		if (!alreadyReportedErrors)
+	    	ActivityUtils.getActionInputs(action).stream().forEach(input -> {
+	    		if (input.getIncomings().isEmpty())
+	    			problemBuilder.addProblem(new UnclassifiedProblem("Missing incoming flow for input pin " + StringUtils.trimToEmpty(input.getName())), node);
+	    	});
+	}
+
+	private void reportIncompatibleTypes(final Node context, final ObjectNode expected, final ObjectNode actual) {
+		problemBuilder.addProblem(new TypeMismatch(MDDUtil.getDisplayName(expected), MDDUtil.getDisplayName(actual)),
 		        context);
 	}
 
@@ -1936,7 +1972,8 @@ public class BehaviorGenerator extends AbstractGenerator {
     	createBlock(false, () -> {
         	builderBlock.run();
         	clause.getTests().add(builder.getCurrentBlock());
-            OutputPin decider = ActivityUtils.getActionOutputs(builder.getLastRootAction()).get(0);
+            Action lastRootAction = builder.getLastRootAction();
+			OutputPin decider = ActivityUtils.getActionOutputs(lastRootAction).get(0);
             clause.setDecider(decider);
         });
     }
