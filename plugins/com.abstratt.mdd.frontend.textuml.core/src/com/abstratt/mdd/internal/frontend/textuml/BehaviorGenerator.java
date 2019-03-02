@@ -535,66 +535,48 @@ public class BehaviorGenerator extends AbstractGenerator {
         checkIncomings(action, contextNode, getBoundElement());
     }
     
-    @Override
-    public void caseATernaryExpression(ATernaryExpression node) {
-    	createBlock(IRepository.PACKAGE.getConditionalNode(), true, (ConditionalNode action) -> {
+    private ConditionalNode buildConditionalExpression(Node trueResultNode, Node falseResultNode, Runnable conditionExpressionBuilder) {
+    	return createBlock(IRepository.PACKAGE.getConditionalNode(), true, (ConditionalNode action) -> {
         	Clause testClause = action.createClause();
-        	createClauseTest(testClause, () -> node.getCondition().apply(this));
-        	createClauseBody(testClause, () -> node.getTrueExpression().apply(this));
+        	createClauseTest(testClause, conditionExpressionBuilder);
+        	createClauseBody(testClause, () -> trueResultNode.apply(this));
         	
         	Clause elseClause = action.createClause();
-        	createClauseTest(elseClause, () -> buildValueSpecificationAction(MDDUtil.createLiteralBoolean(namespaceTracker.currentPackage(), true), node.getFalseExpression()));
-        	createClauseBody(elseClause, () -> node.getFalseExpression().apply(this));
+        	createClauseTest(elseClause, () -> buildValueSpecificationAction(MDDUtil.createLiteralBoolean(namespaceTracker.currentPackage(), true), falseResultNode));
+        	createClauseBody(elseClause, () -> falseResultNode.apply(this));
         	
-        	OutputPin result = action.createResult(null, null);
-        	OutputPin trueValueOutput = testClause.getBodyOutputs().get(0);
-        	OutputPin falseValueOutput = elseClause.getBodyOutputs().get(0);
-    		
+        	// ensure the test expression is boolean
         	if (testClause.getDecider().getType() != elseClause.getDecider().getType()) {
-        		reportIncompatibleTypes(node.getCondition(), elseClause.getDecider(), testClause.getDecider());
+        		reportIncompatibleTypes(trueResultNode.parent(), elseClause.getDecider(), testClause.getDecider());
         		throw new AbortedStatementCompilationException();
         	}
-        	
-    		if (!TypeUtils.isCompatible(getRepository(), falseValueOutput.getType(), trueValueOutput.getType(), null)
-        			|| !TypeUtils.isMultiplicityCompatible(falseValueOutput, trueValueOutput, false, true)) {
-        		reportIncompatibleTypes(node, trueValueOutput, falseValueOutput);
-        		throw new AbortedStatementCompilationException();
-        	}
-        	
-			TypeUtils.copyType(trueValueOutput, result);
-			result.setLower(Math.max(trueValueOutput.getLower(), falseValueOutput.getLower()));
-			builder.registerOutput(result);
-            fillDebugInfo(action, node);    		
-    	});
-    }
-    
-    private void handleElvisOperator(Node left, Node right) {
-    	createBlock(IRepository.PACKAGE.getConditionalNode(), true, (ConditionalNode action) -> {
-        	Clause testClause = action.createClause();
-        	createClauseTest(testClause, () -> handleUnaryExpressionAsOperation(left, left, "notNull"));
-        	createClauseBody(testClause, () -> left.apply(this));
-        	
-        	Clause defaultClause = action.createClause();
-        	createClauseTest(defaultClause, () -> buildValueSpecificationAction(MDDUtil.createLiteralBoolean(namespaceTracker.currentPackage(), true), right));
-        	createClauseBody(defaultClause, () -> right.apply(this));
         	
         	OutputPin result = action.createResult(null, null);
         	OutputPin optionalValueOutput = testClause.getBodyOutputs().get(0);
-        	OutputPin defaultValueOutput = defaultClause.getBodyOutputs().get(0);
+        	OutputPin defaultValueOutput = elseClause.getBodyOutputs().get(0);
         	
         	if (!TypeUtils.isCompatible(getRepository(), defaultValueOutput.getType(), optionalValueOutput.getType(), null)
         			|| !TypeUtils.isMultiplicityCompatible(optionalValueOutput, defaultValueOutput, false, true)) {
-        		reportIncompatibleTypes(right, defaultValueOutput, optionalValueOutput);
+        		reportIncompatibleTypes(falseResultNode, defaultValueOutput, optionalValueOutput);
         		throw new AbortedStatementCompilationException();
         	}
         	
 			TypeUtils.copyType(optionalValueOutput, result);
 			result.setLower(Math.max(optionalValueOutput.getLower(),  defaultValueOutput.getLower()));
 			builder.registerOutput(result);
-            fillDebugInfo(action, left.parent());
+            fillDebugInfo(action, trueResultNode.parent());
         });
     }
 
+    private void handleElvisOperator(Node left, Node right) {
+    	buildConditionalExpression(left, right, () -> handleUnaryExpressionAsOperation(left, left, "notNull"));
+    }
+    
+    @Override
+    public void caseATernaryExpression(ATernaryExpression node) {
+    	buildConditionalExpression(node.getTrueExpression(), node.getFalseExpression(), () -> node.getCondition().apply(this));
+    }
+    
 	private void handleSameBinaryOperator(Node left, Node right) {
         TestIdentityAction action = (TestIdentityAction) builder.createAction(IRepository.PACKAGE
                 .getTestIdentityAction());
