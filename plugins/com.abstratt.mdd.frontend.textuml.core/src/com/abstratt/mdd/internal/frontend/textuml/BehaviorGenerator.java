@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -199,6 +200,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.PExpressionList;
 import com.abstratt.mdd.frontend.textuml.grammar.node.POperand;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TAnd;
+import com.abstratt.mdd.frontend.textuml.grammar.node.TBangs;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TDiv;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TElvis;
 import com.abstratt.mdd.frontend.textuml.grammar.node.TIs;
@@ -362,6 +364,7 @@ public class BehaviorGenerator extends AbstractGenerator {
     
     private void handleUnaryExpression(Node operator, Node operand) {
     	final String[] operationName = { null };
+    	boolean[] specialHandling = { false };
 		operator.apply(new DepthFirstAdapter() {
 			@Override
 			public void caseTMinus(TMinus node) {
@@ -375,9 +378,15 @@ public class BehaviorGenerator extends AbstractGenerator {
 			public void caseTQuestion(TQuestion node) {
 				operationName[0] = "notNull";
 			}
+			public void caseTBangs(TBangs node) {
+				specialHandling[0] = true;
+				handleRequiredUnaryOperator(operand);
+			}
 		});
-		ensure(operationName[0] != null, operator, () -> new UnclassifiedProblem("Unknown unary operator: " + operator.toString()));
-		handleUnaryExpressionAsOperation(operator, operand, operationName[0]);
+		if (!specialHandling[0]) {
+			ensure(operationName[0] != null, operator, () -> new UnclassifiedProblem("Unknown unary operator: " + operator.toString()));
+			handleUnaryExpressionAsOperation(operator, operand, operationName[0]);
+		}
     }
     
 	private void handleBinaryExpression(Node left, Node operator, Node right) {
@@ -470,9 +479,10 @@ public class BehaviorGenerator extends AbstractGenerator {
 				operationName[0] = "add";
 			}
 		});
-		ensure(specialHandling[0] || operationName[0] != null, operator, () -> new UnclassifiedProblem("Unknown binary operator: " + operator.toString()));
-		if (!specialHandling[0])
+		if (!specialHandling[0]) {
+			ensure(operationName[0] != null, operator, () -> new UnclassifiedProblem("Unknown binary operator: " + operator.toString()));
 		    handleBinaryExpressionAsOperation(left, operator, right, operationName[0]);
+		}
 	}
 	
     public void handleBinaryExpressionAsOperation(Node operand1, Node operator, Node operand2, String operationName) {
@@ -595,6 +605,17 @@ public class BehaviorGenerator extends AbstractGenerator {
         }
         checkIncomings(action, left.parent(), getBoundElement());
     }
+	
+	private void handleRequiredUnaryOperator(Node operand) {
+		// cast input as required (preserving type information
+		buildCast(operand, action -> {
+			InputPin input = action.getStructuredNodeInputs().get(0);
+			OutputPin output = action.getStructuredNodeOutputs().get(0);
+			TypeUtils.copyType(input, output);
+			TypeUtils.copyMultiplicity(input, output);
+			output.setLower(1);
+		});
+	}
 
     private void handleIsClassifiedOperator(Node left, Node right) {
         ReadIsClassifiedObjectAction action = (ReadIsClassifiedObjectAction) builder.createAction(IRepository.PACKAGE
@@ -1559,30 +1580,40 @@ public class BehaviorGenerator extends AbstractGenerator {
             return;
         }
 		PTypeIdentifier typeIdentifier = cast.getTypeIdentifier();
-        StructuredActivityNode action = (StructuredActivityNode) builder
+        buildCast(node.getExpression(), action ->  
+    		new TypeSetter(
+    				sourceContext, 
+    				namespaceTracker.currentNamespace(null), 
+    				action.getStructuredNodeOutputs().get(0)
+			).process(typeIdentifier)
+		);
+    }
+
+	private void buildCast(Node expression, Consumer<StructuredActivityNode> doIt) {
+		StructuredActivityNode action = (StructuredActivityNode) builder
                 .createAction(Literals.STRUCTURED_ACTIVITY_NODE);
         MDDExtensionUtils.makeCast(action);
         try {
             // register the target input pin (type is null)
-            InputPin sourcePin = (InputPin) action.createStructuredNodeInput(null, null);
-            builder.registerInput(sourcePin);
+            InputPin inputPin = (InputPin) action.createStructuredNodeInput(null, null);
+            builder.registerInput(inputPin);
             // process the target expression - this will connect its output pin
             // to the input pin we just created
-            node.getExpression().apply(this);
+            expression.apply(this);
             // copy whatever multiplicity coming into the source to the source
-            TypeUtils.copyMultiplicity((MultiplicityElement) sourcePin.getIncomings().get(0).getSource(), sourcePin);
+            // but leave type as undefined as this action is supposed to accept any type of input
+            ObjectNode inputSource = ActivityUtils.getSource(inputPin);
+			TypeUtils.copyMultiplicity((MultiplicityElement) inputSource, inputPin);
             // register the result output pin
-            OutputPin destinationPin = (OutputPin) action.createStructuredNodeOutput(null, null);
-
-            new TypeSetter(sourceContext, namespaceTracker.currentNamespace(null), destinationPin).process(typeIdentifier);
-            builder.registerOutput(destinationPin);
-            fillDebugInfo(action, node);
+            OutputPin outputPin = (OutputPin) action.createStructuredNodeOutput(null, null);
+            doIt.accept(action);
+            builder.registerOutput(outputPin);
+            fillDebugInfo(action, expression);
         } finally {
             builder.closeAction();
         }
-        checkIncomings(action, node.getCast(), getBoundElement());
-    }
-
+        checkIncomings(action, expression, getBoundElement());
+	}
     
     public void handleUnaryExpressionAsOperation(Node operator, Node operand, String operationName) {
         handleUnaryExpressionAsOperation(operator, operationName, () -> {

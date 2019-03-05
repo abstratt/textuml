@@ -49,12 +49,14 @@ Helpers
   div = '/';
   assignop = ':=' ;
 
+  exclamation = '!' ;
+
   // relational symbols
   equals = '=';
-  not_equals = '!' '=';
+  not_equals = exclamation '=';
   same_helper = '=' '=';
-  not_same_helper = '!' '=' '=';
-  xxx = '!' '=' '=';
+  not_same_helper = exclamation '=' '=';
+  xxx = exclamation '=' '=';
   lab = '<' ;
   lab_equals = '<' '=' ;
   rab = '>' ;
@@ -142,7 +144,7 @@ Tokens
   new = 'new' ;
   none = 'none' ;
   nonunique = 'nonunique';
-  not = 'not' | '!';
+  not = 'not' | exclamation;
   null = 'null' ;
   on = 'on' ;
   operation = 'operation' ;
@@ -209,16 +211,18 @@ Tokens
   // relational symbols
   equals = '=';
   equals_equals = '=' '=';
-  not_equals_equals = '!' '=' '=';
+  not_equals_equals = exclamation '=' '=';
   lab = '<' ;
   lab_equals = '<' '=' ;
   rab = '>' ;
   rab_equals = '>' '=' ;
-  not_equals = '!' '=' ;
+  not_equals = exclamation '=' ;
 
   elvis = '?' ':' ;
   
   question = '?' ;
+  
+  bangs = '!!' ;
   
   // separator symbols
   comma = ',' ;
@@ -260,7 +264,7 @@ Tokens
 //  blanks = sp | cr lf | cr | lf | tab ;  
   
   white_space = (sp | ht | ff | line_terminator)*;
-  
+
 Ignored Tokens
   comment, 
   white_space ;
@@ -846,8 +850,8 @@ Productions
 
   ternary_expression = [condition]: expression_p4 question [true_expression]: expression_p5 colon [false_expression]: expression_p5 ;  
   
-  unary_op_level1 = {minus} minus | {not_null} question;
-  unary_op_level4 = not;     
+  unary_op_level1 = {minus} minus | {not_null} question | {required} bangs;
+  unary_op_level4 = not ;
   binary_op_level1 = {mult_div} mult_div | {elvis} elvis ;
   binary_op_level2 = plus_minus;      
   binary_op_level3 = comparison_operator;

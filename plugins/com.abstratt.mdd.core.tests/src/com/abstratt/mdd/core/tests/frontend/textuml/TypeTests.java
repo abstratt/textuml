@@ -293,6 +293,17 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         parseAndCheck(structure, behavior);
     }
     
+    public void testCastOptionalToRequired_Shorthand() throws CoreException {
+        String behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "  var requiredInt : Integer[1];\n";
+        behavior += "  requiredInt := !!self.attrib1;\n";
+        behavior += "end;\n";
+        behavior += "end.\n";
+        parseAndCheck(structure, behavior);
+    }
+    
     public void testOptionalToRequired() throws CoreException {
         String behavior = "model tests;\n";
         behavior += "operation Struct.op1;\n";
