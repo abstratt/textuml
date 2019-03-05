@@ -384,6 +384,7 @@ public interface Analysis extends Switch
     void caseATernaryExpression(ATernaryExpression node);
     void caseAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node);
     void caseANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node);
+    void caseARequiredUnaryOpLevel1(ARequiredUnaryOpLevel1 node);
     void caseAUnaryOpLevel4(AUnaryOpLevel4 node);
     void caseAMultDivBinaryOpLevel1(AMultDivBinaryOpLevel1 node);
     void caseAElvisBinaryOpLevel1(AElvisBinaryOpLevel1 node);
@@ -562,6 +563,7 @@ public interface Analysis extends Switch
     void caseTNotEquals(TNotEquals node);
     void caseTElvis(TElvis node);
     void caseTQuestion(TQuestion node);
+    void caseTBangs(TBangs node);
     void caseTComma(TComma node);
     void caseTColon(TColon node);
     void caseTSemicolon(TSemicolon node);

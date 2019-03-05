@@ -9444,6 +9444,27 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outANotNullUnaryOpLevel1(node);
     }
 
+    public void inARequiredUnaryOpLevel1(ARequiredUnaryOpLevel1 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARequiredUnaryOpLevel1(ARequiredUnaryOpLevel1 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARequiredUnaryOpLevel1(ARequiredUnaryOpLevel1 node)
+    {
+        inARequiredUnaryOpLevel1(node);
+        if(node.getBangs() != null)
+        {
+            node.getBangs().apply(this);
+        }
+        outARequiredUnaryOpLevel1(node);
+    }
+
     public void inAUnaryOpLevel4(AUnaryOpLevel4 node)
     {
         defaultIn(node);

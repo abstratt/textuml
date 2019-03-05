@@ -808,140 +808,146 @@ class TokenIndex extends AnalysisAdapter
     }
 
     @Override
-    public void caseTComma(@SuppressWarnings("unused") TComma node)
+    public void caseTBangs(@SuppressWarnings("unused") TBangs node)
     {
         this.index = 133;
     }
 
     @Override
-    public void caseTColon(@SuppressWarnings("unused") TColon node)
+    public void caseTComma(@SuppressWarnings("unused") TComma node)
     {
         this.index = 134;
     }
 
     @Override
-    public void caseTSemicolon(@SuppressWarnings("unused") TSemicolon node)
+    public void caseTColon(@SuppressWarnings("unused") TColon node)
     {
         this.index = 135;
     }
 
     @Override
-    public void caseTDot(@SuppressWarnings("unused") TDot node)
+    public void caseTSemicolon(@SuppressWarnings("unused") TSemicolon node)
     {
         this.index = 136;
     }
 
     @Override
-    public void caseTNamespaceSeparator(@SuppressWarnings("unused") TNamespaceSeparator node)
+    public void caseTDot(@SuppressWarnings("unused") TDot node)
     {
         this.index = 137;
     }
 
     @Override
-    public void caseTHash(@SuppressWarnings("unused") THash node)
+    public void caseTNamespaceSeparator(@SuppressWarnings("unused") TNamespaceSeparator node)
     {
         this.index = 138;
     }
 
     @Override
-    public void caseTLParen(@SuppressWarnings("unused") TLParen node)
+    public void caseTHash(@SuppressWarnings("unused") THash node)
     {
         this.index = 139;
     }
 
     @Override
-    public void caseTRParen(@SuppressWarnings("unused") TRParen node)
+    public void caseTLParen(@SuppressWarnings("unused") TLParen node)
     {
         this.index = 140;
     }
 
     @Override
-    public void caseTLBracket(@SuppressWarnings("unused") TLBracket node)
+    public void caseTRParen(@SuppressWarnings("unused") TRParen node)
     {
         this.index = 141;
     }
 
     @Override
-    public void caseTRBracket(@SuppressWarnings("unused") TRBracket node)
+    public void caseTLBracket(@SuppressWarnings("unused") TLBracket node)
     {
         this.index = 142;
     }
 
     @Override
-    public void caseTLCurlyBracket(@SuppressWarnings("unused") TLCurlyBracket node)
+    public void caseTRBracket(@SuppressWarnings("unused") TRBracket node)
     {
         this.index = 143;
     }
 
     @Override
-    public void caseTRCurlyBracket(@SuppressWarnings("unused") TRCurlyBracket node)
+    public void caseTLCurlyBracket(@SuppressWarnings("unused") TLCurlyBracket node)
     {
         this.index = 144;
     }
 
     @Override
-    public void caseTRightArrow(@SuppressWarnings("unused") TRightArrow node)
+    public void caseTRCurlyBracket(@SuppressWarnings("unused") TRCurlyBracket node)
     {
         this.index = 145;
     }
 
     @Override
-    public void caseTLeftArrow(@SuppressWarnings("unused") TLeftArrow node)
+    public void caseTRightArrow(@SuppressWarnings("unused") TRightArrow node)
     {
         this.index = 146;
     }
 
     @Override
-    public void caseTLGuillemot(@SuppressWarnings("unused") TLGuillemot node)
+    public void caseTLeftArrow(@SuppressWarnings("unused") TLeftArrow node)
     {
         this.index = 147;
     }
 
     @Override
-    public void caseTRGuillemot(@SuppressWarnings("unused") TRGuillemot node)
+    public void caseTLGuillemot(@SuppressWarnings("unused") TLGuillemot node)
     {
         this.index = 148;
     }
 
     @Override
-    public void caseTIdentifier(@SuppressWarnings("unused") TIdentifier node)
+    public void caseTRGuillemot(@SuppressWarnings("unused") TRGuillemot node)
     {
         this.index = 149;
     }
 
     @Override
-    public void caseTInteger(@SuppressWarnings("unused") TInteger node)
+    public void caseTIdentifier(@SuppressWarnings("unused") TIdentifier node)
     {
         this.index = 150;
     }
 
     @Override
-    public void caseTReal(@SuppressWarnings("unused") TReal node)
+    public void caseTInteger(@SuppressWarnings("unused") TInteger node)
     {
         this.index = 151;
     }
 
     @Override
-    public void caseTString(@SuppressWarnings("unused") TString node)
+    public void caseTReal(@SuppressWarnings("unused") TReal node)
     {
         this.index = 152;
     }
 
     @Override
-    public void caseTUri(@SuppressWarnings("unused") TUri node)
+    public void caseTString(@SuppressWarnings("unused") TString node)
     {
         this.index = 153;
     }
 
     @Override
-    public void caseTModelComment(@SuppressWarnings("unused") TModelComment node)
+    public void caseTUri(@SuppressWarnings("unused") TUri node)
     {
         this.index = 154;
     }
 
     @Override
-    public void caseEOF(@SuppressWarnings("unused") EOF node)
+    public void caseTModelComment(@SuppressWarnings("unused") TModelComment node)
     {
         this.index = 155;
+    }
+
+    @Override
+    public void caseEOF(@SuppressWarnings("unused") EOF node)
+    {
+        this.index = 156;
     }
 }

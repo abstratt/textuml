@@ -1929,6 +1929,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseARequiredUnaryOpLevel1(ARequiredUnaryOpLevel1 node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAUnaryOpLevel4(AUnaryOpLevel4 node)
     {
         defaultCase(node);
@@ -2810,6 +2815,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTQuestion(TQuestion node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTBangs(TBangs node)
     {
         defaultCase(node);
     }
