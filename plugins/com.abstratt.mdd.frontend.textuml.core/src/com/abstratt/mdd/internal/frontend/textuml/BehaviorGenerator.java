@@ -536,7 +536,9 @@ public class BehaviorGenerator extends AbstractGenerator {
                 throw new AbortedStatementCompilationException();
             }
             // register the result output pin
-            builder.registerOutput(action.createResult(null, operation.getType()));
+            OutputPin result = action.createResult(null, operation.getType());
+            builder.registerOutput(result);
+            result.setLower(Math.min(target.getLower(), operation.getReturnResult().getLower()));
             action.setOperation(operation);
             fillDebugInfo(action, contextNode.parent());
         } finally {
@@ -612,7 +614,6 @@ public class BehaviorGenerator extends AbstractGenerator {
 			InputPin input = action.getStructuredNodeInputs().get(0);
 			OutputPin output = action.getStructuredNodeOutputs().get(0);
 			TypeUtils.copyType(input, output);
-			TypeUtils.copyMultiplicity(input, output);
 			output.setLower(1);
 		});
 	}
@@ -782,22 +783,20 @@ public class BehaviorGenerator extends AbstractGenerator {
                     inputParameters, sources);
             int argumentPos = 0;
             for (Parameter current : operation.getOwnedParameters()) {
-                OutputPin result;
-                InputPin argument;
                 switch (current.getDirection().getValue()) {
                 case ParameterDirectionKind.IN:
                     if (argumentPos == argumentCount) {
                         problemBuilder.addError("Wrong number of arguments", node.getLParen());
                         throw new AbortedStatementCompilationException();
                     }
-                    argument = action.getArguments().get(argumentPos++);
+                    InputPin argument = action.getArguments().get(argumentPos++);
                     argument.setName(current.getName());
                     TypeUtils.copyType(current, argument, targetClassifier);
                     break;
                 case ParameterDirectionKind.RETURN:
                     // there should be only one of these
                     Assert.isTrue(action.getResults().isEmpty());
-                    result = builder.registerOutput(action.createResult(null, null));
+                    OutputPin result = builder.registerOutput(action.createResult(null, null));
                     TypeUtils.copyType(current, result, targetClassifier);
                     resolveWildcardTypes(wildcardSubstitutions, current, result);
                     break;
@@ -1373,7 +1372,7 @@ public class BehaviorGenerator extends AbstractGenerator {
                     result = builder.registerOutput(action.createResult(null, null));
                     TypeUtils.copyType(current, result, targetClassifier);
                     resolveWildcardTypes(wildcardSubstitutions, current, result);
-                    if (!TypeUtils.isRequiredPin(targetSource) && !TypeUtils.isMultivalued(targetSource))
+                    if (!TypeUtils.isRequiredPin(targetSource))
                     	// it is a tentative call, result must be optional
                     	result.setLower(0);
                     break;
@@ -1646,7 +1645,9 @@ public class BehaviorGenerator extends AbstractGenerator {
             }
             
             // register the result output pin
-            builder.registerOutput(action.createResult(null, operation.getType()));
+            OutputPin result = action.createResult(null, operation.getType());
+			builder.registerOutput(result);
+            result.setLower(Math.min(target.getLower(), operation.getReturnResult().getLower()));
             action.setOperation(operation);
             fillDebugInfo(action, contextNode.parent());
         } finally {

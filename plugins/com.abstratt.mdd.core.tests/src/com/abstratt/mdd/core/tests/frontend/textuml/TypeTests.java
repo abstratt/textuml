@@ -297,19 +297,38 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         String behavior = "model tests;\n";
         behavior += "operation Struct.op1;\n";
         behavior += "begin\n";
-        behavior += "  var requiredInt : Integer[1];\n";
+        behavior += "  var requiredInt;\n";
         behavior += "  requiredInt := !!self.attrib1;\n";
         behavior += "end;\n";
         behavior += "end.\n";
         parseAndCheck(structure, behavior);
+        Activity op1Activity = getActivity("tests::Struct::op1");
+        StructuredActivityNode singleBlock = (StructuredActivityNode) ActivityUtils.getRootAction(op1Activity).getNodes().get(0);
+		Variable requiredIntVar = ActivityUtils.findVariable(singleBlock, "requiredInt");
+        assertNotNull(requiredIntVar);
+        assertEquals("Integer", requiredIntVar.getType().getName());
+        assertEquals(1, requiredIntVar.getLower());
+    }
+    
+    public void testOptionalToRequired_usingCast() throws CoreException {
+        String behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "  var requiredInt : Integer[1];\n";
+        behavior += "  requiredInt := (self.attrib1 as Integer[0, 1]);\n";
+        behavior += "end;\n";
+        behavior += "end.\n";
+        IProblem[] errors = parse(structure, behavior);
+        FixtureHelper.assertTrue(errors, errors.length == 1);
+        FixtureHelper.assertTrue(errors, errors[0] instanceof TypeMismatch);
     }
     
     public void testOptionalToRequired() throws CoreException {
         String behavior = "model tests;\n";
         behavior += "operation Struct.op1;\n";
         behavior += "begin\n";
-        behavior += "  var requiredInt : Integer[1];\n";
-        behavior += "  requiredInt := (self.attrib1 as Integer[0, 1]);\n";
+        behavior += "  var requiredBoolean : Boolean[1];\n";
+        behavior += "  requiredBoolean := (self.attrib1 > 0);\n";
         behavior += "end;\n";
         behavior += "end.\n";
         IProblem[] errors = parse(structure, behavior);

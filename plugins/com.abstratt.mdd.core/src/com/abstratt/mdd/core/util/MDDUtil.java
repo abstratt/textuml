@@ -229,11 +229,9 @@ public class MDDUtil {
     protected static void addMultiplicity(StringBuffer name, TypedElement argument) {
         if (argument instanceof MultiplicityElement) {
             MultiplicityElement multiple = (MultiplicityElement) argument;
-            if (multiple.isMultivalued()) {
-                name.append("[" + multiple.getLower() + ", ");
-                name.append(multiple.getUpper() == LiteralUnlimitedNatural.UNLIMITED ? "*" : multiple.getUpper());
-                name.append("]");
-            }
+            name.append("[" + multiple.getLower() + ", ");
+            name.append(multiple.getUpper() == LiteralUnlimitedNatural.UNLIMITED ? "*" : multiple.getUpper());
+            name.append("]");
         }
     }
 

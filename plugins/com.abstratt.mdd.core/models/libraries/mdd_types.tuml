@@ -13,7 +13,7 @@ abstract class SystemUser
 end; 
 
 class Assert
-    static operation isTrue(condition : Boolean[0,1]);
+    static operation isTrue(condition : Boolean);
     static operation areEqual(expected : any[*], actual : any[*]);
     static operation areSame(expected : any[*], actual : any[*]);    
     static operation isNull(actual : any[0,1]);
@@ -38,25 +38,24 @@ class Object specializes Basic
 end;
 
 (* The implicit super datatype for all datatypes *)
-datatype Value
+datatype Value 
   query notEquals(other : Value[0,1]) : Boolean;
-  query greaterThan(r : Value[0,1]) : Boolean;
-  query lowerThan(r : Value[0,1]) : Boolean;
-  query greaterOrEquals(r : Value[0,1]) : Boolean;
-  query lowerOrEquals(r : Value[0,1]) : Boolean;
+  query greaterThan(r : Value[1]) : Boolean;
+  query lowerThan(r : Value[1]) : Boolean;
+  query greaterOrEquals(r : Value[1]) : Boolean;
+  query lowerOrEquals(r : Value[1]) : Boolean;
   query equals(other : Value[0,1]) : Boolean;
   query toString() : String;
 end;
 
 class ComparableBasic specializes Basic
-  query greaterThan(r : any[0,1]) : Boolean;
-  query lowerThan(r : any[0,1]) : Boolean;
-  query greaterOrEquals(r : any[0,1]) : Boolean;
-  query lowerOrEquals(r : any[0,1]) : Boolean;
-  query notEquals(other : any[0,1]) : Boolean;
+  query greaterThan(r : any[1]) : Boolean;
+  query lowerThan(r : any[1]) : Boolean;
+  query greaterOrEquals(r : any[1]) : Boolean;
+  query lowerOrEquals(r : any[1]) : Boolean;
+  query notEquals(other : any[1]) : Boolean;
   query equals(other : any[0,1]) : Boolean;
 end;
-
 
 class Primitive specializes ComparableBasic
   attribute value : PrimitiveTypes::String;
@@ -64,18 +63,18 @@ end;
 
 class Boolean specializes Primitive 
   query \not() : Boolean;
-  query \and(b : Boolean[0,1]) : Boolean;
-  query \or(b : Boolean[0,1]) : Boolean;
-  query \xor(b : Boolean[0,1]) : Boolean;
-  query implies(b : Boolean[0,1]) : Boolean;
+  query \and(b : Boolean[1]) : Boolean;
+  query \or(b : Boolean[1]) : Boolean;
+  query \xor(b : Boolean[1]) : Boolean;
+  query implies(b : Boolean[1]) : Boolean;
 end;
 
 class Number specializes Primitive
-  query add(r : Number[0,1]) : Number;
-  query subtract(r : Number[0,1]) : Number;
+  query add(r : Number[1]) : Number;
+  query subtract(r : Number[1]) : Number;
   query subtract() : Number;
-  query multiply(r : Number[0,1]) : Number;
-  query divide(r : Number[0,1]) : Number;
+  query multiply(r : Number[1]) : Number;
+  query divide(r : Number[1]) : Number;
   query asInteger() : Integer;
   query asDouble() : Double;
 end;
@@ -91,10 +90,10 @@ class Integer specializes Double
 end;
 
 class Double specializes Number
-  query add(r : Number[0,1]) : Double;
-  query subtract(r : Number[0,1]) : Double;
-  query multiply(r : Number[0,1]) : Double;
-  query divide(r : Number[0,1]) : Double;
+  query add(r : Number[1]) : Double;
+  query subtract(r : Number[1]) : Double;
+  query multiply(r : Number[1]) : Double;
+  query divide(r : Number[1]) : Double;
   query subtract() : Double;
   query fractionalPart() : Double;
   query absolute() : Double;
@@ -102,13 +101,13 @@ end;
 
 class Date specializes Primitive
   static query today() : Date;
-  static query make(year : Integer[0,1], month : Integer[0,1], day : Integer[0,1]) : Date;
-  static query fromString(string : String[0,1]) : Date;
-  query difference(another : Date[0,1]) : Duration;
+  static query make(year : Integer[1], month : Integer[1], day : Integer[1]) : Date;
+  static query fromString(string : String[1]) : Date;
+  query difference(another : Date[1]) : Duration;
   query day() : Integer;
   query month() : Integer;
   query year() : Integer;
-  query transpose(delta : Duration[0,1]) : Date;
+  query transpose(delta : Duration[1]) : Date;
 end;
 
 class Time specializes Primitive

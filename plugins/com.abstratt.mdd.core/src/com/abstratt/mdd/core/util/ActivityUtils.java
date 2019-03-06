@@ -379,6 +379,10 @@ public class ActivityUtils {
     public static List<OutputPin> getActionOutputs(Action action) {
         return action.getOutputs();
     }
+    
+    public static boolean hasOutputs(Action action) {
+    	return !action.getOutputs().isEmpty();
+    }
 
     public static boolean isTerminal(Action instance) {
         List<OutputPin> outputPins = getActionOutputs(instance);
