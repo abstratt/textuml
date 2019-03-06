@@ -1372,7 +1372,7 @@ public class BehaviorGenerator extends AbstractGenerator {
                     result = builder.registerOutput(action.createResult(null, null));
                     TypeUtils.copyType(current, result, targetClassifier);
                     resolveWildcardTypes(wildcardSubstitutions, current, result);
-                    if (!TypeUtils.isRequiredPin(targetSource))
+                    if (!TypeUtils.isRequiredPin(targetSource) && !TypeUtils.isMultivalued(targetSource))
                     	// it is a tentative call, result must be optional
                     	result.setLower(0);
                     break;
