@@ -1632,13 +1632,14 @@ public class BehaviorGenerator extends AbstractGenerator {
             Node childNode = childProcessor.get();
             
             InputPin target = action.getTarget();
-            Type targetType = ActivityUtils.getSource(target).getType();
+            ObjectNode targetSource = ActivityUtils.getSource(target);
+			Type targetType = targetSource.getType();
             
             ensure(targetType != null, childNode, () -> new UnclassifiedProblem("No type information for " + childNode));
-            
-            TypeUtils.copyType(ActivityUtils.getSource(target), target);
-            
             Operation operation = FeatureUtils.findOperation(getRepository(), (Classifier) targetType, operationName, Arrays.asList(), false, true);
+            
+            TypeUtils.copyType(targetSource, target);
+            
             if (operation == null) {
                 missingOperation(true, contextNode, (Classifier) targetType, operationName,
                         Arrays.asList(), false);
@@ -1961,6 +1962,10 @@ public class BehaviorGenerator extends AbstractGenerator {
         try {
         	builderBehavior.accept(block);
         } catch (AbortedScopeCompilationException e) {
+        	if (!ActivityUtils.isBodyNode(block)) {
+        		// keep throwing exception
+        		throw e;
+        	}
             // aborted activity block compilation...
             if (builder.isDebug())
                 LogUtils.logWarning(TextUMLCore.PLUGIN_ID, null, e);
