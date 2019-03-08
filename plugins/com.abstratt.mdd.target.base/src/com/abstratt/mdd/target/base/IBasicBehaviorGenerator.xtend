@@ -14,7 +14,7 @@ import static extension com.abstratt.mdd.core.util.ActivityUtils.*
 import static extension com.abstratt.mdd.core.util.FeatureUtils.*
 import static extension com.abstratt.mdd.core.util.StereotypeUtils.*
 
-public interface IBasicBehaviorGenerator {
+interface IBasicBehaviorGenerator {
     def CharSequence generateActivity(Activity activity)
 
     def CharSequence generateActivityAsExpression(Activity toGenerate, boolean asClosure, List<Parameter> parameters)
@@ -28,7 +28,7 @@ public interface IBasicBehaviorGenerator {
     }
     
     def Classifier getOperationTarget(CallOperationAction action) {
-        return if(action.target != null && !action.target.multivalued) action.target.type as Classifier else action.
+        return if(action.target !== null && !action.target.multivalued) action.target.type as Classifier else action.
             operation.owningClassifier
     }
     
@@ -51,7 +51,7 @@ public interface IBasicBehaviorGenerator {
     }
 }
 
-public class DelegatingBehaviorGenerator implements IBasicBehaviorGenerator {
+class DelegatingBehaviorGenerator implements IBasicBehaviorGenerator {
     
     protected IBasicBehaviorGenerator target
     

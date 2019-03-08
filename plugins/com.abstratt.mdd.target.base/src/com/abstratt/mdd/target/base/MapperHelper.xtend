@@ -7,7 +7,7 @@ class MapperHelper {
 	def static InputStream getTemplateContents(Class<?> anchor, String path) {
         val templatePath = '''/templates/«path»'''
         val templateContents = anchor.getResourceAsStream(templatePath)
-        if (templateContents == null)
+        if (templateContents === null)
             throw new IOException("Resource not found: " + templatePath)
         return templateContents
     } 

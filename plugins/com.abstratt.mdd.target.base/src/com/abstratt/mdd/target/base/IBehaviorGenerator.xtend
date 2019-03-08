@@ -9,12 +9,11 @@ import java.util.function.Supplier
 import java.util.stream.Stream
 import org.eclipse.uml2.uml.Action
 
-import static com.abstratt.mdd.target.base.IBehaviorGenerator.*
 import java.util.function.Function
 
-public interface IBehaviorGenerator extends IBasicBehaviorGenerator {
+interface IBehaviorGenerator extends IBasicBehaviorGenerator {
     
-    public final static ThreadLocal<Deque<IExecutionContext>> currentContextStack = new ThreadLocal<Deque<IExecutionContext>>() {
+    final static ThreadLocal<Deque<IExecutionContext>> currentContextStack = new ThreadLocal<Deque<IExecutionContext>>() {
         override protected initialValue() {
             new LinkedList(Arrays.asList(new SimpleContext("this")))
         }
@@ -26,14 +25,14 @@ public interface IBehaviorGenerator extends IBasicBehaviorGenerator {
         }
     }
     
-    public interface IExecutionContext {
-        public def CharSequence generateCurrentReference();
-        public def IBasicBehaviorGenerator getDelegate() {
-            currentContextStack.get().findLast[it.delegate != null].delegate
+    interface IExecutionContext {
+        def CharSequence generateCurrentReference();
+        def IBasicBehaviorGenerator getDelegate() {
+            currentContextStack.get().findLast[it.delegate !== null].delegate
         }
     }
     
-    public def Action getCurrentAction() {
+    def Action getCurrentAction() {
         return currentActionStack.get().peek()
     }
     
@@ -46,9 +45,9 @@ public interface IBehaviorGenerator extends IBasicBehaviorGenerator {
         }
     }
     
-    public override def generateAction(Action node, boolean delegate) {
+    override generateAction(Action node, boolean delegate) {
         runWithAction(node, [action | 
-            if (delegate && context.delegate != null)
+            if (delegate && context.delegate !== null)
                 context.delegate.generateAction(node, false)
             else
                 generateActionProper(node)
@@ -57,18 +56,18 @@ public interface IBehaviorGenerator extends IBasicBehaviorGenerator {
     
     abstract def CharSequence generateActionProper(Action action)
     
-    public def Stream<Action> getRecentActions() {
+    def Stream<Action> getRecentActions() {
         return currentActionStack.get().stream().sequential()
     }
     
     class SimpleContext implements IExecutionContext {
-        private final CharSequence reference;
-        private final IBasicBehaviorGenerator delegate
+		final CharSequence reference;
+		final IBasicBehaviorGenerator delegate
 
-        public new(String reference) {
+        new(String reference) {
             this(reference, null);
         }
-        public new(String reference, IBasicBehaviorGenerator delegate) {
+        new(String reference, IBasicBehaviorGenerator delegate) {
             this.reference = reference;
             this.delegate = delegate;
         }
