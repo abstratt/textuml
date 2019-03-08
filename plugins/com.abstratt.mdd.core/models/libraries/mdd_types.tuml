@@ -20,6 +20,7 @@ class Assert
     static operation isNotNull(actual : any[0,1]);
 end;
 
+(* Operations even null values should respond to. *)
 class Basic
     query notNull() : Boolean;
     query toString() : String;
@@ -39,12 +40,12 @@ end;
 
 (* The implicit super datatype for all datatypes *)
 datatype Value 
-  query notEquals(other : Value[0,1]) : Boolean;
+  query notEquals(other : Value[1]) : Boolean;
   query greaterThan(r : Value[1]) : Boolean;
   query lowerThan(r : Value[1]) : Boolean;
   query greaterOrEquals(r : Value[1]) : Boolean;
   query lowerOrEquals(r : Value[1]) : Boolean;
-  query equals(other : Value[0,1]) : Boolean;
+  query equals(other : Value[1]) : Boolean;
   query toString() : String;
 end;
 
@@ -54,7 +55,7 @@ class ComparableBasic specializes Basic
   query greaterOrEquals(r : any[1]) : Boolean;
   query lowerOrEquals(r : any[1]) : Boolean;
   query notEquals(other : any[1]) : Boolean;
-  query equals(other : any[0,1]) : Boolean;
+  query equals(other : any[1]) : Boolean;
 end;
 
 class Primitive specializes ComparableBasic
@@ -80,12 +81,12 @@ class Number specializes Primitive
 end;
 
 class Integer specializes Double
-  query add(r : Integer[0,1]) : Integer;
-  query subtract(r : Integer[0,1]) : Integer;
+  query add(r : Integer[1]) : Integer;
+  query subtract(r : Integer[1]) : Integer;
   query subtract() : Integer;
-  query multiply(r : Integer[0,1]) : Integer;
-  query divide(r : Integer[0,1]) : Integer;
-  query modulo(r : Integer[0,1]) : Integer;
+  query multiply(r : Integer[1]) : Integer;
+  query divide(r : Integer[1]) : Integer;
+  query modulo(r : Integer[1]) : Integer;
   query absolute() : Integer;
 end;
 
@@ -112,19 +113,19 @@ end;
 
 class Time specializes Primitive
   static query now() : Time;
-  static query make(hour : Integer[0,1], minute : Integer[0,1], second : Integer[0,1], millisecond : Integer[0,1]) : Time;
-  query difference(another : Time[0,1]) : Duration;    
+  static query make(hour : Integer[1], minute : Integer[1], second : Integer[1], millisecond : Integer[1]) : Time;
+  query difference(another : Time[1]) : Duration;    
   query hour() : Integer;
   query minute() : Integer;
   query second() : Integer;
   query millisecond() : Integer;  
-  query transpose(delta : Duration[0,1]) : Time;
+  query transpose(delta : Duration[1]) : Time;
 end;
 
 class DateTime specializes Primitive
   static query now() : DateTime;
-  static query fromString(string : String[0,1]) : DateTime;
-  query difference(another : DateTime[0,1]) : Duration;
+  static query fromString(string : String[1]) : DateTime;
+  query difference(another : DateTime[1]) : Duration;
   query day() : Integer;
   query month() : Integer;
   query year() : Integer;
@@ -132,7 +133,7 @@ class DateTime specializes Primitive
   query minute() : Integer;
   query second() : Integer;
   query millisecond() : Integer;  
-  query transpose(delta : Duration[0,1]) : DateTime;
+  query transpose(delta : Duration[1]) : DateTime;
   query date() : Date;
   query time() : Time;
 end;
@@ -146,31 +147,31 @@ class Duration specializes Primitive
   query toSeconds() : Integer;
   query toMilliseconds() : Integer;  
 
-  static query milliseconds(value : Number[0,1]) : Duration;
-  static query seconds(value : Number[0,1]) : Duration;
-  static query minutes(value : Number[0,1]) : Duration;
-  static query hours(value : Number[0,1]) : Duration;
-  static query days(value : Number[0,1]) : Duration;
+  static query milliseconds(value : Number[1]) : Duration;
+  static query seconds(value : Number[1]) : Duration;
+  static query minutes(value : Number[1]) : Duration;
+  static query hours(value : Number[1]) : Duration;
+  static query days(value : Number[1]) : Duration;
 end;
 
 class String specializes Primitive
   query isEmpty() : Boolean;
   query size() : Integer;
-  query add(s : String[0,1]) : String;
-  query add(s : any[0,1]) : String;
-  query substring(start : Integer[0,1],stop : Integer[0,1]) : String;
+  query add(s : String[1]) : String;
+  query add(s : any[1]) : String;
+  query substring(start : Integer[1],stop : Integer[1]) : String;
   query toLower() : String;
   query toUpper() : String;
-  query contains(another : String[0,1]) : Boolean;
+  query contains(another : String[1]) : Boolean;
 end;
 
 class Memo specializes String
   query lineCount() : Integer;
-  static query fromString(string : String[0,1]) : Memo;
+  static query fromString(string : String[1]) : Memo;
 end;
 
 class Email specializes String
-  static query fromString(string : String[0,1]) : Email;
+  static query fromString(string : String[1]) : Email;
 end;
 
 class Violation
