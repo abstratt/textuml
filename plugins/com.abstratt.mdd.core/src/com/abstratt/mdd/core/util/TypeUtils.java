@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.ActivityEdge;
 import org.eclipse.uml2.uml.Behavior;
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.DataType;
 import org.eclipse.uml2.uml.InputPin;
@@ -46,7 +47,9 @@ public class TypeUtils {
     public final static String ANY_TYPE = makeTypeName("AnyType");
 
     public final static String NULL_TYPE = makeTypeName("NullType");
-
+    
+    public final static String BASIC = makeTypeName("Basic");
+    
     public static String makeTypeName(String simpleName) {
         if (simpleName.startsWith(IRepository.TYPES_NAMESPACE + NamedElement.SEPARATOR))
             return simpleName;
@@ -343,4 +346,8 @@ public class TypeUtils {
     		return isMultivalued((MultiplicityElement) e);
     	return false;
     }
+
+	public static boolean isBasicType(Class toCheck) {
+		return toCheck.getQualifiedName().equals(BASIC);
+	}
 }

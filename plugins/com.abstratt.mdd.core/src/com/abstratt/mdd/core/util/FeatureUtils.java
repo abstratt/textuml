@@ -54,7 +54,12 @@ import org.eclipse.uml2.uml.ValueSpecificationAction;
 import com.abstratt.mdd.core.IRepository;
 
 public class FeatureUtils {
-    public static boolean isParametrizedConstraint(Constraint constraint) {
+    public static boolean isBasicOperation(Operation operation) {
+    	return TypeUtils.isBasicType(operation.getClass_());
+    }
+
+	
+	public static boolean isParametrizedConstraint(Constraint constraint) {
         Behavior toExecute = ActivityUtils.resolveBehaviorReference(constraint.getSpecification());
         return toExecute.getOwnedParameters().size() > 1;
     }
