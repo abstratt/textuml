@@ -86,6 +86,23 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         Variable requiredLocal = ActivityUtils.findVariable(rootAction, "requiredLocal");
         assertTrue(TypeUtils.isRequired(requiredLocal));
         assertTrue(!TypeUtils.isRequired(optionalLocal));
+    }
+    
+    public void testTypeInference_nullSafePrimitiveOperation() throws CoreException {
+        String behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "  var optionalLocal, requiredLocal : Integer[1];\n";
+        behavior += "  optionalLocal := self.attrib1 * requiredLocal;\n";
+        behavior += "end;\n";
+        behavior += "end.\n";
+        parseAndCheck(structure, behavior);
+        Operation operation = getOperation("tests::Struct::op1");
+        StructuredActivityNode rootAction = (StructuredActivityNode) ActivityUtils.getWrapperBlock(operation).getNodes().get(0);
+		Variable optionalLocal = ActivityUtils.findVariable(rootAction, "optionalLocal");
+        Variable requiredLocal = ActivityUtils.findVariable(rootAction, "requiredLocal");
+        assertTrue(TypeUtils.isRequired(requiredLocal));
+        assertTrue(!TypeUtils.isRequired(optionalLocal));
     }    
 
     public void testTypeInference_nullSafeReadAttribute() throws CoreException {
@@ -336,17 +353,6 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         FixtureHelper.assertTrue(errors, errors[0] instanceof TypeMismatch);
     }
     
-    public void testOperationsOnOptionalValues() throws CoreException {
-        String behavior = "model tests;\n";
-        behavior += "operation Struct.op1;\n";
-        behavior += "begin\n";
-        behavior += "  var optionalInt1, optionalInt2 : Integer[0,1];\n";
-        behavior += "  optionalInt1 := self.attrib1 * optionalInt2;\n";
-        behavior += "end;\n";
-        behavior += "end.\n";
-        parseAndCheck(structure, behavior);
-    }
-
     public void testAssignCompatibleTupleToAnonymousTupleAndViceVersa() throws CoreException {
         String behavior = "model tests;\n";
         behavior += "datatype MyTuple\n";
