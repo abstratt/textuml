@@ -586,7 +586,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 		ensure(
 			!TypeUtils.isRequiredPin(mainOutput),
 			left,
-			() -> new UnclassifiedProblem("Expression must be optional")
+			() -> new OptionalValueExpected()
     	);
 		MDDExtensionUtils.makeDefaultValueExpression(conditional);
     }
@@ -620,7 +620,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 		buildCast(operand, action -> {
 			InputPin input = action.getStructuredNodeInputs().get(0);
 			OutputPin output = action.getStructuredNodeOutputs().get(0);
-			ensure(!TypeUtils.isRequired(input), operand, () -> buildTypeMismatchProblem(output, input));
+			ensure(!TypeUtils.isRequired(input), operand, () -> new OptionalValueExpected());
 			TypeUtils.copyType(input, output);
 			output.setLower(1);
 		});
