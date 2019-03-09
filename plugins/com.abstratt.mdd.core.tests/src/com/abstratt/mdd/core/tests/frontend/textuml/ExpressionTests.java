@@ -17,6 +17,7 @@ import org.eclipse.uml2.uml.WriteStructuralFeatureAction;
 
 import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.IRepository;
+import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.util.ActivityUtils;
@@ -48,11 +49,43 @@ public class ExpressionTests extends AbstractRepositoryBuildingTests {
         source = "model simple;\n";
         source += "operation SimpleClass.foo;\n";
         source += "begin\n";
-        source += "var x : Integer, y : Integer;";
-        source += "y := x + 1;";
-        source += "y := x - 1;";
-        source += "y := x * 2;";
-        source += "y := x / 2;";
+        source += "var x : Integer, y : Integer;\n";
+        source += "y := x + 1;\n";
+        source += "y := x - 1;\n";
+        source += "y := x * 2;\n";
+        source += "y := x / 2;\n";
+        source += "end;\n";
+        source += "end.";
+        parseAndCheck(structure, source);
+    }
+    
+    public void testIntegerComplexExpressions() throws CoreException {
+        String source;
+        source = "model simple;\n";
+        source += "operation SimpleClass.foo;\n";
+        source += "begin\n";
+        source += "var x : Integer, y : Integer, z : Integer;\n";
+        source += "y := x + 1 * 3;\n";
+        source += "y := -x - 1 * (3 - z);\n";
+        source += "y := x + y * -z;\n";
+        source += "y := x + -y * z;\n";
+        source += "y := -x + y * z;\n";
+        source += "y := x / y / -z + x + y + -z * x * y * -z;\n";
+        source += "end;\n";
+        source += "end.";
+        parseAndCheck(structure, source);
+    }
+    
+    public void testIntegerBinaryOperands_optionalValues() throws CoreException {
+        String source;
+        source = "model simple;\n";
+        source += "operation SimpleClass.foo;\n";
+        source += "begin\n";
+        source += "var x : Integer[0,1], y : Integer[0,1],z : Integer;\n";
+        source += "z := !!x + !!y;\n";
+        source += "z := !!x - !!y;\n";
+        source += "z := !!x * !!y;\n";
+        source += "z := !!x / !!y;\n";
         source += "end;\n";
         source += "end.";
         parseAndCheck(structure, source);
@@ -104,8 +137,23 @@ public class ExpressionTests extends AbstractRepositoryBuildingTests {
         assertSame(getClass("simple::SimpleClass"), elvis.getResults().get(0).getType());
         assertEquals(1, elvis.getResults().get(0).getLower());
     }
+
     
-	
+    public void testElvis_withRequiredValue() throws CoreException {
+        String source;
+        source = "model simple;\n";
+        source += "operation SimpleClass.foo;\n";
+        source += "begin\n";
+        source += "var required1 : Integer;\n";
+        source += "required1 := 1 ?: 2;\n";
+        source += "end;\n";
+        source += "end.";
+		IProblem[] result = parse(structure, source);
+		UnclassifiedProblem error = assertExpectedProblem(UnclassifiedProblem.class, result);
+        assertEquals(Severity.ERROR, error.getSeverity());
+        assertEquals(Integer.valueOf(5), result[0].getAttribute(IProblem.LINE_NUMBER));
+    }
+
 	public void testTernary_invalidConditionType() throws CoreException {
 		String source = "";
 		source += "model simple;\n";

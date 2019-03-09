@@ -88,7 +88,8 @@ public class ActivityBuilder implements IActivityBuilder {
         leaveBlock();
         // main
         leaveBlock();
-        assert activityNodes.isEmpty() : activityNodes;
+        boolean noActivityNodes = activityNodes.isEmpty();
+		assert noActivityNodes : activityNodes;
         assert currentActivity == null;
     }
 

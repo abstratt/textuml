@@ -10,10 +10,12 @@ import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Variable;
 
 import com.abstratt.mdd.core.IProblem;
+import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.TypeUtils;
+import com.abstratt.mdd.frontend.core.RequiredValueExpected;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
 
 public class TypeTests extends AbstractRepositoryBuildingTests {
@@ -75,7 +77,7 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         behavior += "operation Struct.op1;\n";
         behavior += "begin\n";
         behavior += "var other : Struct[0,1], optionalLocal, requiredLocal;";
-        behavior += "optionalLocal := other.getInteger();";
+        behavior += "optionalLocal := other?.getInteger();";
         behavior += "requiredLocal := self.getInteger();";
         behavior += "end;\n";
         behavior += "end.";
@@ -88,31 +90,14 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         assertTrue(!TypeUtils.isRequired(optionalLocal));
     }
     
-    public void testTypeInference_nullSafePrimitiveOperation() throws CoreException {
-        String behavior = "model tests;\n";
-        behavior += "operation Struct.op1;\n";
-        behavior += "begin\n";
-        behavior += "  var optionalLocal, requiredLocal : Integer[1];\n";
-        behavior += "  optionalLocal := self.attrib1 * requiredLocal;\n";
-        behavior += "end;\n";
-        behavior += "end.\n";
-        parseAndCheck(structure, behavior);
-        Operation operation = getOperation("tests::Struct::op1");
-        StructuredActivityNode rootAction = (StructuredActivityNode) ActivityUtils.getWrapperBlock(operation).getNodes().get(0);
-		Variable optionalLocal = ActivityUtils.findVariable(rootAction, "optionalLocal");
-        Variable requiredLocal = ActivityUtils.findVariable(rootAction, "requiredLocal");
-        assertTrue(TypeUtils.isRequired(requiredLocal));
-        assertTrue(!TypeUtils.isRequired(optionalLocal));
-    }    
-
     public void testTypeInference_nullSafeReadAttribute() throws CoreException {
         String behavior;
         behavior = "model tests;\n";
         behavior += "operation Struct.op1;\n";
         behavior += "begin\n";
-        behavior += "var other : Struct[0,1], optionalLocal, requiredLocal;";
-        behavior += "optionalLocal := other.requiredInteger;";
-        behavior += "requiredLocal := self.requiredInteger;";
+        behavior += "var other : Struct[0,1], optionalLocal, requiredLocal;\n";
+        behavior += "optionalLocal := other?.requiredInteger;\n";
+        behavior += "requiredLocal := self.requiredInteger;\n";
         behavior += "end;\n";
         behavior += "end.";
         parseAndCheck(structure, behavior);
@@ -123,6 +108,25 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         assertTrue(TypeUtils.isRequired(requiredLocal));
         assertTrue(!TypeUtils.isRequired(optionalLocal));
     }    
+    
+    public void testTypeInference_primitiveValue() throws CoreException {
+        String behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "  var requiredLocal1, requiredLocal2 : Integer[1];\n";
+        behavior += "  requiredLocal1 := 1 + 2;\n";
+        behavior += "  requiredLocal2 := 2;\n";
+        behavior += "end;\n";
+        behavior += "end.\n";
+        parseAndCheck(structure, behavior);
+        Operation operation = getOperation("tests::Struct::op1");
+        StructuredActivityNode rootAction = (StructuredActivityNode) ActivityUtils.getWrapperBlock(operation).getNodes().get(0);
+		Variable requiredLocal1 = ActivityUtils.findVariable(rootAction, "requiredLocal1");
+        Variable requiredLocal2 = ActivityUtils.findVariable(rootAction, "requiredLocal2");
+        assertTrue(TypeUtils.isRequired(requiredLocal1));
+        assertTrue(TypeUtils.isRequired(requiredLocal2));
+    }    
+
     
     public void testAssignAnyToBoolean() throws CoreException {
         String behavior = "model tests;\n";
@@ -327,6 +331,24 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         assertEquals(1, requiredIntVar.getLower());
     }
     
+    public void testCastOptionalToRequired_Shorthand_AlreadyRequired() throws CoreException {
+        String behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "  var requiredInt1 : Integer[1], requiredInt2 : Integer[1];\n";
+        behavior += "  requiredInt2 := 1;\n";        
+        behavior += "  requiredInt1 := !!requiredInt2;\n";
+        behavior += "end;\n";
+        behavior += "end.\n";
+        IProblem[] errors = parse(structure, behavior);
+        TypeMismatch error = assertExpectedProblem(TypeMismatch.class, errors);
+        assertEquals(Severity.ERROR, error.getSeverity());
+        assertEquals(Integer.valueOf(6), error.getAttribute(IProblem.LINE_NUMBER));
+        
+
+    }
+
+    
     public void testOptionalToRequired_usingCast() throws CoreException {
         String behavior = "model tests;\n";
         behavior += "operation Struct.op1;\n";
@@ -340,17 +362,16 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         FixtureHelper.assertTrue(errors, errors[0] instanceof TypeMismatch);
     }
     
-    public void testOptionalToRequired() throws CoreException {
+    public void testOperandIsRequired() throws CoreException {
         String behavior = "model tests;\n";
         behavior += "operation Struct.op1;\n";
         behavior += "begin\n";
         behavior += "  var requiredBoolean : Boolean[1];\n";
-        behavior += "  requiredBoolean := (self.attrib1 > 0);\n";
+        behavior += "  requiredBoolean := self.attrib1 > 0;\n";
         behavior += "end;\n";
         behavior += "end.\n";
         IProblem[] errors = parse(structure, behavior);
-        FixtureHelper.assertTrue(errors, errors.length == 1);
-        FixtureHelper.assertTrue(errors, errors[0] instanceof TypeMismatch);
+        assertExpectedProblem(RequiredValueExpected.class, errors);
     }
     
     public void testAssignCompatibleTupleToAnonymousTupleAndViceVersa() throws CoreException {
