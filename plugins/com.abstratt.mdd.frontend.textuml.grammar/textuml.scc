@@ -66,7 +66,6 @@ Helpers
   comma = ',' ;
   colon = ':' ;
   semicolon = ';' ;
-  dot = '.' ;
   namespace_separator = '::' ;
   hash = '#' ;
   l_paren = '(' ;
@@ -229,6 +228,7 @@ Tokens
   colon = ':' ;
   semicolon = ';' ;
   dot = '.' ;
+  optional_dot = '?.' ;
   namespace_separator = '::' ;
   hash = '#' ;
   l_paren = '(' ;
@@ -792,7 +792,9 @@ Productions
     
   link_role = identifier assignop root_expression ;
   
-  target = operand dot ;
+  target = operand object_dot ;
+  
+  object_dot = {required_target} dot | {optional_target} optional_dot ;
   
   // closures
   closure = simple_signature [block]: simple_block ;
@@ -821,25 +823,24 @@ Productions
         
   expression = expression_p5 ;
     
-  expression_p0 = {alt} operand ;
+  expression_p0 = 
+      {alt} operand |
+      {alt_unary} [operator]: unary_op_level0 [operand]: expression_p0 ;
   
   expression_p1 = 
-      {alt_unary} [operator]: unary_op_level1 [operand]: expression_p1 |
       {alt_binary} [operand1]: expression_p0 [operator]: binary_op_level1 [operand2]: expression_p1 |
       {alt_nested} expression_p0;
-      
     
   expression_p2 =
       {alt_binary} [operand1]: expression_p1 [operator]: binary_op_level2 [operand2]: expression_p2 |
       {alt_nested} expression_p1 ;
       
   expression_p3 = 
-      {alt_binary} [operand1]: expression_p2 [operator]: binary_op_level3 [operand2]: expression_p2 |
+      {alt_binary} [operand1]: expression_p2 [operator]: binary_op_level3 [operand2]: expression_p3 |
       {alt_nested} expression_p2;
-    
 
   expression_p4 = 
-      {alt_unary} [operator]: unary_op_level4 [operand]: expression_p4 |
+//      {alt_unary} [operator]: unary_op_level4 [operand]: expression_p4 |
       {alt_binary} [operand1]: expression_p3 [operator]: binary_op_level4 [operand2]: expression_p4 |
       {alt_nested} expression_p3 ;
       
@@ -850,10 +851,9 @@ Productions
 
   ternary_expression = [condition]: expression_p4 question [true_expression]: expression_p5 colon [false_expression]: expression_p5 ;  
   
-  unary_op_level1 = {minus} minus | {not_null} question | {required} bangs;
-  unary_op_level4 = not ;
-  binary_op_level1 = {mult_div} mult_div | {elvis} elvis ;
-  binary_op_level2 = plus_minus;      
+  unary_op_level0 = {not} not | {minus} minus | {not_null} question | {required} bangs;
+  binary_op_level1 = plus_minus;      
+  binary_op_level2 = {mult_div} mult_div | {elvis} elvis ;
   binary_op_level3 = comparison_operator;
   binary_op_level4 = and;
   binary_op_level5 = or;
