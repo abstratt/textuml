@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_0" name="mdd_extensions" URI="profiles/mdd_extensions" metamodelReference="_packageImport.0">
   <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2019/03/07 04:15:38 059 -0300"/>
+    <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2019/03/08 12:25:20 229 -0300"/>
     <details xmi:id="_com.abstratt2Fmdd2F-_details.1" key="version" value="2.5.0"/>
   </eAnnotations>
   <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
@@ -90,9 +90,9 @@
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//StructuredActivityNode"/>
         </eStructuralFeatures>
       </eClassifiers>
-      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Elvis" name="Elvis">
-        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Elvis-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="Elvis"/>
-        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-Elvis-base_ConditionalNode" name="base_ConditionalNode" ordered="false" lowerBound="1">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-DefaultValueExpression" name="DefaultValueExpression">
+        <eAnnotations xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-DefaultValueExpression-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML" references="DefaultValueExpression"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions-DefaultValueExpression-base_ConditionalNode" name="base_ConditionalNode" ordered="false" lowerBound="1">
           <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//ConditionalNode"/>
         </eStructuralFeatures>
       </eClassifiers>
@@ -328,8 +328,8 @@
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#StructuredActivityNode"/>
     </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Stereotype" xmi:id="Elvis" name="Elvis">
-    <ownedAttribute xmi:id="Elvis-base_ConditionalNode" name="base_ConditionalNode" association="ConditionalNode_Elvis">
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="DefaultValueExpression" name="DefaultValueExpression">
+    <ownedAttribute xmi:id="DefaultValueExpression-base_ConditionalNode" name="base_ConditionalNode" association="ConditionalNode_DefaultValueExpression">
       <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#ConditionalNode"/>
     </ownedAttribute>
   </packagedElement>
@@ -519,8 +519,8 @@
   <packagedElement xmi:type="uml:Extension" xmi:id="StructuredActivityNode_Cast" name="StructuredActivityNode_Cast" memberEnd="StructuredActivityNode_Cast-extension_Cast Cast-base_StructuredActivityNode">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="StructuredActivityNode_Cast-extension_Cast" name="extension_Cast" type="Cast" aggregation="composite" association="StructuredActivityNode_Cast"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Extension" xmi:id="ConditionalNode_Elvis" name="ConditionalNode_Elvis" memberEnd="ConditionalNode_Elvis-extension_Elvis Elvis-base_ConditionalNode">
-    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="ConditionalNode_Elvis-extension_Elvis" name="extension_Elvis" type="Elvis" aggregation="composite" association="ConditionalNode_Elvis"/>
+  <packagedElement xmi:type="uml:Extension" xmi:id="ConditionalNode_DefaultValueExpression" name="ConditionalNode_DefaultValueExpression" memberEnd="ConditionalNode_DefaultValueExpression-extension_DefaultValueExpression DefaultValueExpression-base_ConditionalNode">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="ConditionalNode_DefaultValueExpression-extension_DefaultValueExpression" name="extension_DefaultValueExpression" type="DefaultValueExpression" aggregation="composite" association="ConditionalNode_DefaultValueExpression"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Extension" xmi:id="Activity_ConstraintBehavior" name="Activity_ConstraintBehavior" memberEnd="Activity_ConstraintBehavior-extension_ConstraintBehavior ConstraintBehavior-base_Activity">
     <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="Activity_ConstraintBehavior-extension_ConstraintBehavior" name="extension_ConstraintBehavior" type="ConstraintBehavior" aggregation="composite" association="Activity_ConstraintBehavior"/>

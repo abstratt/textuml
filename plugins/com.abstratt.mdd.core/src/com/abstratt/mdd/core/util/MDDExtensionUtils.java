@@ -19,6 +19,7 @@ import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.BehavioredClassifier;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Classifier;
+import org.eclipse.uml2.uml.ConditionalNode;
 import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ElementImport;
@@ -69,6 +70,7 @@ public class MDDExtensionUtils {
 	public static final String ROLE_CLASS_STEREOTYPE = EXTENSIONS_PROFILE + "::Role";
 	private static final String OBJECT_INITIALIZATION_STEREOTYPE = EXTENSIONS_PROFILE + "::ObjectInitialization";
 	private static final String CAST_STEREOTYPE = EXTENSIONS_PROFILE + "::Cast";
+	private static final String DEFAULT_VALUE_EXPRESSION_STEREOTYPE = EXTENSIONS_PROFILE + "::DefaultValueExpression";	
 	private static final String SIGNATURE_STEREOTYPE = EXTENSIONS_PROFILE + "::Signature";
 	private static final String SIGNATURE_CONTEXT = "context";
 	private static final String RULE_STEREOTYPE = EXTENSIONS_PROFILE + "::Rule";
@@ -443,6 +445,11 @@ public class MDDExtensionUtils {
 		Stereotype castStereotype = StereotypeUtils.findStereotype(CAST_STEREOTYPE);
 		StereotypeUtils.safeApplyStereotype(action, castStereotype);
 	}
+	
+	public static void makeDefaultValueExpression(ConditionalNode action) {
+		Stereotype defaultValueExpressionStereotype = StereotypeUtils.findStereotype(DEFAULT_VALUE_EXPRESSION_STEREOTYPE);
+		StereotypeUtils.safeApplyStereotype(action, defaultValueExpressionStereotype);
+	}
 
 	public static void makeDerivation(TypedElement context, Activity derivation) {
 		Stereotype castStereotype = StereotypeUtils.findStereotype(DERIVATION_STEREOTYPE);
@@ -462,6 +469,11 @@ public class MDDExtensionUtils {
 	public static boolean isCast(Action toCheck) {
 		boolean isCast = StereotypeUtils.hasStereotype(toCheck, CAST_STEREOTYPE);
 		return isCast;
+	}
+	
+	public static boolean isDefaultValueExpression(Action toCheck) {
+		boolean isDefaultValueExpression = StereotypeUtils.hasStereotype(toCheck, DEFAULT_VALUE_EXPRESSION_STEREOTYPE);
+		return isDefaultValueExpression;
 	}
 
 	public static boolean isObjectInitialization(Action toCheck) {
