@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AElvisBinaryOpLevel1 extends PBinaryOpLevel1
+public final class ARequiredUnaryOpLevel0 extends PUnaryOpLevel0
 {
-    private TElvis _elvis_;
+    private TBangs _bangs_;
 
-    public AElvisBinaryOpLevel1()
+    public ARequiredUnaryOpLevel0()
     {
         // Constructor
     }
 
-    public AElvisBinaryOpLevel1(
-        @SuppressWarnings("hiding") TElvis _elvis_)
+    public ARequiredUnaryOpLevel0(
+        @SuppressWarnings("hiding") TBangs _bangs_)
     {
         // Constructor
-        setElvis(_elvis_);
+        setBangs(_bangs_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AElvisBinaryOpLevel1(
-            cloneNode(this._elvis_));
+        return new ARequiredUnaryOpLevel0(
+            cloneNode(this._bangs_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAElvisBinaryOpLevel1(this);
+        ((Analysis) sw).caseARequiredUnaryOpLevel0(this);
     }
 
-    public TElvis getElvis()
+    public TBangs getBangs()
     {
-        return this._elvis_;
+        return this._bangs_;
     }
 
-    public void setElvis(TElvis node)
+    public void setBangs(TBangs node)
     {
-        if(this._elvis_ != null)
+        if(this._bangs_ != null)
         {
-            this._elvis_.parent(null);
+            this._bangs_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AElvisBinaryOpLevel1 extends PBinaryOpLevel1
             node.parent(this);
         }
 
-        this._elvis_ = node;
+        this._bangs_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._elvis_);
+            + toString(this._bangs_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._elvis_ == child)
+        if(this._bangs_ == child)
         {
-            this._elvis_ = null;
+            this._bangs_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AElvisBinaryOpLevel1 extends PBinaryOpLevel1
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._elvis_ == oldChild)
+        if(this._bangs_ == oldChild)
         {
-            setElvis((TElvis) newChild);
+            setBangs((TBangs) newChild);
             return;
         }
 

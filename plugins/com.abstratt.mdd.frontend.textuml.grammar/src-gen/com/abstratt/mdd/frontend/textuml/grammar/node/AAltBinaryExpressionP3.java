@@ -9,7 +9,7 @@ public final class AAltBinaryExpressionP3 extends PExpressionP3
 {
     private PExpressionP2 _operand1_;
     private PBinaryOpLevel3 _operator_;
-    private PExpressionP2 _operand2_;
+    private PExpressionP3 _operand2_;
 
     public AAltBinaryExpressionP3()
     {
@@ -19,7 +19,7 @@ public final class AAltBinaryExpressionP3 extends PExpressionP3
     public AAltBinaryExpressionP3(
         @SuppressWarnings("hiding") PExpressionP2 _operand1_,
         @SuppressWarnings("hiding") PBinaryOpLevel3 _operator_,
-        @SuppressWarnings("hiding") PExpressionP2 _operand2_)
+        @SuppressWarnings("hiding") PExpressionP3 _operand2_)
     {
         // Constructor
         setOperand1(_operand1_);
@@ -94,12 +94,12 @@ public final class AAltBinaryExpressionP3 extends PExpressionP3
         this._operator_ = node;
     }
 
-    public PExpressionP2 getOperand2()
+    public PExpressionP3 getOperand2()
     {
         return this._operand2_;
     }
 
-    public void setOperand2(PExpressionP2 node)
+    public void setOperand2(PExpressionP3 node)
     {
         if(this._operand2_ != null)
         {
@@ -171,7 +171,7 @@ public final class AAltBinaryExpressionP3 extends PExpressionP3
 
         if(this._operand2_ == oldChild)
         {
-            setOperand2((PExpressionP2) newChild);
+            setOperand2((PExpressionP3) newChild);
             return;
         }
 

@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ARequiredUnaryOpLevel1 extends PUnaryOpLevel1
+public final class ARequiredTargetObjectDot extends PObjectDot
 {
-    private TBangs _bangs_;
+    private TDot _dot_;
 
-    public ARequiredUnaryOpLevel1()
+    public ARequiredTargetObjectDot()
     {
         // Constructor
     }
 
-    public ARequiredUnaryOpLevel1(
-        @SuppressWarnings("hiding") TBangs _bangs_)
+    public ARequiredTargetObjectDot(
+        @SuppressWarnings("hiding") TDot _dot_)
     {
         // Constructor
-        setBangs(_bangs_);
+        setDot(_dot_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ARequiredUnaryOpLevel1(
-            cloneNode(this._bangs_));
+        return new ARequiredTargetObjectDot(
+            cloneNode(this._dot_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseARequiredUnaryOpLevel1(this);
+        ((Analysis) sw).caseARequiredTargetObjectDot(this);
     }
 
-    public TBangs getBangs()
+    public TDot getDot()
     {
-        return this._bangs_;
+        return this._dot_;
     }
 
-    public void setBangs(TBangs node)
+    public void setDot(TDot node)
     {
-        if(this._bangs_ != null)
+        if(this._dot_ != null)
         {
-            this._bangs_.parent(null);
+            this._dot_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ARequiredUnaryOpLevel1 extends PUnaryOpLevel1
             node.parent(this);
         }
 
-        this._bangs_ = node;
+        this._dot_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._bangs_);
+            + toString(this._dot_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._bangs_ == child)
+        if(this._dot_ == child)
         {
-            this._bangs_ = null;
+            this._dot_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ARequiredUnaryOpLevel1 extends PUnaryOpLevel1
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._bangs_ == oldChild)
+        if(this._dot_ == oldChild)
         {
-            setBangs((TBangs) newChild);
+            setDot((TDot) newChild);
             return;
         }
 

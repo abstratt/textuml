@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AMinusUnaryOpLevel1 extends PUnaryOpLevel1
+public final class ABinaryOpLevel1 extends PBinaryOpLevel1
 {
-    private TMinus _minus_;
+    private PPlusMinus _plusMinus_;
 
-    public AMinusUnaryOpLevel1()
+    public ABinaryOpLevel1()
     {
         // Constructor
     }
 
-    public AMinusUnaryOpLevel1(
-        @SuppressWarnings("hiding") TMinus _minus_)
+    public ABinaryOpLevel1(
+        @SuppressWarnings("hiding") PPlusMinus _plusMinus_)
     {
         // Constructor
-        setMinus(_minus_);
+        setPlusMinus(_plusMinus_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AMinusUnaryOpLevel1(
-            cloneNode(this._minus_));
+        return new ABinaryOpLevel1(
+            cloneNode(this._plusMinus_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAMinusUnaryOpLevel1(this);
+        ((Analysis) sw).caseABinaryOpLevel1(this);
     }
 
-    public TMinus getMinus()
+    public PPlusMinus getPlusMinus()
     {
-        return this._minus_;
+        return this._plusMinus_;
     }
 
-    public void setMinus(TMinus node)
+    public void setPlusMinus(PPlusMinus node)
     {
-        if(this._minus_ != null)
+        if(this._plusMinus_ != null)
         {
-            this._minus_.parent(null);
+            this._plusMinus_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AMinusUnaryOpLevel1 extends PUnaryOpLevel1
             node.parent(this);
         }
 
-        this._minus_ = node;
+        this._plusMinus_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._minus_);
+            + toString(this._plusMinus_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._minus_ == child)
+        if(this._plusMinus_ == child)
         {
-            this._minus_ = null;
+            this._plusMinus_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AMinusUnaryOpLevel1 extends PUnaryOpLevel1
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._minus_ == oldChild)
+        if(this._plusMinus_ == oldChild)
         {
-            setMinus((TMinus) newChild);
+            setPlusMinus((PPlusMinus) newChild);
             return;
         }
 

@@ -8681,15 +8681,57 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseATarget(ATarget node)
     {
         inATarget(node);
-        if(node.getDot() != null)
+        if(node.getObjectDot() != null)
         {
-            node.getDot().apply(this);
+            node.getObjectDot().apply(this);
         }
         if(node.getOperand() != null)
         {
             node.getOperand().apply(this);
         }
         outATarget(node);
+    }
+
+    public void inARequiredTargetObjectDot(ARequiredTargetObjectDot node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARequiredTargetObjectDot(ARequiredTargetObjectDot node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARequiredTargetObjectDot(ARequiredTargetObjectDot node)
+    {
+        inARequiredTargetObjectDot(node);
+        if(node.getDot() != null)
+        {
+            node.getDot().apply(this);
+        }
+        outARequiredTargetObjectDot(node);
+    }
+
+    public void inAOptionalTargetObjectDot(AOptionalTargetObjectDot node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAOptionalTargetObjectDot(AOptionalTargetObjectDot node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAOptionalTargetObjectDot(AOptionalTargetObjectDot node)
+    {
+        inAOptionalTargetObjectDot(node);
+        if(node.getOptionalDot() != null)
+        {
+            node.getOptionalDot().apply(this);
+        }
+        outAOptionalTargetObjectDot(node);
     }
 
     public void inAClosure(AClosure node)
@@ -9072,20 +9114,20 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAAltExpressionP0(node);
     }
 
-    public void inAAltUnaryExpressionP1(AAltUnaryExpressionP1 node)
+    public void inAAltUnaryExpressionP0(AAltUnaryExpressionP0 node)
     {
         defaultIn(node);
     }
 
-    public void outAAltUnaryExpressionP1(AAltUnaryExpressionP1 node)
+    public void outAAltUnaryExpressionP0(AAltUnaryExpressionP0 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAltUnaryExpressionP1(AAltUnaryExpressionP1 node)
+    public void caseAAltUnaryExpressionP0(AAltUnaryExpressionP0 node)
     {
-        inAAltUnaryExpressionP1(node);
+        inAAltUnaryExpressionP0(node);
         if(node.getOperand() != null)
         {
             node.getOperand().apply(this);
@@ -9094,7 +9136,7 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getOperator().apply(this);
         }
-        outAAltUnaryExpressionP1(node);
+        outAAltUnaryExpressionP0(node);
     }
 
     public void inAAltBinaryExpressionP1(AAltBinaryExpressionP1 node)
@@ -9245,31 +9287,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getExpressionP2().apply(this);
         }
         outAAltNestedExpressionP3(node);
-    }
-
-    public void inAAltUnaryExpressionP4(AAltUnaryExpressionP4 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAAltUnaryExpressionP4(AAltUnaryExpressionP4 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAAltUnaryExpressionP4(AAltUnaryExpressionP4 node)
-    {
-        inAAltUnaryExpressionP4(node);
-        if(node.getOperand() != null)
-        {
-            node.getOperand().apply(this);
-        }
-        if(node.getOperator() != null)
-        {
-            node.getOperator().apply(this);
-        }
-        outAAltUnaryExpressionP4(node);
     }
 
     public void inAAltBinaryExpressionP4(AAltBinaryExpressionP4 node)
@@ -9430,151 +9447,151 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outATernaryExpression(node);
     }
 
-    public void inAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node)
+    public void inANotUnaryOpLevel0(ANotUnaryOpLevel0 node)
     {
         defaultIn(node);
     }
 
-    public void outAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node)
+    public void outANotUnaryOpLevel0(ANotUnaryOpLevel0 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node)
+    public void caseANotUnaryOpLevel0(ANotUnaryOpLevel0 node)
     {
-        inAMinusUnaryOpLevel1(node);
-        if(node.getMinus() != null)
-        {
-            node.getMinus().apply(this);
-        }
-        outAMinusUnaryOpLevel1(node);
-    }
-
-    public void inANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node)
-    {
-        inANotNullUnaryOpLevel1(node);
-        if(node.getQuestion() != null)
-        {
-            node.getQuestion().apply(this);
-        }
-        outANotNullUnaryOpLevel1(node);
-    }
-
-    public void inARequiredUnaryOpLevel1(ARequiredUnaryOpLevel1 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outARequiredUnaryOpLevel1(ARequiredUnaryOpLevel1 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseARequiredUnaryOpLevel1(ARequiredUnaryOpLevel1 node)
-    {
-        inARequiredUnaryOpLevel1(node);
-        if(node.getBangs() != null)
-        {
-            node.getBangs().apply(this);
-        }
-        outARequiredUnaryOpLevel1(node);
-    }
-
-    public void inAUnaryOpLevel4(AUnaryOpLevel4 node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAUnaryOpLevel4(AUnaryOpLevel4 node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAUnaryOpLevel4(AUnaryOpLevel4 node)
-    {
-        inAUnaryOpLevel4(node);
+        inANotUnaryOpLevel0(node);
         if(node.getNot() != null)
         {
             node.getNot().apply(this);
         }
-        outAUnaryOpLevel4(node);
+        outANotUnaryOpLevel0(node);
     }
 
-    public void inAMultDivBinaryOpLevel1(AMultDivBinaryOpLevel1 node)
+    public void inAMinusUnaryOpLevel0(AMinusUnaryOpLevel0 node)
     {
         defaultIn(node);
     }
 
-    public void outAMultDivBinaryOpLevel1(AMultDivBinaryOpLevel1 node)
+    public void outAMinusUnaryOpLevel0(AMinusUnaryOpLevel0 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAMultDivBinaryOpLevel1(AMultDivBinaryOpLevel1 node)
+    public void caseAMinusUnaryOpLevel0(AMinusUnaryOpLevel0 node)
     {
-        inAMultDivBinaryOpLevel1(node);
-        if(node.getMultDiv() != null)
+        inAMinusUnaryOpLevel0(node);
+        if(node.getMinus() != null)
         {
-            node.getMultDiv().apply(this);
+            node.getMinus().apply(this);
         }
-        outAMultDivBinaryOpLevel1(node);
+        outAMinusUnaryOpLevel0(node);
     }
 
-    public void inAElvisBinaryOpLevel1(AElvisBinaryOpLevel1 node)
+    public void inANotNullUnaryOpLevel0(ANotNullUnaryOpLevel0 node)
     {
         defaultIn(node);
     }
 
-    public void outAElvisBinaryOpLevel1(AElvisBinaryOpLevel1 node)
+    public void outANotNullUnaryOpLevel0(ANotNullUnaryOpLevel0 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAElvisBinaryOpLevel1(AElvisBinaryOpLevel1 node)
+    public void caseANotNullUnaryOpLevel0(ANotNullUnaryOpLevel0 node)
     {
-        inAElvisBinaryOpLevel1(node);
-        if(node.getElvis() != null)
+        inANotNullUnaryOpLevel0(node);
+        if(node.getQuestion() != null)
         {
-            node.getElvis().apply(this);
+            node.getQuestion().apply(this);
         }
-        outAElvisBinaryOpLevel1(node);
+        outANotNullUnaryOpLevel0(node);
     }
 
-    public void inABinaryOpLevel2(ABinaryOpLevel2 node)
+    public void inARequiredUnaryOpLevel0(ARequiredUnaryOpLevel0 node)
     {
         defaultIn(node);
     }
 
-    public void outABinaryOpLevel2(ABinaryOpLevel2 node)
+    public void outARequiredUnaryOpLevel0(ARequiredUnaryOpLevel0 node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseABinaryOpLevel2(ABinaryOpLevel2 node)
+    public void caseARequiredUnaryOpLevel0(ARequiredUnaryOpLevel0 node)
     {
-        inABinaryOpLevel2(node);
+        inARequiredUnaryOpLevel0(node);
+        if(node.getBangs() != null)
+        {
+            node.getBangs().apply(this);
+        }
+        outARequiredUnaryOpLevel0(node);
+    }
+
+    public void inABinaryOpLevel1(ABinaryOpLevel1 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outABinaryOpLevel1(ABinaryOpLevel1 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseABinaryOpLevel1(ABinaryOpLevel1 node)
+    {
+        inABinaryOpLevel1(node);
         if(node.getPlusMinus() != null)
         {
             node.getPlusMinus().apply(this);
         }
-        outABinaryOpLevel2(node);
+        outABinaryOpLevel1(node);
+    }
+
+    public void inAMultDivBinaryOpLevel2(AMultDivBinaryOpLevel2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMultDivBinaryOpLevel2(AMultDivBinaryOpLevel2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMultDivBinaryOpLevel2(AMultDivBinaryOpLevel2 node)
+    {
+        inAMultDivBinaryOpLevel2(node);
+        if(node.getMultDiv() != null)
+        {
+            node.getMultDiv().apply(this);
+        }
+        outAMultDivBinaryOpLevel2(node);
+    }
+
+    public void inAElvisBinaryOpLevel2(AElvisBinaryOpLevel2 node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAElvisBinaryOpLevel2(AElvisBinaryOpLevel2 node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAElvisBinaryOpLevel2(AElvisBinaryOpLevel2 node)
+    {
+        inAElvisBinaryOpLevel2(node);
+        if(node.getElvis() != null)
+        {
+            node.getElvis().apply(this);
+        }
+        outAElvisBinaryOpLevel2(node);
     }
 
     public void inABinaryOpLevel3(ABinaryOpLevel3 node)

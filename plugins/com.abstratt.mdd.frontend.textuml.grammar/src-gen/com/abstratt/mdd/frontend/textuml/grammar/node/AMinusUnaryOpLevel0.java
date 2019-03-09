@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AMultDivBinaryOpLevel1 extends PBinaryOpLevel1
+public final class AMinusUnaryOpLevel0 extends PUnaryOpLevel0
 {
-    private PMultDiv _multDiv_;
+    private TMinus _minus_;
 
-    public AMultDivBinaryOpLevel1()
+    public AMinusUnaryOpLevel0()
     {
         // Constructor
     }
 
-    public AMultDivBinaryOpLevel1(
-        @SuppressWarnings("hiding") PMultDiv _multDiv_)
+    public AMinusUnaryOpLevel0(
+        @SuppressWarnings("hiding") TMinus _minus_)
     {
         // Constructor
-        setMultDiv(_multDiv_);
+        setMinus(_minus_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AMultDivBinaryOpLevel1(
-            cloneNode(this._multDiv_));
+        return new AMinusUnaryOpLevel0(
+            cloneNode(this._minus_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAMultDivBinaryOpLevel1(this);
+        ((Analysis) sw).caseAMinusUnaryOpLevel0(this);
     }
 
-    public PMultDiv getMultDiv()
+    public TMinus getMinus()
     {
-        return this._multDiv_;
+        return this._minus_;
     }
 
-    public void setMultDiv(PMultDiv node)
+    public void setMinus(TMinus node)
     {
-        if(this._multDiv_ != null)
+        if(this._minus_ != null)
         {
-            this._multDiv_.parent(null);
+            this._minus_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AMultDivBinaryOpLevel1 extends PBinaryOpLevel1
             node.parent(this);
         }
 
-        this._multDiv_ = node;
+        this._minus_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._multDiv_);
+            + toString(this._minus_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._multDiv_ == child)
+        if(this._minus_ == child)
         {
-            this._multDiv_ = null;
+            this._minus_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AMultDivBinaryOpLevel1 extends PBinaryOpLevel1
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._multDiv_ == oldChild)
+        if(this._minus_ == oldChild)
         {
-            setMultDiv((PMultDiv) newChild);
+            setMinus((TMinus) newChild);
             return;
         }
 

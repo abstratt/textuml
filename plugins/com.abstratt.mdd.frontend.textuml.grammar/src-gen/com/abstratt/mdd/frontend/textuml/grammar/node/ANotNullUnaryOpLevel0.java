@@ -5,16 +5,16 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ANotNullUnaryOpLevel1 extends PUnaryOpLevel1
+public final class ANotNullUnaryOpLevel0 extends PUnaryOpLevel0
 {
     private TQuestion _question_;
 
-    public ANotNullUnaryOpLevel1()
+    public ANotNullUnaryOpLevel0()
     {
         // Constructor
     }
 
-    public ANotNullUnaryOpLevel1(
+    public ANotNullUnaryOpLevel0(
         @SuppressWarnings("hiding") TQuestion _question_)
     {
         // Constructor
@@ -25,13 +25,13 @@ public final class ANotNullUnaryOpLevel1 extends PUnaryOpLevel1
     @Override
     public Object clone()
     {
-        return new ANotNullUnaryOpLevel1(
+        return new ANotNullUnaryOpLevel0(
             cloneNode(this._question_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseANotNullUnaryOpLevel1(this);
+        ((Analysis) sw).caseANotNullUnaryOpLevel0(this);
     }
 
     public TQuestion getQuestion()

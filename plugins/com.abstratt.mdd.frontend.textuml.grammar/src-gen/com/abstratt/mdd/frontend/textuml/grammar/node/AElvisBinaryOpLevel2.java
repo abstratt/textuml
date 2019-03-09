@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AUnaryOpLevel4 extends PUnaryOpLevel4
+public final class AElvisBinaryOpLevel2 extends PBinaryOpLevel2
 {
-    private TNot _not_;
+    private TElvis _elvis_;
 
-    public AUnaryOpLevel4()
+    public AElvisBinaryOpLevel2()
     {
         // Constructor
     }
 
-    public AUnaryOpLevel4(
-        @SuppressWarnings("hiding") TNot _not_)
+    public AElvisBinaryOpLevel2(
+        @SuppressWarnings("hiding") TElvis _elvis_)
     {
         // Constructor
-        setNot(_not_);
+        setElvis(_elvis_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AUnaryOpLevel4(
-            cloneNode(this._not_));
+        return new AElvisBinaryOpLevel2(
+            cloneNode(this._elvis_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAUnaryOpLevel4(this);
+        ((Analysis) sw).caseAElvisBinaryOpLevel2(this);
     }
 
-    public TNot getNot()
+    public TElvis getElvis()
     {
-        return this._not_;
+        return this._elvis_;
     }
 
-    public void setNot(TNot node)
+    public void setElvis(TElvis node)
     {
-        if(this._not_ != null)
+        if(this._elvis_ != null)
         {
-            this._not_.parent(null);
+            this._elvis_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AUnaryOpLevel4 extends PUnaryOpLevel4
             node.parent(this);
         }
 
-        this._not_ = node;
+        this._elvis_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._not_);
+            + toString(this._elvis_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._not_ == child)
+        if(this._elvis_ == child)
         {
-            this._not_ = null;
+            this._elvis_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AUnaryOpLevel4 extends PUnaryOpLevel4
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._not_ == oldChild)
+        if(this._elvis_ == oldChild)
         {
-            setNot((TNot) newChild);
+            setElvis((TElvis) newChild);
             return;
         }
 

@@ -1769,6 +1769,16 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseARequiredTargetObjectDot(ARequiredTargetObjectDot node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAOptionalTargetObjectDot(AOptionalTargetObjectDot node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAClosure(AClosure node)
     {
         defaultCase(node);
@@ -1849,7 +1859,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAAltUnaryExpressionP1(AAltUnaryExpressionP1 node)
+    public void caseAAltUnaryExpressionP0(AAltUnaryExpressionP0 node)
     {
         defaultCase(node);
     }
@@ -1884,11 +1894,6 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAAltUnaryExpressionP4(AAltUnaryExpressionP4 node)
-    {
-        defaultCase(node);
-    }
-
     public void caseAAltBinaryExpressionP4(AAltBinaryExpressionP4 node)
     {
         defaultCase(node);
@@ -1919,37 +1924,37 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAMinusUnaryOpLevel1(AMinusUnaryOpLevel1 node)
+    public void caseANotUnaryOpLevel0(ANotUnaryOpLevel0 node)
     {
         defaultCase(node);
     }
 
-    public void caseANotNullUnaryOpLevel1(ANotNullUnaryOpLevel1 node)
+    public void caseAMinusUnaryOpLevel0(AMinusUnaryOpLevel0 node)
     {
         defaultCase(node);
     }
 
-    public void caseARequiredUnaryOpLevel1(ARequiredUnaryOpLevel1 node)
+    public void caseANotNullUnaryOpLevel0(ANotNullUnaryOpLevel0 node)
     {
         defaultCase(node);
     }
 
-    public void caseAUnaryOpLevel4(AUnaryOpLevel4 node)
+    public void caseARequiredUnaryOpLevel0(ARequiredUnaryOpLevel0 node)
     {
         defaultCase(node);
     }
 
-    public void caseAMultDivBinaryOpLevel1(AMultDivBinaryOpLevel1 node)
+    public void caseABinaryOpLevel1(ABinaryOpLevel1 node)
     {
         defaultCase(node);
     }
 
-    public void caseAElvisBinaryOpLevel1(AElvisBinaryOpLevel1 node)
+    public void caseAMultDivBinaryOpLevel2(AMultDivBinaryOpLevel2 node)
     {
         defaultCase(node);
     }
 
-    public void caseABinaryOpLevel2(ABinaryOpLevel2 node)
+    public void caseAElvisBinaryOpLevel2(AElvisBinaryOpLevel2 node)
     {
         defaultCase(node);
     }
@@ -2840,6 +2845,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTDot(TDot node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTOptionalDot(TOptionalDot node)
     {
         defaultCase(node);
     }

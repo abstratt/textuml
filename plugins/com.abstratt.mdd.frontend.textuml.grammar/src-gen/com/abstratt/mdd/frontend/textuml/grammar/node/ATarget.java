@@ -8,7 +8,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 public final class ATarget extends PTarget
 {
     private POperand _operand_;
-    private TDot _dot_;
+    private PObjectDot _objectDot_;
 
     public ATarget()
     {
@@ -17,12 +17,12 @@ public final class ATarget extends PTarget
 
     public ATarget(
         @SuppressWarnings("hiding") POperand _operand_,
-        @SuppressWarnings("hiding") TDot _dot_)
+        @SuppressWarnings("hiding") PObjectDot _objectDot_)
     {
         // Constructor
         setOperand(_operand_);
 
-        setDot(_dot_);
+        setObjectDot(_objectDot_);
 
     }
 
@@ -31,7 +31,7 @@ public final class ATarget extends PTarget
     {
         return new ATarget(
             cloneNode(this._operand_),
-            cloneNode(this._dot_));
+            cloneNode(this._objectDot_));
     }
 
     public void apply(Switch sw)
@@ -64,16 +64,16 @@ public final class ATarget extends PTarget
         this._operand_ = node;
     }
 
-    public TDot getDot()
+    public PObjectDot getObjectDot()
     {
-        return this._dot_;
+        return this._objectDot_;
     }
 
-    public void setDot(TDot node)
+    public void setObjectDot(PObjectDot node)
     {
-        if(this._dot_ != null)
+        if(this._objectDot_ != null)
         {
-            this._dot_.parent(null);
+            this._objectDot_.parent(null);
         }
 
         if(node != null)
@@ -86,7 +86,7 @@ public final class ATarget extends PTarget
             node.parent(this);
         }
 
-        this._dot_ = node;
+        this._objectDot_ = node;
     }
 
     @Override
@@ -94,7 +94,7 @@ public final class ATarget extends PTarget
     {
         return ""
             + toString(this._operand_)
-            + toString(this._dot_);
+            + toString(this._objectDot_);
     }
 
     @Override
@@ -107,9 +107,9 @@ public final class ATarget extends PTarget
             return;
         }
 
-        if(this._dot_ == child)
+        if(this._objectDot_ == child)
         {
-            this._dot_ = null;
+            this._objectDot_ = null;
             return;
         }
 
@@ -126,9 +126,9 @@ public final class ATarget extends PTarget
             return;
         }
 
-        if(this._dot_ == oldChild)
+        if(this._objectDot_ == oldChild)
         {
-            setDot((TDot) newChild);
+            setObjectDot((PObjectDot) newChild);
             return;
         }
 

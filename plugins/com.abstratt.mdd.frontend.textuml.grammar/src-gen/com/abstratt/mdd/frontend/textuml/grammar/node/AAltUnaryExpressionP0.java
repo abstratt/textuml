@@ -5,19 +5,19 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAltUnaryExpressionP4 extends PExpressionP4
+public final class AAltUnaryExpressionP0 extends PExpressionP0
 {
-    private PUnaryOpLevel4 _operator_;
-    private PExpressionP4 _operand_;
+    private PUnaryOpLevel0 _operator_;
+    private PExpressionP0 _operand_;
 
-    public AAltUnaryExpressionP4()
+    public AAltUnaryExpressionP0()
     {
         // Constructor
     }
 
-    public AAltUnaryExpressionP4(
-        @SuppressWarnings("hiding") PUnaryOpLevel4 _operator_,
-        @SuppressWarnings("hiding") PExpressionP4 _operand_)
+    public AAltUnaryExpressionP0(
+        @SuppressWarnings("hiding") PUnaryOpLevel0 _operator_,
+        @SuppressWarnings("hiding") PExpressionP0 _operand_)
     {
         // Constructor
         setOperator(_operator_);
@@ -29,22 +29,22 @@ public final class AAltUnaryExpressionP4 extends PExpressionP4
     @Override
     public Object clone()
     {
-        return new AAltUnaryExpressionP4(
+        return new AAltUnaryExpressionP0(
             cloneNode(this._operator_),
             cloneNode(this._operand_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAltUnaryExpressionP4(this);
+        ((Analysis) sw).caseAAltUnaryExpressionP0(this);
     }
 
-    public PUnaryOpLevel4 getOperator()
+    public PUnaryOpLevel0 getOperator()
     {
         return this._operator_;
     }
 
-    public void setOperator(PUnaryOpLevel4 node)
+    public void setOperator(PUnaryOpLevel0 node)
     {
         if(this._operator_ != null)
         {
@@ -64,12 +64,12 @@ public final class AAltUnaryExpressionP4 extends PExpressionP4
         this._operator_ = node;
     }
 
-    public PExpressionP4 getOperand()
+    public PExpressionP0 getOperand()
     {
         return this._operand_;
     }
 
-    public void setOperand(PExpressionP4 node)
+    public void setOperand(PExpressionP0 node)
     {
         if(this._operand_ != null)
         {
@@ -122,13 +122,13 @@ public final class AAltUnaryExpressionP4 extends PExpressionP4
         // Replace child
         if(this._operator_ == oldChild)
         {
-            setOperator((PUnaryOpLevel4) newChild);
+            setOperator((PUnaryOpLevel0) newChild);
             return;
         }
 
         if(this._operand_ == oldChild)
         {
-            setOperand((PExpressionP4) newChild);
+            setOperand((PExpressionP0) newChild);
             return;
         }
 

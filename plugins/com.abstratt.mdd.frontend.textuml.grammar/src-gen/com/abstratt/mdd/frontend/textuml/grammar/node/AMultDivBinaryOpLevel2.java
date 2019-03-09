@@ -5,45 +5,45 @@ package com.abstratt.mdd.frontend.textuml.grammar.node;
 import com.abstratt.mdd.frontend.textuml.grammar.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ABinaryOpLevel2 extends PBinaryOpLevel2
+public final class AMultDivBinaryOpLevel2 extends PBinaryOpLevel2
 {
-    private PPlusMinus _plusMinus_;
+    private PMultDiv _multDiv_;
 
-    public ABinaryOpLevel2()
+    public AMultDivBinaryOpLevel2()
     {
         // Constructor
     }
 
-    public ABinaryOpLevel2(
-        @SuppressWarnings("hiding") PPlusMinus _plusMinus_)
+    public AMultDivBinaryOpLevel2(
+        @SuppressWarnings("hiding") PMultDiv _multDiv_)
     {
         // Constructor
-        setPlusMinus(_plusMinus_);
+        setMultDiv(_multDiv_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ABinaryOpLevel2(
-            cloneNode(this._plusMinus_));
+        return new AMultDivBinaryOpLevel2(
+            cloneNode(this._multDiv_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseABinaryOpLevel2(this);
+        ((Analysis) sw).caseAMultDivBinaryOpLevel2(this);
     }
 
-    public PPlusMinus getPlusMinus()
+    public PMultDiv getMultDiv()
     {
-        return this._plusMinus_;
+        return this._multDiv_;
     }
 
-    public void setPlusMinus(PPlusMinus node)
+    public void setMultDiv(PMultDiv node)
     {
-        if(this._plusMinus_ != null)
+        if(this._multDiv_ != null)
         {
-            this._plusMinus_.parent(null);
+            this._multDiv_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class ABinaryOpLevel2 extends PBinaryOpLevel2
             node.parent(this);
         }
 
-        this._plusMinus_ = node;
+        this._multDiv_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._plusMinus_);
+            + toString(this._multDiv_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._plusMinus_ == child)
+        if(this._multDiv_ == child)
         {
-            this._plusMinus_ = null;
+            this._multDiv_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class ABinaryOpLevel2 extends PBinaryOpLevel2
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._plusMinus_ == oldChild)
+        if(this._multDiv_ == oldChild)
         {
-            setPlusMinus((PPlusMinus) newChild);
+            setMultDiv((PMultDiv) newChild);
             return;
         }
 

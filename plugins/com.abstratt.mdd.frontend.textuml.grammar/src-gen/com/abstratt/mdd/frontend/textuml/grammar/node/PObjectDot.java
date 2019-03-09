@@ -2,7 +2,7 @@
 
 package com.abstratt.mdd.frontend.textuml.grammar.node;
 
-public abstract class PUnaryOpLevel4 extends Node
+public abstract class PObjectDot extends Node
 {
     // Empty body
 }
