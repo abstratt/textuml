@@ -1180,8 +1180,8 @@ public class BehaviorGenerator extends AbstractGenerator {
         	ValueSpecification emptySetValue = MDDExtensionUtils.buildEmptySet(namespaceTracker.currentPackage(), classifier);
             action.setValue(emptySetValue);
             OutputPin result = action.createResult(null, classifier);
-            result.setUpperValue(MDDUtil.createLiteralUnlimitedNatural(namespaceTracker.currentPackage(),
-                    LiteralUnlimitedNatural.UNLIMITED));
+            result.setLower(0);
+            result.setUpper(LiteralUnlimitedNatural.UNLIMITED);
             builder.registerOutput(result);
             fillDebugInfo(action, node);
         } finally {

@@ -21,6 +21,7 @@ import com.abstratt.mdd.core.UnclassifiedProblem;
 import com.abstratt.mdd.core.IProblem.Severity;
 import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.util.ActivityUtils;
+import com.abstratt.mdd.frontend.core.OptionalValueExpected;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
 
 public class ExpressionTests extends AbstractRepositoryBuildingTests {
@@ -149,7 +150,7 @@ public class ExpressionTests extends AbstractRepositoryBuildingTests {
         source += "end;\n";
         source += "end.";
 		IProblem[] result = parse(structure, source);
-		UnclassifiedProblem error = assertExpectedProblem(UnclassifiedProblem.class, result);
+		OptionalValueExpected error = assertExpectedProblem(OptionalValueExpected.class, result);
         assertEquals(Severity.ERROR, error.getSeverity());
         assertEquals(Integer.valueOf(5), result[0].getAttribute(IProblem.LINE_NUMBER));
     }

@@ -5,6 +5,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.LiteralUnlimitedNatural;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.StructuredActivityNode;
 import org.eclipse.uml2.uml.Variable;
@@ -15,6 +16,7 @@ import com.abstratt.mdd.core.tests.harness.AbstractRepositoryBuildingTests;
 import com.abstratt.mdd.core.tests.harness.FixtureHelper;
 import com.abstratt.mdd.core.util.ActivityUtils;
 import com.abstratt.mdd.core.util.TypeUtils;
+import com.abstratt.mdd.frontend.core.OptionalValueExpected;
 import com.abstratt.mdd.frontend.core.RequiredValueExpected;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
 
@@ -69,7 +71,40 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         assertEquals("Integer", tmp2Var.getType().getName());
         assertEquals(0, tmp2Var.getLower());
     }
-    
+
+    public void testTypeInference_self() throws CoreException {
+        String behavior = "model tests;\n";
+        behavior += "operation Struct.op1;\n";
+        behavior += "begin\n";
+        behavior += "  var tmp1, tmp2, tmp3, tmp4;\n";
+        behavior += "  tmp1 := self;\n";
+        behavior += "  tmp2 := new Struct;\n";
+        behavior += "  tmp3 := (null as Struct[0,1]);\n";
+        behavior += "  tmp4 := Struct[];\n";
+        behavior += "end;\n";
+        behavior += "end.\n";
+        parseAndCheck(structure, behavior);
+        Activity op1Activity = getActivity("tests::Struct::op1");
+        StructuredActivityNode singleBlock = (StructuredActivityNode) ActivityUtils.getRootAction(op1Activity).getNodes().get(0);
+		Variable tmp1Var = ActivityUtils.findVariable(singleBlock, "tmp1");
+		Variable tmp2Var = ActivityUtils.findVariable(singleBlock, "tmp2");
+		Variable tmp3Var = ActivityUtils.findVariable(singleBlock, "tmp3");
+		Variable tmp4Var = ActivityUtils.findVariable(singleBlock, "tmp4");
+        assertNotNull(tmp1Var);
+        assertNotNull(tmp2Var);
+        assertNotNull(tmp3Var);
+        assertNotNull(tmp4Var);
+        assertEquals("Struct", tmp1Var.getType().getName());
+        assertEquals(1, tmp1Var.getLower());
+        assertEquals("Struct", tmp2Var.getType().getName());
+        assertEquals(1, tmp2Var.getLower());
+        assertEquals("Struct", tmp3Var.getType().getName());
+        assertEquals(0, tmp3Var.getLower());
+        assertEquals("Struct", tmp4Var.getType().getName());
+        assertEquals(0, tmp4Var.getLower());
+        assertEquals(LiteralUnlimitedNatural.UNLIMITED, tmp4Var.getUpper());
+    }
+
     
     public void testTypeInference_nullSafeCallOperation() throws CoreException {
         String behavior;
@@ -341,7 +376,7 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         behavior += "end;\n";
         behavior += "end.\n";
         IProblem[] errors = parse(structure, behavior);
-        TypeMismatch error = assertExpectedProblem(TypeMismatch.class, errors);
+        OptionalValueExpected error = assertExpectedProblem(OptionalValueExpected.class, errors);
         assertEquals(Severity.ERROR, error.getSeverity());
         assertEquals(Integer.valueOf(6), error.getAttribute(IProblem.LINE_NUMBER));
         
