@@ -204,7 +204,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "derived attribute attrib2 : Boolean := { self.attrib1 * 2 };\n";
         source += "end;\n";
         source += "end.";
-        IProblem[] result = parse(sources);
+        IProblem[] result = parse(source);
         TypeMismatch error = assertExpectedProblem(TypeMismatch.class, result);
 
         assertEquals(Integer.valueOf(5), result[0].getAttribute(IProblem.LINE_NUMBER));
