@@ -195,6 +195,21 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         assertTrue(ActivityUtils.isBehaviorReference(attr3.getDefaultValue()));
     }
 
+    public void testDerivedAttribute_wrongExpressionType() throws CoreException {
+        String source = "";
+        source += "model someModel;\n";
+        source += "import base;\n";
+        source += "class SomeClassifier\n";
+        source += "attribute attrib1 : Integer;\n";
+        source += "derived attribute attrib2 : Boolean := { self.attrib1 * 2 };\n";
+        source += "end;\n";
+        source += "end.";
+        IProblem[] result = parse(source);
+        TypeMismatch error = assertExpectedProblem(TypeMismatch.class, result);
+
+        assertEquals(Integer.valueOf(5), result[0].getAttribute(IProblem.LINE_NUMBER));
+    }
+
     public void testIdAttribute() throws CoreException {
         String source = "";
         source += "model someModel;\n";
@@ -453,7 +468,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         String source = "";
         source += "model someModel;\n";
         source += "primitive Primitive1;\n";
-        source += "private primitive Primitive2;\n";        
+        source += "private primitive Primitive2;\n";
         source += "end.";
         parseAndCheck(source);
         PrimitiveType found1 = get("someModel::Primitive1", IRepository.PACKAGE.getPrimitiveType());
@@ -548,7 +563,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         assertNotNull(operation);
         assertEquals(1, operation.getMethods().size());
     }
-    
+
     public void testOperationParameterSet() throws CoreException {
         String source = "";
         source += "model someModel;\n";
@@ -848,7 +863,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         validation.accept(results);
     }
 
-    
+
     public void testCreateOperation() throws CoreException {
         String source = "";
         source += "model someModel;\n";
@@ -859,7 +874,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "end.";
         testCreateOperation(source, it -> {});
     }
-    
+
     public void testCreateOperation_ImplicitReturn() throws CoreException {
         String source = "";
         source += "model someModel;\n";
@@ -881,7 +896,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
             assertTrue(ActivityUtils.getSourceAction(singleStatement) instanceof ReadSelfAction);
         });
     }
-    
+
     public void testCreateOperation_ExplicitReturnType() throws CoreException {
         String source = "";
         source += "model someModel;\n";
