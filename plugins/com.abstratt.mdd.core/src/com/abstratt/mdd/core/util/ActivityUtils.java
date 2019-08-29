@@ -272,6 +272,10 @@ public class ActivityUtils {
         return null;
     }
 
+    public static OutputPin getSourcePin(InputPin target) {
+    	return (OutputPin) getSource(target);
+    }
+    
     public static ObjectNode getSource(ObjectNode target) {
         final List<ActivityEdge> incomings = target.getIncomings();
         Assert.isLegal(incomings.size() == 1, "Object node has no incoming flows");
@@ -301,7 +305,7 @@ public class ActivityUtils {
         Assert.isTrue(inputs.size() == 1);
         return getSourceAction(inputs.get(0));
     }
-
+    
     public static Action getTargetAction(ObjectNode target) {
         ObjectNode targetPin = getTarget(target);
         if (targetPin == null)
@@ -381,15 +385,11 @@ public class ActivityUtils {
     }
     
     public static boolean hasOutputs(Action action) {
-    	return !action.getOutputs().isEmpty();
+    	return !getActionOutputs(action).isEmpty();
     }
-
-    public static boolean isTerminal(Action instance) {
-        List<OutputPin> outputPins = getActionOutputs(instance);
-        for (OutputPin current : outputPins)
-            if (!current.getOutgoings().isEmpty())
-                return false;
-        return true;
+    
+    public static boolean hasInputs(Action action) {
+    	return !getActionInputs(action).isEmpty();
     }
 
     public static void createParameterVariables(Activity activity) {
@@ -430,7 +430,7 @@ public class ActivityUtils {
         for (ActivityNode node : target.getNodes()) {
         	if (node instanceof Action) {
         		Action asAction = (Action) node;
-        		if (isTerminal(asAction)) {
+        		if (isDataSink(asAction)) {
         			if (isStructuralActivityNode(node) &&
         					!isTransactionalBlock((Action) node))
         				terminalActions.addAll(findStatements((StructuredActivityNode) node));
@@ -547,10 +547,15 @@ public class ActivityUtils {
             collectUpstreamActions(collected, getSourceAction(pin), actionClasses);
     }
 
+    /**
+     * Finds the actions under this block that are data sinks, IOW, the last action to be executed in a 
+     * (hierarchical or linear) flow. A block may contain many data sinks.
+     * @return
+     */
     public static List<Action> findTerminals(StructuredActivityNode target) {
         List<Action> terminalActions = new ArrayList<Action>();
         for (ActivityNode node : target.getNodes()) {
-            if (node instanceof Action && isTerminal((Action) node))
+            if (node instanceof Action && isDataSink((Action) node))
                 terminalActions.add((Action) node);
         }
         return terminalActions;
@@ -647,13 +652,29 @@ public class ActivityUtils {
      * Is this action a data-sink (no outputs or no outputs being consumed)?
      */
     public static boolean isDataSink(Action action) {
-        for (OutputPin outputPin : action.getOutputs())
+        for (OutputPin outputPin : getActionOutputs(action))
             if (!outputPin.getOutgoings().isEmpty())
+                return false;
+        return true;
+    }
+    
+    /**
+     * Is this action a data generator, i.e., produces outputs but takes no action inputs?
+     * Declaring inputs is not an issue as long as there are no flows incoming into the inputs.
+     */
+    public static boolean isDataGenerator(Action action) {
+        for (InputPin inputPin : getActionInputs(action))
+            if (!inputPin.getIncomings().isEmpty())
                 return false;
         return true;
     }
 
     public static Action getOwningAction(Pin pin) {
+        return getOwningAction((ObjectNode)pin);
+    }
+    
+    public static Action getOwningAction(ObjectNode pin) {
         return (Action) pin.getOwner();
     }
+
 }
