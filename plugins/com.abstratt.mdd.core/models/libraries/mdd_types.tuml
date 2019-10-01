@@ -40,12 +40,12 @@ end;
 
 (* The implicit super datatype for all datatypes *)
 datatype Value 
-  query notEquals(other : Value[1]) : Boolean;
+  query notEquals(other : Value[0,1]) : Boolean;
   query greaterThan(r : Value[1]) : Boolean;
   query lowerThan(r : Value[1]) : Boolean;
   query greaterOrEquals(r : Value[1]) : Boolean;
   query lowerOrEquals(r : Value[1]) : Boolean;
-  query equals(other : Value[1]) : Boolean;
+  query equals(other : Value[0,1]) : Boolean;
   query toString() : String;
 end;
 
@@ -54,8 +54,8 @@ class ComparableBasic specializes Basic
   query lowerThan(r : any[1]) : Boolean;
   query greaterOrEquals(r : any[1]) : Boolean;
   query lowerOrEquals(r : any[1]) : Boolean;
-  query notEquals(other : any[1]) : Boolean;
-  query equals(other : any[1]) : Boolean;
+  query notEquals(other : any[0,1]) : Boolean;
+  query equals(other : any[0,1]) : Boolean;
 end;
 
 class Primitive specializes ComparableBasic
