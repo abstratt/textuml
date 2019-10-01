@@ -64,37 +64,37 @@ end;
 
 class Boolean specializes Primitive 
   query \not() : Boolean;
-  query \and(b : Boolean[1]) : Boolean;
-  query \or(b : Boolean[1]) : Boolean;
-  query \xor(b : Boolean[1]) : Boolean;
-  query implies(b : Boolean[1]) : Boolean;
+  query \and(b : Boolean[0,1] := false) : Boolean;
+  query \or(b : Boolean[0,1] := false) : Boolean;
+  query \xor(b : Boolean[0,1] := false) : Boolean;
+  query implies(b : Boolean[0,1] := false) : Boolean;
 end;
 
 class Number specializes Primitive
-  query add(r : Number[1]) : Number;
-  query subtract(r : Number[1]) : Number;
+  query add(r : Number[0,1] := 0) : Number;
+  query subtract(r : Number[0,1] := 0) : Number;
   query subtract() : Number;
-  query multiply(r : Number[1]) : Number;
-  query divide(r : Number[1]) : Number;
+  query multiply(r : Number[0,1] := 1) : Number;
+  query divide(r : Number[0,1] := 1) : Number;
   query asInteger() : Integer;
   query asDouble() : Double;
 end;
 
 class Integer specializes Double
-  query add(r : Integer[1]) : Integer;
-  query subtract(r : Integer[1]) : Integer;
+  query add(r : Integer[0,1] := 0) : Integer;
+  query subtract(r : Integer[0,1] := 0) : Integer;
   query subtract() : Integer;
-  query multiply(r : Integer[1]) : Integer;
-  query divide(r : Integer[1]) : Integer;
-  query modulo(r : Integer[1]) : Integer;
+  query multiply(r : Integer[0,1] := 1) : Integer;
+  query divide(r : Integer[0,1] := 1) : Integer;
+  query modulo(r : Integer[0,1] := 0) : Integer;
   query absolute() : Integer;
 end;
 
 class Double specializes Number
-  query add(r : Number[1]) : Double;
-  query subtract(r : Number[1]) : Double;
-  query multiply(r : Number[1]) : Double;
-  query divide(r : Number[1]) : Double;
+  query add(r : Number[0,1] := 0) : Double;
+  query subtract(r : Number[0,1] := 0) : Double;
+  query multiply(r : Number[0,1] := 1) : Double;
+  query divide(r : Number[0,1] := 1) : Double;
   query subtract() : Double;
   query fractionalPart() : Double;
   query absolute() : Double;

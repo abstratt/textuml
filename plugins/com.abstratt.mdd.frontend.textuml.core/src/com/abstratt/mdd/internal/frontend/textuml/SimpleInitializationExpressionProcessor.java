@@ -13,6 +13,7 @@ import org.eclipse.uml2.uml.ValueSpecification;
 
 import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.Step;
+import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.TypeMismatch;
 import com.abstratt.mdd.frontend.core.UnknownType;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
@@ -33,11 +34,13 @@ public class SimpleInitializationExpressionProcessor {
     private IReferenceTracker referenceTracker;
     private ProblemBuilder<Node> problemBuilder;
     private Namespace currentNamespace;
+    private IRepository repository;
 
     SimpleInitializationExpressionProcessor(SourceCompilationContext<Node> sourceContext, Namespace currentNamespace) {
         this.referenceTracker = sourceContext.getReferenceTracker();
         this.problemBuilder = sourceContext.getProblemBuilder();
         this.currentNamespace = currentNamespace;
+        this.repository = sourceContext.getContext().getRepository();
     }
 
     protected ValueSpecification parseValueSpecification(PLiteralOrIdentifier node, final Type expectedType) {
@@ -85,7 +88,7 @@ public class SimpleInitializationExpressionProcessor {
                 final ValueSpecification valueSpec = parseValueSpecification(initializationExpression,
                         typedElement.getType());
                 if (valueSpec != null) {
-                    if (typedElement.getType() != valueSpec.getType())
+                    if (!TypeUtils.isCompatible(repository, valueSpec, typedElement, null))
                         problemBuilder.addProblem(new TypeMismatch(typedElement.getType().getQualifiedName(), valueSpec
                                 .getType().getQualifiedName()), typeIdentifierNode);
                     else {
