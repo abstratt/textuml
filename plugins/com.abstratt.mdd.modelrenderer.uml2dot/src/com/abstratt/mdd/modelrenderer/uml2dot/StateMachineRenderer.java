@@ -2,6 +2,7 @@ package com.abstratt.mdd.modelrenderer.uml2dot;
 
 import static com.abstratt.mdd.modelrenderer.uml2dot.UML2DOTPreferences.SHOW_STATEMACHINES;
 
+import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.StateMachine;
 
 import com.abstratt.mdd.modelrenderer.IRenderingSession;
@@ -22,9 +23,9 @@ public class StateMachineRenderer implements IElementRenderer<StateMachine> {
         out.println("style=\"rounded, dashed\";");
         out.exitLevel();
         out.println("];");
-        out.println("label = \"" + element.getName() + "\";");
+        out.println("label = \"" + element.getNamespace().getName() + NamedElement.SEPARATOR + element.getName() + "\";");
         out.println("labeljust = \"l\";");
-        out.println("fontcolor = \"grey\";");
+        out.println("fontcolor = \"blue\";");
         RenderingUtils.renderAll(session, element.getRegions());
         out.exitLevel();
         out.println("}");
