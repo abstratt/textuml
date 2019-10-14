@@ -157,8 +157,8 @@ end;
 class String specializes Primitive
   query isEmpty() : Boolean;
   query size() : Integer;
-  query add(s : String[1]) : String;
-  query add(s : any[1]) : String;
+  query add(s : String[0,1]) : String;
+  query add(s : any[0,1]) : String;
   query substring(start : Integer[1],stop : Integer[1]) : String;
   query toLower() : String;
   query toUpper() : String;
