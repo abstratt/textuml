@@ -10,10 +10,24 @@
  *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
+import java.util.Optional;
+
 import com.abstratt.mdd.core.Problem;
 
 public class RequiredValueExpected extends Problem {
-    public RequiredValueExpected() {
+    private String context;
+
+    public RequiredValueExpected(String site) {
         super(Severity.ERROR);
+        this.context = site;
+    }
+    
+    public RequiredValueExpected() {
+        this(null);
+    }
+    
+    @Override
+    public String getMessage() {
+        return super.getMessage() + Optional.ofNullable(context).map(it -> " - " + it).orElse("");
     }
 }

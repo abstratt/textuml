@@ -10,10 +10,26 @@
  *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
+import java.util.Optional;
+
 import com.abstratt.mdd.core.Problem;
 
 public class OptionalValueExpected extends Problem {
+    private String context;
+
+    public OptionalValueExpected(String site) {
+        super(Severity.ERROR);
+        this.context = site;
+    }
+    
+
     public OptionalValueExpected() {
         super(Severity.ERROR);
     }
+    
+    @Override
+    public String getMessage() {
+        return super.getMessage() + Optional.ofNullable(context).map(it -> " - " + it).orElse("");
+    }
+
 }

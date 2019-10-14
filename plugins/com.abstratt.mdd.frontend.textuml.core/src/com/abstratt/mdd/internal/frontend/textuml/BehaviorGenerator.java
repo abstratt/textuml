@@ -169,6 +169,7 @@ import com.abstratt.mdd.frontend.textuml.grammar.node.ANewIdentifierExpression;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANotEqualsComparisonOperator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ANotSameComparisonOperator;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AOperationIdentifierExpression;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AOptionalTargetObjectDot;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AParenthesisOperand;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AQualifiedAssociationTraversal;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ARaiseSpecificStatement;
@@ -314,7 +315,7 @@ public class BehaviorGenerator extends AbstractGenerator {
             action.setStructuralFeature(attribute);
             action.getObject().setType(targetSource.getType());
             TypeUtils.copyType(attribute, action.getResult(), targetClassifier);
-            checkIfTargetIsRequired(node.getTarget(), targetSource);
+            checkIfTargetIsRequired(node.getTarget(), targetSource, () -> attribute.getName());
             if (!TypeUtils.isRequiredPin(targetSource) && !TypeUtils.isMultivalued(targetSource))
             	// it is a tentative access, result must be optional
             	action.getResult().setLower(0);
@@ -527,7 +528,7 @@ public class BehaviorGenerator extends AbstractGenerator {
                 missingOperation(true, contextNode, (Classifier) targetType, operationName, argumentList,
                         false);
             ensure(TypeUtils.isRequired(target) || FeatureUtils.isBasicOperation(operation), contextNode, () ->
-            		new RequiredValueExpected());
+            		new RequiredValueExpected("target for " + operationName));
             List<Parameter> parameters = operation.getOwnedParameters();
             if (parameters.size() != 2 && parameters.get(0).getDirection() != ParameterDirectionKind.IN_LITERAL
                     && parameters.get(1).getDirection() != ParameterDirectionKind.RETURN_LITERAL) {
@@ -1331,7 +1332,7 @@ public class BehaviorGenerator extends AbstractGenerator {
             // their output pins to the input pins we just created
             super.caseAOperationIdentifierExpression(node);
             final ObjectNode targetSource = ActivityUtils.getSource(action.getTarget());
-            checkIfTargetIsRequired(node.getTarget(), targetSource);
+            checkIfTargetIsRequired(node.getTarget(), targetSource, () -> operationName);
             targetClassifier = (Classifier) TypeUtils.getTargetType(getRepository(), targetSource, true);
             if (targetClassifier == null) {
                 problemBuilder.addProblem(new UnclassifiedProblem(Severity.ERROR,
@@ -1403,12 +1404,12 @@ public class BehaviorGenerator extends AbstractGenerator {
         checkIncomings(action, node.getIdentifier(), targetClassifier);
     }
 
-	private void checkIfTargetIsRequired(PTarget targetNode, final ObjectNode targetSource) {
-		boolean requiredTargetExpected = sourceMiner.findChild(targetNode, ARequiredTargetObjectDot.class, true) != null;
+	private void checkIfTargetIsRequired(PTarget targetNode, final ObjectNode targetSource, Supplier<String> targetString) {
+		boolean requiredTargetExpected = ((ATarget) targetNode).getObjectDot() instanceof ARequiredTargetObjectDot;
 		if (requiredTargetExpected)
-			ensure(TypeUtils.isRequiredPin(targetSource) || TypeUtils.isMultivalued(targetSource), targetNode, () -> new RequiredValueExpected());
+			ensure(TypeUtils.isRequiredPin(targetSource) || TypeUtils.isMultivalued(targetSource), targetNode, () -> new RequiredValueExpected(targetString.get()));
 		else
-			ensure(!TypeUtils.isRequiredPin(targetSource) || TypeUtils.isMultivalued(targetSource), targetNode, () -> new OptionalValueExpected());
+			ensure(!TypeUtils.isRequiredPin(targetSource) || TypeUtils.isMultivalued(targetSource), targetNode, () -> new OptionalValueExpected(targetString.get()));
 	}
 
     private void ensureTerminal(Node identifierNode) {
@@ -1802,7 +1803,7 @@ public class BehaviorGenerator extends AbstractGenerator {
                 problemBuilder.addProblem(new CannotModifyADerivedAttribute(), node.getIdentifier());
                 throw new AbortedStatementCompilationException();
             }
-            checkIfTargetIsRequired(node.getTarget(), targetSource);
+            checkIfTargetIsRequired(node.getTarget(), targetSource, () -> attribute.getName());
             ensureNotQuery(node);
             action.setStructuralFeature(attribute);
             action.getObject().setType(targetClassifier);
