@@ -12,7 +12,7 @@ import org.eclipse.core.runtime.CoreException;
 import com.abstratt.mdd.core.IProblem;
 import com.abstratt.mdd.core.RepositoryService;
 
-public class AbstractRepositoryBuildingTests extends AbstractRepositoryTests {
+public abstract class AbstractRepositoryBuildingTests extends AbstractRepositoryTests {
     protected boolean dump;
     protected final FixtureHelper fixtureHelper = new FixtureHelper(getExtension());
 

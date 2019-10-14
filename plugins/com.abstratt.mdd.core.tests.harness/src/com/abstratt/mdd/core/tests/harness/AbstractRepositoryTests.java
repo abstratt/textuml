@@ -27,7 +27,7 @@ import com.abstratt.mdd.core.util.MDDUtil;
 import com.abstratt.resman.Resource;
 import com.abstratt.resman.Task;
 
-public class AbstractRepositoryTests extends TestCase {
+public abstract class AbstractRepositoryTests extends TestCase {
     protected static final String TEXTUML_EXTENSION = "tuml";
 
     protected final IFileStore baseDir = computeBaseDir();
