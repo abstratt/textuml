@@ -2,7 +2,7 @@
 <feature
       id="com.abstratt.mdd.frontend.core.feature"
       label="%featureName"
-      version="2.6.201911.textuml"
+      version="2.7.201911"
       provider-name="%providerName">
 
    <description>
@@ -36,11 +36,8 @@
          version="3.2.0"/> 
          
    <import plugin="com.abstratt.pluginutils"
-         version="2.3.201812"/>          
-         
-   <import plugin="com.abstratt.pluginutils"
-         version="2.3.201812"/>                   
-         
+         version="2.7.201911"/>          
+                  
    </requires>
 
    <plugin

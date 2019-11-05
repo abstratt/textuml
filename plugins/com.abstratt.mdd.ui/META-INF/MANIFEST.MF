@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MDD UI
 Bundle-SymbolicName: com.abstratt.mdd.ui;singleton:=true
-Bundle-Version: 2.6.201911.textuml
+Bundle-Version: 2.7.201911
 Bundle-Activator: com.abstratt.mdd.ui.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

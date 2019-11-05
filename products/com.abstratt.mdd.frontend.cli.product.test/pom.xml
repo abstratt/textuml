@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.mdd</groupId>
 	<artifactId>com.abstratt.mdd.frontend.product.test</artifactId>
-	<version>2.6.201911.textuml</version>
+	<version>2.7.201911</version>
 	<packaging>eclipse-repository</packaging>
 	<parent>
 		<artifactId>com.abstratt.mdd.parent</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
-		<version>2.6.201911.textuml</version>
+		<version>2.7.201911</version>
 		<relativePath>../..</relativePath>
 	</parent>
   <build>

@@ -38,7 +38,7 @@
 		<location includeAllPlatforms="false" includeMode="planner"
 			includeSource="true" type="InstallableUnit">
 			<unit id="com.abstratt.eclipsegraphviz.feature.feature.group" version="0.0.0" />		
-			<repository location="jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/eclipsegraphviz/com.abstratt.eclipsegraphviz.repository/2.6.201911.eclipsegraphviz/com.abstratt.eclipsegraphviz.repository-2.6.201911.eclipsegraphviz.zip!/" />
+			<repository location="jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/eclipsegraphviz/com.abstratt.eclipsegraphviz.repository/2.7.201911/com.abstratt.eclipsegraphviz.repository-2.7.201911.zip!/" />
 		</location>
 		
         <location includeAllPlatforms="false" includeMode="planner"

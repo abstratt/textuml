@@ -2,7 +2,7 @@
 <feature
       id="com.abstratt.mdd.frontend.toolkit.feature"
       label="%featureName"
-      version="2.6.201911.textuml"
+      version="2.7.201911"
       provider-name="%providerName">
 
    <description>
