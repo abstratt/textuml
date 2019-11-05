@@ -33,6 +33,7 @@ import schemacrawler.utility.SchemaCrawlerUtility
 
 import static extension org.apache.commons.lang.StringUtils.*
 import com.abstratt.mdd.core.ParsedProperties
+import schemacrawler.schema.DescribedObject
 
 class JDBCImporter {
 
@@ -159,7 +160,7 @@ class JDBCImporter {
 		val classTables = tables.values.filter[it.importedForeignKeys.empty || it.importedForeignKeys.size < it.columns.size]
 		val associationTables = tables.values.filter[!it.importedForeignKeys.empty && it.importedForeignKeys.size == it.columns.size]
 		'''
-		    /* Generated from a reverse engineered database */
+		/* Generated from a reverse engineered database */
 			package «packageName»;
 			
 			import mdd_types;
@@ -181,20 +182,29 @@ class JDBCImporter {
 		val foreignKeyColumns = foreignKeys.values.map[it.columnReferences.map[foreignKeyColumn]].flatten.toMap[name]
 		val nonPkColumns = table.columns.filter[!partOfPrimaryKey]
 		val ordinaryColumns = nonPkColumns.filter[!foreignKeyColumns.containsKey(it.name)].toMap[name]
-
+		
 		'''
-			class «className»
-				«ordinaryColumns.values.map[column | generateAttribute(catalog, schema, table, column)].join()»
-				«foreignKeys.values.map[fk | generateReference(catalog, schema, table, fk)].join()»
-			end;
+            «table.withOptionalRemarks»class «className»
+                «ordinaryColumns.values.map[column | generateAttribute(catalog, schema, table, column)].join()»
+                «foreignKeys.values.map[fk | generateReference(catalog, schema, table, fk)].join()»
+            end;
 		'''
 	}
+    
+    def withOptionalRemarks(DescribedObject described) {
+        if (described.hasRemarks)
+        '''
+        (*
+        «described.remarks»
+        *)
+        '''
+    }
 
 	def CharSequence generateAssociation(Catalog catalog, Schema schema, Table table, Set<String> tableNames) {
 		val foreignKeys = table.importedForeignKeys
 
 		'''
-			association «table.toClassName()»
+			«table.withOptionalRemarks»association «table.toClassName()»
 				«foreignKeys.map[fk | generateAssociationEnd(catalog, schema, table, fk)].join()»
 			end;
 		'''
@@ -205,7 +215,7 @@ class JDBCImporter {
 			head
 		// «fk.columnReferences.join('\\n')»
 		'''
-			navigable role «columnReference.foreignKeyColumn.toReferenceName» : «columnReference.primaryKeyColumn.parent.toClassName»«columnReference.foreignKeyColumn.generateMultiplicity»;
+			«columnReference.foreignKeyColumn.withOptionalRemarks»navigable role «columnReference.foreignKeyColumn.toReferenceName» : «columnReference.primaryKeyColumn.parent.toClassName»«columnReference.foreignKeyColumn.generateMultiplicity»;
 		'''
 	}
 
@@ -266,7 +276,7 @@ class JDBCImporter {
 			join()
 		// «column.name» «column.columnDataType» («column.columnDataType.javaSqlType.javaSqlTypeGroup»)
 		'''
-			«modifiers»attribute «attributeName» : «generateAttributeType(column.columnDataType)»«column.generateMultiplicity»«column.generateDefaultValue»;
+			«column.withOptionalRemarks»«modifiers»attribute «attributeName» : «generateAttributeType(column.columnDataType)»«column.generateMultiplicity»«column.generateDefaultValue»;
 		'''
 	}
 
