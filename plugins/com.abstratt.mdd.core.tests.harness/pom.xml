@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.abstratt.mdd</groupId>
   <artifactId>com.abstratt.mdd.core.tests.harness</artifactId>
-  <version>2.5.201812</version>
+  <version>2.6.201911.textuml</version>
   <packaging>eclipse-plugin</packaging>
 	<parent>
 		<artifactId>com.abstratt.mdd.plugins</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
-		<version>2.5.201812</version>
+		<version>2.6.201911.textuml</version>
 		<relativePath>..</relativePath>
 	</parent>
 </project>

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Test Harness Plug-in
 Bundle-SymbolicName: com.abstratt.mdd.core.tests.harness
-Bundle-Version: 2.5.201812
+Bundle-Version: 2.6.201911.textuml
 Require-Bundle: com.abstratt.mdd.core;visibility:=reexport,
  org.junit;visibility:=reexport,
  org.eclipse.equinox.common;visibility:=reexport,

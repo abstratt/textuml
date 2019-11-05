@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Resource Management Tests
 Bundle-SymbolicName: com.abstratt.resman.tests
-Bundle-Version: 2.5.201812
+Bundle-Version: 2.6.201911.textuml
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: 
  junit.framework
