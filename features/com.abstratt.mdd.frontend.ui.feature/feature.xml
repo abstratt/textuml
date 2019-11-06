@@ -23,7 +23,7 @@
    </url>
 
    <requires>
-      <import feature="com.abstratt.mdd.frontend.core.feature" version="2.6.201911.textuml" match="compatible"/>
+      <import feature="com.abstratt.mdd.frontend.core.feature" version="2.7.201911" match="compatible"/>
    </requires>
 
    <plugin
