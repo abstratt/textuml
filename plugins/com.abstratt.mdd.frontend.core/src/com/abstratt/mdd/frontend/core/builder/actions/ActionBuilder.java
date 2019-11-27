@@ -80,8 +80,7 @@ public abstract class ActionBuilder<A extends Action> extends ElementBuilder<A> 
             return;
         final ObjectNode target = ((ObjectNode) incompatible.getTarget());
         final ObjectNode source = ((ObjectNode) incompatible.getSource());
-        getContext().getProblemTracker().add(
-                new TypeMismatch(MDDUtil.getDisplayName(target), MDDUtil.getDisplayName(source)));
+        getContext().getProblemTracker().add(TypeMismatch.build(target, source));
     }
 
     protected TemplateableElement getBoundElement() {

@@ -151,7 +151,7 @@ public class ExpressionTests extends AbstractRepositoryBuildingTests {
         source += "end.";
 		IProblem[] result = parse(structure, source);
 		OptionalValueExpected error = assertExpectedProblem(OptionalValueExpected.class, result);
-        assertEquals(Severity.ERROR, error.getSeverity());
+        assertEquals(Severity.WARNING, error.getSeverity());
         assertEquals(Integer.valueOf(5), result[0].getAttribute(IProblem.LINE_NUMBER));
     }
 

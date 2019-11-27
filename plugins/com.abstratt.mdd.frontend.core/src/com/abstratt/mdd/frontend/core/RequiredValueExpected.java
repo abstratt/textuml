@@ -18,7 +18,7 @@ public class RequiredValueExpected extends Problem {
     private String context;
 
     public RequiredValueExpected(String site) {
-        super(Severity.ERROR);
+        super(Severity.WARNING);
         this.context = site;
     }
     

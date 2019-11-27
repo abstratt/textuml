@@ -22,8 +22,10 @@ import com.abstratt.mdd.frontend.core.spi.DeferredReference;
 import com.abstratt.mdd.frontend.core.spi.IReferenceTracker;
 import com.abstratt.mdd.frontend.core.spi.ProblemBuilder;
 import com.abstratt.mdd.frontend.textuml.core.TextUMLCore;
+import com.abstratt.mdd.frontend.textuml.grammar.node.AAnySingleTypeIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.AIdentifierLiteralOrIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.ALiteralLiteralOrIdentifier;
+import com.abstratt.mdd.frontend.textuml.grammar.node.ATypeIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.Node;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PLiteralOrIdentifier;
 import com.abstratt.mdd.frontend.textuml.grammar.node.PTypeIdentifier;
@@ -74,8 +76,12 @@ public class SimpleInitializationExpressionProcessor {
 
     public void process(final PTypeIdentifier typeIdentifierNode, final TypedElement typedElement,
             final PLiteralOrIdentifier initializationExpression) {
-        String typeIdentifier = TextUMLCore.getSourceMiner().getQualifiedIdentifier(typeIdentifierNode);
-
+        //TODO-RC why can't we use TypeSetter here?
+        
+        boolean isAny = (typeIdentifierNode instanceof ATypeIdentifier) && ((ATypeIdentifier) typeIdentifierNode).getSingleTypeIdentifier() instanceof AAnySingleTypeIdentifier;
+        String typeIdentifier = isAny ? TypeUtils.ANY_TYPE : 
+                TextUMLCore.getSourceMiner().getQualifiedIdentifier(typeIdentifierNode);
+        
         referenceTracker.add(new DeferredReference<Type>(typeIdentifier, Literals.TYPE, currentNamespace) {
 
             @Override
@@ -89,8 +95,7 @@ public class SimpleInitializationExpressionProcessor {
                         typedElement.getType());
                 if (valueSpec != null) {
                     if (!TypeUtils.isCompatible(repository, valueSpec, typedElement, null))
-                        problemBuilder.addProblem(new TypeMismatch(typedElement.getType().getQualifiedName(), valueSpec
-                                .getType().getQualifiedName()), typeIdentifierNode);
+                        problemBuilder.addProblem(TypeMismatch.build(typedElement, valueSpec), typeIdentifierNode);
                     else {
                         if (typedElement instanceof Parameter)
                             ((Parameter) typedElement).setDefaultValue(valueSpec);

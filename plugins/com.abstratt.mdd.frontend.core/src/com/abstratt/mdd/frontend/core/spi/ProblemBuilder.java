@@ -45,23 +45,32 @@ public class ProblemBuilder<N> {
         return problems.hasProblems(Severity.ERROR);
     }
 
+    public void ensure(boolean condition, boolean abort, String message, N node) {
+        ensure(condition, abort, node, () -> new UnclassifiedProblem(message));
+    }
+    
     public void ensure(boolean condition, String message, N node) {
-        if (!condition) {
-            addError(message, node);
-            throw new AbortedScopeCompilationException();
-        }
+        ensure(condition, true, message, node);
     }
     
     public void ensure(boolean condition, N node, Supplier<IProblem> errorReporter) {
+        ensure(condition, true, node, errorReporter);
+    }
+    
+    public void ensure(boolean condition, boolean abort, N node, Supplier<IProblem> errorReporter) {
         if (!condition) {
             IProblem problem = errorReporter.get();
             addProblem(problem , node);
-            if (problem.getSeverity() == Severity.ERROR) 
+            if (abort && problem.getSeverity() == Severity.ERROR) 
                 throw new AbortedScopeCompilationException();
         }
     }
     
+    public void ensure(boolean condition, boolean abort, N node, Severity severity, Supplier<String> messageProvider) {
+        ensure(condition, abort, node, () -> new UnclassifiedProblem(severity, messageProvider.get()));
+    }
+    
     public void ensure(boolean condition, N node, Severity severity, Supplier<String> messageProvider) {
-        ensure(condition, node, () -> new UnclassifiedProblem(severity, messageProvider.get()));
+        ensure(condition, true, node, severity, messageProvider);
     }
 }

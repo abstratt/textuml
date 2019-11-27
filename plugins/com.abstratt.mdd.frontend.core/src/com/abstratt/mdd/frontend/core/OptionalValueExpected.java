@@ -18,13 +18,13 @@ public class OptionalValueExpected extends Problem {
     private String context;
 
     public OptionalValueExpected(String site) {
-        super(Severity.ERROR);
+        super(Severity.WARNING);
         this.context = site;
     }
     
 
     public OptionalValueExpected() {
-        super(Severity.ERROR);
+        super(Severity.WARNING);
     }
     
     @Override

@@ -383,7 +383,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			}
 		});
 		if (!specialHandling[0]) {
-			ensure(operationName[0] != null, operator, () -> new UnclassifiedProblem("Unknown unary operator: " + operator.toString()));
+			ensure(operationName[0] != null, true, operator, () -> new UnclassifiedProblem("Unknown unary operator: " + operator.toString()));
 			handleUnaryExpressionAsOperation(operator, operand, operationName[0]);
 		}
     }
@@ -479,7 +479,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 			}
 		});
 		if (!specialHandling[0]) {
-			ensure(operationName[0] != null, operator, () -> new UnclassifiedProblem("Unknown binary operator: " + operator.toString()));
+			ensure(operationName[0] != null, true, operator, () -> new UnclassifiedProblem("Unknown binary operator: " + operator.toString()));
 		    handleBinaryExpressionAsOperation(left, operator, right, operationName[0]);
 		}
 	}
@@ -512,8 +512,8 @@ public class BehaviorGenerator extends AbstractGenerator {
             Type targetType = ActivityUtils.getSource(target).getType();
             Type argumentType = ActivityUtils.getSource(argument).getType();
             
-            ensure(targetType != null, targetNode, () -> new UnclassifiedProblem("No type information for " + operand1));
-            ensure(argumentType != null, argumentNode, () -> new UnclassifiedProblem("No type information for " + operand2));
+            ensure(targetType != null, true, targetNode, () -> new UnclassifiedProblem("No type information for " + operand1));
+            ensure(argumentType != null, true, argumentNode, () -> new UnclassifiedProblem("No type information for " + operand2));
             
             TypeUtils.copyType(ActivityUtils.getSource(target), target);
             TypeUtils.copyType(ActivityUtils.getSource(argument), argument);
@@ -527,8 +527,8 @@ public class BehaviorGenerator extends AbstractGenerator {
             if (operation.isStatic())
                 missingOperation(true, contextNode, (Classifier) targetType, operationName, argumentList,
                         false);
-            ensure(TypeUtils.isRequired(target) || FeatureUtils.isBasicOperation(operation), contextNode, () ->
-            		new RequiredValueExpected("target for " + operationName));
+            ensure(TypeUtils.isRequired(target) || FeatureUtils.isBasicOperation(operation), true, contextNode, () ->
+            new RequiredValueExpected("target for " + operationName));
             List<Parameter> parameters = operation.getOwnedParameters();
             if (parameters.size() != 2 && parameters.get(0).getDirection() != ParameterDirectionKind.IN_LITERAL
                     && parameters.get(1).getDirection() != ParameterDirectionKind.RETURN_LITERAL) {
@@ -568,7 +568,7 @@ public class BehaviorGenerator extends AbstractGenerator {
         	OutputPin optionalValueOutput = testClause.getBodyOutputs().get(0);
         	OutputPin defaultValueOutput = elseClause.getBodyOutputs().get(0);
         	
-        	if (!TypeUtils.isCompatible(getRepository(), defaultValueOutput.getType(), optionalValueOutput.getType(), null)
+        	if (!isCompatible(defaultValueOutput.getType(), optionalValueOutput.getType())
         			|| !TypeUtils.isMultiplicityCompatible(optionalValueOutput, defaultValueOutput, false, true)) {
         		reportIncompatibleTypes(falseResultNode, defaultValueOutput, optionalValueOutput);
         		throw new AbortedStatementCompilationException();
@@ -584,11 +584,7 @@ public class BehaviorGenerator extends AbstractGenerator {
     private void handleElvisOperator(Node left, Node right) {
     	ConditionalNode conditional = buildConditionalExpression(left, right, () -> handleUnaryExpressionAsOperation(left, left, "notNull"));
     	OutputPin mainOutput = conditional.getClauses().get(0).getBodyOutputs().get(0);
-		ensure(
-			!TypeUtils.isRequiredPin(mainOutput),
-			left,
-			() -> new OptionalValueExpected()
-    	);
+		ensure(!TypeUtils.isRequiredPin(mainOutput), true, left, () -> new OptionalValueExpected());
 		MDDExtensionUtils.makeDefaultValueExpression(conditional);
     }
     
@@ -621,7 +617,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 		buildCast(operand, action -> {
 			InputPin input = action.getStructuredNodeInputs().get(0);
 			OutputPin output = action.getStructuredNodeOutputs().get(0);
-			ensure(!TypeUtils.isRequired(input), operand, () -> new OptionalValueExpected());
+			ensure(!TypeUtils.isRequired(input), true, operand, () -> new OptionalValueExpected());
 			TypeUtils.copyType(input, output);
 			output.setLower(1);
 		});
@@ -641,7 +637,7 @@ public class BehaviorGenerator extends AbstractGenerator {
             Classifier classifier = (Classifier) getRepository().findNamedElement(qualifiedIdentifier,
                     IRepository.PACKAGE.getClassifier(), namespaceTracker.currentPackage());
             
-            ensure(classifier != null, right, () -> new UnknownType(qualifiedIdentifier));
+            ensure(classifier != null, true, right, () -> new UnknownType(qualifiedIdentifier));
 
             builder.registerInput(action.createObject(null, null));
             left.apply(this);
@@ -1407,9 +1403,9 @@ public class BehaviorGenerator extends AbstractGenerator {
 	private void checkIfTargetIsRequired(PTarget targetNode, final ObjectNode targetSource, Supplier<String> targetString) {
 		boolean requiredTargetExpected = ((ATarget) targetNode).getObjectDot() instanceof ARequiredTargetObjectDot;
 		if (requiredTargetExpected)
-			ensure(TypeUtils.isRequiredPin(targetSource) || TypeUtils.isMultivalued(targetSource), targetNode, () -> new RequiredValueExpected(targetString.get()));
-		else
-			ensure(!TypeUtils.isRequiredPin(targetSource) || TypeUtils.isMultivalued(targetSource), targetNode, () -> new OptionalValueExpected(targetString.get()));
+            ensure(TypeUtils.isRequiredPin(targetSource) || TypeUtils.isMultivalued(targetSource), true, targetNode, () -> new RequiredValueExpected(targetString.get()));
+        else
+            ensure(!TypeUtils.isRequiredPin(targetSource) || TypeUtils.isMultivalued(targetSource), true, targetNode, () -> new OptionalValueExpected(targetString.get()));
 	}
 
     private void ensureTerminal(Node identifierNode) {
@@ -1653,7 +1649,7 @@ public class BehaviorGenerator extends AbstractGenerator {
             ObjectNode targetSource = ActivityUtils.getSource(target);
 			Type targetType = targetSource.getType();
             
-            ensure(targetType != null, childNode, () -> new UnclassifiedProblem("No type information for " + childNode));
+            ensure(targetType != null, true, childNode, () -> new UnclassifiedProblem("No type information for " + childNode));
             Operation operation = FeatureUtils.findOperation(getRepository(), (Classifier) targetType, operationName, Arrays.asList(), false, true);
             
             TypeUtils.copyType(targetSource, target);
@@ -1663,8 +1659,8 @@ public class BehaviorGenerator extends AbstractGenerator {
                         Arrays.asList(), false);
             }
             
-            ensure(TypeUtils.isRequired(target) || FeatureUtils.isBasicOperation(operation), childNode, () ->
-    			new RequiredValueExpected());
+            ensure(TypeUtils.isRequired(target) || FeatureUtils.isBasicOperation(operation), true, childNode, () ->
+            new RequiredValueExpected());
             
             // register the result output pin
             OutputPin result = action.createResult(null, operation.getType());
@@ -1736,7 +1732,7 @@ public class BehaviorGenerator extends AbstractGenerator {
         else {
             // ensure a type is eventually inferred
             defer(Step.BEHAVIOR, r -> {
-                ensure(var.getType() != null, node.getIdentifier(), Severity.ERROR, () -> "Could not infer a type for variable '" + var.getName() + "'");
+                ensure(var.getType() != null, true, node.getIdentifier(), Severity.ERROR, () -> "Could not infer a type for variable '" + var.getName() + "'");
             });
         }
     }
@@ -1751,7 +1747,7 @@ public class BehaviorGenerator extends AbstractGenerator {
             builder.registerOutput(result);
             String variableName = TextUMLCore.getSourceMiner().getIdentifier(node.getIdentifier());
             Variable variable = builder.getVariable(variableName);
-            ensure(variable != null, node.getIdentifier(), Severity.ERROR, () -> "Unknown local variable '" + variableName + "'");
+            ensure(variable != null, true, node.getIdentifier(), Severity.ERROR, () -> "Unknown local variable '" + variableName + "'");
             action.setVariable(variable);
             TypeUtils.copyType(variable, result, getBoundElement());
             fillDebugInfo(action, node);
@@ -1918,7 +1914,7 @@ public class BehaviorGenerator extends AbstractGenerator {
 	}
 
 	private TypeMismatch buildTypeMismatchProblem(final ObjectNode expected, final ObjectNode actual) {
-		return new TypeMismatch(MDDUtil.getDisplayName(expected), MDDUtil.getDisplayName(actual));
+		return TypeMismatch.build(expected, actual);
 	}
 
     private int countElements(PExpressionList list) {
@@ -1962,7 +1958,7 @@ public class BehaviorGenerator extends AbstractGenerator {
         boolean hasReturnWithValue = ActivityUtils.getFinalAction(ActivityUtils.getBodyNode(activity)) == null;
         if (!problemBuilder.hasErrors() && hasReturnWithValue) {
             boolean returnValueRequired = FeatureUtils.findReturnParameter(activity.getOwnedParameters()) != null;
-            ensure(!returnValueRequired, bodyNode, () -> new ReturnStatementRequired());
+            ensure(!returnValueRequired, true, bodyNode, () -> new ReturnStatementRequired());
         }
     }
 

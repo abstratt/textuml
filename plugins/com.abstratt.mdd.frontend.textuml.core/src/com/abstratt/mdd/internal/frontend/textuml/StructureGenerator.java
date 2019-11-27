@@ -740,7 +740,7 @@ public class StructureGenerator extends AbstractGenerator {
                 public void resolve(IBasicRepository repository) {
                     // required for resolving behavior
                     BehavioredClassifier nearestClassifier = (BehavioredClassifier) MDDUtil.findNearest(newProperty, UMLPackage.Literals.BEHAVIORED_CLASSIFIER).orElse(null);
-                    ensure(nearestClassifier != null, node, () -> new UnclassifiedProblem("Only behaviored classifiers may use complex initialization expressions"));
+                    ensure(nearestClassifier != null, true, node, () -> new UnclassifiedProblem("Only behaviored classifiers may use complex initialization expressions"));
                     ComplexInitializationExpressionProcessor expressionProcessor = new ComplexInitializationExpressionProcessor(
                             sourceContext, nearestClassifier);
                     expressionProcessor.process(newProperty,
@@ -770,14 +770,11 @@ public class StructureGenerator extends AbstractGenerator {
                         if (subsettedProperty.getType() == null || newProperty.getType() == null)
                             // no type found, ignore subsetting
                             return;
-                        if (!TypeUtils.isCompatible(repository, newProperty.getType(), subsettedProperty.getType(),
-                                null)) {
-                            problemBuilder.addProblem(new TypeMismatch(MDDUtil.getDisplayName(subsettedProperty),
-                                    MDDUtil.getDisplayName(newProperty)), node);
+                        if (!isCompatible(newProperty.getType(), subsettedProperty.getType())) {
+                            problemBuilder.addProblem(TypeMismatch.build(subsettedProperty, newProperty), node);
                             return;
                         }
-                        if (!TypeUtils.isCompatible(repository, newProperty.getClass_(), subsettedProperty.getClass_(),
-                                null)) {
+                        if (!isCompatible(newProperty.getClass_(), subsettedProperty.getClass_())) {
                             problemBuilder.addProblem(new UnclassifiedProblem("'"
                                     + newProperty.getClass_().getQualifiedName()
                                     + "' cannot subset property from unrelated type '"
@@ -1050,8 +1047,7 @@ public class StructureGenerator extends AbstractGenerator {
                             ValueSpecification value = LiteralValueParser.parseLiteralValue(
                                     node.getLiteralOrIdentifier(), enumeration.getNearestPackage(), problemBuilder);
                             if (attribute.getType() != value.getType())
-                                problemBuilder.addProblem(new TypeMismatch(attribute.getType().getQualifiedName(),
-                                        value.getType().getQualifiedName()), node);
+                                problemBuilder.addProblem(TypeMismatch.build(attribute, value), node);
 
                             Slot slot = literal.createSlot();
                             slot.getValues().add(value);
@@ -1259,10 +1255,10 @@ public class StructureGenerator extends AbstractGenerator {
         boolean isQuery = operationKeyword instanceof AQueryOperationKeyword;
         boolean isConstructor = operationKeyword instanceof AConstructorOperationKeyword;
         boolean hasReturn = sourceMiner.findChild(operationHeader, AOptionalReturnType.class, true) != null;
-        ensure(!isQuery || hasReturn, operationHeader, Severity.ERROR, () -> "A query operation must have a return type");
+        ensure(!isQuery || hasReturn, true, operationHeader, Severity.ERROR, () -> "A query operation must have a return type");
         Classifier parent = (Classifier) this.namespaceTracker.currentNamespace(null);
         
-        ensure(parent instanceof OperationOwner, operationHeader, Severity.ERROR, () -> parent.eClass().getName() + " is a classifier that cannot own operations");
+        ensure(parent instanceof OperationOwner, true, operationHeader, Severity.ERROR, () -> parent.eClass().getName() + " is a classifier that cannot own operations");
         
         Operation operation = FeatureUtils.createOperation(parent, operationName);
         fillDebugInfo(operation, operationHeader);
@@ -1270,12 +1266,12 @@ public class StructureGenerator extends AbstractGenerator {
         operation.setIsQuery(isQuery);
         if (isConstructor) {
             Stereotype createStereotype = StereotypeUtils.findStereotype(Standard.Create.qualifiedName());
-            ensure(createStereotype != null, operationKeyword, Severity.ERROR, () -> Standard.Create.qualifiedName() + " stereotype not found");
+            ensure(createStereotype != null, true, operationKeyword, Severity.ERROR, () -> Standard.Create.qualifiedName() + " stereotype not found");
             defer(Step.PROFILE_APPLICATIONS, r -> StereotypeUtils.safeApplyProfile(parent.getNearestPackage(), createStereotype.getProfile()));
             defer(Step.STEREOTYPE_APPLICATIONS, r -> StereotypeUtils.safeApplyStereotype(operation, createStereotype));
             defer(Step.AFTER_GENERAL_RESOLUTION, r -> {
                 Parameter existingResult = operation.getReturnResult();
-                ensure(existingResult == null || existingResult.getType() == parent, operationKeyword, () -> new TypeMismatch(Severity.WARNING, parent.getName(), existingResult.getType().getName()));
+                ensure(existingResult == null || existingResult.getType() == parent, false, operationKeyword, () -> TypeMismatch.build(parent, existingResult.getType()));
                 if (existingResult == null) 
                     operation.createReturnResult(null, parent);
                 else

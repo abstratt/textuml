@@ -45,7 +45,7 @@ class Collection<T>
     query select(filter : {( : T) : Boolean}) : T[*];
 
     (* Returns a new collection containing an element that is determined for every element in this collection by applying the given mapping. *)
-    query<R>collect(mapping : {( : T) : R}) : R[*];
+    query<R>collect(mapping : {( : T) : R[0,1]}) : R[*];
 
     (* Applies the given mutator to every element of this collection. *)
     operation forEach(mutator : {( : T)});

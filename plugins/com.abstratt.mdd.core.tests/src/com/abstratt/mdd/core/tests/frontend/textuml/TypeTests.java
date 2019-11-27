@@ -377,7 +377,7 @@ public class TypeTests extends AbstractRepositoryBuildingTests {
         behavior += "end.\n";
         IProblem[] errors = parse(structure, behavior);
         OptionalValueExpected error = assertExpectedProblem(OptionalValueExpected.class, errors);
-        assertEquals(Severity.ERROR, error.getSeverity());
+        assertEquals(Severity.WARNING, error.getSeverity());
         assertEquals(Integer.valueOf(6), error.getAttribute(IProblem.LINE_NUMBER));
         
 

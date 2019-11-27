@@ -207,9 +207,19 @@ class ActivityGenerator implements IBasicBehaviorGenerator {
     }
     
     def dispatch generateProperAction(ReadLinkAction action) {
+        val fedEndData = action.endData.get(0)
+        val target = fedEndData.value
+        val associationName = action.association.name
+        val fedEnd = fedEndData.end
+        val oppositeEnd = fedEnd?.opposite
+        return if (associationName != null) 
     	'''
-    	«action.endData.get(0).value.generateAction» <- «action.association.name» -> «action.endData.get(0).end.opposite.name»
+    	«target.generateAction» <- «associationName» -> «oppositeEnd.name»
     	'''
+    	else
+    	'''
+        «target».«fedEnd.name»
+        '''
     }
     
     def generateStatement(Action statementAction) {

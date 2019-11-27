@@ -852,8 +852,11 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         assertEquals(ParameterEffectKind.READ_LITERAL, param1.getEffect());
     }
 
-    public void testCreateOperation(String source, Consumer<IProblem[]> validation) throws CoreException {
-        IProblem[] results = parseAndCheck(source);
+    public void testCreateOperation(String source, boolean check, Consumer<IProblem[]> validation) throws CoreException {
+        IProblem[] results = parse(source);
+        if (check) {
+            FixtureHelper.assertCompilationSuccessful(results);
+        }
         Operation op1 = get("someModel::SomeClass::op1", UMLPackage.Literals.OPERATION);
         assertNotNull(op1);
         assertNotNull(op1.getClass_());
@@ -872,7 +875,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "constructor op1(param1 : Integer);\n";
         source += "end;\n";
         source += "end.";
-        testCreateOperation(source, it -> {});
+        testCreateOperation(source, true, it -> {});
     }
 
     public void testCreateOperation_ImplicitReturn() throws CoreException {
@@ -886,7 +889,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "end;\n";
         source += "end;\n";
         source += "end.";
-        testCreateOperation(source, it -> {
+        testCreateOperation(source, true, it -> {
             Operation op1 = getOperation("someModel::SomeClass::op1");
             StructuredActivityNode rootAction = ActivityUtils.getRootAction(op1);
             assertNotNull(rootAction);
@@ -905,7 +908,7 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "constructor op1(param1 : Integer) : SomeClass;\n";
         source += "end;\n";
         source += "end.";
-        testCreateOperation(source, it -> {});
+        testCreateOperation(source, true, it -> {});
     }
     public void testCreateOperation_InvalidReturnType() throws CoreException {
         String source = "";
@@ -915,8 +918,8 @@ public class ClassifierTests extends AbstractRepositoryBuildingTests {
         source += "constructor op1(param1 : Integer) : Integer;\n";
         source += "end;\n";
         source += "end.";
-        testCreateOperation(source, results -> {
-            FixtureHelper.assertTrue(results, Arrays.stream(results).anyMatch(it -> it.getSeverity() == Severity.WARNING && it instanceof TypeMismatch));
+        testCreateOperation(source, false, results -> {
+            FixtureHelper.assertTrue(results, Arrays.stream(results).anyMatch(it -> it.getSeverity() == Severity.ERROR && it instanceof TypeMismatch));
         });
     }
 

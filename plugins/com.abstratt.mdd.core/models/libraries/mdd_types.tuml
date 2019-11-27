@@ -157,12 +157,12 @@ end;
 class String specializes Primitive
   query isEmpty() : Boolean;
   query size() : Integer;
-  query add(s : String[0,1]) : String;
-  query add(s : any[0,1]) : String;
-  query substring(start : Integer[1],stop : Integer[1]) : String;
+  query add(s : String[0,1] := "") : String;
+  query add(s : any[0,1] := "") : String;
+  query substring(start : Integer[1] := 0,stop : Integer[1] := { self.size() }) : String;
   query toLower() : String;
   query toUpper() : String;
-  query contains(another : String[1]) : Boolean;
+  query contains(another : String[1] := "") : Boolean;
 end;
 
 class Memo specializes String

@@ -18,6 +18,7 @@ import org.eclipse.uml2.uml.BehavioralFeature;
 import org.eclipse.uml2.uml.Classifier;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Namespace;
+import org.eclipse.uml2.uml.Type;
 import org.eclipse.uml2.uml.UMLPackage;
 
 import com.abstratt.mdd.core.IBasicRepository;
@@ -27,6 +28,7 @@ import com.abstratt.mdd.core.IRepository;
 import com.abstratt.mdd.core.Step;
 import com.abstratt.mdd.core.util.BasicTypeUtils;
 import com.abstratt.mdd.core.util.MDDExtensionUtils;
+import com.abstratt.mdd.core.util.TypeUtils;
 import com.abstratt.mdd.frontend.core.UnresolvedSymbol;
 import com.abstratt.mdd.frontend.core.spi.AbortedScopeCompilationException;
 import com.abstratt.mdd.frontend.core.spi.AbortedStatementCompilationException;
@@ -150,13 +152,18 @@ public abstract class AbstractGenerator extends DepthFirstAdapter {
         context.getReferenceTracker().defer(step, ref);
     }
     
-    protected void ensure(boolean condition, Node node, Severity severity, Supplier<String> messageProvider) {
-        problemBuilder.ensure(condition, node, severity, messageProvider);
+    protected void ensure(boolean condition, boolean abort, Node node, Severity severity, Supplier<String> messageProvider) {
+        problemBuilder.ensure(condition, abort, node, severity, messageProvider);
     }
     
-    protected void ensure(boolean condition, Node node, Supplier<IProblem> errorReporter) {
-        problemBuilder.ensure(condition, node, errorReporter);
+    protected void ensure(boolean condition, boolean abort, Node node, Supplier<IProblem> errorReporter) {
+        problemBuilder.ensure(condition, abort, node, errorReporter);
     }
+    
+    public boolean isCompatible(Type source, Type destination) {
+        return TypeUtils.isCompatible(getRepository(), source, destination, null);
+    }
+
     
 
     protected IReferenceTracker getRefTracker() {

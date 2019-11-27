@@ -10,18 +10,22 @@
  *******************************************************************************/
 package com.abstratt.mdd.frontend.core;
 
+import org.eclipse.uml2.uml.Type;
+import org.eclipse.uml2.uml.TypedElement;
+
 import com.abstratt.mdd.core.Problem;
+import com.abstratt.mdd.core.util.MDDUtil;
 
 public class TypeMismatch extends Problem {
 
     private String expected;
     private String found;
 
-    public TypeMismatch(String expected, String found) {
+    private TypeMismatch(String expected, String found) {
         this(Severity.ERROR, expected, found);
     }
     
-    public TypeMismatch(Severity severity, String expected, String found) {
+    private TypeMismatch(Severity severity, String expected, String found) {
         super(severity);
         this.expected = expected;
         this.found = found;
@@ -29,6 +33,14 @@ public class TypeMismatch extends Problem {
 
     public String getMessage() {
         return "Type mismatch (expected: '" + expected + "',  found: '" + found + "')";
+    }
+    
+    public static TypeMismatch build(TypedElement expected, TypedElement actual) {
+        return new TypeMismatch(MDDUtil.getDisplayName(expected), MDDUtil.getDisplayName(actual));
+    }
+    
+    public static TypeMismatch build(Type expected, Type actual) {
+        return new TypeMismatch(MDDUtil.getTypeName(expected), MDDUtil.getTypeName(actual));
     }
 
 }
