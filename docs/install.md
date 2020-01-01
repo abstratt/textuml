@@ -35,7 +35,7 @@ Method 2: Installation via Update Manager
     JAR URL in the "Work with:" field (include jar: to the !/ at the
     end):
 
-<pre>jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/eclipsegraphviz/com.abstratt.eclipsegraphviz.repository/2.7.201911/com.abstratt.eclipsegraphviz.repository-2.7.201911.zip!/</pre>
+<pre>jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/mdd/com.abstratt.mdd.oss.repository/2.7.201911/com.abstratt.mdd.oss.repository-2.7.201911.zip!/</pre>
 
 -   Select the TextUML Toolkit feature from the Modeling category.
 
