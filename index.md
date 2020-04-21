@@ -5,7 +5,7 @@ TextUML Toolkit
 ===============
 
 
-> Note: This documentation is meant to be viewed in HTML ([via this URL](http://abstratt.github.io/textuml/readme.html)). Relative links below will work via the HTML version, but not via the Markdown viewer.
+> Note: This documentation is meant to be viewed in HTML ([via this URL](http://abstratt.github.io/textuml/)). Relative links below will work via the HTML version, but not via the Markdown viewer.
 
 
 [![Build Status on Travis CI](https://travis-ci.org/abstratt/textuml.svg?branch=master)](https://travis-ci.org/abstratt/textuml)
