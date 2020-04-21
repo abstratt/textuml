@@ -26,4 +26,4 @@ The TextUML Toolkit can be used as a [plug-in for the Eclipse](https://marketpla
 Using the Toolkit
 ------------------------
 
-See the [documentation]((http://abstratt.github.io/textuml/)).
+See the [documentation](http://abstratt.github.io/textuml/)).
