@@ -3,12 +3,6 @@
 TextUML Toolkit
 ===============
 
-
-[![Build Status on Travis CI](https://travis-ci.org/abstratt/textuml.svg?branch=master)](https://travis-ci.org/abstratt/textuml)
-
----
-
-
 TextUML Toolkit is an **open-source IDE for UML** that lets you create
 models at the same speed you write code. By adopting **a textual
 notation**, the TextUML Toolkit provides benefits you will not get
@@ -67,5 +61,13 @@ Using the Toolkit
     
 -   **[Contributing](docs/contributing)**
     - everything you need to know to contribute as a developer or tester.
+
+
+---
+
+[![Build Status on Travis CI](https://travis-ci.org/abstratt/textuml.svg?branch=master)](https://travis-ci.org/abstratt/textuml)
+---
+
+
 
 {% include github.html %}
