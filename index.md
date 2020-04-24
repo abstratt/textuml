@@ -1,5 +1,4 @@
 ---
----
 
 TextUML Toolkit
 ===============
@@ -7,6 +6,7 @@ TextUML Toolkit
 
 [![Build Status on Travis CI](https://travis-ci.org/abstratt/textuml.svg?branch=master)](https://travis-ci.org/abstratt/textuml)
 
+---
 
 
 TextUML Toolkit is an **open-source IDE for UML** that lets you create
