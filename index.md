@@ -1,4 +1,3 @@
----
 
 TextUML Toolkit
 ===============
