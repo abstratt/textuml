@@ -4,7 +4,7 @@ jdk:
 - oraclejdk8
 install:
   #mvn clean integration-test
-  mvn clean install org.apache.maven.plugins:maven-deploy-plugin:3.0.0-M1:deploy --settings deploy.settings.xml -DdeployAtEnd=true  
+  mvn clean install org.apache.maven.plugins:maven-deploy-plugin:3.0.0-M1:deploy --settings deploy.settings.xml -DdeployAtEnd=true -DskipTests=true  
 notifications:
   email:
     on_success: change
