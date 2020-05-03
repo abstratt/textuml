@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: DOT-based model rendering
 Bundle-SymbolicName: com.abstratt.mdd.modelrenderer.dot
-Bundle-Version: 2.9.1
+Bundle-Version: 2.9.2.qualifier
 Bundle-Vendor: ABSTRATT
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.abstratt.pluginutils,
