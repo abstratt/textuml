@@ -35,7 +35,7 @@ Method 2: Installation via Update Manager
     JAR URL in the "Work with:" field (include jar: to the !/ at the
     end):
 
-<pre>jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/mdd/com.abstratt.mdd.oss.repository/2.9.0/com.abstratt.mdd.oss.repository-2.9.0.zip!/</pre>
+<pre>jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/mdd/com.abstratt.mdd.oss.repository/2.10.0/com.abstratt.mdd.oss.repository-2.10.0.zip!/</pre>
 
 -   Select the TextUML Toolkit feature from the Modeling category.
 
@@ -46,7 +46,7 @@ Method 3: Installation via Update Manager from a local archive (last resort)
 
 If methods 1 and 2 keep failing for you due to networking issues, there is a last resort.
 
-Manually download the [repository](https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/mdd/com.abstratt.mdd.oss.repository/2.9.0/com.abstratt.mdd.oss.repository-2.9.0.zip), save the ZIP file to your local disk, then follow method 2 using the local file as the update site.
+Manually download the [repository](https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/mdd/com.abstratt.mdd.oss.repository/2.10.0/com.abstratt.mdd.oss.repository-2.10.0.zip), save the ZIP file to your local disk, then follow method 2 using the local file as the update site.
 
 Keep in mind that by doing this you will lose the advantage of automatically getting future updates. You will need to repeat this step manuall in order to get a newer build.
 
