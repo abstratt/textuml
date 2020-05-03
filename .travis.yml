@@ -2,24 +2,23 @@ dist: trusty
 language: java
 jdk:
 - oraclejdk8
+
 install:
-  #mvn clean integration-test
-  mvn clean install org.apache.maven.plugins:maven-deploy-plugin:3.0.0-M1:deploy --settings deploy.settings.xml -DdeployAtEnd=true -DskipTests=true  
+- mvn clean test
+
+deploy:
+  provider: script
+  script: mvn deploy -s deploy.settings.xml -Dmaven.test.skip=true -DdeployAtEnd=true
+  skip_cleanup: true
+  on:
+    tags: true
 notifications:
   email:
     on_success: change
     on_failure: change
-env:
-  global:
-  - secure: MURNfihYEAKIgQtik27ISbONBO99NPRS/Ux5Q0pg3nHhrUgAq+efocGnQBJvZiFZEMQU9DVW742QDI54GIujbrIzkY7/Y+Rqqi+Fb5ryP3yQYv1vIM1wmjkuVKZ+mG/ONlxYeoDA5Tm6/PIJeggx5al45ntCBeMWI6itzyf8PkE=
-  - secure: WXXtd6hz69X3XqN5vlCQZmP55oMGgFOGeOdE8zL89PGvswjTIMDgreaHOZHLwUgSUR2/pYxutURzbLOyYiLu3F+isQNVM0gSI4TElO6GYO7WKlAmZubMN0cSLrNSiVG7i4vtasm8yHn6Mp+2DeEIh78mx3WI1ZLwBOfbwafH784=
 
 cache:
   directories:
   - $HOME/.m2
-  
-branches:
-  only:
-  - master
-  - /#.*/
+
   
