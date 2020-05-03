@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Resman
 Bundle-SymbolicName: com.abstratt.resman;singleton:=true
-Bundle-Version: 2.8.202006.qualifier
+Bundle-Version: 2.9.0.qualifier
 Bundle-Vendor: Abstratt Technologies
 Export-Package: com.abstratt.resman,
  com.abstratt.resman.impl;x-friends:="com.abstratt.resman.tests"
