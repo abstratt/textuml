@@ -4,12 +4,12 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.mdd</groupId>
-	<version>2.10.0</version>
+	<version>2.10.1-SNAPSHOT</version>
 	<packaging>eclipse-feature</packaging>
 	<parent>
 		<artifactId>com.abstratt.mdd.feature</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
-		<version>2.10.0</version>
+		<version>2.10.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>com.abstratt.mdd.importer.jdbc.feature</artifactId>
 
