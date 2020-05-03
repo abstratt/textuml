@@ -2,10 +2,8 @@ dist: trusty
 language: java
 jdk:
 - oraclejdk8
-
 install:
 - mvn clean test
-
 deploy:
   provider: script
   script: mvn deploy -s deploy.settings.xml -Dmaven.test.skip=true -DdeployAtEnd=true
@@ -16,9 +14,10 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
 cache:
   directories:
-  - $HOME/.m2
-
-  
+  - "$HOME/.m2"
+env:
+  global:
+  - secure: QK7e7S1LRURvj5uvmfDiU/VG+O61rW1Vx7M2nR3v7LqQ8oeQ8viSC+4vqR/mZdB3gEW3J8ZqgIvGybTYqQ2PGbFomgG9js66NT03PNmBBvRWqWE90AGKNsm5H/8a7t2crWhcPhHtEPO9SB5IQGvo4ZtQh9vrkxszhoJZpFDQhYs=
+  - secure: AKNSu0m799v4/v8BWYyr1935hZxyKWy9Zv2aegs0qbsBqOtxmzaw6ODKieSGyXr4WmvBFbbIsOz/BxseqBepF8ypF5MJsP19F6wSf34nIv283egjBlOqlDWVWFa5I8sxg4GaQM+YIP64PM5jJZIO02IldmNlT9vTzl/XCAuBN0Q=
