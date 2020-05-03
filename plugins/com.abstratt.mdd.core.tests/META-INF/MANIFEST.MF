@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests Plug-in
 Bundle-SymbolicName: com.abstratt.mdd.core.tests
-Bundle-Version: 2.9.2.qualifier
+Bundle-Version: 2.10.0.qualifier
 Require-Bundle: com.abstratt.mdd.core,
  org.junit,
  org.eclipse.equinox.common,
