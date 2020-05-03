@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Fragment-Host: com.abstratt.mdd.frontend.ui
 Bundle-Name: Editor Extension for Graphviz-based UML Model Visualization
 Bundle-SymbolicName: com.abstratt.mdd.frontend.visualizer.eclipsegraphviz;singleton:=true
-Bundle-Version: 2.9.1.qualifier
+Bundle-Version: 2.9.1
 Bundle-Vendor: Abstratt Technologies
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: 
