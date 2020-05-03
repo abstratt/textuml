@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.abstratt.mdd</groupId>
 	<artifactId>com.abstratt.mdd.feature</artifactId>
-	<version>2.10.0-SNAPSHOT</version>
+	<version>2.10.0</version>
     <packaging>pom</packaging>	
 	<parent>
 		<artifactId>com.abstratt.mdd.parent</artifactId>
 		<groupId>com.abstratt.mdd</groupId>
-		<version>2.10.0-SNAPSHOT</version>
+		<version>2.10.0</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<build>
