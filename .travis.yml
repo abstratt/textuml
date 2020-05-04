@@ -2,8 +2,9 @@ dist: trusty
 language: java
 jdk:
 - oraclejdk8
-install:
-- mvn clean integration-test
+install: false
+script:
+- mvn integration-test
 deploy:
   provider: script
   script: mvn deploy -s deploy.settings.xml -Dmaven.test.skip=true -DdeployAtEnd=true
