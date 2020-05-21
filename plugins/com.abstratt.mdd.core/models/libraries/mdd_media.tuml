@@ -8,6 +8,7 @@ class Blob specializes Primitive
 end;
 
 class Picture specializes Blob
+    static query empty() : Picture; 
 end;
 
 class Video specializes Blob 
