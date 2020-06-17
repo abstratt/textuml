@@ -48,7 +48,7 @@ If methods 1 and 2 keep failing for you due to networking issues, there is a las
 
 Manually download the [repository](https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/mdd/com.abstratt.mdd.oss.repository/2.10.0/com.abstratt.mdd.oss.repository-2.10.0.zip), save the ZIP file to your local disk, then follow method 2 using the local file as the update site.
 
-Keep in mind that by doing this you will lose the advantage of automatically getting future updates. You will need to repeat this step manuall in order to get a newer build.
+Keep in mind that by doing this you will lose the advantage of automatically getting future updates. You will need to repeat this step manually in order to get a newer build.
 
 Further steps for graphical diagram rendering
 ---------------------------------------------
@@ -66,8 +66,7 @@ that is done, you will see you can now create MDD projects in the New
 Project wizard. Any files using the ".tuml" extension are considered
 TextUML source files and can be edited with the TextUML editor and will
 be compiled by the TextUML compiler. You are ready now to try the
-TextUML
-Tutorial.
+[TextUML Tutorial](http://abstratt.github.io/textuml/docs/tutorial.html).
 
 Would you like to run the TextUML compiler as a regular Java application? 
 ---------------------------------
