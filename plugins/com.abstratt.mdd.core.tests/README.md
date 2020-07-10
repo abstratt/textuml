@@ -1,7 +1,2 @@
-<html>
-<body>
-<p>
+
 The basic test suite for the TextUML Toolkit.
-</p>
-</body>
-</html>
