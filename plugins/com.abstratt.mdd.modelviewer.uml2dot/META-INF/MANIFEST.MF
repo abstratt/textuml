@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: UML class diagram
 Bundle-SymbolicName: com.abstratt.mdd.modelviewer.uml2dot;singleton:=true
-Bundle-Version: 2.10.1.qualifier
+Bundle-Version: 2.13.0.qualifier
 Bundle-Vendor: Abstratt Technologies (Eclipse Integration)
 Import-Package: org.eclipse.swt,
  org.eclipse.swt.layout,

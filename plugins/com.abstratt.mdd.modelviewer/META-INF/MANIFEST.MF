@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Generic EMF-based Diagram Rendering
 Bundle-SymbolicName: com.abstratt.mdd.modelviewer
-Bundle-Version: 2.10.1.qualifier
+Bundle-Version: 2.13.0.qualifier
 Bundle-Vendor: Abstratt Technologies
 Import-Package: com.abstratt.mdd.modelrenderer.dot
 Require-Bundle: com.abstratt.imageviewer,

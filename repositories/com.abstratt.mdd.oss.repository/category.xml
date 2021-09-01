@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.abstratt.mdd.frontend.toolkit.feature_2.10.1.qualifier.jar" id="com.abstratt.mdd.frontend.toolkit.feature" version="2.10.1.qualifier">
+   <feature url="features/com.abstratt.mdd.frontend.toolkit.feature_2.13.0.qualifier.jar" id="com.abstratt.mdd.frontend.toolkit.feature" version="2.13.0.qualifier">
       <category name="com.abstratt.mdd.category"/>
    </feature>
    <category-def name="com.abstratt.mdd.category" label="Modeling"/>
