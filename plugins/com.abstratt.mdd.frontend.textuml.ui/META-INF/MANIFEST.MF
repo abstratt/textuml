@@ -21,4 +21,4 @@ Require-Bundle: com.abstratt.mdd.frontend.textuml.core,
  org.eclipse.ui
 Bundle-Activator: com.abstratt.mdd.internal.ui.TextUMLUIPlugin
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11

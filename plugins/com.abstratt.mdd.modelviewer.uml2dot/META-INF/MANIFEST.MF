@@ -18,5 +18,5 @@ Require-Bundle: org.eclipse.uml2.uml,
  org.eclipse.ui,
  org.eclipse.core.runtime
 Export-Package: com.abstratt.mdd.modelviewer.uml2dot
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy

@@ -12,5 +12,5 @@ Require-Bundle: org.eclipse.core.contenttype,
 Export-Package: com.abstratt.mdd.frontend.textuml.core,
  com.abstratt.mdd.internal.frontend.textuml;x-friends:="com.abstratt.mdd.core.tests,com.abstratt.mdd.frontend.textuml.ui,com.abstratt.mdd.frontend.tests.textuml"
 Import-Package: org.apache.commons.lang
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: Abstratt Technologies

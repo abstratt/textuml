@@ -14,4 +14,4 @@ Require-Bundle: com.abstratt.imageviewer,
  org.eclipse.equinox.common,
  com.abstratt.mdd.modelrenderer;visibility:=reexport
 Export-Package: com.abstratt.mdd.modelviewer
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11

@@ -26,7 +26,8 @@ public class UIModelObjectViewerComparator extends ViewerComparator {
     public int compare(Viewer viewer, Object e1, Object e2) {
         TreeNode node1 = (TreeNode) e1;
         TreeNode node2 = (TreeNode) e2;
-        return getComparator().compare(node1.getValue(), node2.getValue());
+        // TODO-RC this is dead code, but unsure this cast is correct 
+        return getComparator().compare((String) node1.getValue(), (String) node2.getValue());
     }
 
 }

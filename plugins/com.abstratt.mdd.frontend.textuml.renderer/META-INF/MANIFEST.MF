@@ -4,7 +4,7 @@ Bundle-Name: TextUML Renderer
 Bundle-SymbolicName: com.abstratt.mdd.frontend.textuml.renderer
 Bundle-Version: 2.13.0.qualifier
 Bundle-Vendor: Abstratt Technologies
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.uml2.uml,
  com.abstratt.pluginutils,
  com.abstratt.mdd.modelrenderer,

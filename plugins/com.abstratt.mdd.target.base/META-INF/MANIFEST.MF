@@ -10,5 +10,5 @@ Require-Bundle:
  com.abstratt.mdd.core,
  org.apache.commons.lang3,
  org.apache.commons.io
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: com.abstratt.mdd.target.base
