@@ -38,15 +38,15 @@
 		<location includeAllPlatforms="false" includeMode="planner"
 			includeSource="true" type="InstallableUnit">
 			<unit id="com.abstratt.eclipsegraphviz.feature.feature.group" version="0.0.0" />		
-			<repository location="jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/eclipsegraphviz/com.abstratt.eclipsegraphviz.repository/2.9.0/com.abstratt.eclipsegraphviz.repository-2.9.0.zip!/" />
+			<repository id="github" location="jar:https://maven.pkg.github.com/abstratt/maven-releases/com/abstratt/eclipsegraphviz/com.abstratt.eclipsegraphviz.repository/2.10.0/com.abstratt.eclipsegraphviz.repository-2.10.0.zip!/" />
 		</location>
 		
         <location includeAllPlatforms="false" includeMode="planner"
 			includeSource="true" type="InstallableUnit">
 			<unit id="com.abstratt.wrapped.schemacrawler"
 				version="0.0.0" />
-			<repository
-				location="jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/wrapped/com.abstratt.wrapped.repository/3.3/com.abstratt.wrapped.repository-3.3.zip!/" />
+			<repository id="github" 
+				location="jar:https://maven.pkg.github.com/abstratt/maven-releases/com/abstratt/wrapped/com.abstratt.wrapped.repository/3.3/com.abstratt.wrapped.repository-3.3.zip!/" />
 		</location>
 </locations>	
 </target>
