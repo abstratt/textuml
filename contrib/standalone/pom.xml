@@ -65,7 +65,7 @@
 			<dependency>
 				<groupId>org.eclipse.equinox</groupId>
 				<artifactId>registry</artifactId>
-				<version>3.5.200</version>
+				<version>3.5.400-v20140428-1507</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.emf</groupId>
