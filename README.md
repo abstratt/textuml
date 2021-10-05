@@ -2,8 +2,6 @@ TextUML Toolkit
 ===============
 
 
-[![Build Status on Travis CI](https://travis-ci.org/abstratt/textuml.svg?branch=master)](https://travis-ci.org/abstratt/textuml)
-
 TextUML is a textual notation for UML that supports:
 - classes
 - associations
