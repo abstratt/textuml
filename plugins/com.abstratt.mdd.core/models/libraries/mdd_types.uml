@@ -2,8 +2,8 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mdd_extensions="profiles/mdd_extensions" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="profiles/mdd_extensions pathmap://MDD_PROFILES/mdd_extensions.uml#_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML-mdd_extensions">
   <uml:Model xmi:id="_0" name="mdd_types" URI="libraries/mdd_types">
     <eAnnotations xmi:id="_com.abstratt2Fmdd2F" source="com.abstratt/mdd/">
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2020/05/21 12:41:05 079 -0300"/>
-      <details xmi:id="_com.abstratt2Fmdd2F-_details.1" key="version" value="2.10.0"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.0" key="dateCreated" value="2021/10/14 08:41:16 515 -0300"/>
+      <details xmi:id="_com.abstratt2Fmdd2F-_details.1" key="version" value="2.13.0"/>
     </eAnnotations>
     <packageImport xmi:id="_packageImport.0" visibility="private">
       <importedPackage xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
@@ -612,6 +612,16 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-transpose-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
         </ownedParameter>
       </ownedOperation>
+      <ownedOperation xmi:id="Date-at" name="at" visibility="public" isQuery="true">
+        <ownedParameter xmi:id="Date-at-time" name="time" type="Time">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-at-time-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-at-time-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+        <ownedParameter xmi:id="Date-at-_ownedParameter.1" type="DateTime" direction="return">
+          <lowerValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-at-_ownedParameter.1-_lowerValue" type="Integer" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Date-at-_ownedParameter.1-_upperValue" type="Integer" value="1"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Time" name="Time">
       <eAnnotations xmi:id="Time-_com.abstratt2Fmdd2Funit" source="com.abstratt/mdd/unit">
@@ -1186,63 +1196,64 @@
   <mdd_extensions:Debuggable xmi:id="_94" lineNumber="109" source="mdd_types.tuml" base_Element="Date-month"/>
   <mdd_extensions:Debuggable xmi:id="_95" lineNumber="110" source="mdd_types.tuml" base_Element="Date-year"/>
   <mdd_extensions:Debuggable xmi:id="_96" lineNumber="111" source="mdd_types.tuml" base_Element="Date-transpose"/>
-  <mdd_extensions:Debuggable xmi:id="_97" lineNumber="114" source="mdd_types.tuml" base_Element="Time"/>
-  <mdd_extensions:Debuggable xmi:id="_98" lineNumber="115" source="mdd_types.tuml" base_Element="Time-now"/>
-  <mdd_extensions:Debuggable xmi:id="_99" lineNumber="116" source="mdd_types.tuml" base_Element="Time-make"/>
-  <mdd_extensions:Debuggable xmi:id="_100" lineNumber="117" source="mdd_types.tuml" base_Element="Time-difference"/>
-  <mdd_extensions:Debuggable xmi:id="_101" lineNumber="118" source="mdd_types.tuml" base_Element="Time-hour"/>
-  <mdd_extensions:Debuggable xmi:id="_102" lineNumber="119" source="mdd_types.tuml" base_Element="Time-minute"/>
-  <mdd_extensions:Debuggable xmi:id="_103" lineNumber="120" source="mdd_types.tuml" base_Element="Time-second"/>
-  <mdd_extensions:Debuggable xmi:id="_104" lineNumber="121" source="mdd_types.tuml" base_Element="Time-millisecond"/>
-  <mdd_extensions:Debuggable xmi:id="_105" lineNumber="122" source="mdd_types.tuml" base_Element="Time-transpose"/>
-  <mdd_extensions:Debuggable xmi:id="_106" lineNumber="125" source="mdd_types.tuml" base_Element="DateTime"/>
-  <mdd_extensions:Debuggable xmi:id="_107" lineNumber="126" source="mdd_types.tuml" base_Element="DateTime-now"/>
-  <mdd_extensions:Debuggable xmi:id="_108" lineNumber="127" source="mdd_types.tuml" base_Element="DateTime-fromString"/>
-  <mdd_extensions:Debuggable xmi:id="_109" lineNumber="128" source="mdd_types.tuml" base_Element="DateTime-difference"/>
-  <mdd_extensions:Debuggable xmi:id="_110" lineNumber="129" source="mdd_types.tuml" base_Element="DateTime-day"/>
-  <mdd_extensions:Debuggable xmi:id="_111" lineNumber="130" source="mdd_types.tuml" base_Element="DateTime-month"/>
-  <mdd_extensions:Debuggable xmi:id="_112" lineNumber="131" source="mdd_types.tuml" base_Element="DateTime-year"/>
-  <mdd_extensions:Debuggable xmi:id="_113" lineNumber="132" source="mdd_types.tuml" base_Element="DateTime-hour"/>
-  <mdd_extensions:Debuggable xmi:id="_114" lineNumber="133" source="mdd_types.tuml" base_Element="DateTime-minute"/>
-  <mdd_extensions:Debuggable xmi:id="_115" lineNumber="134" source="mdd_types.tuml" base_Element="DateTime-second"/>
-  <mdd_extensions:Debuggable xmi:id="_116" lineNumber="135" source="mdd_types.tuml" base_Element="DateTime-millisecond"/>
-  <mdd_extensions:Debuggable xmi:id="_117" lineNumber="136" source="mdd_types.tuml" base_Element="DateTime-transpose"/>
-  <mdd_extensions:Debuggable xmi:id="_118" lineNumber="137" source="mdd_types.tuml" base_Element="DateTime-date"/>
-  <mdd_extensions:Debuggable xmi:id="_119" lineNumber="138" source="mdd_types.tuml" base_Element="DateTime-time"/>
-  <mdd_extensions:Debuggable xmi:id="_120" lineNumber="141" source="mdd_types.tuml" base_Element="Duration"/>
-  <mdd_extensions:Debuggable xmi:id="_121" lineNumber="142" source="mdd_types.tuml" base_Element="Duration-toYears"/>
-  <mdd_extensions:Debuggable xmi:id="_122" lineNumber="143" source="mdd_types.tuml" base_Element="Duration-toMonths"/>
-  <mdd_extensions:Debuggable xmi:id="_123" lineNumber="144" source="mdd_types.tuml" base_Element="Duration-toDays"/>
-  <mdd_extensions:Debuggable xmi:id="_124" lineNumber="145" source="mdd_types.tuml" base_Element="Duration-toHours"/>
-  <mdd_extensions:Debuggable xmi:id="_125" lineNumber="146" source="mdd_types.tuml" base_Element="Duration-toMinutes"/>
-  <mdd_extensions:Debuggable xmi:id="_126" lineNumber="147" source="mdd_types.tuml" base_Element="Duration-toSeconds"/>
-  <mdd_extensions:Debuggable xmi:id="_127" lineNumber="148" source="mdd_types.tuml" base_Element="Duration-toMilliseconds"/>
-  <mdd_extensions:Debuggable xmi:id="_128" lineNumber="150" source="mdd_types.tuml" base_Element="Duration-milliseconds"/>
-  <mdd_extensions:Debuggable xmi:id="_129" lineNumber="151" source="mdd_types.tuml" base_Element="Duration-seconds"/>
-  <mdd_extensions:Debuggable xmi:id="_130" lineNumber="152" source="mdd_types.tuml" base_Element="Duration-minutes"/>
-  <mdd_extensions:Debuggable xmi:id="_131" lineNumber="153" source="mdd_types.tuml" base_Element="Duration-hours"/>
-  <mdd_extensions:Debuggable xmi:id="_132" lineNumber="154" source="mdd_types.tuml" base_Element="Duration-days"/>
-  <mdd_extensions:Debuggable xmi:id="_133" lineNumber="157" source="mdd_types.tuml" base_Element="String"/>
-  <mdd_extensions:Debuggable xmi:id="_134" lineNumber="158" source="mdd_types.tuml" base_Element="String-isEmpty"/>
-  <mdd_extensions:Debuggable xmi:id="_135" lineNumber="159" source="mdd_types.tuml" base_Element="String-size"/>
-  <mdd_extensions:Debuggable xmi:id="_136" lineNumber="160" source="mdd_types.tuml" base_Element="String-add"/>
-  <mdd_extensions:Debuggable xmi:id="_137" lineNumber="161" source="mdd_types.tuml" base_Element="String-add.1"/>
-  <mdd_extensions:Debuggable xmi:id="_138" lineNumber="162" source="mdd_types.tuml" base_Element="String-substring"/>
-  <mdd_extensions:Debuggable xmi:id="_139" lineNumber="163" source="mdd_types.tuml" base_Element="String-toLower"/>
-  <mdd_extensions:Debuggable xmi:id="_140" lineNumber="164" source="mdd_types.tuml" base_Element="String-toUpper"/>
-  <mdd_extensions:Debuggable xmi:id="_141" lineNumber="165" source="mdd_types.tuml" base_Element="String-contains"/>
-  <mdd_extensions:Debuggable xmi:id="_142" lineNumber="168" source="mdd_types.tuml" base_Element="Memo"/>
-  <mdd_extensions:Debuggable xmi:id="_143" lineNumber="169" source="mdd_types.tuml" base_Element="Memo-lineCount"/>
-  <mdd_extensions:Debuggable xmi:id="_144" lineNumber="170" source="mdd_types.tuml" base_Element="Memo-fromString"/>
-  <mdd_extensions:Debuggable xmi:id="_145" lineNumber="173" source="mdd_types.tuml" base_Element="Email"/>
-  <mdd_extensions:Debuggable xmi:id="_146" lineNumber="174" source="mdd_types.tuml" base_Element="Email-fromString"/>
-  <mdd_extensions:Debuggable xmi:id="_147" lineNumber="177" source="mdd_types.tuml" base_Element="Violation"/>
-  <mdd_extensions:Debuggable xmi:id="_148" lineNumber="178" source="mdd_types.tuml" base_Element="Violation-constraint"/>
-  <mdd_extensions:Debuggable xmi:id="_149" lineNumber="181" source="mdd_types.tuml" base_Element="Geolocation"/>
-  <mdd_extensions:Debuggable xmi:id="_150" lineNumber="182" source="mdd_types.tuml" base_Element="Geolocation-latitude"/>
-  <mdd_extensions:Debuggable xmi:id="_151" lineNumber="183" source="mdd_types.tuml" base_Element="Geolocation-longitude"/>
-  <mdd_extensions:Debuggable xmi:id="_152" lineNumber="184" source="mdd_types.tuml" base_Element="Geolocation-current"/>
-  <mdd_extensions:Debuggable xmi:id="_153" lineNumber="162" source="mdd_types.tuml" base_Element="String-defaultValue_stop-body-_node.0-_node.0-_node.2"/>
-  <mdd_extensions:Debuggable xmi:id="_154" lineNumber="162" source="mdd_types.tuml" base_Element="String-defaultValue_stop-body-_node.0-_node.0-_node.1"/>
-  <mdd_extensions:Debuggable xmi:id="_155" lineNumber="162" source="mdd_types.tuml" base_Element="String-defaultValue_stop-body-_node.0-_node.0-_node.0"/>
+  <mdd_extensions:Debuggable xmi:id="_97" lineNumber="112" source="mdd_types.tuml" base_Element="Date-at"/>
+  <mdd_extensions:Debuggable xmi:id="_98" lineNumber="115" source="mdd_types.tuml" base_Element="Time"/>
+  <mdd_extensions:Debuggable xmi:id="_99" lineNumber="116" source="mdd_types.tuml" base_Element="Time-now"/>
+  <mdd_extensions:Debuggable xmi:id="_100" lineNumber="117" source="mdd_types.tuml" base_Element="Time-make"/>
+  <mdd_extensions:Debuggable xmi:id="_101" lineNumber="118" source="mdd_types.tuml" base_Element="Time-difference"/>
+  <mdd_extensions:Debuggable xmi:id="_102" lineNumber="119" source="mdd_types.tuml" base_Element="Time-hour"/>
+  <mdd_extensions:Debuggable xmi:id="_103" lineNumber="120" source="mdd_types.tuml" base_Element="Time-minute"/>
+  <mdd_extensions:Debuggable xmi:id="_104" lineNumber="121" source="mdd_types.tuml" base_Element="Time-second"/>
+  <mdd_extensions:Debuggable xmi:id="_105" lineNumber="122" source="mdd_types.tuml" base_Element="Time-millisecond"/>
+  <mdd_extensions:Debuggable xmi:id="_106" lineNumber="123" source="mdd_types.tuml" base_Element="Time-transpose"/>
+  <mdd_extensions:Debuggable xmi:id="_107" lineNumber="126" source="mdd_types.tuml" base_Element="DateTime"/>
+  <mdd_extensions:Debuggable xmi:id="_108" lineNumber="127" source="mdd_types.tuml" base_Element="DateTime-now"/>
+  <mdd_extensions:Debuggable xmi:id="_109" lineNumber="128" source="mdd_types.tuml" base_Element="DateTime-fromString"/>
+  <mdd_extensions:Debuggable xmi:id="_110" lineNumber="129" source="mdd_types.tuml" base_Element="DateTime-difference"/>
+  <mdd_extensions:Debuggable xmi:id="_111" lineNumber="130" source="mdd_types.tuml" base_Element="DateTime-day"/>
+  <mdd_extensions:Debuggable xmi:id="_112" lineNumber="131" source="mdd_types.tuml" base_Element="DateTime-month"/>
+  <mdd_extensions:Debuggable xmi:id="_113" lineNumber="132" source="mdd_types.tuml" base_Element="DateTime-year"/>
+  <mdd_extensions:Debuggable xmi:id="_114" lineNumber="133" source="mdd_types.tuml" base_Element="DateTime-hour"/>
+  <mdd_extensions:Debuggable xmi:id="_115" lineNumber="134" source="mdd_types.tuml" base_Element="DateTime-minute"/>
+  <mdd_extensions:Debuggable xmi:id="_116" lineNumber="135" source="mdd_types.tuml" base_Element="DateTime-second"/>
+  <mdd_extensions:Debuggable xmi:id="_117" lineNumber="136" source="mdd_types.tuml" base_Element="DateTime-millisecond"/>
+  <mdd_extensions:Debuggable xmi:id="_118" lineNumber="137" source="mdd_types.tuml" base_Element="DateTime-transpose"/>
+  <mdd_extensions:Debuggable xmi:id="_119" lineNumber="138" source="mdd_types.tuml" base_Element="DateTime-date"/>
+  <mdd_extensions:Debuggable xmi:id="_120" lineNumber="139" source="mdd_types.tuml" base_Element="DateTime-time"/>
+  <mdd_extensions:Debuggable xmi:id="_121" lineNumber="142" source="mdd_types.tuml" base_Element="Duration"/>
+  <mdd_extensions:Debuggable xmi:id="_122" lineNumber="143" source="mdd_types.tuml" base_Element="Duration-toYears"/>
+  <mdd_extensions:Debuggable xmi:id="_123" lineNumber="144" source="mdd_types.tuml" base_Element="Duration-toMonths"/>
+  <mdd_extensions:Debuggable xmi:id="_124" lineNumber="145" source="mdd_types.tuml" base_Element="Duration-toDays"/>
+  <mdd_extensions:Debuggable xmi:id="_125" lineNumber="146" source="mdd_types.tuml" base_Element="Duration-toHours"/>
+  <mdd_extensions:Debuggable xmi:id="_126" lineNumber="147" source="mdd_types.tuml" base_Element="Duration-toMinutes"/>
+  <mdd_extensions:Debuggable xmi:id="_127" lineNumber="148" source="mdd_types.tuml" base_Element="Duration-toSeconds"/>
+  <mdd_extensions:Debuggable xmi:id="_128" lineNumber="149" source="mdd_types.tuml" base_Element="Duration-toMilliseconds"/>
+  <mdd_extensions:Debuggable xmi:id="_129" lineNumber="151" source="mdd_types.tuml" base_Element="Duration-milliseconds"/>
+  <mdd_extensions:Debuggable xmi:id="_130" lineNumber="152" source="mdd_types.tuml" base_Element="Duration-seconds"/>
+  <mdd_extensions:Debuggable xmi:id="_131" lineNumber="153" source="mdd_types.tuml" base_Element="Duration-minutes"/>
+  <mdd_extensions:Debuggable xmi:id="_132" lineNumber="154" source="mdd_types.tuml" base_Element="Duration-hours"/>
+  <mdd_extensions:Debuggable xmi:id="_133" lineNumber="155" source="mdd_types.tuml" base_Element="Duration-days"/>
+  <mdd_extensions:Debuggable xmi:id="_134" lineNumber="158" source="mdd_types.tuml" base_Element="String"/>
+  <mdd_extensions:Debuggable xmi:id="_135" lineNumber="159" source="mdd_types.tuml" base_Element="String-isEmpty"/>
+  <mdd_extensions:Debuggable xmi:id="_136" lineNumber="160" source="mdd_types.tuml" base_Element="String-size"/>
+  <mdd_extensions:Debuggable xmi:id="_137" lineNumber="161" source="mdd_types.tuml" base_Element="String-add"/>
+  <mdd_extensions:Debuggable xmi:id="_138" lineNumber="162" source="mdd_types.tuml" base_Element="String-add.1"/>
+  <mdd_extensions:Debuggable xmi:id="_139" lineNumber="163" source="mdd_types.tuml" base_Element="String-substring"/>
+  <mdd_extensions:Debuggable xmi:id="_140" lineNumber="164" source="mdd_types.tuml" base_Element="String-toLower"/>
+  <mdd_extensions:Debuggable xmi:id="_141" lineNumber="165" source="mdd_types.tuml" base_Element="String-toUpper"/>
+  <mdd_extensions:Debuggable xmi:id="_142" lineNumber="166" source="mdd_types.tuml" base_Element="String-contains"/>
+  <mdd_extensions:Debuggable xmi:id="_143" lineNumber="169" source="mdd_types.tuml" base_Element="Memo"/>
+  <mdd_extensions:Debuggable xmi:id="_144" lineNumber="170" source="mdd_types.tuml" base_Element="Memo-lineCount"/>
+  <mdd_extensions:Debuggable xmi:id="_145" lineNumber="171" source="mdd_types.tuml" base_Element="Memo-fromString"/>
+  <mdd_extensions:Debuggable xmi:id="_146" lineNumber="174" source="mdd_types.tuml" base_Element="Email"/>
+  <mdd_extensions:Debuggable xmi:id="_147" lineNumber="175" source="mdd_types.tuml" base_Element="Email-fromString"/>
+  <mdd_extensions:Debuggable xmi:id="_148" lineNumber="178" source="mdd_types.tuml" base_Element="Violation"/>
+  <mdd_extensions:Debuggable xmi:id="_149" lineNumber="179" source="mdd_types.tuml" base_Element="Violation-constraint"/>
+  <mdd_extensions:Debuggable xmi:id="_150" lineNumber="182" source="mdd_types.tuml" base_Element="Geolocation"/>
+  <mdd_extensions:Debuggable xmi:id="_151" lineNumber="183" source="mdd_types.tuml" base_Element="Geolocation-latitude"/>
+  <mdd_extensions:Debuggable xmi:id="_152" lineNumber="184" source="mdd_types.tuml" base_Element="Geolocation-longitude"/>
+  <mdd_extensions:Debuggable xmi:id="_153" lineNumber="185" source="mdd_types.tuml" base_Element="Geolocation-current"/>
+  <mdd_extensions:Debuggable xmi:id="_154" lineNumber="163" source="mdd_types.tuml" base_Element="String-defaultValue_stop-body-_node.0-_node.0-_node.2"/>
+  <mdd_extensions:Debuggable xmi:id="_155" lineNumber="163" source="mdd_types.tuml" base_Element="String-defaultValue_stop-body-_node.0-_node.0-_node.1"/>
+  <mdd_extensions:Debuggable xmi:id="_156" lineNumber="163" source="mdd_types.tuml" base_Element="String-defaultValue_stop-body-_node.0-_node.0-_node.0"/>
 </xmi:XMI>

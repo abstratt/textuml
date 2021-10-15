@@ -109,6 +109,7 @@ class Date specializes Primitive
   query month() : Integer;
   query year() : Integer;
   query transpose(delta : Duration[1]) : Date;
+  query at(time: Time): DateTime;
 end;
 
 class Time specializes Primitive
