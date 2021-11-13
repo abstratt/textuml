@@ -45,7 +45,7 @@
 			<dependency>
 				<groupId>org.eclipse.uml2</groupId>
 				<artifactId>uml</artifactId>
-				<version>4.0.2</version>
+				<version>5.0.0-v20140602-0749</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.uml2.uml</groupId>
