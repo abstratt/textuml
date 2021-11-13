@@ -32,10 +32,9 @@ Method 2: Installation via Update Manager
 -   Open the [Software
     Updates](http://help.eclipse.org/stable/topic/org.eclipse.platform.doc.user/tasks/tasks-121.htm "http://help.eclipse.org/stable/topic/org.eclipse.platform.doc.user/tasks/tasks-121.htm")
     dialog (Help \> Install New Software...), and enter the following
-    JAR URL in the "Work with:" field (include jar: to the !/ at the
-    end):
+    URL in the "Work with:" field:
 
-<pre>jar:https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/mdd/com.abstratt.mdd.oss.repository/2.10.0/com.abstratt.mdd.oss.repository-2.10.0.zip!/</pre>
+<pre>https://abstratt.com/textuml/update/</pre>
 
 -   Select the TextUML Toolkit feature from the Modeling category.
 
@@ -46,7 +45,7 @@ Method 3: Installation via Update Manager from a local archive (last resort)
 
 If methods 1 and 2 keep failing for you due to networking issues, there is a last resort.
 
-Manually download the [repository](https://dl.bintray.com/abstratt-oss/abstratt-oss/com/abstratt/mdd/com.abstratt.mdd.oss.repository/2.10.0/com.abstratt.mdd.oss.repository-2.10.0.zip), save the ZIP file to your local disk, then follow method 2 using the local file as the update site.
+Manually download the [repository](https://abstratt.com/textuuml/update/com.abstratt.mdd.oss.repository-2.13.0.zip), save the ZIP file to your local disk, then follow method 2 using the local file as the update site.
 
 Keep in mind that by doing this you will lose the advantage of automatically getting future updates. You will need to repeat this step manually in order to get a newer build.
 
